@@ -1,16 +1,17 @@
 {
   "images" : [
     {
+      "filename" : "hd-wallpaper-7273527_1920 2.jpg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "hd-wallpaper-7273527_1920.jpg",
+      "filename" : "hd-wallpaper-7273527_1920 3.jpg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "hd-wallpaper-7273527_1920 2.jpg",
+      "filename" : "hd-wallpaper-7273527_1920 4.jpg",
       "idiom" : "universal",
       "scale" : "3x"
     }
