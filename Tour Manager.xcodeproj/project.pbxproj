@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		EE52E16F29E5C1C8000C0E5B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE52E16E29E5C1C8000C0E5B /* AppDelegate.swift */; };
 		EE52E17129E5C1C8000C0E5B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE52E17029E5C1C8000C0E5B /* SceneDelegate.swift */; };
-		EE52E17329E5C1C8000C0E5B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE52E17229E5C1C8000C0E5B /* ViewController.swift */; };
+		EE52E17329E5C1C8000C0E5B /* LogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE52E17229E5C1C8000C0E5B /* LogIn.swift */; };
 		EE52E17629E5C1C8000C0E5B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE52E17429E5C1C8000C0E5B /* Main.storyboard */; };
 		EE52E17829E5C1CB000C0E5B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE52E17729E5C1CB000C0E5B /* Assets.xcassets */; };
 		EE52E17B29E5C1CB000C0E5B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE52E17929E5C1CB000C0E5B /* LaunchScreen.storyboard */; };
@@ -19,7 +19,7 @@
 		EE52E16B29E5C1C8000C0E5B /* Tour Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tour Manager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE52E16E29E5C1C8000C0E5B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE52E17029E5C1C8000C0E5B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		EE52E17229E5C1C8000C0E5B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		EE52E17229E5C1C8000C0E5B /* LogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogIn.swift; sourceTree = "<group>"; };
 		EE52E17529E5C1C8000C0E5B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EE52E17729E5C1CB000C0E5B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EE52E17A29E5C1CB000C0E5B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -56,15 +56,31 @@
 		EE52E16D29E5C1C8000C0E5B /* Tour Manager */ = {
 			isa = PBXGroup;
 			children = (
+				EEFAB0F129F1E7B60028999A /* Controller */,
 				EE52E16E29E5C1C8000C0E5B /* AppDelegate.swift */,
 				EE52E17029E5C1C8000C0E5B /* SceneDelegate.swift */,
-				EE52E17229E5C1C8000C0E5B /* ViewController.swift */,
 				EE52E17429E5C1C8000C0E5B /* Main.storyboard */,
 				EE52E17729E5C1CB000C0E5B /* Assets.xcassets */,
 				EE52E17929E5C1CB000C0E5B /* LaunchScreen.storyboard */,
 				EE52E17C29E5C1CB000C0E5B /* Info.plist */,
 			);
 			path = "Tour Manager";
+			sourceTree = "<group>";
+		};
+		EEFAB0F129F1E7B60028999A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				EEFAB0F229F1E7C50028999A /* Auth */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		EEFAB0F229F1E7C50028999A /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				EE52E17229E5C1C8000C0E5B /* LogIn.swift */,
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,7 +154,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE52E17329E5C1C8000C0E5B /* ViewController.swift in Sources */,
+				EE52E17329E5C1C8000C0E5B /* LogIn.swift in Sources */,
 				EE52E16F29E5C1C8000C0E5B /* AppDelegate.swift in Sources */,
 				EE52E17129E5C1C8000C0E5B /* SceneDelegate.swift in Sources */,
 			);

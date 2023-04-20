@@ -1,24 +1,144 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Log In-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="LogIn" customModule="Tour_Manager" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="testbackground" translatesAutoresizingMaskIntoConstraints="NO" id="7Xu-so-Rlo">
+                                <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
+                                <color key="backgroundColor" systemColor="labelColor"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Добро пожаловать!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AGc-Tp-PZj">
+                                <rect key="frame" x="50.666666666666657" y="159" width="329" height="39.666666666666657"/>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter-Bold" family="American Typewriter" pointSize="32"/>
+                                <color key="textColor" red="0.01176470588" green="0.070588235289999995" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FcB-Wa-vSw">
+                                <rect key="frame" x="0.0" y="366" width="430" height="100"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cLI-jO-Isq">
+                                        <rect key="frame" x="30" y="0.0" width="370" height="26.666666666666668"/>
+                                        <color key="textColor" red="0.01176470588" green="0.070588235289999995" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="AmericanTypewriter-Bold" family="American Typewriter" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QhX-E0-kdF">
+                                        <rect key="frame" x="30" y="28.666666666666686" width="370" height="2"/>
+                                        <color key="backgroundColor" red="0.01176470588" green="0.070588235289999995" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="2" id="MC8-8M-i4d"/>
+                                        </constraints>
+                                    </view>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Пароль" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bZd-TD-fvb">
+                                        <rect key="frame" x="30" y="69.666666666666686" width="370" height="26.333333333333329"/>
+                                        <color key="textColor" red="0.01176470588" green="0.070588235289999995" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="AmericanTypewriter-Bold" family="American Typewriter" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="heN-la-Wkp">
+                                        <rect key="frame" x="30" y="98" width="370" height="2"/>
+                                        <color key="backgroundColor" red="0.01176470588" green="0.070588235289999995" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="2" id="zfL-MZ-7bx"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="bZd-TD-fvb" firstAttribute="width" secondItem="cLI-jO-Isq" secondAttribute="width" id="09o-mj-BDj"/>
+                                    <constraint firstItem="cLI-jO-Isq" firstAttribute="leading" secondItem="FcB-Wa-vSw" secondAttribute="leading" constant="30" id="1mg-4V-FYo"/>
+                                    <constraint firstItem="heN-la-Wkp" firstAttribute="top" secondItem="bZd-TD-fvb" secondAttribute="bottom" constant="2" id="BVC-ua-Dal"/>
+                                    <constraint firstItem="QhX-E0-kdF" firstAttribute="top" secondItem="cLI-jO-Isq" secondAttribute="bottom" constant="2" id="IgG-fi-Jgt"/>
+                                    <constraint firstItem="QhX-E0-kdF" firstAttribute="centerX" secondItem="FcB-Wa-vSw" secondAttribute="centerX" id="LLc-SF-4XF"/>
+                                    <constraint firstItem="bZd-TD-fvb" firstAttribute="centerX" secondItem="FcB-Wa-vSw" secondAttribute="centerX" id="OIL-FT-eav"/>
+                                    <constraint firstItem="cLI-jO-Isq" firstAttribute="centerX" secondItem="FcB-Wa-vSw" secondAttribute="centerX" id="OWb-Q3-2Pk"/>
+                                    <constraint firstItem="QhX-E0-kdF" firstAttribute="width" secondItem="cLI-jO-Isq" secondAttribute="width" id="Wyh-cQ-7xd"/>
+                                    <constraint firstAttribute="height" constant="100" id="nkg-9R-08v"/>
+                                    <constraint firstItem="heN-la-Wkp" firstAttribute="centerX" secondItem="FcB-Wa-vSw" secondAttribute="centerX" id="qlS-YU-non"/>
+                                    <constraint firstItem="heN-la-Wkp" firstAttribute="width" secondItem="bZd-TD-fvb" secondAttribute="width" id="tsJ-Vn-UqM"/>
+                                    <constraint firstAttribute="bottom" secondItem="heN-la-Wkp" secondAttribute="bottom" id="u7m-aQ-oBT"/>
+                                    <constraint firstItem="cLI-jO-Isq" firstAttribute="top" secondItem="FcB-Wa-vSw" secondAttribute="top" id="yrc-4P-PKQ"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qV1-Uk-iSv">
+                                <rect key="frame" x="30" y="546" width="370" height="39"/>
+                                <color key="tintColor" red="0.011764705882352941" green="0.070588235294117646" blue="0.34509803921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Войти">
+                                    <fontDescription key="titleFontDescription" name="AmericanTypewriter-Bold" family="American Typewriter" pointSize="20"/>
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="baseBackgroundColor" red="0.01176470588" green="0.070588235289999995" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </buttonConfiguration>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Забыли пароль?" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="evV-Fw-6ad">
+                                <rect key="frame" x="30" y="476" width="370" height="17.333333333333314"/>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter-Semibold" family="American Typewriter" pointSize="14"/>
+                                <color key="textColor" red="0.01176470588" green="0.070588235289999995" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Создать новый аккаунт" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jJg-dv-ips">
+                                <rect key="frame" x="40" y="872" width="350" height="16"/>
+                                <fontDescription key="fontDescription" name="AmericanTypewriter-Semibold" family="American Typewriter" pointSize="14"/>
+                                <color key="textColor" red="0.011764705882352941" green="0.070588235294117646" blue="0.34509803921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="labelColor"/>
+                        <constraints>
+                            <constraint firstItem="AGc-Tp-PZj" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="6Qg-I3-f0T"/>
+                            <constraint firstItem="FcB-Wa-vSw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="6Xm-AU-LDE"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="jJg-dv-ips" secondAttribute="bottom" constant="10" id="83B-aJ-kdV"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7Xu-so-Rlo" secondAttribute="trailing" id="9UH-70-7dd"/>
+                            <constraint firstItem="evV-Fw-6ad" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="BXE-LA-3bG"/>
+                            <constraint firstItem="FcB-Wa-vSw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="CFH-ti-1QL"/>
+                            <constraint firstItem="qV1-Uk-iSv" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="GUn-K2-cTO"/>
+                            <constraint firstAttribute="bottom" secondItem="7Xu-so-Rlo" secondAttribute="bottom" id="IhB-oX-r4q"/>
+                            <constraint firstItem="7Xu-so-Rlo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Kh6-fc-VLj"/>
+                            <constraint firstItem="qV1-Uk-iSv" firstAttribute="top" secondItem="FcB-Wa-vSw" secondAttribute="bottom" constant="80" id="MFU-6I-SpB"/>
+                            <constraint firstItem="AGc-Tp-PZj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="NQw-Lc-nIs"/>
+                            <constraint firstItem="qV1-Uk-iSv" firstAttribute="width" secondItem="bZd-TD-fvb" secondAttribute="width" id="P4Z-zE-uDc"/>
+                            <constraint firstItem="jJg-dv-ips" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="TZp-m4-pwA"/>
+                            <constraint firstItem="jJg-dv-ips" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="V7Y-QC-3sZ"/>
+                            <constraint firstItem="FcB-Wa-vSw" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-50" id="Zmx-ir-dJd"/>
+                            <constraint firstItem="evV-Fw-6ad" firstAttribute="width" secondItem="heN-la-Wkp" secondAttribute="width" id="c84-ex-u2i"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="FcB-Wa-vSw" secondAttribute="trailing" id="fqG-Z7-KBJ"/>
+                            <constraint firstItem="7Xu-so-Rlo" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="lMl-I9-ykd"/>
+                            <constraint firstItem="evV-Fw-6ad" firstAttribute="top" secondItem="FcB-Wa-vSw" secondAttribute="bottom" constant="10" id="nRR-zF-L1O"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="createNewAccountButton" destination="jJg-dv-ips" id="eZb-k2-Ag6"/>
+                        <outlet property="emailTextField" destination="cLI-jO-Isq" id="SzZ-tj-vjp"/>
+                        <outlet property="forgotPasswordButton" destination="evV-Fw-6ad" id="OUS-8h-PtR"/>
+                        <outlet property="logInButton" destination="qV1-Uk-iSv" id="nEb-3K-4Cg"/>
+                        <outlet property="passwordTextField" destination="bZd-TD-fvb" id="VPk-UG-xqz"/>
+                        <outlet property="underEmailUiview" destination="QhX-E0-kdF" id="9q5-19-mtA"/>
+                        <outlet property="welcomeOutlet" destination="AGc-Tp-PZj" id="ZFT-AF-QCE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-8.3969465648854964" y="3.5211267605633805"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="testbackground" width="640" height="360"/>
+        <systemColor name="labelColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>
