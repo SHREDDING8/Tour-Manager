@@ -20,6 +20,7 @@ public class ApiManagerUserData{
     
     
     private let user = AppDelegate.user
+    private let convertDate = ConvertDate()
     
     
     
@@ -59,6 +60,7 @@ public class ApiManagerUserData{
                     self.user.setFirstName(firstName: responseData.first_name)
                     self.user.setSecondName(secondName: responseData.last_name)
                     self.user.setPhone(phone: responseData.phone)
+                    self.user.setBirthday(birthday: self.convertDate.birthdayFromString(dateString: responseData.birthday_date))
                     completion(true, nil)
                 }
             } else {
@@ -90,7 +92,6 @@ public class ApiManagerUserData{
             } else {
                 completion(false, .unknowmError)
             }
-           
         }
     }
     

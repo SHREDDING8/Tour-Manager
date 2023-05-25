@@ -12,203 +12,119 @@ import Alamofire
 
 public class ApiManagerAuth{
     private static let domain = GeneralData.domain
-    private static let routeSignIn = "auth/signup"
-    private static let routeIsEmailBusy = "auth/check_user_email"
-    private static let routeLogIn = "auth/login"
+    private static let prefix = domain + "auth"
     
-    private static let routeResetPassword = "auth/reset_password"
-    private static let routeIsverified = "auth/is_verified"
+    private let routeLogIn = prefix + "/login"
+    private let routeSignIn = prefix + "/signup"
     
+    private let routeIsEmailBusy = prefix + "/check_user_email"
+   
+    private let routeResetPassword = prefix + "/reset_password"
+    
+    let user = AppDelegate.user
     
     
     public enum customError{
-        case unknowmError
-        case requestTimedOut
+        case invalidEmailOrPassword
         
         case emailIsNotVerifyed
         
-        case invalidEmailOrPassword
-        
         case userNotFound
+        
+        case unknowmError
     }
     
     
-    public static func logIn(email:String,password:String, completion: @escaping (Bool,customError?)->Void ){
+    public func logIn(email:String,password:String, completion: @escaping (Bool,customError?)->Void ){
         
-        let jsonData:[String: String] = [
-            "email": email,
-            "password": password
-        ]
+        let jsonData = sendLogInJsonStruct(email: email, password: password)
         
-        let url = URL(string: domain+routeLogIn)
+        let url = URL(string: routeLogIn)
         
         AF.request(url!,method: .post, parameters: jsonData,encoder: .json).response { response in
             if response.response?.statusCode == 400{
-                let errorData = try? JSONDecoder().decode(LogInErrorJsonStruct.self, from: response.data!)
+                let errorData = try? JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
+                
                 if errorData?.message == "Email is not verified"{
                     completion(false,.emailIsNotVerifyed)
-                    return
-                }
-                
-                if errorData?.message == "Invalid email or password"{
+                    
+                } else if errorData?.message == "Invalid email or password"{
                     completion(false,.invalidEmailOrPassword)
-                    return
-                }
-                
-                if errorData?.message == "There was an error logging in"{
+                    
+                }else if errorData?.message == "There was an error logging in"{
                     completion(false,.unknowmError)
-                    return
                 }
-            }
-            
-            if response.response?.statusCode == 200{
-                if let logInData = try? JSONDecoder().decode(LogInJsonStruct.self, from: response.data!){
-                    AppDelegate.user.setDataAuth(token: logInData.token, localId: logInData.localId)
-                    AppDelegate.user.setEmail(email: email)
+                return
+            } else if response.response?.statusCode == 200{
+                if let logInData = try? JSONDecoder().decode(ResponseLogInJsonStruct.self, from: response.data!){
+                    self.user.setDataAuth(token: logInData.token, localId: logInData.localId)
+                    self.user.setEmail(email: email)
                     completion(true,nil)
                 }
-                
-                
-                
-                
-                
+            } else {
+                completion(false,.unknowmError)
             }
         }
         
     }
     
-    public static func signIn(email:String,password:String, completion: @escaping (Bool,customError?)->Void ){
+    public func signIn(email:String,password:String, completion: @escaping (Bool,customError?)->Void ){
         
-        let jsonData:[String: String] = [
-            "email": email,
-            "password": password
-        ]
+        let jsonData = sendLogInJsonStruct(email: email, password: password)
     
-        let url = URL(string: domain+routeSignIn)
+        let url = URL(string: routeSignIn)
         
         AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
-            
-            if response.error != nil{
-                completion(false,.unknowmError)
-                return
-            }
-            
-            let unprocessableEntity = try? JSONDecoder().decode(UnprocessableEntity.self, from: response.data!)
-            
-            if unprocessableEntity != nil {
-                completion(false,.unknowmError)
-            }
-            
             if response.response?.statusCode == 200{
-                
                 completion(true,nil)
             }else{
                 completion(false,.unknowmError)
             }
         }
- 
     }
     
     // MARK: - Reset Password
-    public static func resetPassword(email:String,completion:  @escaping (Bool,customError?)->Void){
-        let jsonData:[String: String] = ["email": email]
+    public func resetPassword(email:String,completion:  @escaping (Bool,customError?)->Void){
+        let jsonData = sendResetPassword(email: email)
         
-        let url = URL(string: domain+routeResetPassword)
+        let url = URL(string: routeResetPassword)
         
         AF.request(url!, method: .post, parameters:  jsonData,encoder: .json).response { response in
             if response.response?.statusCode == 400{
-                if let logInData = try? JSONDecoder().decode(LogInErrorJsonStruct.self, from: response.data!){
+                if let logInData = try? JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!){
                     if logInData.message == "User was not found"{
                         completion(false,.userNotFound)
-                    } else if logInData.message == "Unknown error"{
+                    } else{
                         completion(false,.unknowmError)
                     }
                 }
                 return
+            } else if response.response?.statusCode == 200{
+                completion(true,nil)
+            } else {
+                completion(false,.unknowmError)
             }
-            completion(true,nil)
-            
         }
     }
     
-    public static func isUserExists(email:String, completion:  @escaping (Bool?,customError?)->Void ){
+    public func isUserExists(email:String, completion:  @escaping (Bool?,customError?)->Void ){
         
-        let jsonData:[String: String] = ["email": email]
+        let jsonData = sendResetPassword(email: email)
         
-        let url = URL(string: domain+routeIsEmailBusy)
+        let url = URL(string: routeIsEmailBusy)
         
         AF.request(url!, method: .post, parameters:  jsonData,encoder: .json).response { response in
-            
-            if response.error?.localizedDescription.localizedStandardContains("The request timed out") == true{
-                completion(nil, .requestTimedOut)
-                
-            }
-            if response.error != nil{
-                completion(nil,.unknowmError)
-                return
-            }
-            if response.response?.statusCode == 400{
+
+            if response.response?.statusCode != 200{
                 completion(nil, .unknowmError)
                 return
-            }
-            
-            let unprocessableEntity = try? JSONDecoder().decode(UnprocessableEntity.self, from: response.data!)
-            
-            if unprocessableEntity != nil{
-                completion(nil,.unknowmError)
-                return
-            }
-            
-            let successfulCheckEmail = try? JSONDecoder().decode(SuccessfulCheckEmail.self, from: response.data!)
-            
-            if successfulCheckEmail == nil{
-                completion(nil,.unknowmError)
-                return
-            }
-            
-            if successfulCheckEmail?.userExists == true{
-                completion(true,nil)
-            }else{
-                completion(false, nil)
+            }else if response.response?.statusCode == 200{
+                if let successfulCheckEmail = try? JSONDecoder().decode(ResponseIsUserExistsJsonStruct.self, from: response.data!){
+                    completion(successfulCheckEmail.userExists,nil)
+                } else{
+                    completion(nil,.unknowmError)
+                }
             }
         }
     }
-    
-    
-    
-//    public static func isEmailVerified(email:String,password:String, completion:  @escaping (Bool?,customError?)->Void ){
-//
-//        let jsonData:[String: String] = ["email": email, "password":password]
-//
-//        let url = URL(string: domain+routeIsverified)
-//
-//        AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
-//            if response.error != nil{
-//                completion(nil,.unknowmError)
-//                return
-//            }
-//            if response.response?.statusCode == 400{
-//                completion(nil, .unknowmError)
-//                return
-//            }
-//
-//            let isVerified = try? JSONDecoder().decode(isVerifyJsonStruct.self, from: response.data!)
-//
-//            if isVerified == nil{
-//                completion(nil,.unknowmError)
-//                return
-//            }
-//
-//            if isVerified?.isVerified == true{
-//                completion(true,nil)
-//            }else{
-//                completion(false, nil)
-//            }
-//
-//
-//        }
-//
-//    }
-    
-    
 }

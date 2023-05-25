@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		EE2377362A0816D900CB9D70 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2377352A0816D900CB9D70 /* Alerts.swift */; };
 		EE2C9A5029FD858500B7D74F /* ProfilePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2C9A4F29FD858500B7D74F /* ProfilePageViewController.swift */; };
-		EE2C9A5329FDA10000B7D74F /* SignInJsonStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2C9A5229FDA10000B7D74F /* SignInJsonStruct.swift */; };
 		EE52E16F29E5C1C8000C0E5B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE52E16E29E5C1C8000C0E5B /* AppDelegate.swift */; };
 		EE52E17129E5C1C8000C0E5B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE52E17029E5C1C8000C0E5B /* SceneDelegate.swift */; };
 		EE52E17629E5C1C8000C0E5B /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE52E17429E5C1C8000C0E5B /* Auth.storyboard */; };
@@ -26,6 +25,8 @@
 		EE5F91C92A1FFBB500B39BB1 /* ConvertDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5F91C82A1FFBB500B39BB1 /* ConvertDate.swift */; };
 		EE5F91CB2A2003A200B39BB1 /* sendStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5F91CA2A2003A200B39BB1 /* sendStructs.swift */; };
 		EE5F91CD2A2007E400B39BB1 /* sendUserDataStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5F91CC2A2007E400B39BB1 /* sendUserDataStructs.swift */; };
+		EE5F91CF2A200C7700B39BB1 /* sendAuthStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5F91CE2A200C7700B39BB1 /* sendAuthStructs.swift */; };
+		EE5F91D12A200D2D00B39BB1 /* ResponseAuthStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5F91D02A200D2D00B39BB1 /* ResponseAuthStructs.swift */; };
 		EE6DE0672A1D319700507A27 /* loadDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6DE0662A1D319700507A27 /* loadDataView.swift */; };
 		EE6DE06A2A1E681100507A27 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6DE0692A1E681100507A27 /* User.swift */; };
 		EEA4C08029FDDC650083154E /* ApiManagerAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA4C07F29FDDC650083154E /* ApiManagerAuth.swift */; };
@@ -33,12 +34,10 @@
 		EEF27A452A055443006E5E53 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A442A055443006E5E53 /* Profile.swift */; };
 		EEF27A482A05551E006E5E53 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A472A05551E006E5E53 /* Font.swift */; };
 		EEF27A4C2A0572C9006E5E53 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A4B2A0572C9006E5E53 /* LoginViewController.swift */; };
-		EEF27A4E2A058F05006E5E53 /* SuccessfulCheckEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A4D2A058F05006E5E53 /* SuccessfulCheckEmail.swift */; };
 		EEF27A512A059BE4006E5E53 /* TextFieldValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A502A059BE4006E5E53 /* TextFieldValidation.swift */; };
 		EEF27A542A05AA44006E5E53 /* Controllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A532A05AA44006E5E53 /* Controllers.swift */; };
 		EEF27A572A05B512006E5E53 /* extensionUiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A562A05B512006E5E53 /* extensionUiView.swift */; };
 		EEF27A592A05C7BC006E5E53 /* VerifyEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A582A05C7BC006E5E53 /* VerifyEmailViewController.swift */; };
-		EEF27A5B2A05C8CD006E5E53 /* LogInErrorJsonStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A5A2A05C8CD006E5E53 /* LogInErrorJsonStruct.swift */; };
 		EEFAB0F629F200980028999A /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEFAB0F529F200970028999A /* ForgotPasswordViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,7 +47,6 @@
 		68E77E428BEC283B907E8208 /* Pods-Tour Manager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tour Manager.debug.xcconfig"; path = "Target Support Files/Pods-Tour Manager/Pods-Tour Manager.debug.xcconfig"; sourceTree = "<group>"; };
 		EE2377352A0816D900CB9D70 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		EE2C9A4F29FD858500B7D74F /* ProfilePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePageViewController.swift; sourceTree = "<group>"; };
-		EE2C9A5229FDA10000B7D74F /* SignInJsonStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInJsonStruct.swift; sourceTree = "<group>"; };
 		EE52E16B29E5C1C8000C0E5B /* Tour Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tour Manager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE52E16E29E5C1C8000C0E5B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE52E17029E5C1C8000C0E5B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,6 +65,8 @@
 		EE5F91C82A1FFBB500B39BB1 /* ConvertDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertDate.swift; sourceTree = "<group>"; };
 		EE5F91CA2A2003A200B39BB1 /* sendStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sendStructs.swift; sourceTree = "<group>"; };
 		EE5F91CC2A2007E400B39BB1 /* sendUserDataStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sendUserDataStructs.swift; sourceTree = "<group>"; };
+		EE5F91CE2A200C7700B39BB1 /* sendAuthStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sendAuthStructs.swift; sourceTree = "<group>"; };
+		EE5F91D02A200D2D00B39BB1 /* ResponseAuthStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseAuthStructs.swift; sourceTree = "<group>"; };
 		EE6DE0662A1D319700507A27 /* loadDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loadDataView.swift; sourceTree = "<group>"; };
 		EE6DE0692A1E681100507A27 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		EEA4C07F29FDDC650083154E /* ApiManagerAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManagerAuth.swift; sourceTree = "<group>"; };
@@ -74,12 +74,10 @@
 		EEF27A442A055443006E5E53 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		EEF27A472A05551E006E5E53 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		EEF27A4B2A0572C9006E5E53 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		EEF27A4D2A058F05006E5E53 /* SuccessfulCheckEmail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessfulCheckEmail.swift; sourceTree = "<group>"; };
 		EEF27A502A059BE4006E5E53 /* TextFieldValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldValidation.swift; sourceTree = "<group>"; };
 		EEF27A532A05AA44006E5E53 /* Controllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controllers.swift; sourceTree = "<group>"; };
 		EEF27A562A05B512006E5E53 /* extensionUiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionUiView.swift; sourceTree = "<group>"; };
 		EEF27A582A05C7BC006E5E53 /* VerifyEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyEmailViewController.swift; sourceTree = "<group>"; };
-		EEF27A5A2A05C8CD006E5E53 /* LogInErrorJsonStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInErrorJsonStruct.swift; sourceTree = "<group>"; };
 		EEFAB0F529F200970028999A /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -167,9 +165,8 @@
 		EE2C9A5129FDA0E300B7D74F /* Json Structs */ = {
 			isa = PBXGroup;
 			children = (
-				EE2C9A5229FDA10000B7D74F /* SignInJsonStruct.swift */,
-				EEF27A4D2A058F05006E5E53 /* SuccessfulCheckEmail.swift */,
-				EEF27A5A2A05C8CD006E5E53 /* LogInErrorJsonStruct.swift */,
+				EE5F91CE2A200C7700B39BB1 /* sendAuthStructs.swift */,
+				EE5F91D02A200D2D00B39BB1 /* ResponseAuthStructs.swift */,
 			);
 			name = "Json Structs";
 			sourceTree = "<group>";
@@ -464,12 +461,13 @@
 			files = (
 				EE5F91C02A1EA3C900B39BB1 /* ResponseUserDataStructs.swift in Sources */,
 				EEF27A4C2A0572C9006E5E53 /* LoginViewController.swift in Sources */,
+				EE5F91CF2A200C7700B39BB1 /* sendAuthStructs.swift in Sources */,
 				EEA4C08029FDDC650083154E /* ApiManagerAuth.swift in Sources */,
 				EEF27A592A05C7BC006E5E53 /* VerifyEmailViewController.swift in Sources */,
 				EE5F91BE2A1E9FC400B39BB1 /* GeneralData.swift in Sources */,
 				EEF27A572A05B512006E5E53 /* extensionUiView.swift in Sources */,
 				EE5F91C92A1FFBB500B39BB1 /* ConvertDate.swift in Sources */,
-				EEF27A4E2A058F05006E5E53 /* SuccessfulCheckEmail.swift in Sources */,
+				EE5F91D12A200D2D00B39BB1 /* ResponseAuthStructs.swift in Sources */,
 				EE5EEC2E2A06D0660025336E /* AddingPersonalDataViewController.swift in Sources */,
 				EEF27A512A059BE4006E5E53 /* TextFieldValidation.swift in Sources */,
 				EEF27A482A05551E006E5E53 /* Font.swift in Sources */,
@@ -484,11 +482,9 @@
 				EE52E16F29E5C1C8000C0E5B /* AppDelegate.swift in Sources */,
 				EE52E17129E5C1C8000C0E5B /* SceneDelegate.swift in Sources */,
 				EEF27A542A05AA44006E5E53 /* Controllers.swift in Sources */,
-				EEF27A5B2A05C8CD006E5E53 /* LogInErrorJsonStruct.swift in Sources */,
 				EE5EEC312A06EDC20025336E /* ChoiceOfTypeAccountViewController.swift in Sources */,
 				EEF27A452A055443006E5E53 /* Profile.swift in Sources */,
 				EE2377362A0816D900CB9D70 /* Alerts.swift in Sources */,
-				EE2C9A5329FDA10000B7D74F /* SignInJsonStruct.swift in Sources */,
 				EE5F91BC2A1E9F7000B39BB1 /* ApiManagerUserData.swift in Sources */,
 				EE5F91CD2A2007E400B39BB1 /* sendUserDataStructs.swift in Sources */,
 			);
