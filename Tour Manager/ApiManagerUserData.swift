@@ -19,7 +19,7 @@ public class ApiManagerUserData{
     private let routeSetUserInfo = prefix + "/update_user_info"
     
     
-    private static let user = AppDelegate.user
+    private let user = AppDelegate.user
     
     
     
@@ -37,9 +37,7 @@ public class ApiManagerUserData{
     public func getUserInfo(token:String, completion: @escaping (Bool,customErrorUserData?)->Void ){
         let url = URL(string: routeGetUserInfo)
         
-        let jsonData = [
-            "token": token
-        ]
+        let jsonData = SendGetUserInfoJsonStruct(token: token)
         
         AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
             if response.response?.statusCode == 400{
@@ -55,15 +53,17 @@ public class ApiManagerUserData{
                     completion(false, .unknowmError)
                 }
                 return
+            } else if response.response?.statusCode == 200{
+                if let responseData = try? JSONDecoder().decode(ResponseGetUserInfoJsonStruct.self, from: response.data!){
+                    self.user.setEmail(email: responseData.email)
+                    self.user.setFirstName(firstName: responseData.first_name)
+                    self.user.setSecondName(secondName: responseData.last_name)
+                    self.user.setPhone(phone: responseData.phone)
+                    completion(true, nil)
+                }
+            } else {
+                completion(false, .unknowmError)
             }
-            
-            let responseData = try! JSONDecoder().decode(ResponseGetUserInfoJsonStruct.self, from: response.data!)
-            self.user.setEmail(email: responseData.email)
-            self.user.setFirstName(firstName: responseData.first_name)
-            self.user.setSecondName(secondName: responseData.last_name)
-            self.user.setPhone(phone: responseData.phone)
-            completion(true, nil)
-            
         }
     }
     
@@ -85,11 +85,13 @@ public class ApiManagerUserData{
                     completion(false, .unknowmError)
                 }
                 return
+            } else if response.response?.statusCode == 200{
+                completion(true,nil)
+            } else {
+                completion(false, .unknowmError)
             }
-            completion(true,nil)
+           
         }
-        
-        
     }
     
 }
