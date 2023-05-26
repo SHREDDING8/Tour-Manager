@@ -9,7 +9,7 @@ import Foundation
 
 
 class GeneralData{
-    public static let domain = "http://188.225.77.189:8080/"
+    public static let domain = "http://10.243.1.198:8080/"
     
 }
 

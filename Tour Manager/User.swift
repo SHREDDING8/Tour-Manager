@@ -166,7 +166,6 @@ class User:UserProtocol{
     }
     
     
-    
     // MARK: - Personal Data
     public func getPersonalData() -> UserDataServerStruct{
         let date = convertDate.birthdayToString(date: self.getBirthday())
@@ -179,7 +178,7 @@ class User:UserProtocol{
     
     public func printData(){
         print("localId: \(localId ?? "" )")
-        print("email: \(email!)")
+        print("email: \(email ?? "")")
         print("firstName: \(firstName ?? "")")
         print("secondName: \(secondName ?? "")")
 //        print("birthday: \(birthday)")

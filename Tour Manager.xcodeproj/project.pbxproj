@@ -27,7 +27,6 @@
 		EE5F91CD2A2007E400B39BB1 /* sendUserDataStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5F91CC2A2007E400B39BB1 /* sendUserDataStructs.swift */; };
 		EE5F91CF2A200C7700B39BB1 /* sendAuthStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5F91CE2A200C7700B39BB1 /* sendAuthStructs.swift */; };
 		EE5F91D12A200D2D00B39BB1 /* ResponseAuthStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5F91D02A200D2D00B39BB1 /* ResponseAuthStructs.swift */; };
-		EE6DE0672A1D319700507A27 /* loadDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6DE0662A1D319700507A27 /* loadDataView.swift */; };
 		EE6DE06A2A1E681100507A27 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6DE0692A1E681100507A27 /* User.swift */; };
 		EEA4C08029FDDC650083154E /* ApiManagerAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA4C07F29FDDC650083154E /* ApiManagerAuth.swift */; };
 		EEF27A402A044E7D006E5E53 /* Pods_Tour_Manager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEF27A3F2A044E7D006E5E53 /* Pods_Tour_Manager.framework */; };
@@ -67,7 +66,6 @@
 		EE5F91CC2A2007E400B39BB1 /* sendUserDataStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sendUserDataStructs.swift; sourceTree = "<group>"; };
 		EE5F91CE2A200C7700B39BB1 /* sendAuthStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sendAuthStructs.swift; sourceTree = "<group>"; };
 		EE5F91D02A200D2D00B39BB1 /* ResponseAuthStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseAuthStructs.swift; sourceTree = "<group>"; };
-		EE6DE0662A1D319700507A27 /* loadDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loadDataView.swift; sourceTree = "<group>"; };
 		EE6DE0692A1E681100507A27 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		EEA4C07F29FDDC650083154E /* ApiManagerAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManagerAuth.swift; sourceTree = "<group>"; };
 		EEF27A3F2A044E7D006E5E53 /* Pods_Tour_Manager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Tour_Manager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,7 +133,6 @@
 		EE2C9A4C29FD84F500B7D74F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				EE6DE0652A1D314400507A27 /* general views */,
 				EE2377342A0816C400CB9D70 /* alerts */,
 				EE52E17729E5C1CB000C0E5B /* Assets.xcassets */,
 				EEF27A552A05B4FC006E5E53 /* extensionViews */,
@@ -264,14 +261,6 @@
 				EE5F91C82A1FFBB500B39BB1 /* ConvertDate.swift */,
 			);
 			name = Date;
-			sourceTree = "<group>";
-		};
-		EE6DE0652A1D314400507A27 /* general views */ = {
-			isa = PBXGroup;
-			children = (
-				EE6DE0662A1D319700507A27 /* loadDataView.swift */,
-			);
-			path = "general views";
 			sourceTree = "<group>";
 		};
 		EE6DE0682A1E67FF00507A27 /* User */ = {
@@ -476,7 +465,6 @@
 				EE5F91B62A1E839E00B39BB1 /* UiWindow.swift in Sources */,
 				EE5F91CB2A2003A200B39BB1 /* sendStructs.swift in Sources */,
 				EEFAB0F629F200980028999A /* ForgotPasswordViewController.swift in Sources */,
-				EE6DE0672A1D319700507A27 /* loadDataView.swift in Sources */,
 				EE5F91C42A1FCEAE00B39BB1 /* ApiManagerCompany.swift in Sources */,
 				EE5F91C62A1FD16200B39BB1 /* responseStructs.swift in Sources */,
 				EE52E16F29E5C1C8000C0E5B /* AppDelegate.swift in Sources */,

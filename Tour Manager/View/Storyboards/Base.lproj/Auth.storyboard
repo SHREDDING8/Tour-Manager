@@ -24,11 +24,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n5C-rb-k0C">
-                                <rect key="frame" x="30" y="809.33333333333348" width="370" height="38.666666666666515"/>
+                                <rect key="frame" x="30" y="809.33333333333337" width="370" height="38.666666666666629"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Подтвердить">
                                     <fontDescription key="titleFontDescription" name="AmericanTypewriter-Bold" family="American Typewriter" pointSize="20"/>
-                                    <color key="baseBackgroundColor" red="0.1294117719" green="0.20392158630000001" blue="0.38431376220000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <color key="baseBackgroundColor" red="0.12941176470588234" green="0.20392156862745098" blue="0.38431372549019605" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="verifiedButtonTap:" destination="f2F-cz-b1k" eventType="touchUpInside" id="dJP-Wg-NYv"/>
@@ -37,15 +37,29 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconImg" translatesAutoresizingMaskIntoConstraints="NO" id="pYm-8P-mEC">
                                 <rect key="frame" x="15" y="178.33333333333334" width="400" height="279.66666666666663"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9AW-iu-7KG">
+                                <rect key="frame" x="25" y="858" width="380" height="30"/>
+                                <color key="tintColor" red="0.12941176470588234" green="0.20392156862745098" blue="0.38431372549019605" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Повторно отправить подтверждение">
+                                    <fontDescription key="titleFontDescription" name="AmericanTypewriter-Semibold" family="American Typewriter" pointSize="13"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="resendEmail:" destination="f2F-cz-b1k" eventType="touchUpInside" id="2ro-fr-pPZ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="FGA-v3-YWp"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="n5C-rb-k0C" firstAttribute="centerX" secondItem="Kci-p5-Ebv" secondAttribute="centerX" id="2hK-EK-EDX"/>
+                            <constraint firstItem="9AW-iu-7KG" firstAttribute="top" secondItem="n5C-rb-k0C" secondAttribute="bottom" constant="10" id="4hT-L2-njQ"/>
+                            <constraint firstItem="FGA-v3-YWp" firstAttribute="trailing" secondItem="9AW-iu-7KG" secondAttribute="trailing" constant="25" id="76P-jQ-GT8"/>
                             <constraint firstItem="mWK-46-eRA" firstAttribute="centerX" secondItem="Kci-p5-Ebv" secondAttribute="centerX" id="9gy-1O-fnt"/>
                             <constraint firstItem="mWK-46-eRA" firstAttribute="leading" secondItem="FGA-v3-YWp" secondAttribute="leading" constant="15" id="A8O-g1-JT5"/>
                             <constraint firstItem="pYm-8P-mEC" firstAttribute="leading" secondItem="FGA-v3-YWp" secondAttribute="leading" constant="15" id="ATh-wZ-TqE"/>
                             <constraint firstItem="pYm-8P-mEC" firstAttribute="top" secondItem="mWK-46-eRA" secondAttribute="bottom" constant="30" id="C0s-ke-4rf"/>
+                            <constraint firstItem="9AW-iu-7KG" firstAttribute="centerX" secondItem="Kci-p5-Ebv" secondAttribute="centerX" id="CUL-8V-8lb"/>
                             <constraint firstItem="n5C-rb-k0C" firstAttribute="leading" secondItem="FGA-v3-YWp" secondAttribute="leading" constant="30" id="QtL-Sl-3pM"/>
                             <constraint firstItem="pYm-8P-mEC" firstAttribute="centerX" secondItem="Kci-p5-Ebv" secondAttribute="centerX" id="Va0-9N-jYI"/>
                             <constraint firstItem="pYm-8P-mEC" firstAttribute="height" secondItem="Kci-p5-Ebv" secondAttribute="height" multiplier="0.3" id="eOp-mM-92F"/>

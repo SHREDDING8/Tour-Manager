@@ -19,7 +19,7 @@ public class ApiManagerUserData{
     private let routeSetUserInfo = prefix + "/update_user_info"
     
     
-    private let user = AppDelegate.user
+    private let user = AppDelegate.user!
     private let convertDate = ConvertDate()
     
     
@@ -61,6 +61,9 @@ public class ApiManagerUserData{
                     self.user.setSecondName(secondName: responseData.last_name)
                     self.user.setPhone(phone: responseData.phone)
                     self.user.setBirthday(birthday: self.convertDate.birthdayFromString(dateString: responseData.birthday_date))
+                    
+                    self.user.setLocalIDCompany(localIdCompany: responseData.company_id)
+                    self.user.setNameCompany(nameCompany: responseData.company_name)
                     completion(true, nil)
                 }
             } else {
@@ -73,7 +76,7 @@ public class ApiManagerUserData{
     public func setUserInfo(completion: @escaping (Bool,customErrorUserData?)->Void ){
         let url = URL(string: routeSetUserInfo)
         
-        let jsonData = AppDelegate.user.getPersonalData()
+        let jsonData = self.user.getPersonalData()
         
         AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
             if response.response?.statusCode == 400{

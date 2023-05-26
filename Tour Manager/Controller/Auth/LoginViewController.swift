@@ -14,8 +14,12 @@ class LoginViewController: UIViewController {
     let font = Font()
     let controllers = Controllers()
     let textFieldValidation = TextFieldValidation()
-    
     let alerts = Alert()
+    
+    let apiAuth = ApiManagerAuth()
+    let apiUserData = ApiManagerUserData()
+    
+    var user = AppDelegate.user!
     
     var isSignIn = false
     var confirmPasswordIndexPath:IndexPath!
@@ -43,7 +47,6 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         
         configureLogInButton()
-        configureLoadUiView()
         
     }
     
@@ -56,6 +59,7 @@ class LoginViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tableViewPosition = tableView.frame.origin.y
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -69,8 +73,6 @@ class LoginViewController: UIViewController {
         self.logInButton.titleLabel?.font = font.getFont(name: .americanTypewriter, style: .bold, size: 20)
     }
     
-    fileprivate func configureLoadUiView(){
-    }
     
     fileprivate func setIsSignIn(isSignIn:Bool){
         self.isSignIn = isSignIn
@@ -104,22 +106,22 @@ class LoginViewController: UIViewController {
     fileprivate func signIn(){
         // validate email
         if !textFieldValidation.validateEmailTextField(self.emailTextField){
-            let errorAlert = alerts.errorAlert(.email)
+            let errorAlert = alerts.errorAlert(errorTypeFront: .email)
             self.present(errorAlert, animated: true)
             return
         }
         // validate password
         if !textFieldValidation.validatePasswordsTextField(self.firstPasswordTextField, self.secondPasswordTextField){
-            let errorAlert = alerts.errorAlert(.password)
+            let errorAlert = alerts.errorAlert(errorTypeFront: .password)
             self.present(errorAlert, animated: true)
             return
         }
         
         // signIn Api
-        ApiManagerAuth.signIn(email: self.emailTextField.text!, password: self.firstPasswordTextField.text!) { isSignIn, error in
+        self.apiAuth.signIn(email: self.emailTextField.text!, password: self.firstPasswordTextField.text!) { isSignIn, error in
             // check errors from api
             if error == .unknowmError{
-                let errorAlert = self.alerts.errorAlert(.unknown)
+                let errorAlert = self.alerts.errorAlert(errorTypeApi: .unknown)
                 self.present(errorAlert, animated: true)
                 return
             }
@@ -130,42 +132,48 @@ class LoginViewController: UIViewController {
     }
     
     fileprivate func logIn(){
-        ApiManagerAuth.logIn(email: self.emailTextField.text!, password: self.firstPasswordTextField.text!) { isLogIn, error in
+        self.apiAuth.logIn(email: self.emailTextField.text!, password: self.firstPasswordTextField.text!) { isLogIn, error in
             
             if error == .emailIsNotVerifyed{
                 self.goToVerifyVC()
                 
             } else if error == .invalidEmailOrPassword{
                 
-                let error = self.alerts.errorAlert(.invalidEmailOrPassword)
+                let error = self.alerts.errorAlert(errorTypeApi: .invalidEmailOrPassword)
                 self.present(error, animated: true)
                 
             } else if error == .unknowmError{
                 
-                let error = self.alerts.errorAlert(.unknown)
+                let error = self.alerts.errorAlert(errorTypeApi: .unknown)
                 self.present(error, animated: true)
                 
             }
             
             if !isLogIn{ return }
             
-            let token = AppDelegate.user.getToken()
-                ApiManagerUserData.getUserInfo(token: token) { isInfo, error in
-                    if error == .dataNotFound{
-                        self.goToAddingPersonalData()
-                        return
-                    }else if error == .invalidToken{
-                        return
-                    } else if error == .tokenExpired{
-                        return
-                    } else if error == .unknowmError{
-                        return
-                    }
-                    
-                    if isInfo == true{
-                        self.goToMainTabBar()
-                    }
+            let token = self.user.getToken()
+            self.apiUserData.getUserInfo(token: token) { isInfo, error in
+                if error == .dataNotFound{
+                    self.goToAddingPersonalData()
+                    return
+                }else if error == .invalidToken{
+                    let error = self.alerts.errorAlert(errorTypeApi: .unknown)
+                    self.present(error, animated: true)
+                    return
+                } else if error == .tokenExpired{
+                    let error = self.alerts.errorAlert(errorTypeApi: .unknown)
+                    self.present(error, animated: true)
+                    return
+                } else if error == .unknowmError{
+                    let error = self.alerts.errorAlert(errorTypeApi: .unknown)
+                    self.present(error, animated: true)
+                    return
                 }
+                
+                if isInfo == true{
+                    self.goToMainTabBar()
+                }
+            }
             
         }
     }
@@ -175,18 +183,18 @@ class LoginViewController: UIViewController {
     
     @IBAction func resetPasswordTapped(_ sender: Any) {
         if !textFieldValidation.validateEmailTextField(emailTextField){
-            let error = alerts.errorAlert(.email)
+            let error = alerts.errorAlert(errorTypeFront: .email)
             self.present(error, animated: true)
             return
         }
         
-        ApiManagerAuth.resetPassword(email: emailTextField.text!) { isSendEmail, error in
+        self.apiAuth.resetPassword(email: emailTextField.text!) { isSendEmail, error in
             if error == .userNotFound{
-                let error = self.alerts.errorAlert(.userNotFound)
+                let error = self.alerts.errorAlert(errorTypeApi: .userNotFound)
                 self.present(error, animated: true)
                 return
             } else if error == .unknowmError{
-                let error = self.alerts.errorAlert(.unknown)
+                let error = self.alerts.errorAlert(errorTypeApi: .unknown)
                 self.present(error, animated: true)
                 return
             }
@@ -196,8 +204,6 @@ class LoginViewController: UIViewController {
             alert.addAction(actionOk)
             self.present(alert, animated: true)
         }
-        
-        
     }
     
     
@@ -215,15 +221,22 @@ class LoginViewController: UIViewController {
         options.style = .easeIn
         
         window?.set(rootViewController: mainTabBar,options: options)
-        
     }
     
     fileprivate func goToVerifyVC(){
-        let destination = self.controllers.getControllerAuth(.verifycontroller) as! VerifyEmailViewController
-        destination.email = self.emailTextField.text!
-        destination.password = self.firstPasswordTextField.text!
+        self.apiAuth.sendVerifyEmail(email: self.emailTextField.text!, password: self.firstPasswordTextField.text!) { isSent, error in
+            if error == .unknowmError{
+                let error = self.alerts.errorAlert(errorTypeApi: .unknown)
+                self.present(error, animated: true)
+                return
+            }
+            let destination = self.controllers.getControllerAuth(.verifycontroller) as! VerifyEmailViewController
+            destination.email = self.emailTextField.text!
+            destination.password = self.firstPasswordTextField.text!
+            
+            self.navigationController?.pushViewController(destination, animated: true)
+        }
         
-        self.navigationController?.pushViewController(destination, animated: true)
     }
     
     fileprivate func goToAddingPersonalData(){
@@ -332,30 +345,14 @@ extension LoginViewController:UITextFieldDelegate{
         if textField.restorationIdentifier == "emailTextField"{
             
             if !textFieldValidation.validateEmailTextField(textField){
-                let errorAlert = alerts.errorAlert(.email)
+                let errorAlert = alerts.errorAlert(errorTypeFront: .email)
                 self.present(errorAlert, animated: true)
             }
-            ApiManagerAuth.isUserExists(email: textField.text!) { isUserExists, error in
-                if error != nil{
+            self.apiAuth.isUserExists(email: textField.text!) { isUserExists, error in
+                
+                if error == .unknowmError{
                     textField.resignFirstResponder()
-                    var errorAlert:UIAlertController
-                    switch error{
-                        case .requestTimedOut:
-                        errorAlert = self.alerts.errorAlert(.requestTimedOut)
-                            
-                    case .unknowmError:
-                        errorAlert = self.alerts.errorAlert(.unknown)
-
-                    case .none:
-                        return
-                    case .some(.emailIsNotVerifyed):
-                        return
-                    case .some(.invalidEmailOrPassword):
-                        return
-                    
-                    case .some(.userNotFound):
-                        return
-                    }
+                    let errorAlert = self.alerts.errorAlert(errorTypeApi: .unknown)
                     self.present(errorAlert, animated: true)
                     return
                 }

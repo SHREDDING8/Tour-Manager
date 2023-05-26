@@ -12,11 +12,6 @@ class ChoiceOfTypeAccountViewController: UIViewController {
     // MARK: - my Variables
     let controllers = Controllers()
     
-    var registerData:[String:String] = [
-        "email": "",
-        "password" : ""
-    ]
-    
     // MARK: - Outlets
 
     @IBOutlet weak var iconImage: UIImageView!
@@ -43,13 +38,11 @@ class ChoiceOfTypeAccountViewController: UIViewController {
         
         let destination = controllers.getControllerAuth(.addingPersonalInformation) as! AddingPersonalDataViewController
         
-        destination.registerData = self.registerData
         destination.typeOfRegister = nextController
         
         
-        DispatchQueue.main.async {
-            self.navigationController?.pushViewController(destination, animated: true)
-        }
+        self.navigationController?.pushViewController(destination, animated: true)
+        
         
     }
     

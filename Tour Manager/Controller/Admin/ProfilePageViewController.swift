@@ -17,6 +17,8 @@ class ProfilePageViewController: UIViewController {
     
     var caledarHeightConstaint:NSLayoutConstraint!
     
+    let user = AppDelegate.user!
+    
     // MARK: - Outlets
     
     @IBOutlet weak var profilePhoto: UIImageView!
@@ -73,9 +75,11 @@ class ProfilePageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
-            print(self.datePickerUiView.frame)
-        })
+//        Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
+//            print(self.datePickerUiView.frame)
+//        })
+        
+        configurationView()
         
         addSubviews()
         
@@ -83,7 +87,7 @@ class ProfilePageViewController: UIViewController {
         configurationDarkUiView()
         datePickerConfiguration()
         
-        AppDelegate.user.printData()
+        AppDelegate.user!.printData()
         
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -103,6 +107,10 @@ class ProfilePageViewController: UIViewController {
     
     // MARK: - Configuration
     
+    fileprivate func configurationView(){
+        self.title = self.user.getNameCompany()
+    }
+    
     fileprivate func profilePhotoConfiguration(){
         self.profilePhoto.clipsToBounds = true
         self.profilePhoto.layer.masksToBounds = true
@@ -114,6 +122,8 @@ class ProfilePageViewController: UIViewController {
         self.view.addSubview(self.darkUiView)
         self.view.addSubview(datePickerUiView)
     }
+    
+    
     
     // MARK: - configure Date Picker
     fileprivate func datePickerConfiguration(){

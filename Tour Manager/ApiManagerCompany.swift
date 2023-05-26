@@ -18,7 +18,7 @@ public class ApiManagerCompany{
     private let routeAddCompany = prefix + "/add_company"
     private let routeAddEmployeeToCompany = prefix + "/add_employee_to_company"
     
-    private let user = AppDelegate.user
+    private let user = AppDelegate.user!
     
     public enum customErrorCompany{
         case tokenExpired

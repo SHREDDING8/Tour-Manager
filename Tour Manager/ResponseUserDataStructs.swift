@@ -14,4 +14,7 @@ struct ResponseGetUserInfoJsonStruct: Codable{
     let last_name:String
     let birthday_date:String
     let phone:String
+    
+    let company_id:String
+    let company_name:String
 }
