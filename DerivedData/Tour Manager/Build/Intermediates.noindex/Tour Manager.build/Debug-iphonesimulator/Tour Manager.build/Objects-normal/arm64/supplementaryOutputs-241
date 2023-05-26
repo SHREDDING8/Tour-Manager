@@ -1,0 +1,20 @@
+"/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager/View/extensionViews/extensionUiView.swift":
+  swift-dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/extensionUiView.swiftdeps"
+  object: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/extensionUiView.o"
+  diagnostics: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/extensionUiView.dia"
+  dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/extensionUiView.d"
+"/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager/Controller/Auth/VerifyEmailViewController.swift":
+  dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/VerifyEmailViewController.d"
+  swift-dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/VerifyEmailViewController.swiftdeps"
+  object: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/VerifyEmailViewController.o"
+  diagnostics: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/VerifyEmailViewController.dia"
+"/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager/ConvertDate.swift":
+  swift-dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/ConvertDate.swiftdeps"
+  diagnostics: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/ConvertDate.dia"
+  object: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/ConvertDate.o"
+  dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/ConvertDate.d"
+"/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager/GeneralData.swift":
+  diagnostics: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/GeneralData.dia"
+  dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/GeneralData.d"
+  object: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/GeneralData.o"
+  swift-dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/GeneralData.swiftdeps"

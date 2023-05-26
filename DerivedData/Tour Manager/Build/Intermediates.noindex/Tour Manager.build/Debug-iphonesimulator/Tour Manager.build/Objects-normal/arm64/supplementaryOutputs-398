@@ -1,0 +1,20 @@
+"/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager/ResponseAuthStructs.swift":
+  dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/ResponseAuthStructs.d"
+  diagnostics: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/ResponseAuthStructs.dia"
+  swift-dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/ResponseAuthStructs.swiftdeps"
+  object: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/ResponseAuthStructs.o"
+"/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager/TextFieldValidation.swift":
+  diagnostics: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/TextFieldValidation.dia"
+  swift-dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/TextFieldValidation.swiftdeps"
+  dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/TextFieldValidation.d"
+  object: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/TextFieldValidation.o"
+"/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager/Controller/Auth/AddingPersonalDataViewController.swift":
+  swift-dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/AddingPersonalDataViewController.swiftdeps"
+  dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/AddingPersonalDataViewController.d"
+  diagnostics: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/AddingPersonalDataViewController.dia"
+  object: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/AddingPersonalDataViewController.o"
+"/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager/View/Font/Font.swift":
+  swift-dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/Font.swiftdeps"
+  object: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/Font.o"
+  dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/Font.d"
+  diagnostics: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/Font.dia"

@@ -1,0 +1,20 @@
+"/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager/sendAuthStructs.swift":
+  diagnostics: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/sendAuthStructs.dia"
+  dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/sendAuthStructs.d"
+  swift-dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/sendAuthStructs.swiftdeps"
+  object: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/sendAuthStructs.o"
+"/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager/ApiManagerAuth.swift":
+  object: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/ApiManagerAuth.o"
+  diagnostics: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/ApiManagerAuth.dia"
+  dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/ApiManagerAuth.d"
+  swift-dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/ApiManagerAuth.swiftdeps"
+"/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager/Controller/Auth/LoginViewController.swift":
+  swift-dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/LoginViewController.swiftdeps"
+  diagnostics: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/LoginViewController.dia"
+  object: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/LoginViewController.o"
+  dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/LoginViewController.d"
+"/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager/ResponseUserDataStructs.swift":
+  object: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/ResponseUserDataStructs.o"
+  swift-dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/ResponseUserDataStructs.swiftdeps"
+  diagnostics: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/ResponseUserDataStructs.dia"
+  dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/ResponseUserDataStructs.d"

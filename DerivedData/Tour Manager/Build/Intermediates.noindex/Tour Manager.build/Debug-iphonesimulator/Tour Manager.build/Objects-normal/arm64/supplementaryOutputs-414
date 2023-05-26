@@ -1,0 +1,20 @@
+"/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager/ApiManagerAuth.swift":
+  diagnostics: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/ApiManagerAuth.dia"
+  object: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/ApiManagerAuth.o"
+  swift-dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/ApiManagerAuth.swiftdeps"
+  dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/ApiManagerAuth.d"
+"/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager/Controller/Auth/LoginViewController.swift":
+  swift-dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/LoginViewController.swiftdeps"
+  object: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/LoginViewController.o"
+  dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/LoginViewController.d"
+  diagnostics: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/LoginViewController.dia"
+"/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager/sendAuthStructs.swift":
+  object: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/sendAuthStructs.o"
+  diagnostics: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/sendAuthStructs.dia"
+  swift-dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/sendAuthStructs.swiftdeps"
+  dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/sendAuthStructs.d"
+"/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager/ResponseUserDataStructs.swift":
+  object: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/ResponseUserDataStructs.o"
+  swift-dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/ResponseUserDataStructs.swiftdeps"
+  dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/ResponseUserDataStructs.d"
+  diagnostics: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/ResponseUserDataStructs.dia"

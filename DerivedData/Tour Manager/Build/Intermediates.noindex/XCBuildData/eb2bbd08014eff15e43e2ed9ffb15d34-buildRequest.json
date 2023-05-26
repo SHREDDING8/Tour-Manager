@@ -1,0 +1,64 @@
+{
+  "_buildCommand2" : {
+    "command" : "build",
+    "skipDependencies" : false,
+    "style" : "buildAndRun"
+  },
+  "buildCommand" : "build",
+  "configuredTargets" : [
+    {
+      "guid" : "27174689b73ea90f22e5d63e5aaa477abda794fafe641f358072e5043f8bb1d4"
+    }
+  ],
+  "containerPath" : "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager.xcworkspace",
+  "continueBuildingAfterErrors" : false,
+  "enableIndexBuildArena" : false,
+  "hideShellScriptEnvironment" : false,
+  "parameters" : {
+    "action" : "build",
+    "activeArchitecture" : "arm64",
+    "activeRunDestination" : {
+      "disableOnlyActiveArch" : false,
+      "platform" : "iphonesimulator",
+      "sdk" : "iphonesimulator16.2",
+      "sdkVariant" : "iphonesimulator",
+      "supportedArchitectures" : [
+        "arm64",
+        "x86_64"
+      ],
+      "targetArchitecture" : "arm64"
+    },
+    "arenaInfo" : {
+      "buildIntermediatesPath" : "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex",
+      "buildProductsPath" : "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Products",
+      "derivedDataPath" : "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData",
+      "indexDataStoreFolderPath" : "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Index.noindex/DataStore",
+      "indexEnableDataStore" : true,
+      "indexPCHPath" : "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Index.noindex/PrecompiledHeaders",
+      "pchPath" : "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/PrecompiledHeaders"
+    },
+    "configurationName" : "Debug",
+    "overrides" : {
+      "synthesized" : {
+        "table" : {
+          "ASSETCATALOG_FILTER_FOR_DEVICE_MODEL" : "iPhone15,3",
+          "ASSETCATALOG_FILTER_FOR_DEVICE_OS_VERSION" : "16.2",
+          "ASSETCATALOG_FILTER_FOR_THINNING_DEVICE_CONFIGURATION" : "iPhone15,3",
+          "BUILD_ACTIVE_RESOURCES_ONLY" : "YES",
+          "ENABLE_PREVIEWS" : "NO",
+          "TARGET_DEVICE_IDENTIFIER" : "8C7BCA86-1D94-41AA-96A7-3BC6FFC917DC",
+          "TARGET_DEVICE_MODEL" : "iPhone15,3",
+          "TARGET_DEVICE_OS_VERSION" : "16.2",
+          "TARGET_DEVICE_PLATFORM_NAME" : "iphonesimulator"
+        }
+      }
+    }
+  },
+  "schemeCommand" : "launch",
+  "schemeCommand2" : "launch",
+  "showNonLoggedProgress" : true,
+  "useDryRun" : false,
+  "useImplicitDependencies" : true,
+  "useLegacyBuildLocations" : false,
+  "useParallelTargets" : true
+}

@@ -1,0 +1,20 @@
+PODS:
+  - Alamofire (5.6.4)
+  - UIWindowTransitions (1.0.0)
+
+DEPENDENCIES:
+  - Alamofire
+  - UIWindowTransitions
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - UIWindowTransitions
+
+SPEC CHECKSUMS:
+  Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
+  UIWindowTransitions: 2237083382e11f100db7de934041bba0c4669c86
+
+PODFILE CHECKSUM: 2f1337b9fbecb88be88b5a2e05eae99879269795
+
+COCOAPODS: 1.11.3

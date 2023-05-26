@@ -1,0 +1,20 @@
+"/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager/View/general views/loadDataView.swift":
+  swift-dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/loadDataView.swiftdeps"
+  object: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/loadDataView.o"
+  diagnostics: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/loadDataView.dia"
+  dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/loadDataView.d"
+"/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager/Controller/Auth/ForgotPasswordViewController.swift":
+  object: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/ForgotPasswordViewController.o"
+  diagnostics: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/ForgotPasswordViewController.dia"
+  dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/ForgotPasswordViewController.d"
+  swift-dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/ForgotPasswordViewController.swiftdeps"
+"/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager/responseStructs.swift":
+  diagnostics: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/responseStructs.dia"
+  object: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/responseStructs.o"
+  swift-dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/responseStructs.swiftdeps"
+  dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/responseStructs.d"
+"/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager/ApiManagerCompany.swift":
+  swift-dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/ApiManagerCompany.swiftdeps"
+  dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/ApiManagerCompany.d"
+  diagnostics: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/ApiManagerCompany.dia"
+  object: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphonesimulator/Tour Manager.build/Objects-normal/arm64/ApiManagerCompany.o"

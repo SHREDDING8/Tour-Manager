@@ -1,0 +1,24 @@
+Target dependency graph (11 targets)
+UIWindowTransitions in Pods, no dependencies
+UIWindowTransitions in Pods, no dependencies
+UIWindowTransitions in Pods, no dependencies
+Alamofire in Pods, no dependencies
+Alamofire in Pods, no dependencies
+Alamofire in Pods, no dependencies
+Pods-Tour Manager in Pods, depends on:
+Alamofire in Pods (explicit)
+UIWindowTransitions in Pods (explicit)
+Pods-Tour Manager in Pods, depends on:
+Alamofire in Pods (explicit)
+UIWindowTransitions in Pods (explicit)
+Pods-Tour Manager in Pods, depends on:
+Alamofire in Pods (explicit)
+UIWindowTransitions in Pods (explicit)
+Tour Manager in Tour Manager, depends on:
+Pods-Tour Manager in Pods (implicit dependency via file 'Pods_Tour_Manager.framework' in build phase 'Link Binary')
+Alamofire in Pods (implicit dependency via options '-framework Alamofire' in build setting 'OTHER_LDFLAGS')
+UIWindowTransitions in Pods (implicit dependency via options '-framework UIWindowTransitions' in build setting 'OTHER_LDFLAGS')
+Tour Manager in Tour Manager, depends on:
+Pods-Tour Manager in Pods (implicit dependency via file 'Pods_Tour_Manager.framework' in build phase 'Link Binary')
+Alamofire in Pods (implicit dependency via options '-framework Alamofire' in build setting 'OTHER_LDFLAGS')
+UIWindowTransitions in Pods (implicit dependency via options '-framework UIWindowTransitions' in build setting 'OTHER_LDFLAGS')

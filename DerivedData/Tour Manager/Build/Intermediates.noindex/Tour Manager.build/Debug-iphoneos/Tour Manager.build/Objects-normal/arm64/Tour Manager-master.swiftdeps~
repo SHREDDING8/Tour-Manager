@@ -1,0 +1,13 @@
+version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
+options: "4c89737734f9940b6be5cc1fa31385ef7dd69af281e919058a3a1ac19de970d2"
+build_start_time: [1683220539, 592180013]
+build_end_time: [1683220539, 611929893]
+inputs:
+  "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager/ApiManager.swift": !private [1682867262, 438288688]
+  "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager/AppDelegate.swift": !private [1681230408, 633532047]
+  "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager/Controller/Admin/ProfilePageViewController.swift": !private [1683213982, 724535942]
+  "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager/Controller/Auth/ForgotPasswordViewController.swift": !private [1682034020, 118896961]
+  "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager/Controller/Auth/LogInViewController.swift": !private [1682034367, 249214172]
+  "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager/Controller/Auth/SignInViewController.swift": !private [1683068676, 160108566]
+  "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager/SceneDelegate.swift": !private [1681230408, 638882637]
+  "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager/SignInJsonStruct.swift": !private [1682813044, 849626541]

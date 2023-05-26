@@ -1,0 +1,20 @@
+"/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager/ApiManagerAuth.swift":
+  dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphoneos/Tour Manager.build/Objects-normal/arm64/ApiManagerAuth.d"
+  diagnostics: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphoneos/Tour Manager.build/Objects-normal/arm64/ApiManagerAuth.dia"
+  swift-dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphoneos/Tour Manager.build/Objects-normal/arm64/ApiManagerAuth.swiftdeps"
+  object: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphoneos/Tour Manager.build/Objects-normal/arm64/ApiManagerAuth.o"
+"/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager/ResponseUserDataStructs.swift":
+  object: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphoneos/Tour Manager.build/Objects-normal/arm64/ResponseUserDataStructs.o"
+  diagnostics: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphoneos/Tour Manager.build/Objects-normal/arm64/ResponseUserDataStructs.dia"
+  swift-dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphoneos/Tour Manager.build/Objects-normal/arm64/ResponseUserDataStructs.swiftdeps"
+  dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphoneos/Tour Manager.build/Objects-normal/arm64/ResponseUserDataStructs.d"
+"/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager/Controller/Auth/LoginViewController.swift":
+  swift-dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphoneos/Tour Manager.build/Objects-normal/arm64/LoginViewController.swiftdeps"
+  dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphoneos/Tour Manager.build/Objects-normal/arm64/LoginViewController.d"
+  object: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphoneos/Tour Manager.build/Objects-normal/arm64/LoginViewController.o"
+  diagnostics: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphoneos/Tour Manager.build/Objects-normal/arm64/LoginViewController.dia"
+"/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Tour Manager/sendAuthStructs.swift":
+  diagnostics: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphoneos/Tour Manager.build/Objects-normal/arm64/sendAuthStructs.dia"
+  object: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphoneos/Tour Manager.build/Objects-normal/arm64/sendAuthStructs.o"
+  swift-dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphoneos/Tour Manager.build/Objects-normal/arm64/sendAuthStructs.swiftdeps"
+  dependencies: "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/DerivedData/Tour Manager/Build/Intermediates.noindex/Tour Manager.build/Debug-iphoneos/Tour Manager.build/Objects-normal/arm64/sendAuthStructs.d"

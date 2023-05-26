@@ -151,24 +151,6 @@
 			path = Admin;
 			sourceTree = "<group>";
 		};
-		EE2C9A5129FDA0E300B7D74F /* Json Structs */ = {
-			isa = PBXGroup;
-			children = (
-				EE5F91CE2A200C7700B39BB1 /* sendAuthStructs.swift */,
-				EE5F91D02A200D2D00B39BB1 /* ResponseAuthStructs.swift */,
-			);
-			name = "Json Structs";
-			sourceTree = "<group>";
-		};
-		EE2C9A5429FDDC1E00B7D74F /* Auth */ = {
-			isa = PBXGroup;
-			children = (
-				EE2C9A5129FDA0E300B7D74F /* Json Structs */,
-				EEA4C07F29FDDC650083154E /* ApiManagerAuth.swift */,
-			);
-			name = Auth;
-			sourceTree = "<group>";
-		};
 		EE52E16229E5C1C8000C0E5B = {
 			isa = PBXGroup;
 			children = (
@@ -200,63 +182,6 @@
 			path = "Tour Manager";
 			sourceTree = "<group>";
 		};
-		EE5F91B72A1E9F2000B39BB1 /* UserData */ = {
-			isa = PBXGroup;
-			children = (
-				EE5F91B92A1E9F5500B39BB1 /* JsonStructs */,
-				EE5F91BB2A1E9F7000B39BB1 /* ApiManagerUserData.swift */,
-			);
-			name = UserData;
-			sourceTree = "<group>";
-		};
-		EE5F91B82A1E9F3B00B39BB1 /* Server */ = {
-			isa = PBXGroup;
-			children = (
-				EE5F91C12A1FCE8200B39BB1 /* Company */,
-				EE5F91B72A1E9F2000B39BB1 /* UserData */,
-				EE2C9A5429FDDC1E00B7D74F /* Auth */,
-				EE5F91BD2A1E9FC400B39BB1 /* GeneralData.swift */,
-			);
-			name = Server;
-			path = ..;
-			sourceTree = "<group>";
-		};
-		EE5F91B92A1E9F5500B39BB1 /* JsonStructs */ = {
-			isa = PBXGroup;
-			children = (
-				EE5F91BF2A1EA3C900B39BB1 /* ResponseUserDataStructs.swift */,
-				EE5F91CC2A2007E400B39BB1 /* sendUserDataStructs.swift */,
-			);
-			name = JsonStructs;
-			sourceTree = "<group>";
-		};
-		EE5F91C12A1FCE8200B39BB1 /* Company */ = {
-			isa = PBXGroup;
-			children = (
-				EE5F91C22A1FCE9A00B39BB1 /* jsonStructs */,
-				EE5F91C32A1FCEAE00B39BB1 /* ApiManagerCompany.swift */,
-			);
-			name = Company;
-			sourceTree = "<group>";
-		};
-		EE5F91C22A1FCE9A00B39BB1 /* jsonStructs */ = {
-			isa = PBXGroup;
-			children = (
-				EE5F91C52A1FD16200B39BB1 /* responseStructs.swift */,
-				EE5F91CA2A2003A200B39BB1 /* sendStructs.swift */,
-			);
-			name = jsonStructs;
-			sourceTree = "<group>";
-		};
-		EE5F91C72A1FFB9A00B39BB1 /* Date */ = {
-			isa = PBXGroup;
-			children = (
-				EE5F91C82A1FFBB500B39BB1 /* ConvertDate.swift */,
-			);
-			name = Date;
-			path = ..;
-			sourceTree = "<group>";
-		};
 		EE5F91D42A20A13900B39BB1 /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -276,32 +201,119 @@
 		EE5F91DA2A21514200B39BB1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				EE5F91C72A1FFB9A00B39BB1 /* Date */,
-				EE5F91B82A1E9F3B00B39BB1 /* Server */,
-				EE6DE0682A1E67FF00507A27 /* User */,
-				EEF27A522A05AA23006E5E53 /* Controllers */,
-				EEF27A4F2A059BCC006E5E53 /* Validation */,
-				EEF27A432A055432006E5E53 /* Profile */,
+				EE5F91E02A2152D500B39BB1 /* Server */,
+				EE5F91DF2A21529C00B39BB1 /* Validation */,
+				EE5F91DE2A21528D00B39BB1 /* Controllers */,
+				EE5F91DD2A21528100B39BB1 /* User */,
+				EE5F91DC2A21526600B39BB1 /* Profile */,
+				EE5F91DB2A21523800B39BB1 /* Date */,
 			);
 			path = Model;
 			sourceTree = "<group>";
 		};
-		EE6DE0682A1E67FF00507A27 /* User */ = {
+		EE5F91DB2A21523800B39BB1 /* Date */ = {
 			isa = PBXGroup;
 			children = (
-				EE6DE0692A1E681100507A27 /* User.swift */,
+				EE5F91C82A1FFBB500B39BB1 /* ConvertDate.swift */,
 			);
-			name = User;
-			path = ..;
+			path = Date;
 			sourceTree = "<group>";
 		};
-		EEF27A432A055432006E5E53 /* Profile */ = {
+		EE5F91DC2A21526600B39BB1 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
 				EEF27A442A055443006E5E53 /* Profile.swift */,
 			);
-			name = Profile;
-			path = ..;
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		EE5F91DD2A21528100B39BB1 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				EE6DE0692A1E681100507A27 /* User.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		EE5F91DE2A21528D00B39BB1 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				EEF27A532A05AA44006E5E53 /* Controllers.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		EE5F91DF2A21529C00B39BB1 /* Validation */ = {
+			isa = PBXGroup;
+			children = (
+				EEF27A502A059BE4006E5E53 /* TextFieldValidation.swift */,
+			);
+			path = Validation;
+			sourceTree = "<group>";
+		};
+		EE5F91E02A2152D500B39BB1 /* Server */ = {
+			isa = PBXGroup;
+			children = (
+				EE5F91E32A2152FF00B39BB1 /* Auth */,
+				EE5F91E22A2152FA00B39BB1 /* UserData */,
+				EE5F91E12A2152F400B39BB1 /* Company */,
+				EE5F91BD2A1E9FC400B39BB1 /* GeneralData.swift */,
+			);
+			path = Server;
+			sourceTree = "<group>";
+		};
+		EE5F91E12A2152F400B39BB1 /* Company */ = {
+			isa = PBXGroup;
+			children = (
+				EE5F91E62A21535000B39BB1 /* Json Structs */,
+				EE5F91C32A1FCEAE00B39BB1 /* ApiManagerCompany.swift */,
+			);
+			path = Company;
+			sourceTree = "<group>";
+		};
+		EE5F91E22A2152FA00B39BB1 /* UserData */ = {
+			isa = PBXGroup;
+			children = (
+				EE5F91E52A21534000B39BB1 /* Json Structs */,
+				EE5F91BB2A1E9F7000B39BB1 /* ApiManagerUserData.swift */,
+			);
+			path = UserData;
+			sourceTree = "<group>";
+		};
+		EE5F91E32A2152FF00B39BB1 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				EE5F91E42A21533600B39BB1 /* Json Structs */,
+				EEA4C07F29FDDC650083154E /* ApiManagerAuth.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		EE5F91E42A21533600B39BB1 /* Json Structs */ = {
+			isa = PBXGroup;
+			children = (
+				EE5F91CE2A200C7700B39BB1 /* sendAuthStructs.swift */,
+				EE5F91D02A200D2D00B39BB1 /* ResponseAuthStructs.swift */,
+			);
+			path = "Json Structs";
+			sourceTree = "<group>";
+		};
+		EE5F91E52A21534000B39BB1 /* Json Structs */ = {
+			isa = PBXGroup;
+			children = (
+				EE5F91BF2A1EA3C900B39BB1 /* ResponseUserDataStructs.swift */,
+				EE5F91CC2A2007E400B39BB1 /* sendUserDataStructs.swift */,
+			);
+			path = "Json Structs";
+			sourceTree = "<group>";
+		};
+		EE5F91E62A21535000B39BB1 /* Json Structs */ = {
+			isa = PBXGroup;
+			children = (
+				EE5F91C52A1FD16200B39BB1 /* responseStructs.swift */,
+				EE5F91CA2A2003A200B39BB1 /* sendStructs.swift */,
+			);
+			path = "Json Structs";
 			sourceTree = "<group>";
 		};
 		EEF27A462A0554F6006E5E53 /* Font */ = {
@@ -310,24 +322,6 @@
 				EEF27A472A05551E006E5E53 /* Font.swift */,
 			);
 			path = Font;
-			sourceTree = "<group>";
-		};
-		EEF27A4F2A059BCC006E5E53 /* Validation */ = {
-			isa = PBXGroup;
-			children = (
-				EEF27A502A059BE4006E5E53 /* TextFieldValidation.swift */,
-			);
-			name = Validation;
-			path = ..;
-			sourceTree = "<group>";
-		};
-		EEF27A522A05AA23006E5E53 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				EEF27A532A05AA44006E5E53 /* Controllers.swift */,
-			);
-			name = Controllers;
-			path = ..;
 			sourceTree = "<group>";
 		};
 		EEF27A552A05B4FC006E5E53 /* extensionViews */ = {
