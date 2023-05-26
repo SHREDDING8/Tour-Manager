@@ -39,6 +39,11 @@ class User:UserProtocol{
         
     }
     
+    enum accessLevelEnum{
+        case readGeneralCompanyInformation
+        case writeGeneralCompanyInformation
+    }
+    
     
     
     private var token:String?
@@ -52,6 +57,11 @@ class User:UserProtocol{
     
     private var localIdCompany:String?
     private var nameCompany:String?
+    
+    private var accessLevel:[accessLevelEnum:Bool] = [
+        .readGeneralCompanyInformation: false,
+        .writeGeneralCompanyInformation: false
+    ]
     
     
     // MARK: - Inits
@@ -145,8 +155,11 @@ class User:UserProtocol{
     public func setBirthday(birthday:Date){
         self.birthday = birthday
     }
-    public func getBirthday() ->Date{
+    public func getBirthday() -> Date{
         return self.birthday ?? Date.now
+    }
+    public func getBirthday() -> String{
+        return convertDate.birthdayToString(date: self.birthday ?? Date.now)
     }
     
     // MARK: - Phone
@@ -181,7 +194,7 @@ class User:UserProtocol{
         print("email: \(email ?? "")")
         print("firstName: \(firstName ?? "")")
         print("secondName: \(secondName ?? "")")
-//        print("birthday: \(birthday)")
+        print("birthday: \(convertDate.birthdayToString(date:birthday!))")
         print("phone: \(phone ?? "")")
         print("localIdCompany: \(localIdCompany ?? "")")
         print("nameCompany: \(nameCompany ?? "")")

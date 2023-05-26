@@ -19,6 +19,7 @@ class ProfilePageViewController: UIViewController {
     
     let user = AppDelegate.user!
     let controllers = Controllers()
+    let profileModel = Profile()
     
     // MARK: - Outlets
     
@@ -110,7 +111,7 @@ class ProfilePageViewController: UIViewController {
     // MARK: - Configuration
     
     fileprivate func configurationView(){
-        self.title = self.user.getNameCompany()
+        self.navigationItem.title = self.user.getNameCompany()
         self.fullNameLabel.text = "\(self.user.getFirstName()) \(self.user.getSecondName())"
         
         
@@ -142,7 +143,7 @@ class ProfilePageViewController: UIViewController {
         
         options.direction = .toBottom
         options.duration = 0.3
-        options.style = .easeIn
+        options.style = .easeOut
         
         window?.set(rootViewController: mainLogIn,options: options)
         
@@ -242,6 +243,7 @@ class ProfilePageViewController: UIViewController {
     
 }
 
+// MARK: - ProfilePageViewController
 extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -263,7 +265,7 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
         switch section{
         case 0: title.text = "Личные данные"
         case 1: title.text = "Компания"
-        case 2: title.text = ""
+//        case 2: title.text = ""
         default: title.text = ""
         }
         return header
@@ -272,7 +274,7 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         switch section{
-        case 0: return 7
+        case 0: return 6
         case 1: return 2
         case 2: return 1
         default: return 0
@@ -281,9 +283,11 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var cell:UITableViewCell
+        var cell = UITableViewCell()
         
         switch indexPath.section{
+        case 0:
+            cell = getPersonalDataCell(indexPath: indexPath)
         case 2:
             cell = tableView.dequeueReusableCell(withIdentifier: "buttonCell", for: indexPath)
             
@@ -301,12 +305,34 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
         
         let index = indexPath.section == 0 ? indexPath.row : indexPath.row + 7
         
-        let cellType:CellTypeProfilePage = CellTypeProfilePage(index: index)!
+//        let cellType:CellTypeProfilePage = CellTypeProfilePage(index: index)!
         
-        switch index{
+//        switch index{
+//
+//        case 6...8:
+//            cell = tableView.dequeueReusableCell(withIdentifier: "otherPagesCell", for: indexPath)
+//            let cellLabel:UILabel = cell.viewWithTag(2) as! UILabel
+//            cellLabel.text = cellType.rawValue.0
+//        default:
+//            return UITableViewCell()
+//        }
+        
+        return cell
+    }
+    
+    fileprivate func getPersonalDataCell(indexPath:IndexPath) -> UITableViewCell{
+        var cell = UITableViewCell()
+        let cellType = profileModel.getProfileCellType(index: indexPath.row)
+        
+        switch indexPath.row{
+        case 0...1, 3...4:
+            cell = tableView.dequeueReusableCell(withIdentifier: "profileSettingsCell", for: indexPath)
             
-        case 3:
-            cell = tableView.dequeueReusableCell(withIdentifier: "birthdayCell", for: indexPath)
+            
+            
+            
+            let textField:UITextField = cell.viewWithTag(2) as! UITextField
+            textField.text = profileModel.getProfilePersonalDataFromUser(type: cellType)
             
             let cellLabel:UILabel = cell.viewWithTag(1) as! UILabel
             cellLabel.text = cellType.rawValue.0
@@ -314,7 +340,25 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
             let changeButton:UIButton = cell.viewWithTag(3) as! UIButton
             
             let action = UIAction(handler: { _ in
-                tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+                textField.isEnabled = true
+                self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+                textField.becomeFirstResponder()
+            })
+            changeButton.addAction(action, for: .touchUpInside)
+        
+        case 2:
+            cell = tableView.dequeueReusableCell(withIdentifier: "birthdayCell", for: indexPath)
+            
+            let cellLabel:UILabel = cell.viewWithTag(1) as! UILabel
+            cellLabel.text = cellType.rawValue.0
+            
+            let cellLabel2:UILabel = cell.viewWithTag(2) as! UILabel
+            cellLabel2.text = profileModel.getProfilePersonalDataFromUser(type: cellType)
+            
+            let changeButton:UIButton = cell.viewWithTag(3) as! UIButton
+            
+            let action = UIAction(handler: { _ in
+                self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
                 
                 UIView.transition(with: self.datePickerUiView, duration: 0.5) {
                     self.caledarHeightConstaint.constant = self.view.frame.height / 2
@@ -327,41 +371,18 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
 
             })
             changeButton.addAction(action, for: .touchUpInside)
-            
-            
-        case 0...2, 4...5:
-            cell = tableView.dequeueReusableCell(withIdentifier: "profileSettingsCell", for: indexPath)
-            
-            
-            let textField:UITextField = cell.viewWithTag(2) as! UITextField
-            textField.text = profile[cellType]
-            
-            let cellLabel:UILabel = cell.viewWithTag(1) as! UILabel
-            cellLabel.text = cellType.rawValue.0
-            
-            let changeButton:UIButton = cell.viewWithTag(3) as! UIButton
-            
-            let action = UIAction(handler: { _ in
-                textField.isEnabled = true
-                tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-                textField.becomeFirstResponder()
-            })
-            changeButton.addAction(action, for: .touchUpInside)
-            
-        case 6...8:
+        
+        case 5:
             cell = tableView.dequeueReusableCell(withIdentifier: "otherPagesCell", for: indexPath)
-            let cellLabel:UILabel = cell.viewWithTag(2) as! UILabel
-            cellLabel.text = cellType.rawValue.0
+                let cellLabel:UILabel = cell.viewWithTag(2) as! UILabel
+                cellLabel.text = cellType.rawValue.0
+            
         default:
-            return UITableViewCell()
+            break
         }
         
-        
-        
         return cell
-    }
-    
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        
     }
 }
 
