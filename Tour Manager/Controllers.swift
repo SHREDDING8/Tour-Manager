@@ -32,7 +32,7 @@ class Controllers{
     
     let storyboardAuth = UIStoryboard(name: "Auth", bundle: nil)
     
-    let storyboardMain = UIStoryboard(name: "Auth", bundle: nil)
+    let storyboardMain = UIStoryboard(name: "Main", bundle: nil)
     
     public func getControllerAuth(_ controller:PossibleControllersAuth) -> UIViewController{
         return storyboardAuth.instantiateViewController(withIdentifier: controller.rawValue)

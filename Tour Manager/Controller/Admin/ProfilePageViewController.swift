@@ -18,11 +18,13 @@ class ProfilePageViewController: UIViewController {
     var caledarHeightConstaint:NSLayoutConstraint!
     
     let user = AppDelegate.user!
+    let controllers = Controllers()
     
     // MARK: - Outlets
     
     @IBOutlet weak var profilePhoto: UIImageView!
     
+    @IBOutlet weak var fullNameLabel: UILabel!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -109,6 +111,9 @@ class ProfilePageViewController: UIViewController {
     
     fileprivate func configurationView(){
         self.title = self.user.getNameCompany()
+        self.fullNameLabel.text = "\(self.user.getFirstName()) \(self.user.getSecondName())"
+        
+        
     }
     
     fileprivate func profilePhotoConfiguration(){
@@ -121,6 +126,26 @@ class ProfilePageViewController: UIViewController {
     fileprivate func addSubviews(){
         self.view.addSubview(self.darkUiView)
         self.view.addSubview(datePickerUiView)
+    }
+    
+    
+    // MARK: - Button Taps
+    
+    
+    
+    // MARK: - Navigation
+    fileprivate func goToLogInPage(){
+        let mainLogIn = self.controllers.getControllerAuth(.mainAuthController)
+        
+        let window = self.view.window
+        let options = UIWindow.TransitionOptions()
+        
+        options.direction = .toBottom
+        options.duration = 0.3
+        options.style = .easeIn
+        
+        window?.set(rootViewController: mainLogIn,options: options)
+        
     }
     
     
@@ -261,6 +286,13 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
         switch indexPath.section{
         case 2:
             cell = tableView.dequeueReusableCell(withIdentifier: "buttonCell", for: indexPath)
+            
+            let button = cell.viewWithTag(1) as! UIButton
+            let actionExit = UIAction { _ in
+                self.goToLogInPage()
+            }
+            
+            button.addAction(actionExit, for: .touchUpInside)
                         
             return cell
         default:

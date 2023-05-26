@@ -27,6 +27,7 @@
 		EE5F91CD2A2007E400B39BB1 /* sendUserDataStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5F91CC2A2007E400B39BB1 /* sendUserDataStructs.swift */; };
 		EE5F91CF2A200C7700B39BB1 /* sendAuthStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5F91CE2A200C7700B39BB1 /* sendAuthStructs.swift */; };
 		EE5F91D12A200D2D00B39BB1 /* ResponseAuthStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5F91D02A200D2D00B39BB1 /* ResponseAuthStructs.swift */; };
+		EE5F91D32A202F0800B39BB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE5F91D22A202F0800B39BB1 /* Main.storyboard */; };
 		EE6DE06A2A1E681100507A27 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6DE0692A1E681100507A27 /* User.swift */; };
 		EEA4C08029FDDC650083154E /* ApiManagerAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA4C07F29FDDC650083154E /* ApiManagerAuth.swift */; };
 		EEF27A402A044E7D006E5E53 /* Pods_Tour_Manager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEF27A3F2A044E7D006E5E53 /* Pods_Tour_Manager.framework */; };
@@ -66,6 +67,7 @@
 		EE5F91CC2A2007E400B39BB1 /* sendUserDataStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sendUserDataStructs.swift; sourceTree = "<group>"; };
 		EE5F91CE2A200C7700B39BB1 /* sendAuthStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sendAuthStructs.swift; sourceTree = "<group>"; };
 		EE5F91D02A200D2D00B39BB1 /* ResponseAuthStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseAuthStructs.swift; sourceTree = "<group>"; };
+		EE5F91D22A202F0800B39BB1 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		EE6DE0692A1E681100507A27 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		EEA4C07F29FDDC650083154E /* ApiManagerAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManagerAuth.swift; sourceTree = "<group>"; };
 		EEF27A3F2A044E7D006E5E53 /* Pods_Tour_Manager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Tour_Manager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -147,6 +149,7 @@
 			children = (
 				EE52E17429E5C1C8000C0E5B /* Auth.storyboard */,
 				EE52E17929E5C1CB000C0E5B /* LaunchScreen.storyboard */,
+				EE5F91D22A202F0800B39BB1 /* Main.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -396,6 +399,7 @@
 				EE52E17B29E5C1CB000C0E5B /* LaunchScreen.storyboard in Resources */,
 				EE52E17829E5C1CB000C0E5B /* Assets.xcassets in Resources */,
 				EE52E17629E5C1C8000C0E5B /* Auth.storyboard in Resources */,
+				EE5F91D32A202F0800B39BB1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
