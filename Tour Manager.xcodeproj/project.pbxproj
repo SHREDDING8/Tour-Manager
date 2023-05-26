@@ -121,19 +121,6 @@
 			path = alerts;
 			sourceTree = "<group>";
 		};
-		EE2C9A4B29FD84ED00B7D74F /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				EE5F91C72A1FFB9A00B39BB1 /* Date */,
-				EE5F91B82A1E9F3B00B39BB1 /* Server */,
-				EE6DE0682A1E67FF00507A27 /* User */,
-				EEF27A522A05AA23006E5E53 /* Controllers */,
-				EEF27A4F2A059BCC006E5E53 /* Validation */,
-				EEF27A432A055432006E5E53 /* Profile */,
-			);
-			name = Model;
-			sourceTree = "<group>";
-		};
 		EE2C9A4C29FD84F500B7D74F /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -203,7 +190,7 @@
 		EE52E16D29E5C1C8000C0E5B /* Tour Manager */ = {
 			isa = PBXGroup;
 			children = (
-				EE2C9A4B29FD84ED00B7D74F /* Model */,
+				EE5F91DA2A21514200B39BB1 /* Model */,
 				EE2C9A4C29FD84F500B7D74F /* View */,
 				EEFAB0F129F1E7B60028999A /* Controller */,
 				EE52E16E29E5C1C8000C0E5B /* AppDelegate.swift */,
@@ -231,6 +218,7 @@
 				EE5F91BD2A1E9FC400B39BB1 /* GeneralData.swift */,
 			);
 			name = Server;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		EE5F91B92A1E9F5500B39BB1 /* JsonStructs */ = {
@@ -266,6 +254,7 @@
 				EE5F91C82A1FFBB500B39BB1 /* ConvertDate.swift */,
 			);
 			name = Date;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		EE5F91D42A20A13900B39BB1 /* Main */ = {
@@ -284,12 +273,26 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		EE5F91DA2A21514200B39BB1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EE5F91C72A1FFB9A00B39BB1 /* Date */,
+				EE5F91B82A1E9F3B00B39BB1 /* Server */,
+				EE6DE0682A1E67FF00507A27 /* User */,
+				EEF27A522A05AA23006E5E53 /* Controllers */,
+				EEF27A4F2A059BCC006E5E53 /* Validation */,
+				EEF27A432A055432006E5E53 /* Profile */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		EE6DE0682A1E67FF00507A27 /* User */ = {
 			isa = PBXGroup;
 			children = (
 				EE6DE0692A1E681100507A27 /* User.swift */,
 			);
 			name = User;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		EEF27A432A055432006E5E53 /* Profile */ = {
@@ -298,6 +301,7 @@
 				EEF27A442A055443006E5E53 /* Profile.swift */,
 			);
 			name = Profile;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		EEF27A462A0554F6006E5E53 /* Font */ = {
@@ -314,6 +318,7 @@
 				EEF27A502A059BE4006E5E53 /* TextFieldValidation.swift */,
 			);
 			name = Validation;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		EEF27A522A05AA23006E5E53 /* Controllers */ = {
@@ -322,6 +327,7 @@
 				EEF27A532A05AA44006E5E53 /* Controllers.swift */,
 			);
 			name = Controllers;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		EEF27A552A05B4FC006E5E53 /* extensionViews */ = {
