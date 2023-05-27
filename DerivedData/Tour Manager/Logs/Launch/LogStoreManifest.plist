@@ -6,6 +6,321 @@
 	<integer>10</integer>
 	<key>logs</key>
 	<dict>
+		<key>26388920-42C7-4942-A2DC-A2D68152D55E</key>
+		<dict>
+			<key>auxiliaryLogUniqueIdentifier</key>
+			<string>C1FBFF40-4C60-434D-9460-7730461BF99D</string>
+			<key>auxiliaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>className</key>
+			<string>IDESchemeActionsInvocationRecord</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>com.apple.dt.IDE.LaunchSchemeAction</string>
+			<key>fileName</key>
+			<string>Run-Tour Manager-2023.05.27_17-52-24-+0300.xcresult</string>
+			<key>hasAuxiliaryLog</key>
+			<true/>
+			<key>hasConsoleLog</key>
+			<true/>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Tour Manager project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Tour Manager</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Run Tour Manager</string>
+			<key>timeStartedRecording</key>
+			<real>706891944.88262796</real>
+			<key>timeStoppedRecording</key>
+			<real>0.0</real>
+			<key>title</key>
+			<string>Run Tour Manager</string>
+			<key>uniqueIdentifier</key>
+			<string>26388920-42C7-4942-A2DC-A2D68152D55E</string>
+		</dict>
+		<key>3454F426-4DF3-427B-A94E-34EDA0D9F6A1</key>
+		<dict>
+			<key>auxiliaryLogUniqueIdentifier</key>
+			<string>2AD07C21-4D97-4A2B-8B38-5DF14EBE424D</string>
+			<key>auxiliaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>E</string>
+			</dict>
+			<key>className</key>
+			<string>IDESchemeActionsInvocationRecord</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>com.apple.dt.IDE.LaunchSchemeAction</string>
+			<key>fileName</key>
+			<string>Run-Tour Manager-2023.05.27_17-51-45-+0300.xcresult</string>
+			<key>hasAuxiliaryLog</key>
+			<true/>
+			<key>hasConsoleLog</key>
+			<true/>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>E</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Tour Manager project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Tour Manager</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Run Tour Manager</string>
+			<key>timeStartedRecording</key>
+			<real>706891905.51577699</real>
+			<key>timeStoppedRecording</key>
+			<real>0.0</real>
+			<key>title</key>
+			<string>Run Tour Manager</string>
+			<key>uniqueIdentifier</key>
+			<string>3454F426-4DF3-427B-A94E-34EDA0D9F6A1</string>
+		</dict>
+		<key>49D34E52-BF5F-415A-94CC-F90D8A8DB10C</key>
+		<dict>
+			<key>auxiliaryLogUniqueIdentifier</key>
+			<string>FD3E0540-0575-4EF0-8F07-7054BCA838C6</string>
+			<key>auxiliaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>className</key>
+			<string>IDESchemeActionsInvocationRecord</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>com.apple.dt.IDE.LaunchSchemeAction</string>
+			<key>fileName</key>
+			<string>Run-Tour Manager-2023.05.27_17-37-51-+0300.xcresult</string>
+			<key>hasAuxiliaryLog</key>
+			<true/>
+			<key>hasConsoleLog</key>
+			<true/>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Tour Manager project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Tour Manager</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Run Tour Manager</string>
+			<key>timeStartedRecording</key>
+			<real>706891071.25522995</real>
+			<key>timeStoppedRecording</key>
+			<real>0.0</real>
+			<key>title</key>
+			<string>Run Tour Manager</string>
+			<key>uniqueIdentifier</key>
+			<string>49D34E52-BF5F-415A-94CC-F90D8A8DB10C</string>
+		</dict>
+		<key>6DD3863E-711D-4B44-8F0D-7C2EC5E54EAD</key>
+		<dict>
+			<key>auxiliaryLogUniqueIdentifier</key>
+			<string>98DF448B-FE55-4C56-BE2F-9D37EFC61DED</string>
+			<key>auxiliaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>className</key>
+			<string>IDESchemeActionsInvocationRecord</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>com.apple.dt.IDE.LaunchSchemeAction</string>
+			<key>fileName</key>
+			<string>Run-Tour Manager-2023.05.27_17-42-14-+0300.xcresult</string>
+			<key>hasAuxiliaryLog</key>
+			<true/>
+			<key>hasConsoleLog</key>
+			<true/>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Tour Manager project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Tour Manager</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Run Tour Manager</string>
+			<key>timeStartedRecording</key>
+			<real>706891334.06688201</real>
+			<key>timeStoppedRecording</key>
+			<real>0.0</real>
+			<key>title</key>
+			<string>Run Tour Manager</string>
+			<key>uniqueIdentifier</key>
+			<string>6DD3863E-711D-4B44-8F0D-7C2EC5E54EAD</string>
+		</dict>
+		<key>846E1F77-0739-4831-B9BF-154B07B44EF7</key>
+		<dict>
+			<key>auxiliaryLogUniqueIdentifier</key>
+			<string>E10ACE3C-B9AE-4AEE-A9E4-659ED35A8EDB</string>
+			<key>auxiliaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>className</key>
+			<string>IDESchemeActionsInvocationRecord</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>com.apple.dt.IDE.LaunchSchemeAction</string>
+			<key>fileName</key>
+			<string>Run-Tour Manager-2023.05.27_17-52-19-+0300.xcresult</string>
+			<key>hasAuxiliaryLog</key>
+			<true/>
+			<key>hasConsoleLog</key>
+			<true/>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Tour Manager project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Tour Manager</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Run Tour Manager</string>
+			<key>timeStartedRecording</key>
+			<real>706891939.93076706</real>
+			<key>timeStoppedRecording</key>
+			<real>0.0</real>
+			<key>title</key>
+			<string>Run Tour Manager</string>
+			<key>uniqueIdentifier</key>
+			<string>846E1F77-0739-4831-B9BF-154B07B44EF7</string>
+		</dict>
+		<key>A9D9CEB2-4962-44E6-A089-D9BAB47295BF</key>
+		<dict>
+			<key>auxiliaryLogUniqueIdentifier</key>
+			<string>9FF1D01F-C530-4ECF-AAAC-441E0A4412F3</string>
+			<key>auxiliaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>className</key>
+			<string>IDESchemeActionsInvocationRecord</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>com.apple.dt.IDE.LaunchSchemeAction</string>
+			<key>fileName</key>
+			<string>Run-Tour Manager-2023.05.27_17-37-02-+0300.xcresult</string>
+			<key>hasAuxiliaryLog</key>
+			<true/>
+			<key>hasConsoleLog</key>
+			<true/>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Tour Manager project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Tour Manager</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Run Tour Manager</string>
+			<key>timeStartedRecording</key>
+			<real>706891022.37253797</real>
+			<key>timeStoppedRecording</key>
+			<real>0.0</real>
+			<key>title</key>
+			<string>Run Tour Manager</string>
+			<key>uniqueIdentifier</key>
+			<string>A9D9CEB2-4962-44E6-A089-D9BAB47295BF</string>
+		</dict>
+		<key>B53B395B-6836-45D5-BE2B-3AD7AD861683</key>
+		<dict>
+			<key>auxiliaryLogUniqueIdentifier</key>
+			<string>A3CC57EF-7057-4B5E-8473-3852D44BA587</string>
+			<key>auxiliaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>E</string>
+			</dict>
+			<key>className</key>
+			<string>IDESchemeActionsInvocationRecord</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>com.apple.dt.IDE.LaunchSchemeAction</string>
+			<key>fileName</key>
+			<string>Run-Tour Manager-2023.05.27_22-48-48-+0300.xcresult</string>
+			<key>hasAuxiliaryLog</key>
+			<true/>
+			<key>hasConsoleLog</key>
+			<true/>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>E</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Tour Manager project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Tour Manager</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Run Tour Manager</string>
+			<key>timeStartedRecording</key>
+			<real>706909728.04673302</real>
+			<key>timeStoppedRecording</key>
+			<real>0.0</real>
+			<key>title</key>
+			<string>Run Tour Manager</string>
+			<key>uniqueIdentifier</key>
+			<string>B53B395B-6836-45D5-BE2B-3AD7AD861683</string>
+		</dict>
 		<key>D736C3FC-CC22-4A4E-BBBE-AC229F296810</key>
 		<dict>
 			<key>auxiliaryLogUniqueIdentifier</key>
@@ -50,6 +365,96 @@
 			<string>Run Tour Manager</string>
 			<key>uniqueIdentifier</key>
 			<string>D736C3FC-CC22-4A4E-BBBE-AC229F296810</string>
+		</dict>
+		<key>E2717343-38E5-4678-AEF7-A4962FA8C3A0</key>
+		<dict>
+			<key>auxiliaryLogUniqueIdentifier</key>
+			<string>E2D5EF70-9806-4E3C-B5EE-18FE995CF852</string>
+			<key>auxiliaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>E</string>
+			</dict>
+			<key>className</key>
+			<string>IDESchemeActionsInvocationRecord</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>com.apple.dt.IDE.LaunchSchemeAction</string>
+			<key>fileName</key>
+			<string>Run-Tour Manager-2023.05.27_17-51-53-+0300.xcresult</string>
+			<key>hasAuxiliaryLog</key>
+			<true/>
+			<key>hasConsoleLog</key>
+			<true/>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>E</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Tour Manager project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Tour Manager</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Run Tour Manager</string>
+			<key>timeStartedRecording</key>
+			<real>706891913.79881203</real>
+			<key>timeStoppedRecording</key>
+			<real>0.0</real>
+			<key>title</key>
+			<string>Run Tour Manager</string>
+			<key>uniqueIdentifier</key>
+			<string>E2717343-38E5-4678-AEF7-A4962FA8C3A0</string>
+		</dict>
+		<key>F35C4DAE-F521-4553-89F4-786ABB32EA56</key>
+		<dict>
+			<key>auxiliaryLogUniqueIdentifier</key>
+			<string>0ACE4A1D-A7BE-41E9-ACF0-D7627C9C00DE</string>
+			<key>auxiliaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>className</key>
+			<string>IDESchemeActionsInvocationRecord</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>com.apple.dt.IDE.LaunchSchemeAction</string>
+			<key>fileName</key>
+			<string>Run-Tour Manager-2023.05.27_17-54-36-+0300.xcresult</string>
+			<key>hasAuxiliaryLog</key>
+			<true/>
+			<key>hasConsoleLog</key>
+			<true/>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Tour Manager project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Tour Manager</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Run Tour Manager</string>
+			<key>timeStartedRecording</key>
+			<real>706892076.74647999</real>
+			<key>timeStoppedRecording</key>
+			<real>0.0</real>
+			<key>title</key>
+			<string>Run Tour Manager</string>
+			<key>uniqueIdentifier</key>
+			<string>F35C4DAE-F521-4553-89F4-786ABB32EA56</string>
 		</dict>
 	</dict>
 </dict>

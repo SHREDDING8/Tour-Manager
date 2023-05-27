@@ -98,6 +98,10 @@ public class ApiManagerCompany{
         }
     }
     
+    public func updateCompanyInfo(){
+        
+    }
+    
 }
 
 

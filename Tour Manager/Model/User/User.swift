@@ -27,6 +27,8 @@ protocol UserProtocol{
 class User:UserProtocol{
     
     private let convertDate = ConvertDate()
+    private let apiCompany = ApiManagerCompany()
+    private let apiUserData = ApiManagerUserData()
     
     
     struct UserDataServerStruct:Codable{
@@ -39,10 +41,11 @@ class User:UserProtocol{
         
     }
     
-    enum accessLevelEnum{
+    enum AccessLevelEnum{
         case readGeneralCompanyInformation
         case writeGeneralCompanyInformation
     }
+    
     
     
     
@@ -58,7 +61,7 @@ class User:UserProtocol{
     private var localIdCompany:String?
     private var nameCompany:String?
     
-    private var accessLevel:[accessLevelEnum:Bool] = [
+    private var accessLevel:[AccessLevelEnum:Bool] = [
         .readGeneralCompanyInformation: false,
         .writeGeneralCompanyInformation: false
     ]
@@ -119,7 +122,9 @@ class User:UserProtocol{
     // MARK: - nameCompany
     
     public func setNameCompany(nameCompany:String){
+        guard self.getAccessLevel(rule: .writeGeneralCompanyInformation) == true else { return }
         self.nameCompany = nameCompany
+        apiCompany.updateCompanyInfo()
     }
     
     public func getNameCompany()->String{
@@ -142,7 +147,7 @@ class User:UserProtocol{
     public func getFirstName() ->String{
         return self.firstName ?? ""
     }
-    
+        
     // MARK: - secondName
     public func setSecondName(secondName:String){
         self.secondName = secondName
@@ -186,6 +191,36 @@ class User:UserProtocol{
         let res = UserDataServerStruct(token: self.token ?? "", email: self.email! , first_name: self.firstName!, last_name: self.secondName!, birthday_date: date, phone: self.phone!)
         
         return res
+    }
+    
+    public func updatePersonalData(updateField: UserDataFields ,value:String, completion:  @escaping (Bool, customErrorUserData? )->Void ){
+        apiUserData.updateUserInfo(updateField: updateField , value: value) { isSetted, error in
+            if error != nil{
+                completion(false, error)
+            } else{
+                switch updateField {
+                case .email:
+                    self.setEmail(email: value)
+                case .firstName:
+                    self.setFirstName(firstName: value)
+                case .secondName:
+                    self.setSecondName(secondName: value)
+                case .birthdayDate:
+                    self.setBirthday(birthday: self.convertDate.birthdayFromString(dateString: value))
+                case .phone:
+                    self.setPhone(phone: value)
+                }
+                completion(true, nil)
+            }
+        }
+    }
+
+    
+    
+    // MARK: - level Access
+    public func getAccessLevel(rule:AccessLevelEnum) -> Bool{
+        let result = self.accessLevel[rule]
+        return result ?? false
     }
     
     

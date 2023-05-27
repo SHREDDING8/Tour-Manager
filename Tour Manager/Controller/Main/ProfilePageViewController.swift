@@ -111,7 +111,9 @@ class ProfilePageViewController: UIViewController {
     // MARK: - Configuration
     
     fileprivate func configurationView(){
-        self.navigationItem.title = self.user.getNameCompany()
+        if self.user.getAccessLevel(rule: .readGeneralCompanyInformation){
+            self.navigationItem.title = self.user.getNameCompany()
+        }
         self.fullNameLabel.text = "\(self.user.getFirstName()) \(self.user.getSecondName())"
         
         
