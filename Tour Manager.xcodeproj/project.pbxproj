@@ -146,7 +146,6 @@
 		EE2C9A4E29FD855700B7D74F /* Admin */ = {
 			isa = PBXGroup;
 			children = (
-				EE2C9A4F29FD858500B7D74F /* ProfilePageViewController.swift */,
 			);
 			path = Admin;
 			sourceTree = "<group>";
@@ -185,8 +184,9 @@
 		EE5F91D42A20A13900B39BB1 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				EE5F91D52A20A14400B39BB1 /* Profile */,
 				EE5F91D62A20A1E700B39BB1 /* mainTabBarViewController.swift */,
+				EE5F91D52A20A14400B39BB1 /* Profile */,
+				EE2C9A4F29FD858500B7D74F /* ProfilePageViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
