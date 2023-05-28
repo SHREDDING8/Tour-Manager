@@ -172,9 +172,11 @@ class User:UserProtocol{
         self.apiAuth.logIn(email: self.email ?? "", password: password) { isLogin,logInData, error in
             if error != nil {
                 completion(false,error)
+                return
             }
             if !isLogin || logInData == nil  {
                 completion(false,.unknowmError)
+                return
             }
                         
             self.setDataAuth(token: logInData!.token, localId: logInData!.localId)
@@ -225,9 +227,7 @@ class User:UserProtocol{
                 completion(false,error)
             }
             
-            if isUserExists ?? false{
-                completion(true, nil)
-            }
+            completion(isUserExists ?? false, nil)
         }
     }
     
@@ -239,10 +239,12 @@ class User:UserProtocol{
             
             if error != nil{
                 completion(false, error)
+                return
             }
             
             if response == nil || !isInfo{
                 completion(false, .unknowmError)
+                return
             }
             
             self.setEmail(email: response!.email)
@@ -284,9 +286,10 @@ class User:UserProtocol{
     }
     
     public func updatePersonalData(updateField: UserDataFields ,value:String, completion:  @escaping (Bool, customErrorUserData? )->Void ){
-        apiUserData.updateUserInfo(updateField: updateField , value: value) { isSetted, error in
+        self.apiUserData.updateUserInfo(token: self.getToken() , updateField: updateField , value: value) { isSetted, error in
             if error != nil{
                 completion(false, error)
+                print(error)
             } else{
                 switch updateField {
                 case .email:

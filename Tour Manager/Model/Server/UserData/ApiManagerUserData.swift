@@ -95,13 +95,13 @@ public class ApiManagerUserData{
         }
     }
     
-    public func updateUserInfo(updateField: UserDataFields, value:String, completion: @escaping (Bool,customErrorUserData?)->Void ){
+    public func updateUserInfo(token:String, updateField: UserDataFields, value:String, completion: @escaping (Bool,customErrorUserData?)->Void ){
         
         let url = URL(string: routeSetUserInfo)
         let jsonData = [
+            "token": token,
             updateField.rawValue : value
         ]
-        
         
         AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
             if response.response?.statusCode == 400{

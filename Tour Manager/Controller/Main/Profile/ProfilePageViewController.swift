@@ -115,8 +115,6 @@ class ProfilePageViewController: UIViewController {
             self.navigationItem.title = self.user?.company.getNameCompany()
         }
         self.fullNameLabel.text = "\(self.user?.getFirstName() ?? "") \(self.user?.getSecondName() ?? "")"
-        
-        
     }
     
     fileprivate func profilePhotoConfiguration(){
@@ -305,8 +303,6 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
             break
         }
         
-        let index = indexPath.section == 0 ? indexPath.row : indexPath.row + 7
-        
 //        let cellType:CellTypeProfilePage = CellTypeProfilePage(index: index)!
         
 //        switch index{
@@ -329,9 +325,6 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
         switch indexPath.row{
         case 0...1, 3...4:
             cell = tableView.dequeueReusableCell(withIdentifier: "profileSettingsCell", for: indexPath)
-            
-            
-            
             
             let textField:UITextField = cell.viewWithTag(2) as! UITextField
             textField.text = profileModel.getProfilePersonalDataFromUser(type: cellType)

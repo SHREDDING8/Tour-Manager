@@ -958,6 +958,40 @@
 			<key>uniqueIdentifier</key>
 			<string>37FB8FE6-0966-4075-9D3F-3071C4A35983</string>
 		</dict>
+		<key>3A75AD80-9DB4-4023-9482-715A5BF3DEEA</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>3A75AD80-9DB4-4023-9482-715A5BF3DEEA.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>E</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Tour Manager project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Tour Manager</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Tour Manager</string>
+			<key>timeStartedRecording</key>
+			<real>706968169.37240899</real>
+			<key>timeStoppedRecording</key>
+			<real>706968170.24646997</real>
+			<key>title</key>
+			<string>Build Tour Manager</string>
+			<key>uniqueIdentifier</key>
+			<string>3A75AD80-9DB4-4023-9482-715A5BF3DEEA</string>
+		</dict>
 		<key>3C832FDD-50EC-44C3-9CDC-E9544AB49703</key>
 		<dict>
 			<key>className</key>
@@ -1331,6 +1365,40 @@
 			<string>Build Tour Manager</string>
 			<key>uniqueIdentifier</key>
 			<string>4A20AA91-6708-43C3-BF7A-C2DB100EB2A4</string>
+		</dict>
+		<key>4B1592DF-05C7-4DAB-9780-BE18F4ED281D</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>4B1592DF-05C7-4DAB-9780-BE18F4ED281D.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Tour Manager project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Tour Manager</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Tour Manager</string>
+			<key>timeStartedRecording</key>
+			<real>706967191.17892003</real>
+			<key>timeStoppedRecording</key>
+			<real>706967191.36220205</real>
+			<key>title</key>
+			<string>Build Tour Manager</string>
+			<key>uniqueIdentifier</key>
+			<string>4B1592DF-05C7-4DAB-9780-BE18F4ED281D</string>
 		</dict>
 		<key>4C61F9D0-B88C-4D19-B274-B58CE2D82DE9</key>
 		<dict>
@@ -1740,6 +1808,74 @@
 			<key>uniqueIdentifier</key>
 			<string>6372BD67-F81A-4EF8-AA64-1C1CD10A8A8D</string>
 		</dict>
+		<key>63C0657F-6640-4C36-9130-B5C526CF8C71</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>63C0657F-6640-4C36-9130-B5C526CF8C71.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Tour Manager project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Tour Manager</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Tour Manager</string>
+			<key>timeStartedRecording</key>
+			<real>706967109.19210005</real>
+			<key>timeStoppedRecording</key>
+			<real>706967111.80998397</real>
+			<key>title</key>
+			<string>Build Tour Manager</string>
+			<key>uniqueIdentifier</key>
+			<string>63C0657F-6640-4C36-9130-B5C526CF8C71</string>
+		</dict>
+		<key>6624C813-A2BF-4E00-8FA8-E9543933ECC4</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>6624C813-A2BF-4E00-8FA8-E9543933ECC4.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Tour Manager project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Tour Manager</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Tour Manager</string>
+			<key>timeStartedRecording</key>
+			<real>706967856.39118004</real>
+			<key>timeStoppedRecording</key>
+			<real>706967858.71723497</real>
+			<key>title</key>
+			<string>Build Tour Manager</string>
+			<key>uniqueIdentifier</key>
+			<string>6624C813-A2BF-4E00-8FA8-E9543933ECC4</string>
+		</dict>
 		<key>674106EB-4C14-4B92-BA5B-144E34041073</key>
 		<dict>
 			<key>className</key>
@@ -2080,6 +2216,142 @@
 			<key>uniqueIdentifier</key>
 			<string>7A578ED5-EAD7-44D8-B8E5-1C81B9DD21FB</string>
 		</dict>
+		<key>7C007EF1-2EE0-439D-B9D0-00CE8020F22D</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>7C007EF1-2EE0-439D-B9D0-00CE8020F22D.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Tour Manager project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Tour Manager</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Tour Manager</string>
+			<key>timeStartedRecording</key>
+			<real>706968883.21114504</real>
+			<key>timeStoppedRecording</key>
+			<real>706968886.08619702</real>
+			<key>title</key>
+			<string>Build Tour Manager</string>
+			<key>uniqueIdentifier</key>
+			<string>7C007EF1-2EE0-439D-B9D0-00CE8020F22D</string>
+		</dict>
+		<key>7E36127D-F255-490D-8A15-DA0138736FEE</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>7E36127D-F255-490D-8A15-DA0138736FEE.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Tour Manager project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Tour Manager</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Tour Manager</string>
+			<key>timeStartedRecording</key>
+			<real>706968196.856511</real>
+			<key>timeStoppedRecording</key>
+			<real>706968198.70325804</real>
+			<key>title</key>
+			<string>Build Tour Manager</string>
+			<key>uniqueIdentifier</key>
+			<string>7E36127D-F255-490D-8A15-DA0138736FEE</string>
+		</dict>
+		<key>7E63C04B-FBCD-4831-AAE7-3DDDAFDD8B1E</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>7E63C04B-FBCD-4831-AAE7-3DDDAFDD8B1E.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>E</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Tour Manager project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Tour Manager</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Tour Manager</string>
+			<key>timeStartedRecording</key>
+			<real>706968190.44390798</real>
+			<key>timeStoppedRecording</key>
+			<real>706968191.41102195</real>
+			<key>title</key>
+			<string>Build Tour Manager</string>
+			<key>uniqueIdentifier</key>
+			<string>7E63C04B-FBCD-4831-AAE7-3DDDAFDD8B1E</string>
+		</dict>
+		<key>86967706-9226-4572-BC75-4BD9D1263B90</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>86967706-9226-4572-BC75-4BD9D1263B90.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Tour Manager project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Tour Manager</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Tour Manager</string>
+			<key>timeStartedRecording</key>
+			<real>706967585.70709097</real>
+			<key>timeStoppedRecording</key>
+			<real>706967588.04855502</real>
+			<key>title</key>
+			<string>Build Tour Manager</string>
+			<key>uniqueIdentifier</key>
+			<string>86967706-9226-4572-BC75-4BD9D1263B90</string>
+		</dict>
 		<key>87A2DA79-2F68-4C0C-84DC-FBE02E1B9A3E</key>
 		<dict>
 			<key>className</key>
@@ -2249,6 +2521,40 @@
 			<string>Build Tour Manager</string>
 			<key>uniqueIdentifier</key>
 			<string>8BB624FB-06CC-46AF-8866-86C8EF100E65</string>
+		</dict>
+		<key>8D08D88E-97E3-4368-B525-4229486E0D3E</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>8D08D88E-97E3-4368-B525-4229486E0D3E.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Tour Manager project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Tour Manager</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Tour Manager</string>
+			<key>timeStartedRecording</key>
+			<real>706967254.13120496</real>
+			<key>timeStoppedRecording</key>
+			<real>706967256.68556404</real>
+			<key>title</key>
+			<string>Build Tour Manager</string>
+			<key>uniqueIdentifier</key>
+			<string>8D08D88E-97E3-4368-B525-4229486E0D3E</string>
 		</dict>
 		<key>8E364EBD-DF0C-4CA4-B5B2-F47918D5F932</key>
 		<dict>
@@ -3032,6 +3338,74 @@
 			<key>uniqueIdentifier</key>
 			<string>CBCE7484-2C50-43F6-B935-C26FB64C731B</string>
 		</dict>
+		<key>CD4B6AB5-3CDA-4543-8A86-543E3382802C</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>CD4B6AB5-3CDA-4543-8A86-543E3382802C.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Tour Manager project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Tour Manager</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Tour Manager</string>
+			<key>timeStartedRecording</key>
+			<real>706967652.34529197</real>
+			<key>timeStoppedRecording</key>
+			<real>706967654.59080696</real>
+			<key>title</key>
+			<string>Build Tour Manager</string>
+			<key>uniqueIdentifier</key>
+			<string>CD4B6AB5-3CDA-4543-8A86-543E3382802C</string>
+		</dict>
+		<key>CEE1617F-3FE1-4D48-99E4-00249191D91D</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>CEE1617F-3FE1-4D48-99E4-00249191D91D.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Tour Manager project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Tour Manager</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Tour Manager</string>
+			<key>timeStartedRecording</key>
+			<real>706968833.61684501</real>
+			<key>timeStoppedRecording</key>
+			<real>706968836.64717197</real>
+			<key>title</key>
+			<string>Build Tour Manager</string>
+			<key>uniqueIdentifier</key>
+			<string>CEE1617F-3FE1-4D48-99E4-00249191D91D</string>
+		</dict>
 		<key>D0370CF2-4881-4F0E-A990-3EC964405C30</key>
 		<dict>
 			<key>className</key>
@@ -3372,6 +3746,40 @@
 			<key>uniqueIdentifier</key>
 			<string>DA30D2AA-1578-4678-900F-3CA49589C9CC</string>
 		</dict>
+		<key>DE171AF0-6EA7-43E9-99D4-B88C669157F8</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>DE171AF0-6EA7-43E9-99D4-B88C669157F8.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Tour Manager project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Tour Manager</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Tour Manager</string>
+			<key>timeStartedRecording</key>
+			<real>706967498.26634598</real>
+			<key>timeStoppedRecording</key>
+			<real>706967500.654019</real>
+			<key>title</key>
+			<string>Build Tour Manager</string>
+			<key>uniqueIdentifier</key>
+			<string>DE171AF0-6EA7-43E9-99D4-B88C669157F8</string>
+		</dict>
 		<key>DFEA405B-08D7-41C3-A006-53CF13196C81</key>
 		<dict>
 			<key>className</key>
@@ -3542,6 +3950,40 @@
 			<key>uniqueIdentifier</key>
 			<string>EA768AE1-E9C7-4EE2-B666-82445A21D539</string>
 		</dict>
+		<key>EAFAEC0E-8565-4753-92C7-CB415D98119E</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>EAFAEC0E-8565-4753-92C7-CB415D98119E.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Tour Manager project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Tour Manager</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Tour Manager</string>
+			<key>timeStartedRecording</key>
+			<real>706967381.01264405</real>
+			<key>timeStoppedRecording</key>
+			<real>706967381.35793602</real>
+			<key>title</key>
+			<string>Build Tour Manager</string>
+			<key>uniqueIdentifier</key>
+			<string>EAFAEC0E-8565-4753-92C7-CB415D98119E</string>
+		</dict>
 		<key>ED9C9BC8-5138-4284-9B00-BA2588578FBF</key>
 		<dict>
 			<key>className</key>
@@ -3643,6 +4085,40 @@
 			<string>Build Tour Manager</string>
 			<key>uniqueIdentifier</key>
 			<string>FBF3EE12-3C43-4A98-8D5A-46A3B4B17A93</string>
+		</dict>
+		<key>FC3379C7-516B-40F8-BDEB-2EE13DA8F0A3</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>FC3379C7-516B-40F8-BDEB-2EE13DA8F0A3.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Tour Manager project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Tour Manager</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Tour Manager</string>
+			<key>timeStartedRecording</key>
+			<real>706968305.04859602</real>
+			<key>timeStoppedRecording</key>
+			<real>706968307.34678197</real>
+			<key>title</key>
+			<string>Build Tour Manager</string>
+			<key>uniqueIdentifier</key>
+			<string>FC3379C7-516B-40F8-BDEB-2EE13DA8F0A3</string>
 		</dict>
 		<key>FC399152-8A8A-4ACA-9D12-2DE5D95B763F</key>
 		<dict>
