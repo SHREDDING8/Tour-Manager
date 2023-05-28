@@ -30,8 +30,9 @@ public class ApiManagerAuth{
    
     private let routeResetPassword = prefix + "/reset_password"
     private let routeSendVerifyEmail = prefix + "/send_verify_email"
+    private let routeUpdatePassword = prefix + "/update_user_password"
     
-    
+    // MARK: - logIn
     public func logIn(email:String,password:String, completion: @escaping (Bool, ResponseLogInJsonStruct?, customErrorAuth?)->Void ){
         
         let jsonData = sendLogInJsonStruct(email: email, password: password)
@@ -63,6 +64,7 @@ public class ApiManagerAuth{
         
     }
     
+    // MARK: - signIn
     public func signIn(email:String,password:String, completion: @escaping (Bool,customErrorAuth?)->Void ){
         
         let jsonData = sendLogInJsonStruct(email: email, password: password)
@@ -102,6 +104,35 @@ public class ApiManagerAuth{
         }
     }
     
+    public func updatePassword(email:String,oldPassword:String, newPassword:String, completion:  @escaping (Bool,customErrorAuth?)->Void ){
+        
+        let jsonData = sendUpdatePassword(email: email, old_password: oldPassword, new_password: newPassword)
+        
+        let url = URL(string: routeUpdatePassword)
+        
+        AF.request(url!, method: .post, parameters:  jsonData,encoder: .json).response { response in
+            if response.response?.statusCode == 400{
+                if let logInData = try? JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!){
+                    if logInData.message == "Email is not verified"{
+                        completion(false,.emailIsNotVerifyed)
+                        
+                    }else if logInData.message == "Invalid email or password" {
+                        completion(false,.invalidEmailOrPassword)
+                    }else{
+                        completion(false,.unknowmError)
+                    }
+                }
+                return
+            } else if response.response?.statusCode == 200{
+                completion(true,nil)
+            } else {
+                completion(false,.unknowmError)
+            }
+        }
+
+    }
+    
+    // MARK: - isUserExists
     public func isUserExists(email:String, completion:  @escaping (Bool?,customErrorAuth?)->Void ){
         
         let jsonData = sendResetPassword(email: email)
@@ -122,6 +153,7 @@ public class ApiManagerAuth{
         }
     }
     
+    // MARK: - sendVerifyEmail
     public func sendVerifyEmail(email:String, password:String, completion:  @escaping (Bool?,customErrorAuth?)->Void ) {
         let jsonData = sendLogInJsonStruct(email: email, password: password)
         

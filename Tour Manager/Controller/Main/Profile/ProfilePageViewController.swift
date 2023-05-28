@@ -114,7 +114,7 @@ class ProfilePageViewController: UIViewController {
         if self.user?.getAccessLevel(rule: .readGeneralCompanyInformation) == true{
             self.navigationItem.title = self.user?.company.getNameCompany()
         }
-        self.fullNameLabel.text = "\(self.user?.getFirstName() ?? "") \(self.user?.getSecondName() ?? "")"
+        self.fullNameLabel.text = self.user?.getFullName() ?? ""
     }
     
     fileprivate func profilePhotoConfiguration(){
@@ -275,7 +275,7 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
         
         switch section{
         case 0: return 6
-        case 1: return 2
+        case 1: return 0
         case 2: return 1
         default: return 0
         }
@@ -317,6 +317,16 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        if cell?.restorationIdentifier == "changePasswordCell"{
+            let destination = controllers.getControllerMain(.changePasswordViewController)
+            self.navigationController?.pushViewController(destination, animated: true)
+        }
+    }
+    
+    // MARK: - getPersonalDataCell
     
     fileprivate func getPersonalDataCell(indexPath:IndexPath) -> UITableViewCell{
         var cell = UITableViewCell()
@@ -372,6 +382,7 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
             cell = tableView.dequeueReusableCell(withIdentifier: "otherPagesCell", for: indexPath)
                 let cellLabel:UILabel = cell.viewWithTag(2) as! UILabel
                 cellLabel.text = cellType.rawValue.0
+            cell.restorationIdentifier = "changePasswordCell"
             
         default:
             break
@@ -380,6 +391,8 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
         return cell
         
     }
+    
+    
 }
 
 extension ProfilePageViewController:UITextFieldDelegate{
@@ -390,18 +403,19 @@ extension ProfilePageViewController:UITextFieldDelegate{
         
         if textField.restorationIdentifier == "firstName"{
             self.user?.updatePersonalData(updateField: .firstName, value: value) { isSetted, error in
-                
+                if isSetted{
+                    self.fullNameLabel.text = self.user?.getFullName() ?? ""
+                }
             }
             
         }else if textField.restorationIdentifier == "secondName"{
             self.user?.updatePersonalData(updateField: .secondName, value: value) { isSetted, error in
-                
+                if isSetted{
+                    self.fullNameLabel.text = self.user?.getFullName() ?? ""
+                }
             }
             
         } else if textField.restorationIdentifier == "email"{
-            self.user?.updatePersonalData(updateField: .email, value: value) { isSetted, error in
-                
-            }
             
         } else if textField.restorationIdentifier == "phone"{
             self.user?.updatePersonalData(updateField: .phone, value: value) { isSetted, error in

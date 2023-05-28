@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		EE1770EC2A22B08500B18055 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1770EB2A22B08500B18055 /* Company.swift */; };
+		EE1770EE2A239A7E00B18055 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1770ED2A239A7E00B18055 /* ChangePasswordViewController.swift */; };
+		EE1770F02A23BD9500B18055 /* StringValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1770EF2A23BD9500B18055 /* StringValidation.swift */; };
 		EE2377362A0816D900CB9D70 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2377352A0816D900CB9D70 /* Alerts.swift */; };
 		EE2C9A5029FD858500B7D74F /* ProfilePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2C9A4F29FD858500B7D74F /* ProfilePageViewController.swift */; };
 		EE52E16F29E5C1C8000C0E5B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE52E16E29E5C1C8000C0E5B /* AppDelegate.swift */; };
@@ -47,6 +49,8 @@
 		4C239F2D7A9DD96051CDD690 /* Pods-Tour Manager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tour Manager.release.xcconfig"; path = "Target Support Files/Pods-Tour Manager/Pods-Tour Manager.release.xcconfig"; sourceTree = "<group>"; };
 		68E77E428BEC283B907E8208 /* Pods-Tour Manager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tour Manager.debug.xcconfig"; path = "Target Support Files/Pods-Tour Manager/Pods-Tour Manager.debug.xcconfig"; sourceTree = "<group>"; };
 		EE1770EB2A22B08500B18055 /* Company.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
+		EE1770ED2A239A7E00B18055 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
+		EE1770EF2A23BD9500B18055 /* StringValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringValidation.swift; sourceTree = "<group>"; };
 		EE2377352A0816D900CB9D70 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		EE2C9A4F29FD858500B7D74F /* ProfilePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePageViewController.swift; sourceTree = "<group>"; };
 		EE52E16B29E5C1C8000C0E5B /* Tour Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tour Manager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,6 +115,13 @@
 				4C239F2D7A9DD96051CDD690 /* Pods-Tour Manager.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		EE1770F12A23EDE500B18055 /* LaucnScreen */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = LaucnScreen;
 			sourceTree = "<group>";
 		};
 		EE2377342A0816C400CB9D70 /* alerts */ = {
@@ -187,6 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				EE2C9A4F29FD858500B7D74F /* ProfilePageViewController.swift */,
+				EE1770ED2A239A7E00B18055 /* ChangePasswordViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -241,6 +253,7 @@
 			isa = PBXGroup;
 			children = (
 				EEF27A502A059BE4006E5E53 /* TextFieldValidation.swift */,
+				EE1770EF2A23BD9500B18055 /* StringValidation.swift */,
 			);
 			path = Validation;
 			sourceTree = "<group>";
@@ -330,6 +343,7 @@
 		EEFAB0F129F1E7B60028999A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				EE1770F12A23EDE500B18055 /* LaucnScreen */,
 				EE5F91D42A20A13900B39BB1 /* Main */,
 				EEFAB0F229F1E7C50028999A /* Auth */,
 			);
@@ -472,9 +486,11 @@
 				EE5F91BE2A1E9FC400B39BB1 /* GeneralData.swift in Sources */,
 				EEF27A572A05B512006E5E53 /* extensionUiView.swift in Sources */,
 				EE5F91C92A1FFBB500B39BB1 /* ConvertDate.swift in Sources */,
+				EE1770F02A23BD9500B18055 /* StringValidation.swift in Sources */,
 				EE5F91D12A200D2D00B39BB1 /* ResponseAuthStructs.swift in Sources */,
 				EE5EEC2E2A06D0660025336E /* AddingPersonalDataViewController.swift in Sources */,
 				EE1770EC2A22B08500B18055 /* Company.swift in Sources */,
+				EE1770EE2A239A7E00B18055 /* ChangePasswordViewController.swift in Sources */,
 				EEF27A512A059BE4006E5E53 /* TextFieldValidation.swift in Sources */,
 				EEF27A482A05551E006E5E53 /* Font.swift in Sources */,
 				EE6DE06A2A1E681100507A27 /* User.swift in Sources */,
@@ -643,7 +659,8 @@
 				INFOPLIST_FILE = "Tour Manager/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -672,7 +689,8 @@
 				INFOPLIST_FILE = "Tour Manager/Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

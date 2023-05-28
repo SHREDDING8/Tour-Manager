@@ -20,7 +20,6 @@ public enum customErrorUserData{
 }
 
 public enum UserDataFields:String{
-    case email = "email"
     case firstName = "first_name"
     case secondName = "last_name"
     case birthdayDate = "birthday_date"
@@ -37,11 +36,13 @@ public class ApiManagerUserData{
     private let routeGetUserInfo = prefix + "/get_user_info"
     private let routeSetUserInfo = prefix + "/update_user_info"
     
+//    private let routeUpdateEmail = prefix + "/update_user_email"
+    
     
     private let convertDate = ConvertDate()
     
     
-    
+    // MARK: - getUserInfo
     public func getUserInfo(token:String, completion: @escaping (Bool,ResponseGetUserInfoJsonStruct?,customErrorUserData?)->Void ){
         let url = URL(string: routeGetUserInfo)
         
@@ -72,6 +73,7 @@ public class ApiManagerUserData{
     }
     
     
+    // MARK: - setUserInfo
     public func setUserInfo(data:UserDataServerStruct ,completion: @escaping (Bool,customErrorUserData?)->Void ){
         let url = URL(string: routeSetUserInfo)
         
@@ -94,7 +96,7 @@ public class ApiManagerUserData{
             }
         }
     }
-    
+    // MARK: - updateUserInfo
     public func updateUserInfo(token:String, updateField: UserDataFields, value:String, completion: @escaping (Bool,customErrorUserData?)->Void ){
         
         let url = URL(string: routeSetUserInfo)
@@ -119,7 +121,35 @@ public class ApiManagerUserData{
                 completion(false, .unknowmError)
             }
         }
-        
     }
+    
+//    // MARK: - updateEmail
+//    
+//    public func updateEmail(token:String, email:String, completion: @escaping (Bool,customErrorUserData?)->Void ){
+//        let url = URL(string: routeSetUserInfo)
+//        let jsonData = [
+//            "token": token,
+//            "email": email
+//        ]
+//        
+//        AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
+//            
+//            if response.response?.statusCode == 400{
+//                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
+//                
+//                if error.message == "Token expired" || error.message == "Invalid Firebase ID token" {
+//                    completion(false, .invalidToken)
+//                } else {
+//                    completion(false, .unknowmError)
+//                }
+//                return
+//            } else if response.response?.statusCode == 200{
+//                completion(true,nil)
+//            } else {
+//                completion(false, .unknowmError)
+//            }
+//            
+//        }
+//    }
     
 }

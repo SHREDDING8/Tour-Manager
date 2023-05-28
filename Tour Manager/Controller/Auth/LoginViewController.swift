@@ -44,7 +44,6 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         
         configureLogInButton()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -314,6 +313,10 @@ extension LoginViewController:UITableViewDelegate,UITableViewDataSource{
             textField.text = ""
             
             textField.restorationIdentifier = "passwordTextField"
+            
+            textField.rightView = UIImageView(image: UIImage(systemName: "eye"))
+            textField.rightViewMode = .always
+            
             self.firstPasswordTextField = textField
         case 2:
             textField.placeholder = "Повторите пароль"

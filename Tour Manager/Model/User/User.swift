@@ -76,7 +76,6 @@ class User:UserProtocol{
     // MARK: - Inits
     init(){
         self.token = ""
-        self.localId = ""
     }
     
     
@@ -140,6 +139,10 @@ class User:UserProtocol{
     public func getSecondName() ->String{
         return self.secondName ?? ""
     }
+    
+    public func getFullName()->String{
+        return "\(self.getFirstName()) \(self.getSecondName())"
+    }
     // MARK: - birthday
     
     public func setBirthday(birthday:Date){
@@ -180,6 +183,8 @@ class User:UserProtocol{
             }
                         
             self.setDataAuth(token: logInData!.token, localId: logInData!.localId)
+            
+            UserDefaults.standard.set(self.getToken(), forKey:  "authToken")
             completion(true,nil)
             
         }
@@ -201,6 +206,16 @@ class User:UserProtocol{
     
     public func resetPassword(completion: @escaping (Bool, customErrorAuth?)->Void ){
         self.apiAuth.resetPassword(email: self.email ?? "") { isSendEmail, error in
+            if error != nil{
+                completion(false,error)
+                return
+            }
+            completion(true,nil)
+        }
+    }
+    
+    public func updatePassword(oldPassword:String, newPassword:String,completion: @escaping (Bool, customErrorAuth?)->Void ){
+        self.apiAuth.updatePassword(email: self.getEmail(), oldPassword: oldPassword, newPassword: newPassword) { isUpdated, error in
             if error != nil{
                 completion(false,error)
                 return
@@ -289,11 +304,8 @@ class User:UserProtocol{
         self.apiUserData.updateUserInfo(token: self.getToken() , updateField: updateField , value: value) { isSetted, error in
             if error != nil{
                 completion(false, error)
-                print(error)
             } else{
                 switch updateField {
-                case .email:
-                    self.setEmail(email: value)
                 case .firstName:
                     self.setFirstName(firstName: value)
                 case .secondName:
