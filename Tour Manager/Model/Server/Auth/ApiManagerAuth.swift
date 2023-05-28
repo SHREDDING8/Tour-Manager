@@ -8,6 +8,15 @@
 import Foundation
 import Alamofire
 
+public enum customErrorAuth{
+    case invalidEmailOrPassword
+    
+    case emailIsNotVerifyed
+    
+    case userNotFound
+    
+    case unknowmError
+}
 
 
 public class ApiManagerAuth{
@@ -22,21 +31,8 @@ public class ApiManagerAuth{
     private let routeResetPassword = prefix + "/reset_password"
     private let routeSendVerifyEmail = prefix + "/send_verify_email"
     
-    let user = AppDelegate.user!
     
-    
-    public enum customError{
-        case invalidEmailOrPassword
-        
-        case emailIsNotVerifyed
-        
-        case userNotFound
-        
-        case unknowmError
-    }
-    
-    
-    public func logIn(email:String,password:String, completion: @escaping (Bool,customError?)->Void ){
+    public func logIn(email:String,password:String, completion: @escaping (Bool, ResponseLogInJsonStruct?, customErrorAuth?)->Void ){
         
         let jsonData = sendLogInJsonStruct(email: email, password: password)
         
@@ -47,30 +43,27 @@ public class ApiManagerAuth{
                 let errorData = try? JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
                 
                 if errorData?.message == "Email is not verified"{
-                    completion(false,.emailIsNotVerifyed)
+                    completion(false,nil,.emailIsNotVerifyed)
                     
                 } else if errorData?.message == "Invalid email or password"{
-                    completion(false,.invalidEmailOrPassword)
+                    completion(false,nil, .invalidEmailOrPassword)
                     
                 }else if errorData?.message == "There was an error logging in"{
-                    completion(false,.unknowmError)
+                    completion(false,nil, .unknowmError)
                 }
                 return
             } else if response.response?.statusCode == 200{
                 if let logInData = try? JSONDecoder().decode(ResponseLogInJsonStruct.self, from: response.data!){
-                    self.user.setDataAuth(token: logInData.token, localId: logInData.localId)
-                    self.user.setEmail(email: email)
-                    print(self.user.getEmail())
-                    completion(true,nil)
+                    completion(true, logInData, nil)
                 }
             } else {
-                completion(false,.unknowmError)
+                completion(false, nil, .unknowmError)
             }
         }
         
     }
     
-    public func signIn(email:String,password:String, completion: @escaping (Bool,customError?)->Void ){
+    public func signIn(email:String,password:String, completion: @escaping (Bool,customErrorAuth?)->Void ){
         
         let jsonData = sendLogInJsonStruct(email: email, password: password)
     
@@ -86,7 +79,7 @@ public class ApiManagerAuth{
     }
     
     // MARK: - Reset Password
-    public func resetPassword(email:String,completion:  @escaping (Bool,customError?)->Void){
+    public func resetPassword(email:String,completion:  @escaping (Bool,customErrorAuth?)->Void){
         let jsonData = sendResetPassword(email: email)
         
         let url = URL(string: routeResetPassword)
@@ -109,7 +102,7 @@ public class ApiManagerAuth{
         }
     }
     
-    public func isUserExists(email:String, completion:  @escaping (Bool?,customError?)->Void ){
+    public func isUserExists(email:String, completion:  @escaping (Bool?,customErrorAuth?)->Void ){
         
         let jsonData = sendResetPassword(email: email)
         
@@ -129,7 +122,7 @@ public class ApiManagerAuth{
         }
     }
     
-    public func sendVerifyEmail(email:String, password:String, completion:  @escaping (Bool?,customError?)->Void ) {
+    public func sendVerifyEmail(email:String, password:String, completion:  @escaping (Bool?,customErrorAuth?)->Void ) {
         let jsonData = sendLogInJsonStruct(email: email, password: password)
         
         let url = URL(string: routeSendVerifyEmail)

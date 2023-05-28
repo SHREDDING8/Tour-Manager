@@ -8,6 +8,15 @@
 import Foundation
 import Alamofire
 
+public enum customErrorCompany{
+    case tokenExpired
+    case invalidToken
+    case unknowmError
+    
+    case companyIsPrivateOrDoesNotExist
+    case userIsAlreadyAttachedToCompany
+}
+
 
 
 public class ApiManagerCompany{
@@ -18,20 +27,7 @@ public class ApiManagerCompany{
     private let routeAddCompany = prefix + "/add_company"
     private let routeAddEmployeeToCompany = prefix + "/add_employee_to_company"
     
-    private let user = AppDelegate.user!
-    
-    public enum customErrorCompany{
-        case tokenExpired
-        case invalidToken
-        case unknowmError
-        
-        case companyIsPrivateOrDoesNotExist
-        case userIsAlreadyAttachedToCompany
-    }
-    
-    
-    
-    public func addCompany(token:String, companyName:String, completion: @escaping (Bool,customErrorCompany?)->Void ){
+    public func addCompany(token:String, companyName:String, completion: @escaping (Bool,ResponseAddCompanyJsonStruct?,customErrorCompany?)->Void ){
         
         let url = URL(string: routeAddCompany)
         
@@ -43,26 +39,25 @@ public class ApiManagerCompany{
                 let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
                 
                 if error.message == "Token expired"{
-                    completion(false, .tokenExpired)
+                    completion(false, nil, .tokenExpired)
                 } else if error.message == "Invalid Firebase ID token"{
-                    completion(false, .invalidToken)
+                    completion(false, nil, .invalidToken)
                 } else {
-                    completion(false, .unknowmError)
+                    completion(false, nil, .unknowmError)
                 }
                 return
             }else if response.response?.statusCode == 200{
                 if let responseData = try? JSONDecoder().decode(ResponseAddCompanyJsonStruct.self, from: response.data!){
-                    self.user.setLocalIDCompany(localIdCompany: responseData.company_id)
-                    completion(true, nil)
+                    completion(true,responseData, nil)
                 }
             } else {
-                completion(false, .unknowmError)
+                completion(false, nil, .unknowmError)
             }
         }
     }
     
     
-    public func addEmployeeToCompany(token:String, companyId:String, completion: @escaping (Bool,customErrorCompany?)->Void ){
+    public func addEmployeeToCompany(token:String, companyId:String, completion: @escaping (Bool,ResponseAddEmployeeToCompanyJsonStruct?,customErrorCompany?)->Void ){
         
         let url = URL(string: routeAddEmployeeToCompany)
         
@@ -74,25 +69,24 @@ public class ApiManagerCompany{
                 let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
                 
                 if error.message == "Company is private" || error.message == "Company does not exist"{
-                    completion(false, .companyIsPrivateOrDoesNotExist)
+                    completion(false, nil, .companyIsPrivateOrDoesNotExist)
                 }else if error.message == "User is already attached to company"{
-                    completion(false, .userIsAlreadyAttachedToCompany)
+                    completion(false, nil, .userIsAlreadyAttachedToCompany)
                 }else if error.message == "Token expired"{
-                    completion(false, .tokenExpired)
+                    completion(false, nil, .tokenExpired)
                 } else if error.message == "Invalid Firebase ID token"{
-                    completion(false, .invalidToken)
+                    completion(false,nil, .invalidToken)
                 } else {
-                    completion(false, .unknowmError)
+                    completion(false, nil, .unknowmError)
                 }
                 
                 return
             } else if response.response?.statusCode == 200{
                 if let responseData = try? JSONDecoder().decode(ResponseAddEmployeeToCompanyJsonStruct.self, from: response.data!){
-                    self.user.setNameCompany(nameCompany: responseData.company_name)
-                    completion(true, nil)
+                    completion(true,responseData,  nil)
                 }
             } else{
-                completion(false, .unknowmError)
+                completion(false, nil, .unknowmError)
             }
             
         }

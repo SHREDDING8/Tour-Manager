@@ -8,6 +8,16 @@
 import Foundation
 import UIKit
 
+public struct UserDataServerStruct:Codable{
+    let token:String
+    let email:String
+    let first_name:String
+    let last_name:String
+    let birthday_date:String
+    let phone:String
+    
+}
+
 
 protocol UserProtocol{
 
@@ -21,25 +31,23 @@ protocol UserProtocol{
     func setDataAuth(token:String,localId:String)
     
     
-    func getPersonalData() -> User.UserDataServerStruct
+    func getPersonalData() -> UserDataServerStruct
 }
+
+
 
 class User:UserProtocol{
     
     private let convertDate = ConvertDate()
-    private let apiCompany = ApiManagerCompany()
+    
+    private let apiAuth = ApiManagerAuth()
+    
     private let apiUserData = ApiManagerUserData()
     
+    public let company = Company()
     
-    struct UserDataServerStruct:Codable{
-        let token:String
-        let email:String
-        let first_name:String
-        let last_name:String
-        let birthday_date:String
-        let phone:String
-        
-    }
+    
+
     
     enum AccessLevelEnum{
         case readGeneralCompanyInformation
@@ -58,11 +66,9 @@ class User:UserProtocol{
     private var birthday:Date?
     private var phone:String?
     
-    private var localIdCompany:String?
-    private var nameCompany:String?
     
     private var accessLevel:[AccessLevelEnum:Bool] = [
-        .readGeneralCompanyInformation: false,
+        .readGeneralCompanyInformation: true,
         .writeGeneralCompanyInformation: false
     ]
     
@@ -109,27 +115,6 @@ class User:UserProtocol{
         return self.localId
     }
     
-    // MARK: - localIdCompany
-    
-    public func setLocalIDCompany(localIdCompany:String){
-        self.localIdCompany = localIdCompany
-    }
-    
-    public func getLocalIDCompany()->String{
-        return self.localIdCompany ?? ""
-    }
-    
-    // MARK: - nameCompany
-    
-    public func setNameCompany(nameCompany:String){
-        guard self.getAccessLevel(rule: .writeGeneralCompanyInformation) == true else { return }
-        self.nameCompany = nameCompany
-        apiCompany.updateCompanyInfo()
-    }
-    
-    public func getNameCompany()->String{
-        return self.nameCompany ?? ""
-    }
     
     // MARK: - Email
     
@@ -183,8 +168,113 @@ class User:UserProtocol{
         self.localId = localId
     }
     
+    public func logIn(password:String, completion: @escaping (Bool, customErrorAuth?)->Void ){
+        self.apiAuth.logIn(email: self.email ?? "", password: password) { isLogin,logInData, error in
+            if error != nil {
+                completion(false,error)
+            }
+            if !isLogin || logInData == nil  {
+                completion(false,.unknowmError)
+            }
+                        
+            self.setDataAuth(token: logInData!.token, localId: logInData!.localId)
+            completion(true,nil)
+            
+        }
+    }
+    
+    public func signIn(password:String, completion: @escaping (Bool, customErrorAuth?)->Void ){
+        
+        self.apiAuth.signIn(email: self.email ?? "", password: password) { isSignIn, error in
+            // check errors from api
+            if error == .unknowmError{
+                
+                completion(false, error)
+                return
+            }
+            completion(true,nil)
+            
+        }
+    }
+    
+    public func resetPassword(completion: @escaping (Bool, customErrorAuth?)->Void ){
+        self.apiAuth.resetPassword(email: self.email ?? "") { isSendEmail, error in
+            if error != nil{
+                completion(false,error)
+                return
+            }
+            completion(true,nil)
+        }
+    }
+    
+    public func sendVerifyEmail(password:String, completion: @escaping (Bool, customErrorAuth?)->Void){
+        self.apiAuth.sendVerifyEmail(email: self.email ?? "", password: password) { isSent, error in
+            if error != nil{
+                completion(false,error)
+            }
+            if isSent ?? false{
+                completion(true,nil)
+            }
+        }
+    }
+    
+    public func isUserExists(completion: @escaping (Bool, customErrorAuth?)->Void){
+        self.apiAuth.isUserExists(email: self.email ?? "") { isUserExists, error in
+            
+            if error != nil{
+                completion(false,error)
+            }
+            
+            if isUserExists ?? false{
+                completion(true, nil)
+            }
+        }
+    }
+    
     
     // MARK: - Personal Data
+    
+    public func getUserInfoFromApi(completion: @escaping (Bool, customErrorUserData?)->Void){
+        self.apiUserData.getUserInfo(token: self.token ?? "" ) { isInfo, response, error in
+            
+            if error != nil{
+                completion(false, error)
+            }
+            
+            if response == nil || !isInfo{
+                completion(false, .unknowmError)
+            }
+            
+            self.setEmail(email: response!.email)
+            self.setFirstName(firstName: response!.first_name)
+            self.setSecondName(secondName: response!.last_name)
+            self.setPhone(phone: response!.phone)
+            self.setBirthday(birthday: self.convertDate.birthdayFromString(dateString: response!.birthday_date))
+            
+            self.company.setLocalIDCompany(localIdCompany: response!.company_id)
+            self.company.setNameCompany(nameCompany: response!.company_name)
+            
+            completion(true, nil)
+            
+        }
+    }
+    
+    public func setUserInfoApi(completion: @escaping (Bool, customErrorUserData?)->Void){
+        let data = self.getPersonalData()
+        
+        self.apiUserData.setUserInfo(data: data) { isSetted, error in
+            if error != nil{
+                completion(false,error)
+            }
+            if isSetted{
+                completion(true,nil)
+            }
+        }
+    }
+    
+    
+    
+    
     public func getPersonalData() -> UserDataServerStruct{
         let date = convertDate.birthdayToString(date: self.getBirthday())
         
@@ -231,8 +321,6 @@ class User:UserProtocol{
         print("secondName: \(secondName ?? "")")
         print("birthday: \(convertDate.birthdayToString(date:birthday!))")
         print("phone: \(phone ?? "")")
-        print("localIdCompany: \(localIdCompany ?? "")")
-        print("nameCompany: \(nameCompany ?? "")")
         
     }
 }

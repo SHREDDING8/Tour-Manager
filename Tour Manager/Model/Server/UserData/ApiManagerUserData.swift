@@ -38,12 +38,11 @@ public class ApiManagerUserData{
     private let routeSetUserInfo = prefix + "/update_user_info"
     
     
-    private let user = AppDelegate.user!
     private let convertDate = ConvertDate()
     
     
     
-    public func getUserInfo(token:String, completion: @escaping (Bool,customErrorUserData?)->Void ){
+    public func getUserInfo(token:String, completion: @escaping (Bool,ResponseGetUserInfoJsonStruct?,customErrorUserData?)->Void ){
         let url = URL(string: routeGetUserInfo)
         
         let jsonData = SendGetUserInfoJsonStruct(token: token)
@@ -53,38 +52,30 @@ public class ApiManagerUserData{
                 let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
                 
                 if error.message == "User data not found"{
-                    completion(false, .dataNotFound)
+                    completion(false, nil, .dataNotFound)
                 } else if error.message == "Token expired"{
-                    completion(false, .tokenExpired)
+                    completion(false, nil, .tokenExpired)
                 } else if error.message == "Invalid Firebase ID token"{
-                    completion(false, .invalidToken)
+                    completion(false, nil, .invalidToken)
                 } else {
-                    completion(false, .unknowmError)
+                    completion(false, nil, .unknowmError)
                 }
                 return
             } else if response.response?.statusCode == 200{
                 if let responseData = try? JSONDecoder().decode(ResponseGetUserInfoJsonStruct.self, from: response.data!){
-                    self.user.setEmail(email: responseData.email)
-                    self.user.setFirstName(firstName: responseData.first_name)
-                    self.user.setSecondName(secondName: responseData.last_name)
-                    self.user.setPhone(phone: responseData.phone)
-                    self.user.setBirthday(birthday: self.convertDate.birthdayFromString(dateString: responseData.birthday_date))
-                    
-                    self.user.setLocalIDCompany(localIdCompany: responseData.company_id)
-                    self.user.setNameCompany(nameCompany: responseData.company_name)
-                    completion(true, nil)
+                    completion(true, responseData, nil)
                 }
             } else {
-                completion(false, .unknowmError)
+                completion(false, nil, .unknowmError)
             }
         }
     }
     
     
-    public func setUserInfo(completion: @escaping (Bool,customErrorUserData?)->Void ){
+    public func setUserInfo(data:UserDataServerStruct ,completion: @escaping (Bool,customErrorUserData?)->Void ){
         let url = URL(string: routeSetUserInfo)
         
-        let jsonData = self.user.getPersonalData()
+        let jsonData = data
         
         AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
             if response.response?.statusCode == 400{

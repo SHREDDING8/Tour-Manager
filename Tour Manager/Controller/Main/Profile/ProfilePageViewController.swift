@@ -17,7 +17,7 @@ class ProfilePageViewController: UIViewController {
     
     var caledarHeightConstaint:NSLayoutConstraint!
     
-    let user = AppDelegate.user!
+    let user = AppDelegate.user
     let controllers = Controllers()
     let profileModel = Profile()
     
@@ -90,7 +90,7 @@ class ProfilePageViewController: UIViewController {
         configurationDarkUiView()
         datePickerConfiguration()
         
-        AppDelegate.user!.printData()
+        AppDelegate.user?.printData()
         
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -111,10 +111,10 @@ class ProfilePageViewController: UIViewController {
     // MARK: - Configuration
     
     fileprivate func configurationView(){
-        if self.user.getAccessLevel(rule: .readGeneralCompanyInformation){
-            self.navigationItem.title = self.user.getNameCompany()
+        if self.user?.getAccessLevel(rule: .readGeneralCompanyInformation) == true{
+            self.navigationItem.title = self.user?.company.getNameCompany()
         }
-        self.fullNameLabel.text = "\(self.user.getFirstName()) \(self.user.getSecondName())"
+        self.fullNameLabel.text = "\(self.user?.getFirstName() ?? "") \(self.user?.getSecondName() ?? "")"
         
         
     }
@@ -335,6 +335,7 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
             
             let textField:UITextField = cell.viewWithTag(2) as! UITextField
             textField.text = profileModel.getProfilePersonalDataFromUser(type: cellType)
+            textField.restorationIdentifier = cellType.rawValue.2
             
             let cellLabel:UILabel = cell.viewWithTag(1) as! UILabel
             cellLabel.text = cellType.rawValue.0
@@ -391,6 +392,30 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
 extension ProfilePageViewController:UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        textField.isEnabled = false
+        let value = textField.text!
+        
+        if textField.restorationIdentifier == "firstName"{
+            self.user?.updatePersonalData(updateField: .firstName, value: value) { isSetted, error in
+                
+            }
+            
+        }else if textField.restorationIdentifier == "secondName"{
+            self.user?.updatePersonalData(updateField: .secondName, value: value) { isSetted, error in
+                
+            }
+            
+        } else if textField.restorationIdentifier == "email"{
+            self.user?.updatePersonalData(updateField: .email, value: value) { isSetted, error in
+                
+            }
+            
+        } else if textField.restorationIdentifier == "phone"{
+            self.user?.updatePersonalData(updateField: .phone, value: value) { isSetted, error in
+                
+            }
+            
+        }
         return true
     }
 }

@@ -15,7 +15,7 @@ class Profile{
     
     
     public enum ProfilePersonalDataCellType{
-        typealias RawValue = (String,Int)
+        typealias RawValue = (String,Int,String)
         case firstName
         case lastName
         case birthday
@@ -40,17 +40,17 @@ class Profile{
         var rawValue: RawValue{
             switch self{
             case .firstName:
-                return ("Имя",0)
+                return ("Имя",0, "firstName")
             case .lastName:
-                return ("Фамилия",1)
+                return ("Фамилия",1, "secondName")
             case .birthday:
-                return ("Дата рождения",2)
+                return ("Дата рождения",2, "birthday")
             case .email:
-                return ("Email",3)
+                return ("Email",3, "email" )
             case .phone:
-                return ("Телефон",4)
+                return ("Телефон",4, "phone")
             case .changePassword:
-                return ("Изменить пароль",5)
+                return ("Изменить пароль",5, "changePassword")
             }
         }
         
@@ -69,7 +69,7 @@ class Profile{
         case .email:
             return self.user?.getEmail() ?? ""
         case .phone:
-            return self.user?.getPhone() ?? ""
+            return self.user?.getPhone()  ?? ""
         case .changePassword:
             return ""
         }

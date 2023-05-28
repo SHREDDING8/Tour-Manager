@@ -312,15 +312,6 @@ SWIFT_CLASS("_TtC12Tour_Manager33ChoiceOfTypeAccountViewController")
 
 @class UIButton;
 
-SWIFT_CLASS("_TtC12Tour_Manager28ForgotPasswordViewController")
-@interface ForgotPasswordViewController : UIViewController
-@property (nonatomic, weak) IBOutlet UIButton * _Null_unspecified signInButton;
-- (void)viewDidLoad;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
 SWIFT_CLASS("_TtC12Tour_Manager19LoginViewController")
 @interface LoginViewController : UIViewController
 @property (nonatomic, weak) IBOutlet UITableView * _Null_unspecified tableView;

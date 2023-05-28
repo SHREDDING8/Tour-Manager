@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct ResponseGetUserInfoJsonStruct: Codable{
+public struct ResponseGetUserInfoJsonStruct: Codable{
     let email:String
     let first_name:String
     let last_name:String

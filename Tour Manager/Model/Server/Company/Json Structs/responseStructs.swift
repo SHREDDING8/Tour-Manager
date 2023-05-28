@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct ResponseAddCompanyJsonStruct:Codable{
+public struct ResponseAddCompanyJsonStruct:Codable{
     let company_id:String
     let message:String
 }
 
-struct ResponseAddEmployeeToCompanyJsonStruct:Codable{
+public struct ResponseAddEmployeeToCompanyJsonStruct:Codable{
     let company_name:String
     let message:String
 }
