@@ -1,7 +1,0 @@
-version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
-options: "67b49b3ff1eb075119f8c91a06baa394d6f652cca5eee3cfaebf270386ac512a"
-build_start_time: [1685302628, 704900979]
-build_end_time: [1685302628, 828794956]
-inputs:
-  ? "/Users/shredding/ALL MY/Programming/Swift/Tour Manager/Pods/UIWindowTransitions/Sources/UIWindowTransitions/UIWindowTransitions.swift"
-  : !private [1684949736, 431216716]

@@ -10,6 +10,9 @@ import UIKit
 
 class AddingPersonalDataViewController: UIViewController {
     
+    
+    // MARK: - Me variables
+    
     let validationTextFields = TextFieldValidation()
     let alerts = Alert()
     
@@ -21,6 +24,14 @@ class AddingPersonalDataViewController: UIViewController {
     var tableViewPosition:CGPoint!
     
     var dateLabel:UILabel!
+    
+    var nameCompanyLocalIdString = ""
+    var firstNameString = ""
+    var secondNameString = ""
+    var phoneString = ""
+    
+    
+    // MARK: - Outlets
     
     @IBOutlet weak var iconAppImage: UIImageView!
     @IBOutlet weak var tableView: UITableView!
