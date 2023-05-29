@@ -3,14 +3,14 @@
 <plist version="1.0">
 <array>
 	<string>Dispatch</string>
+	<string>MobileCoreServices</string>
+	<string>Foundation</string>
+	<string>Alamofire</string>
+	<string>FoundationNetworking</string>
+	<string>Combine</string>
+	<string>SystemConfiguration</string>
+	<string>UniformTypeIdentifiers</string>
 	<string>CoreServices</string>
 	<string>UIKit</string>
-	<string>Foundation</string>
-	<string>MobileCoreServices</string>
-	<string>UniformTypeIdentifiers</string>
-	<string>SystemConfiguration</string>
-	<string>Combine</string>
-	<string>FoundationNetworking</string>
-	<string>Alamofire</string>
 </array>
 </plist>

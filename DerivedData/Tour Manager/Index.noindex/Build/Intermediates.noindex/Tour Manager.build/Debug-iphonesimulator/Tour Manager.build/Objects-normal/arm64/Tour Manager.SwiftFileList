@@ -4,18 +4,21 @@
 /Users/shredding/ALL\ MY/Programming/Swift/Tour\ Manager/Tour\ Manager/Model/Server/Auth/ApiManagerAuth.swift
 /Users/shredding/ALL\ MY/Programming/Swift/Tour\ Manager/Tour\ Manager/Controller/Auth/VerifyEmailViewController.swift
 /Users/shredding/ALL\ MY/Programming/Swift/Tour\ Manager/Tour\ Manager/Controller/Main/mainTabBarViewController.swift
+/Users/shredding/ALL\ MY/Programming/Swift/Tour\ Manager/Tour\ Manager/Controller/LaucnScreen/LaunchScreenViewController.swift
 /Users/shredding/ALL\ MY/Programming/Swift/Tour\ Manager/Tour\ Manager/Model/Server/GeneralData.swift
 /Users/shredding/ALL\ MY/Programming/Swift/Tour\ Manager/Tour\ Manager/View/extensionViews/extensionUiView.swift
 /Users/shredding/ALL\ MY/Programming/Swift/Tour\ Manager/Tour\ Manager/Model/Date/ConvertDate.swift
+/Users/shredding/ALL\ MY/Programming/Swift/Tour\ Manager/Tour\ Manager/Model/Validation/StringValidation.swift
 /Users/shredding/ALL\ MY/Programming/Swift/Tour\ Manager/Tour\ Manager/Model/Server/Auth/Json\ Structs/ResponseAuthStructs.swift
 /Users/shredding/ALL\ MY/Programming/Swift/Tour\ Manager/Tour\ Manager/Controller/Auth/AddingPersonalDataViewController.swift
+/Users/shredding/ALL\ MY/Programming/Swift/Tour\ Manager/Tour\ Manager/Model/User/Company.swift
+/Users/shredding/ALL\ MY/Programming/Swift/Tour\ Manager/Tour\ Manager/Controller/Main/Profile/ChangePasswordViewController.swift
 /Users/shredding/ALL\ MY/Programming/Swift/Tour\ Manager/Tour\ Manager/Model/Validation/TextFieldValidation.swift
 /Users/shredding/ALL\ MY/Programming/Swift/Tour\ Manager/Tour\ Manager/View/Font/Font.swift
 /Users/shredding/ALL\ MY/Programming/Swift/Tour\ Manager/Tour\ Manager/Model/User/User.swift
-/Users/shredding/ALL\ MY/Programming/Swift/Tour\ Manager/Tour\ Manager/Controller/Admin/ProfilePageViewController.swift
+/Users/shredding/ALL\ MY/Programming/Swift/Tour\ Manager/Tour\ Manager/Controller/Main/Profile/ProfilePageViewController.swift
 /Users/shredding/ALL\ MY/Programming/Swift/Tour\ Manager/Tour\ Manager/View/extensionViews/UiWindow.swift
 /Users/shredding/ALL\ MY/Programming/Swift/Tour\ Manager/Tour\ Manager/Model/Server/Company/Json\ Structs/sendStructs.swift
-/Users/shredding/ALL\ MY/Programming/Swift/Tour\ Manager/Tour\ Manager/Controller/Auth/ForgotPasswordViewController.swift
 /Users/shredding/ALL\ MY/Programming/Swift/Tour\ Manager/Tour\ Manager/Model/Server/Company/ApiManagerCompany.swift
 /Users/shredding/ALL\ MY/Programming/Swift/Tour\ Manager/Tour\ Manager/Model/Server/Company/Json\ Structs/responseStructs.swift
 /Users/shredding/ALL\ MY/Programming/Swift/Tour\ Manager/Tour\ Manager/AppDelegate.swift

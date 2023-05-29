@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct ResponseLogInJsonStruct: Codable {
+public struct ResponseLogInJsonStruct: Codable {
     let token:String
     let localId:String
 }

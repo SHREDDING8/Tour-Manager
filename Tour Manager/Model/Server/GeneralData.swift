@@ -10,7 +10,9 @@ import Foundation
 
 class GeneralData{
     // http://188.225.77.189:8080/
-    public static let domain = "http://188.225.77.189:8080/"
+    
+    // https://server.shredding-quiner.ru/
+    public static let domain = "https://server.shredding-quiner.ru/"
     
 }
 

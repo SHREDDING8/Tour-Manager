@@ -12,6 +12,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     
     let contollers = Controllers()
+    let user = AppDelegate.user
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -19,13 +20,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         
+        
+        print(UIDevice.current.model)
+        print(UIDevice.current.batteryState)
+        print(UIDevice.current.batteryLevel)
+        print(UIDevice.current.identifierForVendor)
+        print(UIDevice.current.localizedModel)
+        print(UIDevice.current.name)
+        print(UIDevice.current.systemName)
+        print(UIDevice.current.systemVersion)
+        
+        
         if let windowScene = (scene as? UIWindowScene){
             let window = UIWindow(windowScene: windowScene)
-            let logInVC = contollers.getControllerAuth(.mainAuthController)
+            let logInVC = self.contollers.getLaunchScreen()
             window.rootViewController = logInVC
             self.window = window
             window.makeKeyAndVisible()
         } else { return }
+        
     }
     
 

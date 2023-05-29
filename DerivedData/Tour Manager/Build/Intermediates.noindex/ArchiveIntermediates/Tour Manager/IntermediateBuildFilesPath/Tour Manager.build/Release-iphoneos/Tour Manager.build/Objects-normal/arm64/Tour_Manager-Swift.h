@@ -300,6 +300,32 @@ SWIFT_CLASS("_TtC12Tour_Manager11AppDelegate")
 @end
 
 
+SWIFT_CLASS("_TtC12Tour_Manager28ChangePasswordViewController")
+@interface ChangePasswordViewController : UIViewController
+@property (nonatomic, weak) IBOutlet UITableView * _Null_unspecified tableView;
+@property (nonatomic, weak) IBOutlet UIImageView * _Null_unspecified iconImageView;
+- (void)viewDidLoad;
+- (void)viewDidAppear:(BOOL)animated;
+- (void)viewWillDisappear:(BOOL)animated;
+- (void)keyboardWillHideWithNotification:(NSNotification * _Nonnull)notification;
+- (IBAction)changePassword:(id _Nonnull)sender;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+@interface ChangePasswordViewController (SWIFT_EXTENSION(Tour_Manager)) <UITextFieldDelegate>
+- (BOOL)textFieldShouldReturn:(UITextField * _Nonnull)textField SWIFT_WARN_UNUSED_RESULT;
+- (void)textFieldDidEndEditing:(UITextField * _Nonnull)textField reason:(UITextFieldDidEndEditingReason)reason;
+@end
+
+
+@interface ChangePasswordViewController (SWIFT_EXTENSION(Tour_Manager)) <UITableViewDataSource, UITableViewDelegate>
+- (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
+- (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
 SWIFT_CLASS("_TtC12Tour_Manager33ChoiceOfTypeAccountViewController")
 @interface ChoiceOfTypeAccountViewController : UIViewController
 @property (nonatomic, weak) IBOutlet UIImageView * _Null_unspecified iconImage;
@@ -311,15 +337,6 @@ SWIFT_CLASS("_TtC12Tour_Manager33ChoiceOfTypeAccountViewController")
 @end
 
 @class UIButton;
-
-SWIFT_CLASS("_TtC12Tour_Manager28ForgotPasswordViewController")
-@interface ForgotPasswordViewController : UIViewController
-@property (nonatomic, weak) IBOutlet UIButton * _Null_unspecified signInButton;
-- (void)viewDidLoad;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
-@end
-
 
 SWIFT_CLASS("_TtC12Tour_Manager19LoginViewController")
 @interface LoginViewController : UIViewController
@@ -369,7 +386,6 @@ SWIFT_CLASS("_TtC12Tour_Manager25ProfilePageViewController")
 @end
 
 @class UIView;
-@class UIScrollView;
 
 @interface ProfilePageViewController (SWIFT_EXTENSION(Tour_Manager)) <UITableViewDataSource, UITableViewDelegate>
 - (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView SWIFT_WARN_UNUSED_RESULT;
@@ -377,7 +393,7 @@ SWIFT_CLASS("_TtC12Tour_Manager25ProfilePageViewController")
 - (UIView * _Nullable)tableView:(UITableView * _Nonnull)tableView viewForHeaderInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
-- (void)scrollViewWillBeginDragging:(UIScrollView * _Nonnull)scrollView;
+- (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 @end
 
 @class UIWindow;
@@ -407,6 +423,14 @@ SWIFT_CLASS("_TtC12Tour_Manager25VerifyEmailViewController")
 - (void)viewDidLoad;
 - (IBAction)verifiedButtonTap:(id _Nonnull)sender;
 - (IBAction)resendEmail:(id _Nonnull)sender;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+SWIFT_CLASS("_TtC12Tour_Manager24mainTabBarViewController")
+@interface mainTabBarViewController : UITabBarController
+- (void)viewDidLoad;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 @end

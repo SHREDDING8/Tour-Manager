@@ -210,20 +210,20 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="birthdayCell" id="xO8-ib-P8t">
-                                        <rect key="frame" x="20" y="120.66666793823242" width="390" height="64"/>
+                                        <rect key="frame" x="20" y="120.66666793823242" width="390" height="64.333335876464844"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xO8-ib-P8t" id="C4V-aj-ta3">
-                                            <rect key="frame" x="0.0" y="0.0" width="390" height="64"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="390" height="64.333335876464844"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15/06/2003" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ckU-yN-nTt">
-                                                    <rect key="frame" x="15" y="25" width="245" height="24"/>
+                                                    <rect key="frame" x="15" y="25" width="245" height="24.333333333333329"/>
                                                     <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zZm-xN-1qa">
-                                                    <rect key="frame" x="265" y="22" width="120" height="30"/>
+                                                    <rect key="frame" x="265" y="22.333333333333329" width="120" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="120" id="Bi7-3y-FwW"/>
                                                     </constraints>
@@ -308,7 +308,7 @@
                                 <rect key="frame" x="20" y="809" width="390" height="39"/>
                                 <color key="tintColor" red="0.01176470588" green="0.070588235289999995" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Регистрация или вход">
+                                <buttonConfiguration key="configuration" style="filled" title="Войти">
                                     <fontDescription key="titleFontDescription" name="AmericanTypewriter-Bold" family="American Typewriter" pointSize="20"/>
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="baseBackgroundColor" red="0.16470588235294117" green="0.25490196078431371" blue="0.4823529411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -361,15 +361,26 @@
                                     <outlet property="delegate" destination="uyK-M0-kKp" id="j7J-jl-tlH"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="89v-Rx-1hz">
-                                <rect key="frame" x="234" y="853" width="176" height="31"/>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="89v-Rx-1hz">
+                                <rect key="frame" x="213" y="853" width="197" height="32.666666666666629"/>
                                 <color key="tintColor" red="0.16470588235294117" green="0.25490196078431371" blue="0.4823529411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Восстановить пароль">
-                                    <fontDescription key="titleFontDescription" name="AmericanTypewriter-Semibold" family="American Typewriter" pointSize="14"/>
+                                    <fontDescription key="titleFontDescription" name="AmericanTypewriter-Semibold" family="American Typewriter" pointSize="16"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="resetPasswordTapped:" destination="uyK-M0-kKp" eventType="touchUpInside" id="36J-RK-9VZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rQs-jQ-9os">
+                                <rect key="frame" x="15" y="853" width="193" height="32.666666666666629"/>
+                                <color key="tintColor" red="0.1647058824" green="0.25490196079999999" blue="0.4823529412" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Регистрация">
+                                    <fontDescription key="titleFontDescription" name="AmericanTypewriter-Semibold" family="American Typewriter" pointSize="16"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="logInSignInTapped:" destination="uyK-M0-kKp" eventType="touchUpInside" id="wHx-Fh-Fl7"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -377,6 +388,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="OJv-hs-JXE" firstAttribute="top" secondItem="vc7-kw-JuT" secondAttribute="bottom" constant="30" id="5cB-J2-zZv"/>
+                            <constraint firstItem="89v-Rx-1hz" firstAttribute="leading" secondItem="rQs-jQ-9os" secondAttribute="trailing" constant="5" id="AYc-pv-jUg"/>
                             <constraint firstItem="Qc1-nS-DhL" firstAttribute="centerX" secondItem="z2e-0s-xqI" secondAttribute="centerX" id="C0x-xe-jUF"/>
                             <constraint firstItem="89v-Rx-1hz" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bbZ-OB-xjz" secondAttribute="leading" symbolic="YES" id="Gff-gk-NH9"/>
                             <constraint firstItem="OJv-hs-JXE" firstAttribute="centerX" secondItem="z2e-0s-xqI" secondAttribute="centerX" id="Giy-XE-bIT"/>
@@ -388,8 +400,10 @@
                             <constraint firstItem="bbZ-OB-xjz" firstAttribute="bottom" secondItem="Hnq-rs-w0k" secondAttribute="bottom" constant="50" id="ZdS-hv-B03"/>
                             <constraint firstItem="89v-Rx-1hz" firstAttribute="top" secondItem="Hnq-rs-w0k" secondAttribute="bottom" constant="5" id="aUt-n2-Wq4"/>
                             <constraint firstItem="vc7-kw-JuT" firstAttribute="top" secondItem="bbZ-OB-xjz" secondAttribute="top" constant="50" id="ajy-mC-e79"/>
+                            <constraint firstItem="rQs-jQ-9os" firstAttribute="leading" secondItem="bbZ-OB-xjz" secondAttribute="leading" constant="15" id="b6n-gx-BAL"/>
                             <constraint firstItem="vc7-kw-JuT" firstAttribute="leading" secondItem="bbZ-OB-xjz" secondAttribute="leading" constant="15" id="fdp-DM-FAl"/>
                             <constraint firstItem="Hnq-rs-w0k" firstAttribute="leading" secondItem="bbZ-OB-xjz" secondAttribute="leading" constant="20" id="gAm-RM-q1s"/>
+                            <constraint firstItem="rQs-jQ-9os" firstAttribute="top" secondItem="Hnq-rs-w0k" secondAttribute="bottom" constant="5" id="ggl-i4-hoC"/>
                             <constraint firstItem="Qc1-nS-DhL" firstAttribute="leading" secondItem="bbZ-OB-xjz" secondAttribute="leading" constant="20" id="pJp-hD-dnB"/>
                             <constraint firstItem="Hnq-rs-w0k" firstAttribute="centerX" secondItem="z2e-0s-xqI" secondAttribute="centerX" id="qod-wd-8iT"/>
                             <constraint firstItem="vc7-kw-JuT" firstAttribute="centerX" secondItem="z2e-0s-xqI" secondAttribute="centerX" id="r6M-Jc-bC0"/>
@@ -399,6 +413,7 @@
                     <connections>
                         <outlet property="iconImageView" destination="OJv-hs-JXE" id="3Id-B3-hVo"/>
                         <outlet property="logInButton" destination="Hnq-rs-w0k" id="bmu-3G-bpq"/>
+                        <outlet property="signInLogInButton" destination="rQs-jQ-9os" id="eb4-bY-sj7"/>
                         <outlet property="tableView" destination="Qc1-nS-DhL" id="hLj-ns-YU7"/>
                     </connections>
                 </viewController>

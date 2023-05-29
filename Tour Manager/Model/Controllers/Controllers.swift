@@ -21,6 +21,7 @@ enum PossibleControllersAuth:String{
 enum PossibleControllersMain:String{
     case mainTabBarController = "mainTabBarController"
     case profileNavigationViewController = "profileNavigationViewController"
+    case changePasswordViewController = "ChangePasswordViewController"
 }
 
 enum TypeOfRegister{
@@ -44,4 +45,8 @@ class Controllers{
         return storyboardMain.instantiateViewController(withIdentifier: controller.rawValue)
     }
     
+    public func getLaunchScreen()->UIViewController{
+        return UIStoryboard(name: "Launch", bundle: nil).instantiateViewController(withIdentifier: "LaunchScreenViewController")
+        
+    }
 }

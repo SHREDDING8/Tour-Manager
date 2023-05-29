@@ -15,10 +15,7 @@ class AddingPersonalDataViewController: UIViewController {
     
     let controllers = Controllers()
     
-    let user = AppDelegate.user!
-    
-    let apiCompany = ApiManagerCompany()
-    let apiUserData = ApiManagerUserData()
+    let user = AppDelegate.user
     
     var caledarHeightConstaint:NSLayoutConstraint!
     var tableViewPosition:CGPoint!
@@ -245,49 +242,58 @@ class AddingPersonalDataViewController: UIViewController {
             return
         }
         
-        self.user.setFirstName(firstName: firstName.text!)
-        self.user.setSecondName(secondName: secondName.text!)
-        self.user.setPhone(phone: phone.text!)
-        self.user.setBirthday(birthday: self.birthdayDate)
+        self.user?.setFirstName(firstName: firstName.text!)
+        self.user?.setSecondName(secondName: secondName.text!)
+        self.user?.setPhone(phone: phone.text!)
+        self.user?.setBirthday(birthday: self.birthdayDate)
         
         switch typeOfRegister {
         case .emploee:
-            self.user.setLocalIDCompany(localIdCompany: localIdNameCompany.text!)
+            self.user?.company.setLocalIDCompany(localIdCompany: localIdNameCompany.text!)
         case .company:
-            self.user.setNameCompany(nameCompany: localIdNameCompany.text!)
+            self.user?.company.setNameCompany(nameCompany: localIdNameCompany.text!)
         }
         
         
         
-        self.apiUserData.setUserInfo { IsSetted, error in
+        self.user?.setUserInfoApi(completion: { IsSetted, error in
             if error != nil {
-                
+                let alert = self.alerts.errorAlert(errorTypeApi: .unknown)
+                self.present(alert, animated: true)
+                return
             }
             
-        }
-        
-        switch typeOfRegister {
-        case .emploee:
-            apiCompany.addEmployeeToCompany(token: self.user.getToken(), companyId: self.user.getLocalIDCompany()) { isAdded, error in
-                if error != nil{
-                    return
+            if IsSetted {
+                switch self.typeOfRegister {
+                case .emploee:
+                    self.user?.company.addEmployeeToCompany(token: self.user?.getToken() ?? "", completion: { isAdded, error in
+                        if error != nil
+                        
+                        
+                        {
+                            return
+                        }
+                        if isAdded{
+                            self.goToMainTabBar()
+                        }
+                        
+                    })
+                    
+                case .company:
+                    self.user?.company.setCompanyNameApi(token: self.user?.getToken() ?? "", completion: { isAdded, error in
+                        if error != nil{
+                            self.goToLogInPage()
+                            return
+                        }
+                        if isAdded{
+                            self.goToMainTabBar()
+                        }
+                    })
                 }
                 
-                self.goToMainTabBar()
-                
             }
-            
-        case .company:
-            apiCompany.addCompany(token: self.user.getToken(), companyName: user.getNameCompany()) { isAdded, error in
-                if error != nil{
-                    self.goToLogInPage()
-                    return
-                }
-            }
-            
-            self.goToMainTabBar()
-            
-        }
+        })
+
     }
     
     // MARK: - Navigation

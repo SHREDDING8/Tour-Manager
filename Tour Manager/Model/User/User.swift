@@ -8,6 +8,16 @@
 import Foundation
 import UIKit
 
+public struct UserDataServerStruct:Codable{
+    let token:String
+    let email:String
+    let first_name:String
+    let last_name:String
+    let birthday_date:String
+    let phone:String
+    
+}
+
 
 protocol UserProtocol{
 
@@ -21,28 +31,29 @@ protocol UserProtocol{
     func setDataAuth(token:String,localId:String)
     
     
-    func getPersonalData() -> User.UserDataServerStruct
+    func getPersonalData() -> UserDataServerStruct
 }
+
+
 
 class User:UserProtocol{
     
     private let convertDate = ConvertDate()
     
+    private let apiAuth = ApiManagerAuth()
     
-    struct UserDataServerStruct:Codable{
-        let token:String
-        let email:String
-        let first_name:String
-        let last_name:String
-        let birthday_date:String
-        let phone:String
-        
-    }
+    private let apiUserData = ApiManagerUserData()
     
-    enum accessLevelEnum{
+    public let company = Company()
+    
+    
+
+    
+    enum AccessLevelEnum{
         case readGeneralCompanyInformation
         case writeGeneralCompanyInformation
     }
+    
     
     
     
@@ -55,11 +66,9 @@ class User:UserProtocol{
     private var birthday:Date?
     private var phone:String?
     
-    private var localIdCompany:String?
-    private var nameCompany:String?
     
-    private var accessLevel:[accessLevelEnum:Bool] = [
-        .readGeneralCompanyInformation: false,
+    private var accessLevel:[AccessLevelEnum:Bool] = [
+        .readGeneralCompanyInformation: true,
         .writeGeneralCompanyInformation: false
     ]
     
@@ -67,7 +76,6 @@ class User:UserProtocol{
     // MARK: - Inits
     init(){
         self.token = ""
-        self.localId = ""
     }
     
     
@@ -106,25 +114,6 @@ class User:UserProtocol{
         return self.localId
     }
     
-    // MARK: - localIdCompany
-    
-    public func setLocalIDCompany(localIdCompany:String){
-        self.localIdCompany = localIdCompany
-    }
-    
-    public func getLocalIDCompany()->String{
-        return self.localIdCompany ?? ""
-    }
-    
-    // MARK: - nameCompany
-    
-    public func setNameCompany(nameCompany:String){
-        self.nameCompany = nameCompany
-    }
-    
-    public func getNameCompany()->String{
-        return self.nameCompany ?? ""
-    }
     
     // MARK: - Email
     
@@ -142,13 +131,17 @@ class User:UserProtocol{
     public func getFirstName() ->String{
         return self.firstName ?? ""
     }
-    
+        
     // MARK: - secondName
     public func setSecondName(secondName:String){
         self.secondName = secondName
     }
     public func getSecondName() ->String{
         return self.secondName ?? ""
+    }
+    
+    public func getFullName()->String{
+        return "\(self.getFirstName()) \(self.getSecondName())"
     }
     // MARK: - birthday
     
@@ -178,14 +171,161 @@ class User:UserProtocol{
         self.localId = localId
     }
     
+    public func logIn(password:String, completion: @escaping (Bool, customErrorAuth?)->Void ){
+        self.apiAuth.logIn(email: self.email ?? "", password: password) { isLogin,logInData, error in
+            if error != nil {
+                completion(false,error)
+                return
+            }
+            if !isLogin || logInData == nil  {
+                completion(false,.unknowmError)
+                return
+            }
+                        
+            self.setDataAuth(token: logInData!.token, localId: logInData!.localId)
+            
+            UserDefaults.standard.set(self.getToken(), forKey:  "authToken")
+            completion(true,nil)
+            
+        }
+    }
+    
+    public func signIn(password:String, completion: @escaping (Bool, customErrorAuth?)->Void ){
+        
+        self.apiAuth.signIn(email: self.email ?? "", password: password) { isSignIn, error in
+            // check errors from api
+            if error == .unknowmError{
+                
+                completion(false, error)
+                return
+            }
+            completion(true,nil)
+            
+        }
+    }
+    
+    public func resetPassword(completion: @escaping (Bool, customErrorAuth?)->Void ){
+        self.apiAuth.resetPassword(email: self.email ?? "") { isSendEmail, error in
+            if error != nil{
+                completion(false,error)
+                return
+            }
+            completion(true,nil)
+        }
+    }
+    
+    public func updatePassword(oldPassword:String, newPassword:String,completion: @escaping (Bool, customErrorAuth?)->Void ){
+        self.apiAuth.updatePassword(email: self.getEmail(), oldPassword: oldPassword, newPassword: newPassword) { isUpdated, error in
+            if error != nil{
+                completion(false,error)
+                return
+            }
+            completion(true,nil)
+        }
+    }
+    
+    public func sendVerifyEmail(password:String, completion: @escaping (Bool, customErrorAuth?)->Void){
+        self.apiAuth.sendVerifyEmail(email: self.email ?? "", password: password) { isSent, error in
+            if error != nil{
+                completion(false,error)
+            }
+            if isSent ?? false{
+                completion(true,nil)
+            }
+        }
+    }
+    
+    public func isUserExists(completion: @escaping (Bool, customErrorAuth?)->Void){
+        self.apiAuth.isUserExists(email: self.email ?? "") { isUserExists, error in
+            
+            if error != nil{
+                completion(false,error)
+            }
+            
+            completion(isUserExists ?? false, nil)
+        }
+    }
+    
     
     // MARK: - Personal Data
+    
+    public func getUserInfoFromApi(completion: @escaping (Bool, customErrorUserData?)->Void){
+        self.apiUserData.getUserInfo(token: self.token ?? "" ) { isInfo, response, error in
+            
+            if error != nil{
+                completion(false, error)
+                return
+            }
+            
+            if response == nil || !isInfo{
+                completion(false, .unknowmError)
+                return
+            }
+            
+            self.setEmail(email: response!.email)
+            self.setFirstName(firstName: response!.first_name)
+            self.setSecondName(secondName: response!.last_name)
+            self.setPhone(phone: response!.phone)
+            self.setBirthday(birthday: self.convertDate.birthdayFromString(dateString: response!.birthday_date))
+            
+            self.company.setLocalIDCompany(localIdCompany: response!.company_id)
+            self.company.setNameCompany(nameCompany: response!.company_name)
+            
+            completion(true, nil)
+            
+        }
+    }
+    
+    public func setUserInfoApi(completion: @escaping (Bool, customErrorUserData?)->Void){
+        let data = self.getPersonalData()
+        
+        self.apiUserData.setUserInfo(data: data) { isSetted, error in
+            if error != nil{
+                completion(false,error)
+            }
+            if isSetted{
+                completion(true,nil)
+            }
+        }
+    }
+    
+    
+    
+    
     public func getPersonalData() -> UserDataServerStruct{
         let date = convertDate.birthdayToString(date: self.getBirthday())
         
         let res = UserDataServerStruct(token: self.token ?? "", email: self.email! , first_name: self.firstName!, last_name: self.secondName!, birthday_date: date, phone: self.phone!)
         
         return res
+    }
+    
+    public func updatePersonalData(updateField: UserDataFields ,value:String, completion:  @escaping (Bool, customErrorUserData? )->Void ){
+        self.apiUserData.updateUserInfo(token: self.getToken() , updateField: updateField , value: value) { isSetted, error in
+            if error != nil{
+                completion(false, error)
+            } else{
+                switch updateField {
+                case .firstName:
+                    self.setFirstName(firstName: value)
+                case .secondName:
+                    self.setSecondName(secondName: value)
+                case .birthdayDate:
+                    self.setBirthday(birthday: self.convertDate.birthdayFromString(dateString: value))
+                case .phone:
+                    self.setPhone(phone: value)
+                }
+                completion(true, nil)
+            }
+        }
+    }
+
+    
+    
+    // MARK: - level Access
+    public func getAccessLevel(rule:AccessLevelEnum) -> Bool{
+        let result = self.accessLevel[rule]
+        return result ?? false
     }
     
     
@@ -196,8 +336,6 @@ class User:UserProtocol{
         print("secondName: \(secondName ?? "")")
         print("birthday: \(convertDate.birthdayToString(date:birthday!))")
         print("phone: \(phone ?? "")")
-        print("localIdCompany: \(localIdCompany ?? "")")
-        print("nameCompany: \(nameCompany ?? "")")
         
     }
 }

@@ -15,3 +15,8 @@ struct sendLogInJsonStruct: Codable {
 struct sendResetPassword: Codable{
     let email:String
 }
+struct sendUpdatePassword:Codable{
+    let email:String
+    let old_password:String
+    let new_password:String
+}

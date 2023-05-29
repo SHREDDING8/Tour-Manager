@@ -14,10 +14,8 @@ class VerifyEmailViewController: UIViewController {
     let alerts = Alert()
     let controllers = Controllers()
     
-    let user = AppDelegate.user!
+    let user = AppDelegate.user
     
-    let apiAuth = ApiManagerAuth()
-    let apiUserData = ApiManagerUserData()
     
     var password = ""
     var email = ""
@@ -40,7 +38,8 @@ class VerifyEmailViewController: UIViewController {
     }
     
     @IBAction func resendEmail(_ sender: Any) {
-        apiAuth.sendVerifyEmail(email: self.email, password: self.password) { isSent, error in
+        
+        self.user?.sendVerifyEmail(password: self.password, completion: { isSent, error in
             if error == .unknowmError{
                 let alert = self.alerts.errorAlert(errorTypeApi: .unknown)
                 self.present(alert, animated: true)
@@ -52,14 +51,12 @@ class VerifyEmailViewController: UIViewController {
                 
                 self.present(alert, animated: true)
             }
-        }
+        })
     }
     
-    
-    
     fileprivate func logIn(){
-        apiAuth.logIn(email: email , password: password) { isLogIn, error in
-            
+        
+        self.user?.logIn(password: password, completion: { isLogIn, error in
             if error == .emailIsNotVerifyed{
                 
             } else if error == .invalidEmailOrPassword{
@@ -76,28 +73,27 @@ class VerifyEmailViewController: UIViewController {
             
             if !isLogIn{ return }
             
-            let token = self.user.getToken()
-            self.apiUserData.getUserInfo(token: token) { isInfo, error in
-                    if error == .dataNotFound{
-                        self.goToAddingPersonalData()
-                        return
-                    }else if error == .invalidToken{
-                        print("invalidToken")
-                        self.goToLogInPage()
-                    } else if error == .tokenExpired{
-                        print("tokenExpired")
-                        self.goToLogInPage()
-                    } else if error == .unknowmError{
-                        print("unknowmError")
-                        self.goToLogInPage()
-                    }
-                    
-                    if isInfo == true{
-                        self.goToMainTabBar()
-                    }
+            self.user?.getUserInfoFromApi(completion: { isInfo, error in
+                if error == .dataNotFound{
+                    self.goToAddingPersonalData()
+                    return
+                }else if error == .invalidToken{
+                    print("invalidToken")
+                    self.goToLogInPage()
+                } else if error == .tokenExpired{
+                    print("tokenExpired")
+                    self.goToLogInPage()
+                } else if error == .unknowmError{
+                    print("unknowmError")
+                    self.goToLogInPage()
                 }
+                
+                if isInfo == true{
+                    self.goToMainTabBar()
+                }
+            })
             
-        }
+        })
     }
     
     

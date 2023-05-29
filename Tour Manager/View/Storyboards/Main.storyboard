@@ -33,14 +33,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Мария Мельник" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IXZ-Xw-r8a">
-                                <rect key="frame" x="30" y="334" width="333" height="29.666666666666686"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IXZ-Xw-r8a">
+                                <rect key="frame" x="30" y="334" width="333" height="0.0"/>
                                 <fontDescription key="fontDescription" name="AmericanTypewriter-Bold" family="American Typewriter" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="insetGrouped" separatorStyle="default" separatorInsetReference="fromAutomaticInsets" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="wqg-8x-7J4">
-                                <rect key="frame" x="0.0" y="393.66666666666674" width="393" height="424.33333333333326"/>
+                                <rect key="frame" x="0.0" y="364" width="393" height="454"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="separatorColor" systemColor="systemIndigoColor"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
@@ -167,14 +167,14 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="buttonCell" id="R6D-ec-EnC">
-                                        <rect key="frame" x="20" y="248.66666793823242" width="353" height="65"/>
+                                        <rect key="frame" x="20" y="248.66666793823242" width="353" height="64.666664123535156"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="R6D-ec-EnC" id="zAR-JN-O6h">
-                                            <rect key="frame" x="0.0" y="0.0" width="353" height="65"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="64.666664123535156"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ogk-r0-YDm">
-                                                    <rect key="frame" x="15" y="15" width="323" height="35"/>
+                                                    <rect key="frame" x="15" y="14.999999999999996" width="323" height="34.666666666666657"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <state key="normal" title="Button"/>
@@ -215,7 +215,7 @@
                             <constraint firstItem="RiV-Pe-VWe" firstAttribute="centerX" secondItem="cXG-65-QMU" secondAttribute="centerX" id="xjg-R5-bdS"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Inno Travel" largeTitleDisplayMode="always" id="zEO-xU-GkW"/>
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="zEO-xU-GkW"/>
                     <connections>
                         <outlet property="fullNameLabel" destination="IXZ-Xw-r8a" id="Hpo-O6-WzO"/>
                         <outlet property="profilePhoto" destination="RiV-Pe-VWe" id="fjr-5k-Pap"/>
@@ -224,7 +224,98 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TzN-Q0-sWk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-538.60465116279067" y="16.738197424892704"/>
+            <point key="canvasLocation" x="-500" y="18"/>
+        </scene>
+        <!--Change Password View Controller-->
+        <scene sceneID="oDy-Z8-fTF">
+            <objects>
+                <viewController storyboardIdentifier="ChangePasswordViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wqq-rm-wsy" customClass="ChangePasswordViewController" customModule="Tour_Manager" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xvC-EG-MmW">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconImg" translatesAutoresizingMaskIntoConstraints="NO" id="Cbh-fI-Fu7">
+                                <rect key="frame" x="26" y="68.999999999999986" width="341.33333333333331" height="255.66666666666663"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zTM-Gl-5qp">
+                                <rect key="frame" x="30" y="729" width="333" height="39"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Изменить пароль">
+                                    <fontDescription key="titleFontDescription" name="AmericanTypewriter-Bold" family="American Typewriter" pointSize="20"/>
+                                    <color key="baseBackgroundColor" red="0.1294117719" green="0.20392158630000001" blue="0.38431376220000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="changePassword:" destination="wqq-rm-wsy" eventType="touchUpInside" id="Vyp-2u-IpT"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="q3j-8q-zGC">
+                                <rect key="frame" x="0.0" y="344.66666666666674" width="393" height="354.33333333333326"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="passwordCell" id="9RO-6Z-Yui">
+                                        <rect key="frame" x="20" y="55.333332061767578" width="353" height="65.333335876464844"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9RO-6Z-Yui" id="Eet-7e-MU9">
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="65.333335876464844"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Старый пароль" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FgX-eb-NBH">
+                                                    <rect key="frame" x="15" y="25" width="338" height="25.333333333333329"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="20"/>
+                                                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="wqq-rm-wsy" id="Os0-cg-zS2"/>
+                                                    </connections>
+                                                </textField>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Старый пароль" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0qG-nA-gbT">
+                                                    <rect key="frame" x="15" y="5" width="333" height="16"/>
+                                                    <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="14"/>
+                                                    <color key="textColor" red="0.1294117719" green="0.20392158630000001" blue="0.38431376220000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="FgX-eb-NBH" firstAttribute="centerY" secondItem="Eet-7e-MU9" secondAttribute="centerY" constant="5" id="4qA-RY-amc"/>
+                                                <constraint firstItem="FgX-eb-NBH" firstAttribute="leading" secondItem="Eet-7e-MU9" secondAttribute="leading" constant="15" id="6tv-ce-62S"/>
+                                                <constraint firstItem="0qG-nA-gbT" firstAttribute="leading" secondItem="Eet-7e-MU9" secondAttribute="leading" constant="15" id="9u0-OI-w0b"/>
+                                                <constraint firstAttribute="trailing" secondItem="0qG-nA-gbT" secondAttribute="trailing" constant="5" id="P6I-2G-aeD"/>
+                                                <constraint firstItem="FgX-eb-NBH" firstAttribute="top" secondItem="Eet-7e-MU9" secondAttribute="top" constant="25" id="QPV-8B-6fA"/>
+                                                <constraint firstItem="0qG-nA-gbT" firstAttribute="top" secondItem="Eet-7e-MU9" secondAttribute="top" constant="5" id="lYB-ZC-54y"/>
+                                                <constraint firstAttribute="trailing" secondItem="FgX-eb-NBH" secondAttribute="trailing" id="pwu-95-lUy"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="wqq-rm-wsy" id="Bqb-CZ-hj6"/>
+                                    <outlet property="delegate" destination="wqq-rm-wsy" id="l43-5D-MRf"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="YQH-mE-id4"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Cbh-fI-Fu7" firstAttribute="centerX" secondItem="xvC-EG-MmW" secondAttribute="centerX" id="1eO-ne-Ztu"/>
+                            <constraint firstItem="zTM-Gl-5qp" firstAttribute="leading" secondItem="YQH-mE-id4" secondAttribute="leading" constant="30" id="2yo-1a-Tdg"/>
+                            <constraint firstItem="YQH-mE-id4" firstAttribute="trailing" secondItem="q3j-8q-zGC" secondAttribute="trailing" id="9Oc-Mp-6uW"/>
+                            <constraint firstItem="YQH-mE-id4" firstAttribute="bottom" secondItem="zTM-Gl-5qp" secondAttribute="bottom" constant="50" id="COR-KS-bMq"/>
+                            <constraint firstItem="Cbh-fI-Fu7" firstAttribute="top" secondItem="YQH-mE-id4" secondAttribute="top" constant="10" id="Lbw-FA-eyB"/>
+                            <constraint firstItem="zTM-Gl-5qp" firstAttribute="centerX" secondItem="xvC-EG-MmW" secondAttribute="centerX" id="Pko-2r-Mcf"/>
+                            <constraint firstItem="q3j-8q-zGC" firstAttribute="top" secondItem="Cbh-fI-Fu7" secondAttribute="bottom" constant="20" id="YUw-fJ-ycf"/>
+                            <constraint firstItem="Cbh-fI-Fu7" firstAttribute="height" secondItem="xvC-EG-MmW" secondAttribute="height" multiplier="0.3" id="bzy-jt-llk"/>
+                            <constraint firstItem="zTM-Gl-5qp" firstAttribute="top" secondItem="q3j-8q-zGC" secondAttribute="bottom" constant="30" id="pQO-SN-Yap"/>
+                            <constraint firstItem="q3j-8q-zGC" firstAttribute="leading" secondItem="YQH-mE-id4" secondAttribute="leading" id="xoT-5A-BQ0"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="iconImageView" destination="Cbh-fI-Fu7" id="t7q-Zq-Tal"/>
+                        <outlet property="tableView" destination="q3j-8q-zGC" id="6T6-Qn-lFz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cCV-xn-l83" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="326" y="17"/>
         </scene>
         <!--Item 1-->
         <scene sceneID="QXX-CD-P9y">
@@ -276,11 +367,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yqm-tS-Q6d" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1437.2093023255813" y="16.738197424892704"/>
+            <point key="canvasLocation" x="-1436" y="18"/>
         </scene>
     </scenes>
     <resources>
         <image name="chevron.right" catalog="system" width="97" height="128"/>
+        <image name="iconImg" width="341.33334350585938" height="341.33334350585938"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="profiletestphoto" width="200" height="339.66665649414062"/>
         <systemColor name="labelColor">
