@@ -92,6 +92,7 @@ public class ApiManagerUserData{
             } else if response.response?.statusCode == 200{
                 completion(true,nil)
             } else {
+                print(response.error)
                 completion(false, .unknowmError)
             }
         }

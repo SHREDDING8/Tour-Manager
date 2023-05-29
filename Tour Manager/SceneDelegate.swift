@@ -20,7 +20,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         
-        let token = AppDelegate.userDefaults.string(forKey: "authToken")
         
         print(UIDevice.current.model)
         print(UIDevice.current.batteryState)
@@ -39,42 +38,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window = window
             window.makeKeyAndVisible()
         } else { return }
-        
-        
-        
-        
-//        if token != nil{
-//            self.user?.setToken(token: token!)
-//
-//            self.user?.getUserInfoFromApi(completion: { isGetted, error in
-//                if error == nil && isGetted{
-//                    if let windowScene = (scene as? UIWindowScene){
-//                        let window = UIWindow(windowScene: windowScene)
-//                        let logInVC = self.contollers.getControllerMain(.mainTabBarController)
-//                        window.rootViewController = logInVC
-//                        self.window = window
-//                        window.makeKeyAndVisible()
-//                    } else { return }
-//                } else{
-//                    if let windowScene = (scene as? UIWindowScene){
-//                        let window = UIWindow(windowScene: windowScene)
-//                        let logInVC = self.contollers.getControllerAuth(.mainAuthController)
-//                        window.rootViewController = logInVC
-//                        self.window = window
-//                        window.makeKeyAndVisible()
-//                    } else { return }
-//                }
-//            })
-//        } else{
-//            if let windowScene = (scene as? UIWindowScene){
-//                let window = UIWindow(windowScene: windowScene)
-//                let logInVC = self.contollers.getControllerAuth(.mainAuthController)
-//                window.rootViewController = logInVC
-//                self.window = window
-//                window.makeKeyAndVisible()
-//            } else { return }
-//        }
-        
         
     }
     

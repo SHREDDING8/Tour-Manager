@@ -258,33 +258,42 @@ class AddingPersonalDataViewController: UIViewController {
         
         self.user?.setUserInfoApi(completion: { IsSetted, error in
             if error != nil {
+                let alert = self.alerts.errorAlert(errorTypeApi: .unknown)
+                self.present(alert, animated: true)
                 return
             }
-        })
-        
-        switch typeOfRegister {
-        case .emploee:
-            self.user?.company.addEmployeeToCompany(token: self.user?.getToken() ?? "", completion: { isAdded, error in
-                if error != nil{
-                    return
-                }
-                if isAdded{
-                    self.goToMainTabBar()
+            
+            if IsSetted {
+                switch self.typeOfRegister {
+                case .emploee:
+                    self.user?.company.addEmployeeToCompany(token: self.user?.getToken() ?? "", completion: { isAdded, error in
+                        if error != nil
+                        
+                        
+                        {
+                            return
+                        }
+                        if isAdded{
+                            self.goToMainTabBar()
+                        }
+                        
+                    })
+                    
+                case .company:
+                    self.user?.company.setCompanyNameApi(token: self.user?.getToken() ?? "", completion: { isAdded, error in
+                        if error != nil{
+                            self.goToLogInPage()
+                            return
+                        }
+                        if isAdded{
+                            self.goToMainTabBar()
+                        }
+                    })
                 }
                 
-            })
-            
-        case .company:
-            self.user?.company.setCompanyNameApi(token: self.user?.getToken() ?? "", completion: { isAdded, error in
-                if error != nil{
-                    self.goToLogInPage()
-                    return
-                }
-                if isAdded{
-                    self.goToMainTabBar()
-                }
-            })
-        }
+            }
+        })
+
     }
     
     // MARK: - Navigation

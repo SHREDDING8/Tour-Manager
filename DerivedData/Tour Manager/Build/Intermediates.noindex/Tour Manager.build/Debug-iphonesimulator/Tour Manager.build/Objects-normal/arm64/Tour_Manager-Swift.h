@@ -336,6 +336,15 @@ SWIFT_CLASS("_TtC12Tour_Manager33ChoiceOfTypeAccountViewController")
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 @end
 
+
+SWIFT_CLASS("_TtC12Tour_Manager26LaunchScreenViewController")
+@interface LaunchScreenViewController : UIViewController
+- (void)viewDidLoad;
+- (void)viewDidAppear:(BOOL)animated;
+- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+@end
+
 @class UIButton;
 
 SWIFT_CLASS("_TtC12Tour_Manager19LoginViewController")
@@ -343,11 +352,13 @@ SWIFT_CLASS("_TtC12Tour_Manager19LoginViewController")
 @property (nonatomic, weak) IBOutlet UITableView * _Null_unspecified tableView;
 @property (nonatomic, weak) IBOutlet UIImageView * _Null_unspecified iconImageView;
 @property (nonatomic, weak) IBOutlet UIButton * _Null_unspecified logInButton;
+@property (nonatomic, weak) IBOutlet UIButton * _Null_unspecified signInLogInButton;
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)animated;
 - (void)viewDidAppear:(BOOL)animated;
 - (void)viewDidDisappear:(BOOL)animated;
 - (IBAction)logIn:(id _Nonnull)sender;
+- (IBAction)logInSignInTapped:(id _Nonnull)sender;
 - (IBAction)resetPasswordTapped:(id _Nonnull)sender;
 - (void)keyboardWillHideWithNotification:(NSNotification * _Nonnull)notification;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
@@ -357,6 +368,7 @@ SWIFT_CLASS("_TtC12Tour_Manager19LoginViewController")
 
 @interface LoginViewController (SWIFT_EXTENSION(Tour_Manager)) <UITextFieldDelegate>
 - (BOOL)textFieldShouldReturn:(UITextField * _Nonnull)textField SWIFT_WARN_UNUSED_RESULT;
+- (void)textFieldDidEndEditing:(UITextField * _Nonnull)textField reason:(UITextFieldDidEndEditingReason)reason;
 @end
 
 

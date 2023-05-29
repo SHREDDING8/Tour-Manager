@@ -46,7 +46,7 @@ class Controllers{
     }
     
     public func getLaunchScreen()->UIViewController{
-        return UIStoryboard(name: "LaunchScreen", bundle: nil).instantiateViewController(withIdentifier: "LaunchScreenViewController")
+        return UIStoryboard(name: "Launch", bundle: nil).instantiateViewController(withIdentifier: "LaunchScreenViewController")
         
     }
 }

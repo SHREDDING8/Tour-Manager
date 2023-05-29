@@ -14,7 +14,7 @@
 		</data>
 		<key>Assets.car</key>
 		<data>
-		k4sH0iYM6dl4UxDdL0dsOkZh78c=
+		YJWweWQaNVYWIVfq+rrtTCaCVC4=
 		</data>
 		<key>Base.lproj/Auth.storyboardc/AddingPersonalDataViewController.nib</key>
 		<data>
@@ -34,7 +34,7 @@
 		</data>
 		<key>Base.lproj/Auth.storyboardc/efE-Kr-qFJ-view-e2J-2A-S2e.nib</key>
 		<data>
-		/efLAA+UD2eQJabXwpjzRlO+pnY=
+		W7Zh1GQVL9yl/QML8dznKcgG+bQ=
 		</data>
 		<key>Base.lproj/Auth.storyboardc/f2F-cz-b1k-view-Kci-p5-Ebv.nib</key>
 		<data>
@@ -46,7 +46,7 @@
 		</data>
 		<key>Base.lproj/Auth.storyboardc/uyK-M0-kKp-view-z2e-0s-xqI.nib</key>
 		<data>
-		P3mivXtcCCK4JDCX3fxd7RLE8Nc=
+		vuwdZ6YJ2zN86c+43n3YN2REHvk=
 		</data>
 		<key>Base.lproj/Auth.storyboardc/verifyEmailController.nib</key>
 		<data>
@@ -54,7 +54,7 @@
 		</data>
 		<key>Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
 		<data>
-		x5JgelunJ+At/jdR9hAp8eCKlIQ=
+		6esSCcBlEjau1d2ADM75duv9ops=
 		</data>
 		<key>Base.lproj/LaunchScreen.storyboardc/Info.plist</key>
 		<data>
@@ -66,7 +66,7 @@
 		</data>
 		<key>Frameworks/Alamofire.framework/Alamofire</key>
 		<data>
-		PrQuqAOl08tOe6EkvtLgI1QhvR0=
+		9UUtii06szdeo+pzaGsbWzJjYag=
 		</data>
 		<key>Frameworks/Alamofire.framework/Info.plist</key>
 		<data>
@@ -82,7 +82,7 @@
 		</data>
 		<key>Frameworks/UIWindowTransitions.framework/UIWindowTransitions</key>
 		<data>
-		s0wSdNmS72hyKwv6hGFiTtR2VUw=
+		t9BRWH1tY6Mnx+jj0jlyq1o/Ldg=
 		</data>
 		<key>Frameworks/UIWindowTransitions.framework/_CodeSignature/CodeResources</key>
 		<data>
@@ -91,6 +91,18 @@
 		<key>Info.plist</key>
 		<data>
 		Oj3IBd8qAwiTmgPwvTRvSLcpTfc=
+		</data>
+		<key>Launch.storyboardc/Info.plist</key>
+		<data>
+		Jj4qzjlSjVvvhTOHiYMZbLBw5GU=
+		</data>
+		<key>Launch.storyboardc/LaunchScreenViewController.nib</key>
+		<data>
+		pMtMX9EkusYAmQ3lcsnv8fXFRpo=
+		</data>
+		<key>Launch.storyboardc/Y6W-OH-hqX-view-5EZ-qb-Rvc.nib</key>
+		<data>
+		NpJiJGGTxogkDYxuYQ9OBIOsSHg=
 		</data>
 		<key>Main.storyboardc/ChangePasswordViewController.nib</key>
 		<data>
@@ -126,7 +138,7 @@
 		</data>
 		<key>embedded.mobileprovision</key>
 		<data>
-		rKV12l57AwRY9ZBmmx/HaMb5/qA=
+		i8a2DsLrrkhxtbdETvodAOUz42w=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -149,7 +161,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			tIKbk74ldygLw2ASSutnBOiPdtEEezkl7q3q9hcvdHM=
+			8A6EnnBMV8CxvEyGHySOGrJuOtEhRdUCHBteKyaOiS4=
 			</data>
 		</dict>
 		<key>Base.lproj/Auth.storyboardc/AddingPersonalDataViewController.nib</key>
@@ -184,7 +196,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ll0MDXcyXdXV6dagJB3FaZuQEgWiSy+bLV9ZRxPb1/s=
+			8ToRG6yVfWpBDmbZjSlK358+y4MPZlWJ3ktdkeSIimI=
 			</data>
 		</dict>
 		<key>Base.lproj/Auth.storyboardc/f2F-cz-b1k-view-Kci-p5-Ebv.nib</key>
@@ -205,7 +217,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			P1/TVApVqrO899mlc447uG8T2f9FrV7QwBtkdnWCCPs=
+			efStcwN/Bzpyoudi14K0G7MHO4/Ohkz4aqrkCyq5Y/U=
 			</data>
 		</dict>
 		<key>Base.lproj/Auth.storyboardc/verifyEmailController.nib</key>
@@ -219,7 +231,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			KQpO8j90mTcdBDiu7JMElV4ajtVacb1rwEYlrcVbdyQ=
+			YzyAjFxj0HMOY9fpdO8aEPTKzzcIeAPIWl4ERrQ4me0=
 			</data>
 		</dict>
 		<key>Base.lproj/LaunchScreen.storyboardc/Info.plist</key>
@@ -240,7 +252,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Ft6ntkPIqwqI3zL5oB2Buh/BHa20b6WRnoe7vPHh5d4=
+			R3dnwk5L+QAGVI2rU9TzQeyRtfuT8j5akuQL45hfaA0=
 			</data>
 		</dict>
 		<key>Frameworks/Alamofire.framework/Info.plist</key>
@@ -268,7 +280,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			QnhYZIEg3TE5quL3VpHYQzo7DUfqB1CQ0gMSKC3rwIU=
+			SZlvRXtXXeRadkZWXdrr5OGZWRddWmq8kAQLUtESkNE=
 			</data>
 		</dict>
 		<key>Frameworks/UIWindowTransitions.framework/_CodeSignature/CodeResources</key>
@@ -276,6 +288,27 @@
 			<key>hash2</key>
 			<data>
 			e0z0NBuU15doLm/u/SIOM/Z3zeZbGH7Oxaz/I8rfClI=
+			</data>
+		</dict>
+		<key>Launch.storyboardc/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			PIfo3trCRq1oVwwEHKH0umpjKFs9uPEeGpWAzs9G4EA=
+			</data>
+		</dict>
+		<key>Launch.storyboardc/LaunchScreenViewController.nib</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			9xzv9PrqnksAzocJBHm532NoCHYT+ACiIrj8QRo7k8w=
+			</data>
+		</dict>
+		<key>Launch.storyboardc/Y6W-OH-hqX-view-5EZ-qb-Rvc.nib</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			uVVc2A7RGP0BIK/QoXcj+/sQlhPfWkVnfwQ/dBu4OKg=
 			</data>
 		</dict>
 		<key>Main.storyboardc/ChangePasswordViewController.nib</key>
@@ -331,7 +364,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			94AtKAppmWHD90l9S/5yePxh68JqNtd7zlmGDRAlzUo=
+			3JvqgTWfY5nosAJWL0HUI/nRilA7ViwtovMEdmwCO4s=
 			</data>
 		</dict>
 	</dict>
