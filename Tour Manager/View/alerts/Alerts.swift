@@ -36,6 +36,7 @@ enum errorAlertsFront{
     
     case email
     case password
+    case phone
     
     
     
@@ -49,7 +50,8 @@ enum errorAlertsFront{
             return ("Неправильный Email", "Проверьте правильность введенных данных и повторите попытку")
         case .password:
             return ("Неправильный пароль", "Проверьте правильность введенных данных и повторите попытку")
-            
+        case .phone:
+            return ("Неправильный формат телефонного номера", "Проверьте правильность введенных данных и повторите попытку")
         
             
         case .textFieldIsEmpty:

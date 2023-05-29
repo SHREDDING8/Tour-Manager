@@ -13,7 +13,7 @@ class AddingPersonalDataViewController: UIViewController {
     
     // MARK: - Me variables
     
-    let validationTextFields = TextFieldValidation()
+    let validationStrings = StringValidation()
     let alerts = Alert()
     
     let controllers = Controllers()
@@ -234,12 +234,20 @@ class AddingPersonalDataViewController: UIViewController {
             
             if keyboardSize.origin.y - tableView.frame.origin.y  < 125{
                 tableView.frame.origin = CGPoint(x: 0, y: self.iconAppImage.frame.origin.y - 5)
+                
+                UIView.animate(withDuration: 0.3) {
+                    self.iconAppImage.layer.opacity = 0
+                }
+
             }
         }
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
         tableView.frame.origin.y = tableViewPosition.y
+        UIView.animate(withDuration: 0.3) {
+            self.iconAppImage.layer.opacity = 1
+        }
     }
     
     
@@ -247,12 +255,19 @@ class AddingPersonalDataViewController: UIViewController {
     // MARK: - SetPersonalData in to Server
     
     @IBAction func setPersonalDataTapped(_ sender: Any) {
-        if !validationTextFields.validateEmptyTextFields([localIdNameCompany,firstName,secondName,phone]){
+        
+
+        if validationStrings.validateIsEmptyString([self.nameCompanyLocalIdString,self.firstNameString,self.secondNameString,self.phoneString]){
             let error = alerts.errorAlert(errorTypeFront: .textFieldIsEmpty)
             self.present(error, animated: true)
             return
         }
         
+        if !validationStrings.validatePhone(value: self.phoneString){
+            let error = alerts.errorAlert(errorTypeFront: .phone)
+            self.present(error, animated: true)
+            return
+        }
         self.user?.setFirstName(firstName: firstName.text!)
         self.user?.setSecondName(secondName: secondName.text!)
         self.user?.setPhone(phone: phone.text!)
@@ -325,7 +340,6 @@ class AddingPersonalDataViewController: UIViewController {
     }
     
     fileprivate func goToLogInPage(){
-        print("goToLogInPage")
         let mainLogIn = self.controllers.getControllerAuth(.mainAuthController)
         
 
@@ -377,21 +391,36 @@ extension AddingPersonalDataViewController:UITableViewDelegate,UITableViewDataSo
         case 0:
             label.text = "Название компании"
             textField.placeholder = "Название компании"
+            textField.restorationIdentifier = "localIdNameCompany"
+            
+            textField.text = self.nameCompanyLocalIdString
             
             self.localIdNameCompany = textField
         case 1:
             label.text = "Имя"
             textField.placeholder = "Имя"
             self.firstName = textField
+            
+            textField.restorationIdentifier = "firstName"
+            
+            textField.text = self.firstNameString
         case 2:
             label.text = "Фамилия"
             textField.placeholder = "Фамилия"
             self.secondName = textField
             
+            textField.restorationIdentifier = "secondName"
+            
+            textField.text = self.secondNameString
+            
         case 4:
             label.text = "Телефон"
             textField.placeholder = "Телефон"
             self.phone = textField
+            
+            textField.restorationIdentifier = "phone"
+            
+            textField.text = self.phoneString
             
         case 3:
             cell = tableView.dequeueReusableCell(withIdentifier: "birthdayCell", for: indexPath)
@@ -442,20 +471,36 @@ extension AddingPersonalDataViewController:UITableViewDelegate,UITableViewDataSo
         case 0:
             label.text = "Id компании"
             textField.placeholder = "Id компании"
+            textField.restorationIdentifier = "localIdNameCompany"
+            
+            textField.text = self.nameCompanyLocalIdString
+            
             self.localIdNameCompany = textField
         case 1:
             label.text = "Имя"
             textField.placeholder = "Имя"
             self.firstName = textField
+            
+            textField.restorationIdentifier = "firstName"
+            
+            textField.text = self.firstNameString
         case 2:
             label.text = "Фамилия"
             textField.placeholder = "Фамилия"
             self.secondName = textField
             
+            textField.restorationIdentifier = "secondName"
+            
+            textField.text = self.secondNameString
+            
         case 4:
             label.text = "Телефон"
             textField.placeholder = "Телефон"
             self.phone = textField
+            
+            textField.restorationIdentifier = "phone"
+            
+            textField.text = self.phoneString
             
         case 3:
             cell = tableView.dequeueReusableCell(withIdentifier: "birthdayCell", for: indexPath)
@@ -494,11 +539,26 @@ extension AddingPersonalDataViewController:UITableViewDelegate,UITableViewDataSo
 
 
 
-// MARK: - AddingPersonalDataViewController
+// MARK: - UITextFieldDelegate
 
 extension AddingPersonalDataViewController:UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        if textField.restorationIdentifier == "localIdNameCompany"{
+            self.nameCompanyLocalIdString = textField.text ?? ""
+            
+        }else if textField.restorationIdentifier == "firstName"{
+            self.firstNameString = textField.text ?? ""
+            
+        }else if textField.restorationIdentifier == "secondName"{
+            self.secondNameString = textField.text ?? ""
+            
+        }else if textField.restorationIdentifier == "phone"{
+            self.phoneString = textField.text ?? ""
+        }
     }
 }
