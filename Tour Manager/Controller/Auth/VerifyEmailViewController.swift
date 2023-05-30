@@ -13,6 +13,7 @@ class VerifyEmailViewController: UIViewController {
     // MARK: - my Variables
     let alerts = Alert()
     let controllers = Controllers()
+    let font = Font()
     
     let user = AppDelegate.user
     
@@ -24,12 +25,57 @@ class VerifyEmailViewController: UIViewController {
     
     @IBOutlet weak var iconImage: UIImageView!
     
+    @IBOutlet weak var emailSentToEmailLabel: UILabel!
+    
+    @IBOutlet weak var sendEmailAgainButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureView()
+        
 
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setTimerSetEmailAgain()
+    }
+    
+    // MARK: - ConfigurationView
+    
+    fileprivate func configureView(){
+        self.emailSentToEmailLabel.text = "Сообщение отправлено на \(self.email)"
+        
+        self.setTitleResend(value: "Повторно отправить подтверждение через 60")
+        self.sendEmailAgainButton.titleLabel?.textAlignment = .center
+        
+    }
+    
+    
+    
+    fileprivate func setTimerSetEmailAgain(){
+        var time = 60
+        self.sendEmailAgainButton.isUserInteractionEnabled = false
+        self.sendEmailAgainButton.layer.opacity = 0.5
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+            self.setTitleResend(value: "Повторно отправить подтверждение через \(time)")
+            time -= 1
+            if time == 0{
+                self.setTitleResend(value: "Повторно отправить подтверждение")
+                self.sendEmailAgainButton.layer.opacity = 1
+                self.sendEmailAgainButton.isUserInteractionEnabled = true
+                timer.invalidate()
+            }
+        }
+    }
+    
+    fileprivate func setTitleResend(value:String){
+        let fontButton = font.getFont(name: .americanTypewriter, style: .semiBold, size: 16)
+        
+        self.sendEmailAgainButton.titleLabel?.font = fontButton
+        self.sendEmailAgainButton.setTitle(value, for: .normal)
+    }
 
 
     
@@ -46,6 +92,7 @@ class VerifyEmailViewController: UIViewController {
             }else{
                 let alert = UIAlertController(title: "Email Отправлен", message: "Проверьте почту и подтвердите аккаунт", preferredStyle: .alert)
                 let ok = UIAlertAction(title: "Ok", style: .default)
+                self.setTimerSetEmailAgain()
                 
                 alert.addAction(ok)
                 

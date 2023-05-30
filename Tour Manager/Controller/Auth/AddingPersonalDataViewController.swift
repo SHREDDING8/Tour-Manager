@@ -136,7 +136,7 @@ class AddingPersonalDataViewController: UIViewController {
         
         let doneButton = datePickerUiView.subviews[1] as! UIButton
         
-        let cancelButton = datePickerUiView.subviews[2]
+        let cancelButton = datePickerUiView.subviews[2] as! UIButton
         
         let line = datePickerUiView.subviews[3]
         
@@ -155,7 +155,20 @@ class AddingPersonalDataViewController: UIViewController {
             self.birthdayDate = picker.date
         }
         
+        let cancelAction = UIAction { _ in
+            UIView.transition(with: self.datePickerUiView, duration: 0.5) {
+                self.caledarHeightConstaint.constant = 0
+                self.view.layoutIfNeeded()
+            }
+            UIView.animate(withDuration: 0.5, delay: 0) {
+                self.tabBarController?.tabBar.layer.opacity = 1
+                self.darkUiView.layer.opacity = 0
+            }
+            
+        }
+        
         doneButton.addAction(doneAction, for: .touchUpInside)
+        cancelButton.addAction(cancelAction, for: .touchUpInside)
         
         
         caledarHeightConstaint = NSLayoutConstraint(item: self.datePickerUiView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 0)
@@ -379,6 +392,7 @@ extension AddingPersonalDataViewController:UITableViewDelegate,UITableViewDataSo
     }
     
     
+    // MARK: - cellsNewCompany
     fileprivate func cellsNewCompany(tableView:UITableView, indexPath:IndexPath) -> UITableViewCell{
         var cell = tableView.dequeueReusableCell(withIdentifier: "profileSettingsCell", for: indexPath)
         
@@ -389,11 +403,16 @@ extension AddingPersonalDataViewController:UITableViewDelegate,UITableViewDataSo
         
         switch indexPath.row{
         case 0:
+            
+            cell.restorationIdentifier = "localIdNameCompany"
+            
             label.text = "Название компании"
             textField.placeholder = "Название компании"
             textField.restorationIdentifier = "localIdNameCompany"
             
             textField.text = self.nameCompanyLocalIdString
+            
+            
             
             self.localIdNameCompany = textField
         case 1:
@@ -402,6 +421,7 @@ extension AddingPersonalDataViewController:UITableViewDelegate,UITableViewDataSo
             self.firstName = textField
             
             textField.restorationIdentifier = "firstName"
+            cell.restorationIdentifier = "firstName"
             
             textField.text = self.firstNameString
         case 2:
@@ -410,6 +430,8 @@ extension AddingPersonalDataViewController:UITableViewDelegate,UITableViewDataSo
             self.secondName = textField
             
             textField.restorationIdentifier = "secondName"
+            cell.restorationIdentifier = "secondName"
+            
             
             textField.text = self.secondNameString
             
@@ -419,6 +441,7 @@ extension AddingPersonalDataViewController:UITableViewDelegate,UITableViewDataSo
             self.phone = textField
             
             textField.restorationIdentifier = "phone"
+            cell.restorationIdentifier = "phone"
             
             textField.text = self.phoneString
             
@@ -543,22 +566,42 @@ extension AddingPersonalDataViewController:UITableViewDelegate,UITableViewDataSo
 
 extension AddingPersonalDataViewController:UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        if textField.restorationIdentifier == "localIdNameCompany"{
+
+            self.firstName.becomeFirstResponder()
+            
+        }else if textField.restorationIdentifier == "firstName"{
+            self.secondName.becomeFirstResponder()
+            
+        }else if textField.restorationIdentifier == "secondName"{
+            self.phone.becomeFirstResponder()
+            
+        }else if textField.restorationIdentifier == "phone"{
+            textField.resignFirstResponder()
+        }
+        
         return true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        
         if textField.restorationIdentifier == "localIdNameCompany"{
             self.nameCompanyLocalIdString = textField.text ?? ""
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             
         }else if textField.restorationIdentifier == "firstName"{
             self.firstNameString = textField.text ?? ""
+            tableView.scrollToRow(at: IndexPath(row: 1, section: 0), at: .top, animated: true)
             
         }else if textField.restorationIdentifier == "secondName"{
             self.secondNameString = textField.text ?? ""
+            tableView.scrollToRow(at: IndexPath(row: 2, section: 0), at: .top, animated: true)
             
         }else if textField.restorationIdentifier == "phone"{
             self.phoneString = textField.text ?? ""
+            tableView.scrollToRow(at: IndexPath(row: 4, section: 0), at: .top, animated: true)
         }
+        
+       
     }
 }

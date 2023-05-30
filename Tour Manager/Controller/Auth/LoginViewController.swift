@@ -44,11 +44,10 @@ class LoginViewController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        configureLogInButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        configureLogInButton()
         self.isSignIn = false
         tableView.reloadData()
         addKeyboardObservers()
@@ -79,14 +78,10 @@ class LoginViewController: UIViewController {
         
         tableView.reloadData()
         
-//        tableView.reloadRows(at: [confirmPasswordIndexPath], with: )
         
         if self.isSignIn{
             setTitleLogInButton(title: "Регистрация")
             setTitleLogInSignInButton(title: "Вход")
-//            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) { [self] in
-//                tableView.scrollToRow(at: confirmPasswordIndexPath, at: .top, animated: true)
-//            }
         }else{
             setTitleLogInButton(title: "Войти")
             setTitleLogInSignInButton(title: "Регистрация")
@@ -113,6 +108,15 @@ class LoginViewController: UIViewController {
     // MARK: - signIn LogIn tapped
     
     @IBAction func logIn(_ sender: Any) {
+        
+        // validate email
+        if !textFieldValidation.validateEmailTextField(self.emailTextField){
+            let errorAlert = alerts.errorAlert(errorTypeFront: .email)
+            self.present(errorAlert, animated: true)
+            return
+        }
+        
+        
         if self.isSignIn{
             self.signIn()
         }else{
@@ -126,15 +130,9 @@ class LoginViewController: UIViewController {
     }
     
     fileprivate func signIn(){
-        // validate email
-        if !textFieldValidation.validateEmailTextField(self.emailTextField){
-            let errorAlert = alerts.errorAlert(errorTypeFront: .email)
-            self.present(errorAlert, animated: true)
-            return
-        }
         // validate password
         if !textFieldValidation.validatePasswordsTextField(self.firstPasswordTextField, self.secondPasswordTextField){
-            let errorAlert = alerts.errorAlert(errorTypeFront: .password)
+            let errorAlert = alerts.errorAlert(errorTypeFront: .weakPassword)
             self.present(errorAlert, animated: true)
             return
         }
@@ -143,26 +141,27 @@ class LoginViewController: UIViewController {
         
         // signIn Api
         
-        
-        self.user?.isUserExists(completion: { isUserExists, error in
+        self.user?.signIn(password: self.firstPasswordTextField.text!, completion: { isSignIn, error in
             if error == .unknowmError{
                 let errorAlert = self.alerts.errorAlert(errorTypeApi: .unknown)
                 self.present(errorAlert, animated: true)
                 return
+            } else if error == .emailExist{
+                let errorAlert = self.alerts.errorAlert(errorTypeApi: .emailExists)
+                self.present(errorAlert, animated: true)
+                return
+            }else if error == .weakPassword{
+                let errorAlert = self.alerts.errorAlert(errorTypeApi: .weakPassword)
+                self.present(errorAlert, animated: true)
+                return
             }
-            if isUserExists {return}
-            self.user?.signIn(password: self.firstPasswordTextField.text!, completion: { isSignIn, error in
-                
-                if error == .unknowmError{
-                    let errorAlert = self.alerts.errorAlert(errorTypeApi: .unknown)
-                    self.present(errorAlert, animated: true)
-                    return
-                }
-                
+            
+            if isSignIn{
                 self.logIn()
-                
-            })
-
+            }
+            
+            
+            
         })
               
     }
@@ -221,6 +220,7 @@ class LoginViewController: UIViewController {
     
     @IBAction func resetPasswordTapped(_ sender: Any) {
         if !textFieldValidation.validateEmailTextField(emailTextField){
+            
             let error = alerts.errorAlert(errorTypeFront: .email)
             self.present(error, animated: true)
             return
@@ -355,6 +355,7 @@ extension LoginViewController:UITableViewDelegate,UITableViewDataSource{
             textField.autocorrectionType = .no
             textField.keyboardType = .emailAddress
             textField.returnKeyType = .done
+            textField.isSecureTextEntry = false
             
             textField.restorationIdentifier = "emailTextField"
             self.emailTextField = textField
@@ -423,17 +424,6 @@ extension LoginViewController:UITextFieldDelegate{
         
         if textField.restorationIdentifier == "emailTextField"{
             
-            if !textFieldValidation.validateEmailTextField(textField){
-                
-                textField.resignFirstResponder()
-                
-                let errorAlert = alerts.errorAlert(errorTypeFront: .email)
-                self.present(errorAlert, animated: true)
-                
-                return true
-            }
-            
-            self.user?.setEmail(email: textField.text!)
             self.email = textField.text!
             
             self.firstPasswordTextField.text = ""
@@ -454,17 +444,10 @@ extension LoginViewController:UITextFieldDelegate{
         
         if textField.restorationIdentifier == "emailTextField"{
             
-            if !textFieldValidation.validateEmailTextField(textField){
-                let errorAlert = alerts.errorAlert(errorTypeFront: .email)
-                self.present(errorAlert, animated: true)
-            }
-            
-            self.user?.setEmail(email: textField.text!)
             self.email = textField.text!
             
             self.firstPasswordTextField.text = ""
             self.secondPasswordTextField?.text = ""
-            self.firstPasswordTextField.becomeFirstResponder()
         
         }
     }

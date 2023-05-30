@@ -194,13 +194,12 @@ class User:UserProtocol{
         
         self.apiAuth.signIn(email: self.email ?? "", password: password) { isSignIn, error in
             // check errors from api
-            if error == .unknowmError{
-                
+            if error != nil{
                 completion(false, error)
-                return
             }
-            completion(true,nil)
-            
+            if isSignIn{
+                completion(true,nil)
+            }
         }
     }
     

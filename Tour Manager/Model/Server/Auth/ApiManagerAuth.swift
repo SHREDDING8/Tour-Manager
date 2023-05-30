@@ -13,6 +13,10 @@ public enum customErrorAuth{
     
     case emailIsNotVerifyed
     
+    case emailExist
+    
+    case weakPassword
+    
     case userNotFound
     
     case unknowmError
@@ -74,7 +78,20 @@ public class ApiManagerAuth{
         AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
             if response.response?.statusCode == 200{
                 completion(true,nil)
-            }else{
+            }else if response.response?.statusCode == 400 {
+                if let error = try? JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!){
+                    
+                    if error.message == "Email exists"{
+                        completion(false,.emailExist)
+                    } else if error.message == "Weak password" {
+                        completion(false, .weakPassword)
+                    } else{
+                        completion(false,.unknowmError)
+                    }
+                } else {
+                    completion(false,.unknowmError)
+                }
+            } else{
                 completion(false,.unknowmError)
             }
         }
@@ -104,6 +121,7 @@ public class ApiManagerAuth{
         }
     }
     
+    // MARK: - updatePassword
     public func updatePassword(email:String,oldPassword:String, newPassword:String, completion:  @escaping (Bool,customErrorAuth?)->Void ){
         
         let jsonData = sendUpdatePassword(email: email, old_password: oldPassword, new_password: newPassword)

@@ -14,6 +14,8 @@ enum errorAlertsApi{
     case userNotFound
     case unknown
     case invalidEmailOrPassword
+    case emailExists
+    case weakPassword
     
     var rawValue:RawValue{
         switch self{
@@ -25,8 +27,11 @@ enum errorAlertsApi{
             
         case .invalidEmailOrPassword:
             return ("Неверный логин или пароль","Проверьте правильность введенных данных и повторите попытку")
+        case .emailExists:
+            return ("Пользователь уже существует","Введите другой email")
+        case .weakPassword:
+            return ("Слабый пароль","Введите более сильный пароль")
         }
-        
         
     }
 }
@@ -37,6 +42,8 @@ enum errorAlertsFront{
     case email
     case password
     case phone
+    
+    case weakPassword
     
     
     
@@ -52,8 +59,10 @@ enum errorAlertsFront{
             return ("Неправильный пароль", "Проверьте правильность введенных данных и повторите попытку")
         case .phone:
             return ("Неправильный формат телефонного номера", "Проверьте правильность введенных данных и повторите попытку")
-        
             
+        case .weakPassword:
+            return ("Слабый пароль","Введите более надежный пароль")
+        
         case .textFieldIsEmpty:
             return ("Ошибка", "Некоторые текстовые поля пустые")
 
