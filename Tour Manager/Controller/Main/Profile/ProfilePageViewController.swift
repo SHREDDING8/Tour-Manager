@@ -21,6 +21,7 @@ class ProfilePageViewController: UIViewController {
     let controllers = Controllers()
     let profileModel = Profile()
     let alerts = Alert()
+    let validationString = StringValidation()
     
     // MARK: - Outlets
     
@@ -566,25 +567,78 @@ extension ProfilePageViewController:UITextFieldDelegate{
         textField.isEnabled = false
         let value = textField.text!
         
+        if validationString.validateIsEmptyString([value]){
+            let alert = alerts.errorAlert(errorTypeFront: .textFieldIsEmpty)
+            self.present(alert, animated: true)
+        }
+        
         if textField.restorationIdentifier == "firstName"{
+            
+            if validationString.validateIsEmptyString([value]){
+                textField.text = self.user?.getFirstName()
+                let alert = alerts.errorAlert(errorTypeFront: .textFieldIsEmpty)
+                self.present(alert, animated: true)
+            }
+            
             self.user?.updatePersonalData(updateField: .firstName, value: value) { isSetted, error in
+                
+                if error == .tokenExpired || error == .invalidToken{
+                    textField.text = self.user?.getFirstName()
+                    let alert  = self.alerts.invalidToken(view: self.view, message: "")
+                    self.present(alert, animated: true)
+                } else if error == .unknowmError{
+                    textField.text = self.user?.getFirstName()
+                    let alert  = self.alerts.errorAlert(errorTypeApi: .unknown)
+                    self.present(alert, animated: true)
+                }
+                
                 if isSetted{
                     self.fullNameLabel.text = self.user?.getFullName() ?? ""
                 }
             }
             
         }else if textField.restorationIdentifier == "secondName"{
+            
+            if validationString.validateIsEmptyString([value]){
+                textField.text = self.user?.getSecondName()
+                let alert = alerts.errorAlert(errorTypeFront: .textFieldIsEmpty)
+                self.present(alert, animated: true)
+            }
+            
             self.user?.updatePersonalData(updateField: .secondName, value: value) { isSetted, error in
+                
+                if error == .tokenExpired || error == .invalidToken{
+                    textField.text = self.user?.getSecondName()
+                    let alert  = self.alerts.invalidToken(view: self.view, message: "")
+                    self.present(alert, animated: true)
+                } else if error == .unknowmError{
+                    textField.text = self.user?.getSecondName()
+                    let alert  = self.alerts.errorAlert(errorTypeApi: .unknown)
+                    self.present(alert, animated: true)
+                }
+                
                 if isSetted{
                     self.fullNameLabel.text = self.user?.getFullName() ?? ""
                 }
             }
             
-        } else if textField.restorationIdentifier == "email"{
-            
         } else if textField.restorationIdentifier == "phone"{
+            
+            if !validationString.validatePhone(value: value){
+                let alert = alerts.errorAlert(errorTypeFront: .phone)
+                self.present(alert, animated: true)
+            }
+            
             self.user?.updatePersonalData(updateField: .phone, value: value) { isSetted, error in
-                
+                if error == .tokenExpired || error == .invalidToken{
+                    textField.text = self.user?.getPhone()
+                    let alert  = self.alerts.invalidToken(view: self.view, message: "")
+                    self.present(alert, animated: true)
+                } else if error == .unknowmError{
+                    textField.text = self.user?.getPhone()
+                    let alert  = self.alerts.errorAlert(errorTypeApi: .unknown)
+                    self.present(alert, animated: true)
+                }
             }
             
         }
