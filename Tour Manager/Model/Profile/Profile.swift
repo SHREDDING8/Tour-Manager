@@ -10,8 +10,8 @@ import Foundation
 
 // MARK: - enum of classification cell in Page Profile
 
-class Profile{
-    let user = AppDelegate.user
+public class Profile{
+    private let user = AppDelegate.user
     
     
     public enum ProfilePersonalDataCellType{
@@ -57,7 +57,42 @@ class Profile{
         
     }
     
+    
+    public enum ProfileCompanyDataCellType{
+        typealias RawValue = (String,Int,String)
+        case localIdCompany
+        case companyName
+        case emploee
+        
+        init?(index:Int){
+            switch index{
+            case 0: self = .localIdCompany
+            case 1: self = .companyName
+            case 2: self = .emploee
+                
+            default:
+                return nil
+            }
+        }
+        
+        var rawValue: RawValue{
+            switch self{
+            case .localIdCompany:
+                return ("Id компании",0, "localIdCompany")
+            case .companyName:
+                return ("Название",1, "companyName")
+            case .emploee:
+                return ("Работники",2, "emploee")
+            }
+        }
+        
+        
+    }
+    
+    
+    
     public func getProfilePersonalDataFromUser(type:ProfilePersonalDataCellType)->String{
+        
         switch type{
             
         case .firstName:
@@ -74,15 +109,45 @@ class Profile{
             return ""
         }
         
+
         
+
+    }
+    
+    public func getProfileCompanyDataFromUser(type:ProfileCompanyDataCellType)->String{
         
+        switch type{
+            
+        case .companyName:
+            return self.user?.company.getNameCompany() ?? ""
+        case .localIdCompany:
+            return self.user?.company.getLocalIDCompany() ?? ""
+        case .emploee:
+            return ""
+        }
     }
     
     
-    public func getProfileCellType(index:Int)->ProfilePersonalDataCellType{
+    public func getProfilePersonalDataCellType(index:Int)->ProfilePersonalDataCellType{
         return ProfilePersonalDataCellType(index: index) ?? .firstName
         
     }
+    public func getProfileCompanyDataCellType(index:Int)->ProfileCompanyDataCellType{
+        return ProfileCompanyDataCellType(index: index) ?? .companyName
+    }
+    
+    public func getNumberCellCompanySection()->Int{
+        var count = 0
+        
+        count += self.user?.getAccessLevel(rule: .readLocalIdCompany).toInt() ?? 0
+        count += self.user?.getAccessLevel(rule: .readCompanyEmployee).toInt() ?? 0
+        count += self.user?.getAccessLevel(rule: .isOwner).toInt() ?? 0
+        
+        return count
+    }
+    
+    
+    
 }
 
 enum CellTypeProfilePage{
@@ -138,13 +203,3 @@ enum CellTypeProfilePage{
         }
     }
 }
-
-// MARK: - test Profile
-
-let profile:[CellTypeProfilePage:String] = [
-    .CompanyName: "Inno Travel",
-    .firstName: "Мария",
-    .lastName: "Мельник",
-    .email: "test@mail.ru",
-    .phone: "8 (904) 781-35-90"
-]

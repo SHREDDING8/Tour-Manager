@@ -49,4 +49,17 @@ class Controllers{
         return UIStoryboard(name: "Launch", bundle: nil).instantiateViewController(withIdentifier: "LaunchScreenViewController")
         
     }
+    
+    public func goToLoginPage(view:UIView){
+        let mainLogIn = self.getControllerAuth(.mainAuthController)
+        
+        let window = view.window
+        let options = UIWindow.TransitionOptions()
+        
+        options.direction = .toBottom
+        options.duration = 0.3
+        options.style = .easeOut
+        
+        window?.set(rootViewController: mainLogIn, options: options)
+    }
 }

@@ -50,8 +50,13 @@ class User:UserProtocol{
 
     
     enum AccessLevelEnum{
+        
+        case isOwner
+        
         case readGeneralCompanyInformation
         case writeGeneralCompanyInformation
+        case readLocalIdCompany
+        case readCompanyEmployee
     }
     
     
@@ -68,8 +73,14 @@ class User:UserProtocol{
     
     
     private var accessLevel:[AccessLevelEnum:Bool] = [
+        
+        .isOwner: false,
+        
         .readGeneralCompanyInformation: true,
-        .writeGeneralCompanyInformation: false
+        .writeGeneralCompanyInformation: true,
+        .readLocalIdCompany:false,
+        .readCompanyEmployee:true,
+        
     ]
     
     
@@ -316,6 +327,12 @@ class User:UserProtocol{
                 }
                 completion(true, nil)
             }
+        }
+    }
+    
+    public func deleteCurrentUser(completion: @escaping (Bool, customErrorUserData?)->Void){
+        self.apiUserData.deleteCurrentUser(token: self.getToken()) { isDeleted, error in
+            completion(isDeleted,error)
         }
     }
 

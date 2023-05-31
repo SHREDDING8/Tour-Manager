@@ -20,6 +20,7 @@ class ProfilePageViewController: UIViewController {
     let user = AppDelegate.user
     let controllers = Controllers()
     let profileModel = Profile()
+    let alerts = Alert()
     
     // MARK: - Outlets
     
@@ -78,11 +79,8 @@ class ProfilePageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
-//            print(self.datePickerUiView.frame)
-//        })
-        
         configurationView()
+        setKeyBoardObserver()
         
         addSubviews()
         
@@ -93,19 +91,43 @@ class ProfilePageViewController: UIViewController {
         AppDelegate.user?.printData()
         
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tableViewPosition = tableView.frame.origin
     
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        removeKeyBoardObserver()
+    }
+    
+    // MARK: - KeyBoard
+    
+    fileprivate func setKeyBoardObserver(){
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    fileprivate func removeKeyBoardObserver(){
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc fileprivate func keyboardWillShow(notification: NSNotification){
+        
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            
+            if keyboardSize.origin.y - tableView.frame.origin.y  < 125{
+                tableView.frame.origin = CGPoint(x: 0, y: self.profilePhoto.frame.origin.y - 10)
+            }
+        }
+    }
+    
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        tableView.frame.origin.y = tableViewPosition.y
     }
     
     // MARK: - Configuration
@@ -128,28 +150,6 @@ class ProfilePageViewController: UIViewController {
         self.view.addSubview(self.darkUiView)
         self.view.addSubview(datePickerUiView)
     }
-    
-    
-    // MARK: - Button Taps
-    
-    
-    
-    // MARK: - Navigation
-    fileprivate func goToLogInPage(){
-        let mainLogIn = self.controllers.getControllerAuth(.mainAuthController)
-        
-        let window = self.view.window
-        let options = UIWindow.TransitionOptions()
-        
-        options.direction = .toBottom
-        options.duration = 0.3
-        options.style = .easeOut
-        
-        window?.set(rootViewController: mainLogIn,options: options)
-        
-    }
-    
-    
     
     // MARK: - configure Date Picker
     fileprivate func datePickerConfiguration(){
@@ -226,28 +226,39 @@ class ProfilePageViewController: UIViewController {
     }
     
     
-    @objc fileprivate func keyboardWillShow(notification: NSNotification){
+    // MARK: - Button Taps
+    
+    
+    
+    // MARK: - Navigation
+    fileprivate func goToLogInPage(){
+        let mainLogIn = self.controllers.getControllerAuth(.mainAuthController)
         
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            
-            if keyboardSize.origin.y - tableView.frame.origin.y  < 125{
-                tableView.frame.origin = CGPoint(x: 0, y: self.profilePhoto.frame.origin.y - 10)
-            }
-        }
+        let window = self.view.window
+        let options = UIWindow.TransitionOptions()
+        
+        options.direction = .toBottom
+        options.duration = 0.3
+        options.style = .easeOut
+        
+        window?.set(rootViewController: mainLogIn, options: options)
+        
     }
     
-    
-    @objc func keyboardWillHide(notification: NSNotification) {
-        tableView.frame.origin.y = tableViewPosition.y
+    fileprivate func goToChangePasswordPage(){
+        let changePasswordController = self.controllers.getControllerMain(.changePasswordViewController)
+        
+        self.navigationController?.pushViewController(changePasswordController, animated: true)
     }
+    
     
 }
 
-// MARK: - ProfilePageViewController
+// MARK: - UITableViewDelegate
 extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return self.user?.getAccessLevel(rule: .readGeneralCompanyInformation) ?? false ? 3 : 2
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -264,8 +275,7 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
         
         switch section{
         case 0: title.text = "Личные данные"
-        case 1: title.text = "Компания"
-//        case 2: title.text = ""
+        case 1: self.user?.getAccessLevel(rule: .readGeneralCompanyInformation) ?? false ? (title.text = "Компания") : (title.text = "")
         default: title.text = ""
         }
         return header
@@ -274,8 +284,9 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         switch section{
-        case 0: return 6
-        case 1: return 0
+        case 0: return self.user?.getAccessLevel(rule: .isOwner) ?? false ? 6 : 7
+        case 1:
+            return 1 + self.profileModel.getNumberCellCompanySection()
         case 2: return 1
         default: return 0
         }
@@ -287,33 +298,19 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
         
         switch indexPath.section{
         case 0:
-            cell = getPersonalDataCell(indexPath: indexPath)
-        case 2:
-            cell = tableView.dequeueReusableCell(withIdentifier: "buttonCell", for: indexPath)
-            
-            let button = cell.viewWithTag(1) as! UIButton
-            let actionExit = UIAction { _ in
-                self.goToLogInPage()
+            cell = personalDataCell(indexPath: indexPath)
+        case 1:
+            if self.user?.getAccessLevel(rule: .readGeneralCompanyInformation) ?? false{
+                cell = self.companyDataCell(indexPath: indexPath)
+                
+            }else{
+                cell = self.exitFromAccountCell(indexPath: indexPath)
             }
-            
-            button.addAction(actionExit, for: .touchUpInside)
-                        
-            return cell
+        case 2:
+            cell = self.exitFromAccountCell(indexPath: indexPath)
         default:
             break
         }
-        
-//        let cellType:CellTypeProfilePage = CellTypeProfilePage(index: index)!
-        
-//        switch index{
-//
-//        case 6...8:
-//            cell = tableView.dequeueReusableCell(withIdentifier: "otherPagesCell", for: indexPath)
-//            let cellLabel:UILabel = cell.viewWithTag(2) as! UILabel
-//            cellLabel.text = cellType.rawValue.0
-//        default:
-//            return UITableViewCell()
-//        }
         
         return cell
     }
@@ -321,16 +318,15 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
         if cell?.restorationIdentifier == "changePasswordCell"{
-            let destination = controllers.getControllerMain(.changePasswordViewController)
-            self.navigationController?.pushViewController(destination, animated: true)
+            self.goToChangePasswordPage()
         }
     }
     
-    // MARK: - getPersonalDataCell
+    // MARK: - PersonalData Cell
     
-    fileprivate func getPersonalDataCell(indexPath:IndexPath) -> UITableViewCell{
+    fileprivate func personalDataCell(indexPath:IndexPath) -> UITableViewCell{
         var cell = UITableViewCell()
-        let cellType = profileModel.getProfileCellType(index: indexPath.row)
+        let cellType = profileModel.getProfilePersonalDataCellType(index: indexPath.row)
         
         switch indexPath.row{
         case 0...1, 3...4:
@@ -383,11 +379,180 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
                 let cellLabel:UILabel = cell.viewWithTag(2) as! UILabel
                 cellLabel.text = cellType.rawValue.0
             cell.restorationIdentifier = "changePasswordCell"
+        
+        case 6:
+            cell = tableView.dequeueReusableCell(withIdentifier: "buttonCell", for: indexPath)
+            let buttonDeleteAccount = cell.viewWithTag(1) as! UIButton
+            buttonDeleteAccount.backgroundColor = .red
+            buttonDeleteAccount.layer.cornerRadius = buttonDeleteAccount.frame.height / 2 - 1
+            buttonDeleteAccount.setTitleColor(.white, for: .normal)
+            buttonDeleteAccount.setTitle("Удалить аккаунт", for: .normal)
             
+            let actionDel = UIAction { _ in
+                
+                let alert = UIAlertController(title: "Вы уверены в удалении аккаунта?", message: nil, preferredStyle: .alert)
+                
+                let actionDel = UIAlertAction(title: "Удалить", style: .destructive) { _ in
+                    self.user?.deleteCurrentUser(completion: { isDeleted, error in
+                        if error == .invalidToken || error == .tokenExpired{
+                            let alert = self.alerts.invalidToken(view: self.view, message: "Мы не смогли удалить ваш аккаунт")
+                            self.present(alert, animated: true)
+                            
+                        } else if error == .unknowmError{
+                            let alert = self.alerts.errorAlert(errorTypeApi: .unknown)
+                            self.present(alert, animated: true)
+                        }
+                        
+                        if isDeleted{
+                            let alert = self.alerts.infoAlert(title: "Ваш аккаунт был удален", meesage: nil)
+                            self.present(alert, animated: true)
+                        }
+                        
+                    })
+                }
+                
+                let cancel = UIAlertAction(title: "Отменить", style: .cancel)
+                
+                alert.addAction(cancel)
+                alert.addAction(actionDel)
+                self.present(alert, animated: true)
+                
+            }
+            buttonDeleteAccount.addAction(actionDel, for: .touchUpInside)
         default:
             break
         }
         
+        return cell
+        
+    }
+    
+    // MARK: - companyDataCell
+    fileprivate func companyDataCell(indexPath:IndexPath) ->UITableViewCell{
+        var cell = UITableViewCell()
+        let cellType = profileModel.getProfileCompanyDataCellType(index: 1)
+        
+        let indexLocalId = self.user?.getAccessLevel(rule: .readLocalIdCompany).toInt() ?? 0
+        let indexCompanyEmploee = indexLocalId + (self.user?.getAccessLevel(rule: .readCompanyEmployee).toInt() ?? 0)
+        let indexDeleteCompany = indexCompanyEmploee + (self.user?.getAccessLevel(rule: .isOwner).toInt() ?? 0)
+        
+        
+        
+        switch indexPath.row{
+        case 0:
+            cell = tableView.dequeueReusableCell(withIdentifier: "profileSettingsCell", for: indexPath)
+            
+            let textField:UITextField = cell.viewWithTag(2) as! UITextField
+            textField.text = profileModel.getProfileCompanyDataFromUser(type: cellType)
+            textField.restorationIdentifier = cellType.rawValue.2
+            
+            let cellLabel:UILabel = cell.viewWithTag(1) as! UILabel
+            cellLabel.text = cellType.rawValue.0
+            
+            let changeButton:UIButton = cell.viewWithTag(3) as! UIButton
+            
+            let action = UIAction(handler: { _ in
+                textField.isEnabled = true
+                self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+                textField.becomeFirstResponder()
+            })
+            changeButton.addAction(action, for: .touchUpInside)
+            
+            if !(self.user?.getAccessLevel(rule: .writeGeneralCompanyInformation) ?? false){
+                changeButton.isHidden = true
+            }
+            
+        case 1:
+            if indexLocalId == 1{
+                cell = CompanyIdCell(indexPath: indexPath)
+            } else if indexCompanyEmploee == 1{
+                cell = emploeeCell(indexPath: indexPath)
+            } else if indexDeleteCompany == 1{
+                cell = deleteCompanyCell(indexPath: indexPath)
+            }
+        case 2:
+            if indexCompanyEmploee == 2{
+                cell = emploeeCell(indexPath: indexPath)
+            } else if indexDeleteCompany == 2{
+                cell = deleteCompanyCell(indexPath: indexPath)
+            }
+        case 3:
+            if indexDeleteCompany == 3{
+                cell = deleteCompanyCell(indexPath: indexPath)
+            }
+        default:
+            break
+        }
+        
+        
+        return cell
+    }
+    
+    fileprivate func CompanyIdCell(indexPath:IndexPath)->UITableViewCell{
+        let cell = tableView.dequeueReusableCell(withIdentifier: "profileSettingsCell", for: indexPath)
+        let cellType = profileModel.getProfileCompanyDataCellType(index: 0)
+        
+        let textField:UITextField = cell.viewWithTag(2) as! UITextField
+        textField.text = profileModel.getProfileCompanyDataFromUser(type: cellType)
+        textField.restorationIdentifier = cellType.rawValue.2
+        
+        let cellLabel:UILabel = cell.viewWithTag(1) as! UILabel
+        cellLabel.text = cellType.rawValue.0
+        
+        let changeButton:UIButton = cell.viewWithTag(3) as! UIButton
+        changeButton.setTitle("Скопировать", for: .normal)
+        
+        let action = UIAction(handler: { _ in
+            UIPasteboard.general.string = textField.text ?? ""
+            
+            let alert = UIAlertController(title: "Id компании был скопирован", message: nil, preferredStyle: .alert)
+            let actionOk = UIAlertAction(title: "Ok", style: .default)
+            alert.addAction(actionOk)
+            self.present(alert, animated: true)
+        })
+        changeButton.addAction(action, for: .touchUpInside)
+        
+        return cell
+    }
+    
+    public func emploeeCell(indexPath:IndexPath)->UITableViewCell{
+        let cell = tableView.dequeueReusableCell(withIdentifier: "otherPagesCell", for: indexPath)
+        cell.restorationIdentifier = "emploeeCell"
+        
+        let cellType = profileModel.getProfileCompanyDataCellType(index: 2)
+        
+        let cellLabel:UILabel = cell.viewWithTag(2) as! UILabel
+        cellLabel.text = cellType.rawValue.0
+        
+        return cell
+    }
+    
+    public func deleteCompanyCell(indexPath:IndexPath)->UITableViewCell{
+        let cell = tableView.dequeueReusableCell(withIdentifier: "buttonCell", for: indexPath)
+        
+        let button = cell.viewWithTag(1) as! UIButton
+        button.backgroundColor = .red
+        button.layer.cornerRadius = button.frame.height / 2 - 1
+        button.setTitleColor(.white, for: .normal)
+        button.setTitle("Удалить компанию", for: .normal)
+        
+        let actionExit = UIAction { _ in
+            
+        }
+        button.addAction(actionExit, for: .touchUpInside)
+        
+        return cell
+    }
+    
+    public func exitFromAccountCell(indexPath:IndexPath)->UITableViewCell{
+        let cell = tableView.dequeueReusableCell(withIdentifier: "buttonCell", for: indexPath)
+        
+        let button = cell.viewWithTag(1) as! UIButton
+        let actionExit = UIAction { _ in
+            self.goToLogInPage()
+        }
+        
+        button.addAction(actionExit, for: .touchUpInside)
         return cell
         
     }

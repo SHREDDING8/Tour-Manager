@@ -36,6 +36,8 @@ public class ApiManagerUserData{
     private let routeGetUserInfo = prefix + "/get_user_info"
     private let routeSetUserInfo = prefix + "/update_user_info"
     
+    private let routeDeleteCurrentUser = prefix + "/delete_current_user_account"
+    
 //    private let routeUpdateEmail = prefix + "/update_user_email"
     
     
@@ -97,6 +99,7 @@ public class ApiManagerUserData{
             }
         }
     }
+    
     // MARK: - updateUserInfo
     public func updateUserInfo(token:String, updateField: UserDataFields, value:String, completion: @escaping (Bool,customErrorUserData?)->Void ){
         
@@ -124,6 +127,33 @@ public class ApiManagerUserData{
         }
     }
     
+    
+    public func deleteCurrentUser(token:String, completion: @escaping (Bool,customErrorUserData?)->Void  ){
+        
+        let url = URL(string: routeDeleteCurrentUser)
+        let jsonData = [
+            "token": token,
+        ]
+        
+        AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
+            
+            
+            if response.response?.statusCode == 400{
+                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
+                
+                if error.message == "Token expired" || error.message == "Invalid Firebase ID token" {
+                    completion(false, .invalidToken)
+                } else {
+                    completion(false, .unknowmError)
+                }
+            } else if response.response?.statusCode == 200{
+                completion(true,nil)
+            }else{
+                completion(false, .unknowmError)
+            }
+            
+        }
+    }
 //    // MARK: - updateEmail
 //    
 //    public func updateEmail(token:String, email:String, completion: @escaping (Bool,customErrorUserData?)->Void ){

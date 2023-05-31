@@ -70,7 +70,9 @@ enum errorAlertsFront{
     }
 }
 
+
 class Alert{
+    let controllers = Controllers()
     
     public func errorAlert(errorTypeApi:errorAlertsApi) -> UIAlertController{
         let alert = UIAlertController(title: errorTypeApi.rawValue.0, message: errorTypeApi.rawValue.1, preferredStyle: .alert)
@@ -81,6 +83,25 @@ class Alert{
     
     public func errorAlert(errorTypeFront:errorAlertsFront) -> UIAlertController{
         let alert = UIAlertController(title: errorTypeFront.rawValue.0, message: errorTypeFront.rawValue.1, preferredStyle: .alert)
+        let actionOk = UIAlertAction(title: "Ok", style: .default)
+        alert.addAction(actionOk)
+        return alert
+    }
+    
+    public func invalidToken(view:UIView, message:String?) -> UIAlertController{
+        let alert = UIAlertController(title: "Сессия закончилась", message: message, preferredStyle: .alert)
+
+        let actionExit = UIAlertAction(title: "Выйти", style: .destructive) { _ in
+            self.controllers.goToLoginPage(view: view)
+        }
+        
+        alert.addAction(actionExit)
+        return alert
+    }
+    
+    public func infoAlert(title:String,meesage:String?)->UIAlertController{
+        let alert = UIAlertController(title: title, message: meesage, preferredStyle: .alert)
+        
         let actionOk = UIAlertAction(title: "Ok", style: .default)
         alert.addAction(actionOk)
         return alert

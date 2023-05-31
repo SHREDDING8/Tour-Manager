@@ -100,6 +100,12 @@ class AddingPersonalDataViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let backButton = UIBarButtonItem()
+        backButton.title = "Назад"
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
+        
+        
+        
         addSubviews()
         
         datePickerConfiguration()
@@ -352,7 +358,7 @@ class AddingPersonalDataViewController: UIViewController {
         
     }
     
-    fileprivate func goToLogInPage(){
+    @objc fileprivate func goToLogInPage(){
         let mainLogIn = self.controllers.getControllerAuth(.mainAuthController)
         
 

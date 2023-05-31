@@ -150,6 +150,9 @@ class VerifyEmailViewController: UIViewController {
         let destination = self.controllers.getControllerAuth(.choiceOfTypeAccountViewController) as! ChoiceOfTypeAccountViewController
         
         self.navigationController?.pushViewController(destination, animated: true)
+        var navigationArray = navigationController?.viewControllers ?? []
+        navigationArray.remove(at: (navigationArray.count) - 2)
+        self.navigationController?.viewControllers = navigationArray
     }
     
     fileprivate func goToMainTabBar(){
