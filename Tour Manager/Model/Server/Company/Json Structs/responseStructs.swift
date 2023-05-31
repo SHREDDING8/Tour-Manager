@@ -16,3 +16,11 @@ public struct ResponseAddEmployeeToCompanyJsonStruct:Codable{
     let company_name:String
     let message:String
 }
+
+public struct ResponseAccessLevel:Codable{
+    
+    let read_general_company_information:Bool
+    let write_general_company_information:Bool
+    let read_local_id_company:Bool
+    let read_company_employee:Bool
+}

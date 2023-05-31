@@ -46,8 +46,8 @@
             filePath = "Tour Manager/Model/User/User.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "198"
-            endingLineNumber = "198"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
             landmarkName = "logIn(password:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -113,6 +113,22 @@
             startingLineNumber = "134"
             endingLineNumber = "134"
             landmarkName = "signIn()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7676D8F7-C37A-4298-AD47-0E9022A4C71E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Controller/Main/Profile/ProfilePageViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "142"
+            endingLineNumber = "142"
+            landmarkName = "configurationView()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

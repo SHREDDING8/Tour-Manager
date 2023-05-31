@@ -128,11 +128,40 @@ public class ApiManagerCompany{
             }
             
         }
-        
-        
-        
     }
     
+    public func getCurrentAccessLevel(token:String, companyId:String,completion: @escaping (ResponseAccessLevel?,customErrorCompany?)->Void ){
+        let url = URL(string: routeGetCurrentAccesslevel)
+        
+        let jsonData = SendAddEmployeeToCompanyJsonStruct(token: token, company_id: companyId)
+        
+        AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
+            if response.response?.statusCode == 400{
+                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
+                if error.message == "Permission denied"{
+                    completion(nil, .permissionDenied)
+                } else if error.message == "User is not in this company"{
+                    completion(nil, .userIsNotInThisCompany)
+                } else if error.message == "Company does not exist"{
+                    completion(nil, .companyIsPrivateOrDoesNotExist)
+                }else if error.message == "Token expired"{
+                    completion(nil, .tokenExpired)
+                } else if error.message == "Invalid Firebase ID token"{
+                    completion(nil, .invalidToken)
+                }else{
+                    completion(nil, .unknowmError)
+                }
+            } else if response.response?.statusCode == 200{
+                let accessLevels = try? JSONDecoder().decode(ResponseAccessLevel.self, from: response.data!)
+                completion(accessLevels, nil)
+            }else{
+                completion(nil, .unknowmError)
+            }
+        }
+        
+    }
 }
+
+
 
 

@@ -80,6 +80,14 @@ class ProfilePageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.user?.getAccessLevelFromApi(completion: { isGetted, error in
+            if isGetted{
+                self.configurationView()
+                self.tableView.reloadData()
+            }
+        })
+        
+        
         configurationView()
         setKeyBoardObserver()
         
@@ -88,9 +96,6 @@ class ProfilePageViewController: UIViewController {
         profilePhotoConfiguration()
         configurationDarkUiView()
         datePickerConfiguration()
-        
-        AppDelegate.user?.printData()
-        
         
         
         

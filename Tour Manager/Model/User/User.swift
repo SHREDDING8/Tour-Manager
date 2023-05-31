@@ -44,19 +44,21 @@ class User:UserProtocol{
     
     private let apiUserData = ApiManagerUserData()
     
+    private let apiCompany = ApiManagerCompany()
+    
     public let company = Company()
     
     
 
     
-    enum AccessLevelEnum{
+    enum AccessLevelEnum:String{
         
-        case isOwner
+        case isOwner = ""
         
-        case readGeneralCompanyInformation
-        case writeGeneralCompanyInformation
-        case readLocalIdCompany
-        case readCompanyEmployee
+        case readGeneralCompanyInformation = "read_general_company_information"
+        case writeGeneralCompanyInformation = "write_general_company_information"
+        case readLocalIdCompany = "read_local_id_company"
+        case readCompanyEmployee = "read_company_employee"
     }
     
     
@@ -76,10 +78,10 @@ class User:UserProtocol{
         
         .isOwner: false,
         
-        .readGeneralCompanyInformation: true,
-        .writeGeneralCompanyInformation: true,
+        .readGeneralCompanyInformation: false,
+        .writeGeneralCompanyInformation: false,
         .readLocalIdCompany:false,
-        .readCompanyEmployee:true,
+        .readCompanyEmployee:false,
         
     ]
     
@@ -344,14 +346,21 @@ class User:UserProtocol{
         return result ?? false
     }
     
-    
-    public func printData(){
-        print("localId: \(localId ?? "" )")
-        print("email: \(email ?? "")")
-        print("firstName: \(firstName ?? "")")
-        print("secondName: \(secondName ?? "")")
-        print("birthday: \(convertDate.birthdayToString(date:birthday!))")
-        print("phone: \(phone ?? "")")
+    public func getAccessLevelFromApi(completion: @escaping (Bool, customErrorCompany?)->Void){
         
+        self.apiCompany.getCurrentAccessLevel(token: self.getToken(), companyId: self.company.getLocalIDCompany()) { accessLevel, error in
+            if error != nil{
+                completion(false,error)
+            }
+            
+            if accessLevel != nil{
+                self.accessLevel[.readCompanyEmployee] = accessLevel?.read_company_employee
+                self.accessLevel[.readLocalIdCompany] = accessLevel?.read_local_id_company
+                self.accessLevel[.readGeneralCompanyInformation] = accessLevel?.read_general_company_information
+                self.accessLevel[.writeGeneralCompanyInformation] = accessLevel?.write_general_company_information
+                
+                completion(true,nil)
+            }
+        }
     }
 }
