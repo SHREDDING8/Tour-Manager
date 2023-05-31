@@ -16,3 +16,10 @@ struct SendAddEmployeeToCompanyJsonStruct:Codable{
     let token:String
     let company_id:String
 }
+
+struct SendCompanyInfoJsonStruct:Codable{
+    let token:String
+    let company_id:String
+    let company_name:String
+    
+}

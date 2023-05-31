@@ -61,4 +61,18 @@ class Company{
             }
         }
     }
+    
+    public func updateCompanyInfo(token:String, companyName:String, completion: @escaping (Bool, customErrorCompany?) ->Void){
+        self.apiCompany.updateCompanyInfo(token: token, companyId: self.getLocalIDCompany(), companyName: companyName) { isUpdated, error in
+            if error != nil{
+                completion(false,error)
+            }
+            
+            if isUpdated{
+                self.setNameCompany(nameCompany: companyName)
+                completion(true, nil)
+            }
+        }
+    }
+    
 }

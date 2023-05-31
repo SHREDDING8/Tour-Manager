@@ -561,16 +561,14 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
     
 }
 
+// MARK: - Text Field Delegate
+
 extension ProfilePageViewController:UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         textField.isEnabled = false
         let value = textField.text!
         
-        if validationString.validateIsEmptyString([value]){
-            let alert = alerts.errorAlert(errorTypeFront: .textFieldIsEmpty)
-            self.present(alert, animated: true)
-        }
         
         if textField.restorationIdentifier == "firstName"{
             
@@ -578,6 +576,7 @@ extension ProfilePageViewController:UITextFieldDelegate{
                 textField.text = self.user?.getFirstName()
                 let alert = alerts.errorAlert(errorTypeFront: .textFieldIsEmpty)
                 self.present(alert, animated: true)
+                return false
             }
             
             self.user?.updatePersonalData(updateField: .firstName, value: value) { isSetted, error in
@@ -603,6 +602,7 @@ extension ProfilePageViewController:UITextFieldDelegate{
                 textField.text = self.user?.getSecondName()
                 let alert = alerts.errorAlert(errorTypeFront: .textFieldIsEmpty)
                 self.present(alert, animated: true)
+                return false
             }
             
             self.user?.updatePersonalData(updateField: .secondName, value: value) { isSetted, error in
@@ -627,6 +627,7 @@ extension ProfilePageViewController:UITextFieldDelegate{
             if !validationString.validatePhone(value: value){
                 let alert = alerts.errorAlert(errorTypeFront: .phone)
                 self.present(alert, animated: true)
+                return false
             }
             
             self.user?.updatePersonalData(updateField: .phone, value: value) { isSetted, error in
@@ -640,6 +641,32 @@ extension ProfilePageViewController:UITextFieldDelegate{
                     self.present(alert, animated: true)
                 }
             }
+            
+        } else if textField.restorationIdentifier == "companyName"{
+            if validationString.validateIsEmptyString([value]){
+                textField.text = self.user?.company.getNameCompany()
+                let alert = alerts.errorAlert(errorTypeFront: .textFieldIsEmpty)
+                self.present(alert, animated: true)
+                return false
+            }
+            
+            self.user?.company.updateCompanyInfo(token: self.user?.getToken() ?? "", companyName: value, completion: { isUpdated, error in
+                
+                if error == .tokenExpired || error == .invalidToken{
+                    textField.text = self.user?.company.getNameCompany()
+                    let alert  = self.alerts.invalidToken(view: self.view, message: "")
+                    self.present(alert, animated: true)
+                } else if error != nil{
+                    textField.text = self.user?.company.getNameCompany()
+                    let alert  = self.alerts.errorAlert(errorTypeApi: .unknown)
+                    self.present(alert, animated: true)
+                }
+                
+                if isUpdated{
+                    self.navigationItem.title = self.user?.company.getNameCompany()
+                }
+                
+            })
             
         }
         return true

@@ -13,6 +13,9 @@ public enum customErrorCompany{
     case invalidToken
     case unknowmError
     
+    case permissionDenied
+    case userIsNotInThisCompany
+    
     case companyIsPrivateOrDoesNotExist
     case userIsAlreadyAttachedToCompany
 }
@@ -26,6 +29,9 @@ public class ApiManagerCompany{
     
     private let routeAddCompany = prefix + "/add_company"
     private let routeAddEmployeeToCompany = prefix + "/add_employee_to_company"
+    
+    private let routeUpdateCompanyInfo = prefix + "/update_company_info"
+    private let routeGetCurrentAccesslevel = prefix + "/get_current_access_level"
     
     public func addCompany(token:String, companyName:String, completion: @escaping (Bool,ResponseAddCompanyJsonStruct?,customErrorCompany?)->Void ){
         
@@ -92,7 +98,38 @@ public class ApiManagerCompany{
         }
     }
     
-    public func updateCompanyInfo(){
+    public func updateCompanyInfo(token:String, companyId:String, companyName:String, completion: @escaping (Bool,customErrorCompany?)->Void ){
+        
+        let url = URL(string: routeUpdateCompanyInfo)
+        
+        let jsonData = SendCompanyInfoJsonStruct(token: token, company_id: companyId, company_name: companyName)
+        
+        AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
+            if response.response?.statusCode == 400{
+                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
+                
+                if error.message == "Permission denied"{
+                    completion(false, .permissionDenied)
+                } else if error.message == "User is not in this company"{
+                    completion(false, .userIsNotInThisCompany)
+                } else if error.message == "Company does not exist"{
+                    completion(false, .companyIsPrivateOrDoesNotExist)
+                }else if error.message == "Token expired"{
+                    completion(false, .tokenExpired)
+                } else if error.message == "Invalid Firebase ID token"{
+                    completion(false, .invalidToken)
+                }else{
+                    completion(false, .unknowmError)
+                }
+            } else if response.response?.statusCode == 200{
+                completion(true, nil)
+            }else{
+                completion(false, .unknowmError)
+            }
+            
+        }
+        
+        
         
     }
     
