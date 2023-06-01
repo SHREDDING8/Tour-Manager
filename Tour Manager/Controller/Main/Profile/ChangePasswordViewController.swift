@@ -22,6 +22,10 @@ class ChangePasswordViewController: UIViewController {
     
     let stringValidation = StringValidation()
     
+    var oldPassword:UITextField!
+    var firstPassword:UITextField!
+    var secondPassword:UITextField!
+    
     var tableViewPosition:CGFloat!
     
     
@@ -75,14 +79,23 @@ class ChangePasswordViewController: UIViewController {
     @objc fileprivate func keyboardWillShow(notification: NSNotification){
         
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            print(keyboardSize.origin.y - tableView.frame.origin.y)
             if keyboardSize.origin.y - tableView.frame.origin.y  < 140{
                 tableView.frame.origin.y = self.iconImageView.frame.origin.y - 10
+                
+                UIView.animate(withDuration: 0.3, delay: 0) {
+                    self.iconImageView.layer.opacity = 0
+                }
             }
         }
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
         tableView.frame.origin.y = tableViewPosition
+        
+        UIView.animate(withDuration: 0.3, delay: 0) {
+            self.iconImageView.layer.opacity = 1
+        }
     }
 
     
@@ -148,19 +161,33 @@ extension ChangePasswordViewController:UITableViewDelegate,UITableViewDataSource
         
         let textField = cell.viewWithTag(2) as! UITextField
         
+        textField.textContentType = .password
+        textField.autocapitalizationType = .none
+        textField.autocorrectionType = .no
+        textField.keyboardType = .default
+        textField.returnKeyType = .done
+        textField.isSecureTextEntry = true
+        
         switch indexPath.row{
         case 0:
             label.text = "Старый пароль"
             textField.placeholder = "Старый пароль"
             textField.restorationIdentifier = "oldPassword"
+            self.oldPassword = textField
+            
+            
+            
         case 1:
             label.text = "Новый пароль"
             textField.placeholder = "Новый пароль"
             textField.restorationIdentifier = "newPassword"
+            self.firstPassword = textField
+            
         case 2:
             label.text = "Подтвердите пароль"
             textField.placeholder = "Подтвердите пароль"
             textField.restorationIdentifier = "secondNewPassword"
+            self.secondPassword = textField
 
         default:
             break
@@ -175,7 +202,16 @@ extension ChangePasswordViewController:UITableViewDelegate,UITableViewDataSource
 extension ChangePasswordViewController:UITextFieldDelegate{
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        if textField == self.oldPassword{
+            self.firstPassword.becomeFirstResponder()
+        } else if textField == self.firstPassword{
+            self.secondPassword.becomeFirstResponder()
+        } else{
+            textField.resignFirstResponder()
+        }
+        
+        
+        return true
     }
     
     
