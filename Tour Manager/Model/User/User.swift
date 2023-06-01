@@ -57,6 +57,22 @@ class User:UserProtocol{
         case writeGeneralCompanyInformation = "write_general_company_information"
         case readLocalIdCompany = "read_local_id_company"
         case readCompanyEmployee = "read_company_employee"
+        
+        case canChangeAccessLevel = "can_change_access_level"
+        
+        
+        init?(index:Int) {
+            switch index{
+            case 0: self = .isOwner
+            case 1: self = .readGeneralCompanyInformation
+            case 2: self = .writeGeneralCompanyInformation
+            case 3: self = .readLocalIdCompany
+            case 4: self = .readCompanyEmployee
+            case 5: self = .canChangeAccessLevel
+            default:
+                return nil
+            }
+        }
     }
     
     
@@ -78,8 +94,10 @@ class User:UserProtocol{
         
         .readGeneralCompanyInformation: false,
         .writeGeneralCompanyInformation: false,
-        .readLocalIdCompany:false,
+        .readLocalIdCompany: true,
         .readCompanyEmployee:false,
+        
+        .canChangeAccessLevel: true,
         
     ]
     
@@ -342,6 +360,36 @@ class User:UserProtocol{
         let result = self.accessLevel[rule]
         return result ?? false
     }
+    
+    public func getNumberOfAccessLevel()->Int{
+        
+        return self.accessLevel.count
+        
+    }
+    
+    public func getAccessLevelRule(index:Int)->AccessLevelEnum{
+        return AccessLevelEnum(index: index) ?? .readGeneralCompanyInformation
+
+    }
+    
+    public func getAccessLevelLabel(rule:AccessLevelEnum)->String{
+        switch rule{
+            
+        case .isOwner:
+            return "Владелец компании"
+        case .readGeneralCompanyInformation:
+            return "Чтение общей информации о компании"
+        case .writeGeneralCompanyInformation:
+            return "Изменение общей информации о компании"
+        case .readLocalIdCompany:
+            return "Чтение Id компании"
+        case .readCompanyEmployee:
+            return "Просмотр работников компании"
+        case .canChangeAccessLevel:
+            return "Изменение прав доступа работников компании"
+        }
+    }
+    
     
     public func getAccessLevelFromApi(completion: @escaping (Bool, customErrorCompany?)->Void){
         

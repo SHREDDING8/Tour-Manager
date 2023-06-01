@@ -109,10 +109,8 @@ public class Profile{
             return ""
         }
         
-
-        
-
     }
+    
     
     public func getProfileCompanyDataFromUser(type:ProfileCompanyDataCellType)->String{
         
