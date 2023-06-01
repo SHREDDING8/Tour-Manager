@@ -452,6 +452,8 @@ extension AddingPersonalDataViewController:UITableViewDelegate,UITableViewDataSo
             textField.restorationIdentifier = "phone"
             cell.restorationIdentifier = "phone"
             
+//            textField.keyboardType = .phonePad
+            
             textField.text = self.phoneString
             
         case 3:
@@ -534,6 +536,8 @@ extension AddingPersonalDataViewController:UITableViewDelegate,UITableViewDataSo
             label.text = "Телефон"
             textField.placeholder = "Телефон"
             self.phone = textField
+            
+//            textField.keyboardType = .phonePad 
             
             textField.restorationIdentifier = "phone"
             

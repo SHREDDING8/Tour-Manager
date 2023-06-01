@@ -79,7 +79,6 @@ class ChangePasswordViewController: UIViewController {
     @objc fileprivate func keyboardWillShow(notification: NSNotification){
         
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            print(keyboardSize.origin.y - tableView.frame.origin.y)
             if keyboardSize.origin.y - tableView.frame.origin.y  < 140{
                 tableView.frame.origin.y = self.iconImageView.frame.origin.y - 10
                 
@@ -91,7 +90,9 @@ class ChangePasswordViewController: UIViewController {
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        tableView.frame.origin.y = tableViewPosition
+        if let position = tableViewPosition{
+            tableView.frame.origin.y = position
+        }
         
         UIView.animate(withDuration: 0.3, delay: 0) {
             self.iconImageView.layer.opacity = 1

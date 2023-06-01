@@ -401,6 +401,11 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
             }else{
                 changeButton.isHidden = false
             }
+            
+//            if cellType == .phone{
+//                textField.keyboardType = .phonePad
+//                textField.returnKeyType = .done
+//            }
         
         case 2:
             cell = tableView.dequeueReusableCell(withIdentifier: "birthdayCell", for: indexPath)
