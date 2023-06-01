@@ -360,6 +360,12 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
                 textField.becomeFirstResponder()
             })
             changeButton.addAction(action, for: .touchUpInside)
+            
+            if cellType == .email{
+                changeButton.isHidden = true
+            }else{
+                changeButton.isHidden = false
+            }
         
         case 2:
             cell = tableView.dequeueReusableCell(withIdentifier: "birthdayCell", for: indexPath)
