@@ -23,6 +23,8 @@ class ProfilePageViewController: UIViewController {
     let alerts = Alert()
     let validationString = StringValidation()
     
+    var dateLabel:UILabel!
+    
     
     
     // MARK: - Outlets
@@ -162,13 +164,18 @@ class ProfilePageViewController: UIViewController {
     // MARK: - configure Date Picker
     fileprivate func datePickerConfiguration(){
         
-        let picker = datePickerUiView.subviews[0]
+        let picker = datePickerUiView.subviews[0] as! UIDatePicker
         
         let doneButton = datePickerUiView.subviews[1] as! UIButton
         
-        let cancelButton = datePickerUiView.subviews[2]
+        let cancelButton = datePickerUiView.subviews[2] as! UIButton
         
         let line = datePickerUiView.subviews[3]
+        
+        picker.minimumDate = Date.birthdayFromString(dateString: "01.01.1900")
+        picker.maximumDate = Date.now
+        
+        picker.setDate(self.user?.getBirthday() ?? Date.now, animated: false)
         
         
         let action = UIAction { _ in
@@ -180,8 +187,36 @@ class ProfilePageViewController: UIViewController {
                 self.tabBarController?.tabBar.layer.opacity = 1
                 self.darkUiView.layer.opacity = 0
             }
+            
+            self.user?.updatePersonalData(updateField: .birthdayDate, value: picker.date.birthdayToString()) { isSetted, error in
+                if error == .tokenExpired || error == .invalidToken{
+                    self.dateLabel.text = self.user?.getBirthday()
+                    let alert  = self.alerts.invalidToken(view: self.view, message: "")
+                    self.present(alert, animated: true)
+                } else if error == .unknowmError{
+                    self.dateLabel.text = self.user?.getBirthday()
+                    let alert  = self.alerts.errorAlert(errorTypeApi: .unknown)
+                    self.present(alert, animated: true)
+                }
+                if isSetted{
+                    self.dateLabel.text = picker.date.birthdayToString()
+                }
+            }
+            
+        }
+        
+        let cancelAction = UIAction { _ in
+            UIView.transition(with: self.datePickerUiView, duration: 0.5) {
+                self.caledarHeightConstaint.constant = 0
+                self.view.layoutIfNeeded()
+            }
+            UIView.animate(withDuration: 0.5, delay: 0) {
+                self.tabBarController?.tabBar.layer.opacity = 1
+                self.darkUiView.layer.opacity = 0
+            }
         }
         doneButton.addAction(action, for: .touchUpInside)
+        cancelButton.addAction(cancelAction, for: .touchUpInside)
         
         
         caledarHeightConstaint = NSLayoutConstraint(item: self.datePickerUiView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 0)
@@ -378,6 +413,8 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
             
             let changeButton:UIButton = cell.viewWithTag(3) as! UIButton
             changeButton.removeTarget(nil, action: nil, for: .touchUpInside)
+            
+            self.dateLabel = cellLabel2
             
             let action = UIAction(handler: { _ in
                 self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)

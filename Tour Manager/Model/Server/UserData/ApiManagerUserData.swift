@@ -41,9 +41,6 @@ public class ApiManagerUserData{
 //    private let routeUpdateEmail = prefix + "/update_user_email"
     
     
-    private let convertDate = ConvertDate()
-    
-    
     // MARK: - getUserInfo
     public func getUserInfo(token:String, completion: @escaping (Bool,ResponseGetUserInfoJsonStruct?,customErrorUserData?)->Void ){
         let url = URL(string: routeGetUserInfo)

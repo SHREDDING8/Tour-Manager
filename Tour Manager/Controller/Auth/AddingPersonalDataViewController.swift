@@ -146,6 +146,9 @@ class AddingPersonalDataViewController: UIViewController {
         
         let line = datePickerUiView.subviews[3]
         
+        picker.minimumDate = Date.birthdayFromString(dateString: "01.01.1900")
+        picker.maximumDate = Date.now
+        
         
         let doneAction = UIAction { _ in
             UIView.transition(with: self.datePickerUiView, duration: 0.5) {

@@ -16,27 +16,27 @@ protocol ConvertDateProtocol{
 }
 
 
-class ConvertDate{
+extension Date{
     
-    // MARK: - Birthday Variables
-    private let dateFormatterBirthday = DateFormatter()
-    private let templateBirthday = "dd.MM.yyyy"
-    
-    // MARK: - Inits
-    init(){
-        self.dateFormatterBirthday.dateFormat = self.templateBirthday
-    }
     
     
     // MARK: - Birthday funcs
-    public func birthdayToString(date:Date)->String{
+    public func birthdayToString()->String{
+        let dateFormatterBirthday = DateFormatter()
+        let templateBirthday = "dd.MM.yyyy"
+        dateFormatterBirthday.dateFormat = templateBirthday
         
-        let dateString = dateFormatterBirthday.string(from: date)
+        let dateString = dateFormatterBirthday.string(from: self)
         
         return dateString
     }
     
-    public func birthdayFromString(dateString:String)->Date{
+    static public func birthdayFromString(dateString:String)->Date{
+        
+        let dateFormatterBirthday = DateFormatter()
+        let templateBirthday = "dd.MM.yyyy"
+        dateFormatterBirthday.dateFormat = templateBirthday
+        
         let date = dateFormatterBirthday.date(from: dateString) ?? Date.now
         return date
     }

@@ -38,8 +38,6 @@ protocol UserProtocol{
 
 class User:UserProtocol{
     
-    private let convertDate = ConvertDate()
-    
     private let apiAuth = ApiManagerAuth()
     
     private let apiUserData = ApiManagerUserData()
@@ -165,7 +163,7 @@ class User:UserProtocol{
         return self.birthday ?? Date.now
     }
     public func getBirthday() -> String{
-        return convertDate.birthdayToString(date: self.birthday ?? Date.now)
+        return (self.birthday ?? Date.now).birthdayToString()
     }
     
     // MARK: - Phone
@@ -278,7 +276,7 @@ class User:UserProtocol{
             self.setFirstName(firstName: response!.first_name)
             self.setSecondName(secondName: response!.last_name)
             self.setPhone(phone: response!.phone)
-            self.setBirthday(birthday: self.convertDate.birthdayFromString(dateString: response!.birthday_date))
+            self.setBirthday(birthday: Date.birthdayFromString(dateString: response!.birthday_date))
             
             self.company.setLocalIDCompany(localIdCompany: response!.company_id)
             self.company.setNameCompany(nameCompany: response!.company_name)
@@ -305,9 +303,8 @@ class User:UserProtocol{
     
     
     public func getPersonalData() -> UserDataServerStruct{
-        let date = convertDate.birthdayToString(date: self.getBirthday())
         
-        let res = UserDataServerStruct(token: self.token ?? "", email: self.email! , first_name: self.firstName!, last_name: self.secondName!, birthday_date: date, phone: self.phone!)
+        let res = UserDataServerStruct(token: self.token ?? "", email: self.email! , first_name: self.firstName!, last_name: self.secondName!, birthday_date: self.getBirthday(), phone: self.phone!)
         
         return res
     }
@@ -323,7 +320,7 @@ class User:UserProtocol{
                 case .secondName:
                     self.setSecondName(secondName: value)
                 case .birthdayDate:
-                    self.setBirthday(birthday: self.convertDate.birthdayFromString(dateString: value))
+                    self.setBirthday(birthday: Date.birthdayFromString(dateString: value))
                 case .phone:
                     self.setPhone(phone: value)
                 }
