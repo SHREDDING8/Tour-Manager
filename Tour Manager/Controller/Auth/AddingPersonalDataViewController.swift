@@ -466,6 +466,11 @@ extension AddingPersonalDataViewController:UITableViewDelegate,UITableViewDataSo
             let action = UIAction(handler: { _ in
                 tableView.scrollToRow(at: indexPath, at: .top, animated: true)
                 
+                self.firstName.resignFirstResponder()
+                self.secondName.resignFirstResponder()
+                self.phone.resignFirstResponder()
+                self.localIdNameCompany.resignFirstResponder()
+                
                 UIView.transition(with: self.datePickerUiView, duration: 0.5) {
                     self.caledarHeightConstaint.constant = self.view.frame.height / 2
                     self.view.layoutIfNeeded()
