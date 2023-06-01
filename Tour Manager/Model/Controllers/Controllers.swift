@@ -22,6 +22,7 @@ enum PossibleControllersMain:String{
     case mainTabBarController = "mainTabBarController"
     case profileNavigationViewController = "profileNavigationViewController"
     case changePasswordViewController = "ChangePasswordViewController"
+    case emploeeTableViewController = "EmploeeTableViewController"
 }
 
 enum TypeOfRegister{

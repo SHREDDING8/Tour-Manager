@@ -35,6 +35,7 @@
 		EE5F91D32A202F0800B39BB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE5F91D22A202F0800B39BB1 /* Main.storyboard */; };
 		EE5F91D72A20A1E700B39BB1 /* mainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5F91D62A20A1E700B39BB1 /* mainTabBarViewController.swift */; };
 		EE6DE06A2A1E681100507A27 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6DE0692A1E681100507A27 /* User.swift */; };
+		EE9788692A28D4FA0086C034 /* EmploeeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9788682A28D4FA0086C034 /* EmploeeTableViewController.swift */; };
 		EEA4C08029FDDC650083154E /* ApiManagerAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA4C07F29FDDC650083154E /* ApiManagerAuth.swift */; };
 		EEC9BA182A2670A100BC026A /* Bool.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC9BA172A2670A100BC026A /* Bool.swift */; };
 		EEF27A402A044E7D006E5E53 /* Pods_Tour_Manager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEF27A3F2A044E7D006E5E53 /* Pods_Tour_Manager.framework */; };
@@ -82,6 +83,7 @@
 		EE5F91D22A202F0800B39BB1 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		EE5F91D62A20A1E700B39BB1 /* mainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainTabBarViewController.swift; sourceTree = "<group>"; };
 		EE6DE0692A1E681100507A27 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		EE9788682A28D4FA0086C034 /* EmploeeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmploeeTableViewController.swift; sourceTree = "<group>"; };
 		EEA4C07F29FDDC650083154E /* ApiManagerAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManagerAuth.swift; sourceTree = "<group>"; };
 		EEC9BA172A2670A100BC026A /* Bool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bool.swift; sourceTree = "<group>"; };
 		EEF27A3F2A044E7D006E5E53 /* Pods_Tour_Manager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Tour_Manager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -209,6 +211,7 @@
 			children = (
 				EE2C9A4F29FD858500B7D74F /* ProfilePageViewController.swift */,
 				EE1770ED2A239A7E00B18055 /* ChangePasswordViewController.swift */,
+				EE9788682A28D4FA0086C034 /* EmploeeTableViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -511,6 +514,7 @@
 				EE5F91B62A1E839E00B39BB1 /* UiWindow.swift in Sources */,
 				EE5F91CB2A2003A200B39BB1 /* sendStructs.swift in Sources */,
 				EE5F91C42A1FCEAE00B39BB1 /* ApiManagerCompany.swift in Sources */,
+				EE9788692A28D4FA0086C034 /* EmploeeTableViewController.swift in Sources */,
 				EEC9BA182A2670A100BC026A /* Bool.swift in Sources */,
 				EE5F91C62A1FD16200B39BB1 /* responseStructs.swift in Sources */,
 				EE52E16F29E5C1C8000C0E5B /* AppDelegate.swift in Sources */,

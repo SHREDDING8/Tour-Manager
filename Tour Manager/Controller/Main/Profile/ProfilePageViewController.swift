@@ -26,10 +26,19 @@ class ProfilePageViewController: UIViewController {
     var dateLabel:UILabel!
     
     
+    let imagePicker:UIImagePickerController = {
+        let picker = UIImagePickerController()
+        picker.allowsEditing = true
+        return picker
+    }()
+    
+    
     
     // MARK: - Outlets
     
     @IBOutlet weak var profilePhoto: UIImageView!
+    
+    @IBOutlet weak var changePhotoButton: UIButton!
     
     @IBOutlet weak var fullNameLabel: UILabel!
     
@@ -147,6 +156,14 @@ class ProfilePageViewController: UIViewController {
             self.navigationItem.title = self.user?.company.getNameCompany()
         }
         self.fullNameLabel.text = self.user?.getFullName() ?? ""
+        
+        // image picker
+        self.imagePicker.delegate = self
+        let gestureChangePhoto = UITapGestureRecognizer(target: self, action: #selector(tapChangePhoto))
+        
+        self.profilePhoto.addGestureRecognizer(gestureChangePhoto)
+        
+        self.changePhotoButton.addTarget(self, action: #selector(tapChangePhoto), for: .touchUpInside)
     }
     
     fileprivate func profilePhotoConfiguration(){
@@ -269,7 +286,33 @@ class ProfilePageViewController: UIViewController {
     }
     
     
-    // MARK: - Button Taps
+    // MARK: - Image
+    
+    @objc fileprivate func tapChangePhoto(){
+        let alert = UIAlertController(title: "Change photo", message: "Select how you want to upload photo", preferredStyle: .actionSheet)
+        
+        let actionLibary = UIAlertAction(title: "Library", style: .default) { [self] _ in
+            imagePicker.sourceType = .photoLibrary
+            self.present(imagePicker, animated: true)
+        }
+        let actionCamera = UIAlertAction(title: "Camera", style: .default) { [self] _ in
+            imagePicker.sourceType = .camera
+            self.present(imagePicker, animated: true)
+        }
+        
+        let actionDeletePhoto = UIAlertAction(title: "Delete Photo", style: .default) { [self] _ in
+            self.profilePhoto.image = UIImage(named: "no profile photo")
+        }
+        let actionCancel = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        alert.addAction(actionLibary)
+        alert.addAction(actionCamera)
+        alert.addAction(actionCancel)
+        alert.addAction(actionDeletePhoto)
+        
+        self.present(alert, animated: true)
+     }
+    
     
     
     
@@ -292,6 +335,11 @@ class ProfilePageViewController: UIViewController {
         let changePasswordController = self.controllers.getControllerMain(.changePasswordViewController)
         
         self.navigationController?.pushViewController(changePasswordController, animated: true)
+    }
+    fileprivate func goToEmploeePage(){
+        let destination = self.controllers.getControllerMain(.emploeeTableViewController)
+        
+        self.navigationController?.pushViewController(destination, animated: true)
     }
     
     
@@ -362,6 +410,8 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
         let cell = tableView.cellForRow(at: indexPath)
         if cell?.restorationIdentifier == "changePasswordCell"{
             self.goToChangePasswordPage()
+        } else if cell?.restorationIdentifier == "emploeeCell"{
+            self.goToEmploeePage()
         }
     }
     
@@ -747,5 +797,20 @@ extension ProfilePageViewController:UITextFieldDelegate{
             
         }
         return true
+    }
+}
+
+
+// MARK: - UiImagePicker Delegate
+extension ProfilePageViewController:UIImagePickerControllerDelegate,UINavigationControllerDelegate{
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[.editedImage] as? UIImage{
+            self.profilePhoto.image = image
+        }
+        self.dismiss(animated: true)
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true)
     }
 }
