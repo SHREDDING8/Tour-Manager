@@ -7,8 +7,8 @@
 
 import UIKit
 
-let font = Font()
 
+let font = Font()
 class ProfilePageViewController: UIViewController {
     
     // MARK: - my Variables
@@ -22,6 +22,8 @@ class ProfilePageViewController: UIViewController {
     let profileModel = Profile()
     let alerts = Alert()
     let validationString = StringValidation()
+    
+    
     
     // MARK: - Outlets
     
@@ -320,7 +322,7 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
         
         return cell
     }
-    
+        
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
         if cell?.restorationIdentifier == "changePasswordCell"{
@@ -346,6 +348,11 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
             cellLabel.text = cellType.rawValue.0
             
             let changeButton:UIButton = cell.viewWithTag(3) as! UIButton
+            changeButton.titleLabel?.font = font.getFont(name: .americanTypewriter, style: .light, size: 14)
+            changeButton.setTitle("Изменить", for: .normal)
+        
+            changeButton.removeTarget(nil, action: nil, for: .touchUpInside)
+           
             
             let action = UIAction(handler: { _ in
                 textField.isEnabled = true
@@ -364,6 +371,7 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
             cellLabel2.text = profileModel.getProfilePersonalDataFromUser(type: cellType)
             
             let changeButton:UIButton = cell.viewWithTag(3) as! UIButton
+            changeButton.removeTarget(nil, action: nil, for: .touchUpInside)
             
             let action = UIAction(handler: { _ in
                 self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
@@ -393,6 +401,7 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
             buttonDeleteAccount.layer.cornerRadius = buttonDeleteAccount.frame.height / 2 - 1
             buttonDeleteAccount.setTitleColor(.white, for: .normal)
             buttonDeleteAccount.setTitle("Удалить аккаунт", for: .normal)
+            buttonDeleteAccount.removeTarget(nil, action: nil, for: .touchUpInside)
             
             let actionDel = UIAction { _ in
                 
@@ -433,6 +442,13 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
         
     }
     
+    @objc public func changeTextFieldValue(textField:UITextField, indexPath:IndexPath){
+        textField.isEnabled = true
+        self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        textField.becomeFirstResponder()
+    }
+    
+    
     // MARK: - companyDataCell
     fileprivate func companyDataCell(indexPath:IndexPath) ->UITableViewCell{
         var cell = UITableViewCell()
@@ -456,6 +472,10 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
             cellLabel.text = cellType.rawValue.0
             
             let changeButton:UIButton = cell.viewWithTag(3) as! UIButton
+            changeButton.titleLabel?.font = font.getFont(name: .americanTypewriter, style: .light, size: 14)
+            changeButton.setTitle("Изменить", for: .normal)
+            
+            changeButton.removeTarget(nil, action: nil, for: .touchUpInside)
             
             let action = UIAction(handler: { _ in
                 textField.isEnabled = true
@@ -506,7 +526,9 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
         cellLabel.text = cellType.rawValue.0
         
         let changeButton:UIButton = cell.viewWithTag(3) as! UIButton
+        changeButton.titleLabel?.font = font.getFont(name: .americanTypewriter, style: .light, size: 14)
         changeButton.setTitle("Скопировать", for: .normal)
+        changeButton.removeTarget(nil, action: nil, for: .touchUpInside)
         
         let action = UIAction(handler: { _ in
             UIPasteboard.general.string = textField.text ?? ""
@@ -541,6 +563,7 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
         button.layer.cornerRadius = button.frame.height / 2 - 1
         button.setTitleColor(.white, for: .normal)
         button.setTitle("Удалить компанию", for: .normal)
+        button.removeTarget(nil, action: nil, for: .touchUpInside)
         
         let actionExit = UIAction { _ in
             
@@ -554,6 +577,7 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
         let cell = tableView.dequeueReusableCell(withIdentifier: "buttonCell", for: indexPath)
         
         let button = cell.viewWithTag(1) as! UIButton
+        button.removeTarget(nil, action: nil, for: .touchUpInside)
         let actionExit = UIAction { _ in
             self.goToLogInPage()
         }
