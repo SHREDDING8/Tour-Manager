@@ -474,6 +474,8 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
             let action = UIAction(handler: { _ in
                 self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
                 
+                self.view.endEditing(true)
+                
                 UIView.transition(with: self.datePickerUiView, duration: 0.5) {
                     self.caledarHeightConstaint.constant = self.view.frame.height / 2
                     self.view.layoutIfNeeded()

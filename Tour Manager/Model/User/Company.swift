@@ -14,6 +14,8 @@ class Company{
     
     private let apiCompany = ApiManagerCompany()
     
+    private var isPrivate = false
+    
     
     
     // MARK: - localIdCompany
@@ -34,6 +36,16 @@ class Company{
     
     public func getNameCompany()->String{
         return self.nameCompany ?? ""
+    }
+    
+    // MARK: - IsPrivate
+    
+    public func setIsPrivate(isPrivate:Bool){
+        self.isPrivate = isPrivate
+    }
+    
+    public func getIsPrivate()->Bool{
+        return self.isPrivate
     }
     
     

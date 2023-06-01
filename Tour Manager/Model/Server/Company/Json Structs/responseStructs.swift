@@ -23,4 +23,5 @@ public struct ResponseAccessLevel:Codable{
     let write_general_company_information:Bool
     let read_local_id_company:Bool
     let read_company_employee:Bool
+    let can_change_access_level:Bool
 }

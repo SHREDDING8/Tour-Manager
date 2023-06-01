@@ -280,6 +280,7 @@ class User:UserProtocol{
     public func getUserInfoFromApi(completion: @escaping (Bool, customErrorUserData?)->Void){
         self.apiUserData.getUserInfo(token: self.token ?? "" ) { isInfo, response, error in
             
+            
             if error != nil{
                 completion(false, error)
                 return
@@ -298,6 +299,10 @@ class User:UserProtocol{
             
             self.company.setLocalIDCompany(localIdCompany: response!.company_id)
             self.company.setNameCompany(nameCompany: response!.company_name)
+            
+            self.accessLevel[.isOwner] = response!.is_owner
+            self.company.setIsPrivate(isPrivate: response!.private_company)
+            
             
             completion(true, nil)
             
@@ -403,6 +408,7 @@ class User:UserProtocol{
                 self.accessLevel[.readLocalIdCompany] = accessLevel?.read_local_id_company
                 self.accessLevel[.readGeneralCompanyInformation] = accessLevel?.read_general_company_information
                 self.accessLevel[.writeGeneralCompanyInformation] = accessLevel?.write_general_company_information
+                self.accessLevel[.canChangeAccessLevel] = accessLevel?.can_change_access_level
                 
                 completion(true,nil)
             }

@@ -24,6 +24,7 @@ class LaunchScreenViewController: UIViewController {
                     self.user?.setToken(token: token!)
         
                     self.user?.getUserInfoFromApi(completion: { isGetted, error in
+                        
                         if error == nil && isGetted{
                             self.goToMainTabBar()
                         } else{

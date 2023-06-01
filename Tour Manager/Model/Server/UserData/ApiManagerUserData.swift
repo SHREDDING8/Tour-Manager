@@ -45,6 +45,7 @@ public class ApiManagerUserData{
     public func getUserInfo(token:String, completion: @escaping (Bool,ResponseGetUserInfoJsonStruct?,customErrorUserData?)->Void ){
         let url = URL(string: routeGetUserInfo)
         
+        
         let jsonData = SendGetUserInfoJsonStruct(token: token)
         
         AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
@@ -64,6 +65,7 @@ public class ApiManagerUserData{
             } else if response.response?.statusCode == 200{
                 if let responseData = try? JSONDecoder().decode(ResponseGetUserInfoJsonStruct.self, from: response.data!){
                     completion(true, responseData, nil)
+                    
                 }
             } else {
                 completion(false, nil, .unknowmError)
