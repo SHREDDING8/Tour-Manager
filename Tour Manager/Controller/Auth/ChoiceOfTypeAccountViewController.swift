@@ -11,6 +11,7 @@ class ChoiceOfTypeAccountViewController: UIViewController {
     
     // MARK: - my Variables
     let controllers = Controllers()
+    let user = AppDelegate.user
     
     // MARK: - Outlets
 

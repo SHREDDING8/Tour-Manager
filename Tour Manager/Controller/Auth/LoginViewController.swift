@@ -16,7 +16,7 @@ class LoginViewController: UIViewController {
     let textFieldValidation = TextFieldValidation()
     let alerts = Alert()
     
-    var user = AppDelegate.user
+    var user:User!
     let userDefaults = UserDefaults()
     
     var isSignIn = false
@@ -44,6 +44,8 @@ class LoginViewController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        AppDelegate.user = User()
+        self.user = AppDelegate.user
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -137,7 +139,7 @@ class LoginViewController: UIViewController {
             return
         }
         
-        self.user?.setEmail(email: self.emailTextField.text ?? "")
+        self.user?.setEmail(email: self.email)
         
         // signIn Api
         
@@ -168,7 +170,7 @@ class LoginViewController: UIViewController {
     
     fileprivate func logIn(){
         
-        self.user?.setEmail(email: self.emailTextField.text ?? "")
+        self.user?.setEmail(email: self.email)
         
         
         self.user?.logIn(password: self.firstPasswordTextField.text!, completion: { isLogIn, error in
@@ -443,8 +445,6 @@ extension LoginViewController:UITextFieldDelegate{
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
         
         if textField.restorationIdentifier == "emailTextField"{
-            
-            self.email = textField.text!
             
             self.firstPasswordTextField.text = ""
             self.secondPasswordTextField?.text = ""

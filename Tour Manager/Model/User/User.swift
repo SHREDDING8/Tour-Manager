@@ -94,7 +94,7 @@ class User:UserProtocol{
         
         .readGeneralCompanyInformation: false,
         .writeGeneralCompanyInformation: false,
-        .readLocalIdCompany: true,
+        .readLocalIdCompany: false,
         .readCompanyEmployee:false,
         
         .canChangeAccessLevel: true,

@@ -33,6 +33,8 @@ public class ApiManagerCompany{
     private let routeUpdateCompanyInfo = prefix + "/update_company_info"
     private let routeGetCurrentAccesslevel = prefix + "/get_current_access_level"
     
+    private let routeDeleteCompany = prefix + "/delete_company"
+    
     public func addCompany(token:String, companyName:String, completion: @escaping (Bool,ResponseAddCompanyJsonStruct?,customErrorCompany?)->Void ){
         
         let url = URL(string: routeAddCompany)
@@ -160,7 +162,36 @@ public class ApiManagerCompany{
         }
         
     }
+    
+    public func DeleteCompany(token:String, companyId:String, completion: @escaping (Bool,customErrorCompany?)->Void ){
+        
+        let url = URL(string: routeDeleteCompany)
+        
+        let jsonData = SendAddEmployeeToCompanyJsonStruct(token: token, company_id: companyId)
+        
+        AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
+            
+            if response.response?.statusCode == 400{
+                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
+                
+                if error.message == "Token expired"{
+                    completion(false, .tokenExpired)
+                } else if error.message == "Invalid Firebase ID token"{
+                    completion(false, .invalidToken)
+                }else{
+                    completion(false, .unknowmError)
+                }
+                
+            } else if response.response?.statusCode == 200{
+                completion(true, nil)
+            }else{
+                completion(false, .unknowmError)
+            }
+        }
+    
+    }
 }
+
 
 
 

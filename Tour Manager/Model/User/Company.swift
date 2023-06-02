@@ -87,4 +87,14 @@ class Company{
         }
     }
     
+    public func DeleteCompany(token:String, completion: @escaping (Bool, customErrorCompany?) ->Void){
+        self.apiCompany.DeleteCompany(token: token, companyId: self.getLocalIDCompany()) { isDeleted, error in
+            if error != nil{
+                completion(false,error)
+            }
+            if isDeleted{
+                completion(true, nil)
+            }
+        }
+    }
 }

@@ -666,6 +666,24 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
         button.removeTarget(nil, action: nil, for: .touchUpInside)
         
         let actionExit = UIAction { _ in
+            self.user?.company.DeleteCompany(token: self.user?.getToken() ?? "", completion: { isDeleted, error in
+                
+                if error == .invalidToken || error == .tokenExpired{
+                    let alert = self.alerts.invalidToken(view: self.view, message: "Мы не смогли удалить вашу компанию")
+                    self.present(alert, animated: true)
+                }
+                
+                if error == .unknowmError{
+                    let alert = self.alerts.errorAlert(errorTypeApi: .unknown)
+                    self.present(alert, animated: true)
+                }
+                
+                if isDeleted{
+                    let alert = self.alerts.invalidToken(view: self.view, message: "Ваша компания была удалена")
+                    self.present(alert, animated: true)
+                }
+    
+            })
             
         }
         button.addAction(actionExit, for: .touchUpInside)
