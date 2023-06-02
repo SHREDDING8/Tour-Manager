@@ -108,6 +108,26 @@ class User:UserProtocol{
     }
     
     
+    
+    init(localId: String, email: String, firstName: String, secondName: String, birthday: Date, phone: String, companyId:String, accessLevel:AccessLevels){
+        self.localId = localId
+        self.email = email
+        self.firstName = firstName
+        self.secondName = secondName
+        self.birthday = birthday
+        self.phone = phone
+        self.company.setLocalIDCompany(localIdCompany: companyId)
+        
+        self.accessLevel[.readGeneralCompanyInformation] = accessLevel.readGeneralCompanyInformation
+        self.accessLevel[.writeGeneralCompanyInformation] = accessLevel.writeGeneralCompanyInformation
+        self.accessLevel[.readLocalIdCompany] = accessLevel.readLocalIDCompany
+        self.accessLevel[.readCompanyEmployee] = accessLevel.readCompanyEmployee
+        self.accessLevel[.canChangeAccessLevel] = accessLevel.canChangeAccessLevel
+        
+        
+    }
+    
+    
     init(token: String, localId: String, email: String, firstName: String, secondName: String, birthday: Date, phone: String) {
         self.token = token
         self.localId = localId

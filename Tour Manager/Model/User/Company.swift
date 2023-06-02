@@ -16,6 +16,8 @@ class Company{
     
     private var isPrivate = false
     
+    private var emloyee:[User] = []
+    
     
     
     // MARK: - localIdCompany
@@ -97,4 +99,30 @@ class Company{
             }
         }
     }
+    
+    public func getCompanyUsers(token:String, completion: @escaping (Bool, [User]? , customErrorCompany?) ->Void){
+        
+        self.apiCompany.getCompanyUsers(token: token, companyId: self.getLocalIDCompany()) { isGetted, users, error in
+            
+            if error != nil{
+                completion(false, nil, error)
+            }
+            if isGetted{
+                self.emloyee = []
+                
+                for userApi in users ?? [] {
+                    let date = Date.birthdayFromString(dateString: userApi.birthdayDate)
+                    
+                    
+                    let user = User(localId: userApi.uid, email: userApi.email, firstName: userApi.firstName, secondName: userApi.lastName, birthday: date, phone: userApi.phone, companyId: userApi.companyID, accessLevel: userApi.accessLevels)
+                    
+                    self.emloyee.append(user)
+                }
+                
+                completion(true, self.emloyee, nil)
+            }
+
+        }
+    }
+    
 }

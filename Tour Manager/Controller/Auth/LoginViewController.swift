@@ -192,6 +192,7 @@ class LoginViewController: UIViewController {
             }
             
             self.user?.getUserInfoFromApi(completion: { isGetted, error in
+                print(123)
                 if error == .dataNotFound{
                     self.goToAddingPersonalData()
                     return

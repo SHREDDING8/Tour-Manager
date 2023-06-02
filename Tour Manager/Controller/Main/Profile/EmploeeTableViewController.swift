@@ -12,6 +12,10 @@ class EmploeeTableViewController: UITableViewController {
     let controllers = Controllers()
     
     var emploee:[User] = []
+    
+    let user = AppDelegate.user
+    
+    let refreshControll = UIRefreshControl()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +23,14 @@ class EmploeeTableViewController: UITableViewController {
         getEmpoloee()
 
         self.navigationItem.title = "Работники"
+        
+        let refresh = UIAction { _ in
+            self.getEmpoloee()
+        }
+        
+        refreshControll.addAction(refresh, for: .valueChanged)
+        tableView.refreshControl = refreshControll
+        
     }
 
     // MARK: - Table view data source
@@ -44,10 +56,13 @@ class EmploeeTableViewController: UITableViewController {
     
     
     public func getEmpoloee(){
-        for _ in 0...10{
-            let emploee = User(token: "", localId: "", email: "example@mail.com", firstName: "Egor", secondName: "Zavrazhnov", birthday: Date.now, phone: "89047813590")
-            self.emploee.append(emploee)
-        }
+        self.user?.company.getCompanyUsers(token: self.user?.getToken() ?? "", completion: { isGetted, employee, error in
+            if isGetted{
+                self.emploee = employee ?? []
+                self.tableView.reloadData()
+                self.refreshControll.endRefreshing()
+            }
+        })
     }
     
 

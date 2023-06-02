@@ -25,3 +25,38 @@ public struct ResponseAccessLevel:Codable{
     let read_company_employee:Bool
     let can_change_access_level:Bool
 }
+
+
+
+
+// MARK: - GetCompanyUsers
+public struct GetCompanyUsersElement: Codable {
+    let uid, firstName, lastName, email: String
+    let phone, birthdayDate, companyID: String
+    let accessLevels: AccessLevels
+
+    enum CodingKeys: String, CodingKey {
+        case uid
+        case firstName = "first_name"
+        case lastName = "last_name"
+        case email, phone
+        case birthdayDate = "birthday_date"
+        case companyID = "company_id"
+        case accessLevels = "access_levels"
+    }
+}
+
+// MARK: - AccessLevels
+struct AccessLevels: Codable {
+    let readGeneralCompanyInformation, writeGeneralCompanyInformation, readLocalIDCompany, readCompanyEmployee: Bool
+    let canChangeAccessLevel: Bool
+
+    enum CodingKeys: String, CodingKey {
+        case readGeneralCompanyInformation = "read_general_company_information"
+        case writeGeneralCompanyInformation = "write_general_company_information"
+        case readLocalIDCompany = "read_local_id_company"
+        case readCompanyEmployee = "read_company_employee"
+        case canChangeAccessLevel = "can_change_access_level"
+    }
+}
+
