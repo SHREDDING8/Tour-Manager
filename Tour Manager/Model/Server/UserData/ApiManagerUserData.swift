@@ -66,6 +66,8 @@ public class ApiManagerUserData{
                 if let responseData = try? JSONDecoder().decode(ResponseGetUserInfoJsonStruct.self, from: response.data!){
                     completion(true, responseData, nil)
                     
+                }else{
+                    completion(false, nil, .unknowmError)
                 }
             } else {
                 completion(false, nil, .unknowmError)
