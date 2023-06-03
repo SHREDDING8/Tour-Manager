@@ -54,6 +54,7 @@ class LoginViewController: UIViewController {
         tableView.reloadData()
         addKeyboardObservers()
         userDefaults.set(nil, forKey: "authToken")
+        userDefaults.set(nil, forKey: "localId")
         
     }
     
@@ -192,7 +193,6 @@ class LoginViewController: UIViewController {
             }
             
             self.user?.getUserInfoFromApi(completion: { isGetted, error in
-                print(123)
                 if error == .dataNotFound{
                     self.goToAddingPersonalData()
                     return

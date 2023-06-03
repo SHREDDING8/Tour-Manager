@@ -48,6 +48,10 @@ class EmploeeTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "emploeeCell", for: indexPath)
+        
+        let label = cell.viewWithTag(2) as! UILabel
+        label.text = emploee[indexPath.row].getFullName()
+        
 
         // Configure the cell...
 
@@ -59,7 +63,14 @@ class EmploeeTableViewController: UITableViewController {
         self.user?.company.getCompanyUsers(token: self.user?.getToken() ?? "", completion: { isGetted, employee, error in
             if isGetted{
                 self.emploee = employee ?? []
-                self.tableView.reloadData()
+                
+                
+                UIView.transition(with: self.tableView, duration: 0.3,options: .transitionCrossDissolve) {
+                    self.tableView.reloadData()
+                }
+                
+
+               
                 self.refreshControll.endRefreshing()
             }
         })

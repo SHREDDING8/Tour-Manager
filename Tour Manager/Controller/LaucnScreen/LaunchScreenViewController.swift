@@ -10,6 +10,7 @@ import UIKit
 class LaunchScreenViewController: UIViewController {
     
     fileprivate let token = AppDelegate.userDefaults.string(forKey: "authToken")
+    fileprivate let localId = AppDelegate.userDefaults.string(forKey: "localId")
     let controllers = Controllers()
     let user = AppDelegate.user
 
@@ -20,20 +21,21 @@ class LaunchScreenViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if self.token != nil{
-                    self.user?.setToken(token: token!)
-        
-                    self.user?.getUserInfoFromApi(completion: { isGetted, error in
-                        
-                        if error == nil && isGetted{
-                            self.goToMainTabBar()
-                        } else{
-                            self.goToLogInPage()
-                        }
-                    })
+        if self.token != nil && self.localId != nil{
+            self.user?.setToken(token: token!)
+            self.user?.setLocalID(localId: localId!)
+            
+            self.user?.getUserInfoFromApi(completion: { isGetted, error in
+                
+                if error == nil && isGetted{
+                    self.goToMainTabBar()
                 } else{
                     self.goToLogInPage()
                 }
+            })
+        } else{
+            self.goToLogInPage()
+        }
     }
     
     

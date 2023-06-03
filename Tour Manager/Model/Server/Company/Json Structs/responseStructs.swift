@@ -24,6 +24,7 @@ public struct ResponseAccessLevel:Codable{
     let read_local_id_company:Bool
     let read_company_employee:Bool
     let can_change_access_level:Bool
+    let is_owner:Bool
 }
 
 
@@ -50,6 +51,7 @@ public struct GetCompanyUsersElement: Codable {
 struct AccessLevels: Codable {
     let readGeneralCompanyInformation, writeGeneralCompanyInformation, readLocalIDCompany, readCompanyEmployee: Bool
     let canChangeAccessLevel: Bool
+    let isOwner:Bool
 
     enum CodingKeys: String, CodingKey {
         case readGeneralCompanyInformation = "read_general_company_information"
@@ -57,6 +59,7 @@ struct AccessLevels: Codable {
         case readLocalIDCompany = "read_local_id_company"
         case readCompanyEmployee = "read_company_employee"
         case canChangeAccessLevel = "can_change_access_level"
+        case isOwner = "is_owner"
     }
 }
 

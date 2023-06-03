@@ -123,6 +123,7 @@ class User:UserProtocol{
         self.accessLevel[.readLocalIdCompany] = accessLevel.readLocalIDCompany
         self.accessLevel[.readCompanyEmployee] = accessLevel.readCompanyEmployee
         self.accessLevel[.canChangeAccessLevel] = accessLevel.canChangeAccessLevel
+        self.accessLevel[.isOwner] = accessLevel.isOwner
         
         
     }
@@ -234,6 +235,8 @@ class User:UserProtocol{
             self.setDataAuth(token: logInData!.token, localId: logInData!.localId)
             
             UserDefaults.standard.set(self.getToken(), forKey:  "authToken")
+            UserDefaults.standard.set(self.getLocalID(), forKey: "localId")
+            
             completion(true,nil)
             
         }
@@ -429,6 +432,7 @@ class User:UserProtocol{
                 self.accessLevel[.readGeneralCompanyInformation] = accessLevel?.read_general_company_information
                 self.accessLevel[.writeGeneralCompanyInformation] = accessLevel?.write_general_company_information
                 self.accessLevel[.canChangeAccessLevel] = accessLevel?.can_change_access_level
+                self.accessLevel[.isOwner] = accessLevel?.is_owner
                 
                 completion(true,nil)
             }
