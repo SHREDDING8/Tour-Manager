@@ -20,7 +20,6 @@ class LoginViewController: UIViewController {
     let userDefaults = UserDefaults()
     
     var isSignIn = false
-    var confirmPasswordIndexPath:IndexPath!
     
     var tableViewPosition:CGFloat!
     
@@ -72,7 +71,7 @@ class LoginViewController: UIViewController {
     // MARK: - configuration
     
     fileprivate func configureLogInButton(){
-        self.logInButton.titleLabel?.font = font.getFont(name: .americanTypewriter, style: .bold, size: 20)
+        self.logInButton.setTitle(title: "Войти", size: 20, style: .bold)
     }
     
     
@@ -83,32 +82,16 @@ class LoginViewController: UIViewController {
         
         
         if self.isSignIn{
-            setTitleLogInButton(title: "Регистрация")
-            setTitleLogInSignInButton(title: "Вход")
+            self.logInButton.setTitle(title: "Регистрация", size: 20, style: .bold)
+            self.signInLogInButton.setTitle(title: "Вход" , size: 16, style: .semiBold)
         }else{
-            setTitleLogInButton(title: "Войти")
-            setTitleLogInSignInButton(title: "Регистрация")
+            self.logInButton.setTitle(title: "Войти", size: 20, style: .bold)
         }
     }
     
-    fileprivate func setTitleLogInButton(title:String){
-        let title = NSAttributedString(string: title ,attributes: [.font : font.getFont(name: .americanTypewriter, style: .bold, size: 20)])
-        
-        UIView.transition(with: self.logInButton, duration: 0.3, options: .transitionCrossDissolve) {
-            self.logInButton.setAttributedTitle(title, for: .normal)
-        }
-    }
     
-    fileprivate func setTitleLogInSignInButton(title:String){
-        let title = NSAttributedString(string: title ,attributes: [.font : font.getFont(name: .americanTypewriter, style: .semiBold, size: 16)])
-        
-        UIView.transition(with: self.signInLogInButton, duration: 0.3, options: .transitionCrossDissolve) {
-            self.signInLogInButton.setAttributedTitle(title, for: .normal)
-        }
-        
-    }
     
-    // MARK: - signIn LogIn tapped
+    // MARK: - Buttons Tapped
     
     @IBAction func logIn(_ sender: Any) {
         
@@ -119,18 +102,49 @@ class LoginViewController: UIViewController {
             return
         }
         
+        self.isSignIn ? self.signIn() :  self.logIn()
         
-        if self.isSignIn{
-            self.signIn()
-        }else{
-            self.logIn()
-        }
     }
     
     
     @IBAction func logInSignInTapped(_ sender: Any) {
         self.setIsSignIn(isSignIn: !self.isSignIn)
     }
+    
+    // MARK: - Reset Password Tapped
+    
+    @IBAction func resetPasswordTapped(_ sender: Any) {
+        if !textFieldValidation.validateEmailTextField(emailTextField){
+            
+            let error = alerts.errorAlert(errorTypeFront: .email)
+            self.present(error, animated: true)
+            return
+        }
+        
+        self.user?.setEmail(email: self.emailTextField.text ?? "")
+        
+        self.user?.resetPassword(completion: { isReset, error in
+            if error == .userNotFound{
+                let error = self.alerts.errorAlert(errorTypeApi: .userNotFound)
+                self.present(error, animated: true)
+                return
+            } else if error == .unknowmError{
+                let error = self.alerts.errorAlert(errorTypeApi: .unknown)
+                self.present(error, animated: true)
+                return
+            }
+            
+            if isReset{
+                let alert =  self.alerts.infoAlert(title: "Email о восстановлеини аккаунта отправлен вам на почту", meesage: nil)
+                self.present(alert, animated: true)
+            }
+        })
+        
+    }
+    
+    
+    
+    // MARK: - Sign In
     
     fileprivate func signIn(){
         // validate password
@@ -163,11 +177,11 @@ class LoginViewController: UIViewController {
                 self.logIn()
             }
             
-            
-            
         })
               
     }
+    
+    // MARK: - logIn
     
     fileprivate func logIn(){
         
@@ -211,64 +225,17 @@ class LoginViewController: UIViewController {
                 }
                 
                 if isGetted{
-                    self.goToMainTabBar()
+                    self.controllers.goToMainTabBar(view: self.view)
                 }
                 
             })
         })
     }
     
-    // MARK: - Reset Password Tapped
-    
-    
-    @IBAction func resetPasswordTapped(_ sender: Any) {
-        if !textFieldValidation.validateEmailTextField(emailTextField){
-            
-            let error = alerts.errorAlert(errorTypeFront: .email)
-            self.present(error, animated: true)
-            return
-        }
-        
-        self.user?.setEmail(email: self.emailTextField.text ?? "")
-        
-        self.user?.resetPassword(completion: { isReset, error in
-            if error == .userNotFound{
-                let error = self.alerts.errorAlert(errorTypeApi: .userNotFound)
-                self.present(error, animated: true)
-                return
-            } else if error == .unknowmError{
-                let error = self.alerts.errorAlert(errorTypeApi: .unknown)
-                self.present(error, animated: true)
-                return
-            }
-            
-            if isReset{
-                let alert = UIAlertController(title: "Сообщение о восстановлеии email отпправлено", message: "Проверьте почту", preferredStyle: .alert)
-                let actionOk = UIAlertAction(title: "Ok", style: .default)
-                alert.addAction(actionOk)
-                self.present(alert, animated: true)
-            }
-        })
-        
-    }
-    
-    
+   
+ 
     // MARK: - Navigation
-    
-    fileprivate func goToMainTabBar(){
-        let mainTabBar = self.controllers.getControllerMain(.mainTabBarController)
         
-
-        let window = self.view.window
-        let options = UIWindow.TransitionOptions()
-        
-        options.direction = .toTop
-        options.duration = 0.3
-        options.style = .easeIn
-        
-        window?.set(rootViewController: mainTabBar,options: options)
-    }
-    
     fileprivate func goToVerifyVC(){
         
         self.user?.sendVerifyEmail(password: self.firstPasswordTextField.text!, completion: { isSent, error in
@@ -359,6 +326,7 @@ extension LoginViewController:UITableViewDelegate,UITableViewDataSource{
             textField.keyboardType = .emailAddress
             textField.returnKeyType = .done
             textField.isSecureTextEntry = false
+            textField.clearButtonMode = .whileEditing
             
             textField.restorationIdentifier = "emailTextField"
             self.emailTextField = textField
@@ -391,7 +359,6 @@ extension LoginViewController:UITableViewDelegate,UITableViewDataSource{
             
             textField.restorationIdentifier = "confirmPasswordTextField"
             
-            self.confirmPasswordIndexPath = indexPath
             self.secondPasswordTextField = textField
             
             cell.isHidden = true

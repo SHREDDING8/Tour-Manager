@@ -30,24 +30,20 @@ protocol UserProtocol{
     
     func setDataAuth(token:String,localId:String)
     
-    
-    func getPersonalData() -> UserDataServerStruct
 }
 
 
 
 class User:UserProtocol{
     
-    private let apiAuth = ApiManagerAuth()
+    internal let apiAuth = ApiManagerAuth()
     
-    private let apiUserData = ApiManagerUserData()
+    internal let apiUserData = ApiManagerUserData()
     
-    private let apiCompany = ApiManagerCompany()
+    internal let apiCompany = ApiManagerCompany()
     
-    public let company = Company()
+    internal let company = Company()
     
-    
-
     
     enum AccessLevelEnum:String{
         
@@ -76,19 +72,17 @@ class User:UserProtocol{
     }
     
     
+    internal var token:String?
+    internal var localId:String?
+    internal var email:String?
+    
+    internal var firstName:String?
+    internal var secondName:String?
+    internal var birthday:Date?
+    internal var phone:String?
     
     
-    private var token:String?
-    private var localId:String?
-    private var email:String?
-    
-    private var firstName:String?
-    private var secondName:String?
-    private var birthday:Date?
-    private var phone:String?
-    
-    
-    private var accessLevel:[AccessLevelEnum:Bool] = [
+    internal var accessLevel:[AccessLevelEnum:Bool] = [
         
         .isOwner: false,
         
@@ -126,23 +120,6 @@ class User:UserProtocol{
         self.accessLevel[.isOwner] = accessLevel.isOwner
         
         
-    }
-    
-    
-    init(token: String, localId: String, email: String, firstName: String, secondName: String, birthday: Date, phone: String) {
-        self.token = token
-        self.localId = localId
-        self.email = email
-        self.firstName = firstName
-        self.secondName = secondName
-        self.birthday = birthday
-        self.phone = phone
-    }
-    
-    init (token: String, localId: String, email: String){
-        self.token = token
-        self.localId = localId
-        self.email = email
     }
     
     // MARK: - Token
@@ -211,231 +188,5 @@ class User:UserProtocol{
     }
     public func getPhone() ->String{
         return self.phone ?? ""
-    }
-    
-    
-    // MARK: - Auth
-    
-    public func setDataAuth(token:String,localId:String){
-        self.token = token
-        self.localId = localId
-    }
-    
-    public func logIn(password:String, completion: @escaping (Bool, customErrorAuth?)->Void ){
-        self.apiAuth.logIn(email: self.email ?? "", password: password) { isLogin,logInData, error in
-            if error != nil {
-                completion(false,error)
-                return
-            }
-            if !isLogin || logInData == nil  {
-                completion(false,.unknowmError)
-                return
-            }
-                        
-            self.setDataAuth(token: logInData!.token, localId: logInData!.localId)
-            
-            UserDefaults.standard.set(self.getToken(), forKey:  "authToken")
-            UserDefaults.standard.set(self.getLocalID(), forKey: "localId")
-            
-            completion(true,nil)
-            
-        }
-    }
-    
-    public func signIn(password:String, completion: @escaping (Bool, customErrorAuth?)->Void ){
-        
-        self.apiAuth.signIn(email: self.email ?? "", password: password) { isSignIn, error in
-            // check errors from api
-            if error != nil{
-                completion(false, error)
-            }
-            if isSignIn{
-                completion(true,nil)
-            }
-        }
-    }
-    
-    public func resetPassword(completion: @escaping (Bool, customErrorAuth?)->Void ){
-        self.apiAuth.resetPassword(email: self.email ?? "") { isSendEmail, error in
-            if error != nil{
-                completion(false,error)
-                return
-            }
-            completion(true,nil)
-        }
-    }
-    
-    public func updatePassword(oldPassword:String, newPassword:String,completion: @escaping (Bool, customErrorAuth?)->Void ){
-        self.apiAuth.updatePassword(email: self.getEmail(), oldPassword: oldPassword, newPassword: newPassword) { isUpdated, error in
-            if error != nil{
-                completion(false,error)
-                return
-            }
-            completion(true,nil)
-        }
-    }
-    
-    public func sendVerifyEmail(password:String, completion: @escaping (Bool, customErrorAuth?)->Void){
-        self.apiAuth.sendVerifyEmail(email: self.email ?? "", password: password) { isSent, error in
-            if error != nil{
-                completion(false,error)
-            }
-            if isSent ?? false{
-                completion(true,nil)
-            }
-        }
-    }
-    
-    public func isUserExists(completion: @escaping (Bool, customErrorAuth?)->Void){
-        self.apiAuth.isUserExists(email: self.email ?? "") { isUserExists, error in
-            
-            if error != nil{
-                completion(false,error)
-            }
-            
-            completion(isUserExists ?? false, nil)
-        }
-    }
-    
-    
-    // MARK: - Personal Data
-    
-    public func getUserInfoFromApi(completion: @escaping (Bool, customErrorUserData?)->Void){
-        self.apiUserData.getUserInfo(token: self.token ?? "" ) { isInfo, response, error in
-            
-            
-            if error != nil{
-                completion(false, error)
-                return
-            }
-            
-            if response == nil || !isInfo{
-                completion(false, .unknowmError)
-                return
-            }
-            
-            self.setEmail(email: response!.email)
-            self.setFirstName(firstName: response!.first_name)
-            self.setSecondName(secondName: response!.last_name)
-            self.setPhone(phone: response!.phone)
-            self.setBirthday(birthday: Date.birthdayFromString(dateString: response!.birthday_date))
-            
-            self.company.setLocalIDCompany(localIdCompany: response!.company_id)
-            self.company.setNameCompany(nameCompany: response!.company_name)
-            
-            self.accessLevel[.isOwner] = response!.is_owner
-            self.company.setIsPrivate(isPrivate: response!.private_company)
-            
-            
-            completion(true, nil)
-            
-        }
-    }
-    
-    public func setUserInfoApi(completion: @escaping (Bool, customErrorUserData?)->Void){
-        let data = self.getPersonalData()
-        
-        self.apiUserData.setUserInfo(data: data) { isSetted, error in
-            if error != nil{
-                completion(false,error)
-            }
-            if isSetted{
-                completion(true,nil)
-            }
-        }
-    }
-    
-    
-    
-    
-    public func getPersonalData() -> UserDataServerStruct{
-        
-        let res = UserDataServerStruct(token: self.token ?? "", email: self.email! , first_name: self.firstName!, last_name: self.secondName!, birthday_date: self.getBirthday(), phone: self.phone!)
-        
-        return res
-    }
-    
-    public func updatePersonalData(updateField: UserDataFields ,value:String, completion:  @escaping (Bool, customErrorUserData? )->Void ){
-        self.apiUserData.updateUserInfo(token: self.getToken() , updateField: updateField , value: value) { isSetted, error in
-            if error != nil{
-                completion(false, error)
-            } else{
-                switch updateField {
-                case .firstName:
-                    self.setFirstName(firstName: value)
-                case .secondName:
-                    self.setSecondName(secondName: value)
-                case .birthdayDate:
-                    self.setBirthday(birthday: Date.birthdayFromString(dateString: value))
-                case .phone:
-                    self.setPhone(phone: value)
-                }
-                completion(true, nil)
-            }
-        }
-    }
-    
-    public func deleteCurrentUser(completion: @escaping (Bool, customErrorUserData?)->Void){
-        self.apiUserData.deleteCurrentUser(token: self.getToken()) { isDeleted, error in
-            completion(isDeleted,error)
-        }
-    }
-
-    
-    
-    // MARK: - level Access
-    public func getAccessLevel(rule:AccessLevelEnum) -> Bool{
-        let result = self.accessLevel[rule]
-        return result ?? false
-    }
-    
-    public func getNumberOfAccessLevel()->Int{
-        
-        return self.accessLevel.count
-        
-    }
-    
-    public func getAccessLevelRule(index:Int)->AccessLevelEnum{
-        return AccessLevelEnum(index: index) ?? .readGeneralCompanyInformation
-
-    }
-    
-    public func getAccessLevelLabel(rule:AccessLevelEnum)->String{
-        switch rule{
-            
-        case .isOwner:
-            return "Владелец компании"
-        case .readGeneralCompanyInformation:
-            return "Чтение общей информации о компании"
-        case .writeGeneralCompanyInformation:
-            return "Изменение общей информации о компании"
-        case .readLocalIdCompany:
-            return "Чтение Id компании"
-        case .readCompanyEmployee:
-            return "Просмотр работников компании"
-        case .canChangeAccessLevel:
-            return "Изменение прав доступа работников компании"
-        }
-    }
-    
-    
-    public func getAccessLevelFromApi(completion: @escaping (Bool, customErrorCompany?)->Void){
-        
-        self.apiCompany.getCurrentAccessLevel(token: self.getToken(), companyId: self.company.getLocalIDCompany()) { accessLevel, error in
-            if error != nil{
-                completion(false,error)
-            }
-            
-            if accessLevel != nil{
-                self.accessLevel[.readCompanyEmployee] = accessLevel?.read_company_employee
-                self.accessLevel[.readLocalIdCompany] = accessLevel?.read_local_id_company
-                self.accessLevel[.readGeneralCompanyInformation] = accessLevel?.read_general_company_information
-                self.accessLevel[.writeGeneralCompanyInformation] = accessLevel?.write_general_company_information
-                self.accessLevel[.canChangeAccessLevel] = accessLevel?.can_change_access_level
-                self.accessLevel[.isOwner] = accessLevel?.is_owner
-                
-                completion(true,nil)
-            }
-        }
     }
 }

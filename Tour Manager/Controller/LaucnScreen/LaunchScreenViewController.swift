@@ -9,11 +9,18 @@ import UIKit
 
 class LaunchScreenViewController: UIViewController {
     
+    // MARK: - UserDefaults
+    
     fileprivate let token = AppDelegate.userDefaults.string(forKey: "authToken")
     fileprivate let localId = AppDelegate.userDefaults.string(forKey: "localId")
+    
+    // MARK: - My varibles
+    
     let controllers = Controllers()
     let user = AppDelegate.user
-
+    
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -28,48 +35,13 @@ class LaunchScreenViewController: UIViewController {
             self.user?.getUserInfoFromApi(completion: { isGetted, error in
                 
                 if error == nil && isGetted{
-                    self.goToMainTabBar()
+                    self.controllers.goToMainTabBar(view: self.view)
                 } else{
-                    self.goToLogInPage()
+                    self.controllers.goToLoginPage(view: self.view)
                 }
             })
         } else{
-            self.goToLogInPage()
+            self.controllers.goToLoginPage(view: self.view)
         }
     }
-    
-    
-    
-    // MARK: - Navigation
-    
-    fileprivate func goToMainTabBar(){
-        let mainTabBar = self.controllers.getControllerMain(.mainTabBarController)
-
-        let window = self.view.window
-        let options = UIWindow.TransitionOptions()
-        
-        options.direction = .fade
-        options.duration = 0.5
-        options.style = .easeIn
-        
-        window?.set(rootViewController: mainTabBar,options: options)
-    }
-    
-    fileprivate func goToLogInPage(){
-        let mainLogIn = self.controllers.getControllerAuth(.mainAuthController)
-        
-
-        let window = self.view.window
-        let options = UIWindow.TransitionOptions()
-        
-        options.direction = .fade
-        options.duration = 0.5
-        options.style = .easeIn
-        
-        window?.set(rootViewController: mainLogIn,options: options)
-        
-    }
-
-    
-
 }

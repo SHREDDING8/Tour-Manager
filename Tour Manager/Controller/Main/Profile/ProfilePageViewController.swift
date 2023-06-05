@@ -7,8 +7,6 @@
 
 import UIKit
 
-
-let font = Font()
 class ProfilePageViewController: UIViewController {
     
     // MARK: - my Variables
@@ -45,7 +43,7 @@ class ProfilePageViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var datePickerUiView:UIView = {
-        let buttonFont = font.getFont(name: .americanTypewriter, style: .bold, size: 16)
+        let buttonFont = Font.getFont(name: .americanTypewriter, style: .bold, size: 16)
         let uiView = UIView()
         uiView.backgroundColor = .white
         uiView.translatesAutoresizingMaskIntoConstraints = false
@@ -433,7 +431,7 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
             cellLabel.text = cellType.rawValue.0
             
             let changeButton:UIButton = cell.viewWithTag(3) as! UIButton
-            changeButton.titleLabel?.font = font.getFont(name: .americanTypewriter, style: .light, size: 14)
+            changeButton.titleLabel?.font = Font.getFont(name: .americanTypewriter, style: .light, size: 14)
             changeButton.setTitle("Изменить", for: .normal)
         
             changeButton.removeTarget(nil, action: nil, for: .touchUpInside)
@@ -572,7 +570,7 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
             cellLabel.text = cellType.rawValue.0
             
             let changeButton:UIButton = cell.viewWithTag(3) as! UIButton
-            changeButton.titleLabel?.font = font.getFont(name: .americanTypewriter, style: .light, size: 14)
+            changeButton.titleLabel?.font = Font.getFont(name: .americanTypewriter, style: .light, size: 14)
             changeButton.setTitle("Изменить", for: .normal)
             
             changeButton.removeTarget(nil, action: nil, for: .touchUpInside)
@@ -626,7 +624,7 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
         cellLabel.text = cellType.rawValue.0
         
         let changeButton:UIButton = cell.viewWithTag(3) as! UIButton
-        changeButton.titleLabel?.font = font.getFont(name: .americanTypewriter, style: .light, size: 14)
+        changeButton.titleLabel?.font = Font.getFont(name: .americanTypewriter, style: .light, size: 14)
         changeButton.setTitle("Скопировать", for: .normal)
         changeButton.removeTarget(nil, action: nil, for: .touchUpInside)
         

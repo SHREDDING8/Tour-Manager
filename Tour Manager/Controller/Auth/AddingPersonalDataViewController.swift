@@ -37,7 +37,7 @@ class AddingPersonalDataViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var datePickerUiView:UIView = {
-        let buttonFont = font.getFont(name: .americanTypewriter, style: .bold, size: 16)
+        let buttonFont = Font.getFont(name: .americanTypewriter, style: .bold, size: 16)
         let uiView = UIView()
         uiView.backgroundColor = .white
         uiView.translatesAutoresizingMaskIntoConstraints = false

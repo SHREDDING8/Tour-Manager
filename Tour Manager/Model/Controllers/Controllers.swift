@@ -34,13 +34,17 @@ enum TypeOfRegister{
 
 class Controllers{
     
+    // MARK: - Storyboards
+    
     let storyboardAuth = UIStoryboard(name: "Auth", bundle: nil)
     
     let storyboardMain = UIStoryboard(name: "Main", bundle: nil)
     
+    
+    // MARK: - Get Controllers
     public func getControllerAuth(_ controller:PossibleControllersAuth) -> UIViewController{
         return storyboardAuth.instantiateViewController(withIdentifier: controller.rawValue)
-        }
+    }
     
     
     public func getControllerMain(_ controller:PossibleControllersMain) -> UIViewController{
@@ -59,9 +63,22 @@ class Controllers{
         let options = UIWindow.TransitionOptions()
         
         options.direction = .toBottom
-        options.duration = 0.3
+        options.duration = 0.5
         options.style = .easeOut
         
         window?.set(rootViewController: mainLogIn, options: options)
+    }
+    
+    public func goToMainTabBar(view:UIView){
+        let mainTabBar = self.getControllerMain(.mainTabBarController)
+        
+        let window = view.window
+        let options = UIWindow.TransitionOptions()
+        
+        options.direction = .toBottom
+        options.duration = 0.5
+        options.style = .easeOut
+        
+        window?.set(rootViewController: mainTabBar, options: options)
     }
 }

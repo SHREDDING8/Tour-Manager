@@ -8,10 +8,11 @@
 import Foundation
 import UIKit
 
+
 enum fontNames:String{
     case americanTypewriter = "American Typewriter"
 }
-enum fontStyle:String{
+public enum fontStyle:String{
     case regular = "Regular"
     case bold = "Bold"
     case light = "Light"
@@ -19,7 +20,7 @@ enum fontStyle:String{
 }
 
 class Font{
-    public func getFont(name: fontNames, style:fontStyle, size:CGFloat) -> UIFont{
+    static public func getFont(name: fontNames, style:fontStyle, size:CGFloat) -> UIFont{
         return UIFont(name: "\(name.rawValue) \(style.rawValue)", size: size)!
     }
     

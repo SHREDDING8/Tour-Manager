@@ -33,7 +33,6 @@ class VerifyEmailViewController: UIViewController {
         super.viewDidLoad()
         configureView()
         
-
         // Do any additional setup after loading the view.
     }
     
@@ -53,7 +52,6 @@ class VerifyEmailViewController: UIViewController {
     }
     
     
-    
     fileprivate func setTimerSetEmailAgain(){
         var time = 60
         self.sendEmailAgainButton.isUserInteractionEnabled = false
@@ -71,16 +69,13 @@ class VerifyEmailViewController: UIViewController {
     }
     
     fileprivate func setTitleResend(value:String){
-        let fontButton = font.getFont(name: .americanTypewriter, style: .semiBold, size: 16)
-        
-        self.sendEmailAgainButton.titleLabel?.font = fontButton
-        self.sendEmailAgainButton.setTitle(value, for: .normal)
+        self.sendEmailAgainButton.setTitle(title: value, size: 16, style: .semiBold)
     }
 
 
     
     @IBAction func verifiedButtonTap(_ sender: Any) {
-        logIn()
+        self.logIn()
     }
     
     @IBAction func resendEmail(_ sender: Any) {
@@ -90,12 +85,8 @@ class VerifyEmailViewController: UIViewController {
                 let alert = self.alerts.errorAlert(errorTypeApi: .unknown)
                 self.present(alert, animated: true)
             }else{
-                let alert = UIAlertController(title: "Email Отправлен", message: "Проверьте почту и подтвердите аккаунт", preferredStyle: .alert)
-                let ok = UIAlertAction(title: "Ok", style: .default)
                 self.setTimerSetEmailAgain()
-                
-                alert.addAction(ok)
-                
+                let alert = self.alerts.infoAlert(title: "Email Отправлен", meesage: "Проверьте почту и подтвердите аккаунт")
                 self.present(alert, animated: true)
             }
         })
@@ -125,13 +116,10 @@ class VerifyEmailViewController: UIViewController {
                     self.goToAddingPersonalData()
                     return
                 }else if error == .invalidToken{
-                    print("invalidToken")
                     self.goToLogInPage()
                 } else if error == .tokenExpired{
-                    print("tokenExpired")
                     self.goToLogInPage()
                 } else if error == .unknowmError{
-                    print("unknowmError")
                     self.goToLogInPage()
                 }
                 
@@ -170,7 +158,6 @@ class VerifyEmailViewController: UIViewController {
         
     }
     fileprivate func goToLogInPage(){
-        print("goToLogInPage")
         let mainLogIn = self.controllers.getControllerAuth(.mainAuthController)
         
 

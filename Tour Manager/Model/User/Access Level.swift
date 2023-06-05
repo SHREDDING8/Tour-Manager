@@ -1,0 +1,66 @@
+//
+//  Access Level.swift
+//  Tour Manager
+//
+//  Created by SHREDDING on 04.06.2023.
+//
+
+import Foundation
+
+extension User{
+    // MARK: - level Access
+    public func getAccessLevel(rule:AccessLevelEnum) -> Bool{
+        let result = self.accessLevel[rule]
+        return result ?? false
+    }
+    
+    public func getNumberOfAccessLevel()->Int{
+        
+        return self.accessLevel.count
+        
+    }
+    
+    public func getAccessLevelRule(index:Int)->AccessLevelEnum{
+        return AccessLevelEnum(index: index) ?? .readGeneralCompanyInformation
+
+    }
+    
+    public func getAccessLevelLabel(rule:AccessLevelEnum)->String{
+        switch rule{
+            
+        case .isOwner:
+            return "Владелец компании"
+        case .readGeneralCompanyInformation:
+            return "Чтение общей информации о компании"
+        case .writeGeneralCompanyInformation:
+            return "Изменение общей информации о компании"
+        case .readLocalIdCompany:
+            return "Чтение Id компании"
+        case .readCompanyEmployee:
+            return "Просмотр работников компании"
+        case .canChangeAccessLevel:
+            return "Изменение прав доступа работников компании"
+        }
+    }
+    
+    
+    public func getAccessLevelFromApi(completion: @escaping (Bool, customErrorCompany?)->Void){
+        
+        self.apiCompany.getCurrentAccessLevel(token: self.getToken(), companyId: self.company.getLocalIDCompany()) { accessLevel, error in
+            if error != nil{
+                completion(false,error)
+            }
+            
+            if accessLevel != nil{
+                self.accessLevel[.readCompanyEmployee] = accessLevel?.read_company_employee
+                self.accessLevel[.readLocalIdCompany] = accessLevel?.read_local_id_company
+                self.accessLevel[.readGeneralCompanyInformation] = accessLevel?.read_general_company_information
+                self.accessLevel[.writeGeneralCompanyInformation] = accessLevel?.write_general_company_information
+                self.accessLevel[.canChangeAccessLevel] = accessLevel?.can_change_access_level
+                self.accessLevel[.isOwner] = accessLevel?.is_owner
+                
+                completion(true,nil)
+            }
+        }
+    }
+}
