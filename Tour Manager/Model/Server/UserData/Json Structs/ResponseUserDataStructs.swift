@@ -18,7 +18,5 @@ public struct ResponseGetUserInfoJsonStruct: Codable{
     let company_id:String
     let company_name:String
     
-    let is_owner: Bool
-    
     let private_company:Bool
 }

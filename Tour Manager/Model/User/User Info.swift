@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension User{
     // MARK: - getUserInfoFromApi
@@ -35,7 +36,6 @@ extension User{
             self.company.setLocalIDCompany(localIdCompany: response!.company_id)
             self.company.setNameCompany(nameCompany: response!.company_name)
             
-            self.accessLevel[.isOwner] = response!.is_owner
             
             self.company.setIsPrivate(isPrivate: response!.private_company)
             
@@ -84,5 +84,28 @@ extension User{
             completion(isDeleted,error)
         }
     }
-
+    
+    // MARK: - UploadPhoto
+    public func uploadProfilePhoto(image:UIImage, completion: @escaping (Bool,customErrorUserData?)->Void){
+        
+        self.apiUserData.uploadProfilePhoto(token: self.getToken(), image: image) { isUploaded, error in
+            completion(isUploaded,error)
+        }
+    }
+    
+    public func downloadProfilePhoto(localId:String, completion: @escaping (Data?,customErrorUserData?)->Void){
+        
+        self.apiUserData.downloadProfilePhoto(token: self.getToken(), localId: localId) { isDownloaded, data, error in
+            
+            completion(data,error)
+        }
+    }
+    
+    public func deleteProfilePhoto(completion: @escaping (Bool,customErrorUserData?)->Void){
+        
+        self.apiUserData.deleteProfilePhoto(token: self.getToken()) { isDeleted, error in
+            completion(isDeleted,error)
+        }
+    }
+    
 }

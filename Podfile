@@ -9,6 +9,6 @@ target 'Tour Manager' do
 
 	pod 'Alamofire'
 
-	pod 'UIWindowTransitions'
+	pod 'FSCalendar'
 
 end

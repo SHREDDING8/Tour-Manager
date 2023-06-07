@@ -18,11 +18,16 @@ class EmploeeViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     
+    @IBOutlet weak var profilePhoto: UIImageView!
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configurationView()
+        
+        profilePhotoConfiguration()
         
     }
     
@@ -31,6 +36,27 @@ class EmploeeViewController: UIViewController {
     
     public func configurationView(){
         self.navigationItem.title = employee.getFullName()
+    }
+    
+    
+    
+    fileprivate func setProfilePhoto(image:UIImage){
+        UIView.transition(with: self.profilePhoto, duration: 0.3, options: .transitionCrossDissolve) {
+            self.profilePhoto.image = image
+        }
+    }
+    
+    fileprivate func profilePhotoConfiguration(){
+        self.profilePhoto.clipsToBounds = true
+        self.profilePhoto.layer.masksToBounds = true
+        
+        self.profilePhoto.layer.cornerRadius = self.profilePhoto.frame.height / 2
+        
+        self.user?.downloadProfilePhoto(localId: self.employee.getLocalID() ?? "", completion: { data, error in
+            if data != nil{
+                self.setProfilePhoto(image: UIImage(data: data!)!)
+            }
+        })
     }
 
 

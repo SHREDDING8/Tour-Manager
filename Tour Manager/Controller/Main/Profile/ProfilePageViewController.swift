@@ -108,8 +108,6 @@ class ProfilePageViewController: UIViewController {
         configurationDarkUiView()
         datePickerConfiguration()
         
-        
-        
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -169,6 +167,19 @@ class ProfilePageViewController: UIViewController {
         self.profilePhoto.layer.masksToBounds = true
         
         self.profilePhoto.layer.cornerRadius = self.profilePhoto.frame.height / 2
+        
+        self.user?.downloadProfilePhoto(localId: self.user?.getLocalID() ?? "", completion: { data, error in
+            if data != nil{
+                self.setProfilePhoto(image: UIImage(data: data!)!)
+            }
+        })
+    }
+    
+    fileprivate func setProfilePhoto(image:UIImage){
+        UIView.transition(with: self.profilePhoto, duration: 0.3, options: .transitionCrossDissolve) {
+        self.profilePhoto.image = image
+    }
+        
     }
     
     fileprivate func addSubviews(){
@@ -299,14 +310,32 @@ class ProfilePageViewController: UIViewController {
         }
         
         let actionDeletePhoto = UIAlertAction(title: "Delete Photo", style: .default) { [self] _ in
-            self.profilePhoto.image = UIImage(named: "no profile photo")
+            
+            self.user?.deleteProfilePhoto(completion: { isDeleted, error in
+                if error == .tokenExpired || error == .invalidToken{
+                    let alert = self.alerts.invalidToken(view: self.view, message: nil)
+                    self.present(alert, animated: true)
+                } else if error == .unknowmError{
+                    let alert = self.alerts.errorAlert(errorTypeApi: .unknown)
+                    self.present(alert, animated: true)
+                }
+                
+                if isDeleted{
+                    self.setProfilePhoto(image: UIImage(named: "no profile photo")!)
+                }
+            })
+            
+            
         }
         let actionCancel = UIAlertAction(title: "Cancel", style: .cancel)
         
         alert.addAction(actionLibary)
         alert.addAction(actionCamera)
         alert.addAction(actionCancel)
-        alert.addAction(actionDeletePhoto)
+        if profilePhoto.image != UIImage(named: "no profile photo")!{
+            alert.addAction(actionDeletePhoto)
+        }
+        
         
         self.present(alert, animated: true)
      }
@@ -824,9 +853,24 @@ extension ProfilePageViewController:UIImagePickerControllerDelegate,UINavigation
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.editedImage] as? UIImage{
-            self.profilePhoto.image = image
+            self.dismiss(animated: true)
+            
+            
+            self.user?.uploadProfilePhoto(image: image, completion: { isUpload, error in
+                if error == .tokenExpired || error == .invalidToken{
+                    let alert = self.alerts.invalidToken(view: self.view, message: nil)
+                    self.present(alert, animated: true)
+                } else if error == .unknowmError{
+                    let alert = self.alerts.errorAlert(errorTypeApi: .unknown)
+                    self.present(alert, animated: true)
+                }
+                
+                if isUpload{
+                    self.setProfilePhoto(image: image)
+                }
+            })
         }
-        self.dismiss(animated: true)
+        
     }
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         self.dismiss(animated: true)

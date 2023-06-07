@@ -17,10 +17,15 @@ class mainTabBarViewController: UITabBarController {
         profileNavController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person.fill"), tag: 1)
         
         
+        let excursionManagementNavViewController = controllers.getControllerMain(.excursionManagementNavigationViewController)
         
-        self.viewControllers = [profileNavController]
+        excursionManagementNavViewController.tabBarItem = UITabBarItem(title: "Управление", image: UIImage(systemName: "calendar"), tag: 2)
         
-
+        
+        
+        self.viewControllers = [excursionManagementNavViewController,profileNavController]
+        
+        
         // Do any additional setup after loading the view.
     }
     
