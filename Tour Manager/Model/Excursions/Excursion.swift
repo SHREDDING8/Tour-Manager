@@ -13,10 +13,13 @@ struct SelfGuide {
     var isMain:Bool
 }
 
-class Excursion{
+public class Excursion{
     // MARK: - Fields
     
+    var excursionName:String?
+    
     var localId:String?
+    
     var companyName:String?
     var numberOfPeople:Int?
     var lunchPlace:String?
@@ -44,10 +47,4 @@ class Excursion{
     init() {
         
     }
-    
-    
-    
-    
-    
-    
 }
