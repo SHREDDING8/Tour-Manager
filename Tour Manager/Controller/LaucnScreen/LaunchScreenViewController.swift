@@ -33,6 +33,7 @@ class LaunchScreenViewController: UIViewController {
             self.user?.setLocalID(localId: localId!)
             
             self.user?.getUserInfoFromApi(completion: { isGetted, error in
+                print(123)
                 
                 if error == nil && isGetted{
                     self.controllers.goToMainTabBar(view: self.view)

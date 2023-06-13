@@ -12,8 +12,6 @@ class ExcursionTableViewCell: UITableViewCell {
     
     @IBOutlet weak var startTimeLabel: UILabel!
     
-    @IBOutlet weak var finishTimeLabel: UILabel!
-    
     @IBOutlet weak var nameLabel: UILabel!
     
     @IBOutlet weak var routeLabel: UILabel!

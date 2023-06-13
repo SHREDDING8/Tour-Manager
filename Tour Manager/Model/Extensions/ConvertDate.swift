@@ -41,4 +41,36 @@ extension Date{
         return date
     }
     
+    public func timeToString()->String{
+        let dateFormatterBirthday = DateFormatter()
+        let templateBirthday = "HH:mm"
+        dateFormatterBirthday.dateFormat = templateBirthday
+        
+        let timeString = dateFormatterBirthday.string(from: self)
+        return timeString
+        
+    }
+    
+    static public func dateAndTimeToDate(dateString:String?, timeString:String)->Date{
+        let dateFormatterBirthday = DateFormatter()
+        if dateString != nil{
+            let templateBirthday = "dd.MM.yyyy HH:mm"
+            dateFormatterBirthday.dateFormat = templateBirthday
+            
+            let date = dateFormatterBirthday.date(from: "\(dateString!) \(timeString)") ?? Date.now
+            
+            return date
+        }else{
+            let templateBirthday = "HH:mm"
+            dateFormatterBirthday.dateFormat = templateBirthday
+            
+            let date = dateFormatterBirthday.date(from: "\(timeString)") ?? Date.now
+            return date
+        }
+       
+       
+        
+        
+    }
+    
 }

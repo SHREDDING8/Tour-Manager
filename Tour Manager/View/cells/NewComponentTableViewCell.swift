@@ -9,6 +9,8 @@ import UIKit
 
 class NewComponentTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var componentText: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

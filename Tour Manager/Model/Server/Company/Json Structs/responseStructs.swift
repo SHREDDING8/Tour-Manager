@@ -25,9 +25,11 @@ public struct ResponseAccessLevel:Codable{
     let read_company_employee:Bool
     let can_change_access_level:Bool
     let is_owner:Bool
+    
+    let can_read_tour_list:Bool
+    let can_write_tour_list:Bool
+    let is_guide:Bool
 }
-
-
 
 
 // MARK: - GetCompanyUsers
@@ -52,6 +54,10 @@ struct AccessLevels: Codable {
     let readGeneralCompanyInformation, writeGeneralCompanyInformation, readLocalIDCompany, readCompanyEmployee: Bool
     let canChangeAccessLevel: Bool
     let isOwner:Bool
+    
+    let canReadTourList:Bool
+    let canWriteTourList:Bool
+    let isGuide:Bool
 
     enum CodingKeys: String, CodingKey {
         case readGeneralCompanyInformation = "read_general_company_information"
@@ -60,6 +66,10 @@ struct AccessLevels: Codable {
         case readCompanyEmployee = "read_company_employee"
         case canChangeAccessLevel = "can_change_access_level"
         case isOwner = "is_owner"
+        
+        case canReadTourList = "can_read_tour_list"
+        case canWriteTourList = "can_write_tour_list"
+        case isGuide = "is_guide"
     }
 }
 

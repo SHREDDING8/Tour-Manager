@@ -10,9 +10,18 @@ import FSCalendar
 
 class ExcursionManagementViewController: UIViewController{
     
+    
+    // MARK: - some varibales
+    
+    let controllers = Controllers()
+    
+    let user = AppDelegate.user
+    
+    let alerts = Alert()
+    
     // MARK: - Excursions
     
-    var excursionsArray:[Excursion] = []
+    let excursionsModel = ExcursionsControllerModel()
     
     
     // MARK: - Calendar Object
@@ -104,17 +113,15 @@ class ExcursionManagementViewController: UIViewController{
         self.configureButtons()
         
         
-        for i in 0...10{
-            let ex = Excursion(companyName: "exursion \(i)", route:"уи-об-оэз")
-            self.excursionsArray.append(ex)
-        }
-        
-        
-        
-        
-        
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.getExcursions(date: Date.now)
+                
     }
     
     // MARK: - addSubviews
@@ -132,7 +139,14 @@ class ExcursionManagementViewController: UIViewController{
     fileprivate func configureView(){
         self.navigationItem.title = "Управление"
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .add)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .add, primaryAction: UIAction(handler: { _ in
+            
+            let newExcursionController = self.controllers.getControllerMain(.newExcursionTableViewController)
+            
+            
+            self.navigationController?.pushViewController(newExcursionController, animated: true)
+        }))
+        
         
         // swipes left and right to change day in calendar
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(swipeAction))
@@ -142,7 +156,6 @@ class ExcursionManagementViewController: UIViewController{
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(swipeAction))
         swipeLeft.direction = .left
         self.view.addGestureRecognizer(swipeLeft)
-
         
     }
     
@@ -183,7 +196,6 @@ class ExcursionManagementViewController: UIViewController{
             tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
         ])
 
-        
     }
     
     // MARK: - Configuration Buttons for Calendar
@@ -244,8 +256,7 @@ class ExcursionManagementViewController: UIViewController{
                         self.calendar.deselect(selected)
                     }
                     self.calendar.setCurrentPage(today, animated: true)
-//                    self.getCurrentClasses(date: .now)
-                    self.reloadData()
+                    self.getExcursions(date: .now)
                 })
                 todayButton.isHidden = true
             }
@@ -267,18 +278,17 @@ class ExcursionManagementViewController: UIViewController{
                 self.showCloseCalendarButton.setTitle( "Развернуть", for: .normal)
             }, completion: nil)
             
-//                if let today =  self.calendar.today{
-//                self.calendar.setScope(.week, animated: true)
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300), execute: {
-//                        if let selected = self.calendar.selectedDate{
-//                            self.calendar.deselect(selected)
-//                        }
-//                        self.calendar.setCurrentPage(today, animated: true)
-////                        self.getCurrentClasses(date: .now)
-//                        self.reloadData()
-//                    })
-//                    todayButton.isHidden = true
-//                }
+                if let today =  self.calendar.today{
+                self.calendar.setScope(.week, animated: true)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300), execute: {
+                        if let selected = self.calendar.selectedDate{
+                            self.calendar.deselect(selected)
+                        }
+                        self.calendar.setCurrentPage(today, animated: true)
+                        self.getExcursions(date: .now)
+                    })
+                    todayButton.isHidden = true
+                }
         }
         
     }
@@ -302,8 +312,36 @@ class ExcursionManagementViewController: UIViewController{
         }
     }
     
-
-
+    // MARK: - Get excursions
+    
+    public func getExcursions(date:Date){
+        self.excursionsModel.excursions = []
+        UIView.transition(with: self.tableView, duration: 0.3, options: .transitionCrossDissolve) {
+            self.tableView.reloadData()
+        }
+        
+        
+        excursionsModel.getExcursionsFromApi(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "" , date: date) { isGetted, error in
+            
+            if error != nil{
+                
+                if error == .invalidToken || error == .tokenExpired{
+                    let alert = self.alerts.invalidToken(view: self.view, message: "Ваша сессия закончилась")
+                    self.present(alert, animated: true)
+                } else if error == .unknown{
+                    let alert = self.alerts.errorAlert(errorTypeApi: .unknown)
+                    self.present(alert, animated: true)
+                }
+                return
+            }
+            
+            if isGetted{
+                UIView.transition(with: self.tableView, duration: 0.3, options: .transitionCrossDissolve) {
+                    self.tableView.reloadData()
+                }
+            }
+        }
+    }
 }
 
 // MARK: - FSCalendarDelegate
@@ -318,8 +356,7 @@ extension ExcursionManagementViewController:FSCalendarDelegate, FSCalendarDataSo
         if self.calendar.scope == .week{
             buttonShowCloseTapped()
         }
-//        self.getCurrentClasses(date: date)
-        self.reloadData()
+        self.getExcursions(date: date)
         
         self.onOffResetButton(date)
     }
@@ -339,16 +376,29 @@ extension ExcursionManagementViewController:FSCalendarDelegate, FSCalendarDataSo
 // MARK: - UITableViewDelegate
 extension ExcursionManagementViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.excursionsArray.count
+        return self.excursionsModel.excursions.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ExcursionTableViewCell", for: indexPath) as! ExcursionTableViewCell
         
-        cell.nameLabel.text = self.excursionsArray[indexPath.row].companyName
-        cell.routeLabel.text = self.excursionsArray[indexPath.row].route
+        cell.nameLabel.text = self.excursionsModel.excursions[indexPath.row].excursionName
+        cell.routeLabel.text = self.excursionsModel.excursions[indexPath.row].route
+        
+        cell.startTimeLabel.text = self.excursionsModel.excursions[indexPath.row].dateAndTime.timeToString()
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.tableView.deselectRow(at: indexPath, animated: true)
+        
+        let destination = self.controllers.getControllerMain(.newExcursionTableViewController) as! NewExcursionTableViewController
+        
+        destination.excursion = excursionsModel.excursions[indexPath.row]
+        
+        self.navigationController?.pushViewController(destination, animated: true)
+        
     }
     
     
@@ -361,6 +411,4 @@ extension ExcursionManagementViewController:UITableViewDelegate,UITableViewDataS
             }
         }
     }
-    
-    
 }

@@ -155,8 +155,6 @@ extension EmploeeViewController:UITableViewDelegate,UITableViewDataSource{
                 break
             }
 
-            
-            textField.text = profileModel.getProfilePersonalDataFromUser(type: cellType)
             textField.restorationIdentifier = cellType.rawValue.2
             
             let cellLabel:UILabel = cell.viewWithTag(1) as! UILabel

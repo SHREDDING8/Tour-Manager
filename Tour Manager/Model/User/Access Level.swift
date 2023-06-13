@@ -40,6 +40,12 @@ extension User{
             return "Просмотр работников компании"
         case .canChangeAccessLevel:
             return "Изменение прав доступа работников компании"
+        case .canWriteTourList:
+            return "Чтение всех экскурсий"
+        case .canReadTourList:
+            return "Изменение экскурсий"
+        case .isGuide:
+            return "Эксурсовод"
         }
     }
     
@@ -58,6 +64,10 @@ extension User{
                 self.accessLevel[.writeGeneralCompanyInformation] = accessLevel?.write_general_company_information
                 self.accessLevel[.canChangeAccessLevel] = accessLevel?.can_change_access_level
                 self.accessLevel[.isOwner] = accessLevel?.is_owner
+                
+                self.accessLevel[.canReadTourList] = accessLevel?.can_read_tour_list
+                self.accessLevel[.canWriteTourList] = accessLevel?.can_write_tour_list
+                self.accessLevel[.isGuide] = accessLevel?.is_guide
                 
                 completion(true,nil)
             }

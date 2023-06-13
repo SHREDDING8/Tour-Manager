@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EE0528CA2A30DA3C006C8C98 /* NewExcursionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0528C92A30DA3C006C8C98 /* NewExcursionTableViewController.swift */; };
 		EE1770EC2A22B08500B18055 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1770EB2A22B08500B18055 /* Company.swift */; };
 		EE1770EE2A239A7E00B18055 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1770ED2A239A7E00B18055 /* ChangePasswordViewController.swift */; };
 		EE1770F02A23BD9500B18055 /* StringValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1770EF2A23BD9500B18055 /* StringValidation.swift */; };
@@ -43,7 +44,16 @@
 		EE9788692A28D4FA0086C034 /* EmploeeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9788682A28D4FA0086C034 /* EmploeeTableViewController.swift */; };
 		EE97886B2A28EA710086C034 /* EmploeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE97886A2A28EA710086C034 /* EmploeeViewController.swift */; };
 		EEA4C08029FDDC650083154E /* ApiManagerAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA4C07F29FDDC650083154E /* ApiManagerAuth.swift */; };
+		EEB73F9C2A364B82004D7A25 /* ApiManagerExcursions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB73F9B2A364B82004D7A25 /* ApiManagerExcursions.swift */; };
+		EEB73F9F2A364B9B004D7A25 /* SendExcursions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB73F9E2A364B9B004D7A25 /* SendExcursions.swift */; };
+		EEB73FA12A364BA9004D7A25 /* ResponseExcursions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB73FA02A364BA9004D7A25 /* ResponseExcursions.swift */; };
+		EEB73FA32A365ABC004D7A25 /* ExcursionsControllerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB73FA22A365ABC004D7A25 /* ExcursionsControllerModel.swift */; };
+		EEB764A22A387B2200579E6B /* NewComponentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB764A02A387B2200579E6B /* NewComponentTableViewCell.swift */; };
+		EEB764A32A387B2200579E6B /* NewComponentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEB764A12A387B2200579E6B /* NewComponentTableViewCell.xib */; };
 		EEC9BA182A2670A100BC026A /* Bool.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC9BA172A2670A100BC026A /* Bool.swift */; };
+		EEDA5E9B2A378215002CC5C8 /* UiTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDA5E9A2A378215002CC5C8 /* UiTextField.swift */; };
+		EEDA5E9D2A37BFA9002CC5C8 /* UiTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDA5E9C2A37BFA9002CC5C8 /* UiTextView.swift */; };
+		EEDA5E9F2A37C153002CC5C8 /* AddingNewComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDA5E9E2A37C153002CC5C8 /* AddingNewComponentViewController.swift */; };
 		EEE8026A2A2E4E1A00162622 /* ExcursionManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE802692A2E4E1A00162622 /* ExcursionManagementViewController.swift */; };
 		EEE802702A2E5DED00162622 /* ExcursionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE8026E2A2E5DED00162622 /* ExcursionTableViewCell.swift */; };
 		EEE802712A2E5DED00162622 /* ExcursionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEE8026F2A2E5DED00162622 /* ExcursionTableViewCell.xib */; };
@@ -61,6 +71,7 @@
 		1DFBF18B6D24A5A5FC68BDFE /* Pods_Tour_Manager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tour_Manager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C239F2D7A9DD96051CDD690 /* Pods-Tour Manager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tour Manager.release.xcconfig"; path = "Target Support Files/Pods-Tour Manager/Pods-Tour Manager.release.xcconfig"; sourceTree = "<group>"; };
 		68E77E428BEC283B907E8208 /* Pods-Tour Manager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tour Manager.debug.xcconfig"; path = "Target Support Files/Pods-Tour Manager/Pods-Tour Manager.debug.xcconfig"; sourceTree = "<group>"; };
+		EE0528C92A30DA3C006C8C98 /* NewExcursionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewExcursionTableViewController.swift; sourceTree = "<group>"; };
 		EE1770EB2A22B08500B18055 /* Company.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
 		EE1770ED2A239A7E00B18055 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		EE1770EF2A23BD9500B18055 /* StringValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringValidation.swift; sourceTree = "<group>"; };
@@ -100,7 +111,16 @@
 		EE9788682A28D4FA0086C034 /* EmploeeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmploeeTableViewController.swift; sourceTree = "<group>"; };
 		EE97886A2A28EA710086C034 /* EmploeeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmploeeViewController.swift; sourceTree = "<group>"; };
 		EEA4C07F29FDDC650083154E /* ApiManagerAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManagerAuth.swift; sourceTree = "<group>"; };
+		EEB73F9B2A364B82004D7A25 /* ApiManagerExcursions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManagerExcursions.swift; sourceTree = "<group>"; };
+		EEB73F9E2A364B9B004D7A25 /* SendExcursions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendExcursions.swift; sourceTree = "<group>"; };
+		EEB73FA02A364BA9004D7A25 /* ResponseExcursions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseExcursions.swift; sourceTree = "<group>"; };
+		EEB73FA22A365ABC004D7A25 /* ExcursionsControllerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcursionsControllerModel.swift; sourceTree = "<group>"; };
+		EEB764A02A387B2200579E6B /* NewComponentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewComponentTableViewCell.swift; sourceTree = "<group>"; };
+		EEB764A12A387B2200579E6B /* NewComponentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewComponentTableViewCell.xib; sourceTree = "<group>"; };
 		EEC9BA172A2670A100BC026A /* Bool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bool.swift; sourceTree = "<group>"; };
+		EEDA5E9A2A378215002CC5C8 /* UiTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiTextField.swift; sourceTree = "<group>"; };
+		EEDA5E9C2A37BFA9002CC5C8 /* UiTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiTextView.swift; sourceTree = "<group>"; };
+		EEDA5E9E2A37C153002CC5C8 /* AddingNewComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingNewComponentViewController.swift; sourceTree = "<group>"; };
 		EEE802692A2E4E1A00162622 /* ExcursionManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcursionManagementViewController.swift; sourceTree = "<group>"; };
 		EEE8026E2A2E5DED00162622 /* ExcursionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcursionTableViewCell.swift; sourceTree = "<group>"; };
 		EEE8026F2A2E5DED00162622 /* ExcursionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExcursionTableViewCell.xib; sourceTree = "<group>"; };
@@ -188,6 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				EE4C893D2A2E3D85004D3CB9 /* Excursion.swift */,
+				EEB73FA22A365ABC004D7A25 /* ExcursionsControllerModel.swift */,
 			);
 			path = Excursions;
 			sourceTree = "<group>";
@@ -299,6 +320,7 @@
 		EE5F91E02A2152D500B39BB1 /* Server */ = {
 			isa = PBXGroup;
 			children = (
+				EEB73F9A2A364B59004D7A25 /* Excursions */,
 				EE5F91E32A2152FF00B39BB1 /* Auth */,
 				EE5F91E22A2152FA00B39BB1 /* UserData */,
 				EE5F91E12A2152F400B39BB1 /* Company */,
@@ -361,6 +383,24 @@
 			path = "Json Structs";
 			sourceTree = "<group>";
 		};
+		EEB73F9A2A364B59004D7A25 /* Excursions */ = {
+			isa = PBXGroup;
+			children = (
+				EEB73F9D2A364B86004D7A25 /* JsonStructs */,
+				EEB73F9B2A364B82004D7A25 /* ApiManagerExcursions.swift */,
+			);
+			path = Excursions;
+			sourceTree = "<group>";
+		};
+		EEB73F9D2A364B86004D7A25 /* JsonStructs */ = {
+			isa = PBXGroup;
+			children = (
+				EEB73F9E2A364B9B004D7A25 /* SendExcursions.swift */,
+				EEB73FA02A364BA9004D7A25 /* ResponseExcursions.swift */,
+			);
+			path = JsonStructs;
+			sourceTree = "<group>";
+		};
 		EEC9BA192A2671ED00BC026A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -374,6 +414,8 @@
 			isa = PBXGroup;
 			children = (
 				EEE802692A2E4E1A00162622 /* ExcursionManagementViewController.swift */,
+				EE0528C92A30DA3C006C8C98 /* NewExcursionTableViewController.swift */,
+				EEDA5E9E2A37C153002CC5C8 /* AddingNewComponentViewController.swift */,
 			);
 			path = Excursion;
 			sourceTree = "<group>";
@@ -383,6 +425,8 @@
 			children = (
 				EEE8026E2A2E5DED00162622 /* ExcursionTableViewCell.swift */,
 				EEE8026F2A2E5DED00162622 /* ExcursionTableViewCell.xib */,
+				EEB764A02A387B2200579E6B /* NewComponentTableViewCell.swift */,
+				EEB764A12A387B2200579E6B /* NewComponentTableViewCell.xib */,
 			);
 			path = cells;
 			sourceTree = "<group>";
@@ -401,6 +445,8 @@
 				EEF27A562A05B512006E5E53 /* extensionUiView.swift */,
 				EE5F91B52A1E839E00B39BB1 /* UiWindow.swift */,
 				EE4C893A2A2CF53D004D3CB9 /* UiButton.swift */,
+				EEDA5E9A2A378215002CC5C8 /* UiTextField.swift */,
+				EEDA5E9C2A37BFA9002CC5C8 /* UiTextView.swift */,
 			);
 			path = extensionViews;
 			sourceTree = "<group>";
@@ -437,7 +483,7 @@
 				EE52E16729E5C1C8000C0E5B /* Sources */,
 				EE52E16829E5C1C8000C0E5B /* Frameworks */,
 				EE52E16929E5C1C8000C0E5B /* Resources */,
-				0EECA2D9F5EF8D22E2A8C0B8 /* [CP] Embed Pods Frameworks */,
+				E013215BF8D4058A5659F0E1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -489,6 +535,7 @@
 				EE52E17B29E5C1CB000C0E5B /* LaunchScreen.storyboard in Resources */,
 				EE1770F62A23F00300B18055 /* Launch.storyboard in Resources */,
 				EEE802712A2E5DED00162622 /* ExcursionTableViewCell.xib in Resources */,
+				EEB764A32A387B2200579E6B /* NewComponentTableViewCell.xib in Resources */,
 				EE52E17829E5C1CB000C0E5B /* Assets.xcassets in Resources */,
 				EE52E17629E5C1C8000C0E5B /* Auth.storyboard in Resources */,
 				EE5F91D32A202F0800B39BB1 /* Main.storyboard in Resources */,
@@ -498,23 +545,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0EECA2D9F5EF8D22E2A8C0B8 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Tour Manager/Pods-Tour Manager-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Tour Manager/Pods-Tour Manager-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Tour Manager/Pods-Tour Manager-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		79280DCE7A2DF98CE113BAA0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -537,6 +567,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		E013215BF8D4058A5659F0E1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Tour Manager/Pods-Tour Manager-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Tour Manager/Pods-Tour Manager-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Tour Manager/Pods-Tour Manager-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -553,12 +600,14 @@
 				EE1770F32A23EE5A00B18055 /* LaunchScreenViewController.swift in Sources */,
 				EE5F91BE2A1E9FC400B39BB1 /* GeneralData.swift in Sources */,
 				EEF27A572A05B512006E5E53 /* extensionUiView.swift in Sources */,
+				EEDA5E9D2A37BFA9002CC5C8 /* UiTextView.swift in Sources */,
 				EE5F91C92A1FFBB500B39BB1 /* ConvertDate.swift in Sources */,
 				EE1770F02A23BD9500B18055 /* StringValidation.swift in Sources */,
 				EE5F91D12A200D2D00B39BB1 /* ResponseAuthStructs.swift in Sources */,
 				EE5EEC2E2A06D0660025336E /* AddingPersonalDataViewController.swift in Sources */,
 				EE4C893E2A2E3D85004D3CB9 /* Excursion.swift in Sources */,
 				EE1770EC2A22B08500B18055 /* Company.swift in Sources */,
+				EEB764A22A387B2200579E6B /* NewComponentTableViewCell.swift in Sources */,
 				EE1770EE2A239A7E00B18055 /* ChangePasswordViewController.swift in Sources */,
 				EEE802702A2E5DED00162622 /* ExcursionTableViewCell.swift in Sources */,
 				EEF27A512A059BE4006E5E53 /* TextFieldValidation.swift in Sources */,
@@ -566,19 +615,26 @@
 				EE4C89372A2CF006004D3CB9 /* User Info.swift in Sources */,
 				EE6DE06A2A1E681100507A27 /* User.swift in Sources */,
 				EE2C9A5029FD858500B7D74F /* ProfilePageViewController.swift in Sources */,
+				EEB73FA32A365ABC004D7A25 /* ExcursionsControllerModel.swift in Sources */,
 				EE5F91B62A1E839E00B39BB1 /* UiWindow.swift in Sources */,
 				EE97886B2A28EA710086C034 /* EmploeeViewController.swift in Sources */,
+				EEB73F9F2A364B9B004D7A25 /* SendExcursions.swift in Sources */,
 				EE5F91CB2A2003A200B39BB1 /* sendStructs.swift in Sources */,
+				EEB73F9C2A364B82004D7A25 /* ApiManagerExcursions.swift in Sources */,
 				EE5F91C42A1FCEAE00B39BB1 /* ApiManagerCompany.swift in Sources */,
+				EEDA5E9B2A378215002CC5C8 /* UiTextField.swift in Sources */,
 				EE4C89392A2CF1E7004D3CB9 /* Access Level.swift in Sources */,
 				EE9788692A28D4FA0086C034 /* EmploeeTableViewController.swift in Sources */,
 				EEC9BA182A2670A100BC026A /* Bool.swift in Sources */,
 				EE4C89352A2CEE40004D3CB9 /* Auth.swift in Sources */,
 				EE5F91C62A1FD16200B39BB1 /* responseStructs.swift in Sources */,
+				EEB73FA12A364BA9004D7A25 /* ResponseExcursions.swift in Sources */,
 				EEE8026A2A2E4E1A00162622 /* ExcursionManagementViewController.swift in Sources */,
 				EE4C893B2A2CF53D004D3CB9 /* UiButton.swift in Sources */,
 				EE52E16F29E5C1C8000C0E5B /* AppDelegate.swift in Sources */,
 				EE52E17129E5C1C8000C0E5B /* SceneDelegate.swift in Sources */,
+				EEDA5E9F2A37C153002CC5C8 /* AddingNewComponentViewController.swift in Sources */,
+				EE0528CA2A30DA3C006C8C98 /* NewExcursionTableViewController.swift in Sources */,
 				EEF27A542A05AA44006E5E53 /* Controllers.swift in Sources */,
 				EE5EEC312A06EDC20025336E /* ChoiceOfTypeAccountViewController.swift in Sources */,
 				EEF27A452A055443006E5E53 /* Profile.swift in Sources */,
@@ -742,6 +798,7 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -773,6 +830,7 @@
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

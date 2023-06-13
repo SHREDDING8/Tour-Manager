@@ -55,6 +55,10 @@ class User:UserProtocol{
         case readCompanyEmployee = "read_company_employee"
         
         case canChangeAccessLevel = "can_change_access_level"
+        case canWriteTourList = "can_write_tour_list"
+        case canReadTourList = "can_read_tour_list"
+        
+        case isGuide = "is_guide"
         
         
         init?(index:Int) {
@@ -65,6 +69,9 @@ class User:UserProtocol{
             case 3: self = .readLocalIdCompany
             case 4: self = .readCompanyEmployee
             case 5: self = .canChangeAccessLevel
+            case 6: self = .canReadTourList
+            case 7: self = .canWriteTourList
+            case 8: self = .isGuide
             default:
                 return nil
             }
@@ -85,13 +92,14 @@ class User:UserProtocol{
     internal var accessLevel:[AccessLevelEnum:Bool] = [
         
         .isOwner: false,
-        
         .readGeneralCompanyInformation: false,
         .writeGeneralCompanyInformation: false,
         .readLocalIdCompany: false,
         .readCompanyEmployee:false,
-        
-        .canChangeAccessLevel: true,
+        .canChangeAccessLevel: false,
+        .canReadTourList: false,
+        .canWriteTourList:false,
+        .isGuide:false
         
     ]
     
@@ -118,6 +126,10 @@ class User:UserProtocol{
         self.accessLevel[.readCompanyEmployee] = accessLevel.readCompanyEmployee
         self.accessLevel[.canChangeAccessLevel] = accessLevel.canChangeAccessLevel
         self.accessLevel[.isOwner] = accessLevel.isOwner
+        
+        self.accessLevel[.canReadTourList] = accessLevel.canReadTourList
+        self.accessLevel[.canWriteTourList] = accessLevel.canWriteTourList
+        self.accessLevel[.isGuide] = accessLevel.isGuide
         
         
     }

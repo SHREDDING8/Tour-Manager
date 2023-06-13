@@ -26,6 +26,10 @@ enum PossibleControllersMain:String{
     case employeeViewController = "EmploeeViewController"
     
     case excursionManagementNavigationViewController = "ExcursionManagementNavigationViewController"
+    
+    case newExcursionTableViewController = "NewExcursionTableViewController"
+    
+    case addingNewComponentViewController = "AddingNewComponentViewController"
 }
 
 enum TypeOfRegister{

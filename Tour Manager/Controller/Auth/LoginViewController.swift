@@ -46,6 +46,7 @@ class LoginViewController: UIViewController {
         AppDelegate.user = User()
         self.user = AppDelegate.user
         
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
