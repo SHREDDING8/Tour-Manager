@@ -753,11 +753,14 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="5" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="DFL-zB-mGj">
+                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="5" style="compact" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DFL-zB-mGj">
                                                     <rect key="frame" x="61.666666666666657" y="37" width="229.99999999999997" height="36"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="230" id="oLq-gT-jnW"/>
                                                     </constraints>
+                                                    <date key="date" timeIntervalSinceReferenceDate="708442785.87814796">
+                                                        <!--2023-06-14 13:39:45 +0000-->
+                                                    </date>
                                                     <locale key="locale" localeIdentifier="ru_RU"/>
                                                     <connections>
                                                         <action selector="datePickerValueChanged:" destination="403-GT-iVc" eventType="valueChanged" id="R7V-XH-75B"/>
@@ -898,7 +901,7 @@
                             <tableViewSection headerTitle="Заказчик" id="bNl-FD-t8N">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="80" id="Uhk-39-r2e">
-                                        <rect key="frame" x="20" y="846.33333015441906" width="353" height="80"/>
+                                        <rect key="frame" x="20" y="846.33333015441895" width="353" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Uhk-39-r2e" id="hTr-67-sb8">
                                             <rect key="frame" x="0.0" y="0.0" width="322.66666666666669" height="80"/>
@@ -930,7 +933,7 @@
                                         <color key="backgroundColor" red="0.96470588450000005" green="0.96470588450000005" blue="0.96470588450000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="80" id="Ose-Pf-ovS">
-                                        <rect key="frame" x="20" y="926.33333015441906" width="353" height="80"/>
+                                        <rect key="frame" x="20" y="926.33333015441895" width="353" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ose-Pf-ovS" id="yYT-Wu-orX">
                                             <rect key="frame" x="0.0" y="0.0" width="322.66666666666669" height="80"/>
@@ -962,7 +965,7 @@
                                         <color key="backgroundColor" red="0.96470588450000005" green="0.96470588450000005" blue="0.96470588450000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="80" id="s2e-ak-JsN">
-                                        <rect key="frame" x="20" y="1006.3333301544191" width="353" height="79.999999999999886"/>
+                                        <rect key="frame" x="20" y="1006.3333301544189" width="353" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="s2e-ak-JsN" id="2N4-Og-7WB">
                                             <rect key="frame" x="0.0" y="0.0" width="353" height="80"/>

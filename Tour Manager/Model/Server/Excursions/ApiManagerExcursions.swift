@@ -21,6 +21,10 @@ enum customErrorExcursion{
     case UserIsNotInThisCompany
     
     case CompanyDoesNotExist
+    
+    case TourDoesNotExist
+    
+    
 }
 
 class ApiManagerExcursions{
@@ -30,6 +34,7 @@ class ApiManagerExcursions{
     
     private let routeGetExcursions = prefix + "/get_tour_list"
     private let routeAddNewExcursion = prefix + "/add_tour"
+    private let routeUpdateExcursion = prefix + "/update_tour"
     
     
     public func GetExcursions(token:String, companyId:String, date:String, completion: @escaping (Bool, [ResponseGetExcursion]?, customErrorExcursion?)->Void ){
@@ -105,4 +110,41 @@ class ApiManagerExcursions{
             }
         }
     }
+    
+    public func updateExcursion(token: String, companyId: String, excursion:Excursion,oldDate:Date, completion: @escaping (Bool, customErrorExcursion?)->Void ){
+        let url = URL(string: routeUpdateExcursion)!
+        
+        let jsonData = SendUpdateExcursion(token: token, companyId: companyId, excursionId: excursion.localId ?? "", tourName: excursion.excursionName, tourRoute: excursion.route, tourNotes: excursion.additionalInfromation, tourNumberOfPeople: excursion.numberOfPeople, tourTimeStart: excursion.dateAndTime.timeToString(), tourDate: excursion.dateAndTime.birthdayToString(), oldDate: oldDate.birthdayToString(), customerCompanyName: excursion.customerCompanyName, customerGuideName: excursion.customerGuideName, customerGuideContact: excursion.companyGuidePhone)
+        
+        
+        AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
+            if response.response?.statusCode == 400{
+                
+                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
+                
+                if error.message == "Token expired"{
+                    completion(false,  .tokenExpired)
+                } else if error.message == "Invalid Firebase ID token"{
+                    completion(false, .invalidToken)
+                } else if error.message == "Permission denied"{
+                    completion(false, .PermissionDenied)
+                }else if error.message == "Current user is not in this company"{
+                    completion(false, .UserIsNotInThisCompany)
+                }else if error.message == "Company does not exist"{
+                    completion(false, .CompanyDoesNotExist)
+                }else if error.message == "Tour does not exist"{
+                    completion(false, .TourDoesNotExist)
+                }else {
+                    completion(false, .unknown)
+                }
+                return
+            } else if response.response?.statusCode == 200{
+                completion(true, nil)
+            } else{
+                completion(false, .unknown)
+            }
+        }
+    }
+    
+    
 }

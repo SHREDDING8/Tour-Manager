@@ -396,6 +396,7 @@ extension ExcursionManagementViewController:UITableViewDelegate,UITableViewDataS
         let destination = self.controllers.getControllerMain(.newExcursionTableViewController) as! NewExcursionTableViewController
         
         destination.excursion = excursionsModel.excursions[indexPath.row]
+        destination.isUpdate = true
         
         self.navigationController?.pushViewController(destination, animated: true)
         

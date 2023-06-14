@@ -34,4 +34,9 @@ struct ResponseGetExcursion: Codable {
     }
 }
 
+struct ResponseUpdateExcursion:Codable{
+    let message:String
+    let tour_id:String
+}
+
 

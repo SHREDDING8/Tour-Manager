@@ -40,14 +40,20 @@ class ExcursionsControllerModel{
     
     
     public func createNewExcursion(token: String, companyId: String, excursion:Excursion, completion: @escaping (Bool, customErrorExcursion?)->Void){
-        
-        
-        
+
         apiManagerExcursions.AddNewExcursion(token: token, companyId: companyId,excursion: excursion) { isAdded, error in
             completion(isAdded,error)
         }
         
     }
     
-    
+    public func updateExcursion(token: String, companyId: String, excursion:Excursion, oldDate:Date, completion: @escaping (Bool, customErrorExcursion?)->Void){
+        
+        print(oldDate.birthdayToString())
+        print(excursion.dateAndTime.birthdayToString())
+        
+        apiManagerExcursions.updateExcursion(token: token, companyId: companyId, excursion: excursion, oldDate: oldDate) { isUpdated, error in
+            completion(isUpdated,error)
+        }
+    }
 }

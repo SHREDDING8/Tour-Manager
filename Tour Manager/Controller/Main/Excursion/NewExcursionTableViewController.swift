@@ -54,12 +54,21 @@ class NewExcursionTableViewController: UITableViewController {
     var excursion = Excursion()
     let controllers = Controllers()
     
+    var isUpdate = false
+    var oldDate:Date!
+    
     // MARK: - Lyfe Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.excursion.dateAndTime = self.dateAndTime.date
-        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonClick))
+        
+        if isUpdate{
+            self.navigationItem.title = "Редактирование"
+            self.oldDate = excursion.dateAndTime
+        }else{
+            self.navigationItem.title = "Добавление"
+        }
+        self.navigationItem.largeTitleDisplayMode = .always
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,18 +93,28 @@ class NewExcursionTableViewController: UITableViewController {
         
         self.customerGuidePhone.text = self.excursion.companyGuidePhone
         
+        self.dateAndTime.setDate(excursion.dateAndTime, animated: true)
+        
+        self.excursion.dateAndTime = self.dateAndTime.date
+        
     }
     
     
     // MARK: - save Button Click
     
     @objc fileprivate func saveButtonClick(){
-        
-        excursionModel.createNewExcursion(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", excursion: excursion) { isAdded, error in
-            if isAdded{
+        if isUpdate{
+            excursionModel.updateExcursion(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", excursion: excursion, oldDate: self.oldDate) { isUpdated, error in
                 self.navigationController?.popViewController(animated: true)
             }
+        }else{
+            excursionModel.createNewExcursion(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", excursion: excursion) { isAdded, error in
+                if isAdded{
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
         }
+        
     }
     
     
