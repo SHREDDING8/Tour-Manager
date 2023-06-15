@@ -61,7 +61,6 @@ class NewExcursionTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonClick))
-        
         if isUpdate{
             self.navigationItem.title = "Редактирование"
             self.oldDate = excursion.dateAndTime
@@ -145,7 +144,7 @@ extension NewExcursionTableViewController{
         case 0:
             return 6
         case 1:
-            return 3
+            return 5
         
         default: return 0
         }
@@ -218,38 +217,40 @@ extension NewExcursionTableViewController:UICollectionViewDelegate,UICollectionV
     }
     
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        
-        let cellWidth = 200
-        let cellCount = 1
-        let cellSpacing = 10
-
-        let totalCellWidth = cellWidth * cellCount
-        let totalSpacingWidth = cellSpacing * (cellCount - 1)
-
-        let leftInset = (collectionView.frame.width - CGFloat(totalCellWidth + totalSpacingWidth)) / 2
-        let rightInset = leftInset
-
-        return UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: rightInset)
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//        
+//        let cellWidth = 200
+//        let cellCount = 1
+//        let cellSpacing = 10
+//
+//        let totalCellWidth = cellWidth * cellCount
+//        let totalSpacingWidth = cellSpacing * (cellCount - 1)
+//
+//        let leftInset = (collectionView.frame.width - CGFloat(totalCellWidth + totalSpacingWidth)) / 2
+//        let rightInset = leftInset
+//
+//        return UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: rightInset)
+//    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 200, height: 100)
+        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         
-        let cellWidth = 200
-        let cellCount = 1
-        let cellSpacing = 10
-
-        let totalCellWidth = cellWidth * cellCount
-        let totalSpacingWidth = cellSpacing * (cellCount - 1)
-
-        let leftInset = (collectionView.frame.width - CGFloat(totalCellWidth + totalSpacingWidth)) / 2
-        let rightInset = leftInset
+//        let cellWidth = 200
+//        let cellCount = 1
+//        let cellSpacing = 10
+//
+//        let totalCellWidth = cellWidth * cellCount
+//        let totalSpacingWidth = cellSpacing * (cellCount - 1)
+//
+//        let leftInset = (collectionView.frame.width - CGFloat(totalCellWidth + totalSpacingWidth)) / 2
+//        let rightInset = leftInset
+//        
+//        return rightInset
         
-        return rightInset
+        return 0
     }
 }
 
