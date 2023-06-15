@@ -33,8 +33,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         if let windowScene = (scene as? UIWindowScene){
             let window = UIWindow(windowScene: windowScene)
-            let logInVC = self.contollers.getLaunchScreen()
-            window.rootViewController = logInVC
+            let launch = self.contollers.getLaunchScreen()
+            window.rootViewController = launch
             self.window = window
             window.makeKeyAndVisible()
         } else { return }

@@ -9,9 +9,21 @@ import UIKit
 
 class mainTabBarViewController: UITabBarController {
     let controllers = Controllers()
-
+    
+    let user = AppDelegate.user
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.user?.getAccessLevelFromApi(completion: { isGetted, error in
+            if isGetted{
+                self.getViewControllers()
+            }
+        })
+    }
+    
+    
+    fileprivate func getViewControllers(){
         
         let profileNavController = controllers.getControllerMain(.profileNavigationViewController)
         profileNavController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person.fill"), tag: 1)
@@ -22,11 +34,23 @@ class mainTabBarViewController: UITabBarController {
         excursionManagementNavViewController.tabBarItem = UITabBarItem(title: "Управление", image: UIImage(systemName: "calendar"), tag: 2)
         
         
+        let excursionsNavigationController = controllers.getControllerMain(.excursionsNavigationController)
+        excursionsNavigationController.tabBarItem = UITabBarItem(title: "Экскурсии", image: UIImage(systemName: "calendar"), tag: 2)
         
-        self.viewControllers = [excursionManagementNavViewController,profileNavController]
+        var controllersList:[UIViewController] = []
+        
+        if (self.user?.getAccessLevel(rule: .isGuide) ?? false){
+            controllersList.append(excursionsNavigationController)
+        }
         
         
-        // Do any additional setup after loading the view.
+        if (self.user?.getAccessLevel(rule: .canReadTourList) ?? false) {
+            controllersList.append(excursionManagementNavViewController)
+        }
+        
+        controllersList.append(profileNavController)
+        self.viewControllers = controllersList
+        
     }
     
 

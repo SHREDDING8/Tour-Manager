@@ -65,6 +65,7 @@
 		EEF27A542A05AA44006E5E53 /* Controllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A532A05AA44006E5E53 /* Controllers.swift */; };
 		EEF27A572A05B512006E5E53 /* extensionUiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A562A05B512006E5E53 /* extensionUiView.swift */; };
 		EEF27A592A05C7BC006E5E53 /* VerifyEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A582A05C7BC006E5E53 /* VerifyEmailViewController.swift */; };
+		EEFD30ED2A3B6400003192A1 /* ExcursionsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEFD30EC2A3B6400003192A1 /* ExcursionsNavigationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -132,6 +133,7 @@
 		EEF27A532A05AA44006E5E53 /* Controllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controllers.swift; sourceTree = "<group>"; };
 		EEF27A562A05B512006E5E53 /* extensionUiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionUiView.swift; sourceTree = "<group>"; };
 		EEF27A582A05C7BC006E5E53 /* VerifyEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyEmailViewController.swift; sourceTree = "<group>"; };
+		EEFD30EC2A3B6400003192A1 /* ExcursionsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcursionsNavigationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -248,7 +250,8 @@
 		EE5F91D42A20A13900B39BB1 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				EEE802682A2E4DFE00162622 /* Excursion */,
+				EEFD30E92A3B636D003192A1 /* Excursions */,
+				EEE802682A2E4DFE00162622 /* ExcursionManagment */,
 				EE5F91D62A20A1E700B39BB1 /* mainTabBarViewController.swift */,
 				EE5F91D52A20A14400B39BB1 /* Profile */,
 			);
@@ -410,14 +413,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		EEE802682A2E4DFE00162622 /* Excursion */ = {
+		EEE802682A2E4DFE00162622 /* ExcursionManagment */ = {
 			isa = PBXGroup;
 			children = (
 				EEE802692A2E4E1A00162622 /* ExcursionManagementViewController.swift */,
 				EE0528C92A30DA3C006C8C98 /* NewExcursionTableViewController.swift */,
 				EEDA5E9E2A37C153002CC5C8 /* AddingNewComponentViewController.swift */,
 			);
-			path = Excursion;
+			path = ExcursionManagment;
 			sourceTree = "<group>";
 		};
 		EEE8026B2A2E5AFB00162622 /* cells */ = {
@@ -470,6 +473,14 @@
 				EE5EEC302A06EDC20025336E /* ChoiceOfTypeAccountViewController.swift */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		EEFD30E92A3B636D003192A1 /* Excursions */ = {
+			isa = PBXGroup;
+			children = (
+				EEFD30EC2A3B6400003192A1 /* ExcursionsNavigationController.swift */,
+			);
+			path = Excursions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -591,6 +602,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEFD30ED2A3B6400003192A1 /* ExcursionsNavigationController.swift in Sources */,
 				EE5F91C02A1EA3C900B39BB1 /* ResponseUserDataStructs.swift in Sources */,
 				EEF27A4C2A0572C9006E5E53 /* LoginViewController.swift in Sources */,
 				EE5F91CF2A200C7700B39BB1 /* sendAuthStructs.swift in Sources */,
