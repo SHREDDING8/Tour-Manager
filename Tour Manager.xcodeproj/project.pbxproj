@@ -66,6 +66,7 @@
 		EEF27A572A05B512006E5E53 /* extensionUiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A562A05B512006E5E53 /* extensionUiView.swift */; };
 		EEF27A592A05C7BC006E5E53 /* VerifyEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A582A05C7BC006E5E53 /* VerifyEmailViewController.swift */; };
 		EEFD30ED2A3B6400003192A1 /* ExcursionsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEFD30EC2A3B6400003192A1 /* ExcursionsNavigationController.swift */; };
+		EEFD30EF2A3B7905003192A1 /* ExcurionsGuideCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEFD30EE2A3B7905003192A1 /* ExcurionsGuideCalendarViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -134,6 +135,7 @@
 		EEF27A562A05B512006E5E53 /* extensionUiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionUiView.swift; sourceTree = "<group>"; };
 		EEF27A582A05C7BC006E5E53 /* VerifyEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyEmailViewController.swift; sourceTree = "<group>"; };
 		EEFD30EC2A3B6400003192A1 /* ExcursionsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcursionsNavigationController.swift; sourceTree = "<group>"; };
+		EEFD30EE2A3B7905003192A1 /* ExcurionsGuideCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcurionsGuideCalendarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -479,6 +481,7 @@
 			isa = PBXGroup;
 			children = (
 				EEFD30EC2A3B6400003192A1 /* ExcursionsNavigationController.swift */,
+				EEFD30EE2A3B7905003192A1 /* ExcurionsGuideCalendarViewController.swift */,
 			);
 			path = Excursions;
 			sourceTree = "<group>";
@@ -634,6 +637,7 @@
 				EE5F91CB2A2003A200B39BB1 /* sendStructs.swift in Sources */,
 				EEB73F9C2A364B82004D7A25 /* ApiManagerExcursions.swift in Sources */,
 				EE5F91C42A1FCEAE00B39BB1 /* ApiManagerCompany.swift in Sources */,
+				EEFD30EF2A3B7905003192A1 /* ExcurionsGuideCalendarViewController.swift in Sources */,
 				EEDA5E9B2A378215002CC5C8 /* UiTextField.swift in Sources */,
 				EE4C89392A2CF1E7004D3CB9 /* Access Level.swift in Sources */,
 				EE9788692A28D4FA0086C034 /* EmploeeTableViewController.swift in Sources */,

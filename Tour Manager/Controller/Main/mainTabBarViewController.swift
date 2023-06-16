@@ -12,12 +12,25 @@ class mainTabBarViewController: UITabBarController {
     
     let user = AppDelegate.user
     
+    let activityIndicator:UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.startAnimating()
+        indicator.style = .large
+        indicator.hidesWhenStopped = true
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureActivityIndicator()
+        
+        self.view.backgroundColor = .white
         
         self.user?.getAccessLevelFromApi(completion: { isGetted, error in
             if isGetted{
                 self.getViewControllers()
+                self.activityIndicator.stopAnimating()
             }
         })
     }
@@ -49,19 +62,16 @@ class mainTabBarViewController: UITabBarController {
         }
         
         controllersList.append(profileNavController)
-        self.viewControllers = controllersList
         
+        self.setViewControllers(controllersList, animated: true)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    fileprivate func configureActivityIndicator(){
+        self.view.addSubview(self.activityIndicator)
+        
+        NSLayoutConstraint.activate([
+            self.activityIndicator.centerYAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerYAnchor),
+            self.activityIndicator.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor)
+        ])
     }
-    */
-
 }
