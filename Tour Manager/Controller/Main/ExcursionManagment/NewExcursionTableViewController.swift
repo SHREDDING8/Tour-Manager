@@ -40,7 +40,36 @@ class NewExcursionTableViewController: UITableViewController {
     
     @IBOutlet weak var customerGuidePhone: UITextField!
     
+    @IBOutlet weak var paymentMethodLabel: UILabel!
+    
+    @IBOutlet weak var paymentAmountTextField: UITextField!{
+        didSet{
+            paymentAmountTextField.addDoneCancelToolbar()
+        }
+    }
+    
+    @IBOutlet weak var paymentMethodSwitch: UISwitch!
+    
     @IBOutlet weak var guiedsCollectionView: UICollectionView!
+    
+    
+    // MARK: - Objects
+    
+    var darkUiView:UIView = {
+        let uiView = UIView()
+        uiView.backgroundColor = .black
+        uiView.layer.opacity = 0
+        uiView.translatesAutoresizingMaskIntoConstraints = false
+        return uiView
+    }()
+    
+    var pickerPaymentMethodView:UIView = {
+        let view = UIView()
+        
+        let picker = UIPickerView()
+        
+        return view
+    }()
     
     
     
@@ -92,10 +121,12 @@ class NewExcursionTableViewController: UITableViewController {
         
         self.customerGuidePhone.text = self.excursion.companyGuidePhone
         
+        self.paymentMethodSwitch.setOn(self.excursion.isPaid, animated: false)
+        self.paymentAmountTextField.text = String(self.excursion.paymentAmount)
+        
         self.dateAndTime.setDate(excursion.dateAndTime, animated: true)
         
         self.excursion.dateAndTime = self.dateAndTime.date
-        
     }
     
     
@@ -116,6 +147,10 @@ class NewExcursionTableViewController: UITableViewController {
         
     }
     
+    @IBAction func testTap(_ sender: Any) {
+    }
+    
+    
     
     
     // MARK: - Datepicker
@@ -124,6 +159,20 @@ class NewExcursionTableViewController: UITableViewController {
     @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {
         self.excursion.dateAndTime = sender.date
         
+    }
+    
+    // MARK: - IsPaid
+    
+    @IBAction func isPaidAction(_ sender: UISwitch) {
+        self.excursion.isPaid = sender.isOn
+    }
+    
+    
+    @IBAction func newGuideTap(_ sender: Any) {
+        let destinantion = controllers.getControllerMain(.addingNewComponentViewController) as! AddingNewComponentViewController
+        destinantion.excursion = excursion
+        destinantion.typeOfNewComponent = .guides
+        self.navigationController?.pushViewController(destinantion, animated: true)
     }
 }
 
@@ -134,7 +183,7 @@ extension NewExcursionTableViewController{
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 2
+        return 4
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -142,9 +191,11 @@ extension NewExcursionTableViewController{
         
         switch section{
         case 0:
-            return 6
-        case 1:
             return 5
+        case 1:
+            return 3
+        case 2: return 3
+        case 3: return 1
         
         default: return 0
         }
@@ -152,7 +203,7 @@ extension NewExcursionTableViewController{
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
+                
         let destinantion = controllers.getControllerMain(.addingNewComponentViewController) as! AddingNewComponentViewController
         destinantion.excursion = excursion
         
@@ -191,6 +242,8 @@ extension NewExcursionTableViewController:UITextFieldDelegate{
             self.excursion.numberOfPeople = Int(textField.text!) ?? 0
         } else if textField.restorationIdentifier == "customerGuidePhone"{
             self.excursion.companyGuidePhone = customerGuidePhone.text!
+        }else if textField.restorationIdentifier == "amount"{
+            self.excursion.paymentAmount = Int(textField.text ?? "0") ?? 0
         }
     }
 }

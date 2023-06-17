@@ -13,9 +13,8 @@ enum Status{
     case accepted
 }
 
-struct SelfGuide {
-    var fullName:String
-    var localId:String
+public struct SelfGuide {
+    var guideInfo:User
     var isMain:Bool
     var status:Status = .waiting
 }
@@ -44,6 +43,7 @@ public class Excursion{
     var customerGuideNames:[String] = ["Василиса","Михаил","Антон","Дарья Ивановна","Дарина Александровна"]
     
     var companyGuidePhone:String = ""
+    var paymentMethod = "Не выбрано"
     
     var paymentAmount:Int = 0
     
@@ -52,7 +52,7 @@ public class Excursion{
     var selfGuides:[SelfGuide]?
     
     
-    init(localId: String, excursionName:String, route:String, additionalInfromation:String, numberOfPeople:Int, dateAndTime:Date,customerCompanyName:String, customerGuideName:String, companyGuidePhone:String) {
+    init(localId: String, excursionName:String, route:String, additionalInfromation:String, numberOfPeople:Int, dateAndTime:Date,customerCompanyName:String, customerGuideName:String, companyGuidePhone:String, isPaid:Bool, paymentMethod:String, paymentAmount:Int) {
         self.localId = localId
         self.excursionName = excursionName
         self.route = route
@@ -62,6 +62,9 @@ public class Excursion{
         self.customerCompanyName = customerCompanyName
         self.customerGuideName = customerGuideName
         self.companyGuidePhone = companyGuidePhone
+        self.isPaid = isPaid
+        self.paymentMethod = paymentMethod
+        self.paymentAmount = paymentAmount
     }
     
     init(localId: String? = nil, companyName: String? = nil, numberOfPeople: Int? = nil, companyGuideName: String? = nil, companyGuidePhone: String? = nil, paymentAmount: Int? = nil, isPaid: Bool? = nil, selfGuides: [SelfGuide]? = nil, route: String? = nil, dateAndTime:Date? = nil) {

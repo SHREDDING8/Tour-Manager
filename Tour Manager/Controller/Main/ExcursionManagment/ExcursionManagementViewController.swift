@@ -100,6 +100,17 @@ class ExcursionManagementViewController: UIViewController{
         return button
     }()
     
+    private var segmentControll:UISegmentedControl = {
+        let segmentControll = UISegmentedControl()
+        segmentControll.selectedSegmentIndex = 0
+        segmentControll.insertSegment(withTitle: "Календарь", at: 0, animated: false)
+        segmentControll.insertSegment(withTitle: "Ожидание", at: 1, animated: false)
+        segmentControll.selectedSegmentIndex = 0
+        
+        segmentControll.translatesAutoresizingMaskIntoConstraints = false
+        return segmentControll
+    }()
+    
     
     
     // MARK: - Life Cycle
@@ -111,6 +122,7 @@ class ExcursionManagementViewController: UIViewController{
         self.configureFSCalendar()
         self.configureTableView()
         self.configureButtons()
+        self.configureSegmentControll()
         
         
 
@@ -132,6 +144,8 @@ class ExcursionManagementViewController: UIViewController{
         
         self.view.addSubview(showCloseCalendarButton)
         self.view.addSubview(todayButton)
+        
+        self.view.addSubview(segmentControll)
     }
     
     // MARK: - Configuration View
@@ -167,7 +181,7 @@ class ExcursionManagementViewController: UIViewController{
         calendar.addConstraint(calendarHeightConstraint)
        
        NSLayoutConstraint.activate([
-        calendar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+        calendar.topAnchor.constraint(equalTo: self.segmentControll.bottomAnchor, constant: 10),
         calendar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
         calendar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0)]
        )
@@ -216,6 +230,17 @@ class ExcursionManagementViewController: UIViewController{
         showCloseCalendarButton.addTarget(nil, action: #selector(buttonShowCloseTapped), for: .touchUpInside)
         todayButton.addTarget(self, action: #selector(returnToToday), for: .touchUpInside)
         todayButton.isHidden = true
+    }
+    
+    // MARK: - configuration Segment cotnroll
+    
+    fileprivate func configureSegmentControll(){
+        NSLayoutConstraint.activate([
+            self.segmentControll.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            self.segmentControll.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15),
+            self.segmentControll.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -15)
+            
+        ])
     }
     
     

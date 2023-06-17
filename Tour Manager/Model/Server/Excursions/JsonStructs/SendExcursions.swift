@@ -27,6 +27,10 @@ struct SendAddNewExcursion:Codable{
     let customerGuideName:String
     let customerGuideContact:String
     
+    let isPaid:Bool
+    let paymentMethod:String
+    let paymentAmount:Int
+    
     
     enum CodingKeys: String, CodingKey {
         case token = "token"
@@ -41,6 +45,10 @@ struct SendAddNewExcursion:Codable{
         case customerCompanyName = "customer_company_name"
         case customerGuideName = "customer_guide_name"
         case customerGuideContact = "customer_guide_contact"
+        
+        case isPaid = "is_paid"
+        case paymentMethod = "payment_method"
+        case paymentAmount = "payment_amount"
     }
 
 }
@@ -61,6 +69,10 @@ struct SendUpdateExcursion:Codable{
     let customerGuideName:String
     let customerGuideContact:String
     
+    let isPaid:Bool
+    let paymentMethod:String
+    let paymentAmount:Int
+    
     
     enum CodingKeys: String, CodingKey {
         case token = "token"
@@ -77,5 +89,9 @@ struct SendUpdateExcursion:Codable{
         case customerCompanyName = "customer_company_name"
         case customerGuideName = "customer_guide_name"
         case customerGuideContact = "customer_guide_contact"
+        
+        case isPaid = "is_paid"
+        case paymentMethod = "payment_method"
+        case paymentAmount = "payment_amount"
     }
 }

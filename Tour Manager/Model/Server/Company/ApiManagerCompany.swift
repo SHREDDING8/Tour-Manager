@@ -37,6 +37,8 @@ public class ApiManagerCompany{
     
     private let routeGetCompanyUsers = prefix + "/get_company_users"
     
+    private let routeGetCompanyGuides = prefix + "/get_company_guides"
+    
     public func addCompany(token:String, companyName:String, completion: @escaping (Bool,ResponseAddCompanyJsonStruct?,customErrorCompany?)->Void ){
         
         let url = URL(string: routeAddCompany)
@@ -224,6 +226,50 @@ public class ApiManagerCompany{
         }
         
     }
+    
+    
+    
+    public func getCompanyGuides(token:String, companyId:String, completion: @escaping (Bool, [GetCompanyUsersElement]?, customErrorCompany?)->Void ) {
+        let url = URL(string: routeGetCompanyGuides)
+        
+        let jsonData = SendAddEmployeeToCompanyJsonStruct(token: token, company_id: companyId)
+        
+        AF.request(url!, method: .post, parameters: jsonData, encoder: .json).responseJSON { response in
+            print(response)
+        }
+        
+        
+        AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
+            
+            if response.response?.statusCode == 400{
+                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
+                
+                if error.message == "Token expired"{
+                    completion(false, nil, .tokenExpired)
+                } else if error.message == "Invalid Firebase ID token"{
+                    completion(false, nil, .invalidToken)
+                }else{
+                    completion(false, nil, .unknowmError)
+                }
+                
+            } else if response.response?.statusCode == 200{
+                typealias GetCompanyUsers = [GetCompanyUsersElement]
+                
+                let companyUsers = try! JSONDecoder().decode(GetCompanyUsers.self, from: response.data!)
+                
+                completion(true, companyUsers, nil)
+            }else{
+                completion(false, nil, .unknowmError)
+            }
+            
+        }
+        
+    }
+    
+    
+    
+    
+    
 }
 
 

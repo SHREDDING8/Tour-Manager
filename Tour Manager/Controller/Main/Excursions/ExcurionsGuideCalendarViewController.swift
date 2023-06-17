@@ -330,8 +330,7 @@ extension ExcurionsGuideCalendarViewController:UITableViewDelegate,UITableViewDa
 //        
 //        cell.startTimeLabel.text = self.excursionsModel.excursions[indexPath.row].dateAndTime.timeToString()
 //        
-//        return cell
-        return UITableViewCell()
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
