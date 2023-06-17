@@ -101,6 +101,7 @@ class NewExcursionTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         configureFieldsWithExcursionInfo()
+        guiedsCollectionView.reloadData()
     }
     
     // MARK: - Configuration Labels
@@ -168,11 +169,12 @@ class NewExcursionTableViewController: UITableViewController {
     }
     
     
-    @IBAction func newGuideTap(_ sender: Any) {
-        let destinantion = controllers.getControllerMain(.addingNewComponentViewController) as! AddingNewComponentViewController
-        destinantion.excursion = excursion
-        destinantion.typeOfNewComponent = .guides
-        self.navigationController?.pushViewController(destinantion, animated: true)
+    @IBAction func deleteExcursionTap(_ sender: Any) {
+        self.excursionModel.deleteExcursion(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", excursion: excursion) { isDeleted, error in
+            if isDeleted{
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
     }
 }
 
@@ -183,7 +185,10 @@ extension NewExcursionTableViewController{
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 4
+        var returnCount = 0
+        self.isUpdate ? (returnCount = 5) : (returnCount = 4)
+        
+        return returnCount
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -195,7 +200,9 @@ extension NewExcursionTableViewController{
         case 1:
             return 3
         case 2: return 3
-        case 3: return 1
+        case 3: return 2
+            
+        case 4: return 1
         
         default: return 0
         }
@@ -218,6 +225,10 @@ extension NewExcursionTableViewController{
         } else if
             indexPath.section == 1 && indexPath.row == 1{
             destinantion.typeOfNewComponent = .customerGuiedName
+
+            self.navigationController?.pushViewController(destinantion, animated: true)
+        }else if indexPath.section == 3 && indexPath.row == 0{
+            destinantion.typeOfNewComponent = .guides
 
             self.navigationController?.pushViewController(destinantion, animated: true)
         }
@@ -259,12 +270,16 @@ extension NewExcursionTableViewController:UITextViewDelegate{
 extension NewExcursionTableViewController:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return self.excursion.selfGuides.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "guiedCollectionViewCell", for: indexPath)
+        
+        let fullName = cell.viewWithTag(1) as! UILabel
+        
+        fullName.text =  self.excursion.selfGuides[indexPath.row].guideInfo.getFullName()
         
         return cell
     }

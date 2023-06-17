@@ -7,10 +7,10 @@
 
 import Foundation
 
-enum Status{
-    case waiting
-    case cancel
-    case accepted
+enum Status:String{
+    case waiting = "waiting"
+    case cancel = "cancel"
+    case accepted = "accept"
 }
 
 public struct SelfGuide {
@@ -49,7 +49,7 @@ public class Excursion{
     
     var isPaid:Bool = false
     
-    var selfGuides:[SelfGuide]?
+    var selfGuides:[SelfGuide] = []
     
     
     init(localId: String, excursionName:String, route:String, additionalInfromation:String, numberOfPeople:Int, dateAndTime:Date,customerCompanyName:String, customerGuideName:String, companyGuidePhone:String, isPaid:Bool, paymentMethod:String, paymentAmount:Int) {
@@ -75,7 +75,7 @@ public class Excursion{
         self.companyGuidePhone = companyGuidePhone ?? ""
         self.paymentAmount = paymentAmount ?? 0
         self.isPaid = isPaid ?? false
-        self.selfGuides = selfGuides
+        self.selfGuides = selfGuides ?? []
         self.route = route ?? ""
         self.dateAndTime = dateAndTime ?? Date.now
     }

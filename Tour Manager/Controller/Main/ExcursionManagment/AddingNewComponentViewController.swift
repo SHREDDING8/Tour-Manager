@@ -31,7 +31,7 @@ class AddingNewComponentViewController: UIViewController {
     var arrayComponents:[String] = []
     
     var arrayWithGuides:[SelfGuide] = []
-    
+        
     // MARK: - Objects
     
     var textField:UITextField = {
@@ -76,7 +76,9 @@ class AddingNewComponentViewController: UIViewController {
         
         self.navigationController?.navigationBar.prefersLargeTitles = true
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(toggleEditMode))
+        if typeOfNewComponent != .guides{
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(toggleEditMode))
+        }
         
         self.textField.addTarget(self, action: #selector(getNewHint), for: .editingChanged)
         
@@ -103,7 +105,7 @@ class AddingNewComponentViewController: UIViewController {
             self.fullArrayComponents = self.arrayComponents
         case .guides:
             self.title = "Экскурсоводы"
-            textField.placeholder = "Экскурсовод"
+            textField.placeholder = "Найти"
             
             self.user?.company.getCompanyGuides(token: self.user?.getToken() ?? "", completion: { isGetted, guides, error in
                 if isGetted{
@@ -259,11 +261,44 @@ extension AddingNewComponentViewController:UITableViewDelegate,UITableViewDataSo
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewComponentTableViewCell") as! NewComponentTableViewCell
         cell.componentText.text = arrayWithGuides[indexPath.row].guideInfo.getFullName()
         
+        for guide in excursion.selfGuides{
+            
+            if arrayWithGuides[indexPath.row].guideInfo == guide.guideInfo{
+                cell.accessoryType = .checkmark
+            }
+        }
+        
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        if typeOfNewComponent == .guides{
+            
+            let cell = tableView.cellForRow(at: indexPath)
+            
+            if cell?.accessoryType != .checkmark{
+                cell?.accessoryType = .checkmark
+                
+                excursion.selfGuides.append(self.arrayWithGuides[indexPath.row])
+            }else{
+                cell?.accessoryType = .none
+                
+                let unselectedGuide = self.arrayWithGuides[indexPath.row]
+                
+                for indexGuide in 0..<excursion.selfGuides.count{
+                    
+                    if unselectedGuide.guideInfo == excursion.selfGuides[indexGuide].guideInfo{
+                        excursion.selfGuides.remove(at: indexGuide)
+                            break
+                    }
+                }
+            }
+            
+            return
+        }
         
         self.textField.text = (tableView.cellForRow(at: indexPath) as! NewComponentTableViewCell).componentText.text
         
@@ -271,6 +306,10 @@ extension AddingNewComponentViewController:UITableViewDelegate,UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        
+        if typeOfNewComponent == .guides{
+            return false
+        }
         
         if tableView.isEditing{
             self.navigationItem.rightBarButtonItem!.title = "Done"
@@ -281,6 +320,11 @@ extension AddingNewComponentViewController:UITableViewDelegate,UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if typeOfNewComponent == .guides {
+            return
+        }
+        
         if editingStyle == .delete{
             arrayComponents.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -291,8 +335,10 @@ extension AddingNewComponentViewController:UITableViewDelegate,UITableViewDataSo
             self.tableView.setEditing(false, animated: true)
         }
     }
-    
     @objc func toggleEditMode(){
+        if typeOfNewComponent == .guides{
+            return
+        }
         
         self.tableView.isEditing ? self.tableView.setEditing(false, animated: true) : self.tableView.setEditing(true, animated: true)
         

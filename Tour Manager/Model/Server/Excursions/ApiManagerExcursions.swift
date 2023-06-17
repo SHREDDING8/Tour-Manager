@@ -35,6 +35,7 @@ class ApiManagerExcursions{
     private let routeGetExcursions = prefix + "/get_tour_list"
     private let routeAddNewExcursion = prefix + "/add_tour"
     private let routeUpdateExcursion = prefix + "/update_tour"
+    private let routeDelteExcursion = prefix + "/delete_tour"
     
     
     public func GetExcursions(token:String, companyId:String, date:String, completion: @escaping (Bool, [ResponseGetExcursion]?, customErrorExcursion?)->Void ){
@@ -82,7 +83,14 @@ class ApiManagerExcursions{
     public func AddNewExcursion(token: String, companyId: String, excursion:Excursion, completion: @escaping (Bool, customErrorExcursion?)->Void ){
         let url = URL(string: routeAddNewExcursion)!
         
-        let jsonData = SendAddNewExcursion(token: token, companyId: companyId, tourName: excursion.excursionName, tourRoute: excursion.route, tourNotes: excursion.additionalInfromation, tourNumberOfPeople: excursion.numberOfPeople, tourTimeStart: excursion.dateAndTime.timeToString(), tourDate: excursion.dateAndTime.birthdayToString(), customerCompanyName: excursion.customerCompanyName, customerGuideName: excursion.customerGuideName, customerGuideContact: excursion.companyGuidePhone,isPaid: excursion.isPaid, paymentMethod: excursion.paymentMethod, paymentAmount: excursion.paymentAmount)
+        var guides:[SendGuide] = []
+                
+        for guide in excursion.selfGuides{
+            guides.append(SendGuide(guide_id: guide.guideInfo.getLocalID() ?? "", is_main: guide.isMain, status: guide.status.rawValue))
+        }
+        
+        let jsonData = SendAddNewExcursion(token: token, companyId: companyId, tourName: excursion.excursionName, tourRoute: excursion.route, tourNotes: excursion.additionalInfromation, tourNumberOfPeople: excursion.numberOfPeople, tourTimeStart: excursion.dateAndTime.timeToString(), tourDate: excursion.dateAndTime.birthdayToString(), customerCompanyName: excursion.customerCompanyName, customerGuideName: excursion.customerGuideName, customerGuideContact: excursion.companyGuidePhone,isPaid: excursion.isPaid, paymentMethod: excursion.paymentMethod, paymentAmount: excursion.paymentAmount,guides: guides)
+        
         
         AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
             if response.response?.statusCode == 400{
@@ -114,7 +122,14 @@ class ApiManagerExcursions{
     public func updateExcursion(token: String, companyId: String, excursion:Excursion,oldDate:Date, completion: @escaping (Bool, customErrorExcursion?)->Void ){
         let url = URL(string: routeUpdateExcursion)!
         
-        let jsonData = SendUpdateExcursion(token: token, companyId: companyId, excursionId: excursion.localId ?? "", tourName: excursion.excursionName, tourRoute: excursion.route, tourNotes: excursion.additionalInfromation, tourNumberOfPeople: excursion.numberOfPeople, tourTimeStart: excursion.dateAndTime.timeToString(), tourDate: excursion.dateAndTime.birthdayToString(), oldDate: oldDate.birthdayToString(), customerCompanyName: excursion.customerCompanyName, customerGuideName: excursion.customerGuideName, customerGuideContact: excursion.companyGuidePhone,isPaid: excursion.isPaid, paymentMethod: excursion.paymentMethod, paymentAmount: excursion.paymentAmount)
+        var guides:[SendGuide] = []
+                
+        for guide in excursion.selfGuides{
+            guides.append(SendGuide(guide_id: guide.guideInfo.getLocalID() ?? "", is_main: guide.isMain, status: guide.status.rawValue))
+        }
+        
+        
+        let jsonData = SendUpdateExcursion(token: token, companyId: companyId, excursionId: excursion.localId ?? "", tourName: excursion.excursionName, tourRoute: excursion.route, tourNotes: excursion.additionalInfromation, tourNumberOfPeople: excursion.numberOfPeople, tourTimeStart: excursion.dateAndTime.timeToString(), tourDate: excursion.dateAndTime.birthdayToString(), oldDate: oldDate.birthdayToString(), customerCompanyName: excursion.customerCompanyName, customerGuideName: excursion.customerGuideName, customerGuideContact: excursion.companyGuidePhone,isPaid: excursion.isPaid, paymentMethod: excursion.paymentMethod, paymentAmount: excursion.paymentAmount,guides: guides)
         
         
         AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
@@ -146,5 +161,43 @@ class ApiManagerExcursions{
         }
     }
     
-    
+    public func deleteExcursion(token:String, companyId:String, date:String, excursionId:String, completion: @escaping (Bool, customErrorExcursion?)->Void ){
+        
+        let url = URL(string: routeDelteExcursion)!
+        
+        let jsonData = sendForDeleteExcursion(token: token, company_id: companyId, tour_date: date, tour_id: excursionId)
+        
+        AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
+            
+            if response.response?.statusCode == 400{
+                
+                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
+                
+                if error.message == "Tour does not exist"{
+                    completion(false, .dataNotFound)
+                } else if error.message == "Token expired"{
+                    completion(false, .tokenExpired)
+                } else if error.message == "Invalid Firebase ID token"{
+                    completion(false, .invalidToken)
+                } else if error.message == "Permission denied"{
+                    completion(false, .PermissionDenied)
+                }else if error.message == "Current user is not in this company"{
+                    completion(false, .UserIsNotInThisCompany)
+                }else if error.message == "Company does not exist"{
+                    completion(false, .CompanyDoesNotExist)
+                }else {
+                    completion(false, .unknown)
+                }
+                return
+                
+            }else if response.response?.statusCode == 200{
+                
+                
+                completion(true, nil )
+  
+            }else{
+                completion(false, .unknown)
+            }
+        }
+    }
 }

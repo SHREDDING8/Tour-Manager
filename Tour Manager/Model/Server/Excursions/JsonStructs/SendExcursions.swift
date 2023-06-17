@@ -13,6 +13,21 @@ struct sendForGetExcursion:Codable{
     let tour_date:String
 }
 
+struct sendForDeleteExcursion:Codable{
+    let token:String
+    let company_id:String
+    let tour_date:String
+    let tour_id:String
+}
+
+struct SendGuide:Codable{
+    let guide_id: String
+    let is_main: Bool
+    let status: String
+
+
+}
+
 struct SendAddNewExcursion:Codable{
     var token:String
     let companyId:String
@@ -30,6 +45,8 @@ struct SendAddNewExcursion:Codable{
     let isPaid:Bool
     let paymentMethod:String
     let paymentAmount:Int
+    
+    let guides: [SendGuide]
     
     
     enum CodingKeys: String, CodingKey {
@@ -49,6 +66,8 @@ struct SendAddNewExcursion:Codable{
         case isPaid = "is_paid"
         case paymentMethod = "payment_method"
         case paymentAmount = "payment_amount"
+        
+        case guides = "tour_guides"
     }
 
 }
@@ -73,6 +92,10 @@ struct SendUpdateExcursion:Codable{
     let paymentMethod:String
     let paymentAmount:Int
     
+    let guides:[SendGuide]
+    
+    
+    
     
     enum CodingKeys: String, CodingKey {
         case token = "token"
@@ -93,5 +116,7 @@ struct SendUpdateExcursion:Codable{
         case isPaid = "is_paid"
         case paymentMethod = "payment_method"
         case paymentAmount = "payment_amount"
+        
+        case guides = "tour_guides"
     }
 }

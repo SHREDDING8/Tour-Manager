@@ -23,6 +23,10 @@ struct ResponseGetExcursion: Codable {
     let isPaid:Bool
     let paymentMethod:String
     let paymentAmount:Int
+    
+    let tourGuides: [TourGuide]
+    
+    
 
     enum CodingKeys: String, CodingKey {
         case tourId = "tour_id"
@@ -39,12 +43,30 @@ struct ResponseGetExcursion: Codable {
         case isPaid = "is_paid"
         case paymentMethod = "payment_method"
         case paymentAmount = "payment_amount"
+        
+        case tourGuides = "tour_guides"
     }
 }
 
 struct ResponseUpdateExcursion:Codable{
     let message:String
     let tour_id:String
+}
+
+// MARK: - TourGuide
+struct TourGuide: Codable {
+    let guideFirstName, guideLastName, guideEmail: String?
+    let isMain: Bool
+    let status, guideID: String
+
+    enum CodingKeys: String, CodingKey {
+        case guideFirstName = "guide_first_name"
+        case guideLastName = "guide_last_name"
+        case guideEmail = "guide_email"
+        case isMain = "is_main"
+        case status
+        case guideID = "guide_id"
+    }
 }
 
 

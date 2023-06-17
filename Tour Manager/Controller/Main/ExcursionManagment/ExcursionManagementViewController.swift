@@ -188,7 +188,7 @@ class ExcursionManagementViewController: UIViewController{
         calendar.delegate = self
         calendar.dataSource = self
         
-        self.calendar.backgroundColor = .darkGray
+        self.calendar.backgroundColor = .clear
         
     }
     

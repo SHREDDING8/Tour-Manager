@@ -34,7 +34,11 @@ protocol UserProtocol{
 
 
 
-class User:UserProtocol{
+class User:UserProtocol, Equatable{
+    static func == (lhs: User, rhs: User) -> Bool {
+        return lhs.getLocalID() == rhs.getLocalID()
+    }
+    
     
     internal let apiAuth = ApiManagerAuth()
     
@@ -110,7 +114,12 @@ class User:UserProtocol{
     }
     
     
-    
+    init(localId: String, firstName: String?, secondName: String?, email:String?) {
+        self.localId = localId
+        self.firstName = firstName
+        self.secondName = secondName
+        self.email = email
+    }
     init(localId: String, email: String, firstName: String, secondName: String, birthday: Date, phone: String, companyId:String, accessLevel:AccessLevels){
         self.localId = localId
         self.email = email
