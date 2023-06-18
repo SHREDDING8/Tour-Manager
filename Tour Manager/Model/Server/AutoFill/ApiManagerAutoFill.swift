@@ -131,12 +131,5 @@ class ApiManagerAutoFill{
                 completion(false, .unknowmError)
             }
         }
-        
-        
-        
     }
-    
-    
-    
-    
 }
