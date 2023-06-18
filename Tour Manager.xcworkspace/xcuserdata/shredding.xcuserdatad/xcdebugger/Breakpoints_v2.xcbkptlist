@@ -391,54 +391,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F13EB084-BB36-48A6-A8EC-DBF38AFC071F"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Tour Manager/Controller/Main/ExcursionManagment/AddingNewComponentViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "F13EB084-BB36-48A6-A8EC-DBF38AFC071F - a053e5f65e1d14d6"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Tour_Manager.AddingNewComponentViewController.viewDidLoad() -&gt; ()"
-                  moduleName = "Tour Manager"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Controller/Main/ExcursionManagment/AddingNewComponentViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "65"
-                  endingLineNumber = "65"
-                  offsetFromSymbolStart = "112">
-               </Location>
-               <Location
-                  uuid = "F13EB084-BB36-48A6-A8EC-DBF38AFC071F - a053e5f65e1d14f7"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Tour_Manager.AddingNewComponentViewController.viewDidLoad() -&gt; ()"
-                  moduleName = "Tour Manager"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Controller/Main/ExcursionManagment/AddingNewComponentViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "66"
-                  endingLineNumber = "66"
-                  offsetFromSymbolStart = "116">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "E6E3CD64-1AA2-4E22-8A9F-28D864ABF181"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -446,8 +398,8 @@
             filePath = "Tour Manager/Controller/Main/ExcursionManagment/AddingNewComponentViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "278"
-            endingLineNumber = "278"
+            startingLineNumber = "317"
+            endingLineNumber = "317"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
          </BreakpointContent>

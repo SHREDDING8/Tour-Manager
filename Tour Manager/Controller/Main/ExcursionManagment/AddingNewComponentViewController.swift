@@ -22,6 +22,8 @@ class AddingNewComponentViewController: UIViewController {
     
     var excursion:Excursion!
     
+    let excursionsModel = ExcursionsControllerModel()
+    
     let user = AppDelegate.user
     
     var fullArrayComponents:[String] = []
@@ -65,8 +67,29 @@ class AddingNewComponentViewController: UIViewController {
         addSubviews()
         configureTextFieldAndLine()
         configureTableView()
-
-
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        switch typeOfNewComponent {
+        case .route:
+            excursionsModel.addAutofill(token: self.user?.getToken() ?? "" , companyId: self.user?.company.getLocalIDCompany() ?? "", autofillKey: .excursionRoute, autofillValue: self.excursion.route) { isAdded, error in
+                
+            }
+        case .customerCompanyName:
+            excursionsModel.addAutofill(token: self.user?.getToken() ?? "" , companyId: self.user?.company.getLocalIDCompany() ?? "", autofillKey: .excursionCustomerCompanyName, autofillValue: self.excursion.customerCompanyName) { isAdded, error in
+                
+            }
+        case .customerGuiedName:
+            excursionsModel.addAutofill(token: self.user?.getToken() ?? "" , companyId: self.user?.company.getLocalIDCompany() ?? "", autofillKey: .excursionCustomerGuideContact, autofillValue: self.excursion.customerGuideName) { isAdded, error in
+                
+            }
+        case .guides:
+            break
+        }
+        
     }
     
     
@@ -89,20 +112,36 @@ class AddingNewComponentViewController: UIViewController {
             self.title = "Маршрут"
             textField.placeholder = "Маршрут"
             textField.text = excursion.route
-            self.arrayComponents = self.excursion.routes
-            self.fullArrayComponents = self.arrayComponents
+            
+            excursionsModel.getAutofill(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", autofillKey: .excursionRoute) { isGetted, values, error in
+                if isGetted{
+                    self.arrayComponents = values!
+                    self.fullArrayComponents = self.arrayComponents
+                    self.tableView.reloadData()
+                }
+            }
         case .customerCompanyName:
             self.title = "Название компании"
             textField.placeholder = "Название компании"
             textField.text = excursion.customerCompanyName
-            self.arrayComponents = self.excursion.customerCompanyNames
-            self.fullArrayComponents = self.arrayComponents
+            excursionsModel.getAutofill(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", autofillKey: .excursionCustomerCompanyName) { isGetted, values, error in
+                if isGetted{
+                    self.arrayComponents = values!
+                    self.fullArrayComponents = self.arrayComponents
+                    self.tableView.reloadData()
+                }
+            }
         case .customerGuiedName:
             self.title = "ФИО сопровождающего"
             textField.placeholder = "ФИО сопровождающего"
             textField.text = excursion.customerGuideName
-            self.arrayComponents = self.excursion.customerGuideNames
-            self.fullArrayComponents = self.arrayComponents
+            excursionsModel.getAutofill(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", autofillKey: .excursionCustomerGuideContact) { isGetted, values, error in
+                if isGetted{
+                    self.arrayComponents = values!
+                    self.fullArrayComponents = self.arrayComponents
+                    self.tableView.reloadData()
+                }
+            }
         case .guides:
             self.title = "Экскурсоводы"
             textField.placeholder = "Найти"
@@ -326,8 +365,43 @@ extension AddingNewComponentViewController:UITableViewDelegate,UITableViewDataSo
         }
         
         if editingStyle == .delete{
-            arrayComponents.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
+            
+            
+            switch typeOfNewComponent{
+                
+            case .route:
+                self.excursionsModel.deleteAutofill(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", autofillKey: .excursionRoute, autofillValue: arrayComponents[indexPath.row]) { isDeleted, error in
+                    
+                    if isDeleted{
+                        self.arrayComponents.remove(at: indexPath.row)
+                        
+                        self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                    }
+                    
+                }
+            case .customerCompanyName:
+                self.excursionsModel.deleteAutofill(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", autofillKey: .excursionCustomerCompanyName, autofillValue: arrayComponents[indexPath.row]) {
+                    isDeleted, error in
+                    
+                    if isDeleted{
+                        self.arrayComponents.remove(at: indexPath.row)
+                        
+                        self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                    }
+                    
+                }
+            case .customerGuiedName:
+                self.excursionsModel.deleteAutofill(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", autofillKey: .excursionCustomerGuideContact, autofillValue: arrayComponents[indexPath.row]) { isDeleted, error in
+                    
+                    if isDeleted{
+                        self.arrayComponents.remove(at: indexPath.row)
+                        
+                        self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                    }
+                }
+            case .guides:
+                break
+            }
         }
         
         if arrayComponents.isEmpty{

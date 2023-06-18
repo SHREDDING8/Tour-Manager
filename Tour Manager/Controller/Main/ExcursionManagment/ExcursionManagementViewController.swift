@@ -71,8 +71,9 @@ class ExcursionManagementViewController: UIViewController{
     
     // MARK: - Table view Object
     
-    let tableView:UITableView = {
+    let tableViewCalendar:UITableView = {
         let tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
+        tableView.restorationIdentifier = "tableViewCalendar"
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         return tableView
@@ -99,19 +100,7 @@ class ExcursionManagementViewController: UIViewController{
         button.titleLabel?.font = button.titleLabel?.font.withSize(40)
         return button
     }()
-    
-    private var segmentControll:UISegmentedControl = {
-        let segmentControll = UISegmentedControl()
-        segmentControll.selectedSegmentIndex = 0
-        segmentControll.insertSegment(withTitle: "Календарь", at: 0, animated: false)
-        segmentControll.insertSegment(withTitle: "Ожидание", at: 1, animated: false)
-        segmentControll.selectedSegmentIndex = 0
-        
-        segmentControll.translatesAutoresizingMaskIntoConstraints = false
-        return segmentControll
-    }()
-    
-    
+
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -122,7 +111,6 @@ class ExcursionManagementViewController: UIViewController{
         self.configureFSCalendar()
         self.configureTableView()
         self.configureButtons()
-        self.configureSegmentControll()
         
         
 
@@ -140,12 +128,10 @@ class ExcursionManagementViewController: UIViewController{
     
     fileprivate func addSubviews(){
         self.view.addSubview(calendar)
-        self.view.addSubview(tableView)
+        self.view.addSubview(tableViewCalendar)
         
         self.view.addSubview(showCloseCalendarButton)
         self.view.addSubview(todayButton)
-        
-        self.view.addSubview(segmentControll)
     }
     
     // MARK: - Configuration View
@@ -181,7 +167,7 @@ class ExcursionManagementViewController: UIViewController{
         calendar.addConstraint(calendarHeightConstraint)
        
        NSLayoutConstraint.activate([
-        calendar.topAnchor.constraint(equalTo: self.segmentControll.bottomAnchor, constant: 10),
+        calendar.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 10),
         calendar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
         calendar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0)]
        )
@@ -195,19 +181,19 @@ class ExcursionManagementViewController: UIViewController{
     // MARK: - Configuration Table View
     
     fileprivate func configureTableView(){
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
+        self.tableViewCalendar.delegate = self
+        self.tableViewCalendar.dataSource = self
         
         let cell = UINib(nibName: "ExcursionTableViewCell", bundle: nil)
         
-        tableView.register(cell, forCellReuseIdentifier: "ExcursionTableViewCell")
+        tableViewCalendar.register(cell, forCellReuseIdentifier: "ExcursionTableViewCell")
         
         NSLayoutConstraint.activate([
             
-            tableView.topAnchor.constraint(equalTo:self.showCloseCalendarButton.bottomAnchor, constant: 10),
-            tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
+            tableViewCalendar.topAnchor.constraint(equalTo:self.showCloseCalendarButton.bottomAnchor, constant: 10),
+            tableViewCalendar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            tableViewCalendar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            tableViewCalendar.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
         ])
 
     }
@@ -232,17 +218,7 @@ class ExcursionManagementViewController: UIViewController{
         todayButton.isHidden = true
     }
     
-    // MARK: - configuration Segment cotnroll
-    
-    fileprivate func configureSegmentControll(){
-        NSLayoutConstraint.activate([
-            self.segmentControll.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            self.segmentControll.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 15),
-            self.segmentControll.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -15)
-            
-        ])
-    }
-    
+
     
     // MARK: - Handle Actions
     
@@ -332,8 +308,8 @@ class ExcursionManagementViewController: UIViewController{
      
      */
     fileprivate func reloadData() {
-        UIView.transition(with: self.tableView, duration: 0.5,options: .transitionCrossDissolve) {
-            self.tableView.reloadData()
+        UIView.transition(with: self.tableViewCalendar, duration: 0.5,options: .transitionCrossDissolve) {
+            self.tableViewCalendar.reloadData()
         }
     }
     
@@ -341,8 +317,8 @@ class ExcursionManagementViewController: UIViewController{
     
     public func getExcursions(date:Date){
         self.excursionsModel.excursions = []
-        UIView.transition(with: self.tableView, duration: 0.3, options: .transitionCrossDissolve) {
-            self.tableView.reloadData()
+        UIView.transition(with: self.tableViewCalendar, duration: 0.3, options: .transitionCrossDissolve) {
+            self.tableViewCalendar.reloadData()
         }
         
         
@@ -361,8 +337,8 @@ class ExcursionManagementViewController: UIViewController{
             }
             
             if isGetted{
-                UIView.transition(with: self.tableView, duration: 0.3, options: .transitionCrossDissolve) {
-                    self.tableView.reloadData()
+                UIView.transition(with: self.tableViewCalendar, duration: 0.3, options: .transitionCrossDissolve) {
+                    self.tableViewCalendar.reloadData()
                 }
             }
         }
@@ -370,7 +346,7 @@ class ExcursionManagementViewController: UIViewController{
 }
 
 // MARK: - FSCalendarDelegate
-extension ExcursionManagementViewController:FSCalendarDelegate, FSCalendarDataSource{
+extension ExcursionManagementViewController:FSCalendarDelegate, FSCalendarDataSource,FSCalendarDelegateAppearance{
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
         calendarHeightConstraint.constant = bounds.height
@@ -393,8 +369,15 @@ extension ExcursionManagementViewController:FSCalendarDelegate, FSCalendarDataSo
         dateFormatter.setLocalizedDateFormatFromTemplate("MMMM YYYY")
         
         calendar.appearance.headerDateFormat = dateFormatter.string(from: calendar.currentPage)
+                
     }
     
+    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+        return 1
+    }
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventDefaultColorsFor date: Date) -> [UIColor]? {
+        return [.red]
+    }
 }
 
 
@@ -416,7 +399,7 @@ extension ExcursionManagementViewController:UITableViewDelegate,UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.tableView.deselectRow(at: indexPath, animated: true)
+        self.tableViewCalendar.deselectRow(at: indexPath, animated: true)
         
         let destination = self.controllers.getControllerMain(.newExcursionTableViewController) as! NewExcursionTableViewController
         
@@ -431,7 +414,7 @@ extension ExcursionManagementViewController:UITableViewDelegate,UITableViewDataS
     
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView == self.tableView{
+        if scrollView == self.tableViewCalendar{
             if self.calendar.scope == .month{
                 buttonShowCloseTapped()
             }

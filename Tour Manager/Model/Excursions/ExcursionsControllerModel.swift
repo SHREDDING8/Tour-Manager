@@ -11,6 +11,7 @@ import Foundation
 class ExcursionsControllerModel{
     
     let apiManagerExcursions = ApiManagerExcursions()
+    let apiManagerAutofill = ApiManagerAutoFill()
     
     public var excursions:[Excursion] = []
     
@@ -63,6 +64,24 @@ class ExcursionsControllerModel{
     
     public func deleteExcursion(token: String, companyId: String, excursion:Excursion, completion: @escaping (Bool, customErrorExcursion?)->Void){
         apiManagerExcursions.deleteExcursion(token: token, companyId: companyId, date: excursion.dateAndTime.birthdayToString(), excursionId: excursion.localId ?? "") { isDeleted, error in
+            completion(isDeleted,error)
+        }
+    }
+    
+    public func getAutofill(token: String, companyId: String, autofillKey:AutofillKeys,completion: @escaping (Bool, [String]?,  customErrorAutofill?)->Void){
+        apiManagerAutofill.getAutofill(token: token, companyId: companyId, autoFillKey: autofillKey) { isGetted, values, error in
+            completion(isGetted,values,error)
+        }
+    }
+    
+    public func addAutofill(token: String, companyId: String, autofillKey:AutofillKeys,autofillValue:String, completion: @escaping (Bool, customErrorAutofill?)->Void){
+        apiManagerAutofill.addAutofill(token: token, companyId: companyId, autoFillKey: autofillKey, autofillValue: autofillValue) { isAdded, error in
+            completion(isAdded,error)
+        }
+    }
+    
+    public func deleteAutofill(token: String, companyId: String, autofillKey:AutofillKeys,autofillValue:String, completion: @escaping (Bool, customErrorAutofill?)->Void){
+        apiManagerAutofill.deleteAutofill(token: token, companyId: companyId, autoFillKey: autofillKey, autofillValue: autofillValue) { isDeleted, error in
             completion(isDeleted,error)
         }
     }

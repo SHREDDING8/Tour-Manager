@@ -13,6 +13,9 @@
 		EE1770F02A23BD9500B18055 /* StringValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1770EF2A23BD9500B18055 /* StringValidation.swift */; };
 		EE1770F32A23EE5A00B18055 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1770F22A23EE5A00B18055 /* LaunchScreenViewController.swift */; };
 		EE1770F62A23F00300B18055 /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE1770F52A23F00300B18055 /* Launch.storyboard */; };
+		EE18F4642A3E4EAD0047E068 /* SendAutofill.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE18F4632A3E4EAD0047E068 /* SendAutofill.swift */; };
+		EE18F4662A3E4FB00047E068 /* ResponseAutoFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE18F4652A3E4FB00047E068 /* ResponseAutoFill.swift */; };
+		EE18F4682A3E503F0047E068 /* ApiManagerAutoFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE18F4672A3E503F0047E068 /* ApiManagerAutoFill.swift */; };
 		EE2377362A0816D900CB9D70 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2377352A0816D900CB9D70 /* Alerts.swift */; };
 		EE2C9A5029FD858500B7D74F /* ProfilePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2C9A4F29FD858500B7D74F /* ProfilePageViewController.swift */; };
 		EE4C89352A2CEE40004D3CB9 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4C89342A2CEE40004D3CB9 /* Auth.swift */; };
@@ -80,6 +83,9 @@
 		EE1770F22A23EE5A00B18055 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		EE1770F52A23F00300B18055 /* Launch.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Launch.storyboard; sourceTree = "<group>"; };
 		EE1770F72A23FA5500B18055 /* Tour Manager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Tour Manager.entitlements"; sourceTree = "<group>"; };
+		EE18F4632A3E4EAD0047E068 /* SendAutofill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendAutofill.swift; sourceTree = "<group>"; };
+		EE18F4652A3E4FB00047E068 /* ResponseAutoFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseAutoFill.swift; sourceTree = "<group>"; };
+		EE18F4672A3E503F0047E068 /* ApiManagerAutoFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManagerAutoFill.swift; sourceTree = "<group>"; };
 		EE2377352A0816D900CB9D70 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		EE2C9A4F29FD858500B7D74F /* ProfilePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePageViewController.swift; sourceTree = "<group>"; };
 		EE4C89342A2CEE40004D3CB9 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
@@ -174,6 +180,24 @@
 				EE1770F22A23EE5A00B18055 /* LaunchScreenViewController.swift */,
 			);
 			path = LaucnScreen;
+			sourceTree = "<group>";
+		};
+		EE18F4612A3E4E850047E068 /* AutoFill */ = {
+			isa = PBXGroup;
+			children = (
+				EE18F4622A3E4E940047E068 /* Json Structs */,
+				EE18F4672A3E503F0047E068 /* ApiManagerAutoFill.swift */,
+			);
+			path = AutoFill;
+			sourceTree = "<group>";
+		};
+		EE18F4622A3E4E940047E068 /* Json Structs */ = {
+			isa = PBXGroup;
+			children = (
+				EE18F4632A3E4EAD0047E068 /* SendAutofill.swift */,
+				EE18F4652A3E4FB00047E068 /* ResponseAutoFill.swift */,
+			);
+			path = "Json Structs";
 			sourceTree = "<group>";
 		};
 		EE2377342A0816C400CB9D70 /* alerts */ = {
@@ -325,6 +349,7 @@
 		EE5F91E02A2152D500B39BB1 /* Server */ = {
 			isa = PBXGroup;
 			children = (
+				EE18F4612A3E4E850047E068 /* AutoFill */,
 				EEB73F9A2A364B59004D7A25 /* Excursions */,
 				EE5F91E32A2152FF00B39BB1 /* Auth */,
 				EE5F91E22A2152FA00B39BB1 /* UserData */,
@@ -649,9 +674,12 @@
 				EE4C893B2A2CF53D004D3CB9 /* UiButton.swift in Sources */,
 				EE52E16F29E5C1C8000C0E5B /* AppDelegate.swift in Sources */,
 				EE52E17129E5C1C8000C0E5B /* SceneDelegate.swift in Sources */,
+				EE18F4662A3E4FB00047E068 /* ResponseAutoFill.swift in Sources */,
 				EEDA5E9F2A37C153002CC5C8 /* AddingNewComponentViewController.swift in Sources */,
 				EE0528CA2A30DA3C006C8C98 /* NewExcursionTableViewController.swift in Sources */,
 				EEF27A542A05AA44006E5E53 /* Controllers.swift in Sources */,
+				EE18F4642A3E4EAD0047E068 /* SendAutofill.swift in Sources */,
+				EE18F4682A3E503F0047E068 /* ApiManagerAutoFill.swift in Sources */,
 				EE5EEC312A06EDC20025336E /* ChoiceOfTypeAccountViewController.swift in Sources */,
 				EEF27A452A055443006E5E53 /* Profile.swift in Sources */,
 				EE2377362A0816D900CB9D70 /* Alerts.swift in Sources */,

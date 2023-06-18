@@ -306,17 +306,6 @@ extension NewExcursionTableViewController:UICollectionViewDelegate,UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         
-//        let cellWidth = 200
-//        let cellCount = 1
-//        let cellSpacing = 10
-//
-//        let totalCellWidth = cellWidth * cellCount
-//        let totalSpacingWidth = cellSpacing * (cellCount - 1)
-//
-//        let leftInset = (collectionView.frame.width - CGFloat(totalCellWidth + totalSpacingWidth)) / 2
-//        let rightInset = leftInset
-//        
-//        return rightInset
         
         return 0
     }
