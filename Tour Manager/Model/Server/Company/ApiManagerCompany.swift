@@ -233,11 +233,7 @@ public class ApiManagerCompany{
         let url = URL(string: routeGetCompanyGuides)
         
         let jsonData = SendAddEmployeeToCompanyJsonStruct(token: token, company_id: companyId)
-        
-        AF.request(url!, method: .post, parameters: jsonData, encoder: .json).responseJSON { response in
-            print(response)
-        }
-        
+                
         
         AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
             
