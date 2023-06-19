@@ -1,0 +1,76 @@
+{
+  "main_library": {
+    "exported_symbols": [
+      {
+        "data": {
+          "global": [
+            "_CGPointInfinity",
+            "_FSCalendarDefaultBounceAnimationDuration",
+            "_FSCalendarStandardHeaderHeight",
+            "_FSCalendarStandardRowHeight",
+            "_FSCalendarDefaultCellReuseIdentifier",
+            "_FSCalendarStandardSeparatorThickness",
+            "_FSCalendarVersionString",
+            "_FSCalendarStandardWeekdayTextSize",
+            "_FSCalendarStandardSubtitleTextSize",
+            "_FSCalendarStandardWeekdayHeight",
+            "_FSCalendarStandardHeaderTextSize",
+            "_FSCalendarStandardCellDiameter",
+            "_FSCalendarStandardWeeklyPageHeight",
+            "_FSCalendarMaximumEventDotDiameter",
+            "_FSCalendarDefaultHourComponent",
+            "_FSCalendarVersionNumber",
+            "_FSCalendarBlankCellReuseIdentifier",
+            "_FSCalendarAutomaticDimension",
+            "_FSCalendarInvalidArgumentsExceptionName",
+            "_CGSizeAutomatic",
+            "_FSCalendarMaximumNumberOfEvents",
+            "_FSCalendarStandardMonthlyPageHeight",
+            "_FSCalendarStandardTitleTextSize"
+          ],
+          "objc_class": [
+            "FSCalendarAppearance",
+            "FSCalendarCollectionViewLayout",
+            "FSCalendarHeaderTouchDeliver",
+            "FSCalendarDelegationFactory",
+            "FSCalendarEventIndicator",
+            "FSCalendarSeparatorDecorationView",
+            "FSCalendarStickyHeader",
+            "FSCalendar",
+            "FSCalendarCell",
+            "FSCalendarHeaderView",
+            "FSCalendarTransitionAttributes",
+            "FSCalendarCollectionView",
+            "FSCalendarHeaderCell",
+            "FSCalendarBlankCell",
+            "FSCalendarWeekdayView",
+            "PodsDummy_FSCalendar",
+            "FSCalendarDelegationProxy",
+            "FSCalendarCalculator",
+            "FSCalendarTransitionCoordinator",
+            "FSCalendarHeaderLayout"
+          ]
+        }
+      }
+    ],
+    "flags": [
+      {
+        "attributes": [
+          "not_app_extension_safe"
+        ]
+      }
+    ],
+    "install_names": [
+      {
+        "name": "@rpath/FSCalendar.framework/FSCalendar"
+      }
+    ],
+    "target_info": [
+      {
+        "min_deployment": "14",
+        "target": "arm64-ios-simulator"
+      }
+    ]
+  },
+  "tapi_tbd_version": 5
+}

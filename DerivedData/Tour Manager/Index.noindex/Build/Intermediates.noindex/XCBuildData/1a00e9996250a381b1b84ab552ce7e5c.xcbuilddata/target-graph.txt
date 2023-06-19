@@ -1,0 +1,24 @@
+Target dependency graph (11 targets)
+Target 'Tour Manager' in project 'Tour Manager'
+➜ Implicit dependency on target 'Pods-Tour Manager' in project 'Pods' via file 'Pods_Tour_Manager.framework' in build phase 'Link Binary'
+➜ Implicit dependency on target 'Alamofire' in project 'Pods' via options '-framework Alamofire' in build setting 'OTHER_LDFLAGS'
+➜ Implicit dependency on target 'FSCalendar' in project 'Pods' via options '-framework FSCalendar' in build setting 'OTHER_LDFLAGS'
+Target 'Tour Manager' in project 'Tour Manager'
+➜ Implicit dependency on target 'Pods-Tour Manager' in project 'Pods' via file 'Pods_Tour_Manager.framework' in build phase 'Link Binary'
+➜ Implicit dependency on target 'Alamofire' in project 'Pods' via options '-framework Alamofire' in build setting 'OTHER_LDFLAGS'
+➜ Implicit dependency on target 'FSCalendar' in project 'Pods' via options '-framework FSCalendar' in build setting 'OTHER_LDFLAGS'
+Target 'Pods-Tour Manager' in project 'Pods'
+➜ Explicit dependency on target 'Alamofire' in project 'Pods'
+➜ Explicit dependency on target 'FSCalendar' in project 'Pods'
+Target 'Pods-Tour Manager' in project 'Pods'
+➜ Explicit dependency on target 'Alamofire' in project 'Pods'
+➜ Explicit dependency on target 'FSCalendar' in project 'Pods'
+Target 'Pods-Tour Manager' in project 'Pods'
+➜ Explicit dependency on target 'Alamofire' in project 'Pods'
+➜ Explicit dependency on target 'FSCalendar' in project 'Pods'
+Target 'Alamofire' in project 'Pods' (no dependencies)
+Target 'Alamofire' in project 'Pods' (no dependencies)
+Target 'Alamofire' in project 'Pods' (no dependencies)
+Target 'FSCalendar' in project 'Pods' (no dependencies)
+Target 'FSCalendar' in project 'Pods' (no dependencies)
+Target 'FSCalendar' in project 'Pods' (no dependencies)
