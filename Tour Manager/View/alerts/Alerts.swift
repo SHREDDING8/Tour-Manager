@@ -107,4 +107,17 @@ class Alert{
         return alert
     }
     
+    
+    public func warningAlert(title:String, meesage:String?, actionTitle:String, completion: @escaping ()->Void)->UIAlertController{
+        let alert = UIAlertController(title: title, message: meesage, preferredStyle: .alert)
+        
+        let actionCancel = UIAlertAction(title: "Отменить", style: .cancel)
+        let actionWithCompletion = UIAlertAction(title: actionTitle, style: .destructive) { _ in
+            completion()
+        }
+        alert.addAction(actionCancel)
+        alert.addAction(actionWithCompletion)
+        return alert
+    }
+    
 }

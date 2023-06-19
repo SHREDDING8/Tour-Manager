@@ -82,6 +82,7 @@ class NewExcursionTableViewController: UITableViewController {
     
     var excursion = Excursion()
     let controllers = Controllers()
+    let alerts = Alert()
     
     var isUpdate = false
     var oldDate:Date!
@@ -90,6 +91,14 @@ class NewExcursionTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonClick))
+        
+        self.navigationItem.backAction = UIAction(handler: { _ in
+            self.warningAlertDuringExit(isPopController: true)
+        })
+        
+        self.navigationController?.interactivePopGestureRecognizer?.delegate! = self
+        
+        
         if isUpdate{
             self.navigationItem.title = "Редактирование"
             self.oldDate = excursion.dateAndTime
@@ -284,22 +293,6 @@ extension NewExcursionTableViewController:UICollectionViewDelegate,UICollectionV
         return cell
     }
     
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//        
-//        let cellWidth = 200
-//        let cellCount = 1
-//        let cellSpacing = 10
-//
-//        let totalCellWidth = cellWidth * cellCount
-//        let totalSpacingWidth = cellSpacing * (cellCount - 1)
-//
-//        let leftInset = (collectionView.frame.width - CGFloat(totalCellWidth + totalSpacingWidth)) / 2
-//        let rightInset = leftInset
-//
-//        return UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: rightInset)
-//    }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
     }
@@ -308,6 +301,28 @@ extension NewExcursionTableViewController:UICollectionViewDelegate,UICollectionV
         
         
         return 0
+    }
+}
+
+// MARK: - Alerts
+extension NewExcursionTableViewController{
+    fileprivate func warningAlertDuringExit(isPopController:Bool){
+        let warningAlert = self.alerts.warningAlert(title: "Возможно у вас есть несохраненные данные", meesage: "Вы уверены что хотите выйти?", actionTitle: "Выйти") {
+            if isPopController{
+                self.navigationController?.popViewController(animated: true)
+            }
+            
+        }
+        
+        self.present(warningAlert, animated: true)
+    }
+}
+// MARK: - UIGestureRecognizerDelegate
+extension NewExcursionTableViewController:UIGestureRecognizerDelegate{
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        warningAlertDuringExit(isPopController: true)
+        
+        return false
     }
 }
 

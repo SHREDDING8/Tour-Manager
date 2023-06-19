@@ -395,6 +395,15 @@ extension ExcursionManagementViewController:UITableViewDelegate,UITableViewDataS
         
         cell.startTimeLabel.text = self.excursionsModel.excursions[indexPath.row].dateAndTime.timeToString()
         
+        var guides = ""
+        
+        for guide in self.excursionsModel.excursions[indexPath.row].selfGuides{
+            guides += guide.guideInfo.getFirstName() + ", "
+        }
+        guides.removeLast()
+        guides.removeLast()
+        cell.guidesLabel.text = guides
+        
         return cell
     }
     

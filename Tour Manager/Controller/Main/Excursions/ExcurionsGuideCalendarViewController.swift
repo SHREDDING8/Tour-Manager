@@ -18,6 +18,8 @@ class ExcurionsGuideCalendarViewController: UIViewController {
     
     let alerts = Alert()
     
+    let controllers = Controllers()
+    
     
     
     
@@ -378,18 +380,30 @@ extension ExcurionsGuideCalendarViewController:UITableViewDelegate,UITableViewDa
         cell.routeLabel.text = self.excursionsModel.excursions[indexPath.row].route
         
         cell.startTimeLabel.text = self.excursionsModel.excursions[indexPath.row].dateAndTime.timeToString()
+        
+        var guides = ""
+        
+        for guide in self.excursionsModel.excursions[indexPath.row].selfGuides{
+            guides += guide.guideInfo.getFirstName() + ", "
+        }
+        
+        guides.removeLast()
+        guides.removeLast()
+        
+        cell.guidesLabel.text = String(guides[..<guides.endIndex])
+        
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableViewCalendar.deselectRow(at: indexPath, animated: true)
         
-//        let destination = self.controllers.getControllerMain(.newExcursionTableViewController) as! NewExcursionTableViewController
-//        
-//        destination.excursion = excursionsModel.excursions[indexPath.row]
-//        destination.isUpdate = true
-//        
-//        self.navigationController?.pushViewController(destination, animated: true)
+        let destination = self.controllers.getControllerMain(.excursionForGuideTableViewController) as! ExcursionForGuideTableViewController
+        
+        destination.excursion = excursionsModel.excursions[indexPath.row]
+        
+        self.navigationController?.pushViewController(destination, animated: true)
         
     }
     
