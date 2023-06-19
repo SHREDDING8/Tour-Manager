@@ -47,6 +47,36 @@ class ExcursionsControllerModel{
     }
     
     
+    public func getExcursionsForGuidesFromApi(token:String, companyId:String, date:Date, completion: @escaping (Bool, customErrorExcursion?)->Void){
+        
+        self.excursions = []
+        
+        apiManagerExcursions.GetExcursionsForGuides(token: token, companyId: companyId, date: date.birthdayToString()) { isGetted, excursionsfromApi, error in
+            
+            if isGetted{
+                for excursion in excursionsfromApi!{
+                    
+                    let newExcursion = Excursion(localId: excursion.tourId, excursionName: excursion.tourName, route: excursion.tourRoute, additionalInfromation: excursion.tourNotes, numberOfPeople: excursion.tourNumberOfPeople, dateAndTime: Date.dateAndTimeToDate(dateString: date.birthdayToString(), timeString: excursion.tourTimeStart), customerCompanyName: excursion.customerCompanyName, customerGuideName: excursion.customerGuideName, companyGuidePhone: excursion.customerGuideContact,isPaid: excursion.isPaid, paymentMethod: excursion.paymentMethod, paymentAmount: excursion.paymentAmount)
+                    
+                    for guide in excursion.tourGuides{
+                        let newGuideInfo = User(localId: guide.guideID, firstName: guide.guideFirstName, secondName: guide.guideLastName,email: guide.guideEmail)
+                        let newGuide = SelfGuide(guideInfo: newGuideInfo, isMain: guide.isMain, status: .init(rawValue: guide.status) ?? .waiting)
+                        
+                        newExcursion.selfGuides.append(newGuide)
+                    }
+                    
+                    self.excursions.append(newExcursion)
+                }
+                
+                completion(true, nil)
+                
+            }
+            
+            
+        }
+    }
+    
+    
     public func createNewExcursion(token: String, companyId: String, excursion:Excursion, completion: @escaping (Bool, customErrorExcursion?)->Void){
 
         apiManagerExcursions.AddNewExcursion(token: token, companyId: companyId,excursion: excursion) { isAdded, error in

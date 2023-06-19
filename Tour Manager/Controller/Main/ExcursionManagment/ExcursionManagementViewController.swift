@@ -315,7 +315,7 @@ class ExcursionManagementViewController: UIViewController{
     
     // MARK: - Get excursions
     
-    public func getExcursions(date:Date){
+    fileprivate func getExcursions(date:Date){
         self.excursionsModel.excursions = []
         UIView.transition(with: self.tableViewCalendar, duration: 0.3, options: .transitionCrossDissolve) {
             self.tableViewCalendar.reloadData()
