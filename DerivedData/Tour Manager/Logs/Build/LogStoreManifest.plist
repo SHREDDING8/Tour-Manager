@@ -132,6 +132,48 @@
 			<key>uniqueIdentifier</key>
 			<string>D6D1FF18-00DD-4683-8FF9-F16B8C091E1E</string>
 		</dict>
+		<key>E4EAFF9C-959C-4447-A5EA-89BEF7DEBDF2</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>E4EAFF9C-959C-4447-A5EA-89BEF7DEBDF2.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>E</string>
+				<key>totalNumberOfAnalyzerIssues</key>
+				<integer>0</integer>
+				<key>totalNumberOfErrors</key>
+				<integer>42</integer>
+				<key>totalNumberOfTestFailures</key>
+				<integer>0</integer>
+				<key>totalNumberOfWarnings</key>
+				<integer>1</integer>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Tour Manager project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Tour Manager</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build for Previews Tour Manager</string>
+			<key>timeStartedRecording</key>
+			<real>708867748.25655901</real>
+			<key>timeStoppedRecording</key>
+			<real>708867788.21271503</real>
+			<key>title</key>
+			<string>Build for Previews Tour Manager</string>
+			<key>uniqueIdentifier</key>
+			<string>E4EAFF9C-959C-4447-A5EA-89BEF7DEBDF2</string>
+		</dict>
 		<key>E5DA3D44-8547-4234-9356-13E93B71F679</key>
 		<dict>
 			<key>className</key>
