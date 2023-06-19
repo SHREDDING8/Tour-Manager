@@ -83,6 +83,7 @@ class NewExcursionTableViewController: UITableViewController {
     var excursion = Excursion()
     let controllers = Controllers()
     let alerts = Alert()
+    let validation = StringValidation()
     
     var isUpdate = false
     var oldDate:Date!
@@ -143,6 +144,34 @@ class NewExcursionTableViewController: UITableViewController {
     // MARK: - save Button Click
     
     @objc fileprivate func saveButtonClick(){
+        if !validation.validateLenghtString(string: self.excursion.excursionName, min: 1, max: 100){
+            self.alerts.validationStringError(self, title: "Ошибка в названии экскурсии",message: "Минимальная длина - 1. Максимальная длина - 100")
+            return
+        }
+        
+        if !validation.validateLenghtString(string: self.excursion.additionalInfromation, max: 1000){
+            self.alerts.validationStringError(self, title: "Ошибка в заметках", message: "Максимальная длина - 1000")
+            return
+        }
+        
+        if !validation.validatePhone(value: self.excursion.companyGuidePhone){
+            self.alerts.validationStringError(self, title: "Ошибка в контакте сопровождающего")
+            return
+        }
+        
+        if !(self.excursion.numberOfPeople >= 0 && self.excursion.numberOfPeople <= 1000){
+            self.alerts.validationStringError(self, title: "Ошибка в количестве человек")
+            return
+        }
+        
+        if !(self.excursion.paymentAmount >= 0 && self.excursion.paymentAmount <= 1000000){
+            self.alerts.validationStringError(self, title: "Ошибка в сумме оплаты")
+            return
+        }
+        
+        
+        
+        
         if isUpdate{
             excursionModel.updateExcursion(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", excursion: excursion, oldDate: self.oldDate) { isUpdated, error in
                 self.navigationController?.popViewController(animated: true)
@@ -156,12 +185,6 @@ class NewExcursionTableViewController: UITableViewController {
         }
         
     }
-    
-    @IBAction func testTap(_ sender: Any) {
-    }
-    
-    
-    
     
     // MARK: - Datepicker
     
@@ -259,15 +282,30 @@ extension NewExcursionTableViewController:UITextFieldDelegate{
             self.excursion.excursionName = textField.text ?? ""
         }
         else if textField.restorationIdentifier == "numberOfPeople"{
-            self.excursion.numberOfPeople = Int(textField.text!) ?? 0
+            let numberOfPeople = Int(textField.text!)
+            if numberOfPeople == nil{
+                self.alerts.validationStringError(self, title: "Ошибка в количестве человек")
+                textField.text = ""
+                return
+            }
+            self.excursion.numberOfPeople = numberOfPeople!
         } else if textField.restorationIdentifier == "customerGuidePhone"{
             self.excursion.companyGuidePhone = customerGuidePhone.text!
         }else if textField.restorationIdentifier == "amount"{
-            self.excursion.paymentAmount = Int(textField.text ?? "0") ?? 0
+            
+            let amount = Int(textField.text ?? "0")
+            
+            if amount == nil{
+                self.alerts.validationStringError(self, title: "Ошибка в сумме оплаты")
+                textField.text = ""
+                return
+            }
+            self.excursion.paymentAmount =  amount!
         }
     }
 }
 
+// MARK: - UITextViewDelegate
 extension NewExcursionTableViewController:UITextViewDelegate{
     func textViewDidEndEditing(_ textView: UITextView) {
         self.excursion.additionalInfromation = textView.text
@@ -317,6 +355,7 @@ extension NewExcursionTableViewController{
         self.present(warningAlert, animated: true)
     }
 }
+
 // MARK: - UIGestureRecognizerDelegate
 extension NewExcursionTableViewController:UIGestureRecognizerDelegate{
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -326,3 +365,8 @@ extension NewExcursionTableViewController:UIGestureRecognizerDelegate{
     }
 }
 
+// MARK: - Validation
+
+extension NewExcursionTableViewController{
+    
+}

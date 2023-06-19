@@ -386,11 +386,14 @@ extension ExcurionsGuideCalendarViewController:UITableViewDelegate,UITableViewDa
         for guide in self.excursionsModel.excursions[indexPath.row].selfGuides{
             guides += guide.guideInfo.getFirstName() + ", "
         }
+        if guides.count > 2{
+            guides.removeLast()
+            guides.removeLast()
+        }
         
-        guides.removeLast()
-        guides.removeLast()
+       
         
-        cell.guidesLabel.text = String(guides[..<guides.endIndex])
+        cell.guidesLabel.text = guides
         
         
         return cell

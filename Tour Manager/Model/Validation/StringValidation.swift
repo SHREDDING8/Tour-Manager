@@ -35,4 +35,11 @@ class StringValidation{
         return phoneTest.evaluate(with: value)
     }
     
+    func validateLenghtString(string:String, min:Int = 0, max:Int)->Bool{
+        if string.count >= min && string.count <= max{
+            return true
+        }
+        return false
+    }
+    
 }

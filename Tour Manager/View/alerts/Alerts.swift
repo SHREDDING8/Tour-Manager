@@ -120,4 +120,12 @@ class Alert{
         return alert
     }
     
+    public func validationStringError(_ viewController:UIViewController, title:String,message:String? = nil){
+        let alert = UIAlertController(title: title, message: message != nil ? message : "Проверьте правильность введеных данных и повторите попытку", preferredStyle: .alert)
+        
+        let actionOk = UIAlertAction(title: "Ok", style: .default)
+        alert.addAction(actionOk)
+        viewController.present(alert, animated: true)
+    }
+    
 }

@@ -400,8 +400,11 @@ extension ExcursionManagementViewController:UITableViewDelegate,UITableViewDataS
         for guide in self.excursionsModel.excursions[indexPath.row].selfGuides{
             guides += guide.guideInfo.getFirstName() + ", "
         }
-        guides.removeLast()
-        guides.removeLast()
+        if guides.count > 2{
+            guides.removeLast()
+            guides.removeLast()
+        }
+        
         cell.guidesLabel.text = guides
         
         return cell
