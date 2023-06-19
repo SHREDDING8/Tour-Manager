@@ -11,6 +11,7 @@ enum TypeOfNewComponent{
     case route
     case customerCompanyName
     case customerGuiedName
+    case excursionPaymentMethod
     
     case guides
     
@@ -86,6 +87,11 @@ class AddingNewComponentViewController: UIViewController {
             excursionsModel.addAutofill(token: self.user?.getToken() ?? "" , companyId: self.user?.company.getLocalIDCompany() ?? "", autofillKey: .excursionCustomerGuideContact, autofillValue: self.excursion.customerGuideName) { isAdded, error in
                 
             }
+        case .excursionPaymentMethod:
+            excursionsModel.addAutofill(token: self.user?.getToken() ?? "" , companyId: self.user?.company.getLocalIDCompany() ?? "", autofillKey: .excursionPaymentMethod, autofillValue: self.excursion.paymentMethod) { isAdded, error in
+                
+            }
+            
         case .guides:
             break
         }
@@ -142,6 +148,21 @@ class AddingNewComponentViewController: UIViewController {
                     self.tableView.reloadData()
                 }
             }
+            
+        case .excursionPaymentMethod:
+            self.title = "Способ оплаты"
+            textField.placeholder = "Способ оплаты"
+            textField.text = excursion.paymentMethod
+            
+            excursionsModel.getAutofill(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", autofillKey: .excursionPaymentMethod) { isGetted, values, error in
+                if isGetted{
+                    self.arrayComponents = values!
+                    self.fullArrayComponents = self.arrayComponents
+                    self.tableView.reloadData()
+                }
+            }
+            
+            
         case .guides:
             self.title = "Экскурсоводы"
             textField.placeholder = "Найти"
@@ -226,6 +247,10 @@ extension AddingNewComponentViewController:UITextFieldDelegate{
             self.excursion.customerCompanyName = textField.text ?? ""
         case .customerGuiedName:
             self.excursion.customerGuideName = textField.text ?? ""
+        
+        case .excursionPaymentMethod:
+            self.excursion.paymentMethod = textField.text ?? ""
+            
         case .guides:
             break
         }
@@ -399,6 +424,17 @@ extension AddingNewComponentViewController:UITableViewDelegate,UITableViewDataSo
                         self.tableView.deleteRows(at: [indexPath], with: .automatic)
                     }
                 }
+            
+            case .excursionPaymentMethod:
+                self.excursionsModel.deleteAutofill(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", autofillKey: .excursionPaymentMethod, autofillValue: arrayComponents[indexPath.row]) { isDeleted, error in
+                    
+                    if isDeleted{
+                        self.arrayComponents.remove(at: indexPath.row)
+                        
+                        self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                    }
+                }
+                
             case .guides:
                 break
             }

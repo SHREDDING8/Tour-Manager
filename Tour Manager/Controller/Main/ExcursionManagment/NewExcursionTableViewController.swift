@@ -133,6 +133,7 @@ class NewExcursionTableViewController: UITableViewController {
         self.customerGuidePhone.text = self.excursion.companyGuidePhone
         
         self.paymentMethodSwitch.setOn(self.excursion.isPaid, animated: false)
+        self.paymentMethodLabel.text = !self.excursion.paymentMethod.isEmpty ? self.excursion.paymentMethod : "Не выбрано"
         self.paymentAmountTextField.text = String(self.excursion.paymentAmount)
         
         self.dateAndTime.setDate(excursion.dateAndTime, animated: true)
@@ -259,7 +260,13 @@ extension NewExcursionTableViewController{
             destinantion.typeOfNewComponent = .customerGuiedName
 
             self.navigationController?.pushViewController(destinantion, animated: true)
-        }else if indexPath.section == 3 && indexPath.row == 0{
+        }else if indexPath.section == 2 && indexPath.row == 1 {
+            destinantion.typeOfNewComponent = .excursionPaymentMethod
+
+            self.navigationController?.pushViewController(destinantion, animated: true)
+            
+        }
+        else if indexPath.section == 3 && indexPath.row == 0{
             destinantion.typeOfNewComponent = .guides
 
             self.navigationController?.pushViewController(destinantion, animated: true)

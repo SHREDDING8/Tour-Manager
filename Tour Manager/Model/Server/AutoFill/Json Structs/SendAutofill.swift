@@ -11,6 +11,7 @@ public enum AutofillKeys:String{
     case excursionRoute = "tour_route"
     case excursionCustomerGuideContact = "tour_customer_guide_contact"
     case excursionCustomerCompanyName = "tour_customer_company_name"
+    case excursionPaymentMethod = "tour_payment_method"
 }
 
 

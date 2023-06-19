@@ -27,7 +27,6 @@ public class Excursion{
     var excursionName:String = ""
     
     var route:String = ""
-    var routes:[String] = ["уи-оэз-обз", "оэз-лбз-уи", "шишки-уи-обз-оэз"]
     
     var additionalInfromation:String = ""
     
@@ -37,13 +36,11 @@ public class Excursion{
     
 
     var customerCompanyName:String = ""
-    var customerCompanyNames:[String] = ["Семейный чемодан","антон","тест","экскурсии казань"]
     
     var customerGuideName:String = ""
-    var customerGuideNames:[String] = ["Василиса","Михаил","Антон","Дарья Ивановна","Дарина Александровна"]
     
     var companyGuidePhone:String = ""
-    var paymentMethod = "Не выбрано"
+    var paymentMethod = ""
     
     var paymentAmount:Int = 0
     
