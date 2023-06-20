@@ -69,6 +69,8 @@
 		EEF27A542A05AA44006E5E53 /* Controllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A532A05AA44006E5E53 /* Controllers.swift */; };
 		EEF27A572A05B512006E5E53 /* extensionUiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A562A05B512006E5E53 /* extensionUiView.swift */; };
 		EEF27A592A05C7BC006E5E53 /* VerifyEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A582A05C7BC006E5E53 /* VerifyEmailViewController.swift */; };
+		EEF6EBA82A41BADE00DC5F6A /* GuideCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF6EBA62A41BADE00DC5F6A /* GuideCollectionViewCell.swift */; };
+		EEF6EBA92A41BADE00DC5F6A /* GuideCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEF6EBA72A41BADE00DC5F6A /* GuideCollectionViewCell.xib */; };
 		EEFD30ED2A3B6400003192A1 /* ExcursionsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEFD30EC2A3B6400003192A1 /* ExcursionsNavigationController.swift */; };
 		EEFD30EF2A3B7905003192A1 /* ExcurionsGuideCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEFD30EE2A3B7905003192A1 /* ExcurionsGuideCalendarViewController.swift */; };
 /* End PBXBuildFile section */
@@ -142,6 +144,8 @@
 		EEF27A532A05AA44006E5E53 /* Controllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controllers.swift; sourceTree = "<group>"; };
 		EEF27A562A05B512006E5E53 /* extensionUiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionUiView.swift; sourceTree = "<group>"; };
 		EEF27A582A05C7BC006E5E53 /* VerifyEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyEmailViewController.swift; sourceTree = "<group>"; };
+		EEF6EBA62A41BADE00DC5F6A /* GuideCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideCollectionViewCell.swift; sourceTree = "<group>"; };
+		EEF6EBA72A41BADE00DC5F6A /* GuideCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuideCollectionViewCell.xib; sourceTree = "<group>"; };
 		EEFD30EC2A3B6400003192A1 /* ExcursionsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcursionsNavigationController.swift; sourceTree = "<group>"; };
 		EEFD30EE2A3B7905003192A1 /* ExcurionsGuideCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcurionsGuideCalendarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -459,6 +463,8 @@
 				EEE8026F2A2E5DED00162622 /* ExcursionTableViewCell.xib */,
 				EEB764A02A387B2200579E6B /* NewComponentTableViewCell.swift */,
 				EEB764A12A387B2200579E6B /* NewComponentTableViewCell.xib */,
+				EEF6EBA62A41BADE00DC5F6A /* GuideCollectionViewCell.swift */,
+				EEF6EBA72A41BADE00DC5F6A /* GuideCollectionViewCell.xib */,
 			);
 			path = cells;
 			sourceTree = "<group>";
@@ -575,6 +581,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE52E17B29E5C1CB000C0E5B /* LaunchScreen.storyboard in Resources */,
+				EEF6EBA92A41BADE00DC5F6A /* GuideCollectionViewCell.xib in Resources */,
 				EE1770F62A23F00300B18055 /* Launch.storyboard in Resources */,
 				EEE802712A2E5DED00162622 /* ExcursionTableViewCell.xib in Resources */,
 				EEB764A32A387B2200579E6B /* NewComponentTableViewCell.xib in Resources */,
@@ -655,6 +662,7 @@
 				EE1770EE2A239A7E00B18055 /* ChangePasswordViewController.swift in Sources */,
 				EEE802702A2E5DED00162622 /* ExcursionTableViewCell.swift in Sources */,
 				EEF27A512A059BE4006E5E53 /* TextFieldValidation.swift in Sources */,
+				EEF6EBA82A41BADE00DC5F6A /* GuideCollectionViewCell.swift in Sources */,
 				EEF27A482A05551E006E5E53 /* Font.swift in Sources */,
 				EE4C89372A2CF006004D3CB9 /* User Info.swift in Sources */,
 				EE6DE06A2A1E681100507A27 /* User.swift in Sources */,

@@ -100,5 +100,69 @@
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8E968B44-59E2-47AE-9328-C75D2DE1137F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Controller/Main/ExcursionManagment/AddingNewComponentViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
+            landmarkName = "configureView()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9F07843D-4BD4-4765-BA39-7844302A25E9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Controller/Main/ExcursionManagment/AddingNewComponentViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "185"
+            endingLineNumber = "185"
+            landmarkName = "configureView()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "9F07843D-4BD4-4765-BA39-7844302A25E9 - e1e2696c2c67a7de"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #5 (Swift.Bool, Swift.Optional&lt;Swift.Array&lt;Tour_Manager.User&gt;&gt;, Swift.Optional&lt;Tour_Manager.customErrorCompany&gt;) -&gt; () in Tour_Manager.AddingNewComponentViewController.configureView() -&gt; ()"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Controller/Main/ExcursionManagment/AddingNewComponentViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "185"
+                  endingLineNumber = "185"
+                  offsetFromSymbolStart = "1092">
+               </Location>
+               <Location
+                  uuid = "9F07843D-4BD4-4765-BA39-7844302A25E9 - e1e2696c2c67a7de"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #5 (Swift.Bool, Swift.Optional&lt;Swift.Array&lt;Tour_Manager.User&gt;&gt;, Swift.Optional&lt;Tour_Manager.customErrorCompany&gt;) -&gt; () in Tour_Manager.AddingNewComponentViewController.configureView() -&gt; ()"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Controller/Main/ExcursionManagment/AddingNewComponentViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "185"
+                  endingLineNumber = "185"
+                  offsetFromSymbolStart = "652">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

@@ -6,15 +6,31 @@
 //
 
 import Foundation
+import UIKit
 
 enum Status:String{
     case waiting = "waiting"
     case cancel = "cancel"
     case accepted = "accept"
     case emptyGuides = "emptyGuides"
+    
+    public func getColor()->UIColor{
+        switch self{
+            
+        case .waiting:
+            return .orange
+        case .cancel:
+            return .red
+        case .accepted:
+            return .green
+        case .emptyGuides:
+            return .blue
+        }
+    }
 }
 
-public struct SelfGuide {
+public struct SelfGuide:Equatable {
+    
     var guideInfo:User
     var isMain:Bool
     var status:Status = .waiting
