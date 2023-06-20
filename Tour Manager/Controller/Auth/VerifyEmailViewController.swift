@@ -17,6 +17,8 @@ class VerifyEmailViewController: UIViewController {
     
     let user = AppDelegate.user
     
+    var loadUIView:LoadView!
+    
     
     var password = ""
     var email = ""
@@ -32,6 +34,8 @@ class VerifyEmailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
+        
+        self.loadUIView = LoadView(viewController: self)
         
         // Do any additional setup after loading the view.
     }
@@ -75,10 +79,12 @@ class VerifyEmailViewController: UIViewController {
 
     
     @IBAction func verifiedButtonTap(_ sender: Any) {
+        self.loadUIView.setLoadUIView()
         self.logIn()
     }
     
     @IBAction func resendEmail(_ sender: Any) {
+        self.loadUIView.setLoadUIView()
         
         self.user?.sendVerifyEmail(password: self.password, completion: { isSent, error in
             if error == .unknowmError{
@@ -88,6 +94,7 @@ class VerifyEmailViewController: UIViewController {
                 let alert = self.alerts.infoAlert(title: "Email Отправлен", meesage: "Проверьте почту и подтвердите аккаунт")
                 self.present(alert, animated: true)
             }
+            self.loadUIView.removeLoadUIView()
         })
     }
     
@@ -106,21 +113,29 @@ class VerifyEmailViewController: UIViewController {
                 
             }
             
-            if !isLogIn{ return }
+            if !isLogIn{
+                self.loadUIView.removeLoadUIView()
+                return
+            }
             
             self.user?.getUserInfoFromApi(completion: { isInfo, error in
                 if error == .dataNotFound{
                     self.goToAddingPersonalData()
+                    self.loadUIView.removeLoadUIView()
                     return
                 }else if error == .invalidToken{
+                    self.loadUIView.removeLoadUIView()
                     self.goToLogInPage()
                 } else if error == .tokenExpired{
+                    self.loadUIView.removeLoadUIView()
                     self.goToLogInPage()
                 } else if error == .unknowmError{
+                    self.loadUIView.removeLoadUIView()
                     self.goToLogInPage()
                 }
                 
                 if isInfo == true{
+                    self.loadUIView.removeLoadUIView()
                     self.goToMainTabBar()
                 }
             })
