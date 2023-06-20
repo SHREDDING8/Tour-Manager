@@ -71,6 +71,12 @@ class AddingNewComponentViewController: UIViewController {
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
@@ -175,6 +181,11 @@ class AddingNewComponentViewController: UIViewController {
                     }
                     self.fullArrayWithGuides = self.arrayWithGuides
                     self.tableView.reloadData()
+                    
+                    if self.fullArrayWithGuides.count > 0{
+                        self.showContextualAction(cell: self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! NewComponentTableViewCell)
+                    }
+                    
                 }
             })
         }
@@ -336,10 +347,33 @@ extension AddingNewComponentViewController:UITableViewDelegate,UITableViewDataSo
         return cell
     }
     
+    fileprivate func showContextualAction(cell:NewComponentTableViewCell){
+        
+        let uiView = UIView(frame: CGRect(origin: CGPoint(x: cell.componentText.frame.origin.x + 5, y: cell.frame.origin.y) , size: CGSize(width: 100, height: cell.frame.height)))
+        
+        uiView.backgroundColor = .systemGreen
+        uiView.layer.cornerRadius = cell.layer.cornerRadius
+        
+        self.tableView.addSubview(uiView)
+        self.tableView.sendSubviewToBack(uiView)
+        
+        
+        UIView.animate(withDuration: 0.5) {
+                cell.transform = CGAffineTransform(translationX: 50, y: 0)
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+            UIView.animate(withDuration: 0.5) {
+                cell.transform = CGAffineTransform(translationX: 0, y: 0)
+            }
+        }
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if typeOfNewComponent == .guides{
+
+            if typeOfNewComponent == .guides{
             
             let cell = tableView.cellForRow(at: indexPath)
             
@@ -376,7 +410,7 @@ extension AddingNewComponentViewController:UITableViewDelegate,UITableViewDataSo
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         
         if typeOfNewComponent == .guides{
-            return false
+            return true
         }
         
         if tableView.isEditing{
@@ -385,6 +419,39 @@ extension AddingNewComponentViewController:UITableViewDelegate,UITableViewDataSo
             self.navigationItem.rightBarButtonItem!.title = "Edit"
         }
         return true
+    }
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        if typeOfNewComponent != .guides{
+            return nil
+        }
+         
+        let mainGuideAction = UIContextualAction(style: .destructive, title: "Главный гид") {  (contextualAction, view, boolValue) in
+            
+            for guide in 0..<self.excursion.selfGuides.count{
+                if self.excursion.selfGuides[guide] == self.arrayWithGuides[indexPath.row]{
+                    self.excursion.selfGuides[guide].isMain = true
+                }else{
+                    self.excursion.selfGuides[guide].isMain = false
+                }
+            }
+            
+            boolValue(true)
+            }
+        mainGuideAction.backgroundColor = .systemGreen
+        
+        let swipeConfiguration = UISwipeActionsConfiguration(actions: [mainGuideAction])
+        
+        return swipeConfiguration
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        if typeOfNewComponent == .guides{
+            return .none
+        }
+        return .delete
+        
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -456,7 +523,9 @@ extension AddingNewComponentViewController:UITableViewDelegate,UITableViewDataSo
         
         self.tableView.isEditing ? self.tableView.setEditing(false, animated: true) : self.tableView.setEditing(true, animated: true)
         
+        
     }
+    
 }
 
 

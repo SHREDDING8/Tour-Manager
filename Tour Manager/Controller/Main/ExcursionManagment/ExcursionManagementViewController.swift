@@ -332,8 +332,7 @@ class ExcursionManagementViewController: UIViewController{
                     let alert = self.alerts.invalidToken(view: self.view, message: "Ваша сессия закончилась")
                     self.present(alert, animated: true)
                 } else if error == .unknown{
-                    let alert = self.alerts.errorAlert(errorTypeApi: .unknown)
-                    self.present(alert, animated: true)
+                    self.alerts.errorAlert(self, errorTypeApi: .unknown)
                 }
                 return
             }
@@ -416,13 +415,8 @@ extension ExcursionManagementViewController:FSCalendarDelegate, FSCalendarDataSo
         return 0
     }
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventDefaultColorsFor date: Date) -> [UIColor]? {
-        let dat = date.birthdayToString()
         
         var eventsColors:[UIColor] = []
-        
-//        if date.birthdayToString() == "20.06.2023"{
-//            print(123)
-//        }
         
         for event in events{
             if event.tourDate == date.birthdayToString(){
@@ -443,6 +437,32 @@ extension ExcursionManagementViewController:FSCalendarDelegate, FSCalendarDataSo
         }
         
         return eventsColors
+    }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventSelectionColorsFor date: Date) -> [UIColor]? {
+        
+        var eventsColors:[UIColor] = []
+        
+        for event in events{
+            if event.tourDate == date.birthdayToString(){
+                if event.waiting{
+                    eventsColors.append(.orange)
+                }
+                if event.cancel{
+                    eventsColors.append(.red)
+                }
+                if event.emptyGuide{
+                    eventsColors.append(.blue)
+                }
+                if event.accept{
+                    eventsColors.append(.green)
+                }
+            }
+            
+        }
+        
+        return eventsColors
+        
     }
 }
 

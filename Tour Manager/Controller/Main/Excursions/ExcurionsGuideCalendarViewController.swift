@@ -20,6 +20,8 @@ class ExcurionsGuideCalendarViewController: UIViewController {
     
     let controllers = Controllers()
     
+    var events:[ResponseGetExcursionsForGuideListByRange] = []
+    
     
     
     
@@ -114,6 +116,11 @@ class ExcurionsGuideCalendarViewController: UIViewController {
         
         self.getExcursions(date: Date.now)
                 
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.getEventsForDates()
     }
     
     // MARK: - configureView
@@ -301,12 +308,38 @@ class ExcurionsGuideCalendarViewController: UIViewController {
         }
     }
     
+    
+    fileprivate func getEventsForDates(){
+        let startDate:Date = Calendar.current.date(byAdding: DateComponents(day: -5), to: self.calendar.currentPage)!
+        var endDate:Date = .now
+        
+        switch self.calendar.scope{
+        case .month:
+            endDate = Calendar.current.date(byAdding: DateComponents(day: 35), to: self.calendar.currentPage)!
+        case .week:
+            endDate = Calendar.current.date(byAdding: DateComponents(day: 10), to: self.calendar.currentPage)!
+        @unknown default:
+            break
+        }
+        
+        excursionsModel.getExcursionsListForGuideByRange(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", startDate: startDate.birthdayToString(), endDate: endDate.birthdayToString()) { isGetted, list, error in
+            
+            if isGetted{
+                self.events = list!
+                
+                self.calendar.reloadData()
+            }
+            
+        }
+        
+    }
+    
 }
 
 
 
 // MARK: - FSCalendarDelegate
-extension ExcurionsGuideCalendarViewController:FSCalendarDelegate, FSCalendarDataSource{
+extension ExcurionsGuideCalendarViewController:FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance{
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
         calendarHeightConstraint.constant = bounds.height
@@ -329,6 +362,65 @@ extension ExcurionsGuideCalendarViewController:FSCalendarDelegate, FSCalendarDat
         dateFormatter.setLocalizedDateFormatFromTemplate("MMMM YYYY")
         
         calendar.appearance.headerDateFormat = dateFormatter.string(from: calendar.currentPage)
+        
+        self.getEventsForDates()
+    }
+    
+    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+        for event in events{
+            if event.tourDate == date.birthdayToString(){
+                var result = event.cancel.toInt() + event.waiting.toInt()
+                if result == 0{
+                    result += event.accept.toInt()
+                }
+                return result
+            }
+        }
+        return 0
+    }
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventDefaultColorsFor date: Date) -> [UIColor]? {
+        
+        var eventsColors:[UIColor] = []
+        
+        for event in events{
+            if event.tourDate == date.birthdayToString(){
+                if event.waiting{
+                    eventsColors.append(.orange)
+                }
+                if event.cancel{
+                    eventsColors.append(.red)
+                }
+                if event.accept{
+                    eventsColors.append(.green)
+                }
+            }
+            
+        }
+        
+        return eventsColors
+    }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventSelectionColorsFor date: Date) -> [UIColor]? {
+        
+        var eventsColors:[UIColor] = []
+        
+        for event in events{
+            if event.tourDate == date.birthdayToString(){
+                if event.waiting{
+                    eventsColors.append(.orange)
+                }
+                if event.cancel{
+                    eventsColors.append(.red)
+                }
+                if event.accept{
+                    eventsColors.append(.green)
+                }
+            }
+            
+        }
+        
+        return eventsColors
+        
     }
     
     
@@ -347,8 +439,7 @@ extension ExcurionsGuideCalendarViewController:FSCalendarDelegate, FSCalendarDat
                     let alert = self.alerts.invalidToken(view: self.view, message: "Ваша сессия закончилась")
                     self.present(alert, animated: true)
                 } else if error == .unknown{
-                    let alert = self.alerts.errorAlert(errorTypeApi: .unknown)
-                    self.present(alert, animated: true)
+                    self.alerts.errorAlert(self, errorTypeApi: .unknown)
                 }
                 return
             }

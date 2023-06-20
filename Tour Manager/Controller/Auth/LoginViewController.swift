@@ -10,20 +10,23 @@ import UIKit
 class LoginViewController: UIViewController {
     
     // MARK: - my variables
-    
+    var loadUIView:LoadView!
     let font = Font()
     let controllers = Controllers()
-    let textFieldValidation = TextFieldValidation()
+    let validation = StringValidation()
     let alerts = Alert()
     
     var user:User!
-    let userDefaults = UserDefaults()
+    
+    let userDefaults = WorkWithUserDefaults()
     
     var isSignIn = false
     
     var tableViewPosition:CGFloat!
     
     var email:String = ""
+    var firstPassword = ""
+    var secondPassword = ""
     
     var emailTextField:UITextField!
     var firstPasswordTextField:UITextField!
@@ -46,6 +49,8 @@ class LoginViewController: UIViewController {
         AppDelegate.user = User()
         self.user = AppDelegate.user
         
+        self.loadUIView = LoadView(viewController: self)
+        
         
     }
     
@@ -54,8 +59,9 @@ class LoginViewController: UIViewController {
         self.isSignIn = false
         tableView.reloadData()
         addKeyboardObservers()
-        userDefaults.set(nil, forKey: "authToken")
-        userDefaults.set(nil, forKey: "localId")
+        
+        self.userDefaults.removeLoginData()
+        
         
     }
     
@@ -87,6 +93,7 @@ class LoginViewController: UIViewController {
             self.logInButton.setTitle(title: "Регистрация", size: 20, style: .bold)
             self.signInLogInButton.setTitle(title: "Вход" , size: 16, style: .semiBold)
         }else{
+            self.signInLogInButton.setTitle(title: "Регистрация" , size: 16, style: .semiBold)
             self.logInButton.setTitle(title: "Войти", size: 20, style: .bold)
         }
     }
@@ -97,10 +104,12 @@ class LoginViewController: UIViewController {
     
     @IBAction func logIn(_ sender: Any) {
         
+        self.loadUIView.setLoadUIView()
+       
         // validate email
-        if !textFieldValidation.validateEmailTextField(self.emailTextField){
-            let errorAlert = alerts.errorAlert(errorTypeFront: .email)
-            self.present(errorAlert, animated: true)
+        if !validation.validateEmail(self.email){
+            alerts.validationStringError(self, title: "Неправильный email", message: "Проверьте правильность введенных данных и повторите попытку")
+            self.loadUIView.removeLoadUIView()
             return
         }
         
@@ -116,23 +125,34 @@ class LoginViewController: UIViewController {
     // MARK: - Reset Password Tapped
     
     @IBAction func resetPasswordTapped(_ sender: Any) {
-        if !textFieldValidation.validateEmailTextField(emailTextField){
-            
-            let error = alerts.errorAlert(errorTypeFront: .email)
-            self.present(error, animated: true)
+        
+        self.loadUIView.setLoadUIView()
+        
+        if self.email.isEmpty{
+            self.alerts.validationStringError(self, title: "Поле email пустое", message: "Введите email")
+            self.loadUIView.removeLoadUIView()
             return
         }
         
-        self.user?.setEmail(email: self.emailTextField.text ?? "")
+        if !validation.validateEmail(self.email){
+            alerts.validationStringError(self, title: "Неправильный email", message: "Проверьте правильность введенных данных и повторите попытку")
+            self.loadUIView.removeLoadUIView()
+            return
+        }
+        
+        self.user?.setEmail(email: self.email)
         
         self.user?.resetPassword(completion: { isReset, error in
+            
+            if !isReset{
+                self.loadUIView.removeLoadUIView()
+            }
+            
             if error == .userNotFound{
-                let error = self.alerts.errorAlert(errorTypeApi: .userNotFound)
-                self.present(error, animated: true)
+                self.alerts.errorAlert(self, errorTypeApi: .userNotFound)
                 return
             } else if error == .unknowmError{
-                let error = self.alerts.errorAlert(errorTypeApi: .unknown)
-                self.present(error, animated: true)
+                self.alerts.errorAlert(self, errorTypeApi: .unknown)
                 return
             }
             
@@ -150,28 +170,29 @@ class LoginViewController: UIViewController {
     
     fileprivate func signIn(){
         // validate password
-        if !textFieldValidation.validatePasswordsTextField(self.firstPasswordTextField, self.secondPasswordTextField){
+        if !validation.validatePasswordsString(self.firstPassword, self.secondPassword){
             let errorAlert = alerts.errorAlert(errorTypeFront: .weakPassword)
             self.present(errorAlert, animated: true)
+            self.loadUIView.removeLoadUIView()
             return
         }
-        
+
         self.user?.setEmail(email: self.email)
-        
+    
         // signIn Api
         
         self.user?.signIn(password: self.firstPasswordTextField.text!, completion: { isSignIn, error in
+            
+            if !isSignIn{ self.loadUIView.removeLoadUIView() }
+            
             if error == .unknowmError{
-                let errorAlert = self.alerts.errorAlert(errorTypeApi: .unknown)
-                self.present(errorAlert, animated: true)
+                self.alerts.errorAlert(self, errorTypeApi: .unknown)
                 return
             } else if error == .emailExist{
-                let errorAlert = self.alerts.errorAlert(errorTypeApi: .emailExists)
-                self.present(errorAlert, animated: true)
+                self.alerts.errorAlert(self, errorTypeApi: .emailExists)
                 return
             }else if error == .weakPassword{
-                let errorAlert = self.alerts.errorAlert(errorTypeApi: .weakPassword)
-                self.present(errorAlert, animated: true)
+                self.alerts.errorAlert(self, errorTypeApi: .weakPassword)
                 return
             }
             
@@ -191,42 +212,43 @@ class LoginViewController: UIViewController {
         
         
         self.user?.logIn(password: self.firstPasswordTextField.text!, completion: { isLogIn, error in
+            
+            if !isLogIn{ self.loadUIView.removeLoadUIView() }
+            
             if error == .emailIsNotVerifyed{
                 self.goToVerifyVC()
                 return
                 
             } else if error == .invalidEmailOrPassword{
                 
-                let error = self.alerts.errorAlert(errorTypeApi: .invalidEmailOrPassword)
-                self.present(error, animated: true)
+                self.alerts.errorAlert(self, errorTypeApi: .invalidEmailOrPassword)
                 return
                 
             } else if error == .unknowmError{
-                
-                let error = self.alerts.errorAlert(errorTypeApi: .unknown)
-                self.present(error, animated: true)
+                self.alerts.errorAlert(self, errorTypeApi: .unknown)
                 return
             }
             
             self.user?.getUserInfoFromApi(completion: { isGetted, error in
+                
+                if !isGetted{ self.loadUIView.removeLoadUIView() }
+                
                 if error == .dataNotFound{
                     self.goToAddingPersonalData()
                     return
                 }else if error == .invalidToken{
-                    let error = self.alerts.errorAlert(errorTypeApi: .unknown)
-                    self.present(error, animated: true)
+                    self.alerts.errorAlert(self, errorTypeApi: .unknown)
                     return
                 } else if error == .tokenExpired{
-                    let error = self.alerts.errorAlert(errorTypeApi: .unknown)
-                    self.present(error, animated: true)
+                    self.alerts.errorAlert(self, errorTypeApi: .unknown)
                     return
                 } else if error == .unknowmError{
-                    let error = self.alerts.errorAlert(errorTypeApi: .unknown)
-                    self.present(error, animated: true)
+                    self.alerts.errorAlert(self, errorTypeApi: .unknown)
                     return
                 }
                 
                 if isGetted{
+                    self.loadUIView.removeLoadUIView()
                     self.controllers.goToMainTabBar(view: self.view)
                 }
                 
@@ -242,8 +264,7 @@ class LoginViewController: UIViewController {
         
         self.user?.sendVerifyEmail(password: self.firstPasswordTextField.text!, completion: { isSent, error in
             if error == .unknowmError{
-                let error = self.alerts.errorAlert(errorTypeApi: .unknown)
-                self.present(error, animated: true)
+                self.alerts.errorAlert(self, errorTypeApi: .unknown)
                 return
             }
             
@@ -395,14 +416,8 @@ extension LoginViewController:UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         if textField.restorationIdentifier == "emailTextField"{
-            
-            self.email = textField.text!
-            
-            self.firstPasswordTextField.text = ""
-            self.secondPasswordTextField?.text = ""
             self.firstPasswordTextField.becomeFirstResponder()
-            
-            
+
         } else if textField.restorationIdentifier == "passwordTextField"{
             _ = self.isSignIn ? secondPasswordTextField?.becomeFirstResponder() : firstPasswordTextField.resignFirstResponder()
             self.secondPasswordTextField?.text = ""
@@ -416,9 +431,18 @@ extension LoginViewController:UITextFieldDelegate{
         
         if textField.restorationIdentifier == "emailTextField"{
             
+            self.email = textField.text!.trimmingCharacters(in: CharacterSet(charactersIn: " "))
+            self.emailTextField.text = self.email
+            
             self.firstPasswordTextField.text = ""
             self.secondPasswordTextField?.text = ""
+            self.firstPassword = ""
+            self.secondPassword = ""
         
+        }else if textField.restorationIdentifier == "passwordTextField"{
+            self.firstPassword = textField.text!
+        } else if textField.restorationIdentifier == "confirmPasswordTextField"{
+            self.secondPassword = textField.text!
         }
     }
 }

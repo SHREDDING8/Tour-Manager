@@ -11,6 +11,8 @@ class ExcursionForGuideTableViewController: UITableViewController {
     
     var excursion = Excursion()
     
+    let user = AppDelegate.user
+    
     // MARK: - Outlets
     
     @IBOutlet weak var excursionNameLabel: UILabel!
@@ -86,11 +88,27 @@ extension ExcursionForGuideTableViewController:UICollectionViewDelegate,UICollec
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "guiedCollectionViewCell", for: indexPath)
+        let nib = UINib(nibName: "GuideCollectionViewCell", bundle: nil)
+        collectionView.register(nib, forCellWithReuseIdentifier: "GuideCollectionViewCell")
+                
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GuideCollectionViewCell", for: indexPath) as! GuideCollectionViewCell
         
-        let fullName = cell.viewWithTag(1) as! UILabel
+        cell.fullName.text = self.excursion.selfGuides[indexPath.row].guideInfo.getFullName()
+        if self.excursion.selfGuides[indexPath.row].isMain{
+            cell.isMainGuide.isHidden = false
+        }else{
+            cell.isMainGuide.isHidden = true
+        }
         
-        fullName.text =  self.excursion.selfGuides[indexPath.row].guideInfo.getFullName()
+        cell.status.tintColor = self.excursion.selfGuides[indexPath.row].status.getColor()
+        
+        self.user?.downloadProfilePhoto(localId: self.excursion.selfGuides[indexPath.row].guideInfo.getLocalID() ?? "", completion: { data, error in
+            if data != nil{
+                UIView.transition(with: cell.profilePhoto, duration: 0.3, options: .transitionCrossDissolve) {
+                    cell.profilePhoto.image = UIImage(data: data!)!
+                }
+            }
+        })
         
         return cell
     }

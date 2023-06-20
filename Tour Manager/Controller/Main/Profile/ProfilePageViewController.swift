@@ -221,8 +221,7 @@ class ProfilePageViewController: UIViewController {
                     self.present(alert, animated: true)
                 } else if error == .unknowmError{
                     self.dateLabel.text = self.user?.getBirthday()
-                    let alert  = self.alerts.errorAlert(errorTypeApi: .unknown)
-                    self.present(alert, animated: true)
+                    self.alerts.errorAlert(self, errorTypeApi: .unknown)
                 }
                 if isSetted{
                     self.dateLabel.text = picker.date.birthdayToString()
@@ -316,8 +315,7 @@ class ProfilePageViewController: UIViewController {
                     let alert = self.alerts.invalidToken(view: self.view, message: nil)
                     self.present(alert, animated: true)
                 } else if error == .unknowmError{
-                    let alert = self.alerts.errorAlert(errorTypeApi: .unknown)
-                    self.present(alert, animated: true)
+                    self.alerts.errorAlert(self, errorTypeApi: .unknown)
                 }
                 
                 if isDeleted{
@@ -541,8 +539,7 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
                             self.present(alert, animated: true)
                             
                         } else if error == .unknowmError{
-                            let alert = self.alerts.errorAlert(errorTypeApi: .unknown)
-                            self.present(alert, animated: true)
+                            self.alerts.errorAlert(self, errorTypeApi: .unknown)
                         }
                         
                         if isDeleted{
@@ -701,8 +698,7 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
                 }
                 
                 if error == .unknowmError{
-                    let alert = self.alerts.errorAlert(errorTypeApi: .unknown)
-                    self.present(alert, animated: true)
+                    self.alerts.errorAlert(self, errorTypeApi: .unknown)
                 }
                 
                 if isDeleted{
@@ -761,8 +757,7 @@ extension ProfilePageViewController:UITextFieldDelegate{
                     self.present(alert, animated: true)
                 } else if error == .unknowmError{
                     textField.text = self.user?.getFirstName()
-                    let alert  = self.alerts.errorAlert(errorTypeApi: .unknown)
-                    self.present(alert, animated: true)
+                    self.alerts.errorAlert(self, errorTypeApi: .unknown)
                 }
                 
                 if isSetted{
@@ -787,8 +782,7 @@ extension ProfilePageViewController:UITextFieldDelegate{
                     self.present(alert, animated: true)
                 } else if error == .unknowmError{
                     textField.text = self.user?.getSecondName()
-                    let alert  = self.alerts.errorAlert(errorTypeApi: .unknown)
-                    self.present(alert, animated: true)
+                    self.alerts.errorAlert(self, errorTypeApi: .unknown)
                 }
                 
                 if isSetted{
@@ -811,8 +805,7 @@ extension ProfilePageViewController:UITextFieldDelegate{
                     self.present(alert, animated: true)
                 } else if error == .unknowmError{
                     textField.text = self.user?.getPhone()
-                    let alert  = self.alerts.errorAlert(errorTypeApi: .unknown)
-                    self.present(alert, animated: true)
+                    self.alerts.errorAlert(self, errorTypeApi: .unknown)
                 }
             }
             
@@ -832,8 +825,7 @@ extension ProfilePageViewController:UITextFieldDelegate{
                     self.present(alert, animated: true)
                 } else if error != nil{
                     textField.text = self.user?.company.getNameCompany()
-                    let alert  = self.alerts.errorAlert(errorTypeApi: .unknown)
-                    self.present(alert, animated: true)
+                    self.alerts.errorAlert(self, errorTypeApi: .unknown)
                 }
                 
                 if isUpdated{
@@ -861,8 +853,7 @@ extension ProfilePageViewController:UIImagePickerControllerDelegate,UINavigation
                     let alert = self.alerts.invalidToken(view: self.view, message: nil)
                     self.present(alert, animated: true)
                 } else if error == .unknowmError{
-                    let alert = self.alerts.errorAlert(errorTypeApi: .unknown)
-                    self.present(alert, animated: true)
+                    self.alerts.errorAlert(self, errorTypeApi: .unknown)
                 }
                 
                 if isUpload{
