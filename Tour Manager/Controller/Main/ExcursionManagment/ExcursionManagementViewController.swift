@@ -397,15 +397,32 @@ extension ExcursionManagementViewController:UITableViewDelegate,UITableViewDataS
         
         var guides = ""
         
+        var statuses:[Status] = []
+        
         for guide in self.excursionsModel.excursions[indexPath.row].selfGuides{
             guides += guide.guideInfo.getFirstName() + ", "
+            
+            statuses.append(guide.status)
+            
         }
         if guides.count > 2{
             guides.removeLast()
             guides.removeLast()
+            
+            if statuses.contains(.cancel){
+                cell.statusView.backgroundColor = .red
+            } else if statuses.contains(.waiting){
+                cell.statusView.backgroundColor = .orange
+            } else if  statuses.contains(.accepted){
+                cell.statusView.backgroundColor = .green
+            }
+            
+        }else{
+            cell.statusView.backgroundColor = .blue
         }
         
         cell.guidesLabel.text = guides
+        
         
         return cell
     }

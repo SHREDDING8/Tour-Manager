@@ -97,9 +97,7 @@ class NewExcursionTableViewController: UITableViewController {
             self.warningAlertDuringExit(isPopController: true)
         })
         
-        self.navigationController?.interactivePopGestureRecognizer?.delegate! = self
-        
-        
+       
         if isUpdate{
             self.navigationItem.title = "Редактирование"
             self.oldDate = excursion.dateAndTime
@@ -110,6 +108,7 @@ class NewExcursionTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.interactivePopGestureRecognizer?.delegate! = self
         configureFieldsWithExcursionInfo()
         guiedsCollectionView.reloadData()
     }
@@ -155,7 +154,7 @@ class NewExcursionTableViewController: UITableViewController {
             return
         }
         
-        if !validation.validatePhone(value: self.excursion.companyGuidePhone){
+        if self.excursion.companyGuidePhone.count > 0 && !validation.validatePhone(value: self.excursion.companyGuidePhone){
             self.alerts.validationStringError(self, title: "Ошибка в контакте сопровождающего")
             return
         }
@@ -366,14 +365,9 @@ extension NewExcursionTableViewController{
 // MARK: - UIGestureRecognizerDelegate
 extension NewExcursionTableViewController:UIGestureRecognizerDelegate{
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        warningAlertDuringExit(isPopController: true)
-        
+            warningAlertDuringExit(isPopController: true)
+       
         return false
     }
 }
 
-// MARK: - Validation
-
-extension NewExcursionTableViewController{
-    
-}
