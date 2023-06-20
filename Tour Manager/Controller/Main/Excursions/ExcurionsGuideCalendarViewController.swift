@@ -283,8 +283,6 @@ class ExcurionsGuideCalendarViewController: UIViewController {
         
     }
     
-    
-    
     public func getExcursions(date:Date){
         self.excursionsModel.excursions = []
 
