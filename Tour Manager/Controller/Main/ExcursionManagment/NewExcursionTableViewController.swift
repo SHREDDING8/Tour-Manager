@@ -97,9 +97,7 @@ class NewExcursionTableViewController: UITableViewController {
             self.warningAlertDuringExit(isPopController: true)
         })
         
-        self.navigationController?.interactivePopGestureRecognizer?.delegate! = self
-        
-        
+       
         if isUpdate{
             self.navigationItem.title = "Редактирование"
             self.oldDate = excursion.dateAndTime
@@ -110,6 +108,7 @@ class NewExcursionTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.interactivePopGestureRecognizer?.delegate! = self
         configureFieldsWithExcursionInfo()
         guiedsCollectionView.reloadData()
     }
@@ -366,14 +365,9 @@ extension NewExcursionTableViewController{
 // MARK: - UIGestureRecognizerDelegate
 extension NewExcursionTableViewController:UIGestureRecognizerDelegate{
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        warningAlertDuringExit(isPopController: true)
-        
+            warningAlertDuringExit(isPopController: true)
+       
         return false
     }
 }
 
-// MARK: - Validation
-
-extension NewExcursionTableViewController{
-    
-}

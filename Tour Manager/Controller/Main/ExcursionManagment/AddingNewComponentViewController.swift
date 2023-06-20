@@ -104,7 +104,7 @@ class AddingNewComponentViewController: UIViewController {
     fileprivate func configureView(){
         
         self.navigationController?.navigationBar.prefersLargeTitles = true
-        
+        self.navigationController?.interactivePopGestureRecognizer?.delegate? = self
         if typeOfNewComponent != .guides{
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(toggleEditMode))
         }
@@ -452,5 +452,13 @@ extension AddingNewComponentViewController:UITableViewDelegate,UITableViewDataSo
         
         self.tableView.isEditing ? self.tableView.setEditing(false, animated: true) : self.tableView.setEditing(true, animated: true)
         
+    }
+}
+
+
+// MARK: - UIGestureRecognizerDelegate
+extension AddingNewComponentViewController:UIGestureRecognizerDelegate{
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }
