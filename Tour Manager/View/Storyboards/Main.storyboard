@@ -1008,6 +1008,7 @@
                     <connections>
                         <outlet property="customerGuideContact" destination="eRV-p3-RFl" id="ow7-nl-aWH"/>
                         <outlet property="customerGuideName" destination="R0o-mY-Vki" id="j4F-76-EAP"/>
+                        <outlet property="datePicker" destination="c86-hn-XXJ" id="x7o-ow-x6a"/>
                         <outlet property="excursionNameLabel" destination="TlV-X2-C3F" id="BFl-pM-3d5"/>
                         <outlet property="guidesCollectionView" destination="WqD-5t-l2b" id="N7u-Nz-ngc"/>
                         <outlet property="isPaidSwitch" destination="LWZ-wO-zsq" id="k7v-Br-9vY"/>
@@ -1367,7 +1368,7 @@
                                         <rect key="frame" x="20" y="967.33333015441895" width="353" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OW4-hO-Ho8" id="mk5-a6-cOO">
-                                            <rect key="frame" x="0.0" y="0.0" width="334.66666666666669" height="80"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="322.66666666666669" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Способ оплаты" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RYH-Kc-PCf">
@@ -1436,7 +1437,7 @@
                                         <rect key="frame" x="20" y="1183.3333301544189" width="353" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="p6v-Dp-dIk" id="v7S-oE-CeZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="334.66666666666669" height="80"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="322.66666666666669" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Экскурсоводы" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dRi-Ag-o24">

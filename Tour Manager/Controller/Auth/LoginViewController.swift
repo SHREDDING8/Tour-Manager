@@ -249,7 +249,7 @@ class LoginViewController: UIViewController {
                 
                 if isGetted{
                     self.loadUIView.removeLoadUIView()
-                    self.controllers.goToMainTabBar(view: self.view)
+                    self.controllers.goToMainTabBar(view: self.view, direction: .toBottom)
                 }
                 
             })

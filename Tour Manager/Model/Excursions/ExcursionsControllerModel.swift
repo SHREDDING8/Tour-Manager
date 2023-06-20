@@ -13,7 +13,11 @@ class ExcursionsControllerModel{
     let apiManagerExcursions = ApiManagerExcursions()
     let apiManagerAutofill = ApiManagerAutoFill()
     
-    public var excursions:[Excursion] = []
+    public var excursions:[Excursion] = []{
+        didSet{
+            excursions = excursions.sorted(by: { $0.dateAndTime < $1.dateAndTime })
+        }
+    }
     
     
     
@@ -50,6 +54,7 @@ class ExcursionsControllerModel{
     public func getExcursionsForGuidesFromApi(token:String, companyId:String, date:Date, completion: @escaping (Bool, customErrorExcursion?)->Void){
         
         self.excursions = []
+        var newTours:[Excursion] = []
         
         apiManagerExcursions.GetExcursionsForGuides(token: token, companyId: companyId, date: date.birthdayToString()) { isGetted, excursionsfromApi, error in
             
@@ -65,9 +70,9 @@ class ExcursionsControllerModel{
                         newExcursion.selfGuides.append(newGuide)
                     }
                     
-                    self.excursions.append(newExcursion)
+                    newTours.append(newExcursion)
                 }
-                
+                self.excursions = newTours
                 completion(true, nil)
                 
             }

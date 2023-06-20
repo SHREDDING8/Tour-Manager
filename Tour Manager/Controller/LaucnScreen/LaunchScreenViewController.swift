@@ -34,13 +34,13 @@ class LaunchScreenViewController: UIViewController {
             
             self.user?.getUserInfoFromApi(completion: { isGetted, error in
                 if error == nil && isGetted{
-                    self.controllers.goToMainTabBar(view: self.view)
+                    self.controllers.goToMainTabBar(view: self.view, direction: .fade)
                 } else{
-                    self.controllers.goToLoginPage(view: self.view)
+                    self.controllers.goToLoginPage(view: self.view, direction: .fade)
                 }
             })
         } else{
-            self.controllers.goToLoginPage(view: self.view)
+            self.controllers.goToLoginPage(view: self.view, direction: .fade)
         }
     }
 }

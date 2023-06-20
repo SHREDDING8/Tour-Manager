@@ -24,51 +24,7 @@ class ExcurionsGuideCalendarViewController: UIViewController {
     
     
     
-    
     // MARK: - objects
-    var calendarHeightConstraint:NSLayoutConstraint!
-    let calendar:FSCalendar = {
-        
-        let calendar = FSCalendar()
-        
-        calendar.firstWeekday = 2
-        calendar.scope = .week
-        
-         // locale
-        calendar.appearance.headerMinimumDissolvedAlpha = 0
-        calendar.locale = NSLocale(localeIdentifier: "ru") as Locale
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "ru")
-        dateFormatter.setLocalizedDateFormatFromTemplate("EEEE dd MMMM YYYY")
-        // set template after setting locale
-        calendar.appearance.headerDateFormat = dateFormatter.string(from: calendar.currentPage)
-        
-        
-        calendar.translatesAutoresizingMaskIntoConstraints = false
-        
-        //settings color
-        calendar.appearance.headerTitleColor = UIColor(named: "gray")
-        calendar.appearance.weekdayTextColor = UIColor(named: "gray")
-        calendar.appearance.titleWeekendColor = .systemGray
-        calendar.appearance.titlePlaceholderColor = .systemGray3
-        
-        calendar.appearance.titleDefaultColor = UIColor(named: "black")
-        
-        calendar.appearance.selectionColor = .systemOrange
-        
-        calendar.appearance.borderSelectionColor = .systemBlue
-        
-        calendar.appearance.todayColor = .systemBlue
-        
-        // settings Font
-        calendar.appearance.headerTitleFont = UIFont.systemFont(ofSize: 18)
-        calendar.appearance.weekdayFont = UIFont.systemFont(ofSize: 14, weight: .bold)
-        calendar.appearance.titleFont = UIFont.systemFont(ofSize: 14, weight: .semibold)
-        
-    
-        return calendar
-        
-    }()
     
     // MARK: - Table view Object
     
@@ -82,24 +38,7 @@ class ExcurionsGuideCalendarViewController: UIViewController {
     
     // MARK: - Buttons Objects
     
-    private var showCloseCalendarButton:UIButton = {
-        let button = UIButton()
-        button.setTitle("Развернуть", for: .normal)
-        button.setTitleColor(UIColor.orange, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        return button
-    }()
-    
-    //reset button
-    private var todayButton:UIButton = {
-        let button = UIButton()
-        button.setTitle("⟲", for: .normal)
-        button.setTitleColor(UIColor.orange, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.font = button.titleLabel?.font.withSize(40)
-        return button
-    }()
+    var calendar:FSCalendarSchedule!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,7 +47,6 @@ class ExcurionsGuideCalendarViewController: UIViewController {
         
         self.configureFSCalendar()
         self.configureTableView()
-        self.configureButtons()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -145,11 +83,6 @@ class ExcurionsGuideCalendarViewController: UIViewController {
     // MARK: - addSubviews
     
     fileprivate func addSubviews(){
-        self.view.addSubview(calendar)
-        self.view.addSubview(tableViewCalendar)
-        
-        self.view.addSubview(showCloseCalendarButton)
-        self.view.addSubview(todayButton)
     }
     
     
@@ -157,19 +90,10 @@ class ExcurionsGuideCalendarViewController: UIViewController {
     
     fileprivate func configureFSCalendar(){
         
-        calendarHeightConstraint = NSLayoutConstraint(item: self.calendar, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 300)
-        calendar.addConstraint(calendarHeightConstraint)
-       
-       NSLayoutConstraint.activate([
-        calendar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-        calendar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
-        calendar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0)]
-       )
-        calendar.delegate = self
-        calendar.dataSource = self
-        
-        self.calendar.backgroundColor = .darkGray
-        
+        calendar = FSCalendarSchedule(self, actionTodayButton: UIAction(handler: { _ in
+            self.calendarDeselect(date: Date.now)
+        }))
+        self.view.addSubview(tableViewCalendar)
     }
     
     // MARK: - Configuration Table View
@@ -184,36 +108,13 @@ class ExcurionsGuideCalendarViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             
-            tableViewCalendar.topAnchor.constraint(equalTo:self.showCloseCalendarButton.bottomAnchor, constant: 10),
+            tableViewCalendar.topAnchor.constraint(equalTo:self .calendar.showCloseCalendarButton.bottomAnchor, constant: 30),
             tableViewCalendar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             tableViewCalendar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             tableViewCalendar.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
         ])
 
     }
-    
-    
-    // MARK: - Configuration Buttons for Calendar
-    fileprivate func configureButtons(){
-        
-        NSLayoutConstraint.activate([
-            showCloseCalendarButton.topAnchor.constraint(equalTo: self.calendar.bottomAnchor, constant: 10),
-            showCloseCalendarButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-            showCloseCalendarButton.heightAnchor.constraint(equalToConstant: 20)
-        ])
-        
-        NSLayoutConstraint.activate([
-            todayButton.topAnchor.constraint(equalTo: self.calendar.bottomAnchor, constant: 5),
-            todayButton.heightAnchor.constraint(equalToConstant: 20),
-            todayButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
-        ])
-        
-        showCloseCalendarButton.addTarget(nil, action: #selector(buttonShowCloseTapped), for: .touchUpInside)
-        todayButton.addTarget(self, action: #selector(returnToToday), for: .touchUpInside)
-        todayButton.isHidden = true
-    }
-    
-    
     
     // MARK: - Handle Actions
     
@@ -232,70 +133,12 @@ class ExcurionsGuideCalendarViewController: UIViewController {
             break
         }
         
-        nextOrPrevDay = Calendar.current.date(byAdding: DateComponents(day: addingDays), to: self.calendar.selectedDate ?? Date.now)
+        nextOrPrevDay = Calendar.current.date(byAdding: DateComponents(day: addingDays), to: self.calendar.calendar.selectedDate ?? date)
         
-        self.calendar.select(nextOrPrevDay, scrollToDate: true)
+        self.calendar.calendar.select(nextOrPrevDay, scrollToDate: true)
+        _  = self.calendarShouldSelect(self.calendar.calendar, date: nextOrPrevDay ?? date)
         
         reloadData()
-        
-        onOffResetButton(date)
-    }
-    
-    @objc private func returnToToday(){
-        
-        if let today =  self.calendar.today{
-                if self.calendar.scope == .month{
-                    buttonShowCloseTapped()
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300), execute: {
-                    if let selected = self.calendar.selectedDate{
-                        self.calendar.deselect(selected)
-                    }
-                    self.calendar.setCurrentPage(today, animated: true)
-                    self.getExcursions(date: .now)
-                })
-                todayButton.isHidden = true
-            }
-        }
-    
-    
-    @objc private func buttonShowCloseTapped(){
-        if self.calendar.scope == .week{
-            // change the scope
-            self.calendar.setScope(.month, animated: true)
-            
-            // change the text of button
-            UIView.transition(with: showCloseCalendarButton , duration: 0.5, options: .transitionFlipFromTop, animations: {
-                self.showCloseCalendarButton.setTitle( "Скрыть", for: .normal)
-            }, completion: nil)
-        }else{
-            self.calendar.setScope(.week, animated: true)
-            UIView.transition(with: showCloseCalendarButton , duration: 0.5, options: .transitionFlipFromTop, animations: {
-                self.showCloseCalendarButton.setTitle( "Развернуть", for: .normal)
-            }, completion: nil)
-            
-                if let today =  self.calendar.today{
-                self.calendar.setScope(.week, animated: true)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(300), execute: {
-                        if let selected = self.calendar.selectedDate{
-                            self.calendar.deselect(selected)
-                        }
-                        self.calendar.setCurrentPage(today, animated: true)
-                        self.getExcursions(date: .now)
-                    })
-                    todayButton.isHidden = true
-                }
-        }
-        
-    }
-    
-    
-    fileprivate func onOffResetButton(_ date: Date) {
-        todayButton.isHidden = false
-        if date == self.calendar.today{
-            todayButton.isHidden = true
-            self.calendar.deselect(date)
-        }
     }
     
     /**
@@ -310,14 +153,15 @@ class ExcurionsGuideCalendarViewController: UIViewController {
     
     
     fileprivate func getEventsForDates(){
-        let startDate:Date = Calendar.current.date(byAdding: DateComponents(day: -5), to: self.calendar.currentPage)!
+        
+        let startDate:Date = Calendar.current.date(byAdding: DateComponents(day: -5), to: self.calendar.calendar.currentPage)!
         var endDate:Date = .now
         
-        switch self.calendar.scope{
+        switch self.calendar.calendar.scope{
         case .month:
-            endDate = Calendar.current.date(byAdding: DateComponents(day: 35), to: self.calendar.currentPage)!
+            endDate = Calendar.current.date(byAdding: DateComponents(day: 35), to: self.calendar.calendar.currentPage)!
         case .week:
-            endDate = Calendar.current.date(byAdding: DateComponents(day: 10), to: self.calendar.currentPage)!
+            endDate = Calendar.current.date(byAdding: DateComponents(day: 10), to: self.calendar.calendar.currentPage)!
         @unknown default:
             break
         }
@@ -327,7 +171,7 @@ class ExcurionsGuideCalendarViewController: UIViewController {
             if isGetted{
                 self.events = list!
                 
-                self.calendar.reloadData()
+                self.calendar.calendar.reloadData()
             }
             
         }
@@ -339,22 +183,37 @@ class ExcurionsGuideCalendarViewController: UIViewController {
 
 
 // MARK: - FSCalendarDelegate
-extension ExcurionsGuideCalendarViewController:FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance{
+    extension ExcurionsGuideCalendarViewController:FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance{
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
-        calendarHeightConstraint.constant = bounds.height
+        self.calendar.setCalendarHeightConstraint(bounds.height)
         self.view.layoutIfNeeded()
     }
-    
-    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        if self.calendar.scope == .week{
-            buttonShowCloseTapped()
-        }
-        self.getExcursions(date: date)
         
-        self.onOffResetButton(date)
+    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+        return self.calendarShouldSelect(calendar, date: date)
     }
-    
+        
+        fileprivate func calendarShouldSelect(_ calendar:FSCalendar, date:Date)->Bool{
+            self.calendar.onOffResetButton(date)
+            if date == calendar.today{
+                if let selectedDate = calendar.selectedDate{
+                   
+                    self.calendarDeselect(date:selectedDate)
+                }
+                return false
+            }
+            self.getExcursions(date: date)
+            return true
+        }
+        
+    fileprivate func calendarDeselect(date:Date){
+        self.calendar.calendar.deselect(date)
+        self.getExcursions(date: Date.now)
+        self.calendar.onOffResetButton(Date.now)
+    }
+        
+        
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         // change the month
         let dateFormatter = DateFormatter()
@@ -365,7 +224,7 @@ extension ExcurionsGuideCalendarViewController:FSCalendarDelegate, FSCalendarDat
         
         self.getEventsForDates()
     }
-    
+        
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
         for event in events{
             if event.tourDate == date.birthdayToString(){
@@ -378,6 +237,7 @@ extension ExcurionsGuideCalendarViewController:FSCalendarDelegate, FSCalendarDat
         }
         return 0
     }
+        
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventDefaultColorsFor date: Date) -> [UIColor]? {
         
         var eventsColors:[UIColor] = []
@@ -427,9 +287,8 @@ extension ExcurionsGuideCalendarViewController:FSCalendarDelegate, FSCalendarDat
     
     public func getExcursions(date:Date){
         self.excursionsModel.excursions = []
-        UIView.transition(with: self.tableViewCalendar, duration: 0.3, options: .transitionCrossDissolve) {
-            self.tableViewCalendar.reloadData()
-        }
+
+        self.tableViewCalendar.reloadData()
         
         excursionsModel.getExcursionsForGuidesFromApi(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "" , date: date) { isGetted, error in
             
@@ -446,7 +305,15 @@ extension ExcurionsGuideCalendarViewController:FSCalendarDelegate, FSCalendarDat
             
             if isGetted{
                 UIView.transition(with: self.tableViewCalendar, duration: 0.3, options: .transitionCrossDissolve) {
-                    self.tableViewCalendar.reloadData()
+                    if let selectedDate = self.calendar.calendar.selectedDate{
+                        if selectedDate == date{
+                            self.tableViewCalendar.reloadData()
+                        }
+                    }else{
+                        if Date.now.birthdayToString() == date.birthdayToString(){
+                            self.tableViewCalendar.reloadData()
+                        }
+                    }
                 }
             }
         }
@@ -514,13 +381,10 @@ extension ExcurionsGuideCalendarViewController:UITableViewDelegate,UITableViewDa
         
     }
     
-    
-    
-    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView == self.tableViewCalendar{
-            if self.calendar.scope == .month{
-                buttonShowCloseTapped()
+            if self.calendar.calendar.scope == .month{
+                self.calendar.buttonShowCloseTapped()
             }
         }
     }

@@ -67,26 +67,26 @@ class Controllers{
         
     }
     
-    public func goToLoginPage(view:UIView){
+    public func goToLoginPage(view:UIView, direction: UIWindow.TransitionOptions.Direction){
         let mainLogIn = self.getControllerAuth(.mainAuthController)
         
         let window = view.window
         let options = UIWindow.TransitionOptions()
         
-        options.direction = .toBottom
+        options.direction = direction
         options.duration = 0.5
         options.style = .easeOut
         
         window?.set(rootViewController: mainLogIn, options: options)
     }
     
-    public func goToMainTabBar(view:UIView){
+    public func goToMainTabBar(view:UIView, direction: UIWindow.TransitionOptions.Direction){
         let mainTabBar = self.getControllerMain(.mainTabBarController)
         
         let window = view.window
         let options = UIWindow.TransitionOptions()
         
-        options.direction = .toBottom
+        options.direction = direction
         options.duration = 0.5
         options.style = .easeOut
         

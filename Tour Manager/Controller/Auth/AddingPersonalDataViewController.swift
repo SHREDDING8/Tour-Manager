@@ -39,53 +39,7 @@ class AddingPersonalDataViewController: UIViewController {
     
     @IBOutlet weak var iconAppImage: UIImageView!
     @IBOutlet weak var tableView: UITableView!
-    
-//    var datePickerUiView:UIView = {
-//        let buttonFont = Font.getFont(name: .americanTypewriter, style: .bold, size: 16)
-//        let uiView = UIView()
-//        uiView.backgroundColor = .white
-//        uiView.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        let picker = UIDatePicker()
-//        picker.preferredDatePickerStyle = .inline
-//        picker.datePickerMode = .date
-//        picker.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        uiView.addSubview(picker)
-//        
-//        let doneButton = UIButton(type: .system)
-//        doneButton.setTitle("Готово", for: .normal)
-//        doneButton.titleLabel?.font = buttonFont
-//        doneButton.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        uiView.addSubview(doneButton)
-//        
-//        let cancelButton = UIButton(type: .system)
-//        
-//        cancelButton.setTitle("Отменить", for: .normal)
-//        cancelButton.titleLabel?.font = buttonFont
-//        cancelButton.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        uiView.addSubview(cancelButton)
-//        
-//        let line = UIView()
-//        line.backgroundColor = .gray
-//        line.translatesAutoresizingMaskIntoConstraints = false
-//        
-//        uiView.addSubview(line)
-//        
-//        return uiView
-//    }()
-//    
-//    var darkUiView:UIView = {
-//        let uiView = UIView()
-//        uiView.backgroundColor = .black
-//        uiView.layer.opacity = 0
-//        uiView.translatesAutoresizingMaskIntoConstraints = false
-//        return uiView
-//    }()
-    
-    
+        
     var localIdNameCompany:UITextField!
     
     var firstName:UITextField!
@@ -197,7 +151,6 @@ class AddingPersonalDataViewController: UIViewController {
         
         self.loadUIView.setLoadUIView()
         
-
         if validationStrings.validateIsEmptyString([self.nameCompanyLocalIdString,self.firstNameString,self.secondNameString,self.phoneString]){
             let error = alerts.errorAlert(errorTypeFront: .textFieldIsEmpty)
             self.present(error, animated: true)
@@ -224,7 +177,6 @@ class AddingPersonalDataViewController: UIViewController {
         }
         
         
-        
         self.user?.setUserInfoApi(completion: { IsSetted, error in
             if error != nil {
                 self.alerts.errorAlert(self, errorTypeApi: .unknown)
@@ -237,10 +189,7 @@ class AddingPersonalDataViewController: UIViewController {
                 case .emploee:
                     self.user?.company.addEmployeeToCompany(token: self.user?.getToken() ?? "", completion: { isAdded, error in
                         self.loadUIView.removeLoadUIView()
-                        if error != nil
-                        
-                        
-                        {
+                        if error != nil{
                             return
                         }
                         if isAdded{
@@ -344,8 +293,6 @@ extension AddingPersonalDataViewController:UITableViewDelegate,UITableViewDataSo
             
             textField.text = self.nameCompanyLocalIdString
             
-            
-            
             self.localIdNameCompany = textField
         case 1:
             label.text = "Имя"
@@ -375,7 +322,8 @@ extension AddingPersonalDataViewController:UITableViewDelegate,UITableViewDataSo
             textField.restorationIdentifier = "phone"
             cell.restorationIdentifier = "phone"
             
-//            textField.keyboardType = .phonePad
+            textField.keyboardType = .phonePad
+            textField.addDoneCancelToolbar()
             
             textField.text = self.phoneString
             
@@ -453,7 +401,8 @@ extension AddingPersonalDataViewController:UITableViewDelegate,UITableViewDataSo
             textField.placeholder = "Телефон"
             self.phone = textField
             
-//            textField.keyboardType = .phonePad 
+            textField.keyboardType = .phonePad
+            textField.addDoneCancelToolbar()
             
             textField.restorationIdentifier = "phone"
             
@@ -533,7 +482,5 @@ extension AddingPersonalDataViewController:UITextFieldDelegate{
             self.phoneString = textField.text ?? ""
             tableView.scrollToRow(at: IndexPath(row: 4, section: 0), at: .top, animated: true)
         }
-        
-       
     }
 }

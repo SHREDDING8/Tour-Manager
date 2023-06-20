@@ -64,6 +64,7 @@
 		EEF18C8E2A4209F800A91D2F /* LoadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF18C8D2A4209F800A91D2F /* LoadView.swift */; };
 		EEF18C912A42109400A91D2F /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF18C902A42109400A91D2F /* UserDefaults.swift */; };
 		EEF18C932A4235A500A91D2F /* DatepickerFromBottom.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF18C922A4235A500A91D2F /* DatepickerFromBottom.swift */; };
+		EEF18C952A4258EE00A91D2F /* FS calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF18C942A4258EE00A91D2F /* FS calendar.swift */; };
 		EEF27A402A044E7D006E5E53 /* Pods_Tour_Manager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEF27A3F2A044E7D006E5E53 /* Pods_Tour_Manager.framework */; };
 		EEF27A452A055443006E5E53 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A442A055443006E5E53 /* Profile.swift */; };
 		EEF27A482A05551E006E5E53 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A472A05551E006E5E53 /* Font.swift */; };
@@ -142,6 +143,7 @@
 		EEF18C8D2A4209F800A91D2F /* LoadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadView.swift; sourceTree = "<group>"; };
 		EEF18C902A42109400A91D2F /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		EEF18C922A4235A500A91D2F /* DatepickerFromBottom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatepickerFromBottom.swift; sourceTree = "<group>"; };
+		EEF18C942A4258EE00A91D2F /* FS calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FS calendar.swift"; sourceTree = "<group>"; };
 		EEF27A3F2A044E7D006E5E53 /* Pods_Tour_Manager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Tour_Manager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEF27A442A055443006E5E53 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		EEF27A472A05551E006E5E53 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
@@ -482,6 +484,7 @@
 			children = (
 				EEF18C8D2A4209F800A91D2F /* LoadView.swift */,
 				EEF18C922A4235A500A91D2F /* DatepickerFromBottom.swift */,
+				EEF18C942A4258EE00A91D2F /* FS calendar.swift */,
 			);
 			path = "general Views";
 			sourceTree = "<group>";
@@ -693,6 +696,7 @@
 				EE6DE06A2A1E681100507A27 /* User.swift in Sources */,
 				EE2C9A5029FD858500B7D74F /* ProfilePageViewController.swift in Sources */,
 				EEB73FA32A365ABC004D7A25 /* ExcursionsControllerModel.swift in Sources */,
+				EEF18C952A4258EE00A91D2F /* FS calendar.swift in Sources */,
 				EE5F91B62A1E839E00B39BB1 /* UiWindow.swift in Sources */,
 				EEF18C912A42109400A91D2F /* UserDefaults.swift in Sources */,
 				EE97886B2A28EA710086C034 /* EmploeeViewController.swift in Sources */,

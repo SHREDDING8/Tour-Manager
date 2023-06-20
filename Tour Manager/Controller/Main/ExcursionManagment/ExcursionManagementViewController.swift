@@ -528,11 +528,11 @@ extension ExcursionManagementViewController:UITableViewDelegate,UITableViewDataS
     
     
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView == self.tableViewCalendar{
-            if self.calendar.scope == .month{
-                buttonShowCloseTapped()
-            }
-        }
-    }
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        if scrollView == self.tableViewCalendar{
+//            if self.calendar.scope == .month{
+//                buttonShowCloseTapped()
+//            }
+//        }
+//    }
 }

@@ -36,12 +36,10 @@ class EmploeeTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return emploee.count
     }
 
@@ -52,9 +50,6 @@ class EmploeeTableViewController: UITableViewController {
         let label = cell.viewWithTag(2) as! UILabel
         label.text = emploee[indexPath.row].getFullName()
         
-
-        // Configure the cell...
-
         return cell
     }
     
@@ -69,8 +64,6 @@ class EmploeeTableViewController: UITableViewController {
                     self.tableView.reloadData()
                 }
                 
-
-               
                 self.refreshControll.endRefreshing()
             }
         })
@@ -94,6 +87,5 @@ class EmploeeTableViewController: UITableViewController {
         destination.employee = employee
         self.navigationController?.pushViewController(destination, animated: true)
     }
-
 
 }
