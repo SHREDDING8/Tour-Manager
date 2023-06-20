@@ -16,6 +16,10 @@ class ExcursionTableViewCell: UITableViewCell {
     
     @IBOutlet weak var routeLabel: UILabel!
     
+    @IBOutlet weak var guidesLabel: UILabel!
+    
+    @IBOutlet weak var statusView: UIView!
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()

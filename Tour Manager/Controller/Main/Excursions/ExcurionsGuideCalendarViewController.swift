@@ -10,6 +10,19 @@ import FSCalendar
 
 class ExcurionsGuideCalendarViewController: UIViewController {
     
+    
+    // MARK: - my variables
+    
+    let excursionsModel = ExcursionsControllerModel()
+    let user = AppDelegate.user
+    
+    let alerts = Alert()
+    
+    let controllers = Controllers()
+    
+    
+    
+    
     // MARK: - objects
     var calendarHeightConstraint:NSLayoutConstraint!
     let calendar:FSCalendar = {
@@ -57,7 +70,7 @@ class ExcurionsGuideCalendarViewController: UIViewController {
     
     // MARK: - Table view Object
     
-    let tableView:UITableView = {
+    let tableViewCalendar:UITableView = {
         let tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -96,6 +109,13 @@ class ExcurionsGuideCalendarViewController: UIViewController {
         self.configureButtons()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.getExcursions(date: Date.now)
+                
+    }
+    
     // MARK: - configureView
     fileprivate func configureView(){
         self.navigationItem.title = "Экскурсии"
@@ -119,7 +139,7 @@ class ExcurionsGuideCalendarViewController: UIViewController {
     
     fileprivate func addSubviews(){
         self.view.addSubview(calendar)
-        self.view.addSubview(tableView)
+        self.view.addSubview(tableViewCalendar)
         
         self.view.addSubview(showCloseCalendarButton)
         self.view.addSubview(todayButton)
@@ -148,19 +168,19 @@ class ExcurionsGuideCalendarViewController: UIViewController {
     // MARK: - Configuration Table View
     
     fileprivate func configureTableView(){
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
+        self.tableViewCalendar.delegate = self
+        self.tableViewCalendar.dataSource = self
         
         let cell = UINib(nibName: "ExcursionTableViewCell", bundle: nil)
         
-        tableView.register(cell, forCellReuseIdentifier: "ExcursionTableViewCell")
+        tableViewCalendar.register(cell, forCellReuseIdentifier: "ExcursionTableViewCell")
         
         NSLayoutConstraint.activate([
             
-            tableView.topAnchor.constraint(equalTo:self.showCloseCalendarButton.bottomAnchor, constant: 10),
-            tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
+            tableViewCalendar.topAnchor.constraint(equalTo:self.showCloseCalendarButton.bottomAnchor, constant: 10),
+            tableViewCalendar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            tableViewCalendar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            tableViewCalendar.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
         ])
 
     }
@@ -225,7 +245,7 @@ class ExcurionsGuideCalendarViewController: UIViewController {
                         self.calendar.deselect(selected)
                     }
                     self.calendar.setCurrentPage(today, animated: true)
-//                    self.getExcursions(date: .now)
+                    self.getExcursions(date: .now)
                 })
                 todayButton.isHidden = true
             }
@@ -254,7 +274,7 @@ class ExcurionsGuideCalendarViewController: UIViewController {
                             self.calendar.deselect(selected)
                         }
                         self.calendar.setCurrentPage(today, animated: true)
-//                        self.getExcursions(date: .now)
+                        self.getExcursions(date: .now)
                     })
                     todayButton.isHidden = true
                 }
@@ -276,8 +296,8 @@ class ExcurionsGuideCalendarViewController: UIViewController {
      
      */
     fileprivate func reloadData() {
-        UIView.transition(with: self.tableView, duration: 0.5,options: .transitionCrossDissolve) {
-            self.tableView.reloadData()
+        UIView.transition(with: self.tableViewCalendar, duration: 0.5,options: .transitionCrossDissolve) {
+            self.tableViewCalendar.reloadData()
         }
     }
     
@@ -297,7 +317,7 @@ extension ExcurionsGuideCalendarViewController:FSCalendarDelegate, FSCalendarDat
         if self.calendar.scope == .week{
             buttonShowCloseTapped()
         }
-//        self.getExcursions(date: date)
+        self.getExcursions(date: date)
         
         self.onOffResetButton(date)
     }
@@ -311,6 +331,38 @@ extension ExcurionsGuideCalendarViewController:FSCalendarDelegate, FSCalendarDat
         calendar.appearance.headerDateFormat = dateFormatter.string(from: calendar.currentPage)
     }
     
+    
+    
+    public func getExcursions(date:Date){
+        self.excursionsModel.excursions = []
+        UIView.transition(with: self.tableViewCalendar, duration: 0.3, options: .transitionCrossDissolve) {
+            self.tableViewCalendar.reloadData()
+        }
+        
+        
+        excursionsModel.getExcursionsFromApi(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "" , date: date) { isGetted, error in
+            
+            if error != nil{
+                
+                if error == .invalidToken || error == .tokenExpired{
+                    let alert = self.alerts.invalidToken(view: self.view, message: "Ваша сессия закончилась")
+                    self.present(alert, animated: true)
+                } else if error == .unknown{
+                    let alert = self.alerts.errorAlert(errorTypeApi: .unknown)
+                    self.present(alert, animated: true)
+                }
+                return
+            }
+            
+            if isGetted{
+                UIView.transition(with: self.tableViewCalendar, duration: 0.3, options: .transitionCrossDissolve) {
+                    self.tableViewCalendar.reloadData()
+                }
+            }
+        }
+    }
+    
+    
 }
 
 
@@ -318,30 +370,43 @@ extension ExcurionsGuideCalendarViewController:FSCalendarDelegate, FSCalendarDat
 // MARK: - UITableViewDelegate
 extension ExcurionsGuideCalendarViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return self.excursionsModel.excursions.count
-        return 5
+        return self.excursionsModel.excursions.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ExcursionTableViewCell", for: indexPath) as! ExcursionTableViewCell
         
-//        cell.nameLabel.text = self.excursionsModel.excursions[indexPath.row].excursionName
-//        cell.routeLabel.text = self.excursionsModel.excursions[indexPath.row].route
-//        
-//        cell.startTimeLabel.text = self.excursionsModel.excursions[indexPath.row].dateAndTime.timeToString()
-//        
+        cell.nameLabel.text = self.excursionsModel.excursions[indexPath.row].excursionName
+        cell.routeLabel.text = self.excursionsModel.excursions[indexPath.row].route
+        
+        cell.startTimeLabel.text = self.excursionsModel.excursions[indexPath.row].dateAndTime.timeToString()
+        
+        var guides = ""
+        
+        for guide in self.excursionsModel.excursions[indexPath.row].selfGuides{
+            guides += guide.guideInfo.getFirstName() + ", "
+        }
+        if guides.count > 2{
+            guides.removeLast()
+            guides.removeLast()
+        }
+        
+       
+        
+        cell.guidesLabel.text = guides
+        
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.tableView.deselectRow(at: indexPath, animated: true)
+        self.tableViewCalendar.deselectRow(at: indexPath, animated: true)
         
-//        let destination = self.controllers.getControllerMain(.newExcursionTableViewController) as! NewExcursionTableViewController
-//        
-//        destination.excursion = excursionsModel.excursions[indexPath.row]
-//        destination.isUpdate = true
-//        
-//        self.navigationController?.pushViewController(destination, animated: true)
+        let destination = self.controllers.getControllerMain(.excursionForGuideTableViewController) as! ExcursionForGuideTableViewController
+        
+        destination.excursion = excursionsModel.excursions[indexPath.row]
+        
+        self.navigationController?.pushViewController(destination, animated: true)
         
     }
     
@@ -349,7 +414,7 @@ extension ExcurionsGuideCalendarViewController:UITableViewDelegate,UITableViewDa
     
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView == self.tableView{
+        if scrollView == self.tableViewCalendar{
             if self.calendar.scope == .month{
                 buttonShowCloseTapped()
             }

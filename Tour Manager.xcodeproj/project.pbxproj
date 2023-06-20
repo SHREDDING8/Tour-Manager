@@ -16,6 +16,7 @@
 		EE18F4642A3E4EAD0047E068 /* SendAutofill.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE18F4632A3E4EAD0047E068 /* SendAutofill.swift */; };
 		EE18F4662A3E4FB00047E068 /* ResponseAutoFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE18F4652A3E4FB00047E068 /* ResponseAutoFill.swift */; };
 		EE18F4682A3E503F0047E068 /* ApiManagerAutoFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE18F4672A3E503F0047E068 /* ApiManagerAutoFill.swift */; };
+		EE1A678F2A40F50F007A1A84 /* ExcursionForGuideTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1A678E2A40F50F007A1A84 /* ExcursionForGuideTableViewController.swift */; };
 		EE2377362A0816D900CB9D70 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2377352A0816D900CB9D70 /* Alerts.swift */; };
 		EE2C9A5029FD858500B7D74F /* ProfilePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2C9A4F29FD858500B7D74F /* ProfilePageViewController.swift */; };
 		EE4C89352A2CEE40004D3CB9 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4C89342A2CEE40004D3CB9 /* Auth.swift */; };
@@ -86,6 +87,7 @@
 		EE18F4632A3E4EAD0047E068 /* SendAutofill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendAutofill.swift; sourceTree = "<group>"; };
 		EE18F4652A3E4FB00047E068 /* ResponseAutoFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseAutoFill.swift; sourceTree = "<group>"; };
 		EE18F4672A3E503F0047E068 /* ApiManagerAutoFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManagerAutoFill.swift; sourceTree = "<group>"; };
+		EE1A678E2A40F50F007A1A84 /* ExcursionForGuideTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcursionForGuideTableViewController.swift; sourceTree = "<group>"; };
 		EE2377352A0816D900CB9D70 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		EE2C9A4F29FD858500B7D74F /* ProfilePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePageViewController.swift; sourceTree = "<group>"; };
 		EE4C89342A2CEE40004D3CB9 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
@@ -507,6 +509,7 @@
 			children = (
 				EEFD30EC2A3B6400003192A1 /* ExcursionsNavigationController.swift */,
 				EEFD30EE2A3B7905003192A1 /* ExcurionsGuideCalendarViewController.swift */,
+				EE1A678E2A40F50F007A1A84 /* ExcursionForGuideTableViewController.swift */,
 			);
 			path = Excursions;
 			sourceTree = "<group>";
@@ -639,6 +642,7 @@
 				EE5F91D72A20A1E700B39BB1 /* mainTabBarViewController.swift in Sources */,
 				EE1770F32A23EE5A00B18055 /* LaunchScreenViewController.swift in Sources */,
 				EE5F91BE2A1E9FC400B39BB1 /* GeneralData.swift in Sources */,
+				EE1A678F2A40F50F007A1A84 /* ExcursionForGuideTableViewController.swift in Sources */,
 				EEF27A572A05B512006E5E53 /* extensionUiView.swift in Sources */,
 				EEDA5E9D2A37BFA9002CC5C8 /* UiTextView.swift in Sources */,
 				EE5F91C92A1FFBB500B39BB1 /* ConvertDate.swift in Sources */,

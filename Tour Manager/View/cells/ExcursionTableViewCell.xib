@@ -50,7 +50,13 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Маршрут" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PjE-7N-cN8">
-                        <rect key="frame" x="88" y="50" width="232" height="103"/>
+                        <rect key="frame" x="88" y="50" width="232" height="18.666666666666671"/>
+                        <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="16"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Гиды" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5C1-cE-lv5">
+                        <rect key="frame" x="88" y="73.666666666666686" width="232" height="84.333333333333314"/>
                         <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -61,7 +67,8 @@
                     <constraint firstItem="EgF-lf-Xeb" firstAttribute="leading" secondItem="4Ho-DL-dMQ" secondAttribute="trailing" constant="30" id="2Fv-Fc-AoV"/>
                     <constraint firstItem="PjE-7N-cN8" firstAttribute="top" secondItem="EgF-lf-Xeb" secondAttribute="bottom" constant="10" id="9Lv-mp-9A7"/>
                     <constraint firstItem="4Ho-DL-dMQ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="CmK-LA-3Tf"/>
-                    <constraint firstAttribute="bottom" secondItem="PjE-7N-cN8" secondAttribute="bottom" constant="10" id="T3J-Cd-bQH"/>
+                    <constraint firstAttribute="trailing" secondItem="5C1-cE-lv5" secondAttribute="trailing" id="IaA-K2-Wbz"/>
+                    <constraint firstItem="5C1-cE-lv5" firstAttribute="top" secondItem="PjE-7N-cN8" secondAttribute="bottom" constant="5" id="MW1-Je-zlh"/>
                     <constraint firstItem="PjE-7N-cN8" firstAttribute="leading" secondItem="4Ho-DL-dMQ" secondAttribute="trailing" constant="30" id="Unw-Ns-Omk"/>
                     <constraint firstAttribute="trailing" secondItem="EgF-lf-Xeb" secondAttribute="trailing" id="XUw-jW-aL6"/>
                     <constraint firstItem="dfe-lb-Q8J" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Y6Y-4j-nbc"/>
@@ -69,13 +76,17 @@
                     <constraint firstAttribute="bottom" secondItem="4Ho-DL-dMQ" secondAttribute="bottom" constant="10" id="hB5-Kt-PYH"/>
                     <constraint firstAttribute="trailing" secondItem="PjE-7N-cN8" secondAttribute="trailing" id="hZ7-UH-Zh2"/>
                     <constraint firstItem="4Ho-DL-dMQ" firstAttribute="leading" secondItem="dfe-lb-Q8J" secondAttribute="trailing" constant="5" id="jEO-E3-sYh"/>
+                    <constraint firstAttribute="bottom" secondItem="5C1-cE-lv5" secondAttribute="bottom" constant="5" id="pR9-aO-GZS"/>
+                    <constraint firstItem="5C1-cE-lv5" firstAttribute="leading" secondItem="4Ho-DL-dMQ" secondAttribute="trailing" constant="30" id="zDj-km-vV9"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="guidesLabel" destination="5C1-cE-lv5" id="cmc-np-NLw"/>
                 <outlet property="nameLabel" destination="EgF-lf-Xeb" id="IeT-gG-jiX"/>
                 <outlet property="routeLabel" destination="PjE-7N-cN8" id="fmT-7g-BEW"/>
                 <outlet property="startTimeLabel" destination="pO3-21-Go5" id="WYR-M7-hQk"/>
+                <outlet property="statusView" destination="4Ho-DL-dMQ" id="ME2-kC-M0k"/>
             </connections>
             <point key="canvasLocation" x="138.93129770992365" y="60.211267605633807"/>
         </tableViewCell>

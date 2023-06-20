@@ -82,6 +82,8 @@ class NewExcursionTableViewController: UITableViewController {
     
     var excursion = Excursion()
     let controllers = Controllers()
+    let alerts = Alert()
+    let validation = StringValidation()
     
     var isUpdate = false
     var oldDate:Date!
@@ -90,6 +92,14 @@ class NewExcursionTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonClick))
+        
+        self.navigationItem.backAction = UIAction(handler: { _ in
+            self.warningAlertDuringExit(isPopController: true)
+        })
+        
+        self.navigationController?.interactivePopGestureRecognizer?.delegate! = self
+        
+        
         if isUpdate{
             self.navigationItem.title = "Редактирование"
             self.oldDate = excursion.dateAndTime
@@ -123,6 +133,7 @@ class NewExcursionTableViewController: UITableViewController {
         self.customerGuidePhone.text = self.excursion.companyGuidePhone
         
         self.paymentMethodSwitch.setOn(self.excursion.isPaid, animated: false)
+        self.paymentMethodLabel.text = !self.excursion.paymentMethod.isEmpty ? self.excursion.paymentMethod : "Не выбрано"
         self.paymentAmountTextField.text = String(self.excursion.paymentAmount)
         
         self.dateAndTime.setDate(excursion.dateAndTime, animated: true)
@@ -134,6 +145,34 @@ class NewExcursionTableViewController: UITableViewController {
     // MARK: - save Button Click
     
     @objc fileprivate func saveButtonClick(){
+        if !validation.validateLenghtString(string: self.excursion.excursionName, min: 1, max: 100){
+            self.alerts.validationStringError(self, title: "Ошибка в названии экскурсии",message: "Минимальная длина - 1. Максимальная длина - 100")
+            return
+        }
+        
+        if !validation.validateLenghtString(string: self.excursion.additionalInfromation, max: 1000){
+            self.alerts.validationStringError(self, title: "Ошибка в заметках", message: "Максимальная длина - 1000")
+            return
+        }
+        
+        if !validation.validatePhone(value: self.excursion.companyGuidePhone){
+            self.alerts.validationStringError(self, title: "Ошибка в контакте сопровождающего")
+            return
+        }
+        
+        if !(self.excursion.numberOfPeople >= 0 && self.excursion.numberOfPeople <= 1000){
+            self.alerts.validationStringError(self, title: "Ошибка в количестве человек")
+            return
+        }
+        
+        if !(self.excursion.paymentAmount >= 0 && self.excursion.paymentAmount <= 1000000){
+            self.alerts.validationStringError(self, title: "Ошибка в сумме оплаты")
+            return
+        }
+        
+        
+        
+        
         if isUpdate{
             excursionModel.updateExcursion(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", excursion: excursion, oldDate: self.oldDate) { isUpdated, error in
                 self.navigationController?.popViewController(animated: true)
@@ -147,12 +186,6 @@ class NewExcursionTableViewController: UITableViewController {
         }
         
     }
-    
-    @IBAction func testTap(_ sender: Any) {
-    }
-    
-    
-    
     
     // MARK: - Datepicker
     
@@ -227,7 +260,13 @@ extension NewExcursionTableViewController{
             destinantion.typeOfNewComponent = .customerGuiedName
 
             self.navigationController?.pushViewController(destinantion, animated: true)
-        }else if indexPath.section == 3 && indexPath.row == 0{
+        }else if indexPath.section == 2 && indexPath.row == 1 {
+            destinantion.typeOfNewComponent = .excursionPaymentMethod
+
+            self.navigationController?.pushViewController(destinantion, animated: true)
+            
+        }
+        else if indexPath.section == 3 && indexPath.row == 0{
             destinantion.typeOfNewComponent = .guides
 
             self.navigationController?.pushViewController(destinantion, animated: true)
@@ -250,15 +289,30 @@ extension NewExcursionTableViewController:UITextFieldDelegate{
             self.excursion.excursionName = textField.text ?? ""
         }
         else if textField.restorationIdentifier == "numberOfPeople"{
-            self.excursion.numberOfPeople = Int(textField.text!) ?? 0
+            let numberOfPeople = Int(textField.text!)
+            if numberOfPeople == nil{
+                self.alerts.validationStringError(self, title: "Ошибка в количестве человек")
+                textField.text = ""
+                return
+            }
+            self.excursion.numberOfPeople = numberOfPeople!
         } else if textField.restorationIdentifier == "customerGuidePhone"{
             self.excursion.companyGuidePhone = customerGuidePhone.text!
         }else if textField.restorationIdentifier == "amount"{
-            self.excursion.paymentAmount = Int(textField.text ?? "0") ?? 0
+            
+            let amount = Int(textField.text ?? "0")
+            
+            if amount == nil{
+                self.alerts.validationStringError(self, title: "Ошибка в сумме оплаты")
+                textField.text = ""
+                return
+            }
+            self.excursion.paymentAmount =  amount!
         }
     }
 }
 
+// MARK: - UITextViewDelegate
 extension NewExcursionTableViewController:UITextViewDelegate{
     func textViewDidEndEditing(_ textView: UITextView) {
         self.excursion.additionalInfromation = textView.text
@@ -284,22 +338,6 @@ extension NewExcursionTableViewController:UICollectionViewDelegate,UICollectionV
         return cell
     }
     
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//        
-//        let cellWidth = 200
-//        let cellCount = 1
-//        let cellSpacing = 10
-//
-//        let totalCellWidth = cellWidth * cellCount
-//        let totalSpacingWidth = cellSpacing * (cellCount - 1)
-//
-//        let leftInset = (collectionView.frame.width - CGFloat(totalCellWidth + totalSpacingWidth)) / 2
-//        let rightInset = leftInset
-//
-//        return UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: rightInset)
-//    }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
     }
@@ -311,3 +349,31 @@ extension NewExcursionTableViewController:UICollectionViewDelegate,UICollectionV
     }
 }
 
+// MARK: - Alerts
+extension NewExcursionTableViewController{
+    fileprivate func warningAlertDuringExit(isPopController:Bool){
+        let warningAlert = self.alerts.warningAlert(title: "Возможно у вас есть несохраненные данные", meesage: "Вы уверены что хотите выйти?", actionTitle: "Выйти") {
+            if isPopController{
+                self.navigationController?.popViewController(animated: true)
+            }
+            
+        }
+        
+        self.present(warningAlert, animated: true)
+    }
+}
+
+// MARK: - UIGestureRecognizerDelegate
+extension NewExcursionTableViewController:UIGestureRecognizerDelegate{
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        warningAlertDuringExit(isPopController: true)
+        
+        return false
+    }
+}
+
+// MARK: - Validation
+
+extension NewExcursionTableViewController{
+    
+}

@@ -315,7 +315,7 @@ class ExcursionManagementViewController: UIViewController{
     
     // MARK: - Get excursions
     
-    public func getExcursions(date:Date){
+    fileprivate func getExcursions(date:Date){
         self.excursionsModel.excursions = []
         UIView.transition(with: self.tableViewCalendar, duration: 0.3, options: .transitionCrossDissolve) {
             self.tableViewCalendar.reloadData()
@@ -394,6 +394,18 @@ extension ExcursionManagementViewController:UITableViewDelegate,UITableViewDataS
         cell.routeLabel.text = self.excursionsModel.excursions[indexPath.row].route
         
         cell.startTimeLabel.text = self.excursionsModel.excursions[indexPath.row].dateAndTime.timeToString()
+        
+        var guides = ""
+        
+        for guide in self.excursionsModel.excursions[indexPath.row].selfGuides{
+            guides += guide.guideInfo.getFirstName() + ", "
+        }
+        if guides.count > 2{
+            guides.removeLast()
+            guides.removeLast()
+        }
+        
+        cell.guidesLabel.text = guides
         
         return cell
     }
