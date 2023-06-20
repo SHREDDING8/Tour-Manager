@@ -70,3 +70,20 @@ struct TourGuide: Codable {
 }
 
 
+// MARK: - ResponseGetExcursionsListByRange
+public struct ResponseGetExcursionsListByRange: Codable {
+    let tourDate: String
+    let accept, emptyGuide, waiting, cancel: Bool
+
+    enum CodingKeys: String, CodingKey {
+        case tourDate = "tour_date"
+        case accept
+        case emptyGuide = "empty_guide"
+        case waiting, cancel
+    }
+}
+
+ public typealias ExcursionsListByRange = [ResponseGetExcursionsListByRange]
+
+
+

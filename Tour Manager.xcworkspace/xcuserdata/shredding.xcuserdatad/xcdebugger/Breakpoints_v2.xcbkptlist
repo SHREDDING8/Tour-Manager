@@ -7,17 +7,113 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8CA6FF92-9437-4A89-B0E0-236EE17F3893"
+            uuid = "54C1E021-FAE8-4FA8-BC96-58DF03AB9F13"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Tour Manager/Controller/Main/Excursions/ExcursionForGuideTableViewController.swift"
+            filePath = "Tour Manager/Controller/Main/ExcursionManagment/ExcursionManagementViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "442"
+            endingLineNumber = "442"
+            landmarkName = "tableView(_:numberOfRowsInSection:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "16AD3885-905B-418C-AC31-28AA428D6071"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Controller/Main/ExcursionManagment/ExcursionManagementViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "427"
+            endingLineNumber = "427"
+            landmarkName = "calendar(_:appearance:eventDefaultColorsFor:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6A2A3312-42EC-4F40-8F53-A58F9B627630"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Controller/Main/ExcursionManagment/ExcursionManagementViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "421"
+            endingLineNumber = "421"
+            landmarkName = "calendar(_:appearance:eventDefaultColorsFor:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "04282238-255C-49DB-A4F0-57F066793647"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Controller/Main/ExcursionManagment/ExcursionManagementViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "424"
+            endingLineNumber = "424"
+            landmarkName = "calendar(_:appearance:eventDefaultColorsFor:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4C039A83-CA89-4176-8E6F-E758E44FEDA7"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Controller/Main/ExcursionManagment/ExcursionManagementViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "419"
+            endingLineNumber = "419"
+            landmarkName = "calendar(_:appearance:eventDefaultColorsFor:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "4C039A83-CA89-4176-8E6F-E758E44FEDA7 - 716ea98067387f7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tour_Manager.ExcursionManagementViewController.calendar(_: __C.FSCalendar, appearance: __C.FSCalendarAppearance, eventDefaultColorsFor: Foundation.Date) -&gt; Swift.Optional&lt;Swift.Array&lt;__C.UIColor&gt;&gt;"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Controller/Main/ExcursionManagment/ExcursionManagementViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "420"
+                  endingLineNumber = "420"
+                  offsetFromSymbolStart = "124">
+               </Location>
+               <Location
+                  uuid = "4C039A83-CA89-4176-8E6F-E758E44FEDA7 - 716ea9806738616"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tour_Manager.ExcursionManagementViewController.calendar(_: __C.FSCalendar, appearance: __C.FSCalendarAppearance, eventDefaultColorsFor: Foundation.Date) -&gt; Swift.Optional&lt;Swift.Array&lt;__C.UIColor&gt;&gt;"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Controller/Main/ExcursionManagment/ExcursionManagementViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "419"
+                  endingLineNumber = "419"
+                  offsetFromSymbolStart = "108">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
