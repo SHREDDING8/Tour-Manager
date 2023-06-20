@@ -50,7 +50,15 @@ extension Date{
         return timeString
         
     }
-    
+    static public func dateStringToDate(dateString:String)->Date{
+        let templateBirthday = "dd.MM.yyyy"
+        let dateFormatterBirthday = DateFormatter()
+        dateFormatterBirthday.dateFormat = templateBirthday
+        
+        let date = dateFormatterBirthday.date(from: dateString) ?? Date.now
+        
+        return date
+    }
     static public func dateAndTimeToDate(dateString:String?, timeString:String)->Date{
         let dateFormatterBirthday = DateFormatter()
         if dateString != nil{

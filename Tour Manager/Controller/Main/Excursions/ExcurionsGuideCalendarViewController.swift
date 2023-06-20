@@ -339,8 +339,7 @@ extension ExcurionsGuideCalendarViewController:FSCalendarDelegate, FSCalendarDat
             self.tableViewCalendar.reloadData()
         }
         
-        
-        excursionsModel.getExcursionsFromApi(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "" , date: date) { isGetted, error in
+        excursionsModel.getExcursionsForGuidesFromApi(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "" , date: date) { isGetted, error in
             
             if error != nil{
                 

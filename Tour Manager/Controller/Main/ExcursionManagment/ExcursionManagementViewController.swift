@@ -19,6 +19,8 @@ class ExcursionManagementViewController: UIViewController{
     
     let alerts = Alert()
     
+    var events:[ResponseGetExcursionsListByRange] = []
+    
     // MARK: - Excursions
     
     let excursionsModel = ExcursionsControllerModel()
@@ -111,17 +113,17 @@ class ExcursionManagementViewController: UIViewController{
         self.configureFSCalendar()
         self.configureTableView()
         self.configureButtons()
-        
-        
 
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         self.getExcursions(date: Date.now)
-                
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.getEventsForDates()
     }
     
     // MARK: - addSubviews
@@ -343,7 +345,34 @@ class ExcursionManagementViewController: UIViewController{
             }
         }
     }
+    
+    fileprivate func getEventsForDates(){
+        let startDate:Date = Calendar.current.date(byAdding: DateComponents(day: -5), to: self.calendar.currentPage)!
+        var endDate:Date = .now
+        
+        switch self.calendar.scope{
+        case .month:
+            endDate = Calendar.current.date(byAdding: DateComponents(day: 35), to: self.calendar.currentPage)!
+        case .week:
+            endDate = Calendar.current.date(byAdding: DateComponents(day: 10), to: self.calendar.currentPage)!
+        @unknown default:
+            break
+        }
+        
+        excursionsModel.getExcursionsListByRange(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", startDate: startDate.birthdayToString(), endDate: endDate.birthdayToString()) { isGetted, list, error in
+            
+            if isGetted{
+                self.events = list!
+                
+                self.calendar.reloadData()
+            }
+            
+        }
+        
+    }
 }
+
+
 
 // MARK: - FSCalendarDelegate
 extension ExcursionManagementViewController:FSCalendarDelegate, FSCalendarDataSource,FSCalendarDelegateAppearance{
@@ -369,14 +398,51 @@ extension ExcursionManagementViewController:FSCalendarDelegate, FSCalendarDataSo
         dateFormatter.setLocalizedDateFormatFromTemplate("MMMM YYYY")
         
         calendar.appearance.headerDateFormat = dateFormatter.string(from: calendar.currentPage)
+        
+        self.getEventsForDates()
                 
     }
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-        return 1
+        for event in events{
+            if event.tourDate == date.birthdayToString(){
+                var result = event.cancel.toInt() + event.emptyGuide.toInt() + event.waiting.toInt()
+                if result == 0{
+                    result += event.accept.toInt()
+                }
+                return result
+            }
+        }
+        return 0
     }
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventDefaultColorsFor date: Date) -> [UIColor]? {
-        return [.red]
+        let dat = date.birthdayToString()
+        
+        var eventsColors:[UIColor] = []
+        
+//        if date.birthdayToString() == "20.06.2023"{
+//            print(123)
+//        }
+        
+        for event in events{
+            if event.tourDate == date.birthdayToString(){
+                if event.waiting{
+                    eventsColors.append(.orange)
+                }
+                if event.cancel{
+                    eventsColors.append(.red)
+                }
+                if event.emptyGuide{
+                    eventsColors.append(.blue)
+                }
+                if event.accept{
+                    eventsColors.append(.green)
+                }
+            }
+            
+        }
+        
+        return eventsColors
     }
 }
 

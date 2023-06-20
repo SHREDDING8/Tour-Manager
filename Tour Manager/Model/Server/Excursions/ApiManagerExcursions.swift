@@ -37,7 +37,9 @@ class ApiManagerExcursions{
     private let routeUpdateExcursion = prefix + "/update_tour"
     private let routeDelteExcursion = prefix + "/delete_tour"
     
-    private let routeGetExcursionsForGuides = prefix + "get_guide_tour_list"
+    private let routeGetExcursionsForGuides = prefix + "/get_guide_tour_list"
+    
+    private let routeGetTourListInRange = prefix + "/get_tour_list_in_range"
     
     
     public func GetExcursions(token:String, companyId:String, date:String, completion: @escaping (Bool, [ResponseGetExcursion]?, customErrorExcursion?)->Void ){
@@ -245,6 +247,45 @@ class ApiManagerExcursions{
         }
         
     }
+    
+    public func getExcursionsListByRange(token:String, companyId:String, startDate:String, endDate:String, completion: @escaping (Bool, ExcursionsListByRange?, customErrorExcursion?)->Void ){
+        
+        let url = URL(string: routeGetTourListInRange)!
+        
+        let jsonData = SendGetExcursionsListByRange(token: token, company_id: companyId, tour_date_start: startDate, tour_date_end: endDate)
+        
+        AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
+            if response.response?.statusCode == 400{
+                
+                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
+                
+                if error.message == "Date does not exist"{
+                    completion(false, nil, .dataNotFound)
+                } else if error.message == "Token expired"{
+                    completion(false, nil, .tokenExpired)
+                } else if error.message == "Invalid Firebase ID token"{
+                    completion(false, nil, .invalidToken)
+                }else if error.message == "Current user is not in this company"{
+                    completion(false, nil, .UserIsNotInThisCompany)
+                }else if error.message == "Company does not exist"{
+                    completion(false, nil, .CompanyDoesNotExist)
+                }else {
+                    completion(false, nil, .unknown)
+                }
+                
+            }else if response.response?.statusCode == 200{
+                let response = try! JSONDecoder().decode(ExcursionsListByRange.self, from: response.data!)
+                completion(true, response, nil)
+            }else{
+                completion(false, nil, .unknown)
+            }
+            
+            
+        }
+        
+        
+    }
+    
     
     
     

@@ -120,3 +120,10 @@ struct SendUpdateExcursion:Codable{
         case guides = "tour_guides"
     }
 }
+
+struct SendGetExcursionsListByRange:Codable{
+    let token:String
+    let company_id:String
+    let tour_date_start:String
+    let tour_date_end:String
+}

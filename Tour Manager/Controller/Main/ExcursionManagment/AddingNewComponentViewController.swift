@@ -347,6 +347,10 @@ extension AddingNewComponentViewController:UITableViewDelegate,UITableViewDataSo
                 cell?.accessoryType = .checkmark
                 
                 excursion.selfGuides.append(self.arrayWithGuides[indexPath.row])
+                
+                if excursion.selfGuides.count == 1{
+                    excursion.selfGuides[0].isMain = true
+                }
             }else{
                 cell?.accessoryType = .none
                 
