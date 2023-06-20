@@ -330,13 +330,7 @@ extension NewExcursionTableViewController:UICollectionViewDelegate,UICollectionV
         
         let nib = UINib(nibName: "GuideCollectionViewCell", bundle: nil)
         collectionView.register(nib, forCellWithReuseIdentifier: "GuideCollectionViewCell")
-        
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "guiedCollectionViewCell", for: indexPath)
-//        
-//        let fullName = cell.viewWithTag(1) as! UILabel
-//        
-//        fullName.text =  self.excursion.selfGuides[indexPath.row].guideInfo.getFullName()
-        
+                
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GuideCollectionViewCell", for: indexPath) as! GuideCollectionViewCell
         
         cell.fullName.text = self.excursion.selfGuides[indexPath.row].guideInfo.getFullName()

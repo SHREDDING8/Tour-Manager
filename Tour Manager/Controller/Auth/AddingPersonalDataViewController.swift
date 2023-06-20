@@ -307,8 +307,7 @@ class AddingPersonalDataViewController: UIViewController {
         
         self.user?.setUserInfoApi(completion: { IsSetted, error in
             if error != nil {
-                let alert = self.alerts.errorAlert(errorTypeApi: .unknown)
-                self.present(alert, animated: true)
+                self.alerts.errorAlert(self, errorTypeApi: .unknown)
                 return
             }
             

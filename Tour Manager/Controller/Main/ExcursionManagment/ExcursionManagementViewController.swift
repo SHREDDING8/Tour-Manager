@@ -332,8 +332,7 @@ class ExcursionManagementViewController: UIViewController{
                     let alert = self.alerts.invalidToken(view: self.view, message: "Ваша сессия закончилась")
                     self.present(alert, animated: true)
                 } else if error == .unknown{
-                    let alert = self.alerts.errorAlert(errorTypeApi: .unknown)
-                    self.present(alert, animated: true)
+                    self.alerts.errorAlert(self, errorTypeApi: .unknown)
                 }
                 return
             }

@@ -61,6 +61,8 @@
 		EEE8026A2A2E4E1A00162622 /* ExcursionManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE802692A2E4E1A00162622 /* ExcursionManagementViewController.swift */; };
 		EEE802702A2E5DED00162622 /* ExcursionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE8026E2A2E5DED00162622 /* ExcursionTableViewCell.swift */; };
 		EEE802712A2E5DED00162622 /* ExcursionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEE8026F2A2E5DED00162622 /* ExcursionTableViewCell.xib */; };
+		EEF18C8E2A4209F800A91D2F /* LoadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF18C8D2A4209F800A91D2F /* LoadView.swift */; };
+		EEF18C912A42109400A91D2F /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF18C902A42109400A91D2F /* UserDefaults.swift */; };
 		EEF27A402A044E7D006E5E53 /* Pods_Tour_Manager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEF27A3F2A044E7D006E5E53 /* Pods_Tour_Manager.framework */; };
 		EEF27A452A055443006E5E53 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A442A055443006E5E53 /* Profile.swift */; };
 		EEF27A482A05551E006E5E53 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A472A05551E006E5E53 /* Font.swift */; };
@@ -136,6 +138,8 @@
 		EEE802692A2E4E1A00162622 /* ExcursionManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcursionManagementViewController.swift; sourceTree = "<group>"; };
 		EEE8026E2A2E5DED00162622 /* ExcursionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcursionTableViewCell.swift; sourceTree = "<group>"; };
 		EEE8026F2A2E5DED00162622 /* ExcursionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExcursionTableViewCell.xib; sourceTree = "<group>"; };
+		EEF18C8D2A4209F800A91D2F /* LoadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadView.swift; sourceTree = "<group>"; };
+		EEF18C902A42109400A91D2F /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		EEF27A3F2A044E7D006E5E53 /* Pods_Tour_Manager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Tour_Manager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEF27A442A055443006E5E53 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		EEF27A472A05551E006E5E53 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
@@ -217,6 +221,7 @@
 		EE2C9A4C29FD84F500B7D74F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				EEF18C8C2A4209D500A91D2F /* general Views */,
 				EEE8026B2A2E5AFB00162622 /* cells */,
 				EE2377342A0816C400CB9D70 /* alerts */,
 				EE52E17729E5C1CB000C0E5B /* Assets.xcassets */,
@@ -304,6 +309,7 @@
 		EE5F91DA2A21514200B39BB1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				EEF18C8F2A42107300A91D2F /* LocalStorage */,
 				EE4C893C2A2E3D3C004D3CB9 /* Excursions */,
 				EEC9BA192A2671ED00BC026A /* Extensions */,
 				EE5F91E02A2152D500B39BB1 /* Server */,
@@ -467,6 +473,22 @@
 				EEF6EBA72A41BADE00DC5F6A /* GuideCollectionViewCell.xib */,
 			);
 			path = cells;
+			sourceTree = "<group>";
+		};
+		EEF18C8C2A4209D500A91D2F /* general Views */ = {
+			isa = PBXGroup;
+			children = (
+				EEF18C8D2A4209F800A91D2F /* LoadView.swift */,
+			);
+			path = "general Views";
+			sourceTree = "<group>";
+		};
+		EEF18C8F2A42107300A91D2F /* LocalStorage */ = {
+			isa = PBXGroup;
+			children = (
+				EEF18C902A42109400A91D2F /* UserDefaults.swift */,
+			);
+			path = LocalStorage;
 			sourceTree = "<group>";
 		};
 		EEF27A462A0554F6006E5E53 /* Font */ = {
@@ -669,6 +691,7 @@
 				EE2C9A5029FD858500B7D74F /* ProfilePageViewController.swift in Sources */,
 				EEB73FA32A365ABC004D7A25 /* ExcursionsControllerModel.swift in Sources */,
 				EE5F91B62A1E839E00B39BB1 /* UiWindow.swift in Sources */,
+				EEF18C912A42109400A91D2F /* UserDefaults.swift in Sources */,
 				EE97886B2A28EA710086C034 /* EmploeeViewController.swift in Sources */,
 				EEB73F9F2A364B9B004D7A25 /* SendExcursions.swift in Sources */,
 				EE5F91CB2A2003A200B39BB1 /* sendStructs.swift in Sources */,
@@ -696,6 +719,7 @@
 				EEF27A452A055443006E5E53 /* Profile.swift in Sources */,
 				EE2377362A0816D900CB9D70 /* Alerts.swift in Sources */,
 				EE5F91BC2A1E9F7000B39BB1 /* ApiManagerUserData.swift in Sources */,
+				EEF18C8E2A4209F800A91D2F /* LoadView.swift in Sources */,
 				EE5F91CD2A2007E400B39BB1 /* sendUserDataStructs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

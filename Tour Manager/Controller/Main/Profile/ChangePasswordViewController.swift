@@ -112,18 +112,14 @@ class ChangePasswordViewController: UIViewController {
             self.user?.updatePassword(oldPassword: self.passwords["oldPassword"] ?? "", newPassword: self.passwords["newPassword"] ?? "", completion: { isUpdated, error in
                 
                 if error == .invalidEmailOrPassword{
-                    let error = self.alerts.errorAlert(errorTypeApi: .invalidEmailOrPassword)
-                    self.present(error, animated: true)
+                    self.alerts.errorAlert(self, errorTypeApi: .invalidEmailOrPassword)
                     
                 } else if  error == .emailIsNotVerifyed{
-                    let error = self.alerts.errorAlert(errorTypeApi: .unknown)
-                    self.present(error, animated: true)
+                    self.alerts.errorAlert(self, errorTypeApi: .unknown)
                     
                     
                 }else if error == .unknowmError{
-                    let error = self.alerts.errorAlert(errorTypeApi: .unknown)
-                    self.present(error, animated: true)
-                    
+                    self.alerts.errorAlert(self, errorTypeApi: .unknown)
                 }
                 
                 if isUpdated{

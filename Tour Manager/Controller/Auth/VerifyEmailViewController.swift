@@ -82,8 +82,7 @@ class VerifyEmailViewController: UIViewController {
         
         self.user?.sendVerifyEmail(password: self.password, completion: { isSent, error in
             if error == .unknowmError{
-                let alert = self.alerts.errorAlert(errorTypeApi: .unknown)
-                self.present(alert, animated: true)
+                self.alerts.errorAlert(self, errorTypeApi: .unknown)
             }else{
                 self.setTimerSetEmailAgain()
                 let alert = self.alerts.infoAlert(title: "Email Отправлен", meesage: "Проверьте почту и подтвердите аккаунт")
@@ -99,13 +98,11 @@ class VerifyEmailViewController: UIViewController {
                 
             } else if error == .invalidEmailOrPassword{
                 
-                let error = self.alerts.errorAlert(errorTypeApi: .invalidEmailOrPassword)
-                self.present(error, animated: true)
+                self.alerts.errorAlert(self, errorTypeApi: .unknown)
                 
             } else if error == .unknowmError{
                 
-                let error = self.alerts.errorAlert(errorTypeApi: .unknown)
-                self.present(error, animated: true)
+                self.alerts.errorAlert(self, errorTypeApi: .unknown)
                 
             }
             

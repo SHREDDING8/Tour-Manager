@@ -85,5 +85,18 @@ public struct ResponseGetExcursionsListByRange: Codable {
 
  public typealias ExcursionsListByRange = [ResponseGetExcursionsListByRange]
 
+public struct ResponseGetExcursionsForGuideListByRange: Codable {
+    let tourDate: String
+    let accept, waiting, cancel: Bool
+
+    enum CodingKeys: String, CodingKey {
+        case tourDate = "tour_date"
+        case accept
+        case waiting, cancel
+    }
+}
+
+ public typealias ExcursionsListForGuideByRange = [ResponseGetExcursionsForGuideListByRange]
+
 
 

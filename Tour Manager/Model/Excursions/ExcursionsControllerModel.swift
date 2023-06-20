@@ -121,4 +121,12 @@ class ExcursionsControllerModel{
             completion(isGetted,list,error)
         }
     }
+    
+    public func getExcursionsListForGuideByRange(token:String, companyId:String, startDate:String, endDate:String, completion: @escaping (Bool, ExcursionsListForGuideByRange?, customErrorExcursion?)->Void ){
+        apiManagerExcursions.getExcursionsForGuideListByRange(token: token, companyId: companyId, startDate: startDate, endDate: endDate) { isGetted, list, error in
+            completion(isGetted,list,error)
+        }
+    }
+    
+    
 }
