@@ -11,6 +11,7 @@ enum Status:String{
     case waiting = "waiting"
     case cancel = "cancel"
     case accepted = "accept"
+    case emptyGuides = "emptyGuides"
 }
 
 public struct SelfGuide {

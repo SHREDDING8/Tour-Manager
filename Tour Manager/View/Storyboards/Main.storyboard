@@ -1477,7 +1477,7 @@
                                         <rect key="frame" x="20" y="1183.3333301544189" width="353" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="p6v-Dp-dIk" id="v7S-oE-CeZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="334.66666666666669" height="80"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="322.66666666666669" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Экскурсоводы" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dRi-Ag-o24">
@@ -1498,7 +1498,7 @@
                                         <color key="backgroundColor" red="0.96470588450000005" green="0.96470588450000005" blue="0.96470588450000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="255" id="ffv-v1-99m">
-                                        <rect key="frame" x="20" y="1263.3333301544189" width="353" height="255"/>
+                                        <rect key="frame" x="20" y="1242.9999968210857" width="353" height="255"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ffv-v1-99m" id="mhu-dW-xkd">
                                             <rect key="frame" x="0.0" y="0.0" width="353" height="255"/>
