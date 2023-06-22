@@ -72,7 +72,11 @@ class ExcursionManagementViewController: UIViewController{
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .add, primaryAction: UIAction(handler: { _ in
             
-            let newExcursionController = self.controllers.getControllerMain(.newExcursionTableViewController)
+            let newExcursionController = self.controllers.getControllerMain(.newExcursionTableViewController) as! NewExcursionTableViewController
+            
+            let newTour = Excursion(dateAndTime: self.calendar.calendar.selectedDate ?? Date.now)
+            
+            newExcursionController.excursion = newTour
             
             
             self.navigationController?.pushViewController(newExcursionController, animated: true)
