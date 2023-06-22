@@ -144,7 +144,7 @@ class LoginViewController: UIViewController {
         
         self.user?.resetPassword(completion: { isReset, error in
             
-            if !isReset{
+            if isReset{
                 self.loadUIView.removeLoadUIView()
             }
             
@@ -249,7 +249,7 @@ class LoginViewController: UIViewController {
                 
                 if isGetted{
                     self.loadUIView.removeLoadUIView()
-                    self.controllers.goToMainTabBar(view: self.view)
+                    self.controllers.goToMainTabBar(view: self.view, direction: .toBottom)
                 }
                 
             })
@@ -432,6 +432,7 @@ extension LoginViewController:UITextFieldDelegate{
         if textField.restorationIdentifier == "emailTextField"{
             
             self.email = textField.text!.trimmingCharacters(in: CharacterSet(charactersIn: " "))
+            self.user.setEmail(email: self.email)
             self.emailTextField.text = self.email
             
             self.firstPasswordTextField.text = ""

@@ -120,7 +120,7 @@ class Alert{
         let alert = UIAlertController(title: "Сессия закончилась", message: message, preferredStyle: .alert)
 
         let actionExit = UIAlertAction(title: "Выйти", style: .destructive) { _ in
-            self.controllers.goToLoginPage(view: view)
+            self.controllers.goToLoginPage(view: view, direction: .toTop)
         }
         
         alert.addAction(actionExit)

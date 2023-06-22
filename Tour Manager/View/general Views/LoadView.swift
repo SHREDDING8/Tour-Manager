@@ -41,12 +41,12 @@ class LoadView{
         self.viewController = viewController
         self.viewController.view.addSubview(loadUIView)
         
-        self.constaintLoadUIView()
+        self.constraintLoadUIView()
     }
     
     // MARK: - Configuration
     
-    private func constaintLoadUIView(){
+    private func constraintLoadUIView(){
         NSLayoutConstraint.activate([
             self.loadUIView.leadingAnchor.constraint(equalTo: self.viewController.view.safeAreaLayoutGuide.leadingAnchor),
             self.loadUIView.trailingAnchor.constraint(equalTo: self.viewController.view.safeAreaLayoutGuide.trailingAnchor),

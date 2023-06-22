@@ -172,8 +172,6 @@ extension ChangePasswordViewController:UITableViewDelegate,UITableViewDataSource
             textField.restorationIdentifier = "oldPassword"
             self.oldPassword = textField
             
-            
-            
         case 1:
             label.text = "Новый пароль"
             textField.placeholder = "Новый пароль"

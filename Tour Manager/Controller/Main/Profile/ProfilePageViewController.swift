@@ -21,6 +21,8 @@ class ProfilePageViewController: UIViewController {
     let alerts = Alert()
     let validationString = StringValidation()
     
+    var datePicker:DatepickerFromBottom!
+    
     var dateLabel:UILabel!
     
     
@@ -41,56 +43,10 @@ class ProfilePageViewController: UIViewController {
     @IBOutlet weak var fullNameLabel: UILabel!
     
     @IBOutlet weak var tableView: UITableView!
-    
-    var datePickerUiView:UIView = {
-        let buttonFont = Font.getFont(name: .americanTypewriter, style: .bold, size: 16)
-        let uiView = UIView()
-        uiView.backgroundColor = .white
-        uiView.translatesAutoresizingMaskIntoConstraints = false
         
-        let picker = UIDatePicker()
-        picker.preferredDatePickerStyle = .inline
-        picker.datePickerMode = .date
-        picker.translatesAutoresizingMaskIntoConstraints = false
-        
-        uiView.addSubview(picker)
-        
-        let doneButton = UIButton(type: .system)
-        doneButton.setTitle("Готово", for: .normal)
-        doneButton.titleLabel?.font = buttonFont
-        doneButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        uiView.addSubview(doneButton)
-        
-        let cancelButton = UIButton(type: .system)
-        
-        cancelButton.setTitle("Отменить", for: .normal)
-        cancelButton.titleLabel?.font = buttonFont
-        cancelButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        uiView.addSubview(cancelButton)
-        
-        let line = UIView()
-        line.backgroundColor = .gray
-        line.translatesAutoresizingMaskIntoConstraints = false
-        
-        uiView.addSubview(line)
-        
-        return uiView
-    }()
-    
-    var darkUiView:UIView = {
-        let uiView = UIView()
-        uiView.backgroundColor = .black
-        uiView.layer.opacity = 0
-        uiView.translatesAutoresizingMaskIntoConstraints = false
-        return uiView
-    }()
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         self.user?.getAccessLevelFromApi(completion: { isGetted, error in
             if isGetted{
                 self.configurationView()
@@ -105,7 +61,6 @@ class ProfilePageViewController: UIViewController {
         addSubviews()
         
         profilePhotoConfiguration()
-        configurationDarkUiView()
         datePickerConfiguration()
         
     }
@@ -183,38 +138,13 @@ class ProfilePageViewController: UIViewController {
     }
     
     fileprivate func addSubviews(){
-        self.view.addSubview(self.darkUiView)
-        self.view.addSubview(datePickerUiView)
     }
     
     // MARK: - configure Date Picker
     fileprivate func datePickerConfiguration(){
         
-        let picker = datePickerUiView.subviews[0] as! UIDatePicker
-        
-        let doneButton = datePickerUiView.subviews[1] as! UIButton
-        
-        let cancelButton = datePickerUiView.subviews[2] as! UIButton
-        
-        let line = datePickerUiView.subviews[3]
-        
-        picker.minimumDate = Date.birthdayFromString(dateString: "01.01.1900")
-        picker.maximumDate = Date.now
-        
-        picker.setDate(self.user?.getBirthday() ?? Date.now, animated: false)
-        
-        
-        let action = UIAction { _ in
-            UIView.transition(with: self.datePickerUiView, duration: 0.5) {
-                self.caledarHeightConstaint.constant = 0
-                self.view.layoutIfNeeded()
-            }
-            UIView.animate(withDuration: 0.5, delay: 0) {
-                self.tabBarController?.tabBar.layer.opacity = 1
-                self.darkUiView.layer.opacity = 0
-            }
-            
-            self.user?.updatePersonalData(updateField: .birthdayDate, value: picker.date.birthdayToString()) { isSetted, error in
+        self.datePicker = DatepickerFromBottom(viewController: self, doneAction: { date in
+            self.user?.updatePersonalData(updateField: .birthdayDate, value: date.birthdayToString()) { isSetted, error in
                 if error == .tokenExpired || error == .invalidToken{
                     self.dateLabel.text = self.user?.getBirthday()
                     let alert  = self.alerts.invalidToken(view: self.view, message: "")
@@ -224,76 +154,11 @@ class ProfilePageViewController: UIViewController {
                     self.alerts.errorAlert(self, errorTypeApi: .unknown)
                 }
                 if isSetted{
-                    self.dateLabel.text = picker.date.birthdayToString()
+                    self.dateLabel.text = date.birthdayToString()
                 }
             }
-            
-        }
-        
-        let cancelAction = UIAction { _ in
-            UIView.transition(with: self.datePickerUiView, duration: 0.5) {
-                self.caledarHeightConstaint.constant = 0
-                self.view.layoutIfNeeded()
-            }
-            UIView.animate(withDuration: 0.5, delay: 0) {
-                self.tabBarController?.tabBar.layer.opacity = 1
-                self.darkUiView.layer.opacity = 0
-            }
-        }
-        doneButton.addAction(action, for: .touchUpInside)
-        cancelButton.addAction(cancelAction, for: .touchUpInside)
-        
-        
-        caledarHeightConstaint = NSLayoutConstraint(item: self.datePickerUiView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 0)
-        
-        self.datePickerUiView.addConstraint(caledarHeightConstaint)
-        
-        NSLayoutConstraint.activate([
-            self.datePickerUiView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0),
-            self.datePickerUiView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            self.datePickerUiView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor)
-        ])
-        
-        NSLayoutConstraint.activate([
-            picker.trailingAnchor.constraint(equalTo: self.datePickerUiView.trailingAnchor),
-            picker.leadingAnchor.constraint(equalTo: self.datePickerUiView.leadingAnchor),
-            picker.bottomAnchor.constraint(equalTo: self.datePickerUiView.bottomAnchor)
-            ])
-        
-        
-        NSLayoutConstraint.activate([
-            doneButton.topAnchor.constraint(equalTo: self.datePickerUiView.topAnchor, constant: 5),
-            doneButton.trailingAnchor.constraint(equalTo: self.datePickerUiView.trailingAnchor, constant: -10),
-            doneButton.bottomAnchor.constraint(equalTo: picker.topAnchor, constant: 10)
-        ])
-        
-        NSLayoutConstraint.activate([
-            cancelButton.topAnchor.constraint(equalTo: self.datePickerUiView.topAnchor, constant: 5),
-            cancelButton.leadingAnchor.constraint(equalTo: self.datePickerUiView.leadingAnchor, constant: 10),
-            cancelButton.bottomAnchor.constraint(equalTo: picker.topAnchor, constant: 10)
-        ])
-        
-        NSLayoutConstraint.activate([
-            line.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            line.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            line.topAnchor.constraint(equalTo: doneButton.self.bottomAnchor, constant: 0),
-            line.heightAnchor.constraint(equalToConstant: 1)
-        ])
+        })
     }
-    
-    // MARK: - configure dark UiView
-    
-    fileprivate func configurationDarkUiView(){
-        
-        NSLayoutConstraint.activate([
-            self.darkUiView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            self.darkUiView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            self.darkUiView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            self.darkUiView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
-        ])
-    }
-    
-    
     // MARK: - Image
     
     @objc fileprivate func tapChangePhoto(){
@@ -477,10 +342,10 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
                 changeButton.isHidden = false
             }
             
-//            if cellType == .phone{
-//                textField.keyboardType = .phonePad
-//                textField.returnKeyType = .done
-//            }
+            if cellType == .phone{
+                textField.keyboardType = .phonePad
+                textField.addDoneCancelToolbar()
+            }
         
         case 2:
             cell = tableView.dequeueReusableCell(withIdentifier: "birthdayCell", for: indexPath)
@@ -501,14 +366,7 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
                 
                 self.view.endEditing(true)
                 
-                UIView.transition(with: self.datePickerUiView, duration: 0.5) {
-                    self.caledarHeightConstaint.constant = self.view.frame.height / 2
-                    self.view.layoutIfNeeded()
-                }
-                UIView.animate(withDuration: 0.5, delay: 0) {
-                    self.tabBarController?.tabBar.layer.opacity = 0
-                    self.darkUiView.layer.opacity = 0.5
-                }
+                self.datePicker.setDatePicker()
 
             })
             changeButton.addAction(action, for: .touchUpInside)

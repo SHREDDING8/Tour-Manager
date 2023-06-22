@@ -23,6 +23,7 @@ class ExcursionForGuideTableViewController: UITableViewController {
     
     @IBOutlet weak var notesTextView: UITextView!
     
+    @IBOutlet weak var datePicker: UIDatePicker!
     
     @IBOutlet weak var customerGuideName: UILabel!
     
@@ -51,8 +52,9 @@ class ExcursionForGuideTableViewController: UITableViewController {
         self.excursionNameLabel.text = excursion.excursionName
         self.routeLabel.text = excursion.route
         self.numberOfPeopleLabel.text = String(excursion.numberOfPeople)
+        self.datePicker.date = excursion.dateAndTime
         self.notesTextView.text = excursion.additionalInfromation
-        self.customerGuideName.text = excursion.customerCompanyName
+        self.customerGuideName.text = excursion.customerGuideName
         self.customerGuideContact.text = excursion.companyGuidePhone
         self.isPaidSwitch.isOn = excursion.isPaid
         self.paymentAmountLabel.text = String(excursion.paymentAmount)
