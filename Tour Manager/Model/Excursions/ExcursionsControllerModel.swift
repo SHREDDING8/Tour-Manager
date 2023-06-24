@@ -133,5 +133,11 @@ class ExcursionsControllerModel{
         }
     }
     
+    public func setGuideTourStatus(token: String, uid: String, companyId: String, tourDate: String, tourId: String, guideStatus: Status, completion: @escaping (Bool, customErrorExcursion?)->Void ){
+        apiManagerExcursions.setGuideTourStatus(token: token, uid: uid, companyId: companyId, tourDate: tourDate, tourId: tourId, guideStatus: guideStatus) { isSetted, error in
+            completion(isSetted,error)
+        }
+    }
+    
     
 }

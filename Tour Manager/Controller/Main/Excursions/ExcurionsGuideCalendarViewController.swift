@@ -52,7 +52,7 @@ class ExcurionsGuideCalendarViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.getExcursions(date: Date.now)
+        self.getExcursions(date: self.calendar.calendar.selectedDate ?? Date.now)
                 
     }
     
@@ -373,12 +373,10 @@ extension ExcurionsGuideCalendarViewController:UITableViewDelegate,UITableViewDa
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableViewCalendar.deselectRow(at: indexPath, animated: true)
+                
+        let destination = controllers.getControllerMain(.excursionForGuideTableViewController) as! ExcursionForGuideTableViewController
         
-//        let destination = self.controllers.getControllerMain(.excursionForGuideTableViewController) as! ExcursionForGuideTableViewController
-        
-        let destination = self.controllers.getControllerMain(.uiTableViewControllerContainer)
-        
-//        destination.excursion = excursionsModel.excursions[indexPath.row]
+        destination.excursion = excursionsModel.excursions[indexPath.row]
         
         self.navigationController?.pushViewController(destination, animated: true)
         
