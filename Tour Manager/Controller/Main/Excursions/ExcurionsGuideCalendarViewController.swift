@@ -343,9 +343,12 @@ extension ExcurionsGuideCalendarViewController:UITableViewDelegate,UITableViewDa
         for guide in self.excursionsModel.excursions[indexPath.row].selfGuides{
             guides += guide.guideInfo.getFirstName() + ", "
             
-            statuses.append(guide.status)
-            
+            if guide.guideInfo == self.user{
+                statuses.append(guide.status)
+            }
+           
         }
+        
         if guides.count > 2{
             guides.removeLast()
             guides.removeLast()
@@ -371,9 +374,11 @@ extension ExcurionsGuideCalendarViewController:UITableViewDelegate,UITableViewDa
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableViewCalendar.deselectRow(at: indexPath, animated: true)
         
-        let destination = self.controllers.getControllerMain(.excursionForGuideTableViewController) as! ExcursionForGuideTableViewController
+//        let destination = self.controllers.getControllerMain(.excursionForGuideTableViewController) as! ExcursionForGuideTableViewController
         
-        destination.excursion = excursionsModel.excursions[indexPath.row]
+        let destination = self.controllers.getControllerMain(.uiTableViewControllerContainer)
+        
+//        destination.excursion = excursionsModel.excursions[indexPath.row]
         
         self.navigationController?.pushViewController(destination, animated: true)
         

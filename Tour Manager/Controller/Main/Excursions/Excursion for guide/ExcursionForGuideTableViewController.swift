@@ -37,15 +37,18 @@ class ExcursionForGuideTableViewController: UITableViewController {
     @IBOutlet weak var guidesCollectionView: UICollectionView!
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureValues()
-
+    
+        self.navigationItem.title = excursion.excursionName
+        
+        self.navigationItem.largeTitleDisplayMode = .always
     }
     
     
+
     // MARK: - configureValues
     
     fileprivate func configureValues(){

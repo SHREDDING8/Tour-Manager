@@ -18,6 +18,8 @@ public enum customErrorCompany{
     
     case companyIsPrivateOrDoesNotExist
     case userIsAlreadyAttachedToCompany
+    
+    case targetUserDoesNotExist
 }
 
 
@@ -38,6 +40,7 @@ public class ApiManagerCompany{
     private let routeGetCompanyUsers = prefix + "/get_company_users"
     
     private let routeGetCompanyGuides = prefix + "/get_company_guides"
+    private let routeUpdateUserAccessLevel = prefix + "/update_user_access_level"
     
     public func addCompany(token:String, companyName:String, completion: @escaping (Bool,ResponseAddCompanyJsonStruct?,customErrorCompany?)->Void ){
         
@@ -259,6 +262,43 @@ public class ApiManagerCompany{
             }
             
         }
+        
+    }
+    
+    
+    public func updateUserAccessLevel(_ jsonData:SendUpdateUserAccessLevel, completion: @escaping (Bool, customErrorCompany?)->Void ){
+        
+        let url = URL(string: routeUpdateUserAccessLevel)!
+        
+        AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
+            if response.response?.statusCode == 400{
+                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
+                
+                if error.message == "Token expired"{
+                    completion(false, .tokenExpired)
+                } else if error.message == "Invalid Firebase ID token"{
+                    completion(false, .invalidToken)
+                } else if error.message == "Target user does not exist"{
+                    completion(false, .targetUserDoesNotExist)
+                } else if error.message == "Permission denied"{
+                    completion(false, .permissionDenied)
+                }else if error.message == "User is not in this company"{
+                    completion(false, .userIsNotInThisCompany)
+                }else if error.message == "Company does not exist"{
+                    completion(false, .companyIsPrivateOrDoesNotExist)
+                }
+                else{
+                    completion(false, .unknowmError)
+                }
+                
+            }else if response.response?.statusCode == 200{
+                
+                
+            } else{
+                completion(false, .unknowmError)
+            }
+        }
+        
         
     }
     

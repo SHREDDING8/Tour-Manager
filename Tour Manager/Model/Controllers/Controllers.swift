@@ -35,6 +35,8 @@ enum PossibleControllersMain:String{
     case excursionsNavigationController = "ExcursionsNavigationController"
     
     case excursionForGuideTableViewController = "ExcursionForGuideTableViewController"
+    
+    case uiTableViewControllerContainer = "UITableViewControllerContainer"
 }
 
 enum TypeOfRegister{
