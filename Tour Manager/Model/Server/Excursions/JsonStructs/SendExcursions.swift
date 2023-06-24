@@ -127,3 +127,12 @@ struct SendGetExcursionsListByRange:Codable{
     let tour_date_start:String
     let tour_date_end:String
 }
+
+struct SendSetGuideStatus:Codable{
+    let token:String
+    let uid:String
+    let company_id:String
+    let tour_date:String
+    let tour_id:String
+    let guide_status:String
+}
