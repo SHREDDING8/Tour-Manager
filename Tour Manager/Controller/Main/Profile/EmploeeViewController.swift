@@ -200,6 +200,17 @@ extension EmploeeViewController:UITableViewDelegate,UITableViewDataSource{
         
         switchButton.isOn = employee.getAccessLevel(rule: rule)
         
+        switchButton.addAction(UIAction(handler: { _ in
+            self.user?.updateAccessLevel(targetId: self.employee.getLocalID() ?? "", accessLevel: rule, value: switchButton.isOn) { isUpdated, error in
+                if isUpdated{
+                    
+                }
+                if error != nil{
+                    switchButton.isOn = !switchButton.isOn
+                }
+            }
+        }), for: .valueChanged)
+        
         
         if !(self.user?.getAccessLevel(rule: .canChangeAccessLevel) ?? false) || !(self.user?.getAccessLevel(rule: rule) ?? false) || self.user?.getLocalID() == employee.getLocalID() || self.employee.getAccessLevel(rule: .isOwner){
             switchButton.isEnabled = false

@@ -73,4 +73,28 @@ extension User{
             }
         }
     }
+    
+    public func updateAccessLevel(targetId:String, accessLevel:AccessLevelEnum, value:Bool, completion: @escaping (Bool, customErrorCompany?)->Void ){
+        
+        self.accessLevel[accessLevel] = value
+        
+        let jsonData = SendUpdateUserAccessLevel(
+            token: self.getToken(),
+            company_id: self.company.getLocalIDCompany(),
+            target_uid: targetId,
+            can_change_access_level: self.getAccessLevel(rule: .canChangeAccessLevel),
+            can_read_tour_list: self.getAccessLevel(rule: .canReadTourList),
+            can_write_tour_list: self.getAccessLevel(rule: .canWriteTourList),
+            is_guide: self.getAccessLevel(rule: .isGuide),
+            read_company_employee: self.getAccessLevel(rule: .readCompanyEmployee),
+            read_general_company_information: self.getAccessLevel(rule: .readGeneralCompanyInformation),
+            read_local_id_company: self.getAccessLevel(rule: .readLocalIdCompany),
+            write_general_company_information: self.getAccessLevel(rule: .writeGeneralCompanyInformation)
+        )
+        
+        apiCompany.updateUserAccessLevel(jsonData) { isUpdated, error in
+            completion(isUpdated,error)
+        }
+        
+    }
 }

@@ -54,6 +54,7 @@
 		EEB73FA32A365ABC004D7A25 /* ExcursionsControllerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB73FA22A365ABC004D7A25 /* ExcursionsControllerModel.swift */; };
 		EEB764A22A387B2200579E6B /* NewComponentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB764A02A387B2200579E6B /* NewComponentTableViewCell.swift */; };
 		EEB764A32A387B2200579E6B /* NewComponentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEB764A12A387B2200579E6B /* NewComponentTableViewCell.xib */; };
+		EEC0FAAD2A44D7350082BB0A /* UITableViewControllerContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC0FAAC2A44D7350082BB0A /* UITableViewControllerContainer.swift */; };
 		EEC9BA182A2670A100BC026A /* Bool.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC9BA172A2670A100BC026A /* Bool.swift */; };
 		EEDA5E9B2A378215002CC5C8 /* UiTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDA5E9A2A378215002CC5C8 /* UiTextField.swift */; };
 		EEDA5E9D2A37BFA9002CC5C8 /* UiTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDA5E9C2A37BFA9002CC5C8 /* UiTextView.swift */; };
@@ -133,6 +134,7 @@
 		EEB73FA22A365ABC004D7A25 /* ExcursionsControllerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcursionsControllerModel.swift; sourceTree = "<group>"; };
 		EEB764A02A387B2200579E6B /* NewComponentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewComponentTableViewCell.swift; sourceTree = "<group>"; };
 		EEB764A12A387B2200579E6B /* NewComponentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewComponentTableViewCell.xib; sourceTree = "<group>"; };
+		EEC0FAAC2A44D7350082BB0A /* UITableViewControllerContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewControllerContainer.swift; sourceTree = "<group>"; };
 		EEC9BA172A2670A100BC026A /* Bool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bool.swift; sourceTree = "<group>"; };
 		EEDA5E9A2A378215002CC5C8 /* UiTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiTextField.swift; sourceTree = "<group>"; };
 		EEDA5E9C2A37BFA9002CC5C8 /* UiTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiTextView.swift; sourceTree = "<group>"; };
@@ -447,6 +449,15 @@
 			path = JsonStructs;
 			sourceTree = "<group>";
 		};
+		EEC0FAAB2A44D7180082BB0A /* Excursion for guide */ = {
+			isa = PBXGroup;
+			children = (
+				EE1A678E2A40F50F007A1A84 /* ExcursionForGuideTableViewController.swift */,
+				EEC0FAAC2A44D7350082BB0A /* UITableViewControllerContainer.swift */,
+			);
+			path = "Excursion for guide";
+			sourceTree = "<group>";
+		};
 		EEC9BA192A2671ED00BC026A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -541,9 +552,9 @@
 		EEFD30E92A3B636D003192A1 /* Excursions */ = {
 			isa = PBXGroup;
 			children = (
+				EEC0FAAB2A44D7180082BB0A /* Excursion for guide */,
 				EEFD30EC2A3B6400003192A1 /* ExcursionsNavigationController.swift */,
 				EEFD30EE2A3B7905003192A1 /* ExcurionsGuideCalendarViewController.swift */,
-				EE1A678E2A40F50F007A1A84 /* ExcursionForGuideTableViewController.swift */,
 			);
 			path = Excursions;
 			sourceTree = "<group>";
@@ -711,6 +722,7 @@
 				EE9788692A28D4FA0086C034 /* EmploeeTableViewController.swift in Sources */,
 				EEC9BA182A2670A100BC026A /* Bool.swift in Sources */,
 				EE4C89352A2CEE40004D3CB9 /* Auth.swift in Sources */,
+				EEC0FAAD2A44D7350082BB0A /* UITableViewControllerContainer.swift in Sources */,
 				EE5F91C62A1FD16200B39BB1 /* responseStructs.swift in Sources */,
 				EEB73FA12A364BA9004D7A25 /* ResponseExcursions.swift in Sources */,
 				EEE8026A2A2E4E1A00162622 /* ExcursionManagementViewController.swift in Sources */,
