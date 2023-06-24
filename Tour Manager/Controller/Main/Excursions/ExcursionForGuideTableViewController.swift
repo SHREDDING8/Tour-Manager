@@ -197,7 +197,7 @@ class ExcursionForGuideTableViewController: UITableViewController {
         NSLayoutConstraint.activate([
             acceptButton.centerYAnchor.constraint(equalTo: acceptUIView.centerYAnchor),
             acceptButton.leadingAnchor.constraint(equalTo: acceptUIView.leadingAnchor, constant: 30),
-            acceptButton.widthAnchor.constraint(equalToConstant: self.view.frame.width / 3),
+            acceptButton.widthAnchor.constraint(equalToConstant: self.view.frame.width / 2 - 35),
             acceptButton.heightAnchor.constraint(equalToConstant: 50)
             
         ])
@@ -205,7 +205,7 @@ class ExcursionForGuideTableViewController: UITableViewController {
         NSLayoutConstraint.activate([
             cancelButton.centerYAnchor.constraint(equalTo: acceptUIView.centerYAnchor),
             cancelButton.trailingAnchor.constraint(equalTo: acceptUIView.trailingAnchor, constant: -30),
-            cancelButton.widthAnchor.constraint(equalToConstant: self.view.frame.width / 3),
+            cancelButton.widthAnchor.constraint(equalToConstant: self.view.frame.width / 2 - 35),
             cancelButton.heightAnchor.constraint(equalToConstant: 50)
             
         ])
