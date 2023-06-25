@@ -54,18 +54,10 @@ public class ApiManagerUserData{
         
         AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
             if response.response?.statusCode == 400{
-                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
                 
-                if error.message == "User data not found"{
-                    completion(false, nil, .dataNotFound)
-                } else if error.message == "Token expired"{
-                    completion(false, nil, .tokenExpired)
-                } else if error.message == "Invalid Firebase ID token"{
-                    completion(false, nil, .invalidToken)
-                } else {
-                    completion(false, nil, .unknowmError)
-                }
-                return
+                let error = self.checkError(data: response.data ?? Data())
+                completion(false, nil, error)
+                
             } else if response.response?.statusCode == 200{
                 if let responseData = try? JSONDecoder().decode(ResponseGetUserInfoJsonStruct.self, from: response.data!){
                     completion(true, responseData, nil)
@@ -88,14 +80,10 @@ public class ApiManagerUserData{
         
         AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
             if response.response?.statusCode == 400{
-                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
                 
-                if error.message == "Token expired" || error.message == "Invalid Firebase ID token" {
-                    completion(false, .invalidToken)
-                } else {
-                    completion(false, .unknowmError)
-                }
-                return
+                let error = self.checkError(data: response.data ?? Data())
+                completion(false, error)
+                
             } else if response.response?.statusCode == 200{
                 completion(true,nil)
             } else {
@@ -116,14 +104,10 @@ public class ApiManagerUserData{
         
         AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
             if response.response?.statusCode == 400{
-                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
                 
-                if error.message == "Token expired" || error.message == "Invalid Firebase ID token" {
-                    completion(false, .invalidToken)
-                } else {
-                    completion(false, .unknowmError)
-                }
-                return
+                let error = self.checkError(data: response.data ?? Data())
+                completion(false, error)
+                
             } else if response.response?.statusCode == 200{
                 completion(true,nil)
             } else {
@@ -144,13 +128,10 @@ public class ApiManagerUserData{
             
             
             if response.response?.statusCode == 400{
-                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
                 
-                if error.message == "Token expired" || error.message == "Invalid Firebase ID token" {
-                    completion(false, .invalidToken)
-                } else {
-                    completion(false, .unknowmError)
-                }
+                let error = self.checkError(data: response.data ?? Data())
+                completion(false, error)
+                
             } else if response.response?.statusCode == 200{
                 completion(true,nil)
             }else{
@@ -176,13 +157,9 @@ public class ApiManagerUserData{
             
         }, to: url!).response { response in
             if response.response?.statusCode == 400{
-                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
+                let error = self.checkError(data: response.data ?? Data())
+                completion(false, error)
                 
-                if error.message == "Token expired" || error.message == "Invalid Firebase ID token" {
-                    completion(false, .invalidToken)
-                } else {
-                    completion(false, .unknowmError)
-                }
             } else if response.response?.statusCode == 200{
                 completion(true,nil)
             }else{
@@ -204,13 +181,10 @@ public class ApiManagerUserData{
         
         AF.request(url, method: .post, parameters: json, encoder: .json).response { response in
             if response.response?.statusCode == 400{
-                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
                 
-                if error.message == "Token expired" || error.message == "Invalid Firebase ID token" {
-                    completion(false, nil, .invalidToken)
-                } else {
-                    completion(false, nil, .unknowmError)
-                }
+                let error = self.checkError(data: response.data ?? Data())
+                completion(false, nil, error)
+                
             } else if response.response?.statusCode == 200{
                 completion(true, response.data! ,nil)
             }else{
@@ -231,13 +205,8 @@ public class ApiManagerUserData{
         
         AF.request(url, method: .post, parameters: json, encoder: .json).response { response in
             if response.response?.statusCode == 400{
-                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
-                
-                if error.message == "Token expired" || error.message == "Invalid Firebase ID token" {
-                    completion(false, .invalidToken)
-                } else {
-                    completion(false, .unknowmError)
-                }
+                let error = self.checkError(data: response.data ?? Data())
+                completion(false, error)
             } else if response.response?.statusCode == 200{
                 completion(true, nil)
             }else{
@@ -245,6 +214,25 @@ public class ApiManagerUserData{
             }
         }
         
+    }
+    
+    
+    private func checkError(data:Data)->customErrorUserData{
+        if let error = try? JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: data){
+            switch error.message{
+            case "File not found":
+                return .dataNotFound
+            case "Token expired":
+                return .tokenExpired
+                
+            case "Invalid Firebase ID token":
+                return .invalidToken
+
+            default:
+                return .unknowmError
+            }
+        }
+        return .unknowmError
     }
     
     

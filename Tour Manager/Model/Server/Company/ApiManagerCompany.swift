@@ -51,16 +51,10 @@ public class ApiManagerCompany{
         AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
             
             if response.response?.statusCode == 400{
-                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
                 
-                if error.message == "Token expired"{
-                    completion(false, nil, .tokenExpired)
-                } else if error.message == "Invalid Firebase ID token"{
-                    completion(false, nil, .invalidToken)
-                } else {
-                    completion(false, nil, .unknowmError)
-                }
-                return
+                let error = self.checkError(data: response.data ?? Data())
+                completion(false,nil, error)
+                
             }else if response.response?.statusCode == 200{
                 if let responseData = try? JSONDecoder().decode(ResponseAddCompanyJsonStruct.self, from: response.data!){
                     completion(true,responseData, nil)
@@ -81,21 +75,10 @@ public class ApiManagerCompany{
         AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
             
             if response.response?.statusCode == 400{
-                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
                 
-                if error.message == "Company is private" || error.message == "Company does not exist"{
-                    completion(false, nil, .companyIsPrivateOrDoesNotExist)
-                }else if error.message == "User is already attached to company"{
-                    completion(false, nil, .userIsAlreadyAttachedToCompany)
-                }else if error.message == "Token expired"{
-                    completion(false, nil, .tokenExpired)
-                } else if error.message == "Invalid Firebase ID token"{
-                    completion(false,nil, .invalidToken)
-                } else {
-                    completion(false, nil, .unknowmError)
-                }
+                let error = self.checkError(data: response.data ?? Data())
+                completion(false,nil, error)
                 
-                return
             } else if response.response?.statusCode == 200{
                 if let responseData = try? JSONDecoder().decode(ResponseAddEmployeeToCompanyJsonStruct.self, from: response.data!){
                     completion(true,responseData,  nil)
@@ -115,21 +98,10 @@ public class ApiManagerCompany{
         
         AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
             if response.response?.statusCode == 400{
-                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
                 
-                if error.message == "Permission denied"{
-                    completion(false, .permissionDenied)
-                } else if error.message == "User is not in this company"{
-                    completion(false, .userIsNotInThisCompany)
-                } else if error.message == "Company does not exist"{
-                    completion(false, .companyIsPrivateOrDoesNotExist)
-                }else if error.message == "Token expired"{
-                    completion(false, .tokenExpired)
-                } else if error.message == "Invalid Firebase ID token"{
-                    completion(false, .invalidToken)
-                }else{
-                    completion(false, .unknowmError)
-                }
+                let error = self.checkError(data: response.data ?? Data())
+                completion(false,error)
+                
             } else if response.response?.statusCode == 200{
                 completion(true, nil)
             }else{
@@ -146,20 +118,10 @@ public class ApiManagerCompany{
         
         AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
             if response.response?.statusCode == 400{
-                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
-                if error.message == "Permission denied"{
-                    completion(nil, .permissionDenied)
-                } else if error.message == "User is not in this company"{
-                    completion(nil, .userIsNotInThisCompany)
-                } else if error.message == "Company does not exist"{
-                    completion(nil, .companyIsPrivateOrDoesNotExist)
-                }else if error.message == "Token expired"{
-                    completion(nil, .tokenExpired)
-                } else if error.message == "Invalid Firebase ID token"{
-                    completion(nil, .invalidToken)
-                }else{
-                    completion(nil, .unknowmError)
-                }
+                
+                let error = self.checkError(data: response.data ?? Data())
+                completion(nil, error)
+                
             } else if response.response?.statusCode == 200{
                 let accessLevels = try? JSONDecoder().decode(ResponseAccessLevel.self, from: response.data!)
                 completion(accessLevels, nil)
@@ -179,15 +141,9 @@ public class ApiManagerCompany{
         AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
             
             if response.response?.statusCode == 400{
-                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
                 
-                if error.message == "Token expired"{
-                    completion(false, .tokenExpired)
-                } else if error.message == "Invalid Firebase ID token"{
-                    completion(false, .invalidToken)
-                }else{
-                    completion(false, .unknowmError)
-                }
+                let error = self.checkError(data: response.data ?? Data())
+                completion(false,error)
                 
             } else if response.response?.statusCode == 200{
                 completion(true, nil)
@@ -206,15 +162,8 @@ public class ApiManagerCompany{
         AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
             
             if response.response?.statusCode == 400{
-                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
-                
-                if error.message == "Token expired"{
-                    completion(false, nil, .tokenExpired)
-                } else if error.message == "Invalid Firebase ID token"{
-                    completion(false, nil, .invalidToken)
-                }else{
-                    completion(false, nil, .unknowmError)
-                }
+                let error = self.checkError(data: response.data ?? Data())
+                completion(false,nil, error)
                 
             } else if response.response?.statusCode == 200{
                 typealias GetCompanyUsers = [GetCompanyUsersElement]
@@ -241,15 +190,8 @@ public class ApiManagerCompany{
         AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
             
             if response.response?.statusCode == 400{
-                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
-                
-                if error.message == "Token expired"{
-                    completion(false, nil, .tokenExpired)
-                } else if error.message == "Invalid Firebase ID token"{
-                    completion(false, nil, .invalidToken)
-                }else{
-                    completion(false, nil, .unknowmError)
-                }
+                let error = self.checkError(data: response.data ?? Data())
+                completion(false,nil, error)
                 
             } else if response.response?.statusCode == 200{
                 typealias GetCompanyUsers = [GetCompanyUsersElement]
@@ -272,39 +214,46 @@ public class ApiManagerCompany{
         
         AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
             if response.response?.statusCode == 400{
-                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
-                
-                if error.message == "Token expired"{
-                    completion(false, .tokenExpired)
-                } else if error.message == "Invalid Firebase ID token"{
-                    completion(false, .invalidToken)
-                } else if error.message == "Target user does not exist"{
-                    completion(false, .targetUserDoesNotExist)
-                } else if error.message == "Permission denied"{
-                    completion(false, .permissionDenied)
-                }else if error.message == "User is not in this company"{
-                    completion(false, .userIsNotInThisCompany)
-                }else if error.message == "Company does not exist"{
-                    completion(false, .companyIsPrivateOrDoesNotExist)
-                }
-                else{
-                    completion(false, .unknowmError)
-                }
+                let error = self.checkError(data: response.data ?? Data())
+                completion(false,error)
                 
             }else if response.response?.statusCode == 200{
-                
                 
             } else{
                 completion(false, .unknowmError)
             }
         }
-        
-        
     }
     
-    
-    
-    
+    private func checkError(data:Data)->customErrorCompany{
+        if let error = try? JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: data){
+            switch error.message{
+            case "Token expired":
+                return .tokenExpired
+            case "Invalid Firebase ID token":
+                return .invalidToken
+                
+            case "Target user does not exist":
+                return .targetUserDoesNotExist
+            
+            case "Permission denied":
+                return .permissionDenied
+            
+            case "User is not in this company":
+                return .userIsNotInThisCompany
+            
+            case "Company does not exist","Company is private":
+                return .companyIsPrivateOrDoesNotExist
+            
+            case "User is already attached to company":
+                return .userIsAlreadyAttachedToCompany
+
+            default:
+                return .unknowmError
+            }
+        }
+        return .unknowmError
+    }
     
 }
 

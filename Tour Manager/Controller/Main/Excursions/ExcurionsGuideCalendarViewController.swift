@@ -108,7 +108,7 @@ class ExcurionsGuideCalendarViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             
-            tableViewCalendar.topAnchor.constraint(equalTo:self .calendar.showCloseCalendarButton.bottomAnchor, constant: 30),
+            tableViewCalendar.topAnchor.constraint(equalTo:self .calendar.showCloseCalendarButton.bottomAnchor, constant: 10),
             tableViewCalendar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             tableViewCalendar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             tableViewCalendar.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
