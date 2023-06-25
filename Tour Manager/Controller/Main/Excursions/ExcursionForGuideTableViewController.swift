@@ -107,9 +107,8 @@ class ExcursionForGuideTableViewController: UITableViewController {
         
         self.navigationItem.largeTitleDisplayMode = .always
         
-        
-        
     }
+    
     
     
     override func viewDidAppear(_ animated: Bool) {
