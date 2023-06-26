@@ -30,8 +30,7 @@ class DatepickerFromBottom{
         picker.maximumDate = Date.now
         
         pickerView.addSubview(picker)
-        
-        
+                
         let doneButton = UIButton(type: .system)
         doneButton.setTitle("Готово", for: .normal)
         doneButton.titleLabel?.font = buttonFont
@@ -139,7 +138,8 @@ class DatepickerFromBottom{
         NSLayoutConstraint.activate([
             picker.trailingAnchor.constraint(equalTo: self.pickerView.trailingAnchor),
             picker.leadingAnchor.constraint(equalTo: self.pickerView.leadingAnchor),
-            picker.bottomAnchor.constraint(equalTo: self.pickerView.bottomAnchor)
+            picker.bottomAnchor.constraint(equalTo: self.pickerView.bottomAnchor),
+            picker.topAnchor.constraint(equalTo: self.pickerView.topAnchor, constant: 40)
         ])
         
         NSLayoutConstraint.activate([
@@ -165,7 +165,7 @@ class DatepickerFromBottom{
     
     public func setDatePicker(){
         UIView.transition(with: self.pickerView, duration: 0.5) {
-            self.datePickerHeightConstraint.constant = self.viewController.view.frame.height / 2
+            self.datePickerHeightConstraint.constant = self.viewController.view.frame.height / 3 * 2
             self.viewController.view.layoutIfNeeded()
         }
         UIView.animate(withDuration: 0.5, delay: 0) {
