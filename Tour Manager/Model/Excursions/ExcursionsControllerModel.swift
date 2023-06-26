@@ -46,6 +46,7 @@ class ExcursionsControllerModel{
                 
             }
             
+            completion(false,error)
             
         }
     }

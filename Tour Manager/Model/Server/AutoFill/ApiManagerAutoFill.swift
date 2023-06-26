@@ -19,6 +19,25 @@ public enum customErrorAutofill{
     case currentUserIsNotInThisCompany
     case companyDoesNotExist
     
+    public func getValuesForAlert()->AlertFields{
+        switch self {
+        case .tokenExpired:
+            return  AlertFields(title: "Произошла ошибка", message: "Ваша сессия закончилась")
+        case .invalidToken:
+            return  AlertFields(title: "Произошла ошибка", message: "Ваша сессия закончилась")
+        case .unknowmError:
+            return AlertFields(title: "Произошла неизвестная ошибка на сервере")
+        case .autofillKeyDoesNotExist:
+            return  AlertFields(title: "Произошла ошибка", message: "Данного значения не существует")
+        case .permissionDenied:
+            return AlertFields(title: "Произошла ошибка", message: "Недостаточно прав доступа для совершения этого действия")
+        case .currentUserIsNotInThisCompany:
+            return AlertFields(title: "Произошла ошибка", message: "Пользователь не числится в этой компании")
+        case .companyDoesNotExist:
+            return AlertFields(title: "Произошла ошибка", message: "Компания является частной или не существует")
+        }
+    }
+    
 }
 class ApiManagerAutoFill{
     private static let domain = GeneralData.domain

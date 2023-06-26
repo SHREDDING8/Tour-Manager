@@ -20,6 +20,29 @@ public enum customErrorCompany{
     case userIsAlreadyAttachedToCompany
     
     case targetUserDoesNotExist
+    
+    
+    public func getValuesForAlert()->AlertFields{
+        
+        switch self {
+        case .tokenExpired:
+            return  AlertFields(title: "Произошла ошибка", message: "Ваша сессия закончилась")
+        case .invalidToken:
+            return AlertFields(title: "Произошла ошибка", message: "Ваша сессия закончилась")
+        case .unknowmError:
+            return AlertFields(title: "Произошла неизвестная ошибка на сервере")
+        case .permissionDenied:
+            return AlertFields(title: "Произошла ошибка", message: "Недостаточно прав доступа для совершения этого действия")
+        case .userIsNotInThisCompany:
+            return AlertFields(title: "Произошла ошибка", message: "Пользователь не числится в этой компании")
+        case .companyIsPrivateOrDoesNotExist:
+            return AlertFields(title: "Произошла ошибка", message: "Компания является частной или не существует")
+        case .userIsAlreadyAttachedToCompany:
+            return AlertFields(title: "Произошла ошибка", message: "Пользователь уже существует в другой компании")
+        case .targetUserDoesNotExist:
+            return AlertFields(title: "Произошла ошибка", message: "Пользователь не существует")
+        }
+    }
 }
 
 
@@ -54,7 +77,6 @@ public class ApiManagerCompany{
                 
                 let error = self.checkError(data: response.data ?? Data())
                 completion(false,nil, error)
-                
             }else if response.response?.statusCode == 200{
                 if let responseData = try? JSONDecoder().decode(ResponseAddCompanyJsonStruct.self, from: response.data!){
                     completion(true,responseData, nil)

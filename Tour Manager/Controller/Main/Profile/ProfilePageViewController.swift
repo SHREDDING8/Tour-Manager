@@ -46,15 +46,7 @@ class ProfilePageViewController: UIViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
-                
-        self.user?.getAccessLevelFromApi(completion: { isGetted, error in
-            if isGetted{
-                self.configurationView()
-                self.tableView.reloadData()
-            }
-        })
-        
-        
+                        
         configurationView()
         setKeyBoardObserver()
         
@@ -145,13 +137,10 @@ class ProfilePageViewController: UIViewController {
         
         self.datePicker = DatepickerFromBottom(viewController: self, doneAction: { date in
             self.user?.updatePersonalData(updateField: .birthdayDate, value: date.birthdayToString()) { isSetted, error in
-                if error == .tokenExpired || error == .invalidToken{
-                    self.dateLabel.text = self.user?.getBirthday()
-                    let alert  = self.alerts.invalidToken(view: self.view, message: "")
-                    self.present(alert, animated: true)
-                } else if error == .unknowmError{
-                    self.dateLabel.text = self.user?.getBirthday()
-                    self.alerts.errorAlert(self, errorTypeApi: .unknown)
+                if let err = error{
+                    self.alerts.errorAlert(self, errorUserDataApi: err) {
+                        self.dateLabel.text = self.user?.getBirthday()
+                    }
                 }
                 if isSetted{
                     self.dateLabel.text = date.birthdayToString()
@@ -176,11 +165,8 @@ class ProfilePageViewController: UIViewController {
         let actionDeletePhoto = UIAlertAction(title: "Delete Photo", style: .default) { [self] _ in
             
             self.user?.deleteProfilePhoto(completion: { isDeleted, error in
-                if error == .tokenExpired || error == .invalidToken{
-                    let alert = self.alerts.invalidToken(view: self.view, message: nil)
-                    self.present(alert, animated: true)
-                } else if error == .unknowmError{
-                    self.alerts.errorAlert(self, errorTypeApi: .unknown)
+                if let err = error{
+                    self.alerts.errorAlert(self, errorUserDataApi: err)
                 }
                 
                 if isDeleted{
@@ -392,12 +378,9 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
                 
                 let actionDel = UIAlertAction(title: "Удалить", style: .destructive) { _ in
                     self.user?.deleteCurrentUser(completion: { isDeleted, error in
-                        if error == .invalidToken || error == .tokenExpired{
-                            let alert = self.alerts.invalidToken(view: self.view, message: "Мы не смогли удалить ваш аккаунт")
-                            self.present(alert, animated: true)
-                            
-                        } else if error == .unknowmError{
-                            self.alerts.errorAlert(self, errorTypeApi: .unknown)
+                        
+                        if let err = error{
+                            self.alerts.errorAlert(self, errorUserDataApi: err)
                         }
                         
                         if isDeleted{
@@ -550,22 +533,13 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
         let actionExit = UIAction { _ in
             self.user?.company.DeleteCompany(token: self.user?.getToken() ?? "", completion: { isDeleted, error in
                 
-                if error == .invalidToken || error == .tokenExpired{
-                    let alert = self.alerts.invalidToken(view: self.view, message: "Мы не смогли удалить вашу компанию")
-                    self.present(alert, animated: true)
+                if let err = error{
+                    self.alerts.errorAlert(self, errorCompanyApi: err)
                 }
-                
-                if error == .unknowmError{
-                    self.alerts.errorAlert(self, errorTypeApi: .unknown)
-                }
-                
                 if isDeleted{
-                    let alert = self.alerts.invalidToken(view: self.view, message: "Ваша компания была удалена")
-                    self.present(alert, animated: true)
+                    let alert = self.alerts.invalidToken(self, message: "Ваша компания была удалена")
                 }
-    
             })
-            
         }
         button.addAction(actionExit, for: .touchUpInside)
         
@@ -609,13 +583,10 @@ extension ProfilePageViewController:UITextFieldDelegate{
             
             self.user?.updatePersonalData(updateField: .firstName, value: value) { isSetted, error in
                 
-                if error == .tokenExpired || error == .invalidToken{
-                    textField.text = self.user?.getFirstName()
-                    let alert  = self.alerts.invalidToken(view: self.view, message: "")
-                    self.present(alert, animated: true)
-                } else if error == .unknowmError{
-                    textField.text = self.user?.getFirstName()
-                    self.alerts.errorAlert(self, errorTypeApi: .unknown)
+                if let err = error{
+                    self.alerts.errorAlert(self, errorUserDataApi: err) {
+                        textField.text = self.user?.getFirstName()
+                    }
                 }
                 
                 if isSetted{
@@ -634,13 +605,10 @@ extension ProfilePageViewController:UITextFieldDelegate{
             
             self.user?.updatePersonalData(updateField: .secondName, value: value) { isSetted, error in
                 
-                if error == .tokenExpired || error == .invalidToken{
-                    textField.text = self.user?.getSecondName()
-                    let alert  = self.alerts.invalidToken(view: self.view, message: "")
-                    self.present(alert, animated: true)
-                } else if error == .unknowmError{
-                    textField.text = self.user?.getSecondName()
-                    self.alerts.errorAlert(self, errorTypeApi: .unknown)
+                if let err = error{
+                    self.alerts.errorAlert(self, errorUserDataApi: err) {
+                        textField.text = self.user?.getSecondName()
+                    }
                 }
                 
                 if isSetted{
@@ -657,13 +625,11 @@ extension ProfilePageViewController:UITextFieldDelegate{
             }
             
             self.user?.updatePersonalData(updateField: .phone, value: value) { isSetted, error in
-                if error == .tokenExpired || error == .invalidToken{
-                    textField.text = self.user?.getPhone()
-                    let alert  = self.alerts.invalidToken(view: self.view, message: "")
-                    self.present(alert, animated: true)
-                } else if error == .unknowmError{
-                    textField.text = self.user?.getPhone()
-                    self.alerts.errorAlert(self, errorTypeApi: .unknown)
+                
+                if let err = error{
+                    self.alerts.errorAlert(self, errorUserDataApi: err) {
+                        textField.text = self.user?.getPhone()
+                    }
                 }
             }
             
@@ -677,15 +643,12 @@ extension ProfilePageViewController:UITextFieldDelegate{
             
             self.user?.company.updateCompanyInfo(token: self.user?.getToken() ?? "", companyName: value, completion: { isUpdated, error in
                 
-                if error == .tokenExpired || error == .invalidToken{
-                    textField.text = self.user?.company.getNameCompany()
-                    let alert  = self.alerts.invalidToken(view: self.view, message: "")
-                    self.present(alert, animated: true)
-                } else if error != nil{
-                    textField.text = self.user?.company.getNameCompany()
-                    self.alerts.errorAlert(self, errorTypeApi: .unknown)
+                if let err = error{
+                    self.alerts.errorAlert(self, errorCompanyApi: err) {
+                        textField.text = self.user?.company.getNameCompany()
+                    }
                 }
-                
+                                
                 if isUpdated{
                     self.navigationItem.title = self.user?.company.getNameCompany()
                 }
@@ -707,11 +670,9 @@ extension ProfilePageViewController:UIImagePickerControllerDelegate,UINavigation
             
             
             self.user?.uploadProfilePhoto(image: image, completion: { isUpload, error in
-                if error == .tokenExpired || error == .invalidToken{
-                    let alert = self.alerts.invalidToken(view: self.view, message: nil)
-                    self.present(alert, animated: true)
-                } else if error == .unknowmError{
-                    self.alerts.errorAlert(self, errorTypeApi: .unknown)
+                
+                if let err = error{
+                    self.alerts.errorAlert(self, errorUserDataApi: err)
                 }
                 
                 if isUpload{

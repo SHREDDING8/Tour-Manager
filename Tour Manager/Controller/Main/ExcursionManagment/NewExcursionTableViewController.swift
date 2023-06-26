@@ -93,9 +93,11 @@ class NewExcursionTableViewController: UITableViewController {
         super.viewDidLoad()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonClick))
         
-        self.navigationItem.backAction = UIAction(handler: { _ in
-            self.warningAlertDuringExit(isPopController: true)
-        })
+        if #available(iOS 16.0, *) {
+            self.navigationItem.backAction = UIAction(handler: { _ in
+                self.warningAlertDuringExit(isPopController: true)
+            })
+        }
         
        
         if isUpdate{
@@ -174,10 +176,19 @@ class NewExcursionTableViewController: UITableViewController {
         
         if isUpdate{
             excursionModel.updateExcursion(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", excursion: excursion, oldDate: self.oldDate) { isUpdated, error in
-                self.navigationController?.popViewController(animated: true)
+                if let err = error{
+                    self.alerts.errorAlert(self, errorExcursionsApi: err)
+                }
+                if isUpdated{
+                    self.navigationController?.popViewController(animated: true)
+                }
+               
             }
         }else{
             excursionModel.createNewExcursion(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", excursion: excursion) { isAdded, error in
+                if let err = error{
+                    self.alerts.errorAlert(self, errorExcursionsApi: err)
+                }
                 if isAdded{
                     self.navigationController?.popViewController(animated: true)
                 }
@@ -203,6 +214,9 @@ class NewExcursionTableViewController: UITableViewController {
     
     @IBAction func deleteExcursionTap(_ sender: Any) {
         self.excursionModel.deleteExcursion(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", excursion: excursion) { isDeleted, error in
+            if let err = error{
+                self.alerts.errorAlert(self, errorExcursionsApi: err)
+            }
             if isDeleted{
                 self.navigationController?.popViewController(animated: true)
             }

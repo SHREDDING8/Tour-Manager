@@ -26,6 +26,29 @@ enum customErrorExcursion{
     
     case guideIsNotInTour
     
+    public func getValuesForAlert()->AlertFields{
+        switch self {
+        case .unknown:
+            return AlertFields(title: "Произошла неизвестная ошибка на сервере")
+        case .dataNotFound:
+            return AlertFields(title: "Произошла ошибка", message: "Данные не были найдены")
+        case .tokenExpired:
+            return  AlertFields(title: "Произошла ошибка", message: "Ваша сессия закончилась")
+        case .invalidToken:
+            return  AlertFields(title: "Произошла ошибка", message: "Ваша сессия закончилась")
+        case .PermissionDenied:
+            return AlertFields(title: "Произошла ошибка", message: "Недостаточно прав доступа для совершения этого действия")
+        case .UserIsNotInThisCompany:
+            return AlertFields(title: "Произошла ошибка", message: "Пользователь не числится в этой компании")
+        case .CompanyDoesNotExist:
+            return AlertFields(title: "Произошла ошибка", message: "Компания является частной или не существует")
+        case .TourDoesNotExist:
+            return AlertFields(title: "Произошла ошибка", message: "Экскурсия не существует")
+        case .guideIsNotInTour:
+            return AlertFields(title: "Произошла ошибка", message: "Экскурсовод не находится в данной экскурсии")
+        }
+    }
+    
     
         
     

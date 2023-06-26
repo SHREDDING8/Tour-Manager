@@ -11,6 +11,8 @@ class ExcursionForGuideTableViewController: UITableViewController {
     
     var excursion = Excursion()
     
+    let alerts = Alert()
+    
     let excursionModel = ExcursionsControllerModel()
     
     let user = AppDelegate.user
@@ -155,6 +157,10 @@ class ExcursionForGuideTableViewController: UITableViewController {
         acceptButton.addAction(UIAction(handler: { _ in
             self.excursionModel.setGuideTourStatus(token: self.user?.getToken() ?? "", uid: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "" , tourDate: self.excursion.dateAndTime.birthdayToString(), tourId: self.excursion.localId ?? "", guideStatus: .accepted) { isSetted, error in
                 
+                if let err = error{
+                    self.alerts.errorAlert(self, errorExcursionsApi: err)
+                }
+                
                 if isSetted{
                     UIView.animate(withDuration: 0.3) {
                         self.tabBarController?.tabBar.layer.opacity = 1
@@ -170,6 +176,11 @@ class ExcursionForGuideTableViewController: UITableViewController {
         
         cancelButton.addAction(UIAction(handler: { _ in
             self.excursionModel.setGuideTourStatus(token: self.user?.getToken() ?? "", uid: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "" , tourDate: self.excursion.dateAndTime.birthdayToString(), tourId: self.excursion.localId ?? "", guideStatus: .cancel) { isSetted, error in
+                
+                if let err = error{
+                    self.alerts.errorAlert(self, errorExcursionsApi: err)
+                }
+                
                 
                 if isSetted{
                     UIView.animate(withDuration: 0.3) {

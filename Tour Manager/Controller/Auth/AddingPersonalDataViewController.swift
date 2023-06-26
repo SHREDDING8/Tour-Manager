@@ -178,9 +178,10 @@ class AddingPersonalDataViewController: UIViewController {
         
         
         self.user?.setUserInfoApi(completion: { IsSetted, error in
-            if error != nil {
-                self.alerts.errorAlert(self, errorTypeApi: .unknown)
-                self.loadUIView.removeLoadUIView()
+            if let err = error{
+                self.alerts.errorAlert(self, errorUserDataApi: err) {
+                    self.loadUIView.removeLoadUIView()
+                }
                 return
             }
             
@@ -189,8 +190,10 @@ class AddingPersonalDataViewController: UIViewController {
                 case .emploee:
                     self.user?.company.addEmployeeToCompany(token: self.user?.getToken() ?? "", completion: { isAdded, error in
                         self.loadUIView.removeLoadUIView()
-                        if error != nil{
-                            return
+                        if let err = error{
+                            self.alerts.errorAlert(self, errorCompanyApi: err) {
+                                self.controllers.goToLoginPage(view: self.view, direction: .fade)
+                            }
                         }
                         if isAdded{
                             self.goToMainTabBar()
@@ -201,19 +204,19 @@ class AddingPersonalDataViewController: UIViewController {
                 case .company:
                     self.user?.company.setCompanyNameApi(token: self.user?.getToken() ?? "", completion: { isAdded, error in
                         self.loadUIView.removeLoadUIView()
-                        if error != nil{
-                            self.goToLogInPage()
-                            return
+                        if let err = error {
+                            self.alerts.errorAlert(self, errorCompanyApi: err) {
+                                self.controllers.goToLoginPage(view: self.view, direction: .fade)
+                            }
                         }
                         if isAdded{
                             self.goToMainTabBar()
                         }
                     })
                 }
-                
             }
         })
-
+        
     }
     
     // MARK: - Navigation

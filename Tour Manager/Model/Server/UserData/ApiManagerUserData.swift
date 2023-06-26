@@ -17,6 +17,19 @@ public enum customErrorUserData{
     
     case unknowmError
     
+    public func getValuesForAlert()->AlertFields{
+        switch self {
+        case .tokenExpired:
+            return  AlertFields(title: "Произошла ошибка", message: "Ваша сессия закончилась")
+        case .invalidToken:
+            return AlertFields(title: "Произошла ошибка", message: "Ваша сессия закончилась")
+        case .dataNotFound:
+            return AlertFields(title: "Произошла ошибка", message: "Данные не были найдены")
+        case .unknowmError:
+            return AlertFields(title: "Произошла неизвестная ошибка на сервере")
+        }
+    }
+    
 }
 
 public enum UserDataFields:String{

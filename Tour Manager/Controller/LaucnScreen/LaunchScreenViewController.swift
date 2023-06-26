@@ -18,6 +18,7 @@ class LaunchScreenViewController: UIViewController {
     
     let controllers = Controllers()
     let user = AppDelegate.user
+    let alerts = Alert()
     
     // MARK: - Life Cycle
     
@@ -33,11 +34,16 @@ class LaunchScreenViewController: UIViewController {
             self.user?.setLocalID(localId: localId!)
             
             self.user?.getUserInfoFromApi(completion: { isGetted, error in
-                if error == nil && isGetted{
-                    self.controllers.goToMainTabBar(view: self.view, direction: .fade)
-                } else{
-                    self.controllers.goToLoginPage(view: self.view, direction: .fade)
+                
+                if let err = error{
+                    self.alerts.errorAlert(self, errorUserDataApi: err) {
+                        self.controllers.goToLoginPage(view: self.view, direction: .fade)
+                    }
                 }
+                if isGetted{
+                    self.controllers.goToMainTabBar(view: self.view, direction: .fade)
+                }
+
             })
         } else{
             self.controllers.goToLoginPage(view: self.view, direction: .fade)

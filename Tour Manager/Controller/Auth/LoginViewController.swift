@@ -236,14 +236,10 @@ class LoginViewController: UIViewController {
                 if error == .dataNotFound{
                     self.goToAddingPersonalData()
                     return
-                }else if error == .invalidToken{
-                    self.alerts.errorAlert(self, errorTypeApi: .unknown)
-                    return
-                } else if error == .tokenExpired{
-                    self.alerts.errorAlert(self, errorTypeApi: .unknown)
-                    return
-                } else if error == .unknowmError{
-                    self.alerts.errorAlert(self, errorTypeApi: .unknown)
+                }
+                
+                if let err = error{
+                    self.alerts.errorAlert(self, errorUserDataApi: err)
                     return
                 }
                 
