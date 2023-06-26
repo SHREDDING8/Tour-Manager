@@ -178,9 +178,10 @@ class AddingPersonalDataViewController: UIViewController {
         
         
         self.user?.setUserInfoApi(completion: { IsSetted, error in
-            if error != nil {
-                self.alerts.errorAlert(self, errorTypeApi: .unknown)
-                self.loadUIView.removeLoadUIView()
+            if let err = error{
+                self.alerts.errorAlert(self, errorUserDataApi: err) {
+                    self.loadUIView.removeLoadUIView()
+                }
                 return
             }
             
@@ -189,8 +190,10 @@ class AddingPersonalDataViewController: UIViewController {
                 case .emploee:
                     self.user?.company.addEmployeeToCompany(token: self.user?.getToken() ?? "", completion: { isAdded, error in
                         self.loadUIView.removeLoadUIView()
-                        if error != nil{
-                            return
+                        if let err = error{
+                            self.alerts.errorAlert(self, errorCompanyApi: err) {
+                                self.controllers.goToLoginPage(view: self.view, direction: .fade)
+                            }
                         }
                         if isAdded{
                             self.goToMainTabBar()
@@ -201,19 +204,19 @@ class AddingPersonalDataViewController: UIViewController {
                 case .company:
                     self.user?.company.setCompanyNameApi(token: self.user?.getToken() ?? "", completion: { isAdded, error in
                         self.loadUIView.removeLoadUIView()
-                        if error != nil{
-                            self.goToLogInPage()
-                            return
+                        if let err = error {
+                            self.alerts.errorAlert(self, errorCompanyApi: err) {
+                                self.controllers.goToLoginPage(view: self.view, direction: .fade)
+                            }
                         }
                         if isAdded{
                             self.goToMainTabBar()
                         }
                     })
                 }
-                
             }
         })
-
+        
     }
     
     // MARK: - Navigation
@@ -317,6 +320,7 @@ extension AddingPersonalDataViewController:UITableViewDelegate,UITableViewDataSo
         case 4:
             label.text = "Телефон"
             textField.placeholder = "Телефон"
+            
             self.phone = textField
             
             textField.restorationIdentifier = "phone"
@@ -479,7 +483,12 @@ extension AddingPersonalDataViewController:UITextFieldDelegate{
             tableView.scrollToRow(at: IndexPath(row: 2, section: 0), at: .top, animated: true)
             
         }else if textField.restorationIdentifier == "phone"{
-            self.phoneString = textField.text ?? ""
+            
+            let newPhone = textField.text?.replacingOccurrences(of: "-", with: "").replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "").replacingOccurrences(of: " ", with: "") ?? ""
+            
+            self.phoneString = newPhone
+            textField.text = newPhone
+            
             tableView.scrollToRow(at: IndexPath(row: 4, section: 0), at: .top, animated: true)
         }
     }

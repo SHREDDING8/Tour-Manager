@@ -168,17 +168,13 @@ class ExcursionManagementViewController: UIViewController{
         
         excursionsModel.getExcursionsFromApi(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "" , date: date) { isGetted, error in
             
-            if error != nil{
-                
-                if error == .invalidToken || error == .tokenExpired{
-                    let alert = self.alerts.invalidToken(view: self.view, message: "Ваша сессия закончилась")
-                    self.present(alert, animated: true)
-                } else if error == .unknown{
-                    self.alerts.errorAlert(self, errorTypeApi: .unknown)
+            if let err = error{
+                if err != .dataNotFound{
+                    self.alerts.errorAlert(self, errorExcursionsApi: err)
                 }
-                return
+
             }
-            
+                        
             if isGetted{
                 UIView.transition(with: self.tableViewCalendar, duration: 0.3, options: .transitionCrossDissolve) {
                     if let selectedDate = self.calendar.calendar.selectedDate{
@@ -209,6 +205,10 @@ class ExcursionManagementViewController: UIViewController{
         }
         
         excursionsModel.getExcursionsListByRange(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", startDate: startDate.birthdayToString(), endDate: endDate.birthdayToString()) { isGetted, list, error in
+            
+            if let err = error{
+                self.alerts.errorAlert(self, errorExcursionsApi: err)
+            }
             
             if isGetted{
                 self.events = list!

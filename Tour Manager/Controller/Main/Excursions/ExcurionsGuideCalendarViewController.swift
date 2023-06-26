@@ -108,7 +108,7 @@ class ExcurionsGuideCalendarViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             
-            tableViewCalendar.topAnchor.constraint(equalTo:self .calendar.showCloseCalendarButton.bottomAnchor, constant: 30),
+            tableViewCalendar.topAnchor.constraint(equalTo:self .calendar.showCloseCalendarButton.bottomAnchor, constant: 10),
             tableViewCalendar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             tableViewCalendar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             tableViewCalendar.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
@@ -167,6 +167,10 @@ class ExcurionsGuideCalendarViewController: UIViewController {
         }
         
         excursionsModel.getExcursionsListForGuideByRange(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", startDate: startDate.birthdayToString(), endDate: endDate.birthdayToString()) { isGetted, list, error in
+            
+            if let err = error{
+                self.alerts.errorAlert(self, errorExcursionsApi: err)
+            }
             
             if isGetted{
                 self.events = list!
@@ -289,16 +293,8 @@ class ExcurionsGuideCalendarViewController: UIViewController {
         self.tableViewCalendar.reloadData()
         
         excursionsModel.getExcursionsForGuidesFromApi(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "" , date: date) { isGetted, error in
-            
-            if error != nil{
-                
-                if error == .invalidToken || error == .tokenExpired{
-                    let alert = self.alerts.invalidToken(view: self.view, message: "Ваша сессия закончилась")
-                    self.present(alert, animated: true)
-                } else if error == .unknown{
-                    self.alerts.errorAlert(self, errorTypeApi: .unknown)
-                }
-                return
+            if let err = error{
+                self.alerts.errorAlert(self, errorExcursionsApi: err)
             }
             
             if isGetted{

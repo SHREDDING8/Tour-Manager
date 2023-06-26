@@ -11,6 +11,7 @@ class EmploeeViewController: UIViewController {
     
     let user = AppDelegate.user
     let profileModel = Profile()
+    let alerts = Alert()
     
     var employee:User!
     
@@ -202,11 +203,11 @@ extension EmploeeViewController:UITableViewDelegate,UITableViewDataSource{
         
         switchButton.addAction(UIAction(handler: { _ in
             self.user?.updateAccessLevel(targetId: self.employee.getLocalID() ?? "", accessLevel: rule, value: switchButton.isOn) { isUpdated, error in
-                if isUpdated{
-                    
-                }
-                if error != nil{
-                    switchButton.isOn = !switchButton.isOn
+
+                if  let err = error{
+                    self.alerts.errorAlert(self, errorCompanyApi: err) {
+                        switchButton.isOn = !switchButton.isOn
+                    }
                 }
             }
         }), for: .valueChanged)

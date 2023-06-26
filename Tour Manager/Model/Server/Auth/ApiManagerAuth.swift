@@ -45,18 +45,8 @@ public class ApiManagerAuth{
         
         AF.request(url!,method: .post, parameters: jsonData,encoder: .json).response { response in
             if response.response?.statusCode == 400{
-                let errorData = try? JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
-                
-                if errorData?.message == "Email is not verified"{
-                    completion(false,nil,.emailIsNotVerifyed)
-                    
-                } else if errorData?.message == "Invalid email or password"{
-                    completion(false,nil, .invalidEmailOrPassword)
-                    
-                }else if errorData?.message == "There was an error logging in"{
-                    completion(false,nil, .unknowmError)
-                }
-                return
+                let error = self.checkError(data: response.data!)
+                completion(false, nil, error)
             } else if response.response?.statusCode == 200{
                 if let logInData = try? JSONDecoder().decode(ResponseLogInJsonStruct.self, from: response.data!){
                     completion(true, logInData, nil)
@@ -79,18 +69,8 @@ public class ApiManagerAuth{
             if response.response?.statusCode == 200{
                 completion(true,nil)
             }else if response.response?.statusCode == 400 {
-                if let error = try? JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!){
-                    
-                    if error.message == "Email exists"{
-                        completion(false,.emailExist)
-                    } else if error.message == "Weak password" {
-                        completion(false, .weakPassword)
-                    } else{
-                        completion(false,.unknowmError)
-                    }
-                } else {
-                    completion(false,.unknowmError)
-                }
+                let error = self.checkError(data: response.data!)
+                completion(false, error)
             } else{
                 completion(false,.unknowmError)
             }
@@ -105,14 +85,8 @@ public class ApiManagerAuth{
         
         AF.request(url!, method: .post, parameters:  jsonData,encoder: .json).response { response in
             if response.response?.statusCode == 400{
-                if let logInData = try? JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!){
-                    if logInData.message == "User was not found"{
-                        completion(false,.userNotFound)
-                    } else{
-                        completion(false,.unknowmError)
-                    }
-                }
-                return
+                let error = self.checkError(data: response.data!)
+                completion(false, error)
             } else if response.response?.statusCode == 200{
                 completion(true,nil)
             } else {
@@ -130,24 +104,15 @@ public class ApiManagerAuth{
         
         AF.request(url!, method: .post, parameters:  jsonData,encoder: .json).response { response in
             if response.response?.statusCode == 400{
-                if let logInData = try? JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!){
-                    if logInData.message == "Email is not verified"{
-                        completion(false,.emailIsNotVerifyed)
-                        
-                    }else if logInData.message == "Invalid email or password" {
-                        completion(false,.invalidEmailOrPassword)
-                    }else{
-                        completion(false,.unknowmError)
-                    }
-                }
-                return
+                let error = self.checkError(data: response.data!)
+                completion(false, error)
             } else if response.response?.statusCode == 200{
                 completion(true,nil)
             } else {
                 completion(false,.unknowmError)
             }
         }
-
+        
     }
     
     // MARK: - isUserExists
@@ -158,19 +123,19 @@ public class ApiManagerAuth{
         let url = URL(string: routeIsEmailBusy)
         
         AF.request(url!, method: .post, parameters:  jsonData,encoder: .json).response { response in
-
-            if response.response?.statusCode == 200{
-                if let successfulCheckEmail = try? JSONDecoder().decode(ResponseIsUserExistsJsonStruct.self, from: response.data!){
-                    completion(successfulCheckEmail.userExists,nil)
-                } else{
-                    completion(nil,.unknowmError)
-                }
+            if response.response?.statusCode == 400{
+                let error = self.checkError(data: response.data!)
+                completion(nil, error)
+                
+            }else if response.response?.statusCode == 200{
+                let successfulCheckEmail = try! JSONDecoder().decode(ResponseIsUserExistsJsonStruct.self, from: response.data!)
+                completion(successfulCheckEmail.userExists,nil)
             }else {
                 completion(nil,.unknowmError)
             }
         }
     }
-    
+            
     // MARK: - sendVerifyEmail
     public func sendVerifyEmail(email:String, password:String, completion:  @escaping (Bool?,customErrorAuth?)->Void ) {
         let jsonData = sendLogInJsonStruct(email: email, password: password)
@@ -184,6 +149,31 @@ public class ApiManagerAuth{
                 completion(nil,.unknowmError)
             }
         }
+    }
+    
+    
+    private func checkError(data:Data)->customErrorAuth{
+        if let error = try? JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: data){
+            switch error.message{
+            case "Email exists":
+                return .emailExist
+            case "Email is not verified":
+                return .emailIsNotVerifyed
+                
+            case "Invalid email or password":
+                return .invalidEmailOrPassword
+                
+            case "User was not found":
+                return .userNotFound
+                
+            case "Weak password":
+                return .weakPassword
+                
+            default:
+                return .unknowmError
+            }
+        }
+        return .unknowmError
     }
     
 }

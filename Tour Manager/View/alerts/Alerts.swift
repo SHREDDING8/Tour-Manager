@@ -8,6 +8,11 @@
 import Foundation
 import UIKit
 
+public struct AlertFields{
+    var title:String
+    var message:String?
+}
+
 enum errorAuthApi{
     typealias RawValue = (String,String)
     
@@ -101,6 +106,79 @@ enum errorAlertsFront{
 class Alert{
     let controllers = Controllers()
     
+    public func errorAlert(_ viewController:UIViewController, errorCompanyApi:customErrorCompany, completion:(()->Void)? = nil ){
+        if errorCompanyApi == .invalidToken || errorCompanyApi == .tokenExpired{
+            self.invalidToken(viewController, message: errorCompanyApi.getValuesForAlert().message)
+            return
+        }
+        
+        let alertFields = errorCompanyApi.getValuesForAlert()
+        let alert = UIAlertController(title: alertFields.title, message: alertFields.message, preferredStyle: .alert)
+        
+        let actionOk = UIAlertAction(title: "Ок", style: .default) { _ in
+            completion?()
+        }
+        alert.addAction(actionOk)
+        
+        viewController.present(alert, animated: true)
+    }
+    
+    public func errorAlert(_ viewController:UIViewController, errorUserDataApi:customErrorUserData, completion:(()->Void)? = nil ){
+        if errorUserDataApi == .invalidToken || errorUserDataApi == .tokenExpired{
+            self.invalidToken(viewController, message: errorUserDataApi.getValuesForAlert().message)
+            return
+        }
+        
+        let alertFields = errorUserDataApi.getValuesForAlert()
+        let alert = UIAlertController(title: alertFields.title, message: alertFields.message, preferredStyle: .alert)
+        
+        let actionOk = UIAlertAction(title: "Ок", style: .default) { _ in
+            completion?()
+        }
+        alert.addAction(actionOk)
+        
+        viewController.present(alert, animated: true)
+    }
+    
+    public func errorAlert(_ viewController:UIViewController, errorExcursionsApi:customErrorExcursion, completion:(()->Void)? = nil ){
+        if errorExcursionsApi == .invalidToken || errorExcursionsApi == .tokenExpired{
+            self.invalidToken(viewController, message: errorExcursionsApi.getValuesForAlert().message)
+            return
+        }
+        
+        let alertFields = errorExcursionsApi.getValuesForAlert()
+        let alert = UIAlertController(title: alertFields.title, message: alertFields.message, preferredStyle: .alert)
+        
+        let actionOk = UIAlertAction(title: "Ок", style: .default) { _ in
+            completion?()
+        }
+        alert.addAction(actionOk)
+        
+        viewController.present(alert, animated: true)
+    }
+    
+    
+    public func errorAlert(_ viewController:UIViewController, errorAutoFillApi:customErrorAutofill, completion:(()->Void)? = nil ){
+        if errorAutoFillApi == .invalidToken || errorAutoFillApi == .tokenExpired{
+            self.invalidToken(viewController, message: errorAutoFillApi.getValuesForAlert().message)
+            return
+        }
+        
+        let alertFields = errorAutoFillApi.getValuesForAlert()
+        let alert = UIAlertController(title: alertFields.title, message: alertFields.message, preferredStyle: .alert)
+        
+        let actionOk = UIAlertAction(title: "Ок", style: .default) { _ in
+            completion?()
+        }
+        alert.addAction(actionOk)
+        
+        viewController.present(alert, animated: true)
+    }
+    
+    
+    
+    
+    
     public func errorAlert(_ viewController:UIViewController, errorTypeApi:errorAuthApi){
         let alert = UIAlertController(title: errorTypeApi.rawValue.0, message: errorTypeApi.rawValue.1, preferredStyle: .alert)
         let actionOk = UIAlertAction(title: "Ok", style: .default)
@@ -116,15 +194,15 @@ class Alert{
         return alert
     }
     
-    public func invalidToken(view:UIView, message:String?) -> UIAlertController{
+    public func invalidToken(_ viewController:UIViewController, message:String?) {
         let alert = UIAlertController(title: "Сессия закончилась", message: message, preferredStyle: .alert)
 
         let actionExit = UIAlertAction(title: "Выйти", style: .destructive) { _ in
-            self.controllers.goToLoginPage(view: view, direction: .toTop)
+            self.controllers.goToLoginPage(view: viewController.view, direction: .toTop)
         }
         
         alert.addAction(actionExit)
-        return alert
+        viewController.present(alert, animated: true)
     }
     
     public func infoAlert(title:String,meesage:String?)->UIAlertController{

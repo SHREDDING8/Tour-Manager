@@ -23,6 +23,8 @@ class AddingNewComponentViewController: UIViewController {
     
     var excursion:Excursion!
     
+    let alerts = Alert()
+    
     let excursionsModel = ExcursionsControllerModel()
     
     let user = AppDelegate.user
@@ -84,17 +86,33 @@ class AddingNewComponentViewController: UIViewController {
         case .route:
             excursionsModel.addAutofill(token: self.user?.getToken() ?? "" , companyId: self.user?.company.getLocalIDCompany() ?? "", autofillKey: .excursionRoute, autofillValue: self.excursion.route) { isAdded, error in
                 
+                if let err = error{
+                    self.alerts.errorAlert(self, errorAutoFillApi: err)
+                }
+                
             }
         case .customerCompanyName:
             excursionsModel.addAutofill(token: self.user?.getToken() ?? "" , companyId: self.user?.company.getLocalIDCompany() ?? "", autofillKey: .excursionCustomerCompanyName, autofillValue: self.excursion.customerCompanyName) { isAdded, error in
+                
+                if let err = error{
+                    self.alerts.errorAlert(self, errorAutoFillApi: err)
+                }
                 
             }
         case .customerGuiedName:
             excursionsModel.addAutofill(token: self.user?.getToken() ?? "" , companyId: self.user?.company.getLocalIDCompany() ?? "", autofillKey: .excursionCustomerGuideContact, autofillValue: self.excursion.customerGuideName) { isAdded, error in
                 
+                if let err = error{
+                    self.alerts.errorAlert(self, errorAutoFillApi: err)
+                }
+                
             }
         case .excursionPaymentMethod:
             excursionsModel.addAutofill(token: self.user?.getToken() ?? "" , companyId: self.user?.company.getLocalIDCompany() ?? "", autofillKey: .excursionPaymentMethod, autofillValue: self.excursion.paymentMethod) { isAdded, error in
+                
+                if let err = error{
+                    self.alerts.errorAlert(self, errorAutoFillApi: err)
+                }
                 
             }
             
@@ -126,6 +144,9 @@ class AddingNewComponentViewController: UIViewController {
             textField.text = excursion.route
             
             excursionsModel.getAutofill(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", autofillKey: .excursionRoute) { isGetted, values, error in
+                if let err = error{
+                    self.alerts.errorAlert(self, errorAutoFillApi: err)
+                }
                 if isGetted{
                     self.arrayComponents = values!
                     self.fullArrayComponents = self.arrayComponents
@@ -137,6 +158,9 @@ class AddingNewComponentViewController: UIViewController {
             textField.placeholder = "Название компании"
             textField.text = excursion.customerCompanyName
             excursionsModel.getAutofill(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", autofillKey: .excursionCustomerCompanyName) { isGetted, values, error in
+                if let err = error{
+                    self.alerts.errorAlert(self, errorAutoFillApi: err)
+                }
                 if isGetted{
                     self.arrayComponents = values!
                     self.fullArrayComponents = self.arrayComponents
@@ -148,6 +172,9 @@ class AddingNewComponentViewController: UIViewController {
             textField.placeholder = "ФИО сопровождающего"
             textField.text = excursion.customerGuideName
             excursionsModel.getAutofill(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", autofillKey: .excursionCustomerGuideContact) { isGetted, values, error in
+                if let err = error{
+                    self.alerts.errorAlert(self, errorAutoFillApi: err)
+                }
                 if isGetted{
                     self.arrayComponents = values!
                     self.fullArrayComponents = self.arrayComponents
@@ -161,6 +188,9 @@ class AddingNewComponentViewController: UIViewController {
             textField.text = excursion.paymentMethod
             
             excursionsModel.getAutofill(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", autofillKey: .excursionPaymentMethod) { isGetted, values, error in
+                if let err = error{
+                    self.alerts.errorAlert(self, errorAutoFillApi: err)
+                }
                 if isGetted{
                     self.arrayComponents = values!
                     self.fullArrayComponents = self.arrayComponents
@@ -174,6 +204,11 @@ class AddingNewComponentViewController: UIViewController {
             textField.placeholder = "Найти"
             
             self.user?.company.getCompanyGuides(token: self.user?.getToken() ?? "", completion: { isGetted, guides, error in
+                
+                if let err = error{
+                    self.alerts.errorAlert(self, errorCompanyApi: err)
+                }
+                
                 if isGetted{
                     for guide in guides!{
                         let newGuide = SelfGuide(guideInfo: guide, isMain: false)
@@ -467,7 +502,9 @@ extension AddingNewComponentViewController:UITableViewDelegate,UITableViewDataSo
                 
             case .route:
                 self.excursionsModel.deleteAutofill(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", autofillKey: .excursionRoute, autofillValue: arrayComponents[indexPath.row]) { isDeleted, error in
-                    
+                    if let err = error{
+                        self.alerts.errorAlert(self, errorAutoFillApi: err)
+                    }
                     if isDeleted{
                         self.arrayComponents.remove(at: indexPath.row)
                         
@@ -479,6 +516,10 @@ extension AddingNewComponentViewController:UITableViewDelegate,UITableViewDataSo
                 self.excursionsModel.deleteAutofill(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", autofillKey: .excursionCustomerCompanyName, autofillValue: arrayComponents[indexPath.row]) {
                     isDeleted, error in
                     
+                    if let err = error{
+                        self.alerts.errorAlert(self, errorAutoFillApi: err)
+                    }
+                    
                     if isDeleted{
                         self.arrayComponents.remove(at: indexPath.row)
                         
@@ -489,6 +530,10 @@ extension AddingNewComponentViewController:UITableViewDelegate,UITableViewDataSo
             case .customerGuiedName:
                 self.excursionsModel.deleteAutofill(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", autofillKey: .excursionCustomerGuideContact, autofillValue: arrayComponents[indexPath.row]) { isDeleted, error in
                     
+                    if let err = error{
+                        self.alerts.errorAlert(self, errorAutoFillApi: err)
+                    }
+                    
                     if isDeleted{
                         self.arrayComponents.remove(at: indexPath.row)
                         
@@ -498,6 +543,10 @@ extension AddingNewComponentViewController:UITableViewDelegate,UITableViewDataSo
             
             case .excursionPaymentMethod:
                 self.excursionsModel.deleteAutofill(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", autofillKey: .excursionPaymentMethod, autofillValue: arrayComponents[indexPath.row]) { isDeleted, error in
+                    
+                    if let err = error{
+                        self.alerts.errorAlert(self, errorAutoFillApi: err)
+                    }
                     
                     if isDeleted{
                         self.arrayComponents.remove(at: indexPath.row)

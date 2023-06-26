@@ -9,6 +9,7 @@ import UIKit
 
 class mainTabBarViewController: UITabBarController {
     let controllers = Controllers()
+    let alerts = Alert()
     
     let user = AppDelegate.user
     
@@ -28,6 +29,13 @@ class mainTabBarViewController: UITabBarController {
         self.view.backgroundColor = .white
         
         self.user?.getAccessLevelFromApi(completion: { isGetted, error in
+            
+            if let err = error{
+                self.alerts.errorAlert(self, errorCompanyApi: err) {
+                    self.controllers.goToLoginPage(view: self.view, direction: .toBottom)
+                }
+            }
+            
             if isGetted{
                 self.getViewControllers()
                 self.activityIndicator.stopAnimating()

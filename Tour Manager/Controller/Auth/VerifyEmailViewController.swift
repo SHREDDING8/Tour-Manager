@@ -119,22 +119,21 @@ class VerifyEmailViewController: UIViewController {
             }
             
             self.user?.getUserInfoFromApi(completion: { isInfo, error in
+                
                 if error == .dataNotFound{
                     self.goToAddingPersonalData()
                     self.loadUIView.removeLoadUIView()
                     return
-                }else if error == .invalidToken{
-                    self.loadUIView.removeLoadUIView()
-                    self.goToLogInPage()
-                } else if error == .tokenExpired{
-                    self.loadUIView.removeLoadUIView()
-                    self.goToLogInPage()
-                } else if error == .unknowmError{
-                    self.loadUIView.removeLoadUIView()
-                    self.goToLogInPage()
                 }
                 
-                if isInfo == true{
+                if let err = error{
+                    self.alerts.errorAlert(self, errorUserDataApi: err) {
+                        self.loadUIView.removeLoadUIView()
+                        self.goToLogInPage()
+                    }
+                }
+                
+                if isInfo{
                     self.loadUIView.removeLoadUIView()
                     self.goToMainTabBar()
                 }

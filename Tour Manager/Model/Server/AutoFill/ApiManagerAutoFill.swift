@@ -19,6 +19,25 @@ public enum customErrorAutofill{
     case currentUserIsNotInThisCompany
     case companyDoesNotExist
     
+    public func getValuesForAlert()->AlertFields{
+        switch self {
+        case .tokenExpired:
+            return  AlertFields(title: "Произошла ошибка", message: "Ваша сессия закончилась")
+        case .invalidToken:
+            return  AlertFields(title: "Произошла ошибка", message: "Ваша сессия закончилась")
+        case .unknowmError:
+            return AlertFields(title: "Произошла неизвестная ошибка на сервере")
+        case .autofillKeyDoesNotExist:
+            return  AlertFields(title: "Произошла ошибка", message: "Данного значения не существует")
+        case .permissionDenied:
+            return AlertFields(title: "Произошла ошибка", message: "Недостаточно прав доступа для совершения этого действия")
+        case .currentUserIsNotInThisCompany:
+            return AlertFields(title: "Произошла ошибка", message: "Пользователь не числится в этой компании")
+        case .companyDoesNotExist:
+            return AlertFields(title: "Произошла ошибка", message: "Компания является частной или не существует")
+        }
+    }
+    
 }
 class ApiManagerAutoFill{
     private static let domain = GeneralData.domain
@@ -37,22 +56,8 @@ class ApiManagerAutoFill{
         
         AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
             if response.response?.statusCode == 400{
-                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
-                if error.message == "Token expired"{
-                    completion(false, nil, .tokenExpired)
-                } else if error.message == "Invalid Firebase ID token"{
-                    completion(false, nil, .invalidToken)
-                }else if error.message == "Autofill key does not exist"{
-                    completion(false,nil,.autofillKeyDoesNotExist)
-                }else if error.message == "Permission denied"{
-                    completion(false,nil,.permissionDenied)
-                }else if error.message == "Current user is not in this company"{
-                    completion(false,nil,.currentUserIsNotInThisCompany)
-                }else if error.message == "Company does not exist" {
-                    completion(false,nil,.companyDoesNotExist)
-                }else {
-                    completion(false, nil, .unknowmError)
-                }
+                let error = self.checkError(data: response.data ?? Data())
+                completion(false, nil, error)
                 return
             } else if response.response?.statusCode == 200{
                 let autofillValues = try! JSONDecoder().decode(ResponseGetAutofill.self, from: response.data!)
@@ -65,30 +70,14 @@ class ApiManagerAutoFill{
     
     public func addAutofill(token:String, companyId:String, autoFillKey:AutofillKeys, autofillValue:String, completion: @escaping (Bool,customErrorAutofill?)->Void ){
         
-        
-        
         let url = URL(string: routeAddAutofill)!
         
         let jsonData = SendAddAutofill(token: token, company_id: companyId, autofill_key: autoFillKey.rawValue,autofill_value: autofillValue)
         
         AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
             if response.response?.statusCode == 400{
-                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
-                if error.message == "Token expired"{
-                    completion(false, .tokenExpired)
-                } else if error.message == "Invalid Firebase ID token"{
-                    completion(false, .invalidToken)
-                }else if error.message == "Autofill key does not exist"{
-                    completion(false, .autofillKeyDoesNotExist)
-                }else if error.message == "Permission denied"{
-                    completion(false, .permissionDenied)
-                }else if error.message == "Current user is not in this company"{
-                    completion(false, .currentUserIsNotInThisCompany)
-                }else if error.message == "Company does not exist" {
-                    completion(false, .companyDoesNotExist)
-                }else {
-                    completion(false, .unknowmError)
-                }
+                let error = self.checkError(data: response.data ?? Data())
+                completion(false, error)
                 return
             } else if response.response?.statusCode == 200{
                 completion(true, nil)
@@ -96,7 +85,6 @@ class ApiManagerAutoFill{
                 completion(false, .unknowmError)
             }
         }
-        
     }
     
     
@@ -108,28 +96,39 @@ class ApiManagerAutoFill{
         
         AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
             if response.response?.statusCode == 400{
-                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
-                if error.message == "Token expired"{
-                    completion(false, .tokenExpired)
-                } else if error.message == "Invalid Firebase ID token"{
-                    completion(false, .invalidToken)
-                }else if error.message == "Autofill key does not exist"{
-                    completion(false, .autofillKeyDoesNotExist)
-                }else if error.message == "Permission denied"{
-                    completion(false, .permissionDenied)
-                }else if error.message == "Current user is not in this company"{
-                    completion(false, .currentUserIsNotInThisCompany)
-                }else if error.message == "Company does not exist" {
-                    completion(false, .companyDoesNotExist)
-                }else {
-                    completion(false, .unknowmError)
-                }
+                let error = self.checkError(data: response.data ?? Data())
+                completion(false, error)
                 return
+                
             } else if response.response?.statusCode == 200{
                 completion(true, nil)
             }else{
                 completion(false, .unknowmError)
             }
         }
+    }
+    
+    private func checkError(data:Data)->customErrorAutofill{
+        if let error = try? JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: data){
+            switch error.message{
+            case "Token expired":
+                return .tokenExpired
+            case "Invalid Firebase ID token":
+                return .invalidToken
+            case "Autofill key does not exist":
+                return .autofillKeyDoesNotExist
+            case "Permission denied":
+                return .permissionDenied
+            case "Current user is not in this company":
+                return .currentUserIsNotInThisCompany
+            
+            case "Company does not exist":
+                return .companyDoesNotExist
+                
+            default:
+                return .unknowmError
+            }
+        }
+        return .unknowmError
     }
 }

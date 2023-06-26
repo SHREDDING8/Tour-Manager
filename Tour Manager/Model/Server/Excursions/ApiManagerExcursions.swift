@@ -26,6 +26,29 @@ enum customErrorExcursion{
     
     case guideIsNotInTour
     
+    public func getValuesForAlert()->AlertFields{
+        switch self {
+        case .unknown:
+            return AlertFields(title: "Произошла неизвестная ошибка на сервере")
+        case .dataNotFound:
+            return AlertFields(title: "Произошла ошибка", message: "Данные не были найдены")
+        case .tokenExpired:
+            return  AlertFields(title: "Произошла ошибка", message: "Ваша сессия закончилась")
+        case .invalidToken:
+            return  AlertFields(title: "Произошла ошибка", message: "Ваша сессия закончилась")
+        case .PermissionDenied:
+            return AlertFields(title: "Произошла ошибка", message: "Недостаточно прав доступа для совершения этого действия")
+        case .UserIsNotInThisCompany:
+            return AlertFields(title: "Произошла ошибка", message: "Пользователь не числится в этой компании")
+        case .CompanyDoesNotExist:
+            return AlertFields(title: "Произошла ошибка", message: "Компания является частной или не существует")
+        case .TourDoesNotExist:
+            return AlertFields(title: "Произошла ошибка", message: "Экскурсия не существует")
+        case .guideIsNotInTour:
+            return AlertFields(title: "Произошла ошибка", message: "Экскурсовод не находится в данной экскурсии")
+        }
+    }
+    
     
         
     
@@ -59,24 +82,8 @@ class ApiManagerExcursions{
         AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
             if response.response?.statusCode == 400{
                 
-                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
-                
-                if error.message == "Date does not exist"{
-                    completion(false, nil, .dataNotFound)
-                } else if error.message == "Token expired"{
-                    completion(false, nil, .tokenExpired)
-                } else if error.message == "Invalid Firebase ID token"{
-                    completion(false, nil, .invalidToken)
-                } else if error.message == "Permission denied"{
-                    completion(false, nil, .PermissionDenied)
-                }else if error.message == "Current user is not in this company"{
-                    completion(false, nil, .UserIsNotInThisCompany)
-                }else if error.message == "Company does not exist"{
-                    completion(false, nil, .CompanyDoesNotExist)
-                }else {
-                    completion(false, nil, .unknown)
-                }
-                return
+                let error = self.checkError(data: response.data ?? Data())
+                completion(false, nil, error)
                 
             }else if response.response?.statusCode == 200{
                 typealias excursionsJsonStruct = [ResponseGetExcursion]
@@ -107,22 +114,9 @@ class ApiManagerExcursions{
         AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
             if response.response?.statusCode == 400{
                 
-                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
+                let error = self.checkError(data: response.data ?? Data())
+                completion(false, error)
                 
-                if error.message == "Token expired"{
-                    completion(false,  .tokenExpired)
-                } else if error.message == "Invalid Firebase ID token"{
-                    completion(false, .invalidToken)
-                } else if error.message == "Permission denied"{
-                    completion(false, .PermissionDenied)
-                }else if error.message == "Current user is not in this company"{
-                    completion(false, .UserIsNotInThisCompany)
-                }else if error.message == "Company does not exist"{
-                    completion(false, .CompanyDoesNotExist)
-                }else {
-                    completion(false, .unknown)
-                }
-                return
             } else if response.response?.statusCode == 200{
                 completion(true, nil)
             } else{
@@ -147,24 +141,9 @@ class ApiManagerExcursions{
         AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
             if response.response?.statusCode == 400{
                 
-                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
+                let error = self.checkError(data: response.data ?? Data())
+                completion(false, error)
                 
-                if error.message == "Token expired"{
-                    completion(false,  .tokenExpired)
-                } else if error.message == "Invalid Firebase ID token"{
-                    completion(false, .invalidToken)
-                } else if error.message == "Permission denied"{
-                    completion(false, .PermissionDenied)
-                }else if error.message == "Current user is not in this company"{
-                    completion(false, .UserIsNotInThisCompany)
-                }else if error.message == "Company does not exist"{
-                    completion(false, .CompanyDoesNotExist)
-                }else if error.message == "Tour does not exist"{
-                    completion(false, .TourDoesNotExist)
-                }else {
-                    completion(false, .unknown)
-                }
-                return
             } else if response.response?.statusCode == 200{
                 completion(true, nil)
             } else{
@@ -183,29 +162,13 @@ class ApiManagerExcursions{
             
             if response.response?.statusCode == 400{
                 
-                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
-                
-                if error.message == "Tour does not exist"{
-                    completion(false, .dataNotFound)
-                } else if error.message == "Token expired"{
-                    completion(false, .tokenExpired)
-                } else if error.message == "Invalid Firebase ID token"{
-                    completion(false, .invalidToken)
-                } else if error.message == "Permission denied"{
-                    completion(false, .PermissionDenied)
-                }else if error.message == "Current user is not in this company"{
-                    completion(false, .UserIsNotInThisCompany)
-                }else if error.message == "Company does not exist"{
-                    completion(false, .CompanyDoesNotExist)
-                }else {
-                    completion(false, .unknown)
-                }
-                return
+                let error = self.checkError(data: response.data ?? Data())
+                completion(false, error)
                 
             }else if response.response?.statusCode == 200{
                 
                 
-                completion(true, nil )
+                completion(true, nil)
   
             }else{
                 completion(false, .unknown)
@@ -223,24 +186,8 @@ class ApiManagerExcursions{
         AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
             if response.response?.statusCode == 400{
                 
-                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
-                
-                if error.message == "Date does not exist"{
-                    completion(false, nil, .dataNotFound)
-                } else if error.message == "Token expired"{
-                    completion(false, nil, .tokenExpired)
-                } else if error.message == "Invalid Firebase ID token"{
-                    completion(false, nil, .invalidToken)
-                } else if error.message == "Permission denied"{
-                    completion(false, nil, .PermissionDenied)
-                }else if error.message == "Current user is not in this company"{
-                    completion(false, nil, .UserIsNotInThisCompany)
-                }else if error.message == "Company does not exist"{
-                    completion(false, nil, .CompanyDoesNotExist)
-                }else {
-                    completion(false, nil, .unknown)
-                }
-                return
+                let error = self.checkError(data: response.data ?? Data())
+                completion(false, nil, error)
                 
             }else if response.response?.statusCode == 200{
                 typealias excursionsJsonStruct = [ResponseGetExcursion]
@@ -265,21 +212,8 @@ class ApiManagerExcursions{
         AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
             if response.response?.statusCode == 400{
                 
-                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
-                
-                if error.message == "Date does not exist"{
-                    completion(false, nil, .dataNotFound)
-                } else if error.message == "Token expired"{
-                    completion(false, nil, .tokenExpired)
-                } else if error.message == "Invalid Firebase ID token"{
-                    completion(false, nil, .invalidToken)
-                }else if error.message == "Current user is not in this company"{
-                    completion(false, nil, .UserIsNotInThisCompany)
-                }else if error.message == "Company does not exist"{
-                    completion(false, nil, .CompanyDoesNotExist)
-                }else{
-                    completion(false, nil, .unknown)
-                }
+                let error = self.checkError(data: response.data ?? Data())
+                completion(false, nil, error)
                 
             }else if response.response?.statusCode == 200{
                 let response = try! JSONDecoder().decode(ExcursionsListByRange.self, from: response.data!)
@@ -302,23 +236,8 @@ class ApiManagerExcursions{
         
         AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
             if response.response?.statusCode == 400{
-                
-                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
-                
-                if error.message == "Date does not exist"{
-                    completion(false, nil, .dataNotFound)
-                } else if error.message == "Token expired"{
-                    completion(false, nil, .tokenExpired)
-                } else if error.message == "Invalid Firebase ID token"{
-                    completion(false, nil, .invalidToken)
-                }else if error.message == "Current user is not in this company"{
-                    completion(false, nil, .UserIsNotInThisCompany)
-                }else if error.message == "Company does not exist"{
-                    completion(false, nil, .CompanyDoesNotExist)
-                }else {
-                    completion(false, nil, .unknown)
-                }
-                
+                let error = self.checkError(data: response.data ?? Data())
+                completion(false, nil, error)
             }else if response.response?.statusCode == 200{
                 let response = try! JSONDecoder().decode(ExcursionsListForGuideByRange.self, from: response.data!)
                 completion(true, response, nil)
@@ -338,29 +257,8 @@ class ApiManagerExcursions{
         
         AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
             if response.response?.statusCode == 400{
-                
-                let error = try! JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: response.data!)
-                
-                if error.message == "Date does not exist"{
-                    completion(false, .dataNotFound)
-                } else if error.message == "Token expired"{
-                    completion(false, .tokenExpired)
-                } else if error.message == "Invalid Firebase ID token"{
-                    completion(false, .invalidToken)
-                }else if error.message == "Current user is not in this company"{
-                    completion(false, .UserIsNotInThisCompany)
-                }else if error.message == "Company does not exist"{
-                    completion(false, .CompanyDoesNotExist)
-                } else if error.message == "Guide is not in tour"{
-                    completion(false, .guideIsNotInTour)
-                }else if error.message == "Tour does not exist"{
-                    completion(false, .TourDoesNotExist)
-                }else if error.message == "Permission denied"{
-                    completion(false, .PermissionDenied)
-                }
-                else {
-                    completion(false, .unknown)
-                }
+                let error = self.checkError(data: response.data ?? Data())
+                completion(false, error)
                 
             }else if response.response?.statusCode == 200{
                 completion(true, nil)
@@ -369,6 +267,36 @@ class ApiManagerExcursions{
             }
             
         }
+    }
+    
+    private func checkError(data:Data)->customErrorExcursion{
+        if let error = try? JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: data){
+            switch error.message{
+            case "Token expired":
+                return .tokenExpired
+            case "Invalid Firebase ID token":
+                return .invalidToken
+                
+            case "Date does not exist", "Tour does not exist":
+                return .dataNotFound
+                
+            case "Permission denied":
+                return .PermissionDenied
+                
+            case "Current user is not in this company":
+                return .UserIsNotInThisCompany
+                
+            case "Company does not exist":
+                return .CompanyDoesNotExist
+                
+            case "Guide is not in tour":
+                return .guideIsNotInTour
+                
+            default:
+                return .unknown
+            }
+        }
+        return .unknown
     }
 }
 

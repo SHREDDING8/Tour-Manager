@@ -10,6 +10,7 @@ import UIKit
 class EmploeeTableViewController: UITableViewController {
     
     let controllers = Controllers()
+    let alerts = Alert()
     
     var emploee:[User] = []
     
@@ -56,6 +57,11 @@ class EmploeeTableViewController: UITableViewController {
     
     public func getEmpoloee(){
         self.user?.company.getCompanyUsers(token: self.user?.getToken() ?? "", completion: { isGetted, employee, error in
+            
+            if let err = error{
+                self.alerts.errorAlert(self, errorCompanyApi: err)
+            }
+            
             if isGetted{
                 self.emploee = employee ?? []
                 
