@@ -310,7 +310,13 @@ extension NewExcursionTableViewController:UITextFieldDelegate{
             }
             self.excursion.numberOfPeople = numberOfPeople!
         } else if textField.restorationIdentifier == "customerGuidePhone"{
-            self.excursion.companyGuidePhone = customerGuidePhone.text!
+            
+            let newPhone = textField.text?.replacingOccurrences(of: "-", with: "").replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "").replacingOccurrences(of: " ", with: "") ?? ""
+            
+            textField.text = newPhone
+            
+            self.excursion.companyGuidePhone = newPhone
+            
         }else if textField.restorationIdentifier == "amount"{
             
             let amount = Int(textField.text ?? "0")

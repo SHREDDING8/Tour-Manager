@@ -320,6 +320,7 @@ extension AddingPersonalDataViewController:UITableViewDelegate,UITableViewDataSo
         case 4:
             label.text = "Телефон"
             textField.placeholder = "Телефон"
+            
             self.phone = textField
             
             textField.restorationIdentifier = "phone"
@@ -482,7 +483,12 @@ extension AddingPersonalDataViewController:UITextFieldDelegate{
             tableView.scrollToRow(at: IndexPath(row: 2, section: 0), at: .top, animated: true)
             
         }else if textField.restorationIdentifier == "phone"{
-            self.phoneString = textField.text ?? ""
+            
+            let newPhone = textField.text?.replacingOccurrences(of: "-", with: "").replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "").replacingOccurrences(of: " ", with: "") ?? ""
+            
+            self.phoneString = newPhone
+            textField.text = newPhone
+            
             tableView.scrollToRow(at: IndexPath(row: 4, section: 0), at: .top, animated: true)
         }
     }

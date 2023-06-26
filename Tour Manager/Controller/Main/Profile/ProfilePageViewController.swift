@@ -537,7 +537,7 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
                     self.alerts.errorAlert(self, errorCompanyApi: err)
                 }
                 if isDeleted{
-                    let alert = self.alerts.invalidToken(self, message: "Ваша компания была удалена")
+                    self.alerts.invalidToken(self, message: "Ваша компания была удалена")
                 }
             })
         }
@@ -618,13 +618,17 @@ extension ProfilePageViewController:UITextFieldDelegate{
             
         } else if textField.restorationIdentifier == "phone"{
             
-            if !validationString.validatePhone(value: value){
+            let newPhone = textField.text?.replacingOccurrences(of: "-", with: "").replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "").replacingOccurrences(of: " ", with: "") ?? ""
+            
+            textField.text = newPhone
+            
+            if !validationString.validatePhone(value: newPhone){
                 let alert = alerts.errorAlert(errorTypeFront: .phone)
                 self.present(alert, animated: true)
                 return false
             }
             
-            self.user?.updatePersonalData(updateField: .phone, value: value) { isSetted, error in
+            self.user?.updatePersonalData(updateField: .phone, value: newPhone) { isSetted, error in
                 
                 if let err = error{
                     self.alerts.errorAlert(self, errorUserDataApi: err) {
