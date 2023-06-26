@@ -233,14 +233,14 @@ public class ApiManagerUserData{
     private func checkError(data:Data)->customErrorUserData{
         if let error = try? JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: data){
             switch error.message{
-            case "File not found":
+            case "File not found","User data not found":
                 return .dataNotFound
             case "Token expired":
                 return .tokenExpired
                 
             case "Invalid Firebase ID token":
                 return .invalidToken
-
+                
             default:
                 return .unknowmError
             }

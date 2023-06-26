@@ -40,6 +40,7 @@ class LaunchScreenViewController: UIViewController {
                         self.controllers.goToLoginPage(view: self.view, direction: .fade)
                     }
                 }
+                
                 if isGetted{
                     self.controllers.goToMainTabBar(view: self.view, direction: .fade)
                 }

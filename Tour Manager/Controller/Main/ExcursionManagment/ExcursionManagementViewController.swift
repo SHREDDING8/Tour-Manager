@@ -169,7 +169,10 @@ class ExcursionManagementViewController: UIViewController{
         excursionsModel.getExcursionsFromApi(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "" , date: date) { isGetted, error in
             
             if let err = error{
-                self.alerts.errorAlert(self, errorExcursionsApi: err)
+                if err != .dataNotFound{
+                    self.alerts.errorAlert(self, errorExcursionsApi: err)
+                }
+
             }
                         
             if isGetted{
