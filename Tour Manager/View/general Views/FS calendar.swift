@@ -25,7 +25,7 @@ class FSCalendarSchedule{
         calendar.locale = NSLocale(localeIdentifier: "ru") as Locale
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ru")
-        dateFormatter.setLocalizedDateFormatFromTemplate("EEEE dd MMMM YYYY")
+        dateFormatter.setLocalizedDateFormatFromTemplate("MMMM YYYY")
         // set template after setting locale
         calendar.appearance.headerDateFormat = dateFormatter.string(from: calendar.currentPage)
         

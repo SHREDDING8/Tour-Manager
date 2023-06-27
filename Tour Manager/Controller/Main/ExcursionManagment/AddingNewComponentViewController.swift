@@ -440,6 +440,9 @@ extension AddingNewComponentViewController:UITableViewDelegate,UITableViewDataSo
         self.textField.text = (tableView.cellForRow(at: indexPath) as! NewComponentTableViewCell).componentText.text
         
         self.textFieldDidEndEditing(self.textField)
+        
+        self.navigationController?.popViewController(animated: true)
+        
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

@@ -91,26 +91,41 @@ class NewExcursionTableViewController: UITableViewController {
     // MARK: - Lyfe Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonClick))
         
-        if #available(iOS 16.0, *) {
-            self.navigationItem.backAction = UIAction(handler: { _ in
-                self.warningAlertDuringExit(isPopController: true)
-            })
+        if (self.user?.getAccessLevel(rule: .canWriteTourList) ?? false){
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonClick))
         }
+        
+        if (self.user?.getAccessLevel(rule: .canWriteTourList) ?? false){
+            if #available(iOS 16.0, *) {
+                self.navigationItem.backAction = UIAction(handler: { _ in
+                    self.warningAlertDuringExit(isPopController: true)
+                })
+            }
+        }
+        
         
        
         if isUpdate{
-            self.navigationItem.title = "Редактирование"
+            if (self.user?.getAccessLevel(rule: .canWriteTourList) ?? false){
+                self.navigationItem.title = "Редактирование"
+            }else{
+                self.navigationItem.title = "Просмотр"
+            }
+           
             self.oldDate = excursion.dateAndTime
         }else{
             self.navigationItem.title = "Добавление"
         }
         self.navigationItem.largeTitleDisplayMode = .always
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.interactivePopGestureRecognizer?.delegate! = self
+        if (self.user?.getAccessLevel(rule: .canWriteTourList) ?? false){
+            self.navigationController?.interactivePopGestureRecognizer?.delegate! = self
+        }
+       
         configureFieldsWithExcursionInfo()
         guiedsCollectionView.reloadData()
     }
@@ -251,6 +266,13 @@ extension NewExcursionTableViewController{
         case 4: return 1
         
         default: return 0
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        if !(self.user?.getAccessLevel(rule: .canWriteTourList) ?? false) && !(indexPath.section == 3 && indexPath.row == 1){
+            cell.isUserInteractionEnabled = false
         }
     }
     

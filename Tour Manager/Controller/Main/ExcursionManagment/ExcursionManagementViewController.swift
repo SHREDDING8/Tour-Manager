@@ -51,7 +51,7 @@ class ExcursionManagementViewController: UIViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.getExcursions(date: Date.now)
+        self.getExcursions(date: self.calendar.calendar.selectedDate ?? Date.now)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -70,17 +70,21 @@ class ExcursionManagementViewController: UIViewController{
     fileprivate func configureView(){
         self.navigationItem.title = "Управление"
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .add, primaryAction: UIAction(handler: { _ in
-            
-            let newExcursionController = self.controllers.getControllerMain(.newExcursionTableViewController) as! NewExcursionTableViewController
-            
-            let newTour = Excursion(dateAndTime: self.calendar.calendar.selectedDate ?? Date.now)
-            
-            newExcursionController.excursion = newTour
-            
-            
-            self.navigationController?.pushViewController(newExcursionController, animated: true)
-        }))
+        if (self.user?.getAccessLevel(rule: .canWriteTourList) ?? false){
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .add, primaryAction: UIAction(handler: { _ in
+                
+                let newExcursionController = self.controllers.getControllerMain(.newExcursionTableViewController) as! NewExcursionTableViewController
+                
+                let newTour = Excursion(dateAndTime: self.calendar.calendar.selectedDate ?? Date.now)
+                
+                newExcursionController.excursion = newTour
+                
+                
+                self.navigationController?.pushViewController(newExcursionController, animated: true)
+            }))
+        }
+        
+        
         
         
         // swipes left and right to change day in calendar
