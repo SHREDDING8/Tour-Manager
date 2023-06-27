@@ -201,8 +201,9 @@ extension EmploeeViewController:UITableViewDelegate,UITableViewDataSource{
         
         switchButton.isOn = employee.getAccessLevel(rule: rule)
         
+        switchButton.removeTarget(self, action: nil, for: .valueChanged)
         switchButton.addAction(UIAction(handler: { _ in
-            self.user?.updateAccessLevel(targetId: self.employee.getLocalID() ?? "", accessLevel: rule, value: switchButton.isOn) { isUpdated, error in
+            self.user?.updateAccessLevel(employe: self.employee, accessLevel: rule, value: switchButton.isOn) { isUpdated, error in
 
                 if  let err = error{
                     self.alerts.errorAlert(self, errorCompanyApi: err) {
