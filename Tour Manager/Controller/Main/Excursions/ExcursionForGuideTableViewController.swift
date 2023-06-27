@@ -37,7 +37,6 @@ class ExcursionForGuideTableViewController: UITableViewController {
     
     @IBOutlet weak var paymentAmountLabel: UILabel!
     
-    
     @IBOutlet weak var guidesCollectionView: UICollectionView!
     
     
