@@ -234,4 +234,19 @@ class Alert{
         viewController.present(alert, animated: true)
     }
     
+    
+    public func deleteAlert(_ viewController:UIViewController,title:String, buttonTitle:String, completion: @escaping ()->Void){
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
+        
+        let deleteButton = UIAlertAction(title: buttonTitle, style: .destructive) { _ in
+            completion()
+        }
+        let cancel = UIAlertAction(title: "Отменить", style: .cancel)
+        
+        alert.addAction(deleteButton)
+        alert.addAction(cancel)
+        
+        viewController.present(alert, animated: true)
+    }
+    
 }
