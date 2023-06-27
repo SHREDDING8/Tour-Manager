@@ -248,7 +248,7 @@ class ExcursionForGuideTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         switch section{
-        case 0: return 5 
+        case 0: return  self.excursion.guideAccessNotes ? 5 : 4
         case 1: return 2
         case 2: return excursion.isPaid ? 1 : 2
         case 3: return 1

@@ -49,4 +49,10 @@ class StringValidation{
         return false
     }
     
+    func validateNumberWithPlus(value:String)->Bool{
+        let regex = "^[0-9]+(\\+[0-9]+)*$"
+        let test = NSPredicate(format: "SELF MATCHES %@", regex)
+        return test.evaluate(with: value)
+    }
+    
 }

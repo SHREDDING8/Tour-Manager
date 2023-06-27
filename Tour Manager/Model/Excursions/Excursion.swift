@@ -47,9 +47,11 @@ public class Excursion{
     
     var additionalInfromation:String = ""
     
+    var guideAccessNotes = false
+    
     var dateAndTime:Date = Date.now
     
-    var numberOfPeople:Int = 0
+    var numberOfPeople:String = "0"
     
 
     var customerCompanyName:String = ""
@@ -59,18 +61,20 @@ public class Excursion{
     var companyGuidePhone:String = ""
     var paymentMethod = ""
     
-    var paymentAmount:Int = 0
+    var paymentAmount:String = "0"
     
     var isPaid:Bool = false
     
     var selfGuides:[SelfGuide] = []
     
     
-    init(localId: String, excursionName:String, route:String, additionalInfromation:String, numberOfPeople:Int, dateAndTime:Date,customerCompanyName:String, customerGuideName:String, companyGuidePhone:String, isPaid:Bool, paymentMethod:String, paymentAmount:Int) {
+    init(localId: String, excursionName:String, route:String, additionalInfromation:String,
+         guideAccessNotes:Bool, numberOfPeople:String, dateAndTime:Date,customerCompanyName:String, customerGuideName:String, companyGuidePhone:String, isPaid:Bool, paymentMethod:String, paymentAmount:String) {
         self.localId = localId
         self.excursionName = excursionName
         self.route = route
         self.additionalInfromation = additionalInfromation
+        self.guideAccessNotes = guideAccessNotes
         self.numberOfPeople = numberOfPeople
         self.dateAndTime = dateAndTime
         self.customerCompanyName = customerCompanyName
@@ -81,13 +85,13 @@ public class Excursion{
         self.paymentAmount = paymentAmount
     }
     
-    init(localId: String? = nil, companyName: String? = nil, numberOfPeople: Int? = nil, companyGuideName: String? = nil, companyGuidePhone: String? = nil, paymentAmount: Int? = nil, isPaid: Bool? = nil, selfGuides: [SelfGuide]? = nil, route: String? = nil, dateAndTime:Date? = nil) {
+    init(localId: String? = nil, companyName: String? = nil, numberOfPeople: String? = nil, companyGuideName: String? = nil, companyGuidePhone: String? = nil, paymentAmount: String? = nil, isPaid: Bool? = nil, selfGuides: [SelfGuide]? = nil, route: String? = nil, dateAndTime:Date? = nil) {
         self.localId = localId ?? ""
         self.customerCompanyName = companyName ?? ""
-        self.numberOfPeople = numberOfPeople ?? 0
+        self.numberOfPeople = numberOfPeople ?? "0"
         self.customerGuideName = companyGuideName ?? ""
         self.companyGuidePhone = companyGuidePhone ?? ""
-        self.paymentAmount = paymentAmount ?? 0
+        self.paymentAmount = paymentAmount ?? "0"
         self.isPaid = isPaid ?? false
         self.selfGuides = selfGuides ?? []
         self.route = route ?? ""

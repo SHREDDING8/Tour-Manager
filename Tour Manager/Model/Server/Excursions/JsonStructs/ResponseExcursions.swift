@@ -14,7 +14,8 @@ struct ResponseGetExcursion: Codable {
     let tourName:String
     let tourRoute:String
     let tourNotes:String
-    let tourNumberOfPeople:Int
+    let tourNotesVisible:Bool
+    let tourNumberOfPeople:String
     let tourTimeStart:String
     let customerCompanyName:String
     let customerGuideName:String
@@ -22,7 +23,7 @@ struct ResponseGetExcursion: Codable {
     
     let isPaid:Bool
     let paymentMethod:String
-    let paymentAmount:Int
+    let paymentAmount:String
     
     let tourGuides: [TourGuide]
     
@@ -34,6 +35,7 @@ struct ResponseGetExcursion: Codable {
         case tourName = "tour_name"
         case tourRoute = "tour_route"
         case tourNotes = "tour_notes"
+        case tourNotesVisible = "tour_notes_visible"
         case tourNumberOfPeople = "tour_number_of_people"
         case tourTimeStart = "tour_time_start"
         case customerCompanyName = "customer_company_name"

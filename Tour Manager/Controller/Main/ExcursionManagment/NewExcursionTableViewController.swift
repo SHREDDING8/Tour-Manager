@@ -23,6 +23,9 @@ class NewExcursionTableViewController: UITableViewController {
         }
     }
     
+    @IBOutlet weak var notesForGuidesSwitch: UISwitch!
+    
+    
     
     @IBOutlet weak var dateAndTime: UIDatePicker!
     
@@ -32,6 +35,7 @@ class NewExcursionTableViewController: UITableViewController {
         }
     }
     
+
     
     @IBOutlet weak var customerCompanyNameLabel: UILabel!
     
@@ -140,6 +144,8 @@ class NewExcursionTableViewController: UITableViewController {
         
         self.additionalInformation.text = self.excursion.additionalInfromation
         
+        self.notesForGuidesSwitch.isOn = self.excursion.guideAccessNotes
+        
         self.numberOfPeople.text = String(self.excursion.numberOfPeople)
         
         self.customerCompanyNameLabel.text = !self.excursion.customerCompanyName.isEmpty ? self.excursion.customerCompanyName : "Не выбрано"
@@ -176,15 +182,16 @@ class NewExcursionTableViewController: UITableViewController {
             return
         }
         
-        if !(self.excursion.numberOfPeople >= 0 && self.excursion.numberOfPeople <= 1000){
+        if !validation.validateNumberWithPlus(value: self.excursion.numberOfPeople){
             self.alerts.validationStringError(self, title: "Ошибка в количестве человек")
             return
         }
         
-        if !(self.excursion.paymentAmount >= 0 && self.excursion.paymentAmount <= 1000000){
-            self.alerts.validationStringError(self, title: "Ошибка в сумме оплаты")
+        if !validation.validateNumberWithPlus(value: self.excursion.paymentAmount){
+            self.alerts.validationStringError(self, title: "Ошибка сумме оплаты")
             return
         }
+        
         
         
         
@@ -226,6 +233,9 @@ class NewExcursionTableViewController: UITableViewController {
         self.excursion.isPaid = sender.isOn
     }
     
+    @IBAction func notesForGuidesSwitch(_ sender: UISwitch) {
+        self.excursion.guideAccessNotes = sender.isOn
+    }
     
     @IBAction func deleteExcursionTap(_ sender: Any) {
         self.excursionModel.deleteExcursion(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", excursion: excursion) { isDeleted, error in
@@ -257,7 +267,7 @@ extension NewExcursionTableViewController{
         
         switch section{
         case 0:
-            return 5
+            return 6
         case 1:
             return 3
         case 2: return 3
@@ -324,13 +334,13 @@ extension NewExcursionTableViewController:UITextFieldDelegate{
             self.excursion.excursionName = textField.text ?? ""
         }
         else if textField.restorationIdentifier == "numberOfPeople"{
-            let numberOfPeople = Int(textField.text!)
-            if numberOfPeople == nil{
-                self.alerts.validationStringError(self, title: "Ошибка в количестве человек")
-                textField.text = ""
-                return
-            }
-            self.excursion.numberOfPeople = numberOfPeople!
+            
+            var newNumberOfPeople = (textField.text ?? "0").replacingOccurrences(of: " ", with: "")
+            
+            newNumberOfPeople = newNumberOfPeople == "" ? "0" : newNumberOfPeople
+
+            self.excursion.numberOfPeople = newNumberOfPeople
+            textField.text = newNumberOfPeople
         } else if textField.restorationIdentifier == "customerGuidePhone"{
             
             let newPhone = textField.text?.replacingOccurrences(of: "-", with: "").replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "").replacingOccurrences(of: " ", with: "") ?? ""
@@ -341,14 +351,11 @@ extension NewExcursionTableViewController:UITextFieldDelegate{
             
         }else if textField.restorationIdentifier == "amount"{
             
-            let amount = Int(textField.text ?? "0")
+            var newAmount = (textField.text ?? "0").replacingOccurrences(of: " ", with: "")
             
-            if amount == nil{
-                self.alerts.validationStringError(self, title: "Ошибка в сумме оплаты")
-                textField.text = ""
-                return
-            }
-            self.excursion.paymentAmount =  amount!
+            newAmount = newAmount == "" ? "0" : newAmount
+            self.excursion.paymentAmount =  newAmount
+            textField.text = newAmount
         }
     }
 }
