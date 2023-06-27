@@ -35,7 +35,8 @@ struct SendAddNewExcursion:Codable{
     let tourName:String
     let tourRoute:String
     let tourNotes:String
-    let tourNumberOfPeople:Int
+    let tourNotesVisible:Bool
+    let tourNumberOfPeople:String
     let tourTimeStart:String
     let tourDate:String
     let customerCompanyName:String
@@ -44,7 +45,7 @@ struct SendAddNewExcursion:Codable{
     
     let isPaid:Bool
     let paymentMethod:String
-    let paymentAmount:Int
+    let paymentAmount:String
     
     let guides: [SendGuide]
     
@@ -56,6 +57,7 @@ struct SendAddNewExcursion:Codable{
         case tourName = "tour_name"
         case tourRoute = "tour_route"
         case tourNotes = "tour_notes"
+        case tourNotesVisible = "tour_notes_visible"
         case tourNumberOfPeople = "tour_number_of_people"
         case tourTimeStart = "tour_time_start"
         case tourDate = "tour_date"
@@ -80,7 +82,8 @@ struct SendUpdateExcursion:Codable{
     let tourName:String
     let tourRoute:String
     let tourNotes:String
-    let tourNumberOfPeople:Int
+    let tourNotesVisible:Bool
+    let tourNumberOfPeople:String
     let tourTimeStart:String
     let tourDate:String
     let oldDate:String
@@ -90,7 +93,7 @@ struct SendUpdateExcursion:Codable{
     
     let isPaid:Bool
     let paymentMethod:String
-    let paymentAmount:Int
+    let paymentAmount:String
     
     let guides:[SendGuide]
     
@@ -105,6 +108,7 @@ struct SendUpdateExcursion:Codable{
         case tourName = "tour_name"
         case tourRoute = "tour_route"
         case tourNotes = "tour_notes"
+        case tourNotesVisible = "tour_notes_visible"
         case tourNumberOfPeople = "tour_number_of_people"
         case tourTimeStart = "tour_time_start"
         case tourDate = "tour_date"

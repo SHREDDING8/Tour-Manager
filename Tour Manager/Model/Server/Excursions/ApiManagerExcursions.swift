@@ -108,7 +108,7 @@ class ApiManagerExcursions{
             guides.append(SendGuide(guide_id: guide.guideInfo.getLocalID() ?? "", is_main: guide.isMain, status: guide.status.rawValue))
         }
         
-        let jsonData = SendAddNewExcursion(token: token, companyId: companyId, tourName: excursion.excursionName, tourRoute: excursion.route, tourNotes: excursion.additionalInfromation, tourNumberOfPeople: excursion.numberOfPeople, tourTimeStart: excursion.dateAndTime.timeToString(), tourDate: excursion.dateAndTime.birthdayToString(), customerCompanyName: excursion.customerCompanyName, customerGuideName: excursion.customerGuideName, customerGuideContact: excursion.companyGuidePhone,isPaid: excursion.isPaid, paymentMethod: excursion.paymentMethod, paymentAmount: excursion.paymentAmount,guides: guides)
+        let jsonData = SendAddNewExcursion(token: token, companyId: companyId, tourName: excursion.excursionName, tourRoute: excursion.route, tourNotes: excursion.additionalInfromation, tourNotesVisible: excursion.guideAccessNotes, tourNumberOfPeople: excursion.numberOfPeople, tourTimeStart: excursion.dateAndTime.timeToString(), tourDate: excursion.dateAndTime.birthdayToString(), customerCompanyName: excursion.customerCompanyName, customerGuideName: excursion.customerGuideName, customerGuideContact: excursion.companyGuidePhone,isPaid: excursion.isPaid, paymentMethod: excursion.paymentMethod, paymentAmount: excursion.paymentAmount,guides: guides)
         
         
         AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
@@ -135,7 +135,7 @@ class ApiManagerExcursions{
         }
         
         
-        let jsonData = SendUpdateExcursion(token: token, companyId: companyId, excursionId: excursion.localId ?? "", tourName: excursion.excursionName, tourRoute: excursion.route, tourNotes: excursion.additionalInfromation, tourNumberOfPeople: excursion.numberOfPeople, tourTimeStart: excursion.dateAndTime.timeToString(), tourDate: excursion.dateAndTime.birthdayToString(), oldDate: oldDate.birthdayToString(), customerCompanyName: excursion.customerCompanyName, customerGuideName: excursion.customerGuideName, customerGuideContact: excursion.companyGuidePhone,isPaid: excursion.isPaid, paymentMethod: excursion.paymentMethod, paymentAmount: excursion.paymentAmount,guides: guides)
+        let jsonData = SendUpdateExcursion(token: token, companyId: companyId, excursionId: excursion.localId ?? "", tourName: excursion.excursionName, tourRoute: excursion.route, tourNotes: excursion.additionalInfromation, tourNotesVisible: excursion.guideAccessNotes, tourNumberOfPeople: excursion.numberOfPeople, tourTimeStart: excursion.dateAndTime.timeToString(), tourDate: excursion.dateAndTime.birthdayToString(), oldDate: oldDate.birthdayToString(), customerCompanyName: excursion.customerCompanyName, customerGuideName: excursion.customerGuideName, customerGuideContact: excursion.companyGuidePhone,isPaid: excursion.isPaid, paymentMethod: excursion.paymentMethod, paymentAmount: excursion.paymentAmount,guides: guides)
         
         
         AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
