@@ -46,8 +46,8 @@
             filePath = "Tour Manager/Controller/Main/Profile/EmploeeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "206"
-            endingLineNumber = "206"
+            startingLineNumber = "207"
+            endingLineNumber = "207"
             landmarkName = "accessLevelCell(indexPath:)"
             landmarkType = "7">
             <Locations>
@@ -142,8 +142,8 @@
             filePath = "Tour Manager/Controller/Main/Profile/ProfilePageViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "556"
-            endingLineNumber = "556"
+            startingLineNumber = "558"
+            endingLineNumber = "558"
             landmarkName = "deleteCompanyCell(indexPath:)"
             landmarkType = "7">
          </BreakpointContent>

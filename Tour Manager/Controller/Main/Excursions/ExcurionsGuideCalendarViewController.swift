@@ -249,13 +249,13 @@ class ExcurionsGuideCalendarViewController: UIViewController {
         for event in events{
             if event.tourDate == date.birthdayToString(){
                 if event.waiting{
-                    eventsColors.append(.orange)
+                    eventsColors.append(.systemYellow)
                 }
                 if event.cancel{
-                    eventsColors.append(.red)
+                    eventsColors.append(.systemRed)
                 }
                 if event.accept{
-                    eventsColors.append(.green)
+                    eventsColors.append(.systemGreen)
                 }
             }
             
@@ -271,13 +271,13 @@ class ExcurionsGuideCalendarViewController: UIViewController {
         for event in events{
             if event.tourDate == date.birthdayToString(){
                 if event.waiting{
-                    eventsColors.append(.orange)
+                    eventsColors.append(.systemYellow)
                 }
                 if event.cancel{
-                    eventsColors.append(.red)
+                    eventsColors.append(.systemRed)
                 }
                 if event.accept{
-                    eventsColors.append(.green)
+                    eventsColors.append(.systemGreen)
                 }
             }
             
@@ -341,6 +341,7 @@ extension ExcurionsGuideCalendarViewController:UITableViewDelegate,UITableViewDa
             
             if guide.guideInfo == self.user{
                 statuses.append(guide.status)
+                cell.statusView.backgroundColor = guide.statusColor
             }
            
         }
@@ -348,17 +349,9 @@ extension ExcurionsGuideCalendarViewController:UITableViewDelegate,UITableViewDa
         if guides.count > 2{
             guides.removeLast()
             guides.removeLast()
-            
-            if statuses.contains(.cancel){
-                cell.statusView.backgroundColor = .red
-            } else if statuses.contains(.waiting){
-                cell.statusView.backgroundColor = .orange
-            } else if  statuses.contains(.accepted){
-                cell.statusView.backgroundColor = .green
-            }
-            
+                        
         }else{
-            cell.statusView.backgroundColor = .blue
+            cell.statusView.backgroundColor = .systemBlue
         }
         
         cell.guidesLabel.text = guides

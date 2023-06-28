@@ -101,10 +101,10 @@ class ExcursionForGuideTableViewController: UITableViewController {
         
         configureValues()
         
-        self.tabBarController?.tabBar.backgroundColor = .white
+        self.tabBarController?.tabBar.backgroundColor = UIColor(resource: .background)
         
         self.navigationItem.title = excursion.excursionName
-        self.navigationController?.navigationBar.backgroundColor = .white
+        self.navigationController?.navigationBar.backgroundColor = UIColor(resource: .background)
         
         self.navigationItem.largeTitleDisplayMode = .always
         
