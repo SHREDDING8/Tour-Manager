@@ -26,7 +26,7 @@ class mainTabBarViewController: UITabBarController {
         super.viewDidLoad()
         configureActivityIndicator()
         
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = UIColor(resource: .background)
         
         self.user?.getAccessLevelFromApi(completion: { isGetted, error in
             

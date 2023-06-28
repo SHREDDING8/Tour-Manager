@@ -234,10 +234,12 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = UIView()
+        header.backgroundColor = UIColor(resource: .background)
         let title = UILabel(frame: CGRect(x: 15, y: 0, width: self.view.frame.width - 30, height: 50))
         header.addSubview(title)
         
-        header.backgroundColor = .white
+        title.textColor = UIColor(resource: .blueText)
+        
         title.font = UIFont(name: "American Typewriter Bold", size: 24)
         
         switch section{
@@ -309,7 +311,7 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
             cellLabel.text = cellType.rawValue.0
             
             let changeButton:UIButton = cell.viewWithTag(3) as! UIButton
-            changeButton.titleLabel?.font = Font.getFont(name: .americanTypewriter, style: .light, size: 14)
+            changeButton.titleLabel?.font = Font.getFont(name: .americanTypewriter, style: .regular, size: 14)
             changeButton.setTitle("Изменить", for: .normal)
         
             changeButton.removeTarget(nil, action: nil, for: .touchUpInside)
@@ -374,28 +376,41 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
             
             let actionDel = UIAction { _ in
                 
-                let alert = UIAlertController(title: "Вы уверены в удалении аккаунта?", message: nil, preferredStyle: .alert)
-                
-                let actionDel = UIAlertAction(title: "Удалить", style: .destructive) { _ in
-                    self.user?.deleteCurrentUser(completion: { isDeleted, error in
+                self.alerts.deleteAlert(self, title: "Вы уверены что хотите удалить аккаунт?", buttonTitle: "Удалить") {
+                    let сonfirmAlert = UIAlertController(title: "Введите свое имя и фамилию", message: nil, preferredStyle: .alert)
+                    
+                    сonfirmAlert.addTextField()
+                    
+                    
+                    
+                    let actionDel = UIAlertAction(title: "Удалить", style: .destructive) { _ in
                         
-                        if let err = error{
-                            self.alerts.errorAlert(self, errorUserDataApi: err)
+                        if self.user?.getFullName() == сonfirmAlert.textFields![0].text{
+                            self.user?.deleteCurrentUser(completion: { isDeleted, error in
+                                
+                                if let err = error{
+                                    self.alerts.errorAlert(self, errorUserDataApi: err)
+                                }
+                                
+                                if isDeleted{
+                                    self.alerts.invalidToken(self, message: "Ваш аккаунт был удален")
+                                }
+                                
+                            })
+                        }else{
+                            let infoAlert = self.alerts.infoAlert(title: "Неправильно введены данные", meesage: nil)
+                            self.present(infoAlert, animated: true)
                         }
                         
-                        if isDeleted{
-                            let alert = self.alerts.infoAlert(title: "Ваш аккаунт был удален", meesage: nil)
-                            self.present(alert, animated: true)
-                        }
-                        
-                    })
+                    }
+                    
+                    let cancel = UIAlertAction(title: "Отменить", style: .cancel)
+                    
+                    сonfirmAlert.addAction(cancel)
+                    сonfirmAlert.addAction(actionDel)
+                    self.present(сonfirmAlert, animated: true)
+                    
                 }
-                
-                let cancel = UIAlertAction(title: "Отменить", style: .cancel)
-                
-                alert.addAction(cancel)
-                alert.addAction(actionDel)
-                self.present(alert, animated: true)
                 
             }
             buttonDeleteAccount.addAction(actionDel, for: .touchUpInside)
@@ -437,7 +452,7 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
             cellLabel.text = cellType.rawValue.0
             
             let changeButton:UIButton = cell.viewWithTag(3) as! UIButton
-            changeButton.titleLabel?.font = Font.getFont(name: .americanTypewriter, style: .light, size: 14)
+            changeButton.titleLabel?.font = Font.getFont(name: .americanTypewriter, style: .regular, size: 14)
             changeButton.setTitle("Изменить", for: .normal)
             
             changeButton.removeTarget(nil, action: nil, for: .touchUpInside)
@@ -491,7 +506,7 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
         cellLabel.text = cellType.rawValue.0
         
         let changeButton:UIButton = cell.viewWithTag(3) as! UIButton
-        changeButton.titleLabel?.font = Font.getFont(name: .americanTypewriter, style: .light, size: 14)
+        changeButton.titleLabel?.font = Font.getFont(name: .americanTypewriter, style: .regular, size: 14)
         changeButton.setTitle("Скопировать", for: .normal)
         changeButton.removeTarget(nil, action: nil, for: .touchUpInside)
         
@@ -531,15 +546,47 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
         button.removeTarget(nil, action: nil, for: .touchUpInside)
         
         let actionExit = UIAction { _ in
-            self.user?.company.DeleteCompany(token: self.user?.getToken() ?? "", completion: { isDeleted, error in
+            
+            self.alerts.deleteAlert(self, title: "Вы действительно хотите удалить компанию?", buttonTitle: "Удалить") {
                 
-                if let err = error{
-                    self.alerts.errorAlert(self, errorCompanyApi: err)
+                
+                let confirmAlert = UIAlertController(title: "Введите название компании", message: nil, preferredStyle: .alert)
+                confirmAlert.addTextField()
+                
+                
+                let deleteButton = UIAlertAction(title: "Удалить", style: .destructive) { _ in
+                    if self.user?.company.getNameCompany() ?? "x" == confirmAlert.textFields![0].text ?? "y"{
+                        self.user?.company.DeleteCompany(token: self.user?.getToken() ?? "", completion: { isDeleted, error in
+                            
+                            if let err = error{
+                                self.alerts.errorAlert(self, errorCompanyApi: err)
+                            }
+                            if isDeleted{
+                                self.alerts.invalidToken(self, message: "Ваша компания была удалена")
+                            }
+                        })
+                    }else{
+                        let alert = self.alerts.infoAlert(title: "Неправильное название компании", meesage: nil)
+                        self.present(alert, animated: true)
+                    }
                 }
-                if isDeleted{
-                    self.alerts.invalidToken(self, message: "Ваша компания была удалена")
-                }
-            })
+                
+                let cancel = UIAlertAction(title: "Отменить", style: .cancel)
+                
+                confirmAlert.addAction(deleteButton)
+                confirmAlert.addAction(cancel)
+                
+                self.present(confirmAlert, animated: true)
+                
+                
+            }
+            
+            
+            
+            
+            
+            
+            
         }
         button.addAction(actionExit, for: .touchUpInside)
         
@@ -552,7 +599,10 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
         let button = cell.viewWithTag(1) as! UIButton
         button.removeTarget(nil, action: nil, for: .touchUpInside)
         let actionExit = UIAction { _ in
-            self.goToLogInPage()
+            
+            self.alerts.deleteAlert(self, title: "Вы уверены что хотите выйти?", buttonTitle: "Выйти") {
+                self.goToLogInPage()
+            }
         }
         
         button.addAction(actionExit, for: .touchUpInside)

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22113.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_72" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22113.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_72" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22089.1"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -20,7 +21,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Подверждение Email" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mWK-46-eRA">
                                 <rect key="frame" x="15" y="108.99999999999999" width="400" height="39.333333333333329"/>
                                 <fontDescription key="fontDescription" name="AmericanTypewriter-Bold" family="American Typewriter" pointSize="32"/>
-                                <color key="textColor" red="0.1294117719" green="0.20392158630000001" blue="0.38431376220000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="textColor" name="BlueText"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n5C-rb-k0C">
@@ -28,7 +29,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Подтверждено">
                                     <fontDescription key="titleFontDescription" name="AmericanTypewriter-Bold" family="American Typewriter" pointSize="20"/>
-                                    <color key="baseBackgroundColor" red="0.12941176470588234" green="0.20392156862745098" blue="0.38431372549019605" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <color key="baseBackgroundColor" name="BlueText"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="verifiedButtonTap:" destination="f2F-cz-b1k" eventType="touchUpInside" id="dJP-Wg-NYv"/>
@@ -39,10 +40,10 @@
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9AW-iu-7KG">
                                 <rect key="frame" x="25" y="858" width="380" height="30"/>
-                                <color key="tintColor" red="0.12941176470588234" green="0.20392156862745098" blue="0.38431372549019605" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" name="BlueText"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Повторно отправить подтверждение через 60 asdasdasdasdasd\">
-                                    <fontDescription key="titleFontDescription" name="AmericanTypewriter-Semibold" family="American Typewriter" pointSize="13"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Повторно отправить подтверждение через 60">
+                                    <fontDescription key="titleFontDescription" name="AmericanTypewriter-Semibold" family="American Typewriter" pointSize="14"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="resendEmail:" destination="f2F-cz-b1k" eventType="touchUpInside" id="2ro-fr-pPZ"/>
@@ -51,12 +52,12 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сообщение отправлено на email" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="52X-br-q8m">
                                 <rect key="frame" x="15" y="488" width="400" height="64"/>
                                 <fontDescription key="fontDescription" name="AmericanTypewriter-Bold" family="American Typewriter" pointSize="26"/>
-                                <color key="textColor" red="0.1294117719" green="0.20392158630000001" blue="0.38431376220000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="textColor" name="BlueText"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="FGA-v3-YWp"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="Background"/>
                         <constraints>
                             <constraint firstItem="n5C-rb-k0C" firstAttribute="centerX" secondItem="Kci-p5-Ebv" secondAttribute="centerX" id="2hK-EK-EDX"/>
                             <constraint firstItem="52X-br-q8m" firstAttribute="leading" secondItem="Kci-p5-Ebv" secondAttribute="leading" constant="15" id="3lC-bc-EB5"/>
@@ -100,7 +101,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Создать новую компанию">
                                     <fontDescription key="titleFontDescription" name="AmericanTypewriter-Bold" family="American Typewriter" pointSize="20"/>
-                                    <color key="baseBackgroundColor" red="0.1294117719" green="0.20392158630000001" blue="0.38431376220000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <color key="baseBackgroundColor" name="BlueText"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="tapNewCompanyButton:" destination="sGD-mL-kdJ" eventType="touchUpInside" id="OZK-LT-BEU"/>
@@ -110,7 +111,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Тип аккаунта" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t4J-i9-5iP">
                                 <rect key="frame" x="15" y="108.99999999999999" width="400" height="39.333333333333329"/>
                                 <fontDescription key="fontDescription" name="AmericanTypewriter-Bold" family="American Typewriter" pointSize="32"/>
-                                <color key="textColor" red="0.1294117719" green="0.20392158630000001" blue="0.38431376220000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="textColor" name="BlueText"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconImg" translatesAutoresizingMaskIntoConstraints="NO" id="u63-Kx-VKo">
@@ -121,7 +122,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Я работник компании">
                                     <fontDescription key="titleFontDescription" name="AmericanTypewriter-Bold" family="American Typewriter" pointSize="20"/>
-                                    <color key="baseBackgroundColor" red="0.1294117719" green="0.20392158630000001" blue="0.38431376220000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <color key="baseBackgroundColor" name="BlueText"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="tapEmployeeButton:" destination="sGD-mL-kdJ" eventType="touchUpInside" id="2wd-ea-HHu"/>
@@ -130,7 +131,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="UOU-US-uav"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="Background"/>
                         <constraints>
                             <constraint firstItem="UOU-US-uav" firstAttribute="trailing" secondItem="L6H-Bl-Bfq" secondAttribute="trailing" constant="30" id="7ci-U3-6TH"/>
                             <constraint firstItem="u63-Kx-VKo" firstAttribute="top" secondItem="t4J-i9-5iP" secondAttribute="bottom" constant="30" id="BQ1-FZ-dCB"/>
@@ -170,7 +171,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Продолжить">
                                     <fontDescription key="titleFontDescription" name="AmericanTypewriter-Bold" family="American Typewriter" pointSize="20"/>
-                                    <color key="baseBackgroundColor" red="0.1294117719" green="0.20392158630000001" blue="0.38431376220000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <color key="baseBackgroundColor" name="BlueText"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="setPersonalDataTapped:" destination="efE-Kr-qFJ" eventType="touchUpInside" id="VUm-EK-Q2R"/>
@@ -179,13 +180,13 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Заполните личные данные" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6bW-Qa-6eY">
                                 <rect key="frame" x="15" y="109" width="400" height="78.666666666666686"/>
                                 <fontDescription key="fontDescription" name="AmericanTypewriter-Bold" family="American Typewriter" pointSize="32"/>
-                                <color key="textColor" red="0.1294117719" green="0.20392158630000001" blue="0.38431376220000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="textColor" name="BlueText"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="insetGrouped" separatorStyle="default" separatorInsetReference="fromAutomaticInsets" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="th8-QF-MJ3">
                                 <rect key="frame" x="0.0" y="487.33333333333326" width="430" height="316.66666666666674"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <color key="separatorColor" systemColor="systemIndigoColor"/>
+                                <color key="backgroundColor" name="Background"/>
+                                <color key="separatorColor" name="BlueText"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="profileSettingsCell" id="b21-xZ-7c5">
@@ -206,11 +207,13 @@
                                                 </textField>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Имя" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jkj-WZ-mux">
                                                     <rect key="frame" x="15" y="5" width="370" height="16"/>
-                                                    <fontDescription key="fontDescription" name="AmericanTypewriter-Light" family="American Typewriter" pointSize="14"/>
-                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="14"/>
+                                                    <color key="textColor" name="BlueText"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="jkj-WZ-mux" firstAttribute="leading" secondItem="xYn-pb-iRb" secondAttribute="leading" constant="15" id="BXI-aW-xST"/>
                                                 <constraint firstItem="6I6-C2-bpP" firstAttribute="leading" secondItem="xYn-pb-iRb" secondAttribute="leading" constant="15" id="Hb7-21-Ocx"/>
@@ -221,34 +224,36 @@
                                                 <constraint firstAttribute="trailing" secondItem="6I6-C2-bpP" secondAttribute="trailing" constant="15" id="x3b-0y-o4L"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="birthdayCell" id="xO8-ib-P8t">
-                                        <rect key="frame" x="20" y="120.66666793823242" width="390" height="63.666667938232422"/>
+                                        <rect key="frame" x="20" y="120.66666793823242" width="390" height="64.333335876464844"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xO8-ib-P8t" id="C4V-aj-ta3">
-                                            <rect key="frame" x="0.0" y="0.0" width="390" height="63.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="390" height="64.333335876464844"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15/06/2003" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ckU-yN-nTt">
-                                                    <rect key="frame" x="15" y="25" width="245" height="23.666666666666671"/>
+                                                    <rect key="frame" x="15" y="25" width="245" height="24.333333333333329"/>
                                                     <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zZm-xN-1qa">
-                                                    <rect key="frame" x="265" y="22" width="120" height="30"/>
+                                                    <rect key="frame" x="265" y="22.333333333333329" width="120" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="120" id="Bi7-3y-FwW"/>
                                                     </constraints>
                                                     <color key="tintColor" systemColor="labelColor"/>
                                                     <buttonConfiguration key="configuration" style="plain" title="Изменить">
-                                                        <fontDescription key="titleFontDescription" name="AmericanTypewriter-Light" family="American Typewriter" pointSize="14"/>
+                                                        <fontDescription key="titleFontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="14"/>
+                                                        <color key="baseForegroundColor" name="BlueText"/>
                                                     </buttonConfiguration>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Дата рождения" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lcs-AC-77U">
                                                     <rect key="frame" x="15" y="5" width="370" height="16"/>
-                                                    <fontDescription key="fontDescription" name="AmericanTypewriter-Light" family="American Typewriter" pointSize="14"/>
-                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="14"/>
+                                                    <color key="textColor" name="BlueText"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -264,6 +269,7 @@
                                                 <constraint firstItem="zZm-xN-1qa" firstAttribute="leading" secondItem="ckU-yN-nTt" secondAttribute="trailing" constant="5" id="YRl-id-WKP"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -273,7 +279,7 @@
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="RKr-s3-Nsc"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="Background"/>
                         <constraints>
                             <constraint firstItem="ycE-DJ-KKU" firstAttribute="centerX" secondItem="e2J-2A-S2e" secondAttribute="centerX" id="07g-9N-ngQ"/>
                             <constraint firstItem="th8-QF-MJ3" firstAttribute="leading" secondItem="e2J-2A-S2e" secondAttribute="leading" id="2cs-9I-Nm8"/>
@@ -314,7 +320,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Добро пожаловать!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vc7-kw-JuT">
                                 <rect key="frame" x="15" y="153" width="400" height="39.666666666666657"/>
                                 <fontDescription key="fontDescription" name="AmericanTypewriter-Bold" family="American Typewriter" pointSize="32"/>
-                                <color key="textColor" red="0.1647058874" green="0.25490197539999998" blue="0.48235297199999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="textColor" name="BlueText"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hnq-rs-w0k">
@@ -324,7 +330,7 @@
                                 <buttonConfiguration key="configuration" style="filled" title="Войти">
                                     <fontDescription key="titleFontDescription" name="AmericanTypewriter-Bold" family="American Typewriter" pointSize="20"/>
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <color key="baseBackgroundColor" red="0.16470588235294117" green="0.25490196078431371" blue="0.4823529411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    <color key="baseBackgroundColor" name="BlueText"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="logIn:" destination="uyK-M0-kKp" eventType="touchUpInside" id="Lvd-D8-ldV"/>
@@ -332,7 +338,7 @@
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Qc1-nS-DhL">
                                 <rect key="frame" x="20" y="512.33333333333337" width="390" height="286.66666666666663"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" name="Background"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="loginCell" id="FZ2-X7-rCW">
                                         <rect key="frame" x="0.0" y="50" width="390" height="65.333335876464844"/>
@@ -353,7 +359,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pMk-4l-By7">
                                                     <rect key="frame" x="15" y="5" width="370" height="16"/>
                                                     <fontDescription key="fontDescription" name="AmericanTypewriter" family="American Typewriter" pointSize="14"/>
-                                                    <color key="textColor" red="0.1294117719" green="0.20392158630000001" blue="0.38431376220000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <color key="textColor" name="BlueText"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -367,6 +373,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="122-sL-MUr" secondAttribute="trailing" id="xOS-M7-Jhk"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -376,7 +383,7 @@
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="89v-Rx-1hz">
                                 <rect key="frame" x="213" y="853" width="197" height="32.666666666666629"/>
-                                <color key="tintColor" red="0.16470588235294117" green="0.25490196078431371" blue="0.4823529411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" name="BlueText"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Восстановить пароль">
                                     <fontDescription key="titleFontDescription" name="AmericanTypewriter-Semibold" family="American Typewriter" pointSize="16"/>
@@ -387,7 +394,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rQs-jQ-9os">
                                 <rect key="frame" x="15" y="853" width="193" height="32.666666666666629"/>
-                                <color key="tintColor" red="0.1647058824" green="0.25490196079999999" blue="0.4823529412" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" name="BlueText"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Регистрация">
                                     <fontDescription key="titleFontDescription" name="AmericanTypewriter-Semibold" family="American Typewriter" pointSize="16"/>
@@ -398,7 +405,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="bbZ-OB-xjz"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="Background"/>
                         <constraints>
                             <constraint firstItem="OJv-hs-JXE" firstAttribute="top" secondItem="vc7-kw-JuT" secondAttribute="bottom" constant="30" id="5cB-J2-zZv"/>
                             <constraint firstItem="89v-Rx-1hz" firstAttribute="leading" secondItem="rQs-jQ-9os" secondAttribute="trailing" constant="5" id="AYc-pv-jUg"/>
@@ -455,14 +462,14 @@
     </scenes>
     <resources>
         <image name="iconImg" width="341.33334350585938" height="341.33334350585938"/>
+        <namedColor name="Background">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="BlueText">
+            <color red="0.16470588235294117" green="0.25490196078431371" blue="0.4823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="labelColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemIndigoColor">
-            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

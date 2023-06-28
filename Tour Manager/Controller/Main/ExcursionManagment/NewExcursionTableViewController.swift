@@ -238,12 +238,15 @@ class NewExcursionTableViewController: UITableViewController {
     }
     
     @IBAction func deleteExcursionTap(_ sender: Any) {
-        self.excursionModel.deleteExcursion(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", excursion: excursion) { isDeleted, error in
-            if let err = error{
-                self.alerts.errorAlert(self, errorExcursionsApi: err)
-            }
-            if isDeleted{
-                self.navigationController?.popViewController(animated: true)
+        
+        self.alerts.deleteAlert(self, title: "Вы уверены что хотите удалить экскурсию?", buttonTitle: "Удалить") {
+            self.excursionModel.deleteExcursion(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", excursion: self.excursion) { isDeleted, error in
+                if let err = error{
+                    self.alerts.errorAlert(self, errorExcursionsApi: err)
+                }
+                if isDeleted{
+                    self.navigationController?.popViewController(animated: true)
+                }
             }
         }
     }

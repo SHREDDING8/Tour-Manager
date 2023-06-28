@@ -17,6 +17,8 @@ class ExcursionForGuideTableViewController: UITableViewController {
     
     let user = AppDelegate.user
     
+    let generalLogic = GeneralLogic()
+    
     // MARK: - Outlets
     
     @IBOutlet weak var excursionNameLabel: UILabel!
@@ -36,7 +38,6 @@ class ExcursionForGuideTableViewController: UITableViewController {
     @IBOutlet weak var isPaidSwitch: UISwitch!
     
     @IBOutlet weak var paymentAmountLabel: UILabel!
-    
     
     @IBOutlet weak var guidesCollectionView: UICollectionView!
     
@@ -102,10 +103,10 @@ class ExcursionForGuideTableViewController: UITableViewController {
         
         configureValues()
         
-        self.tabBarController?.tabBar.backgroundColor = .white
+        self.tabBarController?.tabBar.backgroundColor = UIColor(resource: .background)
         
         self.navigationItem.title = excursion.excursionName
-        self.navigationController?.navigationBar.backgroundColor = .white
+        self.navigationController?.navigationBar.backgroundColor = UIColor(resource: .background)
         
         self.navigationItem.largeTitleDisplayMode = .always
         
@@ -253,6 +254,15 @@ class ExcursionForGuideTableViewController: UITableViewController {
         case 2: return excursion.isPaid ? 1 : 2
         case 3: return 1
         default: return 0
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        if indexPath.section == 1 && indexPath.row == 1{
+            if self.excursion.companyGuidePhone != ""{
+                generalLogic.callNumber(phoneNumber: self.excursion.companyGuidePhone)
+            }
         }
     }
 

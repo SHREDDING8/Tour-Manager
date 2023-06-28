@@ -18,22 +18,35 @@ enum Status:String{
         switch self{
             
         case .waiting:
-            return .orange
+            return .systemYellow
         case .cancel:
-            return .red
+            return .systemRed
         case .accepted:
-            return .green
+            return .systemGreen
         case .emptyGuides:
-            return .blue
+            return .systemBlue
         }
     }
 }
 
 public struct SelfGuide:Equatable {
-    
+        
     var guideInfo:User
     var isMain:Bool
     var status:Status = .waiting
+    
+    var statusColor:UIColor{
+        switch status {
+        case .waiting:
+            return .systemYellow
+        case .cancel:
+            return .systemRed
+        case .accepted:
+            return .systemGreen
+        case .emptyGuides:
+            return .systemBlue
+        }
+    }
 }
 
 public class Excursion{

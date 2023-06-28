@@ -54,7 +54,7 @@ class AddingNewComponentViewController: UIViewController {
     var line:UIView = {
         let line = UIView()
         line.translatesAutoresizingMaskIntoConstraints = false
-        line.backgroundColor = .orange
+        line.backgroundColor = UIColor(resource: .blueText)
         line.layer.cornerRadius = 5
         line.layer.opacity = 0.5
         return line

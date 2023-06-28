@@ -1,17 +1,50 @@
 {
   "images" : [
     {
-      "filename" : "ItunesArtwork@2x.png",
+      "filename" : "icon light.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "ItunesArtwork@2x 1.png",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "icon dark.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "icon light 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "ItunesArtwork@2x 2.png",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "icon dark 1.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "icon light 2.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "icon dark 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
