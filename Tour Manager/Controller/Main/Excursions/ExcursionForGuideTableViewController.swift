@@ -17,6 +17,8 @@ class ExcursionForGuideTableViewController: UITableViewController {
     
     let user = AppDelegate.user
     
+    let generalLogic = GeneralLogic()
+    
     // MARK: - Outlets
     
     @IBOutlet weak var excursionNameLabel: UILabel!
@@ -252,6 +254,15 @@ class ExcursionForGuideTableViewController: UITableViewController {
         case 2: return excursion.isPaid ? 1 : 2
         case 3: return 1
         default: return 0
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        if indexPath.section == 1 && indexPath.row == 1{
+            if self.excursion.companyGuidePhone != ""{
+                generalLogic.callNumber(phoneNumber: self.excursion.companyGuidePhone)
+            }
         }
     }
 
