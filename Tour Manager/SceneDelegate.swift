@@ -66,21 +66,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             
-            print(seconds)
-            seconds += 1
+//            print(seconds)
             
-            if seconds == limit || !self.sceneIsActive{
+            if seconds == limit {
                 let refreshToken = AppDelegate.userDefaults.string(forKey: "refreshToken")
                 self.user?.apiAuth.refreshToken(refreshToken: refreshToken ?? "", completion: { isRefreshed, newToken, error in
                     if isRefreshed{
                         self.user?.setToken(token: newToken!)
+                        print("REFRESH: \(newToken)")
                         UserDefaults.standard.set(newToken, forKey:  "authToken")
                     }
                 })
-                
-                timer.invalidate()
                 limit += 3300
                 
+            }
+            seconds += 1
+            if !self.sceneIsActive{
+                timer.invalidate()
             }
         }
     }

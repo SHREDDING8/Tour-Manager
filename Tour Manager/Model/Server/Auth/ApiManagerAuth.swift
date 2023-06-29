@@ -57,7 +57,7 @@ public class ApiManagerAuth{
             }else if response.response?.statusCode == 200{
                 
                 let newToken = try! JSONDecoder().decode(ResponseRefreshToken.self, from: response.data!)
-                completion(false, newToken.token, nil)
+                completion(true, newToken.token, nil)
                 
                 
             }else{
