@@ -46,7 +46,8 @@
 		EE5F91D72A20A1E700B39BB1 /* mainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5F91D62A20A1E700B39BB1 /* mainTabBarViewController.swift */; };
 		EE6DE06A2A1E681100507A27 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6DE0692A1E681100507A27 /* User.swift */; };
 		EE8474012A4CB5DD0082DE7E /* GeneralLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8474002A4CB5DD0082DE7E /* GeneralLogic.swift */; };
-		EE8474042A4CC9FD0082DE7E /* NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8474032A4CC9FD0082DE7E /* NotificationCenter.swift */; };
+		EE8474042A4CC9FD0082DE7E /* NotificationCenterLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8474032A4CC9FD0082DE7E /* NotificationCenterLocal.swift */; };
+		EE8474082A4D99620082DE7E /* sub.caf in Resources */ = {isa = PBXBuildFile; fileRef = EE8474072A4D99620082DE7E /* sub.caf */; };
 		EE9788692A28D4FA0086C034 /* EmploeeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9788682A28D4FA0086C034 /* EmploeeTableViewController.swift */; };
 		EE97886B2A28EA710086C034 /* EmploeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE97886A2A28EA710086C034 /* EmploeeViewController.swift */; };
 		EEA4C08029FDDC650083154E /* ApiManagerAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA4C07F29FDDC650083154E /* ApiManagerAuth.swift */; };
@@ -127,7 +128,8 @@
 		EE5F91D62A20A1E700B39BB1 /* mainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainTabBarViewController.swift; sourceTree = "<group>"; };
 		EE6DE0692A1E681100507A27 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		EE8474002A4CB5DD0082DE7E /* GeneralLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralLogic.swift; sourceTree = "<group>"; };
-		EE8474032A4CC9FD0082DE7E /* NotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenter.swift; sourceTree = "<group>"; };
+		EE8474032A4CC9FD0082DE7E /* NotificationCenterLocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterLocal.swift; sourceTree = "<group>"; };
+		EE8474072A4D99620082DE7E /* sub.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sub.caf; sourceTree = "<group>"; };
 		EE9788682A28D4FA0086C034 /* EmploeeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmploeeTableViewController.swift; sourceTree = "<group>"; };
 		EE97886A2A28EA710086C034 /* EmploeeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmploeeViewController.swift; sourceTree = "<group>"; };
 		EEA4C07F29FDDC650083154E /* ApiManagerAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManagerAuth.swift; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 		EE52E16229E5C1C8000C0E5B = {
 			isa = PBXGroup;
 			children = (
+				EE8474052A4D99180082DE7E /* Library */,
 				EE52E16D29E5C1C8000C0E5B /* Tour Manager */,
 				EE52E16C29E5C1C8000C0E5B /* Products */,
 				846A1A146534BC9D8C58AE15 /* Pods */,
@@ -446,9 +449,25 @@
 		EE8474022A4CC9EA0082DE7E /* NotificationCenter */ = {
 			isa = PBXGroup;
 			children = (
-				EE8474032A4CC9FD0082DE7E /* NotificationCenter.swift */,
+				EE8474032A4CC9FD0082DE7E /* NotificationCenterLocal.swift */,
 			);
 			path = NotificationCenter;
+			sourceTree = "<group>";
+		};
+		EE8474052A4D99180082DE7E /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				EE8474062A4D99280082DE7E /* Sounds */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		EE8474062A4D99280082DE7E /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				EE8474072A4D99620082DE7E /* sub.caf */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 		EEB73F9A2A364B59004D7A25 /* Excursions */ = {
@@ -633,6 +652,7 @@
 				EE52E17B29E5C1CB000C0E5B /* LaunchScreen.storyboard in Resources */,
 				EEF6EBA92A41BADE00DC5F6A /* GuideCollectionViewCell.xib in Resources */,
 				EE1770F62A23F00300B18055 /* Launch.storyboard in Resources */,
+				EE8474082A4D99620082DE7E /* sub.caf in Resources */,
 				EEE802712A2E5DED00162622 /* ExcursionTableViewCell.xib in Resources */,
 				EEB764A32A387B2200579E6B /* NewComponentTableViewCell.xib in Resources */,
 				EE52E17829E5C1CB000C0E5B /* Assets.xcassets in Resources */,
@@ -706,7 +726,7 @@
 				EE1770F02A23BD9500B18055 /* StringValidation.swift in Sources */,
 				EE5F91D12A200D2D00B39BB1 /* ResponseAuthStructs.swift in Sources */,
 				EE5EEC2E2A06D0660025336E /* AddingPersonalDataViewController.swift in Sources */,
-				EE8474042A4CC9FD0082DE7E /* NotificationCenter.swift in Sources */,
+				EE8474042A4CC9FD0082DE7E /* NotificationCenterLocal.swift in Sources */,
 				EE4C893E2A2E3D85004D3CB9 /* Excursion.swift in Sources */,
 				EE1770EC2A22B08500B18055 /* Company.swift in Sources */,
 				EEB764A22A387B2200579E6B /* NewComponentTableViewCell.swift in Sources */,

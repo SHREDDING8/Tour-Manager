@@ -8,7 +8,7 @@
 import Foundation
 import UserNotifications
 
-class LocalNotifications{
+class LocalNotifications: NSObject{
     
     
     public func createRememberWorkDayNotification(tourDate:Date){
@@ -27,7 +27,6 @@ class LocalNotifications{
         dateComponents.minute = 0
         dateComponents.second = 0
         
-        print(dateComponents)
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
         
         let request = UNNotificationRequest(identifier: "RememberWorkDayNotification\(dateTrigger.birthdayToString())", content: rememberNotification, trigger: trigger)
@@ -35,4 +34,12 @@ class LocalNotifications{
         UNUserNotificationCenter.current().add(request)
         
     }
+}
+
+extension LocalNotifications:UNUserNotificationCenterDelegate{
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
+        print(response.notification.request.identifier)
+    }
+    
 }
