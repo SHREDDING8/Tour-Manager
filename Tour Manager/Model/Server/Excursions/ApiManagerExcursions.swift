@@ -207,6 +207,8 @@ class ApiManagerExcursions{
         
         let url = URL(string: routeGetTourListInRange)!
         
+        print("getExcursionsListByRange \(token)")
+        
         let jsonData = SendGetExcursionsListByRange(token: token, company_id: companyId, tour_date_start: startDate, tour_date_end: endDate)
         
         AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in

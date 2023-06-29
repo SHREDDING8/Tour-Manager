@@ -41,9 +41,9 @@ extension User{
         case .canChangeAccessLevel:
             return "Изменение прав доступа работников компании"
         case .canWriteTourList:
-            return "Чтение всех экскурсий"
-        case .canReadTourList:
             return "Изменение экскурсий"
+        case .canReadTourList:
+            return  "Чтение всех экскурсий"
         case .isGuide:
             return "Эксурсовод"
         }
