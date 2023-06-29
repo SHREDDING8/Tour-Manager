@@ -21,14 +21,13 @@ public struct UserDataServerStruct:Codable{
 
 protocol UserProtocol{
 
-        
     func setToken(token:String)
     func getToken() -> String
     
     func setLocalID(localId:String)
     func getLocalID()->String?
     
-    func setDataAuth(token:String,localId:String)
+    func setDataAuth(token:String,localId:String,refreshToken:String)
     
 }
 
@@ -84,6 +83,8 @@ class User:UserProtocol, Equatable{
     
     
     internal var token:String?
+    internal var refreshToken:String?
+    internal var deviceToken:String?
     internal var localId:String?
     internal var email:String?
     
@@ -150,6 +151,24 @@ class User:UserProtocol, Equatable{
     
     public func getToken()->String{
         return self.token ?? ""
+    }
+    
+    // MARK: - Refresh Token
+    public func setRefreshToken(refreshToken:String){
+        self.refreshToken = refreshToken
+    }
+    
+    public func getRefreshToken()->String{
+        return self.refreshToken ?? ""
+    }
+    
+    // MARK: - Device Token
+    public func setDeviceToken(deviceToken:String){
+        self.deviceToken = refreshToken
+    }
+    
+    public func getDeviceToken()->String{
+        return self.deviceToken ?? ""
     }
     
     // MARK: - localId

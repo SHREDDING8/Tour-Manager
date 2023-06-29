@@ -13,6 +13,7 @@ class WorkWithUserDefaults{
     public enum loginUserDefaultsKeys:String{
         case token = "token"
         case localId = "localId"
+        case refreshToken = "refreshToken"
     }
     
     init(){
@@ -22,6 +23,7 @@ class WorkWithUserDefaults{
     public func removeLoginData(){
         userDefaults.set(nil, forKey: "authToken")
         userDefaults.set(nil, forKey: "localId")
+        userDefaults.set(nil, forKey: "refreshToken")
     }
     
 }

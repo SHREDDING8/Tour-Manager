@@ -13,6 +13,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     let contollers = Controllers()
     let user = AppDelegate.user
+    
+    var sceneIsActive:Bool = false
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -52,11 +54,41 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+        self.sceneIsActive = true
+        
+        setTimerRefreshToken()
+    }
+    
+    private func setTimerRefreshToken(){
+        
+        var seconds = 0
+        var limit = 0
+        
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+            
+            print(seconds)
+            seconds += 1
+            
+            if seconds == limit || !self.sceneIsActive{
+                let refreshToken = AppDelegate.userDefaults.string(forKey: "refreshToken")
+                self.user?.apiAuth.refreshToken(refreshToken: refreshToken ?? "", completion: { isRefreshed, newToken, error in
+                    if isRefreshed{
+                        self.user?.setToken(token: newToken!)
+                        UserDefaults.standard.set(newToken, forKey:  "authToken")
+                    }
+                })
+                
+                timer.invalidate()
+                limit += 3300
+                
+            }
+        }
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
         // Called when the scene will move from an active state to an inactive state.
         // This may occur due to temporary interruptions (ex. an incoming phone call).
+        self.sceneIsActive = false
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {

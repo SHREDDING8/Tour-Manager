@@ -20,6 +20,8 @@ public enum customErrorAuth{
     case userNotFound
     
     case unknowmError
+    
+    case tokenExpired
 }
 
 
@@ -27,6 +29,7 @@ public class ApiManagerAuth{
     private static let domain = GeneralData.domain
     private static let prefix = domain + "auth"
     
+    private let routeRefreshToken = prefix + "/refresh_user_token"
     private let routeLogIn = prefix + "/login"
     private let routeSignIn = prefix + "/signup"
     
@@ -36,13 +39,41 @@ public class ApiManagerAuth{
     private let routeSendVerifyEmail = prefix + "/send_verify_email"
     private let routeUpdatePassword = prefix + "/update_user_password"
     
-    // MARK: - logIn
-    public func logIn(email:String,password:String, completion: @escaping (Bool, ResponseLogInJsonStruct?, customErrorAuth?)->Void ){
+    
+    
+    
+    public func refreshToken(refreshToken:String, completion: @escaping (Bool,String?, customErrorAuth?)->Void){
         
-        let jsonData = sendLogInJsonStruct(email: email, password: password)
+        let jsonData = ["refresh_token":refreshToken]
+        
+        let url = URL(string: routeRefreshToken)!
+        
+        AF.request(url,method: .post, parameters: jsonData,encoder: .json).response{
+            response in
+            
+            if response.response?.statusCode == 400{
+                let error = self.checkError(data: response.data!)
+                completion(false,nil, error)
+            }else if response.response?.statusCode == 200{
+                
+                let newToken = try! JSONDecoder().decode(ResponseRefreshToken.self, from: response.data!)
+                completion(false, newToken.token, nil)
+                
+                
+            }else{
+                completion(false,nil, nil)
+            }
+        }
+        
+    }
+    
+    // MARK: - logIn
+    public func logIn(email:String,password:String, deviceToken:String, completion: @escaping (Bool, ResponseLogInJsonStruct?, customErrorAuth?)->Void ){
+        
+        let jsonData = sendLogInJsonStruct(email: email, password: password, apnsToken: ApnsToken(vendorID: UIDevice.current.identifierForVendor?.uuidString ?? "", deviceToken: deviceToken))
         
         let url = URL(string: routeLogIn)
-        
+
         AF.request(url!,method: .post, parameters: jsonData,encoder: .json).response { response in
             if response.response?.statusCode == 400{
                 let error = self.checkError(data: response.data!)
@@ -61,7 +92,11 @@ public class ApiManagerAuth{
     // MARK: - signIn
     public func signIn(email:String,password:String, completion: @escaping (Bool,customErrorAuth?)->Void ){
         
-        let jsonData = sendLogInJsonStruct(email: email, password: password)
+        let jsonData = [
+            "email": email,
+            "password": password
+        ]
+        
     
         let url = URL(string: routeSignIn)
         
@@ -138,8 +173,11 @@ public class ApiManagerAuth{
             
     // MARK: - sendVerifyEmail
     public func sendVerifyEmail(email:String, password:String, completion:  @escaping (Bool?,customErrorAuth?)->Void ) {
-        let jsonData = sendLogInJsonStruct(email: email, password: password)
         
+        let jsonData = [
+            "email": email,
+            "password": password
+        ]
         let url = URL(string: routeSendVerifyEmail)
         
         AF.request(url!, method: .post, parameters:  jsonData,encoder: .json).response { response in
@@ -154,6 +192,7 @@ public class ApiManagerAuth{
     
     private func checkError(data:Data)->customErrorAuth{
         if let error = try? JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: data){
+            print(error.message)
             switch error.message{
             case "Email exists":
                 return .emailExist
@@ -168,6 +207,9 @@ public class ApiManagerAuth{
                 
             case "Weak password":
                 return .weakPassword
+                
+            case "TOKEN_EXPIRED":
+                return .tokenExpired
                 
             default:
                 return .unknowmError

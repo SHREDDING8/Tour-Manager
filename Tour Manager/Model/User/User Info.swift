@@ -19,6 +19,8 @@ extension User{
                 completion(false, error)
                 UserDefaults.standard.set(nil, forKey:  "authToken")
                 UserDefaults.standard.set(nil, forKey: "localId")
+                UserDefaults.standard.set(nil, forKey: "refreshToken")
+                
                 return
             }
             
