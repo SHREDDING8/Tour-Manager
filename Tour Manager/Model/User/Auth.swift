@@ -13,14 +13,18 @@ extension User{
     
    
     // MARK: - setDataAuth
-    public func setDataAuth(token:String,localId:String){
+    public func setDataAuth(token:String,localId:String,refreshToken:String){
         self.token = token
         self.localId = localId
+        self.refreshToken = refreshToken
     }
     
     // MARK: - logIn
     public func logIn(password:String, completion: @escaping (Bool, customErrorAuth?)->Void ){
-        self.apiAuth.logIn(email: self.email ?? "", password: password) { isLogin,logInData, error in
+        
+        let deviceToken = AppDelegate.userDefaults.string(forKey: "deviceToken") ?? ""
+        
+        self.apiAuth.logIn(email: self.email ?? "", password: password, deviceToken: deviceToken) { isLogin,logInData, error in
             if error != nil {
                 completion(false,error)
                 return
@@ -30,11 +34,11 @@ extension User{
                 return
             }
             
-            self.setDataAuth(token: logInData!.token, localId: logInData!.localId)
+            self.setDataAuth(token: logInData!.token, localId: logInData!.localId, refreshToken: logInData!.refreshToken)
             
             UserDefaults.standard.set(self.getToken(), forKey:  "authToken")
             UserDefaults.standard.set(self.getLocalID(), forKey: "localId")
-            
+            UserDefaults.standard.set(self.getRefreshToken(), forKey: "refreshToken")
             completion(true,nil)
             
         }

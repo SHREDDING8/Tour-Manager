@@ -19,6 +19,9 @@ class ExcursionForGuideTableViewController: UITableViewController {
     
     let generalLogic = GeneralLogic()
     
+    
+    let localNotifications = LocalNotifications()
+    
     // MARK: - Outlets
     
     @IBOutlet weak var excursionNameLabel: UILabel!
@@ -171,6 +174,8 @@ class ExcursionForGuideTableViewController: UITableViewController {
                         self.heightConstaint.constant = 0
                         self.view.layoutIfNeeded()
                     }
+                    
+                    self.localNotifications.createRememberWorkDayNotification(tourDate: self.excursion.dateAndTime)
                 }
             }
         }), for: .touchUpInside)

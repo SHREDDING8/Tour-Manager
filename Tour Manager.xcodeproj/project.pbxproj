@@ -46,6 +46,7 @@
 		EE5F91D72A20A1E700B39BB1 /* mainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5F91D62A20A1E700B39BB1 /* mainTabBarViewController.swift */; };
 		EE6DE06A2A1E681100507A27 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6DE0692A1E681100507A27 /* User.swift */; };
 		EE8474012A4CB5DD0082DE7E /* GeneralLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8474002A4CB5DD0082DE7E /* GeneralLogic.swift */; };
+		EE8474042A4CC9FD0082DE7E /* NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8474032A4CC9FD0082DE7E /* NotificationCenter.swift */; };
 		EE9788692A28D4FA0086C034 /* EmploeeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9788682A28D4FA0086C034 /* EmploeeTableViewController.swift */; };
 		EE97886B2A28EA710086C034 /* EmploeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE97886A2A28EA710086C034 /* EmploeeViewController.swift */; };
 		EEA4C08029FDDC650083154E /* ApiManagerAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA4C07F29FDDC650083154E /* ApiManagerAuth.swift */; };
@@ -126,6 +127,7 @@
 		EE5F91D62A20A1E700B39BB1 /* mainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainTabBarViewController.swift; sourceTree = "<group>"; };
 		EE6DE0692A1E681100507A27 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		EE8474002A4CB5DD0082DE7E /* GeneralLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralLogic.swift; sourceTree = "<group>"; };
+		EE8474032A4CC9FD0082DE7E /* NotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenter.swift; sourceTree = "<group>"; };
 		EE9788682A28D4FA0086C034 /* EmploeeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmploeeTableViewController.swift; sourceTree = "<group>"; };
 		EE97886A2A28EA710086C034 /* EmploeeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmploeeViewController.swift; sourceTree = "<group>"; };
 		EEA4C07F29FDDC650083154E /* ApiManagerAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManagerAuth.swift; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 		EE5F91DA2A21514200B39BB1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				EE8474022A4CC9EA0082DE7E /* NotificationCenter */,
 				EE8473FF2A4CB5C90082DE7E /* General Logic */,
 				EEF18C8F2A42107300A91D2F /* LocalStorage */,
 				EE4C893C2A2E3D3C004D3CB9 /* Excursions */,
@@ -438,6 +441,14 @@
 				EE8474002A4CB5DD0082DE7E /* GeneralLogic.swift */,
 			);
 			path = "General Logic";
+			sourceTree = "<group>";
+		};
+		EE8474022A4CC9EA0082DE7E /* NotificationCenter */ = {
+			isa = PBXGroup;
+			children = (
+				EE8474032A4CC9FD0082DE7E /* NotificationCenter.swift */,
+			);
+			path = NotificationCenter;
 			sourceTree = "<group>";
 		};
 		EEB73F9A2A364B59004D7A25 /* Excursions */ = {
@@ -695,6 +706,7 @@
 				EE1770F02A23BD9500B18055 /* StringValidation.swift in Sources */,
 				EE5F91D12A200D2D00B39BB1 /* ResponseAuthStructs.swift in Sources */,
 				EE5EEC2E2A06D0660025336E /* AddingPersonalDataViewController.swift in Sources */,
+				EE8474042A4CC9FD0082DE7E /* NotificationCenter.swift in Sources */,
 				EE4C893E2A2E3D85004D3CB9 /* Excursion.swift in Sources */,
 				EE1770EC2A22B08500B18055 /* Company.swift in Sources */,
 				EEB764A22A387B2200579E6B /* NewComponentTableViewCell.swift in Sources */,

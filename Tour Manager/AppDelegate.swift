@@ -44,6 +44,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       }
       let token = tokenParts.joined()
       print("Device Token: \(token)")
+        AppDelegate.userDefaults.setValue(token, forKey: "deviceToken")
+        AppDelegate.user?.setDeviceToken(deviceToken: token)
     }
 
     func application(_ application: UIApplication,
