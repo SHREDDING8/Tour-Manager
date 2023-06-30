@@ -13,6 +13,8 @@ class mainTabBarViewController: UITabBarController {
     
     let user = AppDelegate.user
     
+    var loadview:LoadView!
+    
     let activityIndicator:UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
         indicator.startAnimating()
@@ -24,6 +26,11 @@ class mainTabBarViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        AppDelegate.tabBar = self
+        
+        self.loadview = LoadView(viewController: self)
+        
         configureActivityIndicator()
         
         self.view.backgroundColor = UIColor(resource: .background)
@@ -81,5 +88,13 @@ class mainTabBarViewController: UITabBarController {
             self.activityIndicator.centerYAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerYAnchor),
             self.activityIndicator.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor)
         ])
+    }
+    
+    public func setLoading(){
+        self.loadview.setLoadUIView()
+    }
+    
+    public func stopLoading(){
+        self.loadview.removeLoadUIView()
     }
 }

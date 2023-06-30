@@ -48,8 +48,10 @@
 		EE8474012A4CB5DD0082DE7E /* GeneralLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8474002A4CB5DD0082DE7E /* GeneralLogic.swift */; };
 		EE8474042A4CC9FD0082DE7E /* NotificationCenterLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8474032A4CC9FD0082DE7E /* NotificationCenterLocal.swift */; };
 		EE8474082A4D99620082DE7E /* sub.caf in Resources */ = {isa = PBXBuildFile; fileRef = EE8474072A4D99620082DE7E /* sub.caf */; };
+		EE84740A2A4DB04E0082DE7E /* PushNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8474092A4DB04E0082DE7E /* PushNotificationCenter.swift */; };
 		EE9788692A28D4FA0086C034 /* EmploeeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9788682A28D4FA0086C034 /* EmploeeTableViewController.swift */; };
 		EE97886B2A28EA710086C034 /* EmploeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE97886A2A28EA710086C034 /* EmploeeViewController.swift */; };
+		EEA07CB12A4DD7FC00F14778 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA07CB02A4DD7FB00F14778 /* LoginViewController.swift */; };
 		EEA4C08029FDDC650083154E /* ApiManagerAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA4C07F29FDDC650083154E /* ApiManagerAuth.swift */; };
 		EEB73F9C2A364B82004D7A25 /* ApiManagerExcursions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB73F9B2A364B82004D7A25 /* ApiManagerExcursions.swift */; };
 		EEB73F9F2A364B9B004D7A25 /* SendExcursions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB73F9E2A364B9B004D7A25 /* SendExcursions.swift */; };
@@ -71,7 +73,6 @@
 		EEF27A402A044E7D006E5E53 /* Pods_Tour_Manager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEF27A3F2A044E7D006E5E53 /* Pods_Tour_Manager.framework */; };
 		EEF27A452A055443006E5E53 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A442A055443006E5E53 /* Profile.swift */; };
 		EEF27A482A05551E006E5E53 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A472A05551E006E5E53 /* Font.swift */; };
-		EEF27A4C2A0572C9006E5E53 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A4B2A0572C9006E5E53 /* LoginViewController.swift */; };
 		EEF27A512A059BE4006E5E53 /* TextFieldValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A502A059BE4006E5E53 /* TextFieldValidation.swift */; };
 		EEF27A542A05AA44006E5E53 /* Controllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A532A05AA44006E5E53 /* Controllers.swift */; };
 		EEF27A572A05B512006E5E53 /* extensionUiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A562A05B512006E5E53 /* extensionUiView.swift */; };
@@ -130,8 +131,10 @@
 		EE8474002A4CB5DD0082DE7E /* GeneralLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralLogic.swift; sourceTree = "<group>"; };
 		EE8474032A4CC9FD0082DE7E /* NotificationCenterLocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterLocal.swift; sourceTree = "<group>"; };
 		EE8474072A4D99620082DE7E /* sub.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sub.caf; sourceTree = "<group>"; };
+		EE8474092A4DB04E0082DE7E /* PushNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationCenter.swift; sourceTree = "<group>"; };
 		EE9788682A28D4FA0086C034 /* EmploeeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmploeeTableViewController.swift; sourceTree = "<group>"; };
 		EE97886A2A28EA710086C034 /* EmploeeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmploeeViewController.swift; sourceTree = "<group>"; };
+		EEA07CB02A4DD7FB00F14778 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		EEA4C07F29FDDC650083154E /* ApiManagerAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManagerAuth.swift; sourceTree = "<group>"; };
 		EEB73F9B2A364B82004D7A25 /* ApiManagerExcursions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManagerExcursions.swift; sourceTree = "<group>"; };
 		EEB73F9E2A364B9B004D7A25 /* SendExcursions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendExcursions.swift; sourceTree = "<group>"; };
@@ -153,7 +156,6 @@
 		EEF27A3F2A044E7D006E5E53 /* Pods_Tour_Manager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Tour_Manager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEF27A442A055443006E5E53 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		EEF27A472A05551E006E5E53 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
-		EEF27A4B2A0572C9006E5E53 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		EEF27A502A059BE4006E5E53 /* TextFieldValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldValidation.swift; sourceTree = "<group>"; };
 		EEF27A532A05AA44006E5E53 /* Controllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controllers.swift; sourceTree = "<group>"; };
 		EEF27A562A05B512006E5E53 /* extensionUiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionUiView.swift; sourceTree = "<group>"; };
@@ -450,6 +452,7 @@
 			isa = PBXGroup;
 			children = (
 				EE8474032A4CC9FD0082DE7E /* NotificationCenterLocal.swift */,
+				EE8474092A4DB04E0082DE7E /* PushNotificationCenter.swift */,
 			);
 			path = NotificationCenter;
 			sourceTree = "<group>";
@@ -571,10 +574,10 @@
 		EEFAB0F229F1E7C50028999A /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				EEF27A4B2A0572C9006E5E53 /* LoginViewController.swift */,
 				EEF27A582A05C7BC006E5E53 /* VerifyEmailViewController.swift */,
 				EE5EEC2D2A06D0660025336E /* AddingPersonalDataViewController.swift */,
 				EE5EEC302A06EDC20025336E /* ChoiceOfTypeAccountViewController.swift */,
+				EEA07CB02A4DD7FB00F14778 /* LoginViewController.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -712,7 +715,6 @@
 			files = (
 				EEFD30ED2A3B6400003192A1 /* ExcursionsNavigationController.swift in Sources */,
 				EE5F91C02A1EA3C900B39BB1 /* ResponseUserDataStructs.swift in Sources */,
-				EEF27A4C2A0572C9006E5E53 /* LoginViewController.swift in Sources */,
 				EE5F91CF2A200C7700B39BB1 /* sendAuthStructs.swift in Sources */,
 				EEA4C08029FDDC650083154E /* ApiManagerAuth.swift in Sources */,
 				EEF27A592A05C7BC006E5E53 /* VerifyEmailViewController.swift in Sources */,
@@ -741,6 +743,8 @@
 				EE2C9A5029FD858500B7D74F /* ProfilePageViewController.swift in Sources */,
 				EEB73FA32A365ABC004D7A25 /* ExcursionsControllerModel.swift in Sources */,
 				EEF18C952A4258EE00A91D2F /* FS calendar.swift in Sources */,
+				EE84740A2A4DB04E0082DE7E /* PushNotificationCenter.swift in Sources */,
+				EEA07CB12A4DD7FC00F14778 /* LoginViewController.swift in Sources */,
 				EE5F91B62A1E839E00B39BB1 /* UiWindow.swift in Sources */,
 				EEF18C912A42109400A91D2F /* UserDefaults.swift in Sources */,
 				EE97886B2A28EA710086C034 /* EmploeeViewController.swift in Sources */,

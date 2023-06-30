@@ -35,6 +35,30 @@ class ExcursionManagementViewController: UIViewController{
         tableView.restorationIdentifier = "tableViewCalendar"
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
+        
+        let labelNotTours = UILabel()
+        labelNotTours.font = Font.getFont(name: .americanTypewriter, style: .semiBold, size: 26)
+        labelNotTours.textColor = UIColor(resource: .blueText)
+        labelNotTours.textAlignment = .center
+        labelNotTours.text = "Сегодня экскурсий нет"
+        labelNotTours.translatesAutoresizingMaskIntoConstraints = false
+        labelNotTours.numberOfLines = 0
+        labelNotTours.layer.opacity = 0.5
+        
+        
+        tableView.addSubview(labelNotTours)
+        
+        NSLayoutConstraint.activate([
+            labelNotTours.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
+            labelNotTours.centerYAnchor.constraint(equalTo: tableView.centerYAnchor),
+//            labelNotTours.leadingAnchor.constraint(equalTo: tableView.leadingAnchor,constant: 15),
+//            labelNotTours.leadingAnchor.constraint(equalTo: tableView.trailingAnchor,constant: 15),
+//            labelNotTours.topAnchor.constraint(equalTo: tableView.topAnchor,constant: 15),
+//            labelNotTours.bottomAnchor.constraint(equalTo: tableView.bottomAnchor,constant: 15),
+//            labelNotTours.widthAnchor.constraint(equalToConstant: tableView.frame.width)
+//            labelNotTours.heightAnchor
+        ])
+        
         return tableView
     }()
     

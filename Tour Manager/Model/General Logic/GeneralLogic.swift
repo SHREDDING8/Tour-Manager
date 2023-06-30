@@ -21,3 +21,11 @@ class GeneralLogic{
       }
     }
 }
+
+class GeneralController{
+    let tabBar:UITabBarController
+    
+    init(_ tabBar: UITabBarController) {
+        self.tabBar = tabBar
+    }
+}
