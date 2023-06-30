@@ -13,7 +13,11 @@ class EmploeeViewController: UIViewController {
     let profileModel = Profile()
     let alerts = Alert()
     
+    var isShowAccessLevels = true
+    
     var employee:User!
+    
+    let generalLogic = GeneralLogic()
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -93,7 +97,7 @@ extension EmploeeViewController:UITableViewDelegate,UITableViewDataSource{
     
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return isShowAccessLevels ? 2 : 1
     }
     
     
@@ -120,9 +124,16 @@ extension EmploeeViewController:UITableViewDelegate,UITableViewDataSource{
         default:
             break
         }
-
+        
         return cell
 
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.tableView.deselectRow(at: indexPath, animated: true)
+        if indexPath.section == 0 && indexPath.row == 4{
+            generalLogic.callNumber(phoneNumber: self.employee.getPhone())
+        }
     }
     
     

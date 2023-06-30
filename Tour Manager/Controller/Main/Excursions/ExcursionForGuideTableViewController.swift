@@ -19,6 +19,8 @@ class ExcursionForGuideTableViewController: UITableViewController {
     
     let generalLogic = GeneralLogic()
     
+    let controllers = Controllers()
+    
     
     let localNotifications = LocalNotifications()
     
@@ -315,6 +317,20 @@ extension ExcursionForGuideTableViewController:UICollectionViewDelegate,UICollec
         
         return 0
     }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let guideController = self.controllers.getControllerMain(.employeeViewController) as! EmploeeViewController
+        
+        guideController.employee = self.excursion.selfGuides[indexPath.row].guideInfo
+        guideController.isShowAccessLevels = false
+        
+        self.navigationController?.pushViewController(guideController, animated: true)
+        
+        
+    }
+
     
     
 }

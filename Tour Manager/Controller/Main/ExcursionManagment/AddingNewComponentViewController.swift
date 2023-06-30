@@ -48,6 +48,14 @@ class AddingNewComponentViewController: UIViewController {
     var tableView:UITableView = {
         let tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        let refreshController = UIRefreshControl()
+        refreshController.tintColor = UIColor(resource: .blueText)
+        refreshController.tag = 1
+        
+        tableView.refreshControl = refreshController
+        
         return tableView
     }()
     
@@ -81,6 +89,8 @@ class AddingNewComponentViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        self.textField.resignFirstResponder()
         
         switch typeOfNewComponent {
         case .route:
@@ -263,6 +273,18 @@ class AddingNewComponentViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = .clear
+        
+        
+        let refreshContoller = self.tableView.refreshControl
+        
+        refreshContoller?.addAction(UIAction(handler: { _ in
+            
+            self.configureView()
+            
+            refreshContoller?.endRefreshing()
+            
+        }), for: .primaryActionTriggered)
+        
         
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: line.bottomAnchor,constant: 30),

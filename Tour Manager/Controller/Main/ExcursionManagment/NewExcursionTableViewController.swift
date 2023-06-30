@@ -391,7 +391,7 @@ extension NewExcursionTableViewController:UICollectionViewDelegate,UICollectionV
         }else{
             cell.isMainGuide.isHidden = true
         }
-        
+                
         cell.status.tintColor = self.excursion.selfGuides[indexPath.row].status.getColor()
         
         self.user?.downloadProfilePhoto(localId: self.excursion.selfGuides[indexPath.row].guideInfo.getLocalID() ?? "", completion: { data, error in
@@ -411,9 +411,21 @@ extension NewExcursionTableViewController:UICollectionViewDelegate,UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         
-        
         return 0
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let guideController = self.controllers.getControllerMain(.employeeViewController) as! EmploeeViewController
+        
+        guideController.employee = self.excursion.selfGuides[indexPath.row].guideInfo
+        guideController.isShowAccessLevels = false
+        
+        self.navigationController?.pushViewController(guideController, animated: true)
+        
+        
+    }
+    
 }
 
 // MARK: - Alerts

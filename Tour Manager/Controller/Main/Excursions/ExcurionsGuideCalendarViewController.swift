@@ -69,6 +69,13 @@ class ExcurionsGuideCalendarViewController: UIViewController {
         ])
         
         
+        let refreshCotroller = UIRefreshControl()
+        refreshCotroller.tintColor = UIColor(resource: .blueText)
+        refreshCotroller.tag = 3
+        
+        tableView.refreshControl = refreshCotroller
+        
+        
         
         return tableView
     }()
@@ -139,6 +146,16 @@ class ExcurionsGuideCalendarViewController: UIViewController {
     fileprivate func configureTableView(){
         self.tableViewCalendar.delegate = self
         self.tableViewCalendar.dataSource = self
+        
+        let refreshController = tableViewCalendar.viewWithTag(3) as! UIRefreshControl
+        
+        refreshController.addAction(UIAction(handler: { _ in
+            self.getExcursions(date: self.calendar.calendar.selectedDate ?? Date.now)
+            
+            self.getEventsForDates()
+            
+            refreshController.endRefreshing()
+        }), for: .primaryActionTriggered)
         
         let cell = UINib(nibName: "ExcursionTableViewCell", bundle: nil)
         
