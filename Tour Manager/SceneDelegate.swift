@@ -57,6 +57,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.sceneIsActive = true
         
         setTimerRefreshToken()
+        let tabBar = AppDelegate.tabBar as? mainTabBarViewController
+    
+        tabBar?.setLoading()
     }
     
     private func setTimerRefreshToken(){
@@ -65,16 +68,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         var limit = 0
         
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-            
-//            print(seconds)
-            
             if seconds == limit {
                 let refreshToken = AppDelegate.userDefaults.string(forKey: "refreshToken")
                 self.user?.apiAuth.refreshToken(refreshToken: refreshToken ?? "", completion: { isRefreshed, newToken, error in
                     if isRefreshed{
                         self.user?.setToken(token: newToken!)
-                        print("REFRESH: \(newToken)")
+                        print("\n\n[REFRESH: \(newToken!)]\n\n")
                         UserDefaults.standard.set(newToken, forKey:  "authToken")
+                        
+                        let tabBar = AppDelegate.tabBar as? mainTabBarViewController
+                    
+                        tabBar?.stopLoading()
                     }
                 })
                 limit += 3300

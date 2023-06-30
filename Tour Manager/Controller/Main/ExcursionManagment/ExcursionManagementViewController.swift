@@ -35,6 +35,41 @@ class ExcursionManagementViewController: UIViewController{
         tableView.restorationIdentifier = "tableViewCalendar"
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
+        
+        let labelNotTours = UILabel()
+        labelNotTours.font = Font.getFont(name: .americanTypewriter, style: .semiBold, size: 26)
+        labelNotTours.textColor = UIColor(resource: .blueText)
+        labelNotTours.textAlignment = .center
+        labelNotTours.text = "Сегодня экскурсий нет"
+        labelNotTours.translatesAutoresizingMaskIntoConstraints = false
+        labelNotTours.numberOfLines = 0
+        labelNotTours.layer.opacity = 0
+        labelNotTours.tag = 1
+        
+        
+        tableView.addSubview(labelNotTours)
+        
+        NSLayoutConstraint.activate([
+            labelNotTours.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
+            labelNotTours.centerYAnchor.constraint(equalTo: tableView.centerYAnchor),
+        ])
+        
+        
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.color = UIColor(resource: .blueText)
+        activityIndicator.hidesWhenStopped = false
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.tag = 2
+        
+        activityIndicator.layer.opacity = 0
+        
+        tableView.addSubview(activityIndicator)
+        
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: tableView.centerYAnchor),
+        ])
+        
         return tableView
     }()
     
@@ -156,10 +191,21 @@ class ExcursionManagementViewController: UIViewController{
      this function updates the table view
      
      */
-    fileprivate func reloadData() {
+    fileprivate func reloadData(isNotTours:Bool = true) {
         UIView.transition(with: self.tableViewCalendar, duration: 0.5,options: .transitionCrossDissolve) {
             self.tableViewCalendar.reloadData()
+            
+            
+            let label = self.tableViewCalendar.viewWithTag(1)
+            if self.excursionsModel.excursions.count == 0 && isNotTours{
+                label?.layer.opacity = 0.5
+            }else{
+                label?.layer.opacity = 0
+            }
+            
         }
+        
+        
     }
     
     // MARK: - Get excursions
@@ -167,7 +213,14 @@ class ExcursionManagementViewController: UIViewController{
     fileprivate func getExcursions(date:Date){
         self.excursionsModel.excursions = []
 
-        self.tableViewCalendar.reloadData()
+        self.reloadData(isNotTours: false)
+        
+        let activityIndicator = self.tableViewCalendar.viewWithTag(2) as! UIActivityIndicatorView
+        
+        activityIndicator.startAnimating()
+        UIView.animate(withDuration: 0.3) {
+            activityIndicator.layer.opacity = 1
+        }
         
         
         excursionsModel.getExcursionsFromApi(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "" , date: date) { isGetted, error in
@@ -176,6 +229,9 @@ class ExcursionManagementViewController: UIViewController{
                 if err != .dataNotFound{
                     self.alerts.errorAlert(self, errorExcursionsApi: err)
                 }
+                else{
+                    self.reloadData()
+                }
 
             }
                         
@@ -183,15 +239,21 @@ class ExcursionManagementViewController: UIViewController{
                 UIView.transition(with: self.tableViewCalendar, duration: 0.3, options: .transitionCrossDissolve) {
                     if let selectedDate = self.calendar.calendar.selectedDate{
                         if selectedDate == date{
-                            self.tableViewCalendar.reloadData()
+                            self.reloadData()
                         }
                     }else{
                         if Date.now.birthdayToString() == date.birthdayToString(){
-                            self.tableViewCalendar.reloadData()
+                            self.reloadData()
                         }
                     }
                 }
             }
+            
+           
+            UIView.animate(withDuration: 0.3) {
+                activityIndicator.layer.opacity = 0
+            }
+            activityIndicator.stopAnimating()
         }
     }
     

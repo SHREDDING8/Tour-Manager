@@ -40,6 +40,9 @@ class LaunchScreenViewController: UIViewController {
                     self.user?.setToken(token: newToken!)
                     UserDefaults.standard.set(newToken, forKey:  "authToken")
                     
+                    
+                    print("\n\n[REFRESH LAUCH: \(newToken!)]\n\n")
+                    
                     self.user?.getUserInfoFromApi(completion: { isGetted, error in
                         
                         if isGetted{

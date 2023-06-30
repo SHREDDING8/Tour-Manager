@@ -119,16 +119,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "86BB01E1-F007-409D-A244-8BD0CFF4DD09"
+            uuid = "62BBC17F-A114-46BB-9D10-069101A509D3"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Tour Manager/SceneDelegate.swift"
+            filePath = "Tour Manager/Controller/Main/ExcursionManagment/ExcursionManagementViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
-            landmarkName = "setTimerRefreshToken()"
+            startingLineNumber = "228"
+            endingLineNumber = "228"
+            landmarkName = "getExcursions(date:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

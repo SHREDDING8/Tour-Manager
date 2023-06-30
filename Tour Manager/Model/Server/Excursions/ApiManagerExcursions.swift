@@ -206,8 +206,8 @@ class ApiManagerExcursions{
     public func getExcursionsListByRange(token:String, companyId:String, startDate:String, endDate:String, completion: @escaping (Bool, ExcursionsListByRange?, customErrorExcursion?)->Void ){
         
         let url = URL(string: routeGetTourListInRange)!
-        
-        print("getExcursionsListByRange \(token)")
+                
+        print("\n\n[getExcursionsListByRange: \(token)]\n\n")
         
         let jsonData = SendGetExcursionsListByRange(token: token, company_id: companyId, tour_date_start: startDate, tour_date_end: endDate)
         
@@ -233,6 +233,9 @@ class ApiManagerExcursions{
     public func getExcursionsForGuideListByRange(token:String, companyId:String, startDate:String, endDate:String, completion: @escaping (Bool, ExcursionsListForGuideByRange?, customErrorExcursion?)->Void ){
         
         let url = URL(string: routeGetGuideTourListInRange)!
+        
+        
+        print("\n\n[getExcursionsForGuideListByRange: \(token)]\n\n")
         
         let jsonData = SendGetExcursionsListByRange(token: token, company_id: companyId, tour_date_start: startDate, tour_date_end: endDate)
         

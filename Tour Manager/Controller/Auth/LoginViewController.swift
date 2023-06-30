@@ -1,15 +1,15 @@
 //
-//  LoginViewController.swift
+//  LoginViewController2.swift
 //  Tour Manager
 //
-//  Created by SHREDDING on 05.05.2023.
+//  Created by SHREDDING on 29.06.2023.
 //
 
 import UIKit
 
 class LoginViewController: UIViewController {
     
-    // MARK: - my variables
+    // MARK: -
     var loadUIView:LoadView!
     let font = Font()
     let controllers = Controllers()
@@ -22,20 +22,22 @@ class LoginViewController: UIViewController {
     
     var isSignIn = false
     
-    var tableViewPosition:CGFloat!
-    
     var email:String = ""
     var firstPassword = ""
     var secondPassword = ""
     
-    var emailTextField:UITextField!
-    var firstPasswordTextField:UITextField!
-    var secondPasswordTextField:UITextField!
+    var stackViewPoint:Double = 0
     
     
-    // MARK: - Outlets
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var stackView: UIStackView!
     
+    
+    @IBOutlet var emailTextField:UITextField!
+    @IBOutlet var firstPasswordTextField:UITextField!
+    @IBOutlet var secondPasswordTextField:UITextField!
+    
+    
+    @IBOutlet weak var secondPasswordStack: UIStackView!
     @IBOutlet weak var iconImageView: UIImageView!
     
     
@@ -43,31 +45,34 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var signInLogInButton: UIButton!
     
-    // MARK: - Life Cycle
+    
+    
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         AppDelegate.user = User()
         self.user = AppDelegate.user
         
         self.loadUIView = LoadView(viewController: self)
         
+        self.secondPasswordStack.layer.opacity = 0
         
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         configureLogInButton()
         self.isSignIn = false
-        tableView.reloadData()
         addKeyboardObservers()
         
         self.userDefaults.removeLoginData()
-        
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        tableViewPosition = tableView.frame.origin.y
+        stackViewPoint = stackView.frame.origin.y
         
     }
     
@@ -76,28 +81,31 @@ class LoginViewController: UIViewController {
     }
     
     
-    // MARK: - configuration
-    
     fileprivate func configureLogInButton(){
         self.logInButton.setTitle(title: "Войти", size: 20, style: .bold)
     }
     
-    
     fileprivate func setIsSignIn(isSignIn:Bool){
         self.isSignIn = isSignIn
         
-        tableView.reloadData()
-        
+        self.firstPasswordTextField.text = ""
+        self.secondPasswordTextField.text = ""
         
         if self.isSignIn{
             self.logInButton.setTitle(title: "Регистрация", size: 20, style: .bold)
             self.signInLogInButton.setTitle(title: "Вход" , size: 16, style: .semiBold)
+            UIView.animate(withDuration: 0.3) {
+                self.secondPasswordStack.layer.opacity = 1
+            }
         }else{
             self.signInLogInButton.setTitle(title: "Регистрация" , size: 16, style: .semiBold)
             self.logInButton.setTitle(title: "Войти", size: 20, style: .bold)
+            
+            UIView.animate(withDuration: 0.3) {
+                self.secondPasswordStack.layer.opacity = 0
+            }
         }
     }
-    
     
     
     // MARK: - Buttons Tapped
@@ -117,10 +125,10 @@ class LoginViewController: UIViewController {
         
     }
     
-    
     @IBAction func logInSignInTapped(_ sender: Any) {
         self.setIsSignIn(isSignIn: !self.isSignIn)
     }
+    
     
     // MARK: - Reset Password Tapped
     
@@ -165,7 +173,6 @@ class LoginViewController: UIViewController {
     }
     
     
-    
     // MARK: - Sign In
     
     fileprivate func signIn(){
@@ -203,6 +210,8 @@ class LoginViewController: UIViewController {
         })
               
     }
+    
+    
     
     // MARK: - logIn
     
@@ -252,27 +261,29 @@ class LoginViewController: UIViewController {
         })
     }
     
-   
- 
-    // MARK: - Navigation
-        
-    fileprivate func goToVerifyVC(){
-        
-        self.user?.sendVerifyEmail(password: self.firstPasswordTextField.text!, completion: { isSent, error in
-            if error == .unknowmError{
-                self.alerts.errorAlert(self, errorTypeApi: .unknown)
-                return
-            }
-            
-            if isSent{
-                let destination = self.controllers.getControllerAuth(.verifycontroller) as! VerifyEmailViewController
-                destination.email = self.emailTextField.text!
-                destination.password = self.firstPasswordTextField.text!
-                
-                self.navigationController?.pushViewController(destination, animated: true)
-            }
-        })
-    }
+    
+    
+    
+       // MARK: - Navigation
+           
+       fileprivate func goToVerifyVC(){
+           
+           self.user?.sendVerifyEmail(password: self.firstPasswordTextField.text!, completion: { isSent, error in
+               if error == .unknowmError{
+                   self.alerts.errorAlert(self, errorTypeApi: .unknown)
+                   return
+               }
+               
+               if isSent{
+                   let destination = self.controllers.getControllerAuth(.verifycontroller) as! VerifyEmailViewController
+                   destination.email = self.emailTextField.text!
+                   destination.password = self.firstPasswordTextField.text!
+                   
+                   self.navigationController?.pushViewController(destination, animated: true)
+               }
+           })
+       }
+       
     
     fileprivate func goToAddingPersonalData(){
         let destination = self.controllers.getControllerAuth(.choiceOfTypeAccountViewController) as! ChoiceOfTypeAccountViewController
@@ -289,145 +300,81 @@ class LoginViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
+    
     @objc fileprivate func keyboardWillShow(notification: NSNotification){
-        
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if keyboardSize.origin.y - tableView.frame.origin.y  < 125{
-                tableView.frame.origin.y = self.iconImageView.frame.origin.y - 10
+        print("keyboardWillShow")
+
+        if let _ = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue{
+            if Int(stackView.frame.origin.y) != Int(self.iconImageView.frame.origin.y - 10){
+                print("stackView \(stackView.frame.origin.y)")
+                print("icon \(self.iconImageView.frame.origin.y - 10)")
+                
+                stackView.transform = CGAffineTransform(translationX: 0, y: -abs(self.iconImageView.frame.origin.y - 10 - stackView.frame.origin.y))
+                
+//                stackView.frame.origin.y = self.iconImageView.frame.origin.y - 10
                 UIView.animate(withDuration: 0.3) {
                     self.iconImageView.layer.opacity = 0
                 }
-                
             }
+            
+            
         }
+        
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        tableView.frame.origin.y = tableViewPosition
         
-        UIView.animate(withDuration: 0.3) {
-            self.iconImageView.layer.opacity = 1
-        }
-        
-    }
-    
-}
-
-
-// MARK: - UI Table View Delegate
-extension LoginViewController:UITableViewDelegate,UITableViewDataSource{
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return isSignIn ? 3 : 2
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "loginCell", for: indexPath)
-        
-        // lock or unlock scroll
-        cell.frame.height * 3 < tableView.frame.height ? lockScroll() : unlockScroll()
-        
-        // set confirm password
-        
-        let textField = cell.viewWithTag(2) as! UITextField
-        let label = cell.viewWithTag(1) as! UILabel
-        
-        switch indexPath.row{
-        case 0:
-            textField.placeholder = "Email"
-            label.text = "Email"
-            textField.text = email
+        if self.firstPasswordTextField.isFirstResponder || self.secondPasswordTextField.isFirstResponder{
+            stackView.transform = CGAffineTransform(translationX: 0, y: 0)
             
-            textField.textContentType = .username
-            textField.autocapitalizationType = .none
-            textField.autocorrectionType = .no
-            textField.keyboardType = .emailAddress
-            textField.returnKeyType = .done
-            textField.isSecureTextEntry = false
-            textField.clearButtonMode = .whileEditing
-            
-            textField.restorationIdentifier = "emailTextField"
-            self.emailTextField = textField
-        case 1:
-            textField.placeholder = "Пароль"
-            label.text = "Пароль"
-            textField.text = ""
-            
-            textField.textContentType = isSignIn ? .newPassword : .password
-            textField.autocapitalizationType = .none
-            textField.autocorrectionType = .no
-            textField.keyboardType = .default
-            textField.returnKeyType = .done
-            textField.isSecureTextEntry = true
-            
-            textField.restorationIdentifier = "passwordTextField"
-            
-            self.firstPasswordTextField = textField
-        case 2:
-            textField.placeholder = "Повторите пароль"
-            label.text = "Повторите пароль"
-            textField.text = ""
-            
-            textField.textContentType = .newPassword
-            textField.autocapitalizationType = .none
-            textField.autocorrectionType = .no
-            textField.keyboardType = .default
-            textField.returnKeyType = .done
-            textField.isSecureTextEntry = true
-            
-            textField.restorationIdentifier = "confirmPasswordTextField"
-            
-            self.secondPasswordTextField = textField
-            
-            cell.isHidden = true
-            
-            if self.isSignIn{
-                cell.layer.opacity = 0
-                cell.isHidden = false
-                UIView.animate(withDuration: 0.5, delay: 0) {
-                    cell.layer.opacity = 1
-                }
+            UIView.animate(withDuration: 0.3) {
+                self.iconImageView.layer.opacity = 1
             }
-        default:
-            break
         }
         
-        return cell
+        
     }
-    
-    fileprivate func lockScroll(){
-        tableView.isScrollEnabled = false
-    }
-    fileprivate func unlockScroll(){
-        tableView.isScrollEnabled = true
-    }
+        
 }
 
 
-// MARK: - UITextFieldDelegate
 extension LoginViewController:UITextFieldDelegate{
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == self.secondPasswordTextField{
+            textField.isSecureTextEntry = true
+        }
+        
+        return true
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
-        if textField.restorationIdentifier == "emailTextField"{
+        if textField == emailTextField{
+            self.firstPasswordTextField.text = ""
+            self.secondPasswordTextField?.text = ""
             self.firstPasswordTextField.becomeFirstResponder()
 
-        } else if textField.restorationIdentifier == "passwordTextField"{
-            _ = self.isSignIn ? secondPasswordTextField?.becomeFirstResponder() : firstPasswordTextField.resignFirstResponder()
+        } else if textField == firstPasswordTextField{
             self.secondPasswordTextField?.text = ""
+            _ = self.isSignIn ? secondPasswordTextField?.becomeFirstResponder() : firstPasswordTextField.resignFirstResponder()
+           
         } else{
             textField.resignFirstResponder()
         }
         return true
     }
     
+    
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
         
-        if textField.restorationIdentifier == "emailTextField"{
+        self.email = emailTextField.text?.trimmingCharacters(in: CharacterSet(charactersIn: " ")) ?? ""
+        self.firstPassword = self.firstPasswordTextField.text ?? ""
+        self.secondPassword = self.secondPasswordTextField.text ?? ""
+        
+        if textField == emailTextField{
             
-            self.email = textField.text!.trimmingCharacters(in: CharacterSet(charactersIn: " "))
+//            self.email = textField.text!.trimmingCharacters(in: CharacterSet(charactersIn: " "))
             self.user.setEmail(email: self.email)
             self.emailTextField.text = self.email
             
@@ -436,10 +383,11 @@ extension LoginViewController:UITextFieldDelegate{
             self.firstPassword = ""
             self.secondPassword = ""
         
-        }else if textField.restorationIdentifier == "passwordTextField"{
+        }else if textField == self.firstPasswordTextField{
             self.firstPassword = textField.text!
-        } else if textField.restorationIdentifier == "confirmPasswordTextField"{
+        } else if textField == self.secondPasswordTextField{
             self.secondPassword = textField.text!
         }
     }
+    
 }
