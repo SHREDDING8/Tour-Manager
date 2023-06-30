@@ -618,6 +618,11 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
 extension ProfilePageViewController:UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
         textField.isEnabled = false
         let value = textField.text!
         
@@ -628,7 +633,7 @@ extension ProfilePageViewController:UITextFieldDelegate{
                 textField.text = self.user?.getFirstName()
                 let alert = alerts.errorAlert(errorTypeFront: .textFieldIsEmpty)
                 self.present(alert, animated: true)
-                return false
+                return
             }
             
             self.user?.updatePersonalData(updateField: .firstName, value: value) { isSetted, error in
@@ -650,7 +655,7 @@ extension ProfilePageViewController:UITextFieldDelegate{
                 textField.text = self.user?.getSecondName()
                 let alert = alerts.errorAlert(errorTypeFront: .textFieldIsEmpty)
                 self.present(alert, animated: true)
-                return false
+                return
             }
             
             self.user?.updatePersonalData(updateField: .secondName, value: value) { isSetted, error in
@@ -675,7 +680,7 @@ extension ProfilePageViewController:UITextFieldDelegate{
             if !validationString.validatePhone(value: newPhone){
                 let alert = alerts.errorAlert(errorTypeFront: .phone)
                 self.present(alert, animated: true)
-                return false
+                return
             }
             
             self.user?.updatePersonalData(updateField: .phone, value: newPhone) { isSetted, error in
@@ -692,7 +697,7 @@ extension ProfilePageViewController:UITextFieldDelegate{
                 textField.text = self.user?.company.getNameCompany()
                 let alert = alerts.errorAlert(errorTypeFront: .textFieldIsEmpty)
                 self.present(alert, animated: true)
-                return false
+                return
             }
             
             self.user?.company.updateCompanyInfo(token: self.user?.getToken() ?? "", companyName: value, completion: { isUpdated, error in
@@ -710,7 +715,6 @@ extension ProfilePageViewController:UITextFieldDelegate{
             })
             
         }
-        return true
     }
 }
 

@@ -57,7 +57,7 @@ struct ResponseUpdateExcursion:Codable{
 
 // MARK: - TourGuide
 struct TourGuide: Codable {
-    let guideFirstName, guideLastName, guideEmail: String?
+    let guideFirstName, guideLastName, guideEmail, guidePhone: String?
     let isMain: Bool
     let status, guideID: String
 
@@ -65,6 +65,7 @@ struct TourGuide: Codable {
         case guideFirstName = "guide_first_name"
         case guideLastName = "guide_last_name"
         case guideEmail = "guide_email"
+        case guidePhone = "guide_phone"
         case isMain = "is_main"
         case status
         case guideID = "guide_id"
