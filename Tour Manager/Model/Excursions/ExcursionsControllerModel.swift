@@ -78,6 +78,10 @@ class ExcursionsControllerModel{
                 
             }
             
+            if let err = error{
+                completion(false, err)
+            }
+            
             
         }
     }

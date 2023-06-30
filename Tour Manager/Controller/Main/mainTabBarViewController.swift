@@ -46,6 +46,7 @@ class mainTabBarViewController: UITabBarController {
             if isGetted{
                 self.getViewControllers()
                 self.activityIndicator.stopAnimating()
+                
             }
         })
     }
@@ -79,6 +80,10 @@ class mainTabBarViewController: UITabBarController {
         controllersList.append(profileNavController)
         
         self.setViewControllers(controllersList, animated: true)
+        
+        if controllersList.count == 3{
+            self.selectedIndex = 1
+        }
     }
     
     fileprivate func configureActivityIndicator(){
