@@ -44,9 +44,27 @@ extension User{
         }
     }
     
+    public func logOut(completion: @escaping (Bool, customErrorAuth?)->Void){
+        
+        let refreshToken = AppDelegate.userDefaults.string(forKey: "refreshToken")
+        self.apiAuth.refreshToken(refreshToken: refreshToken ?? "") { isRefreshed, newToken, error in
+            if isRefreshed{
+                self.setToken(token: newToken!)
+                
+                self.apiAuth.logOut(token: self.getToken()) { isLogout, error in
+                        completion(isLogout,error)
+                }
+                
+            }
+            if error != nil{
+                completion(isRefreshed,error)
+            }
+        }
+        
+    }
+    
     // MARK: - signIn
     public func signIn(password:String, completion: @escaping (Bool, customErrorAuth?)->Void ){
-        
         self.apiAuth.signIn(email: self.email ?? "", password: password) { isSignIn, error in
             // check errors from api
             if error != nil{

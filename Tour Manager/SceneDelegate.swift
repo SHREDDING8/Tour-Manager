@@ -14,6 +14,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     let contollers = Controllers()
     let user = AppDelegate.user
     
+    let controllers = Controllers()
+    
     var sceneIsActive:Bool = false
 
 
@@ -79,6 +81,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                         let tabBar = AppDelegate.tabBar as? mainTabBarViewController
                     
                         tabBar?.stopLoading()
+                    }
+                    
+                    if error != nil{
+
+                        self.controllers.goToLoginPage(view: self.window!.rootViewController!.presentedViewController!.view, direction: .toTop)
+                       
                     }
                 })
                 limit += 3300

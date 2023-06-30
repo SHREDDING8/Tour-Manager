@@ -178,6 +178,8 @@ class ExcursionForGuideTableViewController: UITableViewController {
                     }
                     
                     self.localNotifications.createRememberWorkDayNotification(tourDate: self.excursion.dateAndTime)
+                    
+                    self.localNotifications.createRememberTour(tourDate: self.excursion.dateAndTime)
                 }
             }
         }), for: .touchUpInside)

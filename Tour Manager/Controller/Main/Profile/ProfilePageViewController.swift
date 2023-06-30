@@ -601,7 +601,14 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
         let actionExit = UIAction { _ in
             
             self.alerts.deleteAlert(self, title: "Вы уверены что хотите выйти?", buttonTitle: "Выйти") {
-                self.goToLogInPage()
+                self.user?.logOut(completion: { isLogOut, error in
+                    if error != nil{
+                        let alert = self.alerts.infoAlert(title: "Неизвестная ошибка", meesage: "Вы не вышли из системы")
+                        
+                        self.present(alert, animated: true)
+                    }
+                })
+                self.controllers.goToLoginPage(view: self.view, direction: .toBottom)
             }
         }
         

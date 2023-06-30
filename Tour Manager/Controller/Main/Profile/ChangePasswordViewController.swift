@@ -123,13 +123,7 @@ class ChangePasswordViewController: UIViewController {
                 }
                 
                 if isUpdated{
-                    let alert = UIAlertController(title: "Пароль успешно обновлен", message: nil, preferredStyle: .alert)
-                    let actionOK = UIAlertAction(title: "Ok", style: .default) { _ in
-                        self.goToBack()
-                    }
-                    alert.addAction(actionOK)
-                    self.present(alert, animated: true)
-                    
+                    self.alerts.invalidToken(self, message: "Пароль успешно обновлен")                  
                 }
                 
             })

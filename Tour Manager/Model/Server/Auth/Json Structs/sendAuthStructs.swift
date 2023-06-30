@@ -37,3 +37,9 @@ struct sendUpdatePassword:Codable{
     let old_password:String
     let new_password:String
 }
+
+
+struct sendLogOut:Codable{
+    let token:String
+    let apns_vendor_id:String
+}

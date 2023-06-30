@@ -152,9 +152,7 @@ class LoginViewController: UIViewController {
         
         self.user?.resetPassword(completion: { isReset, error in
             
-            if isReset{
                 self.loadUIView.removeLoadUIView()
-            }
             
             if error == .userNotFound{
                 self.alerts.errorAlert(self, errorTypeApi: .userNotFound)

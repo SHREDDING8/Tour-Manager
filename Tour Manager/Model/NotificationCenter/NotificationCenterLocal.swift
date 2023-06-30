@@ -34,6 +34,28 @@ class LocalNotifications: NSObject{
         UNUserNotificationCenter.current().add(request)
         
     }
+    
+    public func createRememberTour(tourDate:Date){
+        let rememberNotification = UNMutableNotificationContent()
+        
+        rememberNotification.title = "Tour Manager"
+        rememberNotification.body = "через 30 минут у вас начнется экскурсия"
+        
+        rememberNotification.categoryIdentifier = "remember"
+        
+        let dateTrigger = Calendar.current.date(byAdding: .minute, value: -30, to: tourDate)!
+        
+        var dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour,.minute,.second], from: dateTrigger)
+        
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+        
+        let request = UNNotificationRequest(identifier: "RememberTourNotification\(dateTrigger.birthdayToString())\(dateTrigger.timeToString())", content: rememberNotification, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request)
+        
+
+    }
 }
 
 extension LocalNotifications:UNUserNotificationCenterDelegate{

@@ -106,6 +106,8 @@ enum errorAlertsFront{
 class Alert{
     let controllers = Controllers()
     
+    let user = AppDelegate.user
+    
     public func errorAlert(_ viewController:UIViewController, errorCompanyApi:customErrorCompany, completion:(()->Void)? = nil ){
         if errorCompanyApi == .invalidToken || errorCompanyApi == .tokenExpired{
             self.invalidToken(viewController, message: errorCompanyApi.getValuesForAlert().message)
@@ -198,7 +200,11 @@ class Alert{
         let alert = UIAlertController(title: "Сессия закончилась", message: message, preferredStyle: .alert)
 
         let actionExit = UIAlertAction(title: "Выйти", style: .destructive) { _ in
-            self.controllers.goToLoginPage(view: viewController.view, direction: .toTop)
+            
+            self.user?.logOut(completion: { isLogOut, error in
+                self.controllers.goToLoginPage(view: viewController.view, direction: .toTop)
+            })
+           
         }
         
         alert.addAction(actionExit)

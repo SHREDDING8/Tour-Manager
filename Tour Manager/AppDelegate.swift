@@ -12,7 +12,7 @@ import UserNotifications
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     public static var user:User? = User()
-    
+        
     public static var tabBar:UITabBarController? = nil
     
     public static var userDefaults = UserDefaults.standard
@@ -47,6 +47,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       print("Device Token: \(token)")
         AppDelegate.userDefaults.setValue(token, forKey: "deviceToken")
         AppDelegate.user?.setDeviceToken(deviceToken: token)
+        
+        
+        
+        
+        let center = UNUserNotificationCenter.current()
+
+        // 1. Create Custom Actions
+        
+        let showMeMoreAction = UNNotificationAction(identifier: "showMeMoreIdentifier",
+                                        title: "Show me more",
+                                                    options: [.foreground])
+        
+        
+        let snoozeAction = UNNotificationAction(identifier: "snoozeIdentifier",
+                                                title: "Snooze",
+                                                options: [])
+        let deleteAction = UNNotificationAction(identifier: "deleteIdentifier",
+                                                title: "Delete",
+                                                options: [.destructive])
+
+        // 2. Register Custom Actions For Category
+        let category1 = UNNotificationCategory(identifier: "myActionCategoryIdentifier1",
+                                               actions: [showMeMoreAction],
+                                               intentIdentifiers: [])
+        
+        let category2 = UNNotificationCategory(identifier: "myActionCategoryIdentifier2",
+                                               actions: [snoozeAction, deleteAction],
+                                               intentIdentifiers: [])
+
+        // 3. Register Categories with OS
+        center.setNotificationCategories([category1, category2])
     }
 
     func application(_ application: UIApplication,

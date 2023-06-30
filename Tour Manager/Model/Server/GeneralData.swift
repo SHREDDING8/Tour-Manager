@@ -12,7 +12,7 @@ class GeneralData{
     // http://188.225.77.189:8080/
     
     // https://server.shredding-quiner.ru/
-    public static let domain = "https://server.shredding-quiner.ru/"
+    public static let domain = "http://10.243.1.198:8080/"
     
 }
 
