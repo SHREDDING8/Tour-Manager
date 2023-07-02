@@ -26,6 +26,8 @@ enum customErrorExcursion{
     
     case guideIsNotInTour
     
+    case notConnected
+    
     public func getValuesForAlert()->AlertFields{
         switch self {
         case .unknown:
@@ -46,12 +48,10 @@ enum customErrorExcursion{
             return AlertFields(title: "Произошла ошибка", message: "Экскурсия не существует")
         case .guideIsNotInTour:
             return AlertFields(title: "Произошла ошибка", message: "Экскурсовод не находится в данной экскурсии")
+        case .notConnected:
+            return AlertFields(title: "Нет подключения к серверу")
         }
     }
-    
-    
-        
-    
 }
 
 class ApiManagerExcursions{
@@ -80,20 +80,26 @@ class ApiManagerExcursions{
         let jsonData = sendForGetExcursion(token: token, company_id: companyId, tour_date: date)
         
         AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
-            if response.response?.statusCode == 400{
-                
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false, nil, error)
-                
-            }else if response.response?.statusCode == 200{
-                typealias excursionsJsonStruct = [ResponseGetExcursion]
-                
-                let excursions = try! JSONDecoder().decode(excursionsJsonStruct.self, from: response.data!)
-                
-                completion(true, excursions, nil )
-  
-            }else{
-                completion(false,nil, .unknown)
+
+            switch response.result {
+            case .success(_):
+                if response.response?.statusCode == 400{
+                    
+                    let error = self.checkError(data: response.data ?? Data())
+                    completion(false, nil, error)
+                    
+                }else if response.response?.statusCode == 200{
+                    typealias excursionsJsonStruct = [ResponseGetExcursion]
+                    
+                    let excursions = try! JSONDecoder().decode(excursionsJsonStruct.self, from: response.data!)
+                    
+                    completion(true, excursions, nil )
+      
+                }else{
+                    completion(false,nil, .unknown)
+                }
+            case .failure(_):
+                completion(false,nil, .notConnected)
             }
         }
         
@@ -112,15 +118,21 @@ class ApiManagerExcursions{
         
         
         AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
-            if response.response?.statusCode == 400{
-                
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false, error)
-                
-            } else if response.response?.statusCode == 200{
-                completion(true, nil)
-            } else{
-                completion(false, .unknown)
+            
+            switch response.result {
+            case .success(_):
+                if response.response?.statusCode == 400{
+                    
+                    let error = self.checkError(data: response.data ?? Data())
+                    completion(false, error)
+                    
+                } else if response.response?.statusCode == 200{
+                    completion(true, nil)
+                } else{
+                    completion(false, .unknown)
+                }
+            case .failure(_):
+                completion(false, .notConnected)
             }
         }
     }
@@ -139,15 +151,21 @@ class ApiManagerExcursions{
         
         
         AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
-            if response.response?.statusCode == 400{
-                
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false, error)
-                
-            } else if response.response?.statusCode == 200{
-                completion(true, nil)
-            } else{
-                completion(false, .unknown)
+            
+            switch response.result {
+            case .success(_):
+                if response.response?.statusCode == 400{
+                    
+                    let error = self.checkError(data: response.data ?? Data())
+                    completion(false, error)
+                    
+                } else if response.response?.statusCode == 200{
+                    completion(true, nil)
+                } else{
+                    completion(false, .unknown)
+                }
+            case .failure(_):
+                completion(false, .notConnected)
             }
         }
     }
@@ -160,19 +178,25 @@ class ApiManagerExcursions{
         
         AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
             
-            if response.response?.statusCode == 400{
-                
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false, error)
-                
-            }else if response.response?.statusCode == 200{
-                
-                
-                completion(true, nil)
-  
-            }else{
-                completion(false, .unknown)
+            switch response.result {
+            case .success(_):
+                if response.response?.statusCode == 400{
+                    
+                    let error = self.checkError(data: response.data ?? Data())
+                    completion(false, error)
+                    
+                }else if response.response?.statusCode == 200{
+                    
+
+                    completion(true, nil)
+                    
+                }else{
+                    completion(false, .unknown)
+                }
+            case .failure(_):
+                completion(false, .notConnected)
             }
+            
         }
     }
     
@@ -184,48 +208,60 @@ class ApiManagerExcursions{
         let jsonData = sendForGetExcursion(token: token, company_id: companyId, tour_date: date)
         
         AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
-            if response.response?.statusCode == 400{
-                
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false, nil, error)
-                
-            }else if response.response?.statusCode == 200{
-                typealias excursionsJsonStruct = [ResponseGetExcursion]
-                
-                let excursions = try! JSONDecoder().decode(excursionsJsonStruct.self, from: response.data!)
-                
-                completion(true, excursions, nil )
+            
+            switch response.result {
+            case .success(_):
+                if response.response?.statusCode == 400{
+                    
+                    let error = self.checkError(data: response.data ?? Data())
+                    completion(false, nil, error)
+                    
+                }else if response.response?.statusCode == 200{
+                    typealias excursionsJsonStruct = [ResponseGetExcursion]
+                    
+                    let excursions = try! JSONDecoder().decode(excursionsJsonStruct.self, from: response.data!)
+                    
+                    completion(true, excursions, nil )
 
-            }else{
-                completion(false,nil, .unknown)
+                }else{
+                    completion(false,nil, .unknown)
+                }
+            case .failure(_):
+                completion(false,nil, .notConnected)
             }
         }
-        
     }
     
     public func getExcursionsListByRange(token:String, companyId:String, startDate:String, endDate:String, completion: @escaping (Bool, ExcursionsListByRange?, customErrorExcursion?)->Void ){
         
         let url = URL(string: routeGetTourListInRange)!
                 
-        print("\n\n[getExcursionsListByRange: \(token)]\n\n")
+//        print("\n\n[getExcursionsListByRange: \(token)]\n\n")
         
         let jsonData = SendGetExcursionsListByRange(token: token, company_id: companyId, tour_date_start: startDate, tour_date_end: endDate)
         
         AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
-            if response.response?.statusCode == 400{
-                
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false, nil, error)
-                
-            }else if response.response?.statusCode == 200{
-                let response = try! JSONDecoder().decode(ExcursionsListByRange.self, from: response.data!)
-                completion(true, response, nil)
-            }else{
-                completion(false, nil, .unknown)
+            
+            switch response.result {
+            case .success(_):
+                if response.response?.statusCode == 400{
+                    
+                    let error = self.checkError(data: response.data ?? Data())
+                    completion(false, nil, error)
+                    
+                }else if response.response?.statusCode == 200{
+                    let response = try! JSONDecoder().decode(ExcursionsListByRange.self, from: response.data!)
+                    completion(true, response, nil)
+                }else{
+                    completion(false, nil, .unknown)
+                }
+            case .failure(_):
+                completion(false, nil, .notConnected)
             }
             
+            
+            
         }
-        
         
     }
     
@@ -235,21 +271,26 @@ class ApiManagerExcursions{
         let url = URL(string: routeGetGuideTourListInRange)!
         
         
-        print("\n\n[getExcursionsForGuideListByRange: \(token)]\n\n")
+//        print("\n\n[getExcursionsForGuideListByRange: \(token)]\n\n")
         
         let jsonData = SendGetExcursionsListByRange(token: token, company_id: companyId, tour_date_start: startDate, tour_date_end: endDate)
         
         AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
-            if response.response?.statusCode == 400{
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false, nil, error)
-            }else if response.response?.statusCode == 200{
-                let response = try! JSONDecoder().decode(ExcursionsListForGuideByRange.self, from: response.data!)
-                completion(true, response, nil)
-            }else{
-                completion(false, nil, .unknown)
-            }
             
+            switch response.result {
+            case .success(_):
+                if response.response?.statusCode == 400{
+                    let error = self.checkError(data: response.data ?? Data())
+                    completion(false, nil, error)
+                }else if response.response?.statusCode == 200{
+                    let response = try! JSONDecoder().decode(ExcursionsListForGuideByRange.self, from: response.data!)
+                    completion(true, response, nil)
+                }else{
+                    completion(false, nil, .unknown)
+                }
+            case .failure(_):
+                completion(false, nil, .notConnected)
+            }
         }
     }
     
@@ -261,16 +302,21 @@ class ApiManagerExcursions{
         
         
         AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
-            if response.response?.statusCode == 400{
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false, error)
-                
-            }else if response.response?.statusCode == 200{
-                completion(true, nil)
-            }else{
-                completion(false, .unknown)
-            }
             
+            switch response.result {
+            case .success(_):
+                if response.response?.statusCode == 400{
+                    let error = self.checkError(data: response.data ?? Data())
+                    completion(false, error)
+                    
+                }else if response.response?.statusCode == 200{
+                    completion(true, nil)
+                }else{
+                    completion(false, .unknown)
+                }
+            case .failure(_):
+                completion(false, .notConnected)
+            }
         }
     }
     

@@ -16,6 +16,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     let controllers = Controllers()
     
+    let userDefaults = WorkWithUserDefaults()
+    
     var sceneIsActive:Bool = false
 
 
@@ -59,15 +61,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.sceneIsActive = true
         
         setTimerRefreshToken()
-        let tabBar = AppDelegate.tabBar as? mainTabBarViewController
-    
-        tabBar?.setLoading()
     }
     
     private func setTimerRefreshToken(){
         
+        let difference = self.userDefaults.compareRefreshDates(date: Date.now)
+        
         var seconds = 0
-        var limit = 0
+        var limit = difference == 0 ? 0 : 3300 - difference
+        
+        let tabBar = AppDelegate.tabBar as? mainTabBarViewController
+        if difference == 0{
+            tabBar?.setLoading()
+        }
         
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             if seconds == limit {
@@ -75,17 +81,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 self.user?.apiAuth.refreshToken(refreshToken: refreshToken ?? "", completion: { isRefreshed, newToken, error in
                     if isRefreshed{
                         self.user?.setToken(token: newToken!)
-                        print("\n\n[REFRESH: \(newToken!)]\n\n")
                         UserDefaults.standard.set(newToken, forKey:  "authToken")
                         
-                        let tabBar = AppDelegate.tabBar as? mainTabBarViewController
-                    
                         tabBar?.stopLoading()
                     }
                     
                     if error != nil{
-
-                        self.controllers.goToLoginPage(view: self.window!.rootViewController!.presentedViewController!.view, direction: .toTop)
+                        
+                        let mainLogIn = self.contollers.getControllerAuth(.mainAuthController)
+                        
+                        let window = self.window
+                        let options = UIWindow.TransitionOptions()
+                        
+                        options.direction = .toTop
+                        options.duration = 0.5
+                        options.style = .easeOut
+                        
+                        window?.set(rootViewController: mainLogIn, options: options)
                        
                     }
                 })
@@ -103,6 +115,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called when the scene will move from an active state to an inactive state.
         // This may occur due to temporary interruptions (ex. an incoming phone call).
         self.sceneIsActive = false
+        self.userDefaults.removeBadge()
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {

@@ -24,6 +24,7 @@ class ExcursionsControllerModel{
     public func getExcursionsFromApi(token:String, companyId:String, date:Date, completion: @escaping (Bool, customErrorExcursion?)->Void ){
         
         self.excursions = []
+        var newTours:[Excursion] = []
         
         apiManagerExcursions.GetExcursions(token: token, companyId: companyId, date: date.birthdayToString()) { isGetted, excursionsfromApi, error in
             
@@ -39,10 +40,11 @@ class ExcursionsControllerModel{
                         newExcursion.selfGuides.append(newGuide)
                     }
                     
-                    self.excursions.append(newExcursion)
+                    newTours.append(newExcursion)
                 }
-                
+                self.excursions = newTours
                 completion(true, nil)
+                return
                 
             }
             

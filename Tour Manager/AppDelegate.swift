@@ -17,10 +17,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     public static var userDefaults = UserDefaults.standard
     
+    let localNotifications = LocalNotifications()
+    
+    let pushNotificationsService = PushNotificationService()
+    
+    let userDefaultsd = WorkWithUserDefaults()
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         registerForPushNotifications()
+        
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+        
+        print(123)
         
         return true
     }
@@ -112,16 +122,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: UNUserNotificationCenterDelegate{
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.badge,.banner,.sound,.list])
+       
+        let notificationUserInfo = notification.request.content.userInfo
         
-        print(notification.request.content)
+        let notificationType =  notificationUserInfo["notification_type"] as? String
         
+        if let notificationType = notificationType{
+            let type = NotificationType(rawValue: notificationType)
+            
+            switch type {
+            case .removeTour:
+                self.pushNotificationsService.removeTour(notificationUserInfo: notificationUserInfo)
+            case .addTour:
+                break
+            case .updateTour:
+                self.pushNotificationsService.updateTour(notificationUserInfo: notificationUserInfo)
+            case .guideTourStatus:
+                self.pushNotificationsService.changeGuideStatus(notificationUserInfo: notificationUserInfo)
+                return
+            case nil:
+                break
+            }
+        }
         
-        if #available(iOS 16.0, *) {
-            center.setBadgeCount(123)
-        } else {
+        self.userDefaultsd.incrementBadge(on: Int(truncating: (notificationUserInfo["aps"] as? [AnyHashable:Any])?["badge"] as? NSNumber ?? 0))
+        
+        completionHandler([.banner,.badge,.sound])
+       
+        
 
-            UIApplication.shared.applicationIconBadgeNumber = 2
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        print(123)
+        let api = ApiManagerAuth()
+        api.logIn(email: "123", password: "123", deviceToken: "123") { asd, f, s in
+            
         }
     }
 }

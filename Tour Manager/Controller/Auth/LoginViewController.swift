@@ -16,6 +16,8 @@ class LoginViewController: UIViewController {
     let validation = StringValidation()
     let alerts = Alert()
     
+    let localNotifications = LocalNotifications()
+    
     var user:User!
     
     let userDefaults = WorkWithUserDefaults()
@@ -68,6 +70,8 @@ class LoginViewController: UIViewController {
         addKeyboardObservers()
         
         self.userDefaults.removeLoginData()
+        
+        localNotifications.removeAll()
     }
     
     override func viewDidAppear(_ animated: Bool) {

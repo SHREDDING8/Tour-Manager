@@ -17,6 +17,8 @@ public enum customErrorUserData{
     
     case unknowmError
     
+    case notConnected
+    
     public func getValuesForAlert()->AlertFields{
         switch self {
         case .tokenExpired:
@@ -27,6 +29,8 @@ public enum customErrorUserData{
             return AlertFields(title: "Произошла ошибка", message: "Данные не были найдены")
         case .unknowmError:
             return AlertFields(title: "Произошла неизвестная ошибка на сервере")
+        case .notConnected:
+            return AlertFields(title: "Нет подключения к сервера")
         }
     }
     
@@ -66,20 +70,26 @@ public class ApiManagerUserData{
         let jsonData = SendGetUserInfoJsonStruct(token: token)
         
         AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
-            if response.response?.statusCode == 400{
-                
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false, nil, error)
-                
-            } else if response.response?.statusCode == 200{
-                if let responseData = try? JSONDecoder().decode(ResponseGetUserInfoJsonStruct.self, from: response.data!){
-                    completion(true, responseData, nil)
+            
+            switch response.result {
+            case .success(_):
+                if response.response?.statusCode == 400{
                     
-                }else{
+                    let error = self.checkError(data: response.data ?? Data())
+                    completion(false, nil, error)
+                    
+                } else if response.response?.statusCode == 200{
+                    if let responseData = try? JSONDecoder().decode(ResponseGetUserInfoJsonStruct.self, from: response.data!){
+                        completion(true, responseData, nil)
+                        
+                    }else{
+                        completion(false, nil, .unknowmError)
+                    }
+                } else {
                     completion(false, nil, .unknowmError)
                 }
-            } else {
-                completion(false, nil, .unknowmError)
+            case .failure(_):
+                completion(false, nil, .notConnected)
             }
         }
     }
@@ -92,16 +102,22 @@ public class ApiManagerUserData{
         let jsonData = data
         
         AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
-            if response.response?.statusCode == 400{
-                
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false, error)
-                
-            } else if response.response?.statusCode == 200{
-                completion(true,nil)
-            } else {
-                
-                completion(false, .unknowmError)
+            
+            switch response.result {
+            case .success(_):
+                if response.response?.statusCode == 400{
+                    
+                    let error = self.checkError(data: response.data ?? Data())
+                    completion(false, error)
+                    
+                } else if response.response?.statusCode == 200{
+                    completion(true,nil)
+                } else {
+                    
+                    completion(false, .unknowmError)
+                }
+            case .failure(_):
+                completion(false, .notConnected)
             }
         }
     }
@@ -116,15 +132,21 @@ public class ApiManagerUserData{
         ]
         
         AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
-            if response.response?.statusCode == 400{
-                
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false, error)
-                
-            } else if response.response?.statusCode == 200{
-                completion(true,nil)
-            } else {
-                completion(false, .unknowmError)
+            
+            switch response.result {
+            case .success(_):
+                if response.response?.statusCode == 400{
+                    
+                    let error = self.checkError(data: response.data ?? Data())
+                    completion(false, error)
+                    
+                } else if response.response?.statusCode == 200{
+                    completion(true,nil)
+                } else {
+                    completion(false, .unknowmError)
+                }
+            case .failure(_):
+                completion(false, .notConnected)
             }
         }
     }
@@ -139,18 +161,21 @@ public class ApiManagerUserData{
         
         AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
             
-            
-            if response.response?.statusCode == 400{
-                
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false, error)
-                
-            } else if response.response?.statusCode == 200{
-                completion(true,nil)
-            }else{
-                completion(false, .unknowmError)
+            switch response.result {
+            case .success(_):
+                if response.response?.statusCode == 400{
+                    
+                    let error = self.checkError(data: response.data ?? Data())
+                    completion(false, error)
+                    
+                } else if response.response?.statusCode == 200{
+                    completion(true,nil)
+                }else{
+                    completion(false, .unknowmError)
+                }
+            case .failure(_):
+                completion(false, .notConnected)
             }
-            
         }
         
     }
@@ -169,14 +194,20 @@ public class ApiManagerUserData{
             multipartFormData.append(imageData, withName: "file", fileName: "profile photo.jpg")
             
         }, to: url!).response { response in
-            if response.response?.statusCode == 400{
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false, error)
-                
-            } else if response.response?.statusCode == 200{
-                completion(true,nil)
-            }else{
-                completion(false, .unknowmError)
+            
+            switch response.result {
+            case .success(_):
+                if response.response?.statusCode == 400{
+                    let error = self.checkError(data: response.data ?? Data())
+                    completion(false, error)
+                    
+                } else if response.response?.statusCode == 200{
+                    completion(true,nil)
+                }else{
+                    completion(false, .unknowmError)
+                }
+            case .failure(_):
+                completion(false, .notConnected)
             }
         }
         
@@ -193,15 +224,21 @@ public class ApiManagerUserData{
         ]
         
         AF.request(url, method: .post, parameters: json, encoder: .json).response { response in
-            if response.response?.statusCode == 400{
-                
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false, nil, error)
-                
-            } else if response.response?.statusCode == 200{
-                completion(true, response.data! ,nil)
-            }else{
-                completion(false, nil, .unknowmError)
+            
+            switch response.result {
+            case .success(_):
+                if response.response?.statusCode == 400{
+                    
+                    let error = self.checkError(data: response.data ?? Data())
+                    completion(false, nil, error)
+                    
+                } else if response.response?.statusCode == 200{
+                    completion(true, response.data! ,nil)
+                }else{
+                    completion(false, nil, .unknowmError)
+                }
+            case .failure(_):
+                completion(false, nil, .notConnected)
             }
         }
         
@@ -217,13 +254,19 @@ public class ApiManagerUserData{
         ]
         
         AF.request(url, method: .post, parameters: json, encoder: .json).response { response in
-            if response.response?.statusCode == 400{
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false, error)
-            } else if response.response?.statusCode == 200{
-                completion(true, nil)
-            }else{
-                completion(false, .unknowmError)
+            
+            switch response.result {
+            case .success(_):
+                if response.response?.statusCode == 400{
+                    let error = self.checkError(data: response.data ?? Data())
+                    completion(false, error)
+                } else if response.response?.statusCode == 200{
+                    completion(true, nil)
+                }else{
+                    completion(false, .unknowmError)
+                }
+            case .failure(_):
+                completion(false, .notConnected)
             }
         }
         

@@ -18,6 +18,8 @@ class LocalNotifications: NSObject{
         rememberNotification.body = "У вас завтра есть экскурсии"
         
         rememberNotification.categoryIdentifier = "remember"
+        
+        rememberNotification.sound = UNNotificationSound(named:UNNotificationSoundName(rawValue: "sub.caf"))
        
         let dateTrigger = Calendar.current.date(byAdding: .day, value: -1, to: tourDate)!
         
@@ -31,7 +33,23 @@ class LocalNotifications: NSObject{
         
         let request = UNNotificationRequest(identifier: "RememberWorkDayNotification\(dateTrigger.birthdayToString())", content: rememberNotification, trigger: trigger)
         
+        
         UNUserNotificationCenter.current().add(request)
+        
+    }
+    
+    public func removeRememberWorkDayNotification(tourDate:Date){
+        
+        let dateTrigger = Calendar.current.date(byAdding: .day, value: -1, to: tourDate)!
+        
+        var dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: dateTrigger)
+        
+        dateComponents.hour = 19
+        dateComponents.minute = 0
+        dateComponents.second = 0
+        
+        
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers:["RememberWorkDayNotification\(dateTrigger.birthdayToString())"] )
         
     }
     
@@ -43,9 +61,13 @@ class LocalNotifications: NSObject{
         
         rememberNotification.categoryIdentifier = "remember"
         
+        rememberNotification.sound = UNNotificationSound(named:UNNotificationSoundName(rawValue: "sub.caf"))
+        
         let dateTrigger = Calendar.current.date(byAdding: .minute, value: -30, to: tourDate)!
         
         var dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour,.minute,.second], from: dateTrigger)
+        
+        dateComponents.second = 0
         
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
@@ -54,7 +76,19 @@ class LocalNotifications: NSObject{
         
         UNUserNotificationCenter.current().add(request)
         
-
+    }
+    
+    public func removeRememberTour(tourDate:Date){
+        let dateTrigger = Calendar.current.date(byAdding: .minute, value: -30, to: tourDate)!
+        
+        var dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour,.minute,.second], from: dateTrigger)
+        dateComponents.second = 0
+        
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["RememberTourNotification\(dateTrigger.birthdayToString())\(dateTrigger.timeToString())"])
+    }
+    
+    public func removeAll(){
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
     }
 }
 

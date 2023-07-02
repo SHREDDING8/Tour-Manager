@@ -20,11 +20,12 @@ struct sendLogInJsonStruct: Codable {
 
 // MARK: - ApnsToken
 struct ApnsToken: Codable {
-    let vendorID, deviceToken: String
+    let vendorID, deviceToken, deviceName: String
 
     enum CodingKeys: String, CodingKey {
         case vendorID = "vendor_id"
         case deviceToken = "device_token"
+        case deviceName = "device_name"
     }
 }
 

@@ -19,6 +19,8 @@ public enum customErrorAutofill{
     case currentUserIsNotInThisCompany
     case companyDoesNotExist
     
+    case notConnected
+    
     public func getValuesForAlert()->AlertFields{
         switch self {
         case .tokenExpired:
@@ -35,6 +37,8 @@ public enum customErrorAutofill{
             return AlertFields(title: "Произошла ошибка", message: "Пользователь не числится в этой компании")
         case .companyDoesNotExist:
             return AlertFields(title: "Произошла ошибка", message: "Компания является частной или не существует")
+        case .notConnected:
+            return AlertFields(title: "Нет подключения к серверу")
         }
     }
     
@@ -55,16 +59,24 @@ class ApiManagerAutoFill{
         let jsonData = SendGetAutofill(token: token, company_id: companyId, autofill_key: autoFillKey.rawValue)
         
         AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
-            if response.response?.statusCode == 400{
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false, nil, error)
-                return
-            } else if response.response?.statusCode == 200{
-                let autofillValues = try! JSONDecoder().decode(ResponseGetAutofill.self, from: response.data!)
-                completion(true, autofillValues.values, nil)
-            }else{
-                completion(false, nil, .unknowmError)
+            
+            switch response.result {
+            case .success(_):
+                if response.response?.statusCode == 400{
+                    let error = self.checkError(data: response.data ?? Data())
+                    completion(false, nil, error)
+                    return
+                } else if response.response?.statusCode == 200{
+                    let autofillValues = try! JSONDecoder().decode(ResponseGetAutofill.self, from: response.data!)
+                    completion(true, autofillValues.values, nil)
+                }else{
+                    completion(false, nil, .unknowmError)
+                }
+            case .failure(_):
+                completion(false, nil, .notConnected)
             }
+            
+            
         }
     }
     
@@ -75,14 +87,20 @@ class ApiManagerAutoFill{
         let jsonData = SendAddAutofill(token: token, company_id: companyId, autofill_key: autoFillKey.rawValue,autofill_value: autofillValue)
         
         AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
-            if response.response?.statusCode == 400{
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false, error)
-                return
-            } else if response.response?.statusCode == 200{
-                completion(true, nil)
-            }else{
-                completion(false, .unknowmError)
+            
+            switch response.result {
+            case .success(_):
+                if response.response?.statusCode == 400{
+                    let error = self.checkError(data: response.data ?? Data())
+                    completion(false, error)
+                    return
+                } else if response.response?.statusCode == 200{
+                    completion(true, nil)
+                }else{
+                    completion(false, .unknowmError)
+                }
+            case .failure(_):
+                completion(false, .notConnected)
             }
         }
     }
@@ -95,15 +113,21 @@ class ApiManagerAutoFill{
         let jsonData = SendAddAutofill(token: token, company_id: companyId, autofill_key: autoFillKey.rawValue,autofill_value: autofillValue)
         
         AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
-            if response.response?.statusCode == 400{
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false, error)
-                return
-                
-            } else if response.response?.statusCode == 200{
-                completion(true, nil)
-            }else{
-                completion(false, .unknowmError)
+            
+            switch response.result {
+            case .success(_):
+                if response.response?.statusCode == 400{
+                    let error = self.checkError(data: response.data ?? Data())
+                    completion(false, error)
+                    return
+                    
+                } else if response.response?.statusCode == 200{
+                    completion(true, nil)
+                }else{
+                    completion(false, .unknowmError)
+                }
+            case .failure(_):
+                completion(false, .notConnected)
             }
         }
     }

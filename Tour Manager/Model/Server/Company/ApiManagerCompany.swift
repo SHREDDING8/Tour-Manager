@@ -21,6 +21,8 @@ public enum customErrorCompany{
     
     case targetUserDoesNotExist
     
+    case notConnected
+    
     
     public func getValuesForAlert()->AlertFields{
         
@@ -41,6 +43,8 @@ public enum customErrorCompany{
             return AlertFields(title: "Произошла ошибка", message: "Пользователь уже существует в другой компании")
         case .targetUserDoesNotExist:
             return AlertFields(title: "Произошла ошибка", message: "Пользователь не существует")
+        case .notConnected:
+            return AlertFields(title: "Нет подключения к серверу")
         }
     }
 }
@@ -71,18 +75,25 @@ public class ApiManagerCompany{
         
         let jsonData = SendAddCompanyJsonStruct(token: token, company_name: companyName)
         
-        AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
+
+
+        AF.request(url!, method: .post, parameters: jsonData, encoder: .json)  .response { response in
             
-            if response.response?.statusCode == 400{
-                
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false,nil, error)
-            }else if response.response?.statusCode == 200{
-                if let responseData = try? JSONDecoder().decode(ResponseAddCompanyJsonStruct.self, from: response.data!){
-                    completion(true,responseData, nil)
+            switch response.result {
+            case .success(_):
+                if response.response?.statusCode == 400{
+                    
+                    let error = self.checkError(data: response.data ?? Data())
+                    completion(false,nil, error)
+                }else if response.response?.statusCode == 200{
+                    if let responseData = try? JSONDecoder().decode(ResponseAddCompanyJsonStruct.self, from: response.data!){
+                        completion(true,responseData, nil)
+                    }
+                } else {
+                    completion(false, nil, .unknowmError)
                 }
-            } else {
-                completion(false, nil, .unknowmError)
+            case .failure(_):
+                completion(false,nil,.notConnected)
             }
         }
     }
@@ -96,18 +107,25 @@ public class ApiManagerCompany{
         
         AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
             
-            if response.response?.statusCode == 400{
-                
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false,nil, error)
-                
-            } else if response.response?.statusCode == 200{
-                if let responseData = try? JSONDecoder().decode(ResponseAddEmployeeToCompanyJsonStruct.self, from: response.data!){
-                    completion(true,responseData,  nil)
+            switch response.result {
+            case .success(_):
+                if response.response?.statusCode == 400{
+                    
+                    let error = self.checkError(data: response.data ?? Data())
+                    completion(false,nil, error)
+                    
+                } else if response.response?.statusCode == 200{
+                    if let responseData = try? JSONDecoder().decode(ResponseAddEmployeeToCompanyJsonStruct.self, from: response.data!){
+                        completion(true,responseData,  nil)
+                    }
+                } else{
+                    completion(false, nil, .unknowmError)
                 }
-            } else{
-                completion(false, nil, .unknowmError)
+            case .failure(_):
+                completion(false, nil, .notConnected)
             }
+            
+            
             
         }
     }
@@ -119,17 +137,23 @@ public class ApiManagerCompany{
         let jsonData = SendCompanyInfoJsonStruct(token: token, company_id: companyId, company_name: companyName)
         
         AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
-            if response.response?.statusCode == 400{
-                
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false,error)
-                
-            } else if response.response?.statusCode == 200{
-                completion(true, nil)
-            }else{
-                completion(false, .unknowmError)
-            }
             
+            switch response.result {
+            case .success(_):
+                if response.response?.statusCode == 400{
+                    
+                    let error = self.checkError(data: response.data ?? Data())
+                    completion(false,error)
+                    
+                } else if response.response?.statusCode == 200{
+                    completion(true, nil)
+                }else{
+                    completion(false, .unknowmError)
+                }
+            case .failure(_):
+                completion(false, .notConnected)
+            }
+
         }
     }
     
@@ -139,19 +163,24 @@ public class ApiManagerCompany{
         let jsonData = SendAddEmployeeToCompanyJsonStruct(token: token, company_id: companyId)
         
         AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
-            if response.response?.statusCode == 400{
-                
-                let error = self.checkError(data: response.data ?? Data())
-                completion(nil, error)
-                
-            } else if response.response?.statusCode == 200{
-                let accessLevels = try? JSONDecoder().decode(ResponseAccessLevel.self, from: response.data!)
-                completion(accessLevels, nil)
-            }else{
-                completion(nil, .unknowmError)
+            
+            switch response.result {
+            case .success(_):
+                if response.response?.statusCode == 400{
+                    
+                    let error = self.checkError(data: response.data ?? Data())
+                    completion(nil, error)
+                    
+                } else if response.response?.statusCode == 200{
+                    let accessLevels = try? JSONDecoder().decode(ResponseAccessLevel.self, from: response.data!)
+                    completion(accessLevels, nil)
+                }else{
+                    completion(nil, .unknowmError)
+                }
+            case .failure(_):
+                completion(nil, .notConnected)
             }
         }
-        
     }
     
     public func DeleteCompany(token:String, companyId:String, completion: @escaping (Bool,customErrorCompany?)->Void ){
@@ -162,18 +191,22 @@ public class ApiManagerCompany{
         
         AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
             
-            if response.response?.statusCode == 400{
-                
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false,error)
-                
-            } else if response.response?.statusCode == 200{
-                completion(true, nil)
-            }else{
-                completion(false, .unknowmError)
+            switch response.result {
+            case .success(_):
+                if response.response?.statusCode == 400{
+                    
+                    let error = self.checkError(data: response.data ?? Data())
+                    completion(false,error)
+                    
+                } else if response.response?.statusCode == 200{
+                    completion(true, nil)
+                }else{
+                    completion(false, .unknowmError)
+                }
+            case .failure(_):
+                completion(false, .notConnected)
             }
         }
-    
     }
     
     public func getCompanyUsers(token:String, companyId:String, completion: @escaping (Bool, [GetCompanyUsersElement]?, customErrorCompany?)->Void ) {
@@ -183,19 +216,26 @@ public class ApiManagerCompany{
         
         AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
             
-            if response.response?.statusCode == 400{
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false,nil, error)
-                
-            } else if response.response?.statusCode == 200{
-                typealias GetCompanyUsers = [GetCompanyUsersElement]
-                
-                let companyUsers = try! JSONDecoder().decode(GetCompanyUsers.self, from: response.data!)
-                
-                completion(true, companyUsers, nil)
-            }else{
-                completion(false, nil, .unknowmError)
+            switch response.result {
+            case .success(_):
+                if response.response?.statusCode == 400{
+                    let error = self.checkError(data: response.data ?? Data())
+                    completion(false,nil, error)
+                    
+                } else if response.response?.statusCode == 200{
+                    typealias GetCompanyUsers = [GetCompanyUsersElement]
+                    
+                    let companyUsers = try! JSONDecoder().decode(GetCompanyUsers.self, from: response.data!)
+                    
+                    completion(true, companyUsers, nil)
+                }else{
+                    completion(false, nil, .unknowmError)
+                }
+            case .failure(_):
+                completion(false, nil, .notConnected)
             }
+            
+            
             
         }
         
@@ -211,19 +251,25 @@ public class ApiManagerCompany{
         
         AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
             
-            if response.response?.statusCode == 400{
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false,nil, error)
-                
-            } else if response.response?.statusCode == 200{
-                typealias GetCompanyUsers = [GetCompanyUsersElement]
-                
-                let companyUsers = try! JSONDecoder().decode(GetCompanyUsers.self, from: response.data!)
-                
-                completion(true, companyUsers, nil)
-            }else{
-                completion(false, nil, .unknowmError)
+            switch response.result {
+            case .success(_):
+                if response.response?.statusCode == 400{
+                    let error = self.checkError(data: response.data ?? Data())
+                    completion(false,nil, error)
+                    
+                } else if response.response?.statusCode == 200{
+                    typealias GetCompanyUsers = [GetCompanyUsersElement]
+                    
+                    let companyUsers = try! JSONDecoder().decode(GetCompanyUsers.self, from: response.data!)
+                    
+                    completion(true, companyUsers, nil)
+                }else{
+                    completion(false, nil, .unknowmError)
+                }
+            case .failure(_):
+                completion(false, nil, .notConnected)
             }
+            
             
         }
         
@@ -235,15 +281,22 @@ public class ApiManagerCompany{
         let url = URL(string: routeUpdateUserAccessLevel)!
         
         AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
-            if response.response?.statusCode == 400{
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false,error)
-                
-            }else if response.response?.statusCode == 200{
-                
-            } else{
-                completion(false, .unknowmError)
+            switch response.result {
+            case .success(_):
+                if response.response?.statusCode == 400{
+                    let error = self.checkError(data: response.data ?? Data())
+                    completion(false,error)
+                    
+                }else if response.response?.statusCode == 200{
+                    
+                } else{
+                    completion(false, .unknowmError)
+                }
+            case .failure(_):
+                completion(false, .notConnected)
             }
+            
+           
         }
     }
     
