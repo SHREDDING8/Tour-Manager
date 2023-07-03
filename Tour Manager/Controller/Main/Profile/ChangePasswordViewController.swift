@@ -14,6 +14,8 @@ class ChangePasswordViewController: UIViewController {
     let user = AppDelegate.user
     let alerts = Alert()
     
+    let controllers = Controllers()
+    
     var passwords = [
         "oldPassword": "",
         "newPassword": "",
@@ -120,6 +122,8 @@ class ChangePasswordViewController: UIViewController {
                     
                 }else if error == .unknowmError{
                     self.alerts.errorAlert(self, errorTypeApi: .unknown)
+                }else if error == .notConnected{
+                    self.controllers.goToNoConnection(view: self.view, direction: .fade)
                 }
                 
                 if isUpdated{

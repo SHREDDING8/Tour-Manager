@@ -11,15 +11,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     
-    let contollers = Controllers()
-    let user = AppDelegate.user
-    
     let controllers = Controllers()
-    
-    let userDefaults = WorkWithUserDefaults()
-    
-    var sceneIsActive:Bool = false
-
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -39,7 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         if let windowScene = (scene as? UIWindowScene){
             let window = UIWindow(windowScene: windowScene)
-            let launch = self.contollers.getLaunchScreen()
+            let launch = self.controllers.getLaunchScreen()
             window.rootViewController = launch
             self.window = window
             window.makeKeyAndVisible()
@@ -58,64 +50,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
-        self.sceneIsActive = true
-        
-        setTimerRefreshToken()
     }
-    
-    private func setTimerRefreshToken(){
-        
-        let difference = self.userDefaults.compareRefreshDates(date: Date.now)
-        
-        var seconds = 0
-        var limit = difference == 0 ? 0 : 3300 - difference
-        
-        let tabBar = AppDelegate.tabBar as? mainTabBarViewController
-        if difference == 0{
-            tabBar?.setLoading()
-        }
-        
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-            if seconds == limit {
-                let refreshToken = AppDelegate.userDefaults.string(forKey: "refreshToken")
-                self.user?.apiAuth.refreshToken(refreshToken: refreshToken ?? "", completion: { isRefreshed, newToken, error in
-                    if isRefreshed{
-                        self.user?.setToken(token: newToken!)
-                        UserDefaults.standard.set(newToken, forKey:  "authToken")
-                        
-                        tabBar?.stopLoading()
-                    }
-                    
-                    if error != nil{
-                        
-                        let mainLogIn = self.contollers.getControllerAuth(.mainAuthController)
-                        
-                        let window = self.window
-                        let options = UIWindow.TransitionOptions()
-                        
-                        options.direction = .toTop
-                        options.duration = 0.5
-                        options.style = .easeOut
-                        
-                        window?.set(rootViewController: mainLogIn, options: options)
-                       
-                    }
-                })
-                limit += 3300
-                
-            }
-            seconds += 1
-            if !self.sceneIsActive{
-                timer.invalidate()
-            }
-        }
-    }
-
     func sceneWillResignActive(_ scene: UIScene) {
         // Called when the scene will move from an active state to an inactive state.
         // This may occur due to temporary interruptions (ex. an incoming phone call).
-        self.sceneIsActive = false
-        self.userDefaults.removeBadge()
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {

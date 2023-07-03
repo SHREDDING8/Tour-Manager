@@ -45,20 +45,9 @@ extension User{
     }
     
     public func logOut(completion: @escaping (Bool, customErrorAuth?)->Void){
-        
-        let refreshToken = AppDelegate.userDefaults.string(forKey: "refreshToken")
-        self.apiAuth.refreshToken(refreshToken: refreshToken ?? "") { isRefreshed, newToken, error in
-            if isRefreshed{
-                self.setToken(token: newToken!)
                 
-                self.apiAuth.logOut(token: self.getToken()) { isLogout, error in
-                        completion(isLogout,error)
-                }
-                
-            }
-            if error != nil{
-                completion(isRefreshed,error)
-            }
+        self.apiAuth.logOut(token: self.getToken()) { isLogout, error in
+                completion(isLogout,error)
         }
         
     }

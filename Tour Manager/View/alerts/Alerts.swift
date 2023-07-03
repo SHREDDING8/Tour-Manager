@@ -114,6 +114,11 @@ class Alert{
             return
         }
         
+        if errorCompanyApi == .notConnected{
+            self.controllers.goToNoConnection(view: viewController.view, direction: .fade)
+            return
+        }
+        
         let alertFields = errorCompanyApi.getValuesForAlert()
         let alert = UIAlertController(title: alertFields.title, message: alertFields.message, preferredStyle: .alert)
         
@@ -128,6 +133,11 @@ class Alert{
     public func errorAlert(_ viewController:UIViewController, errorUserDataApi:customErrorUserData, completion:(()->Void)? = nil ){
         if errorUserDataApi == .invalidToken || errorUserDataApi == .tokenExpired{
             self.invalidToken(viewController, message: errorUserDataApi.getValuesForAlert().message)
+            return
+        }
+        
+        if errorUserDataApi == .notConnected{
+            self.controllers.goToNoConnection(view: viewController.view, direction: .fade)
             return
         }
         
@@ -147,6 +157,11 @@ class Alert{
             self.invalidToken(viewController, message: errorExcursionsApi.getValuesForAlert().message)
             return
         }
+        if errorExcursionsApi ==  .notConnected{
+            self.controllers.goToNoConnection(view: viewController.view, direction: .fade)
+            return
+        }
+        
         
         let alertFields = errorExcursionsApi.getValuesForAlert()
         let alert = UIAlertController(title: alertFields.title, message: alertFields.message, preferredStyle: .alert)
@@ -166,6 +181,11 @@ class Alert{
             return
         }
         
+        if errorAutoFillApi ==  .notConnected{
+            self.controllers.goToNoConnection(view: viewController.view, direction: .fade)
+            return
+        }
+        
         let alertFields = errorAutoFillApi.getValuesForAlert()
         let alert = UIAlertController(title: alertFields.title, message: alertFields.message, preferredStyle: .alert)
         
@@ -177,11 +197,8 @@ class Alert{
         viewController.present(alert, animated: true)
     }
     
-    
-    
-    
-    
     public func errorAlert(_ viewController:UIViewController, errorTypeApi:errorAuthApi){
+                
         let alert = UIAlertController(title: errorTypeApi.rawValue.0, message: errorTypeApi.rawValue.1, preferredStyle: .alert)
         let actionOk = UIAlertAction(title: "Ok", style: .default)
         alert.addAction(actionOk)
@@ -202,6 +219,10 @@ class Alert{
         let actionExit = UIAlertAction(title: "Выйти", style: .destructive) { _ in
             
             self.user?.logOut(completion: { isLogOut, error in
+                if error == .notConnected{
+                    self.controllers.goToNoConnection(view: viewController.view, direction: .fade)
+                    return
+                }
                 self.controllers.goToLoginPage(view: viewController.view, direction: .toTop)
             })
            

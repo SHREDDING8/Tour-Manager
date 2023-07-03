@@ -12,6 +12,15 @@ import UserNotifications
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     public static var user:User? = User()
+//    public static var willSetAuthToken:Bool = false {
+//        didSet{
+//            if willSetAuthToken == true{
+//                willSetAuthToken = false
+//                user?.token = UserDefaults.standard.string(forKey: "")
+//            }
+//            
+//        }
+//    }
         
     public static var tabBar:UITabBarController? = nil
     
@@ -29,9 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         registerForPushNotifications()
         
         UNUserNotificationCenter.current().removeAllDeliveredNotifications()
-        
-        print(123)
-        
+                
         return true
     }
 
@@ -131,12 +138,12 @@ extension AppDelegate: UNUserNotificationCenterDelegate{
             let type = NotificationType(rawValue: notificationType)
             
             switch type {
-            case .removeTour:
-                self.pushNotificationsService.removeTour(notificationUserInfo: notificationUserInfo)
+            case .removeTour:break
+//                self.pushNotificationsService.removeTour(notificationUserInfo: notificationUserInfo)
             case .addTour:
                 break
-            case .updateTour:
-                self.pushNotificationsService.updateTour(notificationUserInfo: notificationUserInfo)
+            case .updateTour:break
+//                self.pushNotificationsService.updateTour(notificationUserInfo: notificationUserInfo)
             case .guideTourStatus:
                 self.pushNotificationsService.changeGuideStatus(notificationUserInfo: notificationUserInfo)
                 return
@@ -155,10 +162,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate{
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         print(123)
-        let api = ApiManagerAuth()
-        api.logIn(email: "123", password: "123", deviceToken: "123") { asd, f, s in
-            
-        }
     }
 }
 

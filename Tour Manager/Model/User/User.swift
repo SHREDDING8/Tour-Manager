@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 public struct UserDataServerStruct:Codable{
-    let token:String
+    var token:String
     let email:String
     let first_name:String
     let last_name:String

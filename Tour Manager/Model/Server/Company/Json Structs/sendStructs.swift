@@ -25,7 +25,7 @@ struct SendCompanyInfoJsonStruct:Codable{
 }
 
 public struct SendUpdateUserAccessLevel:Codable{
-    let token:String
+    var token:String
     let company_id:String
     let target_uid:String
     

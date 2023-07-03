@@ -87,14 +87,18 @@ class VerifyEmailViewController: UIViewController {
         self.loadUIView.setLoadUIView()
         
         self.user?.sendVerifyEmail(password: self.password, completion: { isSent, error in
+            self.loadUIView.removeLoadUIView()
             if error == .unknowmError{
                 self.alerts.errorAlert(self, errorTypeApi: .unknown)
+            } else if error == .notConnected{
+                self.controllers.goToNoConnection(view: self.view, direction: .fade)
+                
             }else{
                 self.setTimerSetEmailAgain()
                 let alert = self.alerts.infoAlert(title: "Email Отправлен", meesage: "Проверьте почту и подтвердите аккаунт")
                 self.present(alert, animated: true)
             }
-            self.loadUIView.removeLoadUIView()
+           
         })
     }
     
@@ -111,6 +115,9 @@ class VerifyEmailViewController: UIViewController {
                 
                 self.alerts.errorAlert(self, errorTypeApi: .unknown)
                 
+            }else if error == .notConnected{
+                self.controllers.goToLoginPage(view: self.view, direction: .fade)
+                return
             }
             
             if !isLogIn{

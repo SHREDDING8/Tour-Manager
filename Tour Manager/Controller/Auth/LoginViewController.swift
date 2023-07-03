@@ -164,6 +164,9 @@ class LoginViewController: UIViewController {
             } else if error == .unknowmError{
                 self.alerts.errorAlert(self, errorTypeApi: .unknown)
                 return
+            } else if error == .notConnected{
+                self.controllers.goToNoConnection(view: self.view, direction: .fade)
+                return
             }
             
             if isReset{
@@ -203,6 +206,8 @@ class LoginViewController: UIViewController {
             }else if error == .weakPassword{
                 self.alerts.errorAlert(self, errorTypeApi: .weakPassword)
                 return
+            }else if error == .notConnected{
+                self.controllers.goToNoConnection(view: self.view, direction: .fade)
             }
             
             if isSignIn{
@@ -238,6 +243,8 @@ class LoginViewController: UIViewController {
             } else if error == .unknowmError{
                 self.alerts.errorAlert(self, errorTypeApi: .unknown)
                 return
+            } else if error == .notConnected{
+                self.controllers.goToLoginPage(view: self.view, direction: .fade)
             }
             
             self.user?.getUserInfoFromApi(completion: { isGetted, error in

@@ -69,6 +69,11 @@ class Controllers{
         
     }
     
+    public func getNoConnection()->UIViewController{
+        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "NoConnectionViewController")
+        
+    }
+        
     public func goToLoginPage(view:UIView, direction: UIWindow.TransitionOptions.Direction){
         let mainLogIn = self.getControllerAuth(.mainAuthController)
         
@@ -93,5 +98,34 @@ class Controllers{
         options.style = .easeOut
         
         window?.set(rootViewController: mainTabBar, options: options)
+    }
+    
+    public func goToLauchScreen(view:UIView, direction: UIWindow.TransitionOptions.Direction){
+        let launchScreen = self.getLaunchScreen()
+        
+        let window = view.window
+        let options = UIWindow.TransitionOptions()
+        
+        options.direction = direction
+        options.duration = 0.5
+        options.style = .easeOut
+        
+        window?.set(rootViewController: launchScreen, options: options)
+    }
+    
+    public func goToNoConnection(view:UIView, direction: UIWindow.TransitionOptions.Direction){
+        
+        
+        let noConnection = self.getNoConnection()
+        
+        let window = view.window
+        let options = UIWindow.TransitionOptions()
+        
+        options.direction = direction
+        options.duration = 0.5
+        options.style = .easeOut
+        
+        window?.set(rootViewController: noConnection, options: options)
+        
     }
 }

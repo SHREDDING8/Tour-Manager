@@ -26,44 +26,44 @@ class PushNotificationService:NSObject{
     
     let userDefaults = WorkWithUserDefaults()
     
-    public func removeTour(notificationUserInfo:[AnyHashable:Any]){
-        let date = (notificationUserInfo["tour_date"] as? String) ?? ""
-        let time = (notificationUserInfo["tour_time_start"] as? String) ?? ""
-        let companyId = (notificationUserInfo["companyId"] as? String) ?? ""
-        
-        
-        
-        localNotifications.removeRememberTour(tourDate: Date.dateAndTimeToDate(dateString: date, timeString: time))
-        
-        if self.userDefaults.compareRefreshDates(date: Date.now) == 0{
-            
-            if let refreshToken = self.userDefaults.getRefreshToken(){
-                
-                self.apiManagerAuth.refreshToken(refreshToken: refreshToken) { isGetted, newToken, error in
-                    if error != nil{
-                        self.localNotifications.removeRememberWorkDayNotification(tourDate:  Date.dateAndTimeToDate(dateString: date, timeString: time))
-                        return
-                    }
-                    
-                    if isGetted{
-                        self.userDefaults.setAuthToken(token: newToken!)
-                    }
-                    
-                    self.removeRememberWorkDayNotificationWithToken(date: date, time: time, companyId: companyId)
-                    
-                    
-                }
-                
-            }else{
-                self.localNotifications.removeRememberWorkDayNotification(tourDate:  Date.dateAndTimeToDate(dateString: date, timeString: time))
-            }
-            
-        }else{
-            self.removeRememberWorkDayNotificationWithToken(date: date, time: time,companyId: companyId)
-            
-        }
-        
-    }
+//    public func removeTour(notificationUserInfo:[AnyHashable:Any]){
+//        let date = (notificationUserInfo["tour_date"] as? String) ?? ""
+//        let time = (notificationUserInfo["tour_time_start"] as? String) ?? ""
+//        let companyId = (notificationUserInfo["companyId"] as? String) ?? ""
+//        
+//        
+//        
+//        localNotifications.removeRememberTour(tourDate: Date.dateAndTimeToDate(dateString: date, timeString: time))
+//        
+//        if true{
+//            
+//            if let refreshToken = self.userDefaults.getRefreshToken(){
+//                
+//                self.apiManagerAuth.refreshToken(refreshToken: refreshToken) { isGetted, newToken, error in
+//                    if error != nil{
+//                        self.localNotifications.removeRememberWorkDayNotification(tourDate:  Date.dateAndTimeToDate(dateString: date, timeString: time))
+//                        return
+//                    }
+//                    
+//                    if isGetted{
+//                        self.userDefaults.setAuthToken(token: newToken!)
+//                    }
+//                    
+//                    self.removeRememberWorkDayNotificationWithToken(date: date, time: time, companyId: companyId)
+//                    
+//                    
+//                }
+//                
+//            }else{
+//                self.localNotifications.removeRememberWorkDayNotification(tourDate:  Date.dateAndTimeToDate(dateString: date, timeString: time))
+//            }
+//            
+//        }else{
+//            self.removeRememberWorkDayNotificationWithToken(date: date, time: time,companyId: companyId)
+//            
+//        }
+//        
+//    }
     
     private func removeRememberWorkDayNotificationWithToken(date:String, time:String,companyId:String){
         if let token = self.userDefaults.getAuthToken(){
@@ -85,25 +85,25 @@ class PushNotificationService:NSObject{
         }
     }
     
-    public func updateTour(notificationUserInfo:[AnyHashable:Any]){
-        let oldInfo = notificationUserInfo["old_tour_info"] as? [String:String]
-        let newInfo = notificationUserInfo["new_tour_info"] as? [String:String]
-       
-        
-        if oldInfo != nil{
-            
-            self.removeTour(notificationUserInfo: oldInfo ?? [:])
-            
-            if let newInf = newInfo{
-                
-                let newDate = (newInf["tour_date"]) ?? ""
-                let newtTime = (newInf["tour_time_start"]) ?? ""
-                
-                localNotifications.createRememberTour(tourDate: Date.dateAndTimeToDate(dateString: newDate, timeString: newtTime))
-                localNotifications.createRememberWorkDayNotification(tourDate: Date.dateAndTimeToDate(dateString: newDate, timeString: newtTime))
-            }
-        }
-    }
+//    public func updateTour(notificationUserInfo:[AnyHashable:Any]){
+//        let oldInfo = notificationUserInfo["old_tour_info"] as? [String:String]
+//        let newInfo = notificationUserInfo["new_tour_info"] as? [String:String]
+//       
+//        
+//        if oldInfo != nil{
+//            
+//            self.removeTour(notificationUserInfo: oldInfo ?? [:])
+//            
+//            if let newInf = newInfo{
+//                
+//                let newDate = (newInf["tour_date"]) ?? ""
+//                let newtTime = (newInf["tour_time_start"]) ?? ""
+//                
+//                localNotifications.createRememberTour(tourDate: Date.dateAndTimeToDate(dateString: newDate, timeString: newtTime))
+//                localNotifications.createRememberWorkDayNotification(tourDate: Date.dateAndTimeToDate(dateString: newDate, timeString: newtTime))
+//            }
+//        }
+//    }
     
     public func changeGuideStatus(notificationUserInfo:[AnyHashable:Any]){
         

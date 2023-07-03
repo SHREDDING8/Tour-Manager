@@ -62,58 +62,10 @@
             filePath = "Tour Manager/Model/Server/Auth/ApiManagerAuth.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "272"
-            endingLineNumber = "272"
+            startingLineNumber = "261"
+            endingLineNumber = "261"
             landmarkName = "checkError(data:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "413AF514-3DB0-47A1-B1CB-A97C23166E66"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Tour Manager/Model/Server/Auth/ApiManagerAuth.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
-            landmarkName = "refreshToken(refreshToken:completion:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "413AF514-3DB0-47A1-B1CB-A97C23166E66 - a180c2fa250947ac"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Tour_Manager.ApiManagerAuth.refreshToken(refreshToken: Swift.String, completion: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;, Swift.Optional&lt;Tour_Manager.customErrorAuth&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Tour Manager"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Model/Server/Auth/ApiManagerAuth.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "49"
-                  endingLineNumber = "49"
-                  offsetFromSymbolStart = "500">
-               </Location>
-               <Location
-                  uuid = "413AF514-3DB0-47A1-B1CB-A97C23166E66 - a180c2fa250947ac"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Tour_Manager.ApiManagerAuth.refreshToken(refreshToken: Swift.String, completion: (Swift.Bool, Swift.Optional&lt;Swift.String&gt;, Swift.Optional&lt;Tour_Manager.customErrorAuth&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "Tour Manager"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Model/Server/Auth/ApiManagerAuth.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "49"
-                  endingLineNumber = "49"
-                  offsetFromSymbolStart = "556">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -174,8 +126,8 @@
             filePath = "Tour Manager/Model/LocalStorage/UserDefaults.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
             landmarkName = "incrementBadge(on:)"
             landmarkType = "7">
             <Locations>
@@ -222,8 +174,8 @@
             filePath = "Tour Manager/Model/LocalStorage/UserDefaults.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
             landmarkName = "incrementBadge(on:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -238,9 +190,25 @@
             filePath = "Tour Manager/AppDelegate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
             landmarkName = "userNotificationCenter(_:willPresent:withCompletionHandler:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "65E68B98-F17C-4138-AA03-80DD7BD75848"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Model/Server/GeneralData.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "requestWithCheckRefresh(completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

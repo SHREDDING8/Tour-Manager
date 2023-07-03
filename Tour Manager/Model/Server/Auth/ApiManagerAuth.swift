@@ -31,54 +31,37 @@ public class ApiManagerAuth{
     
     let userDefaults = WorkWithUserDefaults()
     
+    let generalData = GeneralData()
     
-    private static let domain = GeneralData.domain
-    private static let prefix = domain + "auth"
     
-    private let routeRefreshToken = prefix + "/refresh_user_token"
-    private let routeLogIn = prefix + "/login"
-    private let routeLogOut = prefix + "/logout"
-    private let routeSignIn = prefix + "/signup"
+    private let domain:String
+    private let prefix:String
     
-    private let routeIsEmailBusy = prefix + "/check_user_email"
+    private let routeLogIn:String
+    private let routeLogOut:String
+    private let routeSignIn:String
+    
+    private let routeIsEmailBusy:String
    
-    private let routeResetPassword = prefix + "/reset_password"
-    private let routeSendVerifyEmail = prefix + "/send_verify_email"
-    private let routeUpdatePassword = prefix + "/update_user_password"
+    private let routeResetPassword:String
+    private let routeSendVerifyEmail:String
+    private let routeUpdatePassword:String
     
-    
-    
-    
-    public func refreshToken(refreshToken:String, completion: @escaping (Bool,String?, customErrorAuth?)->Void){
+    init(){
+        self.domain = generalData.domain
+        self.prefix = domain + "auth/"
         
-        let jsonData = ["refresh_token":refreshToken]
+        self.routeLogIn = prefix + "login/"
+        self.routeLogOut = prefix + "logout/"
+        self.routeSignIn = prefix + "signup/"
         
-        let url = URL(string: routeRefreshToken)!
-        
-        
-        AF.request(url,method: .post, parameters: jsonData,encoder: .json).response{
-            response in
-            
-            switch response.result {
-            case .success(_):
-                if response.response?.statusCode == 400{
-                    let error = self.checkError(data: response.data!)
-                    completion(false,nil, error)
-                }else if response.response?.statusCode == 200{
-                    
-                    let newToken = try! JSONDecoder().decode(ResponseRefreshToken.self, from: response.data!)
-                    completion(true, newToken.token, nil)
-                    self.userDefaults.setLastRefreshDate(date: Date.now)
-                    
-                }else{
-                    completion(false,nil, .unknowmError)
-                }
-            case .failure(_):
-                completion(false,nil, .notConnected)
-            }
-        }
-        
+        self.routeIsEmailBusy = prefix + "check_user_email/"
+       
+        self.routeResetPassword = prefix + "reset_password/"
+        self.routeSendVerifyEmail = prefix + "send_verify_email/"
+        self.routeUpdatePassword = prefix + "update_user_password/"
     }
+    
     
     // MARK: - logIn
     public func logIn(email:String,password:String, deviceToken:String, completion: @escaping (Bool, ResponseLogInJsonStruct?, customErrorAuth?)->Void ){
@@ -112,25 +95,31 @@ public class ApiManagerAuth{
     
     
     public func logOut(token:String, completion: @escaping (Bool, customErrorAuth?)->Void ){
-        let jsonData = sendLogOut(token: token, apns_vendor_id: UIDevice.current.identifierForVendor?.uuidString ?? "")
         
-        let url = URL(string: routeLogOut)
-        
-        AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response{
-            response in
+        self.generalData.requestWithCheckRefresh { newToken in
+            let requestToken = newToken == nil ? token : newToken!
             
-            switch response.result {
-            case .success(_):
-                if response.response?.statusCode == 200{
-                    completion(true,nil)
-                }else if response.response?.statusCode == 400 {
-                    let error = self.checkError(data: response.data!)
-                    completion(false, error)
-                }else{
-                    completion(false, .unknowmError)
+            
+            let jsonData = sendLogOut(token: requestToken, apns_vendor_id: UIDevice.current.identifierForVendor?.uuidString ?? "")
+            
+            let url = URL(string: self.routeLogOut)
+            
+            AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response{
+                response in
+                
+                switch response.result {
+                case .success(_):
+                    if response.response?.statusCode == 200{
+                        completion(true,nil)
+                    }else if response.response?.statusCode == 400 {
+                        let error = self.checkError(data: response.data!)
+                        completion(false, error)
+                    }else{
+                        completion(false, .unknowmError)
+                    }
+                case .failure(_):
+                    completion(false, .notConnected)
                 }
-            case .failure(_):
-                completion(false, .notConnected)
             }
         }
     }

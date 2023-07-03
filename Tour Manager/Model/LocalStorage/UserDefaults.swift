@@ -30,6 +30,7 @@ class WorkWithUserDefaults{
     public func setAuthToken(token:String){
         let tokenKey:LoginUserDefaultsKeys = .token
         userDefaults.set(token, forKey: tokenKey.rawValue)
+        AppDelegate.user?.setToken(token: token)
     }
     
     public func getRefreshToken()->String?{
@@ -49,17 +50,21 @@ class WorkWithUserDefaults{
         userDefaults.setValue(date, forKey: "lastRefreshDate")
     }
     
-    public func compareRefreshDates(date:Date)->Int{
+    public func isAuthToken(date:Date)->Bool{
         if let lastRefreshDate = userDefaults.object(forKey: "lastRefreshDate") as? Date{
-            let difference = date.timeIntervalSince(lastRefreshDate)
-            print("difference \(Int(difference))")
-            if Int(difference) > 3300{
-                return 0
+            
+            let tokenExpired = Calendar.current.date(byAdding: .minute, value: 55, to: lastRefreshDate)!
+            
+            print("Current date: \(date)\t TokenExpired: \(tokenExpired)")
+            if date > tokenExpired{
+                print("isAuthToken false")
+                return false
             }
-            return Int(difference)
+            print("isAuthToken true")
+            return true
         }
-        
-        return 0
+        print("isAuthToken false not lastRefreshDate ")
+        return false
     }
     
     public func incrementBadge(on:Int){

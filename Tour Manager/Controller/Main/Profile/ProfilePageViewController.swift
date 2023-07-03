@@ -603,6 +603,12 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
             self.alerts.deleteAlert(self, title: "Вы уверены что хотите выйти?", buttonTitle: "Выйти") {
                 self.user?.logOut(completion: { isLogOut, error in
                     if error != nil{
+                        
+                        if error == .notConnected{
+                            self.controllers.goToNoConnection(view: self.view, direction: .fade)
+                            return
+                        }
+
                         let alert = self.alerts.infoAlert(title: "Неизвестная ошибка", meesage: "Вы не вышли из системы")
                         
                         self.present(alert, animated: true)
