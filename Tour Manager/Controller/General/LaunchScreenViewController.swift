@@ -10,14 +10,13 @@ import UIKit
 class LaunchScreenViewController: UIViewController {
     
     // MARK: - UserDefaults
-    
-    fileprivate let token = AppDelegate.userDefaults.string(forKey: "authToken")
-    fileprivate let localId = AppDelegate.userDefaults.string(forKey: "localId")
     // MARK: - My varibles
     
     let controllers = Controllers()
     let user = AppDelegate.user
     let alerts = Alert()
+    
+    let userDefaultsService = WorkWithUserDefaults()
     
     // MARK: - Life Cycle
     
@@ -28,9 +27,12 @@ class LaunchScreenViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if self.token != nil && self.localId != nil{
+        let token = self.userDefaultsService.getAuthToken()
+        let localId = self.userDefaultsService.getLocalId()
+        
+        if token != nil && localId != ""{
             self.user?.setToken(token: token!)
-            self.user?.setLocalID(localId: localId!)
+            self.user?.setLocalID(localId: localId)
             
             self.user?.getUserInfoFromApi(completion: { isGetted, error in
                 

@@ -12,14 +12,13 @@ extension User{
     // MARK: - getUserInfoFromApi
     
     public func getUserInfoFromApi(completion: @escaping (Bool, customErrorUserData?)->Void){
+        
         self.apiUserData.getUserInfo(token: self.token ?? "" ) { isInfo, response, error in
             
             
             if error != nil{
                 completion(false, error)
-                UserDefaults.standard.set(nil, forKey:  "authToken")
-                UserDefaults.standard.set(nil, forKey: "localId")
-                UserDefaults.standard.set(nil, forKey: "refreshToken")
+                self.userDefaultsService.removeLoginData()
                 
                 return
             }

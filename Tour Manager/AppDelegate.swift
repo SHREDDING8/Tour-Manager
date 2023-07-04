@@ -12,20 +12,9 @@ import UserNotifications
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     public static var user:User? = User()
-//    public static var willSetAuthToken:Bool = false {
-//        didSet{
-//            if willSetAuthToken == true{
-//                willSetAuthToken = false
-//                user?.token = UserDefaults.standard.string(forKey: "")
-//            }
-//            
-//        }
-//    }
-        
+
     public static var tabBar:UITabBarController? = nil
-    
-    public static var userDefaults = UserDefaults.standard
-    
+        
     let localNotifications = LocalNotifications()
     
     let pushNotificationsService = PushNotificationService()
@@ -62,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       }
       let token = tokenParts.joined()
       print("Device Token: \(token)")
-        AppDelegate.userDefaults.setValue(token, forKey: "deviceToken")
+        self.userDefaultsd.setDeviceToken(token: token)
         AppDelegate.user?.setDeviceToken(deviceToken: token)
         
         
@@ -151,9 +140,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate{
                 break
             }
         }
-        
-        self.userDefaultsd.incrementBadge(on: Int(truncating: (notificationUserInfo["aps"] as? [AnyHashable:Any])?["badge"] as? NSNumber ?? 0))
-        
+    
         completionHandler([.banner,.badge,.sound])
        
         

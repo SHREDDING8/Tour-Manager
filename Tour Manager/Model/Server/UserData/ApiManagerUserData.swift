@@ -82,8 +82,7 @@ public class ApiManagerUserData{
         
         self.generalData.requestWithCheckRefresh { newToken in
             let requestToken = newToken == nil ? token : newToken!
-            
-            
+                        
             let url = URL(string: self.routeGetUserInfo)
             
             

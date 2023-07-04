@@ -22,7 +22,9 @@ extension User{
     // MARK: - logIn
     public func logIn(password:String, completion: @escaping (Bool, customErrorAuth?)->Void ){
         
-        let deviceToken = AppDelegate.userDefaults.string(forKey: "deviceToken") ?? ""
+        
+        
+        let deviceToken = self.userDefaultsService.getDeviceToken()
         
         self.apiAuth.logIn(email: self.email ?? "", password: password, deviceToken: deviceToken) { isLogin,logInData, error in
             if error != nil {
@@ -36,9 +38,8 @@ extension User{
             
             self.setDataAuth(token: logInData!.token, localId: logInData!.localId, refreshToken: logInData!.refreshToken)
             
-            UserDefaults.standard.set(self.getToken(), forKey:  "authToken")
-            UserDefaults.standard.set(self.getLocalID(), forKey: "localId")
-            UserDefaults.standard.set(self.getRefreshToken(), forKey: "refreshToken")
+            self.userDefaultsService.setLoginData(token: self.getToken(), localId: self.getLocalID() ?? "", refreshToken: self.getRefreshToken())
+            
             completion(true,nil)
             
         }

@@ -47,6 +47,8 @@ class User:UserProtocol, Equatable{
     
     internal let company = Company()
     
+    internal let userDefaultsService = WorkWithUserDefaults()
+    
     
     enum AccessLevelEnum:String{
         
