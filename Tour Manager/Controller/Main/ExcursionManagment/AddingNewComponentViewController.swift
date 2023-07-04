@@ -135,19 +135,11 @@ class AddingNewComponentViewController: UIViewController {
     
     // MARK: - configuration
     
-    fileprivate func configureView(){
-        
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationController?.interactivePopGestureRecognizer?.delegate? = self
-        if typeOfNewComponent != .guides{
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(toggleEditMode))
-        }
-        
-        self.textField.addTarget(self, action: #selector(getNewHint), for: .editingChanged)
-        
+    fileprivate func getHintsFromApi() {
+        self.arrayComponents = []
+        self.arrayWithGuides = []
         
         switch typeOfNewComponent{
-            
         case .route:
             self.title = "Маршрут"
             textField.placeholder = "Маршрут"
@@ -236,6 +228,19 @@ class AddingNewComponentViewController: UIViewController {
         }
     }
     
+    fileprivate func configureView(){
+        
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.interactivePopGestureRecognizer?.delegate? = self
+        if typeOfNewComponent != .guides{
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(toggleEditMode))
+        }
+        
+        self.textField.addTarget(self, action: #selector(getNewHint), for: .editingChanged)
+        
+        self.getHintsFromApi()
+    }
+    
     // MARK: - addSubviews
     
     fileprivate func addSubviews(){
@@ -279,7 +284,7 @@ class AddingNewComponentViewController: UIViewController {
         
         refreshContoller?.addAction(UIAction(handler: { _ in
             
-            self.configureView()
+            self.getHintsFromApi()
             
             refreshContoller?.endRefreshing()
             
@@ -393,13 +398,19 @@ extension AddingNewComponentViewController:UITableViewDelegate,UITableViewDataSo
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewComponentTableViewCell") as! NewComponentTableViewCell
         cell.componentText.text = arrayWithGuides[indexPath.row].guideInfo.getFullName()
         
+        cell.componentText.font = Font.getFont(name: .americanTypewriter, style: .regular, size: 20)
+        
         for guide in excursion.selfGuides{
-            
+                        
             if arrayWithGuides[indexPath.row].guideInfo == guide.guideInfo{
                 cell.accessoryType = .checkmark
+                
+                if guide.isMain{
+                    cell.componentText.font = Font.getFont(name: .americanTypewriter, style: .bold, size: 20)
+                }
+                
             }
         }
-        
         
         return cell
     }
@@ -451,11 +462,16 @@ extension AddingNewComponentViewController:UITableViewDelegate,UITableViewDataSo
                     
                     if unselectedGuide.guideInfo == excursion.selfGuides[indexGuide].guideInfo{
                         excursion.selfGuides.remove(at: indexGuide)
+                        
                             break
                     }
                 }
+                
+                if excursion.selfGuides.count == 1{
+                    excursion.selfGuides[0].isMain = true
+                }
             }
-            
+                self.tableView.reloadData()
             return
         }
         
@@ -489,16 +505,29 @@ extension AddingNewComponentViewController:UITableViewDelegate,UITableViewDataSo
          
         let mainGuideAction = UIContextualAction(style: .destructive, title: "Главный гид") {  (contextualAction, view, boolValue) in
             
-            for guide in 0..<self.excursion.selfGuides.count{
-                if self.excursion.selfGuides[guide] == self.arrayWithGuides[indexPath.row]{
-                    self.excursion.selfGuides[guide].isMain = true
-                }else{
-                    self.excursion.selfGuides[guide].isMain = false
+            var contains_guide:Bool = false
+            
+            for guide in self.excursion.selfGuides{
+                if guide.guideInfo == self.arrayWithGuides[indexPath.row].guideInfo{
+                    contains_guide = true
+                    break
                 }
             }
             
-            boolValue(true)
+            if contains_guide{
+                for guide in 0..<self.excursion.selfGuides.count{
+                    if self.excursion.selfGuides[guide].guideInfo == self.arrayWithGuides[indexPath.row].guideInfo{
+                        
+                        self.excursion.selfGuides[guide].isMain = true
+                    }else{
+                        self.excursion.selfGuides[guide].isMain = false
+                    }
+                }
+                self.tableView.reloadData()
             }
+            
+            boolValue(true)
+        }
         mainGuideAction.backgroundColor = .systemGreen
         
         let swipeConfiguration = UISwipeActionsConfiguration(actions: [mainGuideAction])

@@ -48,11 +48,12 @@
 		EE8474012A4CB5DD0082DE7E /* GeneralLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8474002A4CB5DD0082DE7E /* GeneralLogic.swift */; };
 		EE8474042A4CC9FD0082DE7E /* NotificationCenterLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8474032A4CC9FD0082DE7E /* NotificationCenterLocal.swift */; };
 		EE8474082A4D99620082DE7E /* sub.caf in Resources */ = {isa = PBXBuildFile; fileRef = EE8474072A4D99620082DE7E /* sub.caf */; };
-		EE84740A2A4DB04E0082DE7E /* PushNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8474092A4DB04E0082DE7E /* PushNotificationCenter.swift */; };
+		EE84740A2A4DB04E0082DE7E /* PushNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8474092A4DB04E0082DE7E /* PushNotificationService.swift */; };
 		EE9788692A28D4FA0086C034 /* EmploeeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9788682A28D4FA0086C034 /* EmploeeTableViewController.swift */; };
 		EE97886B2A28EA710086C034 /* EmploeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE97886A2A28EA710086C034 /* EmploeeViewController.swift */; };
 		EEA07CB12A4DD7FC00F14778 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA07CB02A4DD7FB00F14778 /* LoginViewController.swift */; };
 		EEA4C08029FDDC650083154E /* ApiManagerAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA4C07F29FDDC650083154E /* ApiManagerAuth.swift */; };
+		EEB2336B2A51D50700F3904F /* NoConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB2336A2A51D50700F3904F /* NoConnectionViewController.swift */; };
 		EEB73F9C2A364B82004D7A25 /* ApiManagerExcursions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB73F9B2A364B82004D7A25 /* ApiManagerExcursions.swift */; };
 		EEB73F9F2A364B9B004D7A25 /* SendExcursions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB73F9E2A364B9B004D7A25 /* SendExcursions.swift */; };
 		EEB73FA12A364BA9004D7A25 /* ResponseExcursions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB73FA02A364BA9004D7A25 /* ResponseExcursions.swift */; };
@@ -131,11 +132,12 @@
 		EE8474002A4CB5DD0082DE7E /* GeneralLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralLogic.swift; sourceTree = "<group>"; };
 		EE8474032A4CC9FD0082DE7E /* NotificationCenterLocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterLocal.swift; sourceTree = "<group>"; };
 		EE8474072A4D99620082DE7E /* sub.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sub.caf; sourceTree = "<group>"; };
-		EE8474092A4DB04E0082DE7E /* PushNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationCenter.swift; sourceTree = "<group>"; };
+		EE8474092A4DB04E0082DE7E /* PushNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationService.swift; sourceTree = "<group>"; };
 		EE9788682A28D4FA0086C034 /* EmploeeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmploeeTableViewController.swift; sourceTree = "<group>"; };
 		EE97886A2A28EA710086C034 /* EmploeeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmploeeViewController.swift; sourceTree = "<group>"; };
 		EEA07CB02A4DD7FB00F14778 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		EEA4C07F29FDDC650083154E /* ApiManagerAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManagerAuth.swift; sourceTree = "<group>"; };
+		EEB2336A2A51D50700F3904F /* NoConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoConnectionViewController.swift; sourceTree = "<group>"; };
 		EEB73F9B2A364B82004D7A25 /* ApiManagerExcursions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManagerExcursions.swift; sourceTree = "<group>"; };
 		EEB73F9E2A364B9B004D7A25 /* SendExcursions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendExcursions.swift; sourceTree = "<group>"; };
 		EEB73FA02A364BA9004D7A25 /* ResponseExcursions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseExcursions.swift; sourceTree = "<group>"; };
@@ -196,12 +198,13 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		EE1770F12A23EDE500B18055 /* LaucnScreen */ = {
+		EE1770F12A23EDE500B18055 /* General */ = {
 			isa = PBXGroup;
 			children = (
 				EE1770F22A23EE5A00B18055 /* LaunchScreenViewController.swift */,
+				EEB2336A2A51D50700F3904F /* NoConnectionViewController.swift */,
 			);
-			path = LaucnScreen;
+			path = General;
 			sourceTree = "<group>";
 		};
 		EE18F4612A3E4E850047E068 /* AutoFill */ = {
@@ -452,7 +455,7 @@
 			isa = PBXGroup;
 			children = (
 				EE8474032A4CC9FD0082DE7E /* NotificationCenterLocal.swift */,
-				EE8474092A4DB04E0082DE7E /* PushNotificationCenter.swift */,
+				EE8474092A4DB04E0082DE7E /* PushNotificationService.swift */,
 			);
 			path = NotificationCenter;
 			sourceTree = "<group>";
@@ -564,7 +567,7 @@
 		EEFAB0F129F1E7B60028999A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				EE1770F12A23EDE500B18055 /* LaucnScreen */,
+				EE1770F12A23EDE500B18055 /* General */,
 				EE5F91D42A20A13900B39BB1 /* Main */,
 				EEFAB0F229F1E7C50028999A /* Auth */,
 			);
@@ -743,7 +746,7 @@
 				EE2C9A5029FD858500B7D74F /* ProfilePageViewController.swift in Sources */,
 				EEB73FA32A365ABC004D7A25 /* ExcursionsControllerModel.swift in Sources */,
 				EEF18C952A4258EE00A91D2F /* FS calendar.swift in Sources */,
-				EE84740A2A4DB04E0082DE7E /* PushNotificationCenter.swift in Sources */,
+				EE84740A2A4DB04E0082DE7E /* PushNotificationService.swift in Sources */,
 				EEA07CB12A4DD7FC00F14778 /* LoginViewController.swift in Sources */,
 				EE5F91B62A1E839E00B39BB1 /* UiWindow.swift in Sources */,
 				EEF18C912A42109400A91D2F /* UserDefaults.swift in Sources */,
@@ -774,6 +777,7 @@
 				EE5EEC312A06EDC20025336E /* ChoiceOfTypeAccountViewController.swift in Sources */,
 				EEF27A452A055443006E5E53 /* Profile.swift in Sources */,
 				EE2377362A0816D900CB9D70 /* Alerts.swift in Sources */,
+				EEB2336B2A51D50700F3904F /* NoConnectionViewController.swift in Sources */,
 				EE5F91BC2A1E9F7000B39BB1 /* ApiManagerUserData.swift in Sources */,
 				EEF18C8E2A4209F800A91D2F /* LoadView.swift in Sources */,
 				EE5F91CD2A2007E400B39BB1 /* sendUserDataStructs.swift in Sources */,

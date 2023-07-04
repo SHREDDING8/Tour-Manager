@@ -26,6 +26,8 @@ enum customErrorExcursion{
     
     case guideIsNotInTour
     
+    case notConnected
+    
     public func getValuesForAlert()->AlertFields{
         switch self {
         case .unknown:
@@ -46,132 +48,191 @@ enum customErrorExcursion{
             return AlertFields(title: "Произошла ошибка", message: "Экскурсия не существует")
         case .guideIsNotInTour:
             return AlertFields(title: "Произошла ошибка", message: "Экскурсовод не находится в данной экскурсии")
+        case .notConnected:
+            return AlertFields(title: "Нет подключения к серверу")
         }
     }
-    
-    
-        
-    
 }
 
 class ApiManagerExcursions{
     
-    private static let domain = GeneralData.domain
-    private static let prefix = domain + "tours"
+    let generalData = GeneralData()
     
-    private let routeGetExcursions = prefix + "/get_tour_list"
-    private let routeAddNewExcursion = prefix + "/add_tour"
-    private let routeUpdateExcursion = prefix + "/update_tour"
-    private let routeDelteExcursion = prefix + "/delete_tour"
+    private let domain:String
+    private let prefix:String
     
-    private let routeGetExcursionsForGuides = prefix + "/get_guide_tour_list"
+    private let routeGetExcursions:String
+    private let routeAddNewExcursion:String
+    private let routeUpdateExcursion:String
+    private let routeDelteExcursion:String
     
-    private let routeGetTourListInRange = prefix + "/get_tour_list_in_range"
+    private let routeGetExcursionsForGuides:String
     
-    private let routeGetGuideTourListInRange = prefix + "/get_guide_tour_list_in_range"
+    private let routeGetTourListInRange:String
     
-    private let routeSetGuideTourStatus = prefix + "/set_guide_tour_status"
+    private let routeGetGuideTourListInRange:String
+    
+    private let routeSetGuideTourStatus:String
+    
+    init(){
+        self.domain = generalData.domain
+        self.prefix = domain + "tours/"
+        
+        self.routeGetExcursions = prefix + "get_tour_list/"
+        self.routeAddNewExcursion = prefix + "add_tour/"
+        self.routeUpdateExcursion = prefix + "update_tour/"
+        self.routeDelteExcursion = prefix + "delete_tour/"
+        
+        self.routeGetExcursionsForGuides = prefix + "get_guide_tour_list/"
+        
+        self.routeGetTourListInRange = prefix + "get_tour_list_in_range/"
+        
+        self.routeGetGuideTourListInRange = prefix + "get_guide_tour_list_in_range/"
+        
+        self.routeSetGuideTourStatus = prefix + "set_guide_tour_status/"
+    }
     
     
     public func GetExcursions(token:String, companyId:String, date:String, completion: @escaping (Bool, [ResponseGetExcursion]?, customErrorExcursion?)->Void ){
         
-        let url = URL(string: routeGetExcursions)!
-        
-        let jsonData = sendForGetExcursion(token: token, company_id: companyId, tour_date: date)
-        
-        AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
-            if response.response?.statusCode == 400{
+        generalData.requestWithCheckRefresh { newToken in
+            let requestToken = newToken == nil ? token : newToken!
+            
+            let url = URL(string: self.routeGetExcursions)!
+            
+            let jsonData = sendForGetExcursion(token: requestToken, company_id: companyId, tour_date: date)
+            
+            AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
                 
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false, nil, error)
-                
-            }else if response.response?.statusCode == 200{
-                typealias excursionsJsonStruct = [ResponseGetExcursion]
-                
-                let excursions = try! JSONDecoder().decode(excursionsJsonStruct.self, from: response.data!)
-                
-                completion(true, excursions, nil )
-  
-            }else{
-                completion(false,nil, .unknown)
+                switch response.result {
+                case .success(_):
+                    if response.response?.statusCode == 400{
+                        
+                        let error = self.checkError(data: response.data ?? Data())
+                        completion(false, nil, error)
+                        
+                    }else if response.response?.statusCode == 200{
+                        typealias excursionsJsonStruct = [ResponseGetExcursion]
+                        
+                        let excursions = try! JSONDecoder().decode(excursionsJsonStruct.self, from: response.data!)
+                        
+                        completion(true, excursions, nil )
+                        
+                    }else{
+                        completion(false,nil, .unknown)
+                    }
+                case .failure(_):
+                    completion(false,nil, .notConnected)
+                }
             }
         }
         
     }
     
     public func AddNewExcursion(token: String, companyId: String, excursion:Excursion, completion: @escaping (Bool, customErrorExcursion?)->Void ){
-        let url = URL(string: routeAddNewExcursion)!
         
-        var guides:[SendGuide] = []
+        generalData.requestWithCheckRefresh { newToken in
+            let requestToken = newToken == nil ? token : newToken!
+            let url = URL(string: self.routeAddNewExcursion)!
+            
+            var guides:[SendGuide] = []
+            
+            for guide in excursion.selfGuides{
+                guides.append(SendGuide(guide_id: guide.guideInfo.getLocalID() ?? "", is_main: guide.isMain, status: guide.status.rawValue))
+            }
+            
+            let jsonData = SendAddNewExcursion(token: requestToken, companyId: companyId, tourName: excursion.excursionName, tourRoute: excursion.route, tourNotes: excursion.additionalInfromation, tourNotesVisible: excursion.guideAccessNotes, tourNumberOfPeople: excursion.numberOfPeople, tourTimeStart: excursion.dateAndTime.timeToString(), tourDate: excursion.dateAndTime.birthdayToString(), customerCompanyName: excursion.customerCompanyName, customerGuideName: excursion.customerGuideName, customerGuideContact: excursion.companyGuidePhone,isPaid: excursion.isPaid, paymentMethod: excursion.paymentMethod, paymentAmount: excursion.paymentAmount,guides: guides)
+            
+            
+            AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
                 
-        for guide in excursion.selfGuides{
-            guides.append(SendGuide(guide_id: guide.guideInfo.getLocalID() ?? "", is_main: guide.isMain, status: guide.status.rawValue))
-        }
-        
-        let jsonData = SendAddNewExcursion(token: token, companyId: companyId, tourName: excursion.excursionName, tourRoute: excursion.route, tourNotes: excursion.additionalInfromation, tourNotesVisible: excursion.guideAccessNotes, tourNumberOfPeople: excursion.numberOfPeople, tourTimeStart: excursion.dateAndTime.timeToString(), tourDate: excursion.dateAndTime.birthdayToString(), customerCompanyName: excursion.customerCompanyName, customerGuideName: excursion.customerGuideName, customerGuideContact: excursion.companyGuidePhone,isPaid: excursion.isPaid, paymentMethod: excursion.paymentMethod, paymentAmount: excursion.paymentAmount,guides: guides)
-        
-        
-        AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
-            if response.response?.statusCode == 400{
-                
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false, error)
-                
-            } else if response.response?.statusCode == 200{
-                completion(true, nil)
-            } else{
-                completion(false, .unknown)
+                switch response.result {
+                case .success(_):
+                    if response.response?.statusCode == 400{
+                        
+                        let error = self.checkError(data: response.data ?? Data())
+                        completion(false, error)
+                        
+                    } else if response.response?.statusCode == 200{
+                        completion(true, nil)
+                    } else{
+                        completion(false, .unknown)
+                    }
+                case .failure(_):
+                    completion(false, .notConnected)
+                }
             }
         }
     }
     
     public func updateExcursion(token: String, companyId: String, excursion:Excursion,oldDate:Date, completion: @escaping (Bool, customErrorExcursion?)->Void ){
-        let url = URL(string: routeUpdateExcursion)!
         
-        var guides:[SendGuide] = []
+        generalData.requestWithCheckRefresh { newToken in
+            let requestToken = newToken == nil ? token : newToken!
+            
+            let url = URL(string: self.routeUpdateExcursion)!
+            
+            var guides:[SendGuide] = []
+            
+            for guide in excursion.selfGuides{
+                guides.append(SendGuide(guide_id: guide.guideInfo.getLocalID() ?? "", is_main: guide.isMain, status: guide.status.rawValue))
+            }
+            
+            
+            let jsonData = SendUpdateExcursion(token: requestToken, companyId: companyId, excursionId: excursion.localId ?? "", tourName: excursion.excursionName, tourRoute: excursion.route, tourNotes: excursion.additionalInfromation, tourNotesVisible: excursion.guideAccessNotes, tourNumberOfPeople: excursion.numberOfPeople, tourTimeStart: excursion.dateAndTime.timeToString(), tourDate: excursion.dateAndTime.birthdayToString(), oldDate: oldDate.birthdayToString(), customerCompanyName: excursion.customerCompanyName, customerGuideName: excursion.customerGuideName, customerGuideContact: excursion.companyGuidePhone,isPaid: excursion.isPaid, paymentMethod: excursion.paymentMethod, paymentAmount: excursion.paymentAmount,guides: guides)
+            
+            
+            AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
                 
-        for guide in excursion.selfGuides{
-            guides.append(SendGuide(guide_id: guide.guideInfo.getLocalID() ?? "", is_main: guide.isMain, status: guide.status.rawValue))
-        }
-        
-        
-        let jsonData = SendUpdateExcursion(token: token, companyId: companyId, excursionId: excursion.localId ?? "", tourName: excursion.excursionName, tourRoute: excursion.route, tourNotes: excursion.additionalInfromation, tourNotesVisible: excursion.guideAccessNotes, tourNumberOfPeople: excursion.numberOfPeople, tourTimeStart: excursion.dateAndTime.timeToString(), tourDate: excursion.dateAndTime.birthdayToString(), oldDate: oldDate.birthdayToString(), customerCompanyName: excursion.customerCompanyName, customerGuideName: excursion.customerGuideName, customerGuideContact: excursion.companyGuidePhone,isPaid: excursion.isPaid, paymentMethod: excursion.paymentMethod, paymentAmount: excursion.paymentAmount,guides: guides)
-        
-        
-        AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
-            if response.response?.statusCode == 400{
-                
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false, error)
-                
-            } else if response.response?.statusCode == 200{
-                completion(true, nil)
-            } else{
-                completion(false, .unknown)
+                switch response.result {
+                case .success(_):
+                    if response.response?.statusCode == 400{
+                        
+                        let error = self.checkError(data: response.data ?? Data())
+                        completion(false, error)
+                        
+                    } else if response.response?.statusCode == 200{
+                        completion(true, nil)
+                    } else{
+                        completion(false, .unknown)
+                    }
+                case .failure(_):
+                    completion(false, .notConnected)
+                }
             }
         }
     }
     
     public func deleteExcursion(token:String, companyId:String, date:String, excursionId:String, completion: @escaping (Bool, customErrorExcursion?)->Void ){
         
-        let url = URL(string: routeDelteExcursion)!
-        
-        let jsonData = sendForDeleteExcursion(token: token, company_id: companyId, tour_date: date, tour_id: excursionId)
-        
-        AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
+        generalData.requestWithCheckRefresh { newToken in
+            let requestToken = newToken == nil ? token : newToken!
             
-            if response.response?.statusCode == 400{
+            let url = URL(string: self.routeDelteExcursion)!
+            
+            let jsonData = sendForDeleteExcursion(token: requestToken, company_id: companyId, tour_date: date, tour_id: excursionId)
+            
+            AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
                 
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false, error)
+                switch response.result {
+                case .success(_):
+                    if response.response?.statusCode == 400{
+                        
+                        let error = self.checkError(data: response.data ?? Data())
+                        completion(false, error)
+                        
+                    }else if response.response?.statusCode == 200{
+                        
+                        
+                        completion(true, nil)
+                        
+                    }else{
+                        completion(false, .unknown)
+                    }
+                case .failure(_):
+                    completion(false, .notConnected)
+                }
                 
-            }else if response.response?.statusCode == 200{
-                
-                
-                completion(true, nil)
-  
-            }else{
-                completion(false, .unknown)
             }
         }
     }
@@ -179,98 +240,134 @@ class ApiManagerExcursions{
     
     public func GetExcursionsForGuides(token:String, companyId:String, date:String, completion: @escaping (Bool, [ResponseGetExcursion]?, customErrorExcursion?)->Void ){
         
-        let url = URL(string: routeGetExcursionsForGuides)!
-        
-        let jsonData = sendForGetExcursion(token: token, company_id: companyId, tour_date: date)
-        
-        AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
-            if response.response?.statusCode == 400{
+        generalData.requestWithCheckRefresh { newToken in
+            let requestToken = newToken == nil ? token : newToken!
+            
+            let url = URL(string: self.routeGetExcursionsForGuides)!
+            
+            let jsonData = sendForGetExcursion(token: requestToken, company_id: companyId, tour_date: date)
+            
+            AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
                 
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false, nil, error)
-                
-            }else if response.response?.statusCode == 200{
-                typealias excursionsJsonStruct = [ResponseGetExcursion]
-                
-                let excursions = try! JSONDecoder().decode(excursionsJsonStruct.self, from: response.data!)
-                
-                completion(true, excursions, nil )
-
-            }else{
-                completion(false,nil, .unknown)
+                switch response.result {
+                case .success(_):
+                    if response.response?.statusCode == 400{
+                        
+                        let error = self.checkError(data: response.data ?? Data())
+                        completion(false, nil, error)
+                        
+                    }else if response.response?.statusCode == 200{
+                        typealias excursionsJsonStruct = [ResponseGetExcursion]
+                        
+                        let excursions = try! JSONDecoder().decode(excursionsJsonStruct.self, from: response.data!)
+                        
+                        completion(true, excursions, nil )
+                        
+                    }else{
+                        completion(false,nil, .unknown)
+                    }
+                case .failure(_):
+                    completion(false,nil, .notConnected)
+                }
             }
         }
-        
     }
     
     public func getExcursionsListByRange(token:String, companyId:String, startDate:String, endDate:String, completion: @escaping (Bool, ExcursionsListByRange?, customErrorExcursion?)->Void ){
         
-        let url = URL(string: routeGetTourListInRange)!
-                
-        print("\n\n[getExcursionsListByRange: \(token)]\n\n")
-        
-        let jsonData = SendGetExcursionsListByRange(token: token, company_id: companyId, tour_date_start: startDate, tour_date_end: endDate)
-        
-        AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
-            if response.response?.statusCode == 400{
-                
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false, nil, error)
-                
-            }else if response.response?.statusCode == 200{
-                let response = try! JSONDecoder().decode(ExcursionsListByRange.self, from: response.data!)
-                completion(true, response, nil)
-            }else{
-                completion(false, nil, .unknown)
-            }
+        generalData.requestWithCheckRefresh { newToken in
+            let requestToken = newToken == nil ? token : newToken!
             
+            let url = URL(string: self.routeGetTourListInRange)!
+            
+            //        print("\n\n[getExcursionsListByRange: \(token)]\n\n")
+            
+            let jsonData = SendGetExcursionsListByRange(token: requestToken, company_id: companyId, tour_date_start: startDate, tour_date_end: endDate)
+            
+            AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
+                
+                switch response.result {
+                case .success(_):
+                    if response.response?.statusCode == 400{
+                        
+                        let error = self.checkError(data: response.data ?? Data())
+                        completion(false, nil, error)
+                        
+                    }else if response.response?.statusCode == 200{
+                        let response = try! JSONDecoder().decode(ExcursionsListByRange.self, from: response.data!)
+                        completion(true, response, nil)
+                    }else{
+                        completion(false, nil, .unknown)
+                    }
+                case .failure(_):
+                    completion(false, nil, .notConnected)
+                }
+ 
+            }
         }
-        
         
     }
     
     
     public func getExcursionsForGuideListByRange(token:String, companyId:String, startDate:String, endDate:String, completion: @escaping (Bool, ExcursionsListForGuideByRange?, customErrorExcursion?)->Void ){
         
-        let url = URL(string: routeGetGuideTourListInRange)!
-        
-        
-        print("\n\n[getExcursionsForGuideListByRange: \(token)]\n\n")
-        
-        let jsonData = SendGetExcursionsListByRange(token: token, company_id: companyId, tour_date_start: startDate, tour_date_end: endDate)
-        
-        AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
-            if response.response?.statusCode == 400{
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false, nil, error)
-            }else if response.response?.statusCode == 200{
-                let response = try! JSONDecoder().decode(ExcursionsListForGuideByRange.self, from: response.data!)
-                completion(true, response, nil)
-            }else{
-                completion(false, nil, .unknown)
-            }
+        generalData.requestWithCheckRefresh { newToken in
+            let requestToken = newToken == nil ? token : newToken!
             
+            let url = URL(string: self.routeGetGuideTourListInRange)!
+            
+            
+            //        print("\n\n[getExcursionsForGuideListByRange: \(token)]\n\n")
+            
+            let jsonData = SendGetExcursionsListByRange(token: requestToken, company_id: companyId, tour_date_start: startDate, tour_date_end: endDate)
+            
+            AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
+                
+                switch response.result {
+                case .success(_):
+                    if response.response?.statusCode == 400{
+                        let error = self.checkError(data: response.data ?? Data())
+                        completion(false, nil, error)
+                    }else if response.response?.statusCode == 200{
+                        let response = try! JSONDecoder().decode(ExcursionsListForGuideByRange.self, from: response.data!)
+                        completion(true, response, nil)
+                    }else{
+                        completion(false, nil, .unknown)
+                    }
+                case .failure(_):
+                    completion(false, nil, .notConnected)
+                }
+            }
         }
     }
     
     public func setGuideTourStatus(token:String, uid:String, companyId:String, tourDate:String, tourId:String, guideStatus:Status, completion: @escaping (Bool, customErrorExcursion?)->Void ){
         
-        let url = URL(string: routeSetGuideTourStatus)!
-        
-        let jsonData = SendSetGuideStatus(token: token, uid: uid, company_id: companyId, tour_date: tourDate, tour_id: tourId, guide_status: guideStatus.rawValue)
-        
-        
-        AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
-            if response.response?.statusCode == 400{
-                let error = self.checkError(data: response.data ?? Data())
-                completion(false, error)
-                
-            }else if response.response?.statusCode == 200{
-                completion(true, nil)
-            }else{
-                completion(false, .unknown)
-            }
+        generalData.requestWithCheckRefresh { newToken in
+            let requestToken = newToken == nil ? token : newToken!
             
+            let url = URL(string: self.routeSetGuideTourStatus)!
+            
+            let jsonData = SendSetGuideStatus(token: requestToken, uid: uid, company_id: companyId, tour_date: tourDate, tour_id: tourId, guide_status: guideStatus.rawValue)
+            
+            
+            AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
+                
+                switch response.result {
+                case .success(_):
+                    if response.response?.statusCode == 400{
+                        let error = self.checkError(data: response.data ?? Data())
+                        completion(false, error)
+                        
+                    }else if response.response?.statusCode == 200{
+                        completion(true, nil)
+                    }else{
+                        completion(false, .unknown)
+                    }
+                case .failure(_):
+                    completion(false, .notConnected)
+                }
+            }
         }
     }
     

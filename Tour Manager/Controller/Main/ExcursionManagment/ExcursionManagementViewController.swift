@@ -197,6 +197,7 @@ class ExcursionManagementViewController: UIViewController{
         
         nextOrPrevDay = Calendar.current.date(byAdding: DateComponents(day: addingDays), to: self.calendar.calendar.selectedDate ?? date)
         
+        
         self.calendar.calendar.select(nextOrPrevDay, scrollToDate: true)
         _  = self.calendarShouldSelect(self.calendar.calendar, date: nextOrPrevDay ?? date)
         
@@ -209,6 +210,7 @@ class ExcursionManagementViewController: UIViewController{
     fileprivate func reloadData(isNotTours:Bool = true) {
         UIView.transition(with: self.tableViewCalendar, duration: 0.5,options: .transitionCrossDissolve) {
             self.tableViewCalendar.reloadData()
+            print("reloadData")
             
             
             let label = self.tableViewCalendar.viewWithTag(1)
@@ -239,7 +241,7 @@ class ExcursionManagementViewController: UIViewController{
         
         
         excursionsModel.getExcursionsFromApi(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "" , date: date) { isGetted, error in
-            
+                        
             if let err = error{
                 if err != .dataNotFound{
                     self.alerts.errorAlert(self, errorExcursionsApi: err)
@@ -247,20 +249,18 @@ class ExcursionManagementViewController: UIViewController{
                 else{
                     self.reloadData()
                 }
-
             }
+            
                         
             if isGetted{
                 UIView.transition(with: self.tableViewCalendar, duration: 0.3, options: .transitionCrossDissolve) {
                     if let selectedDate = self.calendar.calendar.selectedDate{
-                        if selectedDate == date{
+                        if selectedDate.birthdayToString() == date.birthdayToString(){
                             self.reloadData()
                         }
-                    }else{
-                        if Date.now.birthdayToString() == date.birthdayToString(){
+                    }else if Date.now.birthdayToString() == date.birthdayToString(){
                             self.reloadData()
                         }
-                    }
                 }
             }
             
@@ -456,6 +456,12 @@ extension ExcursionManagementViewController:UITableViewDelegate,UITableViewDataS
         }
         
         cell.guidesLabel.text = guides
+        
+        if self.excursionsModel.excursions[indexPath.row].dateAndTime < Date.now{
+            cell.contentView.layer.opacity = 0.5
+        }else{
+            cell.contentView.layer.opacity = 1
+        }
         
         
         return cell

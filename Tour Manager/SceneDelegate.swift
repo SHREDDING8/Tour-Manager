@@ -11,11 +11,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     
-    let contollers = Controllers()
-    let user = AppDelegate.user
-    
-    var sceneIsActive:Bool = false
-
+    let controllers = Controllers()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -35,7 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         if let windowScene = (scene as? UIWindowScene){
             let window = UIWindow(windowScene: windowScene)
-            let launch = self.contollers.getLaunchScreen()
+            let launch = self.controllers.getLaunchScreen()
             window.rootViewController = launch
             self.window = window
             window.makeKeyAndVisible()
@@ -54,47 +50,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
-        self.sceneIsActive = true
-        
-        setTimerRefreshToken()
-        let tabBar = AppDelegate.tabBar as? mainTabBarViewController
-    
-        tabBar?.setLoading()
     }
-    
-    private func setTimerRefreshToken(){
-        
-        var seconds = 0
-        var limit = 0
-        
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-            if seconds == limit {
-                let refreshToken = AppDelegate.userDefaults.string(forKey: "refreshToken")
-                self.user?.apiAuth.refreshToken(refreshToken: refreshToken ?? "", completion: { isRefreshed, newToken, error in
-                    if isRefreshed{
-                        self.user?.setToken(token: newToken!)
-                        print("\n\n[REFRESH: \(newToken!)]\n\n")
-                        UserDefaults.standard.set(newToken, forKey:  "authToken")
-                        
-                        let tabBar = AppDelegate.tabBar as? mainTabBarViewController
-                    
-                        tabBar?.stopLoading()
-                    }
-                })
-                limit += 3300
-                
-            }
-            seconds += 1
-            if !self.sceneIsActive{
-                timer.invalidate()
-            }
-        }
-    }
-
     func sceneWillResignActive(_ scene: UIScene) {
         // Called when the scene will move from an active state to an inactive state.
         // This may occur due to temporary interruptions (ex. an incoming phone call).
-        self.sceneIsActive = false
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {

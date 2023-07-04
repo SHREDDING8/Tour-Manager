@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import EventKit
 
 class ExcursionForGuideTableViewController: UITableViewController {
     
@@ -20,6 +21,8 @@ class ExcursionForGuideTableViewController: UITableViewController {
     let generalLogic = GeneralLogic()
     
     let controllers = Controllers()
+    
+    let eventStore : EKEventStore = EKEventStore()
     
     
     let localNotifications = LocalNotifications()
@@ -44,59 +47,12 @@ class ExcursionForGuideTableViewController: UITableViewController {
     
     @IBOutlet weak var paymentAmountLabel: UILabel!
     
+    
+    @IBOutlet weak var copyCustomerGuidePhone: UIButton!
+    
+    
     @IBOutlet weak var guidesCollectionView: UICollectionView!
     
-    
-    let acceptUIView = {
-        
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .clear
-        
-        let blur = UIBlurEffect(style: .systemChromeMaterialDark)
-        var blurView = UIVisualEffectView(effect: blur)
-        blurView.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.addSubview(blurView)
-        
-        
-        NSLayoutConstraint.activate([
-            blurView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            blurView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            blurView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            blurView.topAnchor.constraint(equalTo: view.topAnchor)
-        ])
-        
-                
-        let aceptButton = UIButton()
-        aceptButton.setTitle("Принять", for: .normal)
-        aceptButton.tag = 1
-        aceptButton.translatesAutoresizingMaskIntoConstraints = false
-        aceptButton.backgroundColor = .clear
-        aceptButton.setImage(UIImage(systemName: "checkmark.circle"), for: .normal)
-        aceptButton.configuration = .filled()
-        aceptButton.tintColor = .white
-        aceptButton.configuration?.imagePlacement = .trailing
-        aceptButton.configuration?.cornerStyle = .large
-        aceptButton.configuration?.baseBackgroundColor = .systemGreen
-        view.addSubview(aceptButton)
-        
-        
-        let cancelButton = UIButton()
-        cancelButton.setTitle("Отклонить", for: .normal)
-        cancelButton.tag = 2
-        cancelButton.translatesAutoresizingMaskIntoConstraints = false
-        cancelButton.backgroundColor = .clear
-        cancelButton.setImage(UIImage(systemName: "xmark.circle"), for: .normal)
-        cancelButton.configuration = .filled()
-        cancelButton.tintColor = .white
-        cancelButton.configuration?.imagePlacement = .trailing
-        cancelButton.configuration?.cornerStyle = .large
-        cancelButton.configuration?.baseBackgroundColor = .systemRed
-        view.addSubview(cancelButton)
-        
-        return view
-    }()
     
     var heightConstaint:NSLayoutConstraint!
     
@@ -113,27 +69,32 @@ class ExcursionForGuideTableViewController: UITableViewController {
         self.navigationItem.title = excursion.excursionName
         self.navigationController?.navigationBar.backgroundColor = UIColor(resource: .background)
         
-        self.navigationItem.largeTitleDisplayMode = .always
+        if self.excursion.dateAndTime > Date.now{
+            self.navigationItem.rightBarButtonItems = [
+                UIBarButtonItem(image: UIImage(systemName: "star.fill"), style: .plain, target: self, action: #selector(showAcceptAlert))
+            ]
         
+            for guide in self.excursion.selfGuides{
+                
+                if guide.guideInfo == self.user{
+                    self.navigationItem.rightBarButtonItems![0].tintColor = guide.statusColor
+                    break
+                }
+            }
+        }
+        
+        self.navigationItem.largeTitleDisplayMode = .always
     }
     
     
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-        // 3.
-        configureAcceptView()
         
-        for guide in excursion.selfGuides{
-            if guide.guideInfo == self.user && guide.status == .waiting{
-                UIView.animate(withDuration: 0.3) {
-                    self.tabBarController?.tabBar.layer.opacity = 0
-                    self.acceptUIView.layer.opacity = 1
-                }
-                UIView.transition(with: self.acceptUIView, duration: 0.3) {
-                    self.heightConstaint.constant = self.view.frame.height / 4
-                    self.view.layoutIfNeeded()
+        if self.excursion.dateAndTime > Date.now{
+            for guide in excursion.selfGuides{
+                if guide.guideInfo == self.user && guide.status == .waiting{
+                    self.showAcceptAlert()
                 }
             }
         }
@@ -141,8 +102,6 @@ class ExcursionForGuideTableViewController: UITableViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
-        self.view.bringSubviewToFront(acceptUIView)
         
     }
     
@@ -154,13 +113,65 @@ class ExcursionForGuideTableViewController: UITableViewController {
     }
     
     
-    fileprivate func configureAcceptView(){
-        self.view.superview!.addSubview(self.acceptUIView)
-        let acceptButton = self.acceptUIView.viewWithTag(1)! as! UIButton
-        let cancelButton = self.acceptUIView.viewWithTag(2)! as! UIButton
-        self.acceptUIView.layer.opacity = 0
+    @IBAction func copyCustomerGuideNumber(_ sender: UIButton) {
         
-        acceptButton.addAction(UIAction(handler: { _ in
+            UIPasteboard.general.string = self.excursion.companyGuidePhone
+            
+            let alert = UIAlertController(title: "Id компании был скопирован", message: nil, preferredStyle: .alert)
+            let actionOk = UIAlertAction(title: "Ok", style: .default)
+            alert.addAction(actionOk)
+            self.present(alert, animated: true)
+    }
+    
+
+    // MARK: - configureValues
+    
+    fileprivate func configureValues(){
+        self.excursionNameLabel.text = excursion.excursionName
+        
+        // route
+        if self.excursion.route == ""{
+            self.routeLabel.text = "Нет"
+        }else{
+            self.routeLabel.text = excursion.route
+        }
+        
+        self.numberOfPeopleLabel.text = String(excursion.numberOfPeople)
+        
+        self.datePicker.date = excursion.dateAndTime
+        
+        self.notesTextView.text = excursion.additionalInfromation
+        
+       
+        
+        // customerGuideName
+        if self.excursion.customerGuideName == ""{
+            self.customerGuideName.text = "Нет"
+        }else{
+            self.customerGuideName.text = excursion.customerGuideName
+        }
+        
+        // customerGuideContact
+        if self.excursion.companyGuidePhone == ""{
+            self.copyCustomerGuidePhone.layer.opacity = 0
+            self.customerGuideContact.text = "Нет"
+        }else{
+            self.customerGuideContact.text = excursion.companyGuidePhone
+        }
+       
+        self.isPaidSwitch.isOn = excursion.isPaid
+        self.paymentAmountLabel.text = String(excursion.paymentAmount)
+        
+        
+        
+    }
+    
+    
+    @objc private func showAcceptAlert(){
+        
+        let acceptAlert = UIAlertController(title: "Подтверждение экскурсии", message: "Экскурсия '\(self.excursion.excursionName)' \(self.excursion.dateAndTime.birthdayToString()) в \(self.excursion.dateAndTime.timeToString())", preferredStyle: .alert)
+        
+        let acceptAction = UIAlertAction(title: "Принять", style: .default) { _ in
             self.excursionModel.setGuideTourStatus(token: self.user?.getToken() ?? "", uid: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "" , tourDate: self.excursion.dateAndTime.birthdayToString(), tourId: self.excursion.localId ?? "", guideStatus: .accepted) { isSetted, error in
                 
                 if let err = error{
@@ -168,21 +179,24 @@ class ExcursionForGuideTableViewController: UITableViewController {
                 }
                 
                 if isSetted{
-                    UIView.animate(withDuration: 0.3) {
-                        self.tabBarController?.tabBar.layer.opacity = 1
-                        self.acceptUIView.layer.opacity = 0
-                    }
-                    UIView.transition(with: self.acceptUIView, duration: 0.3) {
-                        self.heightConstaint.constant = 0
-                        self.view.layoutIfNeeded()
+                    
+                    self.addReminderToCalendar()
+                    
+                    for guideIndex in 0..<self.excursion.selfGuides.count{
+                        
+                        if self.excursion.selfGuides[guideIndex].guideInfo == self.user{
+                            self.excursion.selfGuides[guideIndex].status = .accepted
+                            self.navigationItem.rightBarButtonItems![0].tintColor = self.excursion.selfGuides[guideIndex].statusColor
+                            break
+                        }
                     }
                     
-                    self.localNotifications.createRememberWorkDayNotification(tourDate: self.excursion.dateAndTime)
+                    self.guidesCollectionView.reloadData()
                 }
             }
-        }), for: .touchUpInside)
+        }
         
-        cancelButton.addAction(UIAction(handler: { _ in
+        let cancelAction = UIAlertAction(title: "Отклонить", style: .destructive) { _ in
             self.excursionModel.setGuideTourStatus(token: self.user?.getToken() ?? "", uid: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "" , tourDate: self.excursion.dateAndTime.birthdayToString(), tourId: self.excursion.localId ?? "", guideStatus: .cancel) { isSetted, error in
                 
                 if let err = error{
@@ -191,57 +205,107 @@ class ExcursionForGuideTableViewController: UITableViewController {
                 
                 
                 if isSetted{
-                    UIView.animate(withDuration: 0.3) {
-                        self.tabBarController?.tabBar.layer.opacity = 1
-                        self.acceptUIView.layer.opacity = 0
+                    
+                    for guideIndex in 0..<self.excursion.selfGuides.count{
+                        
+                        if self.excursion.selfGuides[guideIndex].guideInfo == self.user{
+                            self.excursion.selfGuides[guideIndex].status = .cancel
+                            self.navigationItem.rightBarButtonItems![0].tintColor = self.excursion.selfGuides[guideIndex].statusColor
+                            break
+                        }
                     }
-                    UIView.transition(with: self.acceptUIView, duration: 0.3) {
-                        self.heightConstaint.constant = 0
-                        self.view.layoutIfNeeded()
-                    }
+                    
+                    self.guidesCollectionView.reloadData()
+                    
                 }
             }
-        }), for: .touchUpInside)
-        
-        heightConstaint = NSLayoutConstraint(item: self.acceptUIView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 0)
-        self.acceptUIView.addConstraint(heightConstaint)
-        NSLayoutConstraint.activate([
-            self.acceptUIView.bottomAnchor.constraint(equalTo: self.view.superview!.bottomAnchor,constant: 0),
-            self.acceptUIView.leadingAnchor.constraint(equalTo: self.view.superview!.leadingAnchor),
-            self.acceptUIView.trailingAnchor.constraint(equalTo: self.view.superview!.trailingAnchor),
-        ])
+        }
         
         
-        NSLayoutConstraint.activate([
-            acceptButton.centerYAnchor.constraint(equalTo: acceptUIView.centerYAnchor),
-            acceptButton.leadingAnchor.constraint(equalTo: acceptUIView.leadingAnchor, constant: 30),
-            acceptButton.widthAnchor.constraint(equalToConstant: self.view.frame.width / 2 - 35),
-            acceptButton.heightAnchor.constraint(equalToConstant: 50)
+        
+        
+        let noChoiceAction = UIAlertAction(title: "Отменить", style: .cancel)
+        
+        for guide in self.excursion.selfGuides{
             
-        ])
+            if guide.guideInfo == self.user{
+                if guide.status == .cancel || guide.status == .waiting{
+                    acceptAlert.addAction(acceptAction)
+                }
+                
+                if guide.status == .accepted || guide.status == .waiting {
+                    acceptAlert.addAction(cancelAction)
+                }
+                
+                acceptAlert.addAction(noChoiceAction)
+                break
+            }
+        }
         
-        NSLayoutConstraint.activate([
-            cancelButton.centerYAnchor.constraint(equalTo: acceptUIView.centerYAnchor),
-            cancelButton.trailingAnchor.constraint(equalTo: acceptUIView.trailingAnchor, constant: -30),
-            cancelButton.widthAnchor.constraint(equalToConstant: self.view.frame.width / 2 - 35),
-            cancelButton.heightAnchor.constraint(equalToConstant: 50)
-            
-        ])
+        
+        
+        self.present(acceptAlert, animated: true)
     }
     
-
-    // MARK: - configureValues
+    private func addReminderToCalendar(){
+        
+        let alert = UIAlertController(title: "Добавить событие в календарь?", message: "Экскурсия '\(self.excursion.excursionName)' \(self.excursion.dateAndTime.birthdayToString()) в \(self.excursion.dateAndTime.timeToString())", preferredStyle: .alert)
+        
+        let actionCancel = UIAlertAction(title: "Отменить", style: .cancel)
+        
+        if #available(iOS 17.0, *) {
+            self.eventStore.requestWriteOnlyAccessToEvents { granted, error in
+                if (granted) && (error == nil) {
+                    
+                    let actionOk = UIAlertAction(title: "Добавить", style: .default){
+                        _ in
+                        self.configureAndSaveCalendarEvent()
+                    }
+                    
+                    DispatchQueue.main.async {
+                        alert.addAction(actionOk)
+                        alert.addAction(actionCancel)
+                        
+                        self.present(alert, animated: true)
+                    }
+                    
+                }
+            }
+        } else {
+            self.eventStore.requestAccess(to: .event) { granted, error in
+                let actionOk = UIAlertAction(title: "Добавить", style: .default){
+                    _ in
+                    self.configureAndSaveCalendarEvent()
+                }
+                
+                DispatchQueue.main.async {
+                    alert.addAction(actionOk)
+                    alert.addAction(actionCancel)
+                    
+                    self.present(alert, animated: true)
+                }
+            }
+        }
+    }
     
-    fileprivate func configureValues(){
-        self.excursionNameLabel.text = excursion.excursionName
-        self.routeLabel.text = excursion.route
-        self.numberOfPeopleLabel.text = String(excursion.numberOfPeople)
-        self.datePicker.date = excursion.dateAndTime
-        self.notesTextView.text = excursion.additionalInfromation
-        self.customerGuideName.text = excursion.customerGuideName
-        self.customerGuideContact.text = excursion.companyGuidePhone
-        self.isPaidSwitch.isOn = excursion.isPaid
-        self.paymentAmountLabel.text = String(excursion.paymentAmount)
+    private func configureAndSaveCalendarEvent(){
+        let event:EKEvent = EKEvent(eventStore: self.eventStore)
+        event.title = self.excursion.excursionName
+        event.startDate = self.excursion.dateAndTime
+        event.endDate = Calendar.current.date(byAdding: .init(minute: 90), to: self.excursion.dateAndTime)
+        
+        event.calendar = eventStore.defaultCalendarForNewEvents
+        
+        let remiderDate = Calendar.current.date(byAdding: .init(minute: -30), to: self.excursion.dateAndTime)
+        event.addAlarm(EKAlarm(absoluteDate: remiderDate ?? self.excursion.dateAndTime))
+        
+        do {
+            try self.eventStore.save(event, span: .thisEvent)
+        } catch let error as NSError {
+            print("failed to save event with error : \(error)")
+        }
+        print("Saved Event")
+        
         
     }
     

@@ -16,6 +16,8 @@ class LoginViewController: UIViewController {
     let validation = StringValidation()
     let alerts = Alert()
     
+    let localNotifications = LocalNotifications()
+    
     var user:User!
     
     let userDefaults = WorkWithUserDefaults()
@@ -68,6 +70,8 @@ class LoginViewController: UIViewController {
         addKeyboardObservers()
         
         self.userDefaults.removeLoginData()
+        
+        localNotifications.removeAll()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -152,15 +156,16 @@ class LoginViewController: UIViewController {
         
         self.user?.resetPassword(completion: { isReset, error in
             
-            if isReset{
                 self.loadUIView.removeLoadUIView()
-            }
             
             if error == .userNotFound{
                 self.alerts.errorAlert(self, errorTypeApi: .userNotFound)
                 return
             } else if error == .unknowmError{
                 self.alerts.errorAlert(self, errorTypeApi: .unknown)
+                return
+            } else if error == .notConnected{
+                self.controllers.goToNoConnection(view: self.view, direction: .fade)
                 return
             }
             
@@ -201,6 +206,8 @@ class LoginViewController: UIViewController {
             }else if error == .weakPassword{
                 self.alerts.errorAlert(self, errorTypeApi: .weakPassword)
                 return
+            }else if error == .notConnected{
+                self.controllers.goToNoConnection(view: self.view, direction: .fade)
             }
             
             if isSignIn{
@@ -236,6 +243,8 @@ class LoginViewController: UIViewController {
             } else if error == .unknowmError{
                 self.alerts.errorAlert(self, errorTypeApi: .unknown)
                 return
+            } else if error == .notConnected{
+                self.controllers.goToLoginPage(view: self.view, direction: .fade)
             }
             
             self.user?.getUserInfoFromApi(completion: { isGetted, error in

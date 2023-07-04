@@ -204,6 +204,8 @@ class ExcurionsGuideCalendarViewController: UIViewController {
         UIView.transition(with: self.tableViewCalendar, duration: 0.5,options: .transitionCrossDissolve) {
             self.tableViewCalendar.reloadData()
             
+            print("reloadData")
+            
             let label = self.tableViewCalendar.viewWithTag(1)
             if self.excursionsModel.excursions.count == 0 && isNotTours{
                 label?.layer.opacity = 0.5
@@ -365,28 +367,24 @@ class ExcurionsGuideCalendarViewController: UIViewController {
         excursionsModel.getExcursionsForGuidesFromApi(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "" , date: date) { isGetted, error in
             
             if let err = error{
-                if error != .dataNotFound{
+                if err != .dataNotFound{
                     self.alerts.errorAlert(self, errorExcursionsApi: err)
+                }else{
+                    self.reloadData()
                 }
-            }else{
-                self.reloadData()
             }
             
             
             if isGetted{
                 UIView.transition(with: self.tableViewCalendar, duration: 0.3, options: .transitionCrossDissolve) {
                     if let selectedDate = self.calendar.calendar.selectedDate{
-                        if selectedDate == date{
+                        if selectedDate.birthdayToString() == date.birthdayToString(){
                             self.reloadData()
                         }
-                    }else{
-                        if Date.now.birthdayToString() == date.birthdayToString(){
+                    }else if Date.now.birthdayToString() == date.birthdayToString(){
                             self.reloadData()
                         }
-                    }
                 }
-            }else{
-                self.reloadData()
             }
             
             UIView.animate(withDuration: 0.3) {
@@ -438,6 +436,13 @@ extension ExcurionsGuideCalendarViewController:UITableViewDelegate,UITableViewDa
         }
         
         cell.guidesLabel.text = guides
+        
+        
+        if self.excursionsModel.excursions[indexPath.row].dateAndTime < Date.now{
+            cell.contentView.layer.opacity = 0.5
+        }else{
+            cell.contentView.layer.opacity = 1
+        }
         
         
         return cell

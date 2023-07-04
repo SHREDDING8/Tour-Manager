@@ -22,6 +22,12 @@ class EmploeeViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var tableViewTopConstraint: NSLayoutConstraint!
+    
+    private let minTableViewTopConstraintConstant: CGFloat = 0
+    private let maxTableViewTopConstraintConstant: CGFloat = 170
+    private var previousContentOffsetY: CGFloat = 0
+    
     
     @IBOutlet weak var profilePhoto: UIImageView!
     
@@ -134,6 +140,39 @@ extension EmploeeViewController:UITableViewDelegate,UITableViewDataSource{
         if indexPath.section == 0 && indexPath.row == 4{
             generalLogic.callNumber(phoneNumber: self.employee.getPhone())
         }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let currentContentOffsetY = scrollView.contentOffset.y
+        let scrollDiff = currentContentOffsetY - self.previousContentOffsetY
+        
+        let bounceBorderContentOffsetY = -scrollView.contentInset.top
+        
+        
+        let contentMovesUp = scrollDiff > 0 && currentContentOffsetY > bounceBorderContentOffsetY
+           let contentMovesDown = scrollDiff < 0 && currentContentOffsetY < bounceBorderContentOffsetY
+        
+        
+        var newConstraintConstant = self.tableViewTopConstraint.constant
+
+        if contentMovesUp {
+            // Уменьшаем константу констрэйнта
+            newConstraintConstant = max(self.tableViewTopConstraint.constant - scrollDiff,minTableViewTopConstraintConstant)
+        } else if contentMovesDown {
+            // Увеличиваем константу констрэйнта
+            newConstraintConstant = min(self.tableViewTopConstraint.constant - scrollDiff, maxTableViewTopConstraintConstant)
+        }
+        
+        if newConstraintConstant != self.tableViewTopConstraint.constant {
+            self.tableViewTopConstraint.constant = newConstraintConstant
+            scrollView.contentOffset.y = previousContentOffsetY
+            
+        }
+        
+        self.previousContentOffsetY = scrollView.contentOffset.y
+        
+        let opacity = (self.tableViewTopConstraint.constant / self.maxTableViewTopConstraintConstant)
+        self.profilePhoto.layer.opacity = Float(opacity)
     }
     
     

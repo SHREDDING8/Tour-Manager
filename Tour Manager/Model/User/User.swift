@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 public struct UserDataServerStruct:Codable{
-    let token:String
+    var token:String
     let email:String
     let first_name:String
     let last_name:String
@@ -46,6 +46,8 @@ class User:UserProtocol, Equatable{
     internal let apiCompany = ApiManagerCompany()
     
     internal let company = Company()
+    
+    internal let userDefaultsService = WorkWithUserDefaults()
     
     
     enum AccessLevelEnum:String{

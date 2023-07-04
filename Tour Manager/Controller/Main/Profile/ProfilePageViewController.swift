@@ -43,6 +43,15 @@ class ProfilePageViewController: UIViewController {
     @IBOutlet weak var fullNameLabel: UILabel!
     
     @IBOutlet weak var tableView: UITableView!
+    
+    
+    
+    @IBOutlet weak var tableViewTopConstraint: NSLayoutConstraint!
+    
+    private let minTableViewTopConstraintConstant: CGFloat = 0
+    private let maxTableViewTopConstraintConstant: CGFloat = 215
+    private var previousContentOffsetY: CGFloat = 0
+    
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +63,6 @@ class ProfilePageViewController: UIViewController {
         
         profilePhotoConfiguration()
         datePickerConfiguration()
-        
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -291,6 +299,41 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
         } else if cell?.restorationIdentifier == "emploeeCell"{
             self.goToEmploeePage()
         }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let currentContentOffsetY = scrollView.contentOffset.y
+        let scrollDiff = currentContentOffsetY - self.previousContentOffsetY
+        
+        let bounceBorderContentOffsetY = -scrollView.contentInset.top
+        
+        
+        let contentMovesUp = scrollDiff > 0 && currentContentOffsetY > bounceBorderContentOffsetY
+           let contentMovesDown = scrollDiff < 0 && currentContentOffsetY < bounceBorderContentOffsetY
+        
+        
+        var newConstraintConstant = self.tableViewTopConstraint.constant
+
+        if contentMovesUp {
+            // Уменьшаем константу констрэйнта
+            newConstraintConstant = max(self.tableViewTopConstraint.constant - scrollDiff,minTableViewTopConstraintConstant)
+        } else if contentMovesDown {
+            // Увеличиваем константу констрэйнта
+            newConstraintConstant = min(self.tableViewTopConstraint.constant - scrollDiff, maxTableViewTopConstraintConstant)
+        }
+        
+        if newConstraintConstant != self.tableViewTopConstraint.constant {
+            self.tableViewTopConstraint.constant = newConstraintConstant
+            scrollView.contentOffset.y = previousContentOffsetY
+            
+        }
+        
+        self.previousContentOffsetY = scrollView.contentOffset.y
+        
+        let opacity = (self.tableViewTopConstraint.constant / self.maxTableViewTopConstraintConstant)
+        self.profilePhoto.layer.opacity = Float(opacity)
+        self.fullNameLabel.layer.opacity = Float(opacity)
+        self.changePhotoButton.layer.opacity = Float(opacity)
     }
     
     // MARK: - PersonalData Cell
@@ -601,7 +644,20 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
         let actionExit = UIAction { _ in
             
             self.alerts.deleteAlert(self, title: "Вы уверены что хотите выйти?", buttonTitle: "Выйти") {
-                self.goToLogInPage()
+                self.user?.logOut(completion: { isLogOut, error in
+                    if error != nil{
+                        
+                        if error == .notConnected{
+                            self.controllers.goToNoConnection(view: self.view, direction: .fade)
+                            return
+                        }
+
+                        let alert = self.alerts.infoAlert(title: "Неизвестная ошибка", meesage: "Вы не вышли из системы")
+                        
+                        self.present(alert, animated: true)
+                    }
+                })
+                self.controllers.goToLoginPage(view: self.view, direction: .toBottom)
             }
         }
         

@@ -22,72 +22,108 @@ public enum customErrorAuth{
     case unknowmError
     
     case tokenExpired
+    
+    case notConnected
 }
 
 
 public class ApiManagerAuth{
-    private static let domain = GeneralData.domain
-    private static let prefix = domain + "auth"
     
-    private let routeRefreshToken = prefix + "/refresh_user_token"
-    private let routeLogIn = prefix + "/login"
-    private let routeSignIn = prefix + "/signup"
+    let userDefaults = WorkWithUserDefaults()
     
-    private let routeIsEmailBusy = prefix + "/check_user_email"
+    let generalData = GeneralData()
+    
+    
+    private let domain:String
+    private let prefix:String
+    
+    private let routeLogIn:String
+    private let routeLogOut:String
+    private let routeSignIn:String
+    
+    private let routeIsEmailBusy:String
    
-    private let routeResetPassword = prefix + "/reset_password"
-    private let routeSendVerifyEmail = prefix + "/send_verify_email"
-    private let routeUpdatePassword = prefix + "/update_user_password"
+    private let routeResetPassword:String
+    private let routeSendVerifyEmail:String
+    private let routeUpdatePassword:String
     
-    
-    
-    
-    public func refreshToken(refreshToken:String, completion: @escaping (Bool,String?, customErrorAuth?)->Void){
+    init(){
+        self.domain = generalData.domain
+        self.prefix = domain + "auth/"
         
-        let jsonData = ["refresh_token":refreshToken]
+        self.routeLogIn = prefix + "login/"
+        self.routeLogOut = prefix + "logout/"
+        self.routeSignIn = prefix + "signup/"
         
-        let url = URL(string: routeRefreshToken)!
-        
-        AF.request(url,method: .post, parameters: jsonData,encoder: .json).response{
-            response in
-            
-            if response.response?.statusCode == 400{
-                let error = self.checkError(data: response.data!)
-                completion(false,nil, error)
-            }else if response.response?.statusCode == 200{
-                
-                let newToken = try! JSONDecoder().decode(ResponseRefreshToken.self, from: response.data!)
-                completion(true, newToken.token, nil)
-                
-                
-            }else{
-                completion(false,nil, nil)
-            }
-        }
-        
+        self.routeIsEmailBusy = prefix + "check_user_email/"
+       
+        self.routeResetPassword = prefix + "reset_password/"
+        self.routeSendVerifyEmail = prefix + "send_verify_email/"
+        self.routeUpdatePassword = prefix + "update_user_password/"
     }
+    
     
     // MARK: - logIn
     public func logIn(email:String,password:String, deviceToken:String, completion: @escaping (Bool, ResponseLogInJsonStruct?, customErrorAuth?)->Void ){
         
-        let jsonData = sendLogInJsonStruct(email: email, password: password, apnsToken: ApnsToken(vendorID: UIDevice.current.identifierForVendor?.uuidString ?? "", deviceToken: deviceToken))
+        let jsonData = sendLogInJsonStruct(email: email, password: password, apnsToken: ApnsToken(vendorID: UIDevice.current.identifierForVendor?.uuidString ?? "", deviceToken: deviceToken, deviceName: UIDevice.current.name))
         
         let url = URL(string: routeLogIn)
+        
 
         AF.request(url!,method: .post, parameters: jsonData,encoder: .json).response { response in
-            if response.response?.statusCode == 400{
-                let error = self.checkError(data: response.data!)
-                completion(false, nil, error)
-            } else if response.response?.statusCode == 200{
-                if let logInData = try? JSONDecoder().decode(ResponseLogInJsonStruct.self, from: response.data!){
-                    completion(true, logInData, nil)
+            switch response.result {
+            case .success(_):
+                if response.response?.statusCode == 400{
+                    let error = self.checkError(data: response.data!)
+                    completion(false, nil, error)
+                } else if response.response?.statusCode == 200{
+                    if let logInData = try? JSONDecoder().decode(ResponseLogInJsonStruct.self, from: response.data!){
+                        completion(true, logInData, nil)
+                        self.userDefaults.setLastRefreshDate(date: Date.now)
+                    }
+                } else {
+                    completion(false, nil, .unknowmError)
                 }
-            } else {
-                completion(false, nil, .unknowmError)
+                
+            case .failure(_):
+                completion(false, nil, .notConnected)
+            }
+            
+        }
+    }
+    
+    
+    public func logOut(token:String, completion: @escaping (Bool, customErrorAuth?)->Void ){
+        
+        self.generalData.requestWithCheckRefresh { newToken in
+            let requestToken = newToken == nil ? token : newToken!
+            
+            
+            let jsonData = sendLogOut(token: requestToken, apns_vendor_id: UIDevice.current.identifierForVendor?.uuidString ?? "")
+            
+            let url = URL(string: self.routeLogOut)
+            
+            AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response{
+                response in
+                
+                switch response.result {
+                case .success(_):
+                    if response.response?.statusCode == 200{
+                        completion(true,nil)
+                    }else if response.response?.statusCode == 400 {
+                        let error = self.checkError(data: response.data!)
+                        completion(false, error)
+                    }else{
+                        completion(false, .unknowmError)
+                    }
+                case .failure(_):
+                    completion(false, .notConnected)
+                }
             }
         }
-        
     }
+    
     
     // MARK: - signIn
     public func signIn(email:String,password:String, completion: @escaping (Bool,customErrorAuth?)->Void ){
@@ -101,14 +137,21 @@ public class ApiManagerAuth{
         let url = URL(string: routeSignIn)
         
         AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
-            if response.response?.statusCode == 200{
-                completion(true,nil)
-            }else if response.response?.statusCode == 400 {
-                let error = self.checkError(data: response.data!)
-                completion(false, error)
-            } else{
-                completion(false,.unknowmError)
+            
+            switch response.result {
+            case .success(_):
+                if response.response?.statusCode == 200{
+                    completion(true,nil)
+                }else if response.response?.statusCode == 400 {
+                    let error = self.checkError(data: response.data!)
+                    completion(false, error)
+                } else{
+                    completion(false,.unknowmError)
+                }
+            case .failure(_):
+                completion(false, .notConnected)
             }
+            
         }
     }
     
@@ -119,13 +162,19 @@ public class ApiManagerAuth{
         let url = URL(string: routeResetPassword)
         
         AF.request(url!, method: .post, parameters:  jsonData,encoder: .json).response { response in
-            if response.response?.statusCode == 400{
-                let error = self.checkError(data: response.data!)
-                completion(false, error)
-            } else if response.response?.statusCode == 200{
-                completion(true,nil)
-            } else {
-                completion(false,.unknowmError)
+            
+            switch response.result {
+            case .success(_):
+                if response.response?.statusCode == 400{
+                    let error = self.checkError(data: response.data!)
+                    completion(false, error)
+                } else if response.response?.statusCode == 200{
+                    completion(true,nil)
+                } else {
+                    completion(false,.unknowmError)
+                }
+            case .failure(_):
+                completion(false,.notConnected)
             }
         }
     }
@@ -138,16 +187,21 @@ public class ApiManagerAuth{
         let url = URL(string: routeUpdatePassword)
         
         AF.request(url!, method: .post, parameters:  jsonData,encoder: .json).response { response in
-            if response.response?.statusCode == 400{
-                let error = self.checkError(data: response.data!)
-                completion(false, error)
-            } else if response.response?.statusCode == 200{
-                completion(true,nil)
-            } else {
-                completion(false,.unknowmError)
+            
+            switch response.result {
+            case .success(_):
+                if response.response?.statusCode == 400{
+                    let error = self.checkError(data: response.data!)
+                    completion(false, error)
+                } else if response.response?.statusCode == 200{
+                    completion(true,nil)
+                } else {
+                    completion(false,.unknowmError)
+                }
+            case .failure(_):
+                completion(false,.notConnected)
             }
         }
-        
     }
     
     // MARK: - isUserExists
@@ -158,15 +212,21 @@ public class ApiManagerAuth{
         let url = URL(string: routeIsEmailBusy)
         
         AF.request(url!, method: .post, parameters:  jsonData,encoder: .json).response { response in
-            if response.response?.statusCode == 400{
-                let error = self.checkError(data: response.data!)
-                completion(nil, error)
-                
-            }else if response.response?.statusCode == 200{
-                let successfulCheckEmail = try! JSONDecoder().decode(ResponseIsUserExistsJsonStruct.self, from: response.data!)
-                completion(successfulCheckEmail.userExists,nil)
-            }else {
-                completion(nil,.unknowmError)
+            
+            switch response.result {
+            case .success(_):
+                if response.response?.statusCode == 400{
+                    let error = self.checkError(data: response.data!)
+                    completion(nil, error)
+                    
+                }else if response.response?.statusCode == 200{
+                    let successfulCheckEmail = try! JSONDecoder().decode(ResponseIsUserExistsJsonStruct.self, from: response.data!)
+                    completion(successfulCheckEmail.userExists,nil)
+                }else {
+                    completion(nil,.unknowmError)
+                }
+            case .failure(_):
+                completion(nil,.notConnected)
             }
         }
     }
@@ -181,10 +241,16 @@ public class ApiManagerAuth{
         let url = URL(string: routeSendVerifyEmail)
         
         AF.request(url!, method: .post, parameters:  jsonData,encoder: .json).response { response in
-            if response.response?.statusCode == 200{
-                completion(true,nil)
-            } else {
-                completion(nil,.unknowmError)
+            
+            switch response.result {
+            case .success(_):
+                if response.response?.statusCode == 200{
+                    completion(true,nil)
+                } else {
+                    completion(nil,.unknowmError)
+                }
+            case .failure(_):
+                completion(nil,.notConnected)
             }
         }
     }

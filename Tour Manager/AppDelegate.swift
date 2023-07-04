@@ -12,16 +12,22 @@ import UserNotifications
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     public static var user:User? = User()
-    
+
     public static var tabBar:UITabBarController? = nil
+        
+    let localNotifications = LocalNotifications()
     
-    public static var userDefaults = UserDefaults.standard
+    let pushNotificationsService = PushNotificationService()
+    
+    let userDefaultsd = WorkWithUserDefaults()
     
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         registerForPushNotifications()
         
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+                
         return true
     }
 
@@ -45,8 +51,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       }
       let token = tokenParts.joined()
       print("Device Token: \(token)")
-        AppDelegate.userDefaults.setValue(token, forKey: "deviceToken")
+        self.userDefaultsd.setDeviceToken(token: token)
         AppDelegate.user?.setDeviceToken(deviceToken: token)
+        
+        
+        
+        
+        let center = UNUserNotificationCenter.current()
+
+//        // 1. Create Custom Actions
+//        
+//        let showMeMoreAction = UNNotificationAction(identifier: "showMeMoreIdentifier",
+//                                        title: "Show me more",
+//                                                    options: [.foreground])
+//        
+//        
+//        let snoozeAction = UNNotificationAction(identifier: "snoozeIdentifier",
+//                                                title: "Snooze",
+//                                                options: [])
+//        let deleteAction = UNNotificationAction(identifier: "deleteIdentifier",
+//                                                title: "Delete",
+//                                                options: [.destructive])
+//
+//        // 2. Register Custom Actions For Category
+//        let category1 = UNNotificationCategory(identifier: "myActionCategoryIdentifier1",
+//                                               actions: [showMeMoreAction],
+//                                               intentIdentifiers: [])
+//        
+//        let category2 = UNNotificationCategory(identifier: "myActionCategoryIdentifier2",
+//                                               actions: [snoozeAction, deleteAction],
+//                                               intentIdentifiers: [])
+//
+//        // 3. Register Categories with OS
+//        center.setNotificationCategories([category1, category2])
     }
 
     func application(_ application: UIApplication,
@@ -81,17 +118,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: UNUserNotificationCenterDelegate{
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.badge,.banner,.sound,.list])
+       
+        let notificationUserInfo = notification.request.content.userInfo
         
-        print(notification.request.content)
+        let notificationType =  notificationUserInfo["notification_type"] as? String
         
-        
-        if #available(iOS 16.0, *) {
-            center.setBadgeCount(123)
-        } else {
-
-            UIApplication.shared.applicationIconBadgeNumber = 2
+        if let notificationType = notificationType{
+            let type = NotificationType(rawValue: notificationType)
+            
+            switch type {
+            case .removeTour:break
+//                self.pushNotificationsService.removeTour(notificationUserInfo: notificationUserInfo)
+            case .addTour:
+                break
+            case .updateTour:break
+//                self.pushNotificationsService.updateTour(notificationUserInfo: notificationUserInfo)
+            case .guideTourStatus:
+                self.pushNotificationsService.changeGuideStatus(notificationUserInfo: notificationUserInfo)
+                return
+            case nil:
+                break
+            }
         }
+    
+        completionHandler([.banner,.badge,.sound])
+       
+        
+
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        print(123)
     }
 }
 
