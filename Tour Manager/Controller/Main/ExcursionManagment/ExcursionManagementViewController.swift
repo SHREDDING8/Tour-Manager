@@ -457,6 +457,12 @@ extension ExcursionManagementViewController:UITableViewDelegate,UITableViewDataS
         
         cell.guidesLabel.text = guides
         
+        if self.excursionsModel.excursions[indexPath.row].dateAndTime < Date.now{
+            cell.contentView.layer.opacity = 0.5
+        }else{
+            cell.contentView.layer.opacity = 1
+        }
+        
         
         return cell
     }
