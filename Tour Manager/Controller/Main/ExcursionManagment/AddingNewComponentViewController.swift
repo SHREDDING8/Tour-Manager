@@ -409,6 +409,8 @@ extension AddingNewComponentViewController:UITableViewDelegate,UITableViewDataSo
                     cell.componentText.font = Font.getFont(name: .americanTypewriter, style: .bold, size: 20)
                 }
                 
+            }else{
+                cell.accessoryType = .none
             }
         }
         
