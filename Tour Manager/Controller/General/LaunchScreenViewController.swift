@@ -36,6 +36,8 @@ class LaunchScreenViewController: UIViewController {
             
             self.user?.getUserInfoFromApi(completion: { isGetted, error in
                 
+                print("Lauch: \(isGetted) \(error)")
+                
                 if isGetted{
                     self.controllers.goToMainTabBar(view: self.view, direction: .fade)
                 }else if error == .notConnected{

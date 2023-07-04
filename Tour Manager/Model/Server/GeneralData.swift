@@ -47,7 +47,7 @@ class GeneralData{
         let refreshToken = self.userDefaults.getRefreshToken() ?? ""
         
         if !self.userDefaults.isAuthToken(date: Date.now){
-            print("requestWithCheckRefresh isAuthToken")
+            print("requestWithCheckRefresh isAuthToken, refreshToken \(refreshToken)")
             self.refreshToken(refreshToken: refreshToken) { isRefreshed, newToken, error in
                 if isRefreshed{
                     self.userDefaults.setAuthToken(token: newToken!)
@@ -68,9 +68,13 @@ class GeneralData{
         
         let url = URL(string: routeRefreshToken)!
         
+        
+        
+        
+        
         AF.request(url,method: .post, parameters: jsonData,encoder: .json).response{
             response in
-            
+                        
             switch response.result {
             case .success(_):
                 if response.response?.statusCode == 400{

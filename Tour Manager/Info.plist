@@ -27,7 +27,11 @@
 		</dict>
 	</dict>
 	<key>NSCalendarsWriteOnlyAccessUsageDescription</key>
-	<string>Разрешите приложению доавблять напоминания в календарь</string>
+	<string>Разрешите приложению добавлять напоминания в календарь</string>
+	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>Разрешите приложению добавлять напоминания в календарь</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Разрешите приложению добавлять напоминания в календарь</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>

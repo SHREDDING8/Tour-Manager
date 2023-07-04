@@ -22,12 +22,7 @@ extension User{
                 
                 return
             }
-            
-            if response == nil || !isInfo{
-                completion(false, .unknowmError)
-                return
-            }
-            
+                        
             self.setEmail(email: response!.email)
             self.setFirstName(firstName: response!.first_name)
             self.setSecondName(secondName: response!.last_name)

@@ -66,14 +66,14 @@ public class ApiManagerUserData{
         self.domain = generalData.domain
         self.prefix = domain + "users/"
         
-        self.routeGetUserInfo = prefix + "get_user_info/"
-        self.routeSetUserInfo = prefix + "update_user_info/"
+        self.routeGetUserInfo = prefix + "get_user_info"
+        self.routeSetUserInfo = prefix + "update_user_info"
         
-        self.routeDeleteCurrentUser = prefix + "delete_current_user_account/"
+        self.routeDeleteCurrentUser = prefix + "delete_current_user_account"
         
-        self.routeUploadPhoto = prefix + "set_profile_picture/"
-        self.routeDownLoadPhoto = prefix + "get_profile_picture/"
-        self.routeDeletePhoto = prefix + "delete_profile_picture/"
+        self.routeUploadPhoto = prefix + "set_profile_picture"
+        self.routeDownLoadPhoto = prefix + "get_profile_picture"
+        self.routeDeletePhoto = prefix + "delete_profile_picture"
     }
     
     
@@ -98,15 +98,12 @@ public class ApiManagerUserData{
                         completion(false, nil, error)
                         
                     } else if response.response?.statusCode == 200{
-                        if let responseData = try? JSONDecoder().decode(ResponseGetUserInfoJsonStruct.self, from: response.data!){
-                            completion(true, responseData, nil)
-                            
-                        }else{
-                            completion(false, nil, .unknowmError)
-                        }
-                    } else {
+                        let responseData = try! JSONDecoder().decode(ResponseGetUserInfoJsonStruct.self, from: response.data!)
+                        completion(true, responseData, nil)
+                    }else {
                         completion(false, nil, .unknowmError)
                     }
+                    
                 case .failure(_):
                     completion(false, nil, .notConnected)
                 }
