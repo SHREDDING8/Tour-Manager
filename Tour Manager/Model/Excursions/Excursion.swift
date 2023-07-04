@@ -47,6 +47,8 @@ public struct SelfGuide:Equatable {
             return .systemBlue
         }
     }
+    
+    
 }
 
 public class Excursion{
