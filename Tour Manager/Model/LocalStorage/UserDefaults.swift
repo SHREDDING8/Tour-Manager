@@ -70,13 +70,11 @@ class WorkWithUserDefaults{
         let localIdKey:userDefaultsKeys = .localId
         let refreshTokenKey:userDefaultsKeys = .refreshToken
         let lastRefreshTokenKey:userDefaultsKeys = .lastRefreshToken
-        let deviceTokenKey:userDefaultsKeys = .deviceToken
         
         userDefaults.set(nil, forKey: authTokenKey.rawValue)
         userDefaults.set(nil, forKey: localIdKey.rawValue)
         userDefaults.set(nil, forKey: refreshTokenKey.rawValue)
         userDefaults.set(nil, forKey: lastRefreshTokenKey.rawValue)
-        userDefaults.set(nil, forKey: deviceTokenKey.rawValue)
     }
     
     public func setLastRefreshDate(date:Date){
