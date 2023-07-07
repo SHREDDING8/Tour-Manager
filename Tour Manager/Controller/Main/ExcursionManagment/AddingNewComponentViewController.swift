@@ -401,7 +401,6 @@ extension AddingNewComponentViewController:UITableViewDelegate,UITableViewDataSo
         cell.componentText.font = Font.getFont(name: .americanTypewriter, style: .regular, size: 20)
         
         for guide in excursion.selfGuides{
-                        
             if arrayWithGuides[indexPath.row].guideInfo == guide.guideInfo{
                 cell.accessoryType = .checkmark
                 
@@ -409,8 +408,6 @@ extension AddingNewComponentViewController:UITableViewDelegate,UITableViewDataSo
                     cell.componentText.font = Font.getFont(name: .americanTypewriter, style: .bold, size: 20)
                 }
                 
-            }else{
-                cell.accessoryType = .none
             }
         }
         
@@ -464,7 +461,6 @@ extension AddingNewComponentViewController:UITableViewDelegate,UITableViewDataSo
                     
                     if unselectedGuide.guideInfo == excursion.selfGuides[indexGuide].guideInfo{
                         excursion.selfGuides.remove(at: indexGuide)
-                        
                             break
                     }
                 }

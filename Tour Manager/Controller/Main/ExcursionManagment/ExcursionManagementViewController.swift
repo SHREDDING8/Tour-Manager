@@ -164,9 +164,9 @@ class ExcursionManagementViewController: UIViewController{
             refreshController.endRefreshing()
         }), for: .primaryActionTriggered)
         
-        let cell = UINib(nibName: "ExcursionTableViewCell", bundle: nil)
+        let cell = UINib(nibName: "TourManadgmentTableViewCell", bundle: nil)
         
-        tableViewCalendar.register(cell, forCellReuseIdentifier: "ExcursionTableViewCell")
+        tableViewCalendar.register(cell, forCellReuseIdentifier: "TourManadgmentTableViewCell")
         
         NSLayoutConstraint.activate([
             
@@ -422,12 +422,17 @@ extension ExcursionManagementViewController:UITableViewDelegate,UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ExcursionTableViewCell", for: indexPath) as! ExcursionTableViewCell
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TourManadgmentTableViewCell", for: indexPath) as! TourManadgmentTableViewCell
         
         cell.nameLabel.text = self.excursionsModel.excursions[indexPath.row].excursionName
         cell.routeLabel.text = self.excursionsModel.excursions[indexPath.row].route
         
         cell.startTimeLabel.text = self.excursionsModel.excursions[indexPath.row].dateAndTime.timeToString()
+        
+        cell.numberOfPeople.text = self.excursionsModel.excursions[indexPath.row].numberOfPeople
+        
+        cell.customerCompanyName.text = self.excursionsModel.excursions[indexPath.row].customerCompanyName
         
         var guides = ""
         

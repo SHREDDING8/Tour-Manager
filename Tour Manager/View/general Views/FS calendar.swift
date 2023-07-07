@@ -23,6 +23,8 @@ class FSCalendarSchedule{
          // locale
         calendar.appearance.headerMinimumDissolvedAlpha = 0
         calendar.locale = NSLocale(localeIdentifier: "ru") as Locale
+//        calendar.formatter.timeZone = Calendar.current.timeZone
+//        calendar.formatter.calendar = Calendar.current
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ru")
         dateFormatter.setLocalizedDateFormatFromTemplate("MMMM YYYY")

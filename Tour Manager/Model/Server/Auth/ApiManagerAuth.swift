@@ -51,15 +51,15 @@ public class ApiManagerAuth{
         self.domain = generalData.domain
         self.prefix = domain + "auth/"
         
-        self.routeLogIn = prefix + "login/"
-        self.routeLogOut = prefix + "logout/"
-        self.routeSignIn = prefix + "signup/"
+        self.routeLogIn = prefix + "login"
+        self.routeLogOut = prefix + "logout"
+        self.routeSignIn = prefix + "signup"
         
-        self.routeIsEmailBusy = prefix + "check_user_email/"
+        self.routeIsEmailBusy = prefix + "check_user_email"
        
-        self.routeResetPassword = prefix + "reset_password/"
-        self.routeSendVerifyEmail = prefix + "send_verify_email/"
-        self.routeUpdatePassword = prefix + "update_user_password/"
+        self.routeResetPassword = prefix + "reset_password"
+        self.routeSendVerifyEmail = prefix + "send_verify_email"
+        self.routeUpdatePassword = prefix + "update_user_password"
     }
     
     
