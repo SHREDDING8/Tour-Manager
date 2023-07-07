@@ -51,10 +51,12 @@ public struct SelfGuide:Equatable {
     
 }
 
-public class Excursion{
+public class Excursion:Equatable{
+    
+    
     // MARK: - Fields
     
-    var localId:String?
+    var localId:String = ""
     
     var excursionName:String = ""
     
@@ -81,6 +83,52 @@ public class Excursion{
     var isPaid:Bool = false
     
     var selfGuides:[SelfGuide] = []
+    
+    public static func == (lhs: Excursion, rhs: Excursion) -> Bool {
+        
+//        print(lhs.localId == rhs.localId)
+//        print(lhs.excursionName == rhs.excursionName)
+//        print(lhs.route == rhs.route)
+//        print(lhs.additionalInfromation == rhs.additionalInfromation)
+//        print(lhs.guideAccessNotes == rhs.guideAccessNotes)
+//        print(lhs.dateAndTime == rhs.dateAndTime)
+//        print(lhs.numberOfPeople == rhs.numberOfPeople)
+//        print(lhs.customerCompanyName == rhs.customerCompanyName)
+//        print(lhs.customerGuideName == rhs.customerGuideName)
+//        print(lhs.companyGuidePhone == rhs.companyGuidePhone)
+//        print(lhs.paymentMethod == rhs.paymentMethod)
+//        print(lhs.paymentAmount == rhs.paymentAmount)
+//        print(lhs.isPaid == rhs.isPaid)
+//        print(lhs.selfGuides == rhs.selfGuides)
+        
+        let first = lhs.localId == rhs.localId &&
+        lhs.excursionName == rhs.excursionName &&
+        lhs.route == rhs.route &&
+        lhs.additionalInfromation == rhs.additionalInfromation &&
+        lhs.guideAccessNotes == rhs.guideAccessNotes &&
+        lhs.dateAndTime == rhs.dateAndTime &&
+        lhs.numberOfPeople == rhs.numberOfPeople &&
+        lhs.customerCompanyName == rhs.customerCompanyName &&
+        lhs.customerGuideName == rhs.customerGuideName &&
+        lhs.companyGuidePhone == rhs.companyGuidePhone &&
+        lhs.paymentMethod == rhs.paymentMethod &&
+        lhs.paymentAmount == rhs.paymentAmount &&
+        lhs.isPaid == rhs.isPaid &&
+        lhs.selfGuides.count == rhs.selfGuides.count
+        
+        if first{
+            for guide in 0..<lhs.selfGuides.count{
+                if !(lhs.selfGuides[guide].guideInfo == rhs.selfGuides[guide].guideInfo){
+                    return false
+                }
+            }
+            return true
+        }
+        
+        return false
+    }
+    
+    
     
     
     init(localId: String, excursionName:String, route:String, additionalInfromation:String,
@@ -111,6 +159,14 @@ public class Excursion{
         self.selfGuides = selfGuides ?? []
         self.route = route ?? ""
         self.dateAndTime = dateAndTime ?? Date.now
+    }
+    
+    public func copy()->Excursion{
+        let tour = Excursion(localId: self.localId, excursionName: self.excursionName, route: self.route, additionalInfromation: self.additionalInfromation, guideAccessNotes: self.guideAccessNotes, numberOfPeople: self.numberOfPeople, dateAndTime: self.dateAndTime, customerCompanyName: self.customerCompanyName, customerGuideName: self.customerGuideName, companyGuidePhone: self.companyGuidePhone, isPaid: self.isPaid, paymentMethod: self.paymentMethod, paymentAmount: self.paymentAmount)
+        
+        tour.selfGuides = self.selfGuides
+        
+        return tour
     }
     
     init() {

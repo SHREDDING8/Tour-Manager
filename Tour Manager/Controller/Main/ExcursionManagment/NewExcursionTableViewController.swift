@@ -56,27 +56,6 @@ class NewExcursionTableViewController: UITableViewController {
     
     @IBOutlet weak var guiedsCollectionView: UICollectionView!
     
-    
-    // MARK: - Objects
-    
-    var darkUiView:UIView = {
-        let uiView = UIView()
-        uiView.backgroundColor = .black
-        uiView.layer.opacity = 0
-        uiView.translatesAutoresizingMaskIntoConstraints = false
-        return uiView
-    }()
-    
-    var pickerPaymentMethodView:UIView = {
-        let view = UIView()
-        
-        let picker = UIPickerView()
-        
-        return view
-    }()
-    
-    
-    
     // MARK: - my variables
     
     let user = AppDelegate.user
@@ -85,6 +64,7 @@ class NewExcursionTableViewController: UITableViewController {
     
     
     var excursion = Excursion()
+    var oldTour = Excursion()
     let controllers = Controllers()
     let alerts = Alert()
     let validation = StringValidation()
@@ -96,6 +76,8 @@ class NewExcursionTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        oldTour = excursion.copy()
+        
         if (self.user?.getAccessLevel(rule: .canWriteTourList) ?? false){
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonClick))
         }
@@ -103,7 +85,11 @@ class NewExcursionTableViewController: UITableViewController {
         if (self.user?.getAccessLevel(rule: .canWriteTourList) ?? false){
             if #available(iOS 16.0, *) {
                 self.navigationItem.backAction = UIAction(handler: { _ in
-                    self.warningAlertDuringExit(isPopController: true)
+                    if !(self.oldTour == self.excursion){
+                        self.warningAlertDuringExit(isPopController: true)
+                    }else{
+                        self.navigationController?.popViewController(animated: true)
+                    }
                 })
             }
         }
@@ -445,9 +431,13 @@ extension NewExcursionTableViewController{
 // MARK: - UIGestureRecognizerDelegate
 extension NewExcursionTableViewController:UIGestureRecognizerDelegate{
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if !(oldTour == excursion){
             warningAlertDuringExit(isPopController: true)
+            return false
+        }
+            
        
-        return false
+        return true
     }
 }
 

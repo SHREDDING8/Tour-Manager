@@ -17,6 +17,8 @@
 		EE18F4662A3E4FB00047E068 /* ResponseAutoFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE18F4652A3E4FB00047E068 /* ResponseAutoFill.swift */; };
 		EE18F4682A3E503F0047E068 /* ApiManagerAutoFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE18F4672A3E503F0047E068 /* ApiManagerAutoFill.swift */; };
 		EE1A678F2A40F50F007A1A84 /* ExcursionForGuideTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1A678E2A40F50F007A1A84 /* ExcursionForGuideTableViewController.swift */; };
+		EE1D14122A577A1500A125F2 /* TourManadgmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1D14102A577A1500A125F2 /* TourManadgmentTableViewCell.swift */; };
+		EE1D14132A577A1500A125F2 /* TourManadgmentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE1D14112A577A1500A125F2 /* TourManadgmentTableViewCell.xib */; };
 		EE2377362A0816D900CB9D70 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2377352A0816D900CB9D70 /* Alerts.swift */; };
 		EE2C9A5029FD858500B7D74F /* ProfilePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2C9A4F29FD858500B7D74F /* ProfilePageViewController.swift */; };
 		EE4C89352A2CEE40004D3CB9 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4C89342A2CEE40004D3CB9 /* Auth.swift */; };
@@ -99,6 +101,8 @@
 		EE18F4652A3E4FB00047E068 /* ResponseAutoFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseAutoFill.swift; sourceTree = "<group>"; };
 		EE18F4672A3E503F0047E068 /* ApiManagerAutoFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManagerAutoFill.swift; sourceTree = "<group>"; };
 		EE1A678E2A40F50F007A1A84 /* ExcursionForGuideTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcursionForGuideTableViewController.swift; sourceTree = "<group>"; };
+		EE1D14102A577A1500A125F2 /* TourManadgmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourManadgmentTableViewCell.swift; sourceTree = "<group>"; };
+		EE1D14112A577A1500A125F2 /* TourManadgmentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TourManadgmentTableViewCell.xib; sourceTree = "<group>"; };
 		EE2377352A0816D900CB9D70 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		EE2C9A4F29FD858500B7D74F /* ProfilePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePageViewController.swift; sourceTree = "<group>"; };
 		EE4C89342A2CEE40004D3CB9 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
@@ -522,6 +526,8 @@
 				EEB764A12A387B2200579E6B /* NewComponentTableViewCell.xib */,
 				EEF6EBA62A41BADE00DC5F6A /* GuideCollectionViewCell.swift */,
 				EEF6EBA72A41BADE00DC5F6A /* GuideCollectionViewCell.xib */,
+				EE1D14102A577A1500A125F2 /* TourManadgmentTableViewCell.swift */,
+				EE1D14112A577A1500A125F2 /* TourManadgmentTableViewCell.xib */,
 			);
 			path = cells;
 			sourceTree = "<group>";
@@ -656,6 +662,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE52E17B29E5C1CB000C0E5B /* LaunchScreen.storyboard in Resources */,
+				EE1D14132A577A1500A125F2 /* TourManadgmentTableViewCell.xib in Resources */,
 				EEF6EBA92A41BADE00DC5F6A /* GuideCollectionViewCell.xib in Resources */,
 				EE1770F62A23F00300B18055 /* Launch.storyboard in Resources */,
 				EE8474082A4D99620082DE7E /* sub.caf in Resources */,
@@ -775,6 +782,7 @@
 				EE18F4642A3E4EAD0047E068 /* SendAutofill.swift in Sources */,
 				EE18F4682A3E503F0047E068 /* ApiManagerAutoFill.swift in Sources */,
 				EE5EEC312A06EDC20025336E /* ChoiceOfTypeAccountViewController.swift in Sources */,
+				EE1D14122A577A1500A125F2 /* TourManadgmentTableViewCell.swift in Sources */,
 				EEF27A452A055443006E5E53 /* Profile.swift in Sources */,
 				EE2377362A0816D900CB9D70 /* Alerts.swift in Sources */,
 				EEB2336B2A51D50700F3904F /* NoConnectionViewController.swift in Sources */,
