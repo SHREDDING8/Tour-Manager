@@ -78,18 +78,18 @@ class ApiManagerExcursions{
         self.domain = generalData.domain
         self.prefix = domain + "tours/"
         
-        self.routeGetExcursions = prefix + "get_tour_list/"
-        self.routeAddNewExcursion = prefix + "add_tour/"
-        self.routeUpdateExcursion = prefix + "update_tour/"
-        self.routeDelteExcursion = prefix + "delete_tour/"
+        self.routeGetExcursions = prefix + "get_tour_list"
+        self.routeAddNewExcursion = prefix + "add_tour"
+        self.routeUpdateExcursion = prefix + "update_tour"
+        self.routeDelteExcursion = prefix + "delete_tour"
         
-        self.routeGetExcursionsForGuides = prefix + "get_guide_tour_list/"
+        self.routeGetExcursionsForGuides = prefix + "get_guide_tour_list"
         
-        self.routeGetTourListInRange = prefix + "get_tour_list_in_range/"
+        self.routeGetTourListInRange = prefix + "get_tour_list_in_range"
         
-        self.routeGetGuideTourListInRange = prefix + "get_guide_tour_list_in_range/"
+        self.routeGetGuideTourListInRange = prefix + "get_guide_tour_list_in_range"
         
-        self.routeSetGuideTourStatus = prefix + "set_guide_tour_status/"
+        self.routeSetGuideTourStatus = prefix + "set_guide_tour_status"
     }
     
     
@@ -122,7 +122,8 @@ class ApiManagerExcursions{
                         completion(false,nil, .unknown)
                     }
                 case .failure(_):
-                    completion(false,nil, .notConnected)
+                        completion(false,nil, .notConnected)
+                    
                 }
             }
         }
@@ -179,7 +180,7 @@ class ApiManagerExcursions{
             }
             
             
-            let jsonData = SendUpdateExcursion(token: requestToken, companyId: companyId, excursionId: excursion.localId ?? "", tourName: excursion.excursionName, tourRoute: excursion.route, tourNotes: excursion.additionalInfromation, tourNotesVisible: excursion.guideAccessNotes, tourNumberOfPeople: excursion.numberOfPeople, tourTimeStart: excursion.dateAndTime.timeToString(), tourDate: excursion.dateAndTime.birthdayToString(), oldDate: oldDate.birthdayToString(), customerCompanyName: excursion.customerCompanyName, customerGuideName: excursion.customerGuideName, customerGuideContact: excursion.companyGuidePhone,isPaid: excursion.isPaid, paymentMethod: excursion.paymentMethod, paymentAmount: excursion.paymentAmount,guides: guides)
+            let jsonData = SendUpdateExcursion(token: requestToken, companyId: companyId, excursionId: excursion.localId , tourName: excursion.excursionName, tourRoute: excursion.route, tourNotes: excursion.additionalInfromation, tourNotesVisible: excursion.guideAccessNotes, tourNumberOfPeople: excursion.numberOfPeople, tourTimeStart: excursion.dateAndTime.timeToString(), tourDate: excursion.dateAndTime.birthdayToString(), oldDate: oldDate.birthdayToString(), customerCompanyName: excursion.customerCompanyName, customerGuideName: excursion.customerGuideName, customerGuideContact: excursion.companyGuidePhone,isPaid: excursion.isPaid, paymentMethod: excursion.paymentMethod, paymentAmount: excursion.paymentAmount,guides: guides)
             
             
             AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
@@ -232,11 +233,9 @@ class ApiManagerExcursions{
                 case .failure(_):
                     completion(false, .notConnected)
                 }
-                
             }
         }
     }
-    
     
     public func GetExcursionsForGuides(token:String, companyId:String, date:String, completion: @escaping (Bool, [ResponseGetExcursion]?, customErrorExcursion?)->Void ){
         

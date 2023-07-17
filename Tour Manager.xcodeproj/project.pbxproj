@@ -46,6 +46,7 @@
 		EE5F91D12A200D2D00B39BB1 /* ResponseAuthStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5F91D02A200D2D00B39BB1 /* ResponseAuthStructs.swift */; };
 		EE5F91D32A202F0800B39BB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE5F91D22A202F0800B39BB1 /* Main.storyboard */; };
 		EE5F91D72A20A1E700B39BB1 /* mainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5F91D62A20A1E700B39BB1 /* mainTabBarViewController.swift */; };
+		EE63A6C62A59E968007B8FC1 /* AdvancedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE63A6C52A59E968007B8FC1 /* AdvancedSettingsViewController.swift */; };
 		EE6DE06A2A1E681100507A27 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6DE0692A1E681100507A27 /* User.swift */; };
 		EE8474012A4CB5DD0082DE7E /* GeneralLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8474002A4CB5DD0082DE7E /* GeneralLogic.swift */; };
 		EE8474042A4CC9FD0082DE7E /* NotificationCenterLocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8474032A4CC9FD0082DE7E /* NotificationCenterLocal.swift */; };
@@ -132,6 +133,7 @@
 		EE5F91D02A200D2D00B39BB1 /* ResponseAuthStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseAuthStructs.swift; sourceTree = "<group>"; };
 		EE5F91D22A202F0800B39BB1 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		EE5F91D62A20A1E700B39BB1 /* mainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainTabBarViewController.swift; sourceTree = "<group>"; };
+		EE63A6C52A59E968007B8FC1 /* AdvancedSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSettingsViewController.swift; sourceTree = "<group>"; };
 		EE6DE0692A1E681100507A27 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		EE8474002A4CB5DD0082DE7E /* GeneralLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralLogic.swift; sourceTree = "<group>"; };
 		EE8474032A4CC9FD0082DE7E /* NotificationCenterLocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterLocal.swift; sourceTree = "<group>"; };
@@ -322,6 +324,7 @@
 				EE1770ED2A239A7E00B18055 /* ChangePasswordViewController.swift */,
 				EE9788682A28D4FA0086C034 /* EmploeeTableViewController.swift */,
 				EE97886A2A28EA710086C034 /* EmploeeViewController.swift */,
+				EE63A6C52A59E968007B8FC1 /* AdvancedSettingsViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -730,6 +733,7 @@
 				EEF27A592A05C7BC006E5E53 /* VerifyEmailViewController.swift in Sources */,
 				EE5F91D72A20A1E700B39BB1 /* mainTabBarViewController.swift in Sources */,
 				EE1770F32A23EE5A00B18055 /* LaunchScreenViewController.swift in Sources */,
+				EE63A6C62A59E968007B8FC1 /* AdvancedSettingsViewController.swift in Sources */,
 				EE5F91BE2A1E9FC400B39BB1 /* GeneralData.swift in Sources */,
 				EE1A678F2A40F50F007A1A84 /* ExcursionForGuideTableViewController.swift in Sources */,
 				EEF27A572A05B512006E5E53 /* extensionUiView.swift in Sources */,

@@ -57,9 +57,9 @@ class ApiManagerAutoFill{
         self.domain = generalData.domain
         self.prefix =  domain + "autofill/"
         
-        self.routeGetAutofill = prefix + "get_autofill/"
-        self.routeAddAutofill = prefix + "add_autofill/"
-        self.routeDeleteAutofill = prefix + "delete_autofill/"
+        self.routeGetAutofill = prefix + "get_autofill"
+        self.routeAddAutofill = prefix + "add_autofill"
+        self.routeDeleteAutofill = prefix + "delete_autofill"
     }
     
     
