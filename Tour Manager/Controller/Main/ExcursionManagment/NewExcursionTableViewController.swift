@@ -223,6 +223,7 @@ class NewExcursionTableViewController: UITableViewController {
         self.excursion.guideAccessNotes = sender.isOn
     }
     
+    // MARK: - delete Excursion
     @IBAction func deleteExcursionTap(_ sender: Any) {
         
         self.alerts.deleteAlert(self, title: "Вы уверены что хотите удалить экскурсию?", buttonTitle: "Удалить") {

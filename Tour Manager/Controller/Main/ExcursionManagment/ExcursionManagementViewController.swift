@@ -467,9 +467,34 @@ extension ExcursionManagementViewController:UITableViewDelegate,UITableViewDataS
         }else{
             cell.contentView.layer.opacity = 1
         }
-        
+                
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        
+        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { elements in
+            let delete = UIAction(title: "Удалить", image: UIImage(systemName: "trash"), attributes: .destructive) { action in
+                
+                self.alerts.deleteAlert(self, title: "Вы уверены что хотите удалить экскурсию?", buttonTitle: "Удалить") {
+                    self.excursionsModel.deleteExcursion(token: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "", excursion: self.excursionsModel.excursions[indexPath.row]) { isDeleted, error in
+                        if let err = error{
+                            self.alerts.errorAlert(self, errorExcursionsApi: err)
+                            return
+                        }
+                        self.getExcursions(date: self.calendar.calendar.selectedDate ?? Date.now)
+                        
+                        self.getEventsForDates()
+                    }
+                }
+                
+            }
+            
+            return UIMenu(options: .displayInline, children: [delete])
+        }
+        
+        return configuration
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
