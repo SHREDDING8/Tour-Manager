@@ -117,12 +117,13 @@ class User:UserProtocol, Equatable{
     }
     
     
-    init(localId: String, firstName: String?, secondName: String?, email:String?, phone:String?) {
+    init(localId: String, firstName: String?, secondName: String?, email:String?, phone:String?, birthdayDate:Date) {
         self.localId = localId
         self.firstName = firstName
         self.secondName = secondName
         self.email = email
         self.phone = phone
+        self.birthday = birthdayDate
     }
     init(localId: String, email: String, firstName: String, secondName: String, birthday: Date, phone: String, companyId:String, accessLevel:AccessLevels){
         self.localId = localId

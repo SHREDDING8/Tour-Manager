@@ -59,7 +59,7 @@ struct ResponseUpdateExcursion:Codable{
 struct TourGuide: Codable {
     let guideFirstName, guideLastName, guideEmail, guidePhone: String?
     let isMain: Bool
-    let status, guideID: String
+    let status, guideID, birthdayDate: String
 
     enum CodingKeys: String, CodingKey {
         case guideFirstName = "guide_first_name"
@@ -69,6 +69,7 @@ struct TourGuide: Codable {
         case isMain = "is_main"
         case status
         case guideID = "guide_id"
+        case birthdayDate = "birthday_date"
     }
 }
 
