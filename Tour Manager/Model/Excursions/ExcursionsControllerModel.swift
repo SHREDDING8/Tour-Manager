@@ -34,7 +34,7 @@ class ExcursionsControllerModel{
                     let newExcursion = Excursion(localId: excursion.tourId, excursionName: excursion.tourName, route: excursion.tourRoute, additionalInfromation: excursion.tourNotes, guideAccessNotes: excursion.tourNotesVisible, numberOfPeople: excursion.tourNumberOfPeople, dateAndTime: Date.dateAndTimeToDate(dateString: date.birthdayToString(), timeString: excursion.tourTimeStart), customerCompanyName: excursion.customerCompanyName, customerGuideName: excursion.customerGuideName, companyGuidePhone: excursion.customerGuideContact,isPaid: excursion.isPaid, paymentMethod: excursion.paymentMethod, paymentAmount: excursion.paymentAmount)
                     
                     for guide in excursion.tourGuides{
-                        let newGuideInfo = User(localId: guide.guideID, firstName: guide.guideFirstName, secondName: guide.guideLastName,email: guide.guideEmail,phone: guide.guidePhone)
+                        let newGuideInfo = User(localId: guide.guideID, firstName: guide.guideFirstName, secondName: guide.guideLastName,email: guide.guideEmail,phone: guide.guidePhone,birthdayDate: Date.dateStringToDate(dateString: guide.birthdayDate))
                         let newGuide = SelfGuide(guideInfo: newGuideInfo, isMain: guide.isMain, status: .init(rawValue: guide.status) ?? .waiting)
                         
                         newExcursion.selfGuides.append(newGuide)
@@ -67,7 +67,7 @@ class ExcursionsControllerModel{
                     let newExcursion = Excursion(localId: excursion.tourId, excursionName: excursion.tourName, route: excursion.tourRoute, additionalInfromation: excursion.tourNotes, guideAccessNotes: excursion.tourNotesVisible, numberOfPeople: excursion.tourNumberOfPeople, dateAndTime: Date.dateAndTimeToDate(dateString: date.birthdayToString(), timeString: excursion.tourTimeStart), customerCompanyName: excursion.customerCompanyName, customerGuideName: excursion.customerGuideName, companyGuidePhone: excursion.customerGuideContact,isPaid: excursion.isPaid, paymentMethod: excursion.paymentMethod, paymentAmount: excursion.paymentAmount)
                     
                     for guide in excursion.tourGuides{
-                        let newGuideInfo = User(localId: guide.guideID, firstName: guide.guideFirstName, secondName: guide.guideLastName,email: guide.guideEmail,phone: guide.guidePhone)
+                        let newGuideInfo = User(localId: guide.guideID, firstName: guide.guideFirstName, secondName: guide.guideLastName,email: guide.guideEmail,phone: guide.guidePhone, birthdayDate: Date.dateStringToDate(dateString: guide.birthdayDate))
                         let newGuide = SelfGuide(guideInfo: newGuideInfo, isMain: guide.isMain, status: .init(rawValue: guide.status) ?? .waiting)
                         
                         newExcursion.selfGuides.append(newGuide)
@@ -105,7 +105,7 @@ class ExcursionsControllerModel{
     }
     
     public func deleteExcursion(token: String, companyId: String, excursion:Excursion, completion: @escaping (Bool, customErrorExcursion?)->Void){
-        apiManagerExcursions.deleteExcursion(token: token, companyId: companyId, date: excursion.dateAndTime.birthdayToString(), excursionId: excursion.localId ?? "") { isDeleted, error in
+        apiManagerExcursions.deleteExcursion(token: token, companyId: companyId, date: excursion.dateAndTime.birthdayToString(), excursionId: excursion.localId) { isDeleted, error in
             completion(isDeleted,error)
         }
     }

@@ -20,7 +20,7 @@ class GeneralData{
     let userDefaults = WorkWithUserDefaults()
             
     init(){
-        routeRefreshToken = domain + "auth/refresh_user_token/"
+        routeRefreshToken = domain + "auth/refresh_user_token"
     }
     
     
@@ -47,7 +47,6 @@ class GeneralData{
         let refreshToken = self.userDefaults.getRefreshToken() ?? ""
         
         if !self.userDefaults.isAuthToken(date: Date.now){
-            print("requestWithCheckRefresh isAuthToken, refreshToken \(refreshToken)")
             self.refreshToken(refreshToken: refreshToken) { isRefreshed, newToken, error in
                 if isRefreshed{
                     self.userDefaults.setAuthToken(token: newToken!)

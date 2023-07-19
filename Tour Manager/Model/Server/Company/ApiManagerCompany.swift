@@ -76,18 +76,18 @@ public class ApiManagerCompany{
         self.domain = generalData.domain
         self.prefix =  domain + "companies/"
         
-        self.routeAddCompany = prefix + "add_company/"
-        self.routeAddEmployeeToCompany = prefix + "add_employee_to_company/"
+        self.routeAddCompany = prefix + "add_company"
+        self.routeAddEmployeeToCompany = prefix + "add_employee_to_company"
         
-        self.routeUpdateCompanyInfo = prefix + "update_company_info/"
-        self.routeGetCurrentAccesslevel = prefix + "get_current_access_level/"
+        self.routeUpdateCompanyInfo = prefix + "update_company_info"
+        self.routeGetCurrentAccesslevel = prefix + "get_current_access_level"
         
-        self.routeDeleteCompany = prefix + "delete_company/"
+        self.routeDeleteCompany = prefix + "delete_company"
         
-        self.routeGetCompanyUsers = prefix + "get_company_users/"
+        self.routeGetCompanyUsers = prefix + "get_company_users"
         
-        self.routeGetCompanyGuides = prefix + "get_company_guides/"
-        self.routeUpdateUserAccessLevel = prefix + "update_user_access_level/"
+        self.routeGetCompanyGuides = prefix + "get_company_guides"
+        self.routeUpdateUserAccessLevel = prefix + "update_user_access_level"
     }
     
     public func addCompany(token:String, companyName:String, completion: @escaping (Bool,ResponseAddCompanyJsonStruct?,customErrorCompany?)->Void ){
