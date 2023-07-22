@@ -253,25 +253,25 @@ class ExcursionForGuideTableViewController: UITableViewController {
         
         let actionCancel = UIAlertAction(title: "Отменить", style: .cancel)
         
-        if #available(iOS 17.0, *) {
-            self.eventStore.requestWriteOnlyAccessToEvents { granted, error in
-                if (granted) && (error == nil) {
-                    
-                    let actionOk = UIAlertAction(title: "Добавить", style: .default){
-                        _ in
-                        self.configureAndSaveCalendarEvent()
-                    }
-                    
-                    DispatchQueue.main.async {
-                        alert.addAction(actionOk)
-                        alert.addAction(actionCancel)
-                        
-                        self.present(alert, animated: true)
-                    }
-                    
-                }
-            }
-        } else {
+//        if #available(iOS 17.0, *) {
+//            self.eventStore.requestWriteOnlyAccessToEvents { granted, error in
+//                if (granted) && (error == nil) {
+//                    
+//                    let actionOk = UIAlertAction(title: "Добавить", style: .default){
+//                        _ in
+//                        self.configureAndSaveCalendarEvent()
+//                    }
+//                    
+//                    DispatchQueue.main.async {
+//                        alert.addAction(actionOk)
+//                        alert.addAction(actionCancel)
+//                        
+//                        self.present(alert, animated: true)
+//                    }
+//                    
+//                }
+//            }
+//        } else {
             self.eventStore.requestAccess(to: .event) { granted, error in
                 let actionOk = UIAlertAction(title: "Добавить", style: .default){
                     _ in
@@ -285,7 +285,7 @@ class ExcursionForGuideTableViewController: UITableViewController {
                     self.present(alert, animated: true)
                 }
             }
-        }
+//        }
     }
     
     private func configureAndSaveCalendarEvent(){
