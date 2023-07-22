@@ -210,7 +210,7 @@ class ExcursionManagementViewController: UIViewController{
     fileprivate func reloadData(isNotTours:Bool = true) {
         UIView.transition(with: self.tableViewCalendar, duration: 0.5,options: .transitionCrossDissolve) {
             self.tableViewCalendar.reloadData()
-            print("reloadData")
+//            print("reloadData")
             
             
             let label = self.tableViewCalendar.viewWithTag(1)

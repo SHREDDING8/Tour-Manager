@@ -258,7 +258,7 @@ public class ApiManagerAuth{
     
     private func checkError(data:Data)->customErrorAuth{
         if let error = try? JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: data){
-            print(error.message)
+//            print(error.message)
             switch error.message{
             case "Email exists":
                 return .emailExist

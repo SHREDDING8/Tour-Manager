@@ -88,15 +88,15 @@ class WorkWithUserDefaults{
             
             let tokenExpired = Calendar.current.date(byAdding: .minute, value: 55, to: lastRefreshDate)!
             
-            print("Current date: \(date)\t TokenExpired: \(tokenExpired)")
+//            print("Current date: \(date)\t TokenExpired: \(tokenExpired)")
             if date > tokenExpired{
-                print("isAuthToken false")
+//                print("isAuthToken false")
                 return false
             }
-            print("isAuthToken true")
+//            print("isAuthToken true")
             return true
         }
-        print("isAuthToken false not lastRefreshDate ")
+//        print("isAuthToken false not lastRefreshDate ")
         return false
     }
     

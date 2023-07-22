@@ -946,6 +946,7 @@
 				DEVELOPMENT_TEAM = 4FV5WJHF4V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Tour Manager/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Tour Manager";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
@@ -957,7 +958,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.9;
+				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = "Shredding.Tour-Manager";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -982,6 +983,7 @@
 				DEVELOPMENT_TEAM = 4FV5WJHF4V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Tour Manager/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Tour Manager";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
@@ -993,7 +995,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.9;
+				MARKETING_VERSION = 1;
 				PRODUCT_BUNDLE_IDENTIFIER = "Shredding.Tour-Manager";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

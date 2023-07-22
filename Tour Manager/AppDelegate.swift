@@ -50,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return String(format: "%02.2hhx", data)
       }
       let token = tokenParts.joined()
-      print("Device Token: \(token)")
+//      print("Device Token: \(token)")
         self.userDefaultsd.setDeviceToken(token: token)
         AppDelegate.user?.setDeviceToken(deviceToken: token)
         
@@ -88,14 +88,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication,
                      didFailToRegisterForRemoteNotificationsWithError error: Error) {
-      print("Failed to register: \(error)")
+//      print("Failed to register: \(error)")
     }
     
     
     func registerForPushNotifications() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) {
             (granted, error) in
-            print("Permission granted: \(granted)")
+//            print("Permission granted: \(granted)")
             UNUserNotificationCenter.current().delegate = self
             guard granted else { return }
             self.getNotificationSettings()
@@ -148,7 +148,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate{
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        print(123)
+//        print(123)
     }
 }
 

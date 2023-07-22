@@ -40,9 +40,9 @@ extension User{
             
             self.userDefaultsService.setLoginData(token: self.getToken(), localId: self.getLocalID() ?? "", refreshToken: self.getRefreshToken())
             
-            print("refresh \(logInData!.refreshToken)")
+//            print("refresh \(logInData!.refreshToken)")
             
-            print("token \(logInData!.token)")
+//            print("token \(logInData!.token)")
             
             
             completion(true,nil)
