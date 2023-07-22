@@ -106,6 +106,7 @@
 		EE1D14112A577A1500A125F2 /* TourManadgmentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TourManadgmentTableViewCell.xib; sourceTree = "<group>"; };
 		EE2377352A0816D900CB9D70 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		EE2C9A4F29FD858500B7D74F /* ProfilePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePageViewController.swift; sourceTree = "<group>"; };
+		EE4619102A6C084F00EBE695 /* Notification.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Notification.caf; sourceTree = "<group>"; };
 		EE4C89342A2CEE40004D3CB9 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		EE4C89362A2CF006004D3CB9 /* User Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User Info.swift"; sourceTree = "<group>"; };
 		EE4C89382A2CF1E7004D3CB9 /* Access Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Access Level.swift"; sourceTree = "<group>"; };
@@ -478,6 +479,7 @@
 		EE8474062A4D99280082DE7E /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				EE4619102A6C084F00EBE695 /* Notification.caf */,
 				EE8474072A4D99620082DE7E /* sub.caf */,
 			);
 			path = Sounds;
