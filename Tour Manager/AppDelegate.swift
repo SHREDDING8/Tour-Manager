@@ -50,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return String(format: "%02.2hhx", data)
       }
       let token = tokenParts.joined()
-//      print("Device Token: \(token)")
+      print("Device Token: \(token)")
         self.userDefaultsd.setDeviceToken(token: token)
         AppDelegate.user?.setDeviceToken(deviceToken: token)
         
