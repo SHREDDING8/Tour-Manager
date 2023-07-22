@@ -15,7 +15,7 @@ class LoadView{
     
     private let loadUIView:UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(resource: .background)
+        view.backgroundColor = UIColor(named: "background")
         view.layer.opacity = 0
         view.translatesAutoresizingMaskIntoConstraints = false
         
