@@ -88,8 +88,8 @@ extension EmploeeViewController:UITableViewDelegate,UITableViewDataSource{
         let title = UILabel(frame: CGRect(x: 15, y: 0, width: self.view.frame.width - 30, height: 50))
         header.addSubview(title)
         
-        header.backgroundColor = UIColor(resource: .background)
-        title.textColor = UIColor(resource: .blueText)
+        header.backgroundColor = UIColor(named: "background")
+        title.textColor = UIColor(named: "blueText")
         title.font = UIFont(name: "American Typewriter Bold", size: 24)
         
         switch section{
