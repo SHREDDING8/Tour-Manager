@@ -204,7 +204,7 @@ class ExcurionsGuideCalendarViewController: UIViewController {
         UIView.transition(with: self.tableViewCalendar, duration: 0.5,options: .transitionCrossDissolve) {
             self.tableViewCalendar.reloadData()
             
-            print("reloadData")
+//            print("reloadData")
             
             let label = self.tableViewCalendar.viewWithTag(1)
             if self.excursionsModel.excursions.count == 0 && isNotTours{

@@ -311,12 +311,12 @@ class LoginViewController: UIViewController {
     
     
     @objc fileprivate func keyboardWillShow(notification: NSNotification){
-        print("keyboardWillShow")
+//        print("keyboardWillShow")
 
         if let _ = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue{
             if Int(stackView.frame.origin.y) != Int(self.iconImageView.frame.origin.y - 10){
-                print("stackView \(stackView.frame.origin.y)")
-                print("icon \(self.iconImageView.frame.origin.y - 10)")
+//                print("stackView \(stackView.frame.origin.y)")
+//                print("icon \(self.iconImageView.frame.origin.y - 10)")
                 
                 stackView.transform = CGAffineTransform(translationX: 0, y: -abs(self.iconImageView.frame.origin.y - 10 - stackView.frame.origin.y))
                 

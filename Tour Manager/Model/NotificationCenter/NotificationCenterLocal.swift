@@ -95,7 +95,7 @@ class LocalNotifications: NSObject{
 extension LocalNotifications:UNUserNotificationCenterDelegate{
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
-        print(response.notification.request.identifier)
+//        print(response.notification.request.identifier)
     }
     
 }
