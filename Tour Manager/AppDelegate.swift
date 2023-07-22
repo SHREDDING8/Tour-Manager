@@ -57,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         
-        let center = UNUserNotificationCenter.current()
+        _ = UNUserNotificationCenter.current()
 
 //        // 1. Create Custom Actions
 //        

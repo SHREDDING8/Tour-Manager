@@ -64,10 +64,10 @@ class ExcursionForGuideTableViewController: UITableViewController {
         
         configureValues()
         
-        self.tabBarController?.tabBar.backgroundColor = UIColor(resource: .background)
+        self.tabBarController?.tabBar.backgroundColor = UIColor(named: "background")
         
         self.navigationItem.title = excursion.excursionName
-        self.navigationController?.navigationBar.backgroundColor = UIColor(resource: .background)
+        self.navigationController?.navigationBar.backgroundColor = UIColor(named: "background")
         
         if self.excursion.dateAndTime > Date.now{
             self.navigationItem.rightBarButtonItems = [
@@ -172,7 +172,7 @@ class ExcursionForGuideTableViewController: UITableViewController {
         let acceptAlert = UIAlertController(title: "Подтверждение экскурсии", message: "Экскурсия '\(self.excursion.excursionName)' \(self.excursion.dateAndTime.birthdayToString()) в \(self.excursion.dateAndTime.timeToString())", preferredStyle: .alert)
         
         let acceptAction = UIAlertAction(title: "Принять", style: .default) { _ in
-            self.excursionModel.setGuideTourStatus(token: self.user?.getToken() ?? "", uid: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "" , tourDate: self.excursion.dateAndTime.birthdayToString(), tourId: self.excursion.localId ?? "", guideStatus: .accepted) { isSetted, error in
+            self.excursionModel.setGuideTourStatus(token: self.user?.getToken() ?? "", uid: self.user?.getToken() ?? "", companyId: self.user?.company.getLocalIDCompany() ?? "" , tourDate: self.excursion.dateAndTime.birthdayToString(), tourId: self.excursion.localId , guideStatus: .accepted) { isSetted, error in
                 
                 if let err = error{
                     self.alerts.errorAlert(self, errorExcursionsApi: err)
@@ -253,25 +253,25 @@ class ExcursionForGuideTableViewController: UITableViewController {
         
         let actionCancel = UIAlertAction(title: "Отменить", style: .cancel)
         
-        if #available(iOS 17.0, *) {
-            self.eventStore.requestWriteOnlyAccessToEvents { granted, error in
-                if (granted) && (error == nil) {
-                    
-                    let actionOk = UIAlertAction(title: "Добавить", style: .default){
-                        _ in
-                        self.configureAndSaveCalendarEvent()
-                    }
-                    
-                    DispatchQueue.main.async {
-                        alert.addAction(actionOk)
-                        alert.addAction(actionCancel)
-                        
-                        self.present(alert, animated: true)
-                    }
-                    
-                }
-            }
-        } else {
+//        if #available(iOS 17.0, *) {
+//            self.eventStore.requestWriteOnlyAccessToEvents { granted, error in
+//                if (granted) && (error == nil) {
+//                    
+//                    let actionOk = UIAlertAction(title: "Добавить", style: .default){
+//                        _ in
+//                        self.configureAndSaveCalendarEvent()
+//                    }
+//                    
+//                    DispatchQueue.main.async {
+//                        alert.addAction(actionOk)
+//                        alert.addAction(actionCancel)
+//                        
+//                        self.present(alert, animated: true)
+//                    }
+//                    
+//                }
+//            }
+//        } else {
             self.eventStore.requestAccess(to: .event) { granted, error in
                 let actionOk = UIAlertAction(title: "Добавить", style: .default){
                     _ in
@@ -285,7 +285,7 @@ class ExcursionForGuideTableViewController: UITableViewController {
                     self.present(alert, animated: true)
                 }
             }
-        }
+//        }
     }
     
     private func configureAndSaveCalendarEvent(){

@@ -33,7 +33,7 @@ class mainTabBarViewController: UITabBarController {
         
         configureActivityIndicator()
         
-        self.view.backgroundColor = UIColor(resource: .background)
+        self.view.backgroundColor = UIColor(named: "background")
         
         self.user?.getAccessLevelFromApi(completion: { isGetted, error in
             

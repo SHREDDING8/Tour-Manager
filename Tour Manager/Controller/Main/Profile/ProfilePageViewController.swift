@@ -242,11 +242,11 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = UIView()
-        header.backgroundColor = UIColor(resource: .background)
+        header.backgroundColor = UIColor(named: "background")
         let title = UILabel(frame: CGRect(x: 15, y: 0, width: self.view.frame.width - 30, height: 50))
         header.addSubview(title)
         
-        title.textColor = UIColor(resource: .blueText)
+        title.textColor = UIColor(named: "blueText")
         
         title.font = UIFont(name: "American Typewriter Bold", size: 24)
         

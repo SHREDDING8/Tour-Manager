@@ -18,7 +18,7 @@ class DatepickerFromBottom{
         let buttonFont = Font.getFont(name: .americanTypewriter, style: .bold, size: 16)
         
         let pickerView = UIView()
-        pickerView.backgroundColor = UIColor(resource: .background)
+        pickerView.backgroundColor = UIColor(named: "background")
         pickerView.translatesAutoresizingMaskIntoConstraints = false
         
         let picker = UIDatePicker()
@@ -47,7 +47,7 @@ class DatepickerFromBottom{
         pickerView.addSubview(cancelButton)
         
         let line = UIView()
-        line.backgroundColor = UIColor(resource: .blueText)
+        line.backgroundColor = UIColor(named: "blueText")
         line.translatesAutoresizingMaskIntoConstraints = false
         
         pickerView.addSubview(line)

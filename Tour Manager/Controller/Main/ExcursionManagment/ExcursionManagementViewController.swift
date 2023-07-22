@@ -38,7 +38,7 @@ class ExcursionManagementViewController: UIViewController{
         
         let labelNotTours = UILabel()
         labelNotTours.font = Font.getFont(name: .americanTypewriter, style: .semiBold, size: 26)
-        labelNotTours.textColor = UIColor(resource: .blueText)
+        labelNotTours.textColor = UIColor(named: "blueText")
         labelNotTours.textAlignment = .center
         labelNotTours.text = "Сегодня экскурсий нет"
         labelNotTours.translatesAutoresizingMaskIntoConstraints = false
@@ -56,7 +56,7 @@ class ExcursionManagementViewController: UIViewController{
         
         
         let activityIndicator = UIActivityIndicatorView(style: .large)
-        activityIndicator.color = UIColor(resource: .blueText)
+        activityIndicator.color = UIColor(named: "blueText")
         activityIndicator.hidesWhenStopped = false
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         activityIndicator.tag = 2
@@ -71,7 +71,7 @@ class ExcursionManagementViewController: UIViewController{
         ])
         
         let refreshCotroller = UIRefreshControl()
-        refreshCotroller.tintColor = UIColor(resource: .blueText)
+        refreshCotroller.tintColor = UIColor(named: "blueText")
         refreshCotroller.tag = 3
         
         tableView.refreshControl = refreshCotroller

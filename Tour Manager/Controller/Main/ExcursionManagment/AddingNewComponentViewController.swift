@@ -51,7 +51,7 @@ class AddingNewComponentViewController: UIViewController {
         
         
         let refreshController = UIRefreshControl()
-        refreshController.tintColor = UIColor(resource: .blueText)
+        refreshController.tintColor = UIColor(named: "blueText")
         refreshController.tag = 1
         
         tableView.refreshControl = refreshController
@@ -62,7 +62,7 @@ class AddingNewComponentViewController: UIViewController {
     var line:UIView = {
         let line = UIView()
         line.translatesAutoresizingMaskIntoConstraints = false
-        line.backgroundColor = UIColor(resource: .blueText)
+        line.backgroundColor = UIColor(named: "blueText")
         line.layer.cornerRadius = 5
         line.layer.opacity = 0.5
         return line
