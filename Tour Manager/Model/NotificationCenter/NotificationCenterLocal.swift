@@ -19,7 +19,7 @@ class LocalNotifications: NSObject{
         
         rememberNotification.categoryIdentifier = "remember"
         
-        rememberNotification.sound = UNNotificationSound(named:UNNotificationSoundName(rawValue: "sub.caf"))
+        rememberNotification.sound = UNNotificationSound(named:UNNotificationSoundName(rawValue: "notification.caf"))
        
         let dateTrigger = Calendar.current.date(byAdding: .day, value: -1, to: tourDate)!
         
@@ -61,7 +61,7 @@ class LocalNotifications: NSObject{
         
         rememberNotification.categoryIdentifier = "remember"
         
-        rememberNotification.sound = UNNotificationSound(named:UNNotificationSoundName(rawValue: "sub.caf"))
+        rememberNotification.sound = UNNotificationSound(named:UNNotificationSoundName(rawValue: "notification.caf"))
         
         let dateTrigger = Calendar.current.date(byAdding: .minute, value: -30, to: tourDate)!
         

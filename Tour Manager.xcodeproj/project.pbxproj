@@ -21,6 +21,7 @@
 		EE1D14132A577A1500A125F2 /* TourManadgmentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE1D14112A577A1500A125F2 /* TourManadgmentTableViewCell.xib */; };
 		EE2377362A0816D900CB9D70 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2377352A0816D900CB9D70 /* Alerts.swift */; };
 		EE2C9A5029FD858500B7D74F /* ProfilePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2C9A4F29FD858500B7D74F /* ProfilePageViewController.swift */; };
+		EE4619132A6C229C00EBE695 /* Notification.wav in Resources */ = {isa = PBXBuildFile; fileRef = EE4619122A6C229C00EBE695 /* Notification.wav */; };
 		EE4C89352A2CEE40004D3CB9 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4C89342A2CEE40004D3CB9 /* Auth.swift */; };
 		EE4C89372A2CF006004D3CB9 /* User Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4C89362A2CF006004D3CB9 /* User Info.swift */; };
 		EE4C89392A2CF1E7004D3CB9 /* Access Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4C89382A2CF1E7004D3CB9 /* Access Level.swift */; };
@@ -106,7 +107,7 @@
 		EE1D14112A577A1500A125F2 /* TourManadgmentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TourManadgmentTableViewCell.xib; sourceTree = "<group>"; };
 		EE2377352A0816D900CB9D70 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		EE2C9A4F29FD858500B7D74F /* ProfilePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePageViewController.swift; sourceTree = "<group>"; };
-		EE4619102A6C084F00EBE695 /* Notification.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Notification.caf; sourceTree = "<group>"; };
+		EE4619122A6C229C00EBE695 /* Notification.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Notification.wav; sourceTree = "<group>"; };
 		EE4C89342A2CEE40004D3CB9 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		EE4C89362A2CF006004D3CB9 /* User Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User Info.swift"; sourceTree = "<group>"; };
 		EE4C89382A2CF1E7004D3CB9 /* Access Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Access Level.swift"; sourceTree = "<group>"; };
@@ -479,8 +480,8 @@
 		EE8474062A4D99280082DE7E /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				EE4619102A6C084F00EBE695 /* Notification.caf */,
 				EE8474072A4D99620082DE7E /* sub.caf */,
+				EE4619122A6C229C00EBE695 /* Notification.wav */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -669,6 +670,7 @@
 				EE52E17B29E5C1CB000C0E5B /* LaunchScreen.storyboard in Resources */,
 				EE1D14132A577A1500A125F2 /* TourManadgmentTableViewCell.xib in Resources */,
 				EEF6EBA92A41BADE00DC5F6A /* GuideCollectionViewCell.xib in Resources */,
+				EE4619132A6C229C00EBE695 /* Notification.wav in Resources */,
 				EE1770F62A23F00300B18055 /* Launch.storyboard in Resources */,
 				EE8474082A4D99620082DE7E /* sub.caf in Resources */,
 				EEE802712A2E5DED00162622 /* ExcursionTableViewCell.xib in Resources */,
