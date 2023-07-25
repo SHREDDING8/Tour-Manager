@@ -585,12 +585,12 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
         button.backgroundColor = .red
         button.layer.cornerRadius = button.frame.height / 2 - 1
         button.setTitleColor(.white, for: .normal)
-        button.setTitle("Удалить компанию", for: .normal)
+        button.setTitle("Удалить аккаунт", for: .normal)
         button.removeTarget(nil, action: nil, for: .touchUpInside)
         
         let actionExit = UIAction { _ in
             
-            self.alerts.deleteAlert(self, title: "Вы действительно хотите удалить компанию?", buttonTitle: "Удалить") {
+            self.alerts.deleteAlert(self, title: "Вы действительно хотите удалить аккаунт?\nВы также удалите свою компанию", buttonTitle: "Удалить") {
                 
                 
                 let confirmAlert = UIAlertController(title: "Введите название компании", message: nil, preferredStyle: .alert)
