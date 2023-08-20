@@ -163,10 +163,10 @@ class NewExcursionTableViewController: UITableViewController {
             return
         }
         
-        if self.excursion.companyGuidePhone.count > 0 && !validation.validatePhone(value: self.excursion.companyGuidePhone){
-            self.alerts.validationStringError(self, title: "Ошибка в контакте сопровождающего")
-            return
-        }
+////        if self.excursion.companyGuidePhone.count > 0 && !validation.validatePhone(value: self.excursion.companyGuidePhone){
+//            self.alerts.validationStringError(self, title: "Ошибка в контакте сопровождающего")
+//            return
+//        }
         
         if !validation.validateNumberWithPlus(value: self.excursion.numberOfPeople){
             self.alerts.validationStringError(self, title: "Ошибка в количестве человек")
