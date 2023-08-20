@@ -319,7 +319,6 @@ extension NewExcursionTableViewController:UITextFieldDelegate{
     
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        
         if textField.restorationIdentifier == "excursionName"{
             self.excursion.excursionName = textField.text ?? ""
         }
@@ -332,8 +331,7 @@ extension NewExcursionTableViewController:UITextFieldDelegate{
             self.excursion.numberOfPeople = newNumberOfPeople
             textField.text = newNumberOfPeople
         } else if textField.restorationIdentifier == "customerGuidePhone"{
-            
-            let newPhone = textField.text?.replacingOccurrences(of: "-", with: "").replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "").replacingOccurrences(of: " ", with: "") ?? ""
+            let newPhone = textField.text?.replacingOccurrences(of: "-", with: "").replacingOccurrences(of: "‑", with: "").replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "").replacingOccurrences(of: " ", with: "").replacingOccurrences(of: " ", with: "") ?? ""
             
             textField.text = newPhone
             
