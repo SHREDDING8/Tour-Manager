@@ -60,7 +60,7 @@ extension User{
     
     // MARK: - signIn
     public func signIn(password:String, completion: @escaping (Bool, customErrorAuth?)->Void ){
-        self.apiAuth.signIn(email: self.email ?? "", password: password) { isSignIn, error in
+        self.apiAuth.signUp(email: self.email ?? "", password: password) { isSignIn, error in
             // check errors from api
             if error != nil{
                 completion(false, error)

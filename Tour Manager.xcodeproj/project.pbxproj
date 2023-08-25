@@ -66,6 +66,8 @@
 		EEB764A32A387B2200579E6B /* NewComponentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEB764A12A387B2200579E6B /* NewComponentTableViewCell.xib */; };
 		EEC9BA182A2670A100BC026A /* Bool.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC9BA172A2670A100BC026A /* Bool.swift */; };
 		EED645212A98D33500F2ADC9 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED645202A98D33500F2ADC9 /* KeychainService.swift */; };
+		EED645232A98DA7C00F2ADC9 /* LoginViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED645222A98DA7C00F2ADC9 /* LoginViewPresenter.swift */; };
+		EED645252A98DA9500F2ADC9 /* AuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED645242A98DA9500F2ADC9 /* AuthAssembly.swift */; };
 		EEDA5E9B2A378215002CC5C8 /* UiTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDA5E9A2A378215002CC5C8 /* UiTextField.swift */; };
 		EEDA5E9D2A37BFA9002CC5C8 /* UiTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDA5E9C2A37BFA9002CC5C8 /* UiTextView.swift */; };
 		EEDA5E9F2A37C153002CC5C8 /* AddingNewComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDA5E9E2A37C153002CC5C8 /* AddingNewComponentViewController.swift */; };
@@ -155,6 +157,8 @@
 		EEB764A12A387B2200579E6B /* NewComponentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewComponentTableViewCell.xib; sourceTree = "<group>"; };
 		EEC9BA172A2670A100BC026A /* Bool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bool.swift; sourceTree = "<group>"; };
 		EED645202A98D33500F2ADC9 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		EED645222A98DA7C00F2ADC9 /* LoginViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewPresenter.swift; sourceTree = "<group>"; };
+		EED645242A98DA9500F2ADC9 /* AuthAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAssembly.swift; sourceTree = "<group>"; };
 		EEDA5E9A2A378215002CC5C8 /* UiTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiTextField.swift; sourceTree = "<group>"; };
 		EEDA5E9C2A37BFA9002CC5C8 /* UiTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiTextView.swift; sourceTree = "<group>"; };
 		EEDA5E9E2A37C153002CC5C8 /* AddingNewComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingNewComponentViewController.swift; sourceTree = "<group>"; };
@@ -552,6 +556,7 @@
 				EEA07CB02A4DD7FB00F14778 /* LoginViewController.swift */,
 				EE52E17429E5C1C8000C0E5B /* Auth.storyboard */,
 				EED645112A98CCC200F2ADC9 /* Presenter */,
+				EED645242A98DA9500F2ADC9 /* AuthAssembly.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -573,6 +578,7 @@
 		EED645112A98CCC200F2ADC9 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				EED645222A98DA7C00F2ADC9 /* LoginViewPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -888,6 +894,7 @@
 				EE8474042A4CC9FD0082DE7E /* NotificationCenterLocal.swift in Sources */,
 				EE4C893E2A2E3D85004D3CB9 /* Excursion.swift in Sources */,
 				EE1770EC2A22B08500B18055 /* Company.swift in Sources */,
+				EED645252A98DA9500F2ADC9 /* AuthAssembly.swift in Sources */,
 				EEB764A22A387B2200579E6B /* NewComponentTableViewCell.swift in Sources */,
 				EE1770EE2A239A7E00B18055 /* ChangePasswordViewController.swift in Sources */,
 				EEE802702A2E5DED00162622 /* ExcursionTableViewCell.swift in Sources */,
@@ -908,6 +915,7 @@
 				EEB73F9F2A364B9B004D7A25 /* SendExcursions.swift in Sources */,
 				EE5F91CB2A2003A200B39BB1 /* sendStructs.swift in Sources */,
 				EEB73F9C2A364B82004D7A25 /* ApiManagerExcursions.swift in Sources */,
+				EED645232A98DA7C00F2ADC9 /* LoginViewPresenter.swift in Sources */,
 				EE5F91C42A1FCEAE00B39BB1 /* ApiManagerCompany.swift in Sources */,
 				EEFD30EF2A3B7905003192A1 /* ExcurionsGuideCalendarViewController.swift in Sources */,
 				EEDA5E9B2A378215002CC5C8 /* UiTextField.swift in Sources */,

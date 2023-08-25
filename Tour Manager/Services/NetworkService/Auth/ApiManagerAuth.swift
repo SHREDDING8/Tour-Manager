@@ -125,8 +125,8 @@ public class ApiManagerAuth{
     }
     
     
-    // MARK: - signIn
-    public func signIn(email:String,password:String, completion: @escaping (Bool,customErrorAuth?)->Void ){
+    // MARK: - signUp
+    public func signUp(email:String,password:String, completion: @escaping (Bool,customErrorAuth?)->Void ){
         
         let jsonData = [
             "email": email,

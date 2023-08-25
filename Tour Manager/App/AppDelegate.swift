@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let pushNotificationsService = PushNotificationService()
     
-    let userDefaultsd = WorkWithUserDefaults()
+    let keychainService = KeychainService()
     
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -51,8 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       }
       let token = tokenParts.joined()
       print("Device Token: \(token)")
-        self.userDefaultsd.setDeviceToken(token: token)
-        AppDelegate.user?.setDeviceToken(deviceToken: token)
+        self.keychainService.setDeviceToken(token: token)
         
         
         

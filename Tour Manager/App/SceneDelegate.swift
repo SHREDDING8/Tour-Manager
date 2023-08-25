@@ -31,8 +31,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         if let windowScene = (scene as? UIWindowScene){
             let window = UIWindow(windowScene: windowScene)
-            let launch = self.controllers.getLaunchScreen()
-            window.rootViewController = launch
+//            let launch = self.controllers.getLaunchScreen()
+            let root = AuthAssembly.loginController()
+            window.rootViewController = root
             self.window = window
             window.makeKeyAndVisible()
         } else { return }
