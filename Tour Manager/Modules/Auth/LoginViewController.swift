@@ -164,10 +164,11 @@ class LoginViewController: UIViewController {
             } else if error == .unknowmError{
                 self.alerts.errorAlert(self, errorTypeApi: .unknown)
                 return
-            } else if error == .notConnected{
-                self.controllers.goToNoConnection(view: self.view, direction: .fade)
-                return
             }
+//            else if error == .notConnected{
+//                self.controllers.goToNoConnection(view: self.view, direction: .fade)
+//                return
+//            }
             
             if isReset{
                 let alert =  self.alerts.infoAlert(title: "Email о восстановлеини аккаунта отправлен вам на почту", meesage: nil)
@@ -206,9 +207,10 @@ class LoginViewController: UIViewController {
             }else if error == .weakPassword{
                 self.alerts.errorAlert(self, errorTypeApi: .weakPassword)
                 return
-            }else if error == .notConnected{
-                self.controllers.goToNoConnection(view: self.view, direction: .fade)
             }
+//            else if error == .notConnected{
+//                self.controllers.goToNoConnection(view: self.view, direction: .fade)
+//            }
             
             if isSignIn{
                 self.logIn()

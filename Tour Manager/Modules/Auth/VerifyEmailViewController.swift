@@ -90,10 +90,12 @@ class VerifyEmailViewController: UIViewController {
             self.loadUIView.removeLoadUIView()
             if error == .unknowmError{
                 self.alerts.errorAlert(self, errorTypeApi: .unknown)
-            } else if error == .notConnected{
-                self.controllers.goToNoConnection(view: self.view, direction: .fade)
-                
-            }else{
+            }
+//            else if error == .notConnected{
+//                self.controllers.goToNoConnection(view: self.view, direction: .fade)
+//                
+//            }
+            else{
                 self.setTimerSetEmailAgain()
                 let alert = self.alerts.infoAlert(title: "Email Отправлен", meesage: "Проверьте почту и подтвердите аккаунт")
                 self.present(alert, animated: true)

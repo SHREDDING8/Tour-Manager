@@ -122,9 +122,10 @@ class ChangePasswordViewController: UIViewController {
                     
                 }else if error == .unknowmError{
                     self.alerts.errorAlert(self, errorTypeApi: .unknown)
-                }else if error == .notConnected{
-                    self.controllers.goToNoConnection(view: self.view, direction: .fade)
                 }
+//                else if error == .notConnected{
+//                    self.controllers.goToNoConnection(view: self.view, direction: .fade)
+//                }
                 
                 if isUpdated{
                     self.alerts.invalidToken(self, message: "Пароль успешно обновлен")                  

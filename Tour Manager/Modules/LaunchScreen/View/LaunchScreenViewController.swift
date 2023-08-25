@@ -40,10 +40,12 @@ class LaunchScreenViewController: UIViewController {
                 
                 if isGetted{
                     self.controllers.goToMainTabBar(view: self.view, direction: .fade)
-                }else if error == .notConnected{
-                    self.controllers.goToNoConnection(view: self.view, direction: .fade)
-                    
-                }else{
+                }
+//                else if error == .notConnected{
+//                    self.controllers.goToNoConnection(view: self.view, direction: .fade)
+//                    
+//                }
+                else{
                     self.controllers.goToLoginPage(view: self.view, direction: .fade)
                 }
             })

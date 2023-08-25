@@ -113,19 +113,19 @@ class Controllers{
         window?.set(rootViewController: launchScreen, options: options)
     }
     
-    public func goToNoConnection(view:UIView, direction: UIWindow.TransitionOptions.Direction){
-        
-        
-        let noConnection = self.getNoConnection()
-        
-        let window = view.window
-        let options = UIWindow.TransitionOptions()
-        
-        options.direction = direction
-        options.duration = 0.5
-        options.style = .easeOut
-        
-        window?.set(rootViewController: noConnection, options: options)
-        
-    }
+//    public func goToNoConnection(view:UIView, direction: UIWindow.TransitionOptions.Direction){
+//        
+//        
+//        let noConnection = self.getNoConnection()
+//        
+//        let window = view.window
+//        let options = UIWindow.TransitionOptions()
+//        
+//        options.direction = direction
+//        options.duration = 0.5
+//        options.style = .easeOut
+//        
+//        window?.set(rootViewController: noConnection, options: options)
+//        
+//    }
 }

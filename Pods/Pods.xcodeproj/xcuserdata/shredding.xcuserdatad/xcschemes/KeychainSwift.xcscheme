@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F080F66D210B5D390828F8CB3219A7EE"
-               BuildableName = "Pods_Tour_Manager.framework"
-               BlueprintName = "Pods-Tour Manager"
+               BlueprintIdentifier = "07E54A78BCF82272E99319D7F7F5E8C1"
+               BuildableName = "KeychainSwift.framework"
+               BlueprintName = "KeychainSwift"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

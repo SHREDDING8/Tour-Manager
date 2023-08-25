@@ -64,6 +64,7 @@ class ProfilePageViewController: UIViewController {
         profilePhotoConfiguration()
         datePickerConfiguration()
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tableViewPosition = tableView.frame.origin
@@ -647,10 +648,10 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
                 self.user?.logOut(completion: { isLogOut, error in
                     if error != nil{
                         
-                        if error == .notConnected{
-                            self.controllers.goToNoConnection(view: self.view, direction: .fade)
-                            return
-                        }
+//                        if error == .notConnected{
+//                            self.controllers.goToNoConnection(view: self.view, direction: .fade)
+//                            return
+//                        }
 
                         let alert = self.alerts.infoAlert(title: "Неизвестная ошибка", meesage: "Вы не вышли из системы")
                         

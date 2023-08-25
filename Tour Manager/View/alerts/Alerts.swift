@@ -114,10 +114,10 @@ class Alert{
             return
         }
         
-        if errorCompanyApi == .notConnected{
-            self.controllers.goToNoConnection(view: viewController.view, direction: .fade)
-            return
-        }
+//        if errorCompanyApi == .notConnected{
+//            self.controllers.goToNoConnection(view: viewController.view, direction: .fade)
+//            return
+//        }
         
         let alertFields = errorCompanyApi.getValuesForAlert()
         let alert = UIAlertController(title: alertFields.title, message: alertFields.message, preferredStyle: .alert)
@@ -136,10 +136,10 @@ class Alert{
             return
         }
         
-        if errorUserDataApi == .notConnected{
-            self.controllers.goToNoConnection(view: viewController.view, direction: .fade)
-            return
-        }
+//        if errorUserDataApi == .notConnected{
+//            self.controllers.goToNoConnection(view: viewController.view, direction: .fade)
+//            return
+//        }
         
         let alertFields = errorUserDataApi.getValuesForAlert()
         let alert = UIAlertController(title: alertFields.title, message: alertFields.message, preferredStyle: .alert)
@@ -157,10 +157,10 @@ class Alert{
             self.invalidToken(viewController, message: errorExcursionsApi.getValuesForAlert().message)
             return
         }
-        if errorExcursionsApi ==  .notConnected{
-            self.controllers.goToNoConnection(view: viewController.view, direction: .fade)
-            return
-        }
+//        if errorExcursionsApi ==  .notConnected{
+//            self.controllers.goToNoConnection(view: viewController.view, direction: .fade)
+//            return
+//        }
         
         
         let alertFields = errorExcursionsApi.getValuesForAlert()
@@ -181,10 +181,10 @@ class Alert{
             return
         }
         
-        if errorAutoFillApi ==  .notConnected{
-            self.controllers.goToNoConnection(view: viewController.view, direction: .fade)
-            return
-        }
+//        if errorAutoFillApi ==  .notConnected{
+//            self.controllers.goToNoConnection(view: viewController.view, direction: .fade)
+//            return
+//        }
         
         let alertFields = errorAutoFillApi.getValuesForAlert()
         let alert = UIAlertController(title: alertFields.title, message: alertFields.message, preferredStyle: .alert)
@@ -219,10 +219,10 @@ class Alert{
         let actionExit = UIAlertAction(title: "Выйти", style: .destructive) { _ in
             
             self.user?.logOut(completion: { isLogOut, error in
-                if error == .notConnected{
-                    self.controllers.goToNoConnection(view: viewController.view, direction: .fade)
-                    return
-                }
+//                if error == .notConnected{
+//                    self.controllers.goToNoConnection(view: viewController.view, direction: .fade)
+//                    return
+//                }
                 self.controllers.goToLoginPage(view: viewController.view, direction: .toTop)
             })
            
