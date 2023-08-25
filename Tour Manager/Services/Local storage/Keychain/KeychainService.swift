@@ -8,6 +8,20 @@
 import Foundation
 import KeychainSwift
 
+
+public enum AccessLevelKeys:String{
+    case readCompanyEmployee = "readCompanyEmployee"
+    case readLocalIdCompany = "readLocalIdCompany"
+    case readGeneralCompanyInformation = "readGeneralCompanyInformation"
+    case writeGeneralCompanyInformation = "writeGeneralCompanyInformation"
+    case canChangeAccessLevel = "canChangeAccessLevel"
+    case isOwner = "isOwner"
+    case canReadTourList = "canReadTourList"
+    case canWriteTourList = "canWriteTourList"
+    case isGuide = "isGuide"
+    
+}
+
 protocol KeychainServiceProtocol{
     
     func getAcessToken() -> String?
@@ -42,6 +56,10 @@ protocol KeychainServiceProtocol{
     func getCompanyName()->String?
     
     
+    func getAccessLevel(key:AccessLevelKeys) -> Bool
+    func setAccessLevel(key:AccessLevelKeys, value:Bool)
+    
+    
     func removeAllData()
     
 }
@@ -69,7 +87,7 @@ class KeychainService:KeychainServiceProtocol{
         static let companyLocalId = "companyLocalId"
         static let companyName = "companyName"
     }
-    
+        
     let dateFormatter = DateFormatter()
     let dateFormat = "MM-dd-yyyy HH:mm"
     
@@ -173,10 +191,18 @@ class KeychainService:KeychainServiceProtocol{
         return keychain.get(UserDataKeys.companyName)
     }
     
+    func getAccessLevel(key:AccessLevelKeys) -> Bool{
+        return keychain.getBool(key.rawValue) ?? false
+    }
+    func setAccessLevel(key:AccessLevelKeys, value:Bool){
+        keychain.set(value, forKey: key.rawValue)
+    }
+    
     func removeAllData(){
         for key in keychain.allKeys{
             keychain.delete(key)
         }
     }
+    
     
 }

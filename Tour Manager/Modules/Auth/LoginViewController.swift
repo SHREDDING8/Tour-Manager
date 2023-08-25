@@ -116,7 +116,7 @@ class LoginViewController: UIViewController {
             self.loadUIView.removeLoadUIView()
             return
         }
-        
+        print("logIn")
         self.isSignIn ? self.signIn() :  self.logIn()
         
     }
@@ -248,6 +248,7 @@ class LoginViewController: UIViewController {
                 
                 if isGetted{
                     self.loadUIView.removeLoadUIView()
+                    print("goToMainTabBar")
                     self.controllers.goToMainTabBar(view: self.view, direction: .toBottom)
                 }
                 

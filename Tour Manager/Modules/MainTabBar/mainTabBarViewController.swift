@@ -8,10 +8,11 @@
 import UIKit
 
 class mainTabBarViewController: UITabBarController {
+    
+    var presenter: MainTabBarPresenterProtocol?
+    
     let controllers = Controllers()
     let alerts = Alert()
-    
-    let user = AppDelegate.user
     
     var loadview:LoadView!
     
@@ -27,6 +28,8 @@ class mainTabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        presenter = MainTabBarPresenter(view: self)
+        
         AppDelegate.tabBar = self
         
         self.loadview = LoadView(viewController: self)
@@ -35,7 +38,7 @@ class mainTabBarViewController: UITabBarController {
         
         self.view.backgroundColor = UIColor(named: "background")
         
-        self.user?.getAccessLevelFromApi(completion: { isGetted, error in
+        self.presenter?.getAccessLevelFromApi(completion: { isGetted, error in
             
             if let err = error{
                 self.alerts.errorAlert(self, errorCompanyApi: err) {
@@ -49,37 +52,42 @@ class mainTabBarViewController: UITabBarController {
                 
             }
         })
+        
     }
     
     
     fileprivate func getViewControllers(){
         
+        var controllersList:[UIViewController] = []
+        
         let profileNavController = controllers.getControllerMain(.profileNavigationViewController)
         profileNavController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person.fill"), tag: 1)
         
+//        let excursionManagementNavViewController = controllers.getControllerMain(.excursionManagementNavigationViewController)
+//        
+//        excursionManagementNavViewController.tabBarItem = UITabBarItem(title: "Управление", image: UIImage(systemName: "calendar"), tag: 2)
+//        
+//        
+//        let excursionsNavigationController = controllers.getControllerMain(.excursionsNavigationController)
+//        excursionsNavigationController.tabBarItem = UITabBarItem(title: "Экскурсии", image: UIImage(systemName: "calendar"), tag: 2)
+//        
+
+//        
+//        if (self.user?.getAccessLevel(rule: .isGuide) ?? false){
+//            controllersList.append(excursionsNavigationController)
+//        }
+//        
+//        
+//        if (self.user?.getAccessLevel(rule: .canReadTourList) ?? false) {
+//            controllersList.append(excursionManagementNavViewController)
+//        }
         
-        let excursionManagementNavViewController = controllers.getControllerMain(.excursionManagementNavigationViewController)
+//        controllersList.append(profileNavController)
         
-        excursionManagementNavViewController.tabBarItem = UITabBarItem(title: "Управление", image: UIImage(systemName: "calendar"), tag: 2)
+        controllersList = [profileNavController]
         
-        
-        let excursionsNavigationController = controllers.getControllerMain(.excursionsNavigationController)
-        excursionsNavigationController.tabBarItem = UITabBarItem(title: "Экскурсии", image: UIImage(systemName: "calendar"), tag: 2)
-        
-        var controllersList:[UIViewController] = []
-        
-        if (self.user?.getAccessLevel(rule: .isGuide) ?? false){
-            controllersList.append(excursionsNavigationController)
-        }
-        
-        
-        if (self.user?.getAccessLevel(rule: .canReadTourList) ?? false) {
-            controllersList.append(excursionManagementNavViewController)
-        }
-        
-        controllersList.append(profileNavController)
-        
-        self.setViewControllers(controllersList, animated: true)
+        self.setViewControllers([profileNavController], animated: true)
+        print("setViewControllers")
         
         if controllersList.count == 3{
             self.selectedIndex = 1
@@ -102,4 +110,8 @@ class mainTabBarViewController: UITabBarController {
     public func stopLoading(){
         self.loadview.removeLoadUIView()
     }
+}
+
+extension mainTabBarViewController:MainTabBarViewProtocol{
+    
 }
