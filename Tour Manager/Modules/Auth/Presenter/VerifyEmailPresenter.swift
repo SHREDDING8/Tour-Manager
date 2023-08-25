@@ -23,7 +23,9 @@ protocol VerifyEmailPresenterProtocol:AnyObject{
 class VerifyEmailPresenter:VerifyEmailPresenterProtocol{
     weak var view:VerifyEmailViewProtocol?
     
+    let keychainService = KeychainService()
     let apiAuth = ApiManagerAuth()
+    let apiUserData = ApiManagerUserData()
     
     required init(view:VerifyEmailViewProtocol) {
         self.view = view

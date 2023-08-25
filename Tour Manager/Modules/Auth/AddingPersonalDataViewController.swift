@@ -10,6 +10,8 @@ import UIKit
 
 class AddingPersonalDataViewController: UIViewController {
     
+    var presenter: AddingPersonalDataPresenterProtocol?
+    
     
     // MARK: - Me variables
     
@@ -22,7 +24,6 @@ class AddingPersonalDataViewController: UIViewController {
     
     var datePicker:DatepickerFromBottom!
     
-    let user = AppDelegate.user
     
     var caledarHeightConstaint:NSLayoutConstraint!
     var tableViewPosition:CGPoint!
@@ -55,6 +56,12 @@ class AddingPersonalDataViewController: UIViewController {
     var typeOfRegister:TypeOfRegister = .company
     
     // MARK: - Life Cycle
+    
+    override func loadView() {
+        super.loadView()
+        self.presenter = AddingPersonalDataPresenter(view: self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -164,20 +171,21 @@ class AddingPersonalDataViewController: UIViewController {
             self.loadUIView.removeLoadUIView()
             return
         }
-        self.user?.setFirstName(firstName: firstName.text!)
-        self.user?.setSecondName(secondName: secondName.text!)
-        self.user?.setPhone(phone: phone.text!)
-        self.user?.setBirthday(birthday: self.birthdayDate)
         
+        self.presenter?.firstName = firstName.text ?? ""
+        self.presenter?.secondName = secondName.text ?? ""
+        self.presenter?.phone = phone.text ?? ""
+        self.presenter?.birthday = self.birthdayDate.birthdayToString()
+                
         switch typeOfRegister {
         case .emploee:
-            self.user?.company.setLocalIDCompany(localIdCompany: localIdNameCompany.text!)
+            self.presenter?.companyLocalId = localIdNameCompany.text ?? ""
         case .company:
-            self.user?.company.setNameCompany(nameCompany: localIdNameCompany.text!)
+            self.presenter?.companyName = localIdNameCompany.text ?? ""
         }
         
         
-        self.user?.setUserInfoApi(completion: { IsSetted, error in
+        self.presenter?.setUserInfoApi(completion: { IsSetted, error in
             if let err = error{
                 self.alerts.errorAlert(self, errorUserDataApi: err) {
                     self.loadUIView.removeLoadUIView()
@@ -188,7 +196,7 @@ class AddingPersonalDataViewController: UIViewController {
             if IsSetted {
                 switch self.typeOfRegister {
                 case .emploee:
-                    self.user?.company.addEmployeeToCompany(token: self.user?.getToken() ?? "", completion: { isAdded, error in
+                    self.presenter?.addEmployeeToCompany(completion: { isAdded, error in
                         self.loadUIView.removeLoadUIView()
                         if let err = error{
                             self.alerts.errorAlert(self, errorCompanyApi: err) {
@@ -196,13 +204,13 @@ class AddingPersonalDataViewController: UIViewController {
                             }
                         }
                         if isAdded{
-                            self.goToMainTabBar()
+                            self.controllers.goToMainTabBar(view: self.view, direction: .fade)
                         }
                         
                     })
                     
                 case .company:
-                    self.user?.company.setCompanyNameApi(token: self.user?.getToken() ?? "", completion: { isAdded, error in
+                    self.presenter?.setCompanyNameApi( completion: { isAdded, error in
                         self.loadUIView.removeLoadUIView()
                         if let err = error {
                             self.alerts.errorAlert(self, errorCompanyApi: err) {
@@ -210,7 +218,7 @@ class AddingPersonalDataViewController: UIViewController {
                             }
                         }
                         if isAdded{
-                            self.goToMainTabBar()
+                            self.controllers.goToMainTabBar(view: self.view, direction: .fade)
                         }
                     })
                 }
@@ -220,22 +228,7 @@ class AddingPersonalDataViewController: UIViewController {
     }
     
     // MARK: - Navigation
-    
-    fileprivate func goToMainTabBar(){
-        let mainTabBar = self.controllers.getControllerMain(.mainTabBarController)
         
-
-        let window = self.view.window
-        let options = UIWindow.TransitionOptions()
-        
-        options.direction = .toTop
-        options.duration = 0.3
-        options.style = .easeIn
-        
-        window?.set(rootViewController: mainTabBar,options: options)
-        
-    }
-    
     @objc fileprivate func goToLogInPage(){
         let mainLogIn = self.controllers.getControllerAuth(.mainAuthController)
         
@@ -492,4 +485,8 @@ extension AddingPersonalDataViewController:UITextFieldDelegate{
             tableView.scrollToRow(at: IndexPath(row: 4, section: 0), at: .top, animated: true)
         }
     }
+}
+
+extension AddingPersonalDataViewController:AddingPersonalDataViewProtocol{
+    
 }

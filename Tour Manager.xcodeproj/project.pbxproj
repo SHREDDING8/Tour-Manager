@@ -69,6 +69,7 @@
 		EED645232A98DA7C00F2ADC9 /* LoginViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED645222A98DA7C00F2ADC9 /* LoginViewPresenter.swift */; };
 		EED645252A98DA9500F2ADC9 /* AuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED645242A98DA9500F2ADC9 /* AuthAssembly.swift */; };
 		EED645272A98F32700F2ADC9 /* VerifyEmailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED645262A98F32700F2ADC9 /* VerifyEmailPresenter.swift */; };
+		EED645292A98F65B00F2ADC9 /* AddingPersonalDataPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED645282A98F65B00F2ADC9 /* AddingPersonalDataPresenter.swift */; };
 		EEDA5E9B2A378215002CC5C8 /* UiTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDA5E9A2A378215002CC5C8 /* UiTextField.swift */; };
 		EEDA5E9D2A37BFA9002CC5C8 /* UiTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDA5E9C2A37BFA9002CC5C8 /* UiTextView.swift */; };
 		EEDA5E9F2A37C153002CC5C8 /* AddingNewComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDA5E9E2A37C153002CC5C8 /* AddingNewComponentViewController.swift */; };
@@ -161,6 +162,7 @@
 		EED645222A98DA7C00F2ADC9 /* LoginViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewPresenter.swift; sourceTree = "<group>"; };
 		EED645242A98DA9500F2ADC9 /* AuthAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAssembly.swift; sourceTree = "<group>"; };
 		EED645262A98F32700F2ADC9 /* VerifyEmailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyEmailPresenter.swift; sourceTree = "<group>"; };
+		EED645282A98F65B00F2ADC9 /* AddingPersonalDataPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingPersonalDataPresenter.swift; sourceTree = "<group>"; };
 		EEDA5E9A2A378215002CC5C8 /* UiTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiTextField.swift; sourceTree = "<group>"; };
 		EEDA5E9C2A37BFA9002CC5C8 /* UiTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiTextView.swift; sourceTree = "<group>"; };
 		EEDA5E9E2A37C153002CC5C8 /* AddingNewComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingNewComponentViewController.swift; sourceTree = "<group>"; };
@@ -582,6 +584,7 @@
 			children = (
 				EED645222A98DA7C00F2ADC9 /* LoginViewPresenter.swift */,
 				EED645262A98F32700F2ADC9 /* VerifyEmailPresenter.swift */,
+				EED645282A98F65B00F2ADC9 /* AddingPersonalDataPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -937,6 +940,7 @@
 				EED645212A98D33500F2ADC9 /* KeychainService.swift in Sources */,
 				EE18F4662A3E4FB00047E068 /* ResponseAutoFill.swift in Sources */,
 				EEDA5E9F2A37C153002CC5C8 /* AddingNewComponentViewController.swift in Sources */,
+				EED645292A98F65B00F2ADC9 /* AddingPersonalDataPresenter.swift in Sources */,
 				EE0528CA2A30DA3C006C8C98 /* NewExcursionTableViewController.swift in Sources */,
 				EEF27A542A05AA44006E5E53 /* Controllers.swift in Sources */,
 				EE18F4642A3E4EAD0047E068 /* SendAutofill.swift in Sources */,
