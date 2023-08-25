@@ -15,9 +15,9 @@ class VerifyEmailViewController: UIViewController {
     let controllers = Controllers()
     let font = Font()
     
-    let user = AppDelegate.user
-    
     var loadUIView:LoadView!
+    
+    var presenter:VerifyEmailPresenterProtocol?
     
     
     var password = ""
@@ -31,13 +31,17 @@ class VerifyEmailViewController: UIViewController {
     
     @IBOutlet weak var sendEmailAgainButton: UIButton!
     
+    override func loadView() {
+        super.loadView()
+        self.presenter = VerifyEmailPresenter(view: self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
         
         self.loadUIView = LoadView(viewController: self)
         
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,15 +90,12 @@ class VerifyEmailViewController: UIViewController {
     @IBAction func resendEmail(_ sender: Any) {
         self.loadUIView.setLoadUIView()
         
-        self.user?.sendVerifyEmail(password: self.password, completion: { isSent, error in
+        self.presenter?.sendVerifyEmail(email: self.email, password: self.password, completion: { isSent, error in
             self.loadUIView.removeLoadUIView()
             if error == .unknowmError{
                 self.alerts.errorAlert(self, errorTypeApi: .unknown)
             }
-//            else if error == .notConnected{
-//                self.controllers.goToNoConnection(view: self.view, direction: .fade)
-//                
-//            }
+            
             else{
                 self.setTimerSetEmailAgain()
                 let alert = self.alerts.infoAlert(title: "Email Отправлен", meesage: "Проверьте почту и подтвердите аккаунт")
@@ -106,7 +107,7 @@ class VerifyEmailViewController: UIViewController {
     
     fileprivate func logIn(){
         
-        self.user?.logIn(password: password, completion: { isLogIn, error in
+        self.presenter?.logIn(email: self.email, password: password, completion: { isLogIn, error in
             if error == .emailIsNotVerifyed{
                 
             } else if error == .invalidEmailOrPassword{
@@ -127,7 +128,7 @@ class VerifyEmailViewController: UIViewController {
                 return
             }
             
-            self.user?.getUserInfoFromApi(completion: { isInfo, error in
+            self.presenter?.getUserInfoFromApi(completion: { isInfo, error in
                 
                 if error == .dataNotFound{
                     self.goToAddingPersonalData()
@@ -191,5 +192,9 @@ class VerifyEmailViewController: UIViewController {
         window?.set(rootViewController: mainLogIn,options: options)
         
     }
+    
+}
+
+extension VerifyEmailViewController:VerifyEmailViewProtocol{
     
 }

@@ -1,5 +1,5 @@
 //
-//  LoginViewPresenter.swift
+//  VerifyEmailPresenter.swift
 //  Tour Manager
 //
 //  Created by SHREDDING on 25.08.2023.
@@ -7,79 +7,35 @@
 
 import Foundation
 
-protocol LoginViewProtocol:AnyObject{
+protocol VerifyEmailViewProtocol:AnyObject{
     
 }
 
-protocol LoginPresenterProtocol:AnyObject{
-    init(view:LoginViewProtocol)
+protocol VerifyEmailPresenterProtocol:AnyObject{
+    init(view:VerifyEmailViewProtocol)
     
-    func setEmail(email:String)
-    func setPassword(password:String)
-    func setConfirmPassword(password:String)
-    
-    func removeAllData()
-    
-    func resetPassword(email:String, completion: @escaping (Bool, customErrorAuth?) -> Void)
-    
-    func signUp(email:String, password:String, completion: @escaping (Bool, customErrorAuth?)->Void )
+    func sendVerifyEmail(email:String, password:String, completion: @escaping (Bool, customErrorAuth?)->Void)
     
     func logIn(email:String, password:String, completion: @escaping (Bool, customErrorAuth?)->Void )
     
     func getUserInfoFromApi(completion: @escaping (Bool, customErrorUserData?)->Void)
-    
-    func sendVerifyEmail(email:String, password:String, completion: @escaping (Bool, customErrorAuth?)->Void)
 }
-
-class LoginPresenter:LoginPresenterProtocol{
-    weak var view:LoginViewProtocol?
+class VerifyEmailPresenter:VerifyEmailPresenterProtocol{
+    weak var view:VerifyEmailViewProtocol?
     
-    let keychainService = KeychainService()
     let apiAuth = ApiManagerAuth()
-    let apiUserData = ApiManagerUserData()
     
-    var email:String = ""
-    var firstPassword = ""
-    var secondPassword = ""
-    
-    required init(view:LoginViewProtocol) {
+    required init(view:VerifyEmailViewProtocol) {
         self.view = view
     }
     
-    func setEmail(email:String){
-        self.email = email
-    }
-    
-    func setPassword(password:String){
-        self.firstPassword = password
-    }
-    
-    func setConfirmPassword(password:String){
-        self.secondPassword = password
-    }
-    
-    func removeAllData(){
-        keychainService.removeAllData()
-    }
-    
-    func resetPassword(email:String, completion: @escaping (Bool, customErrorAuth?)->Void){
-        self.apiAuth.resetPassword(email: email) { isSendEmail, error in
+    // MARK: - sendVerifyEmail
+    public func sendVerifyEmail(email:String, password:String, completion: @escaping (Bool, customErrorAuth?)->Void){
+        self.apiAuth.sendVerifyEmail(email: email, password: password) { isSent, error in
             if error != nil{
                 completion(false,error)
-                return
             }
-            completion(true,nil)
-        }
-    }
-    
-    // MARK: - signUp
-    public func signUp(email:String, password:String, completion: @escaping (Bool, customErrorAuth?)->Void ){
-        self.apiAuth.signUp(email: email, password: password) { isSignIn, error in
-            // check errors from api
-            if error != nil{
-                completion(false, error)
-            }
-            if isSignIn{
+            if isSent ?? false{
                 completion(true,nil)
             }
         }
@@ -131,18 +87,6 @@ class LoginPresenter:LoginPresenterProtocol{
             
             completion(true, nil)
             
-        }
-    }
-    
-    // MARK: - sendVerifyEmail
-    public func sendVerifyEmail(email:String, password:String, completion: @escaping (Bool, customErrorAuth?)->Void){
-        self.apiAuth.sendVerifyEmail(email: email, password: password) { isSent, error in
-            if error != nil{
-                completion(false,error)
-            }
-            if isSent ?? false{
-                completion(true,nil)
-            }
         }
     }
 }
