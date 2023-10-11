@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AlertKit
 
 class mainTabBarViewController: UITabBarController {
     
@@ -13,9 +14,7 @@ class mainTabBarViewController: UITabBarController {
     
     let controllers = Controllers()
     let alerts = Alert()
-    
-    var loadview:LoadView!
-    
+        
     let activityIndicator:UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
         indicator.startAnimating()
@@ -31,33 +30,33 @@ class mainTabBarViewController: UITabBarController {
         presenter = MainTabBarPresenter(view: self)
         
         AppDelegate.tabBar = self
-        
-        self.loadview = LoadView(viewController: self)
-        
-        configureActivityIndicator()
-        
+                        
         self.view.backgroundColor = UIColor(named: "background")
         
-        self.presenter?.getAccessLevelFromApi(completion: { isGetted, error in
-            
-            if let err = error{
-                self.alerts.errorAlert(self, errorCompanyApi: err) {
-                    self.controllers.goToLoginPage(view: self.view, direction: .toBottom)
-                }
-            }
-            
-            if isGetted{
-                self.getViewControllers()
-                self.activityIndicator.stopAnimating()
-                
-            }
-        })
+        updateControllers()
         
+        self.presenter?.getAccessLevelFromApi()
+                
     }
     
-    
-    fileprivate func getViewControllers(){
         
+    fileprivate func configureActivityIndicator(){
+        self.view.addSubview(self.activityIndicator)
+        
+        NSLayoutConstraint.activate([
+            self.activityIndicator.centerYAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerYAnchor),
+            self.activityIndicator.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor)
+        ])
+    }
+    
+}
+
+extension mainTabBarViewController:MainTabBarViewProtocol{
+    func unknownError() {
+        AlertKitAPI.present(title: "Неизвестная ошибка", icon: .error, style: .iOS17AppleMusic, haptic: .error)
+    }
+    
+    func updateControllers() {
         var controllersList:[UIViewController] = []
         
         let profileNavController = controllers.getControllerMain(.profileNavigationViewController)
@@ -69,49 +68,25 @@ class mainTabBarViewController: UITabBarController {
         
         let excursionsNavigationController = controllers.getControllerMain(.excursionsNavigationController)
         excursionsNavigationController.tabBarItem = UITabBarItem(title: "Экскурсии", image: UIImage(systemName: "calendar"), tag: 2)
-//        
 
-//        
-//        if (self.user?.getAccessLevel(rule: .isGuide) ?? false){
-//            controllersList.append(excursionsNavigationController)
-//        }
-//        
-//        
-//        if (self.user?.getAccessLevel(rule: .canReadTourList) ?? false) {
-//            controllersList.append(excursionManagementNavViewController)
-//        }
-        
-        controllersList.append(excursionsNavigationController)
-        controllersList.append(excursionManagementNavViewController)
+
+
+        if (self.presenter?.isUserGuide() ?? false){
+            controllersList.append(excursionsNavigationController)
+        }
+
+
+        if (self.presenter?.isUserCanReadAllTours() ?? false) {
+            controllersList.append(excursionManagementNavViewController)
+        }
+                
         controllersList.append(profileNavController)
         
-        
         self.setViewControllers(controllersList, animated: true)
-        print("setViewControllers")
         
         if controllersList.count == 3{
             self.selectedIndex = 1
         }
     }
-    
-    fileprivate func configureActivityIndicator(){
-        self.view.addSubview(self.activityIndicator)
-        
-        NSLayoutConstraint.activate([
-            self.activityIndicator.centerYAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerYAnchor),
-            self.activityIndicator.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor)
-        ])
-    }
-    
-    public func setLoading(){
-        self.loadview.setLoadUIView()
-    }
-    
-    public func stopLoading(){
-        self.loadview.removeLoadUIView()
-    }
-}
-
-extension mainTabBarViewController:MainTabBarViewProtocol{
     
 }

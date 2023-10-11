@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 
-public enum customErrorCompany{
+public enum customErrorCompany:Error{
     case tokenExpired
     case invalidToken
     case unknowmError
@@ -50,10 +50,14 @@ public enum customErrorCompany{
 }
 
 
+protocol ApiManagerCompanyProtocol{
+    func getCurrentAccessLevel() async throws -> ResponseAccessLevel
+}
 
-public class ApiManagerCompany{
+public class ApiManagerCompany:ApiManagerCompanyProtocol{
     
     private let generalData = GeneralData()
+    private let keychainService = KeychainService()
     
     private let domain:String
     private let prefix:String
@@ -191,6 +195,49 @@ public class ApiManagerCompany{
                 
             }
         }
+    }
+    
+    // MARK: - getCurrentAccessLevel
+    func getCurrentAccessLevel() async throws -> ResponseAccessLevel{
+        
+        let url = URL(string: self.routeGetCurrentAccesslevel)
+        
+        let jsonData = SendAddEmployeeToCompanyJsonStruct(token: keychainService.getAcessToken() ?? "", company_id: keychainService.getCompanyLocalId() ?? "")
+        
+        let refreshToken = try! await ApiManagerAuth.refreshToken()
+        if !refreshToken{
+            throw customErrorCompany.unknowmError
+        }
+        
+        let result: ResponseAccessLevel = try await withCheckedThrowingContinuation { continuation in
+            
+            AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
+                
+                switch response.result {
+                case .success(_):
+                    if response.response?.statusCode == 400{
+                        
+                        let error = self.checkError(data: response.data ?? Data())
+                        continuation.resume(throwing: error)
+                        
+                    } else if response.response?.statusCode == 200{
+                        if let accessLevels = try? JSONDecoder().decode(ResponseAccessLevel.self, from: response.data!){
+                            continuation.resume(returning: accessLevels)
+                        }else{
+                            continuation.resume(throwing: customErrorCompany.unknowmError)
+                        }
+                        
+                    }else{
+                        continuation.resume(throwing: customErrorCompany.unknowmError)
+                    }
+                case .failure(_):
+                    continuation.resume(throwing: customErrorCompany.unknowmError)
+                }
+            }
+            
+        }
+        
+        return result
     }
     
     public func getCurrentAccessLevel(token:String, companyId:String,completion: @escaping (ResponseAccessLevel?,customErrorCompany?)->Void ){

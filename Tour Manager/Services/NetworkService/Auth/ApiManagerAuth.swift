@@ -238,36 +238,7 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
         return result
         
     }
-    
-    public func signUp(email:String,password:String, completion: @escaping (Bool,customErrorAuth?)->Void ){
         
-        let jsonData = [
-            "email": email,
-            "password": password
-        ]
-        
-    
-        let url = URL(string: routeSignIn)
-        
-        AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
-            
-            switch response.result {
-            case .success(_):
-                if response.response?.statusCode == 200{
-                    completion(true,nil)
-                }else if response.response?.statusCode == 400 {
-                    let error = self.checkError(data: response.data!)
-                    completion(false, error)
-                } else{
-                    completion(false,.unknowmError)
-                }
-            case .failure(_):
-                completion(false, .notConnected)
-            }
-            
-        }
-    }
-    
     // MARK: - Reset Password
     func resetPassword(email:String) async -> Bool{
         let jsonData = sendResetPassword(email: email)

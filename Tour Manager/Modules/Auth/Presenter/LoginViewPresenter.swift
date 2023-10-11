@@ -211,19 +211,6 @@ class LoginPresenter:LoginPresenterProtocol{
         }
     }
     
-    // MARK: - signUp
-    public func signUp(email:String, password:String, completion: @escaping (Bool, customErrorAuth?)->Void ){
-        self.apiAuth.signUp(email: email, password: password) { isSignIn, error in
-            // check errors from api
-            if error != nil{
-                completion(false, error)
-            }
-            if isSignIn{
-                completion(true,nil)
-            }
-        }
-    }
-    
     // MARK: - logIn
     public func logIn(email:String, password:String, completion: @escaping (Bool, customErrorAuth?)->Void ){
         

@@ -78,17 +78,6 @@ class LoginViewController: UIViewController {
     @IBAction func logIn(_ sender: Any) {
         presenter?.loginButtonTapped()
         
-//        self.loadUIView.setLoadUIView()
-        
-        
-       
-//        // validate email
-//        if !validation.validateEmail(self.emailTextField.text ?? ""){
-//
-//            self.loadUIView.removeLoadUIView()
-//            return
-//        }
-        
     }
     
     @IBAction func logInSignInTapped(_ sender: Any) {

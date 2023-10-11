@@ -8,20 +8,25 @@
 import Foundation
 
 protocol MainTabBarViewProtocol:AnyObject{
-    
+    func unknownError()
+    func updateControllers()
 }
 
 protocol MainTabBarPresenterProtocol:AnyObject{
     init(view:MainTabBarViewProtocol)
     
-    func getAccessLevelFromApi(completion: @escaping (Bool, customErrorCompany?)->Void)
+    func getAccessLevelFromApi()
+    
+    func isUserGuide() -> Bool
+    func isUserCanReadAllTours() -> Bool
+    
     
 }
 class MainTabBarPresenter:MainTabBarPresenterProtocol{
     weak var view:MainTabBarViewProtocol?
     
     let keychain = KeychainService()
-    let apiCompany = ApiManagerCompany()
+    let apiCompany:ApiManagerCompanyProtocol = ApiManagerCompany()
     
     let userRealmService = UsersRealmService()
     
@@ -29,30 +34,45 @@ class MainTabBarPresenter:MainTabBarPresenterProtocol{
         self.view = view
     }
     
-    public func getAccessLevelFromApi(completion: @escaping (Bool, customErrorCompany?)->Void){
-        
-        self.apiCompany.getCurrentAccessLevel(token: keychain.getAcessToken() ?? "", companyId: keychain.getCompanyLocalId() ?? "") { accessLevel, error in
-            if error != nil{
-                completion(false,error)
+    public func getAccessLevelFromApi(){
+        Task{
+            do{
+                let accessLevel = try await self.apiCompany.getCurrentAccessLevel()
+                
+                DispatchQueue.main.async {
+                    let accessLevels = UserAccessLevelRealm(
+                        readCompanyEmployee: accessLevel.read_company_employee,
+                        readLocalIdCompany: accessLevel.read_local_id_company,
+                        readGeneralCompanyInformation: accessLevel.read_general_company_information,
+                        writeGeneralCompanyInformation: accessLevel.write_general_company_information,
+                        canChangeAccessLevel: accessLevel.can_change_access_level,
+                        isOwner: accessLevel.is_owner,
+                        canReadTourList: accessLevel.can_read_tour_list,
+                        canWriteTourList: accessLevel.can_write_tour_list,
+                        isGuide: accessLevel.is_guide)
+                    
+                    self.userRealmService.updateUserAccessLevel(localId: self.keychain.getLocalId() ?? "", accessLevels: accessLevels)
+                    
+                    
+                    self.view?.updateControllers()
+                }
+                
+            } catch customErrorCompany.unknowmError{
+                DispatchQueue.main.async {
+                    self.view?.unknownError()
+                }
+                
             }
             
-            if accessLevel != nil{
-                
-                let accessLevels = UserAccessLevelRealm(
-                    readCompanyEmployee: accessLevel?.read_company_employee ?? false,
-                    readLocalIdCompany: accessLevel?.read_local_id_company ?? false,
-                    readGeneralCompanyInformation: accessLevel?.read_general_company_information ?? false,
-                    writeGeneralCompanyInformation: accessLevel?.write_general_company_information ?? false,
-                    canChangeAccessLevel: accessLevel?.can_change_access_level ?? false,
-                    isOwner: accessLevel?.is_owner ?? false,
-                    canReadTourList: accessLevel?.can_read_tour_list ?? false,
-                    canWriteTourList: accessLevel?.can_write_tour_list ?? false,
-                    isGuide: accessLevel?.is_guide ?? false)
-                                
-                self.userRealmService.updateUserAccessLevel(localId: self.keychain.getLocalId() ?? "", accessLevels: accessLevels)
-                                
-                completion(true,nil)
-            }
         }
     }
+    
+    func isUserGuide() -> Bool{
+        userRealmService.getUserAccessLevel(localId: keychain.getLocalId() ?? "", .isGuide)
+    }
+    
+    func isUserCanReadAllTours() -> Bool{
+        userRealmService.getUserAccessLevel(localId: keychain.getLocalId() ?? "", .canReadTourList)
+    }
+    
 }

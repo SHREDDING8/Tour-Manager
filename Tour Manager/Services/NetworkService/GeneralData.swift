@@ -42,9 +42,10 @@ class GeneralData{
     }
     
     public func requestWithCheckRefresh(completion: @escaping (String?)->Void){
-        
+        let keychain = KeychainService()
+        completion(keychain.getAcessToken())
 //        let refreshToken = self.userDefaults.getRefreshToken() ?? ""
-//        
+//
 //        if !self.userDefaults.isAuthToken(date: Date.now){
 //            self.refreshToken(refreshToken: refreshToken) { isRefreshed, newToken, error in
 //                if isRefreshed{
