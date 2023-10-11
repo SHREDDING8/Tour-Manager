@@ -24,6 +24,7 @@ class VerifyEmailPresenter:VerifyEmailPresenterProtocol{
     weak var view:VerifyEmailViewProtocol?
     
     let keychainService = KeychainService()
+    let usersRealmService = UsersRealmService()
     let apiAuth = ApiManagerAuth()
     let apiUserData = ApiManagerUserData()
     
@@ -79,13 +80,12 @@ class VerifyEmailPresenter:VerifyEmailPresenterProtocol{
                 return
             }
             
-            self.keychainService.setEmail(email: response!.email)
-            self.keychainService.setFirstName(firstName: response!.first_name)
-            self.keychainService.setSecondName(secondName: response!.last_name)
-            self.keychainService.setPhone(phone: response!.phone)
+            let me = UserRealm(localId: self.keychainService.getLocalId()!, firstName: response!.first_name, secondName: response!.last_name, email: response!.email, phone: response!.phone, birthday: Date.dateStringToDate(dateString: response!.birthday_date))
+            
+            self.usersRealmService.setUserInfo(user: me)
+
             self.keychainService.setCompanyLocalId(companyLocalId: response!.company_id)
             self.keychainService.setCompanyName(companyName: response!.company_name)
-            self.keychainService.setBirthday(birthday: response!.birthday_date)
             
             completion(true, nil)
             

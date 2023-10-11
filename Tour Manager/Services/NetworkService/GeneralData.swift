@@ -17,7 +17,6 @@ class GeneralData{
     
     private let routeRefreshToken:String
     
-    let userDefaults = WorkWithUserDefaults()
             
     init(){
         routeRefreshToken = domain + "auth/refresh_user_token"
@@ -44,21 +43,21 @@ class GeneralData{
     
     public func requestWithCheckRefresh(completion: @escaping (String?)->Void){
         
-        let refreshToken = self.userDefaults.getRefreshToken() ?? ""
-        
-        if !self.userDefaults.isAuthToken(date: Date.now){
-            self.refreshToken(refreshToken: refreshToken) { isRefreshed, newToken, error in
-                if isRefreshed{
-                    self.userDefaults.setAuthToken(token: newToken!)
-                    
-                    completion(newToken!)
-                }else{
-                    completion(nil)
-                }
-            }
-        }else{
-            completion(nil)
-        }
+//        let refreshToken = self.userDefaults.getRefreshToken() ?? ""
+//        
+//        if !self.userDefaults.isAuthToken(date: Date.now){
+//            self.refreshToken(refreshToken: refreshToken) { isRefreshed, newToken, error in
+//                if isRefreshed{
+//                    self.userDefaults.setAuthToken(token: newToken!)
+//                    
+//                    completion(newToken!)
+//                }else{
+//                    completion(nil)
+//                }
+//            }
+//        }else{
+//            completion(nil)
+//        }
     }
         
     private func refreshToken(refreshToken:String, completion: @escaping (Bool,String?, customErrorAuth?)->Void){
@@ -68,29 +67,26 @@ class GeneralData{
         let url = URL(string: routeRefreshToken)!
         
         
-        
-        
-        
-        AF.request(url,method: .post, parameters: jsonData,encoder: .json).response{
-            response in
-                        
-            switch response.result {
-            case .success(_):
-                if response.response?.statusCode == 400{
-                    completion(false,nil, .unknowmError)
-                }else if response.response?.statusCode == 200{
-                    
-                    let newToken = try! JSONDecoder().decode(ResponseRefreshToken.self, from: response.data!)
-                    completion(true, newToken.token, nil)
-                    self.userDefaults.setLastRefreshDate(date: Date.now)
-                    
-                }else{
-                    completion(false,nil, .unknowmError)
-                }
-            case .failure(_):
-                completion(false,nil, .notConnected)
-            }
-        }
+//        AF.request(url,method: .post, parameters: jsonData,encoder: .json).response{
+//            response in
+//                        
+//            switch response.result {
+//            case .success(_):
+//                if response.response?.statusCode == 400{
+//                    completion(false,nil, .unknowmError)
+//                }else if response.response?.statusCode == 200{
+//                    
+//                    let newToken = try! JSONDecoder().decode(ResponseRefreshToken.self, from: response.data!)
+//                    completion(true, newToken.token, nil)
+//                    self.userDefaults.setLastRefreshDate(date: Date.now)
+//                    
+//                }else{
+//                    completion(false,nil, .unknowmError)
+//                }
+//            case .failure(_):
+//                completion(false,nil, .notConnected)
+//            }
+//        }
         
     }
     

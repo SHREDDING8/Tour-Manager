@@ -11,11 +11,12 @@ class ProfilePageViewController: UIViewController {
     
     // MARK: - my Variables
     
+    var presenter:ProfilePagePresenter?
+    
     var tableViewPosition:CGPoint!
     
     var caledarHeightConstaint:NSLayoutConstraint!
     
-    let user = AppDelegate.user
     let controllers = Controllers()
     let profileModel = Profile()
     let alerts = Alert()
@@ -52,9 +53,15 @@ class ProfilePageViewController: UIViewController {
     private let maxTableViewTopConstraintConstant: CGFloat = 215
     private var previousContentOffsetY: CGFloat = 0
     
+    override func loadView() {
+        super.loadView()
+        presenter = ProfilePagePresenter(view: self)
+    }
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.presenter = ProfilePagePresenter(view: self)
                         
         configurationView()
         setKeyBoardObserver()
@@ -104,10 +111,12 @@ class ProfilePageViewController: UIViewController {
     // MARK: - Configuration
     
     fileprivate func configurationView(){
-        if self.user?.getAccessLevel(rule: .readGeneralCompanyInformation) == true{
-            self.navigationItem.title = self.user?.company.getNameCompany()
+        
+        if (self.presenter?.isAccessLevel(key: .readGeneralCompanyInformation) ?? false){
+            self.navigationItem.title = self.presenter?.getCompanyName() ?? ""
         }
-        self.fullNameLabel.text = self.user?.getFullName() ?? ""
+        
+        self.fullNameLabel.text = "\(self.presenter?.getFirstName() ?? "") \(self.presenter?.getSecondName() ?? "")"
         
         // image picker
         self.imagePicker.delegate = self
@@ -124,7 +133,7 @@ class ProfilePageViewController: UIViewController {
         
         self.profilePhoto.layer.cornerRadius = self.profilePhoto.frame.height / 2
         
-        self.user?.downloadProfilePhoto(localId: self.user?.getLocalID() ?? "", completion: { data, error in
+        self.presenter?.downloadProfilePhoto(completion: { data, error in
             if data != nil{
                 self.setProfilePhoto(image: UIImage(data: data!)!)
             }
@@ -145,10 +154,11 @@ class ProfilePageViewController: UIViewController {
     fileprivate func datePickerConfiguration(){
         
         self.datePicker = DatepickerFromBottom(viewController: self, doneAction: { date in
-            self.user?.updatePersonalData(updateField: .birthdayDate, value: date.birthdayToString()) { isSetted, error in
+            
+            self.presenter?.updatePersonalData(updateField: .birthdayDate, value: date.birthdayToString()) { isSetted, error in
                 if let err = error{
                     self.alerts.errorAlert(self, errorUserDataApi: err) {
-                        self.dateLabel.text = self.user?.getBirthday()
+                        self.dateLabel.text = self.presenter?.getBirthday()
                     }
                 }
                 if isSetted{
@@ -173,7 +183,7 @@ class ProfilePageViewController: UIViewController {
         
         let actionDeletePhoto = UIAlertAction(title: "Delete Photo", style: .default) { [self] _ in
             
-            self.user?.deleteProfilePhoto(completion: { isDeleted, error in
+            self.presenter?.deleteProfilePhoto(completion: { isDeleted, error in
                 if let err = error{
                     self.alerts.errorAlert(self, errorUserDataApi: err)
                 }
@@ -234,7 +244,7 @@ class ProfilePageViewController: UIViewController {
 extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.user?.getAccessLevel(rule: .readGeneralCompanyInformation) ?? false ? 3 : 2
+        return self.presenter?.isAccessLevel(key: .readGeneralCompanyInformation) ?? false ? 3 : 2
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -253,7 +263,7 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
         
         switch section{
         case 0: title.text = "Личные данные"
-        case 1: self.user?.getAccessLevel(rule: .readGeneralCompanyInformation) ?? false ? (title.text = "Компания") : (title.text = "")
+        case 1: self.presenter?.isAccessLevel(key: .readGeneralCompanyInformation) ?? false ? (title.text = "Компания") : (title.text = "")
         default: title.text = ""
         }
         return header
@@ -262,7 +272,7 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         switch section{
-        case 0: return self.user?.getAccessLevel(rule: .isOwner) ?? false ? 6 : 7
+        case 0: return self.presenter?.isAccessLevel(key: .isOwner) ?? false ? 6 : 7
         case 1:
             return 1 + self.profileModel.getNumberCellCompanySection()
         case 2: return 1
@@ -278,7 +288,7 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
         case 0:
             cell = personalDataCell(indexPath: indexPath)
         case 1:
-            if self.user?.getAccessLevel(rule: .readGeneralCompanyInformation) ?? false{
+            if self.presenter?.isAccessLevel(key: .readGeneralCompanyInformation) ?? false{
                 cell = self.companyDataCell(indexPath: indexPath)
                 
             }else{
@@ -429,8 +439,9 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
                     
                     let actionDel = UIAlertAction(title: "Удалить", style: .destructive) { _ in
                         
-                        if self.user?.getFullName() == сonfirmAlert.textFields![0].text{
-                            self.user?.deleteCurrentUser(completion: { isDeleted, error in
+                        if self.presenter?.getFullName() == сonfirmAlert.textFields![0].text{
+                            
+                            self.presenter?.deleteCurrentUser(completion: { isDeleted, error in
                                 
                                 if let err = error{
                                     self.alerts.errorAlert(self, errorUserDataApi: err)
@@ -478,9 +489,9 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
         var cell = UITableViewCell()
         let cellType = profileModel.getProfileCompanyDataCellType(index: 1)
         
-        let indexLocalId = self.user?.getAccessLevel(rule: .readLocalIdCompany).toInt() ?? 0
-        let indexCompanyEmploee = indexLocalId + (self.user?.getAccessLevel(rule: .readCompanyEmployee).toInt() ?? 0)
-        let indexDeleteCompany = indexCompanyEmploee + (self.user?.getAccessLevel(rule: .isOwner).toInt() ?? 0)
+        let indexLocalId = self.presenter?.isAccessLevel(key: .readLocalIdCompany).toInt() ?? 0
+        let indexCompanyEmploee = indexLocalId + (self.presenter?.isAccessLevel(key: .readCompanyEmployee).toInt() ?? 0)
+        let indexDeleteCompany = indexCompanyEmploee + (self.presenter?.isAccessLevel(key: .isOwner).toInt() ?? 0)
         
         
         
@@ -508,7 +519,7 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
             })
             changeButton.addAction(action, for: .touchUpInside)
             
-            if !(self.user?.getAccessLevel(rule: .writeGeneralCompanyInformation) ?? false){
+            if !(self.presenter?.isAccessLevel(key: .writeGeneralCompanyInformation) ?? false){
                 changeButton.isHidden = true
             }
             
@@ -599,8 +610,8 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
                 
                 
                 let deleteButton = UIAlertAction(title: "Удалить", style: .destructive) { _ in
-                    if self.user?.company.getNameCompany() ?? "x" == confirmAlert.textFields![0].text ?? "y"{
-                        self.user?.company.DeleteCompany(token: self.user?.getToken() ?? "", completion: { isDeleted, error in
+                    if self.presenter?.getCompanyName() ?? "x" == confirmAlert.textFields![0].text ?? "y"{
+                        self.presenter?.DeleteCompany(completion: { isDeleted, error in
                             
                             if let err = error{
                                 self.alerts.errorAlert(self, errorCompanyApi: err)
@@ -645,7 +656,7 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
         let actionExit = UIAction { _ in
             
             self.alerts.deleteAlert(self, title: "Вы уверены что хотите выйти?", buttonTitle: "Выйти") {
-                self.user?.logOut(completion: { isLogOut, error in
+                self.presenter?.logOut(completion: { isLogOut, error in
                     if error != nil{
                         
 //                        if error == .notConnected{
@@ -687,44 +698,44 @@ extension ProfilePageViewController:UITextFieldDelegate{
         if textField.restorationIdentifier == "firstName"{
             
             if validationString.validateIsEmptyString([value]){
-                textField.text = self.user?.getFirstName()
+                textField.text = self.presenter?.getFirstName()
                 let alert = alerts.errorAlert(errorTypeFront: .textFieldIsEmpty)
                 self.present(alert, animated: true)
                 return
             }
             
-            self.user?.updatePersonalData(updateField: .firstName, value: value) { isSetted, error in
+            self.presenter?.updatePersonalData(updateField: .firstName, value: value) { isSetted, error in
                 
                 if let err = error{
                     self.alerts.errorAlert(self, errorUserDataApi: err) {
-                        textField.text = self.user?.getFirstName()
+                        textField.text = self.presenter?.getFirstName()
                     }
                 }
                 
                 if isSetted{
-                    self.fullNameLabel.text = self.user?.getFullName() ?? ""
+                    self.fullNameLabel.text = self.presenter?.getFullName() ?? ""
                 }
             }
             
         }else if textField.restorationIdentifier == "secondName"{
             
             if validationString.validateIsEmptyString([value]){
-                textField.text = self.user?.getSecondName()
+                textField.text = self.presenter?.getSecondName()
                 let alert = alerts.errorAlert(errorTypeFront: .textFieldIsEmpty)
                 self.present(alert, animated: true)
                 return
             }
             
-            self.user?.updatePersonalData(updateField: .secondName, value: value) { isSetted, error in
+            self.presenter?.updatePersonalData(updateField: .secondName, value: value) { isSetted, error in
                 
                 if let err = error{
                     self.alerts.errorAlert(self, errorUserDataApi: err) {
-                        textField.text = self.user?.getSecondName()
+                        textField.text = self.presenter?.getSecondName()
                     }
                 }
                 
                 if isSetted{
-                    self.fullNameLabel.text = self.user?.getFullName() ?? ""
+                    self.fullNameLabel.text = self.presenter?.getFullName() ?? ""
                 }
             }
             
@@ -740,33 +751,33 @@ extension ProfilePageViewController:UITextFieldDelegate{
                 return
             }
             
-            self.user?.updatePersonalData(updateField: .phone, value: newPhone) { isSetted, error in
+            self.presenter?.updatePersonalData(updateField: .phone, value: newPhone) { isSetted, error in
                 
                 if let err = error{
                     self.alerts.errorAlert(self, errorUserDataApi: err) {
-                        textField.text = self.user?.getPhone()
+                        textField.text = self.presenter?.getPhone()
                     }
                 }
             }
             
         } else if textField.restorationIdentifier == "companyName"{
             if validationString.validateIsEmptyString([value]){
-                textField.text = self.user?.company.getNameCompany()
+                textField.text = self.presenter?.getCompanyName()
                 let alert = alerts.errorAlert(errorTypeFront: .textFieldIsEmpty)
                 self.present(alert, animated: true)
                 return
             }
             
-            self.user?.company.updateCompanyInfo(token: self.user?.getToken() ?? "", companyName: value, completion: { isUpdated, error in
+            self.presenter?.updateCompanyInfo(companyName: value, completion: { isUpdated, error in
                 
                 if let err = error{
                     self.alerts.errorAlert(self, errorCompanyApi: err) {
-                        textField.text = self.user?.company.getNameCompany()
+                        textField.text = self.presenter?.getCompanyName()
                     }
                 }
                                 
                 if isUpdated{
-                    self.navigationItem.title = self.user?.company.getNameCompany()
+                    self.navigationItem.title = self.presenter?.getCompanyName()
                 }
                 
             })
@@ -784,7 +795,7 @@ extension ProfilePageViewController:UIImagePickerControllerDelegate,UINavigation
             self.dismiss(animated: true)
             
             
-            self.user?.uploadProfilePhoto(image: image, completion: { isUpload, error in
+            self.presenter?.uploadProfilePhoto(image: image, completion: { isUpload, error in
                 
                 if let err = error{
                     self.alerts.errorAlert(self, errorUserDataApi: err)
@@ -800,4 +811,8 @@ extension ProfilePageViewController:UIImagePickerControllerDelegate,UINavigation
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         self.dismiss(animated: true)
     }
+}
+
+extension ProfilePageViewController:ProfileViewProtocol{
+    
 }

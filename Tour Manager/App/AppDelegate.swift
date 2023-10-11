@@ -11,14 +11,8 @@ import UserNotifications
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    public static var user:User? = User()
-
     public static var tabBar:UITabBarController? = nil
-        
-    let localNotifications = LocalNotifications()
-    
-    let pushNotificationsService = PushNotificationService()
-    
+            
     let keychainService = KeychainService()
     
 
@@ -102,12 +96,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func getNotificationSettings() {
-      UNUserNotificationCenter.current().getNotificationSettings { (settings) in
-        guard settings.authorizationStatus == .authorized else { return }
-          DispatchQueue.main.async {
-              UIApplication.shared.registerForRemoteNotifications()
-          }
-      }
+        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+            guard settings.authorizationStatus == .authorized else { return }
+            DispatchQueue.main.async {
+                UIApplication.shared.registerForRemoteNotifications()
+            }
+        }
     }
     
     
@@ -121,25 +115,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate{
         let notificationUserInfo = notification.request.content.userInfo
         
         let notificationType =  notificationUserInfo["notification_type"] as? String
-        
-        if let notificationType = notificationType{
-            let type = NotificationType(rawValue: notificationType)
             
-            switch type {
-            case .removeTour:break
-//                self.pushNotificationsService.removeTour(notificationUserInfo: notificationUserInfo)
-            case .addTour:
-                break
-            case .updateTour:break
-//                self.pushNotificationsService.updateTour(notificationUserInfo: notificationUserInfo)
-            case .guideTourStatus:
-                self.pushNotificationsService.changeGuideStatus(notificationUserInfo: notificationUserInfo)
-                return
-            case nil:
-                break
-            }
-        }
-    
         completionHandler([.banner,.badge,.sound])
        
         

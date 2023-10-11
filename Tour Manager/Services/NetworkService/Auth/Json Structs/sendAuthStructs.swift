@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - sendLogInJsonStruct
-struct sendLogInJsonStruct: Codable {
+struct SendLogInJsonStruct: Codable {
     let email, password: String
     let apnsToken: ApnsToken
 

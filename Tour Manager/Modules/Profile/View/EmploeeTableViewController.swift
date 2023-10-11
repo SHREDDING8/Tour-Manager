@@ -7,19 +7,21 @@
 
 import UIKit
 
-class EmploeeTableViewController: UITableViewController {
+class EmploeeTableViewController: UITableViewController, EmployeesListViewProtocol {
+    
+    var presenter:EmployeesListPresenter?
     
     let controllers = Controllers()
     let alerts = Alert()
     
     var emploee:[User] = []
-    
-    let user = AppDelegate.user
-    
+        
     let refreshControll = UIRefreshControl()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.presenter = EmployeesListPresenter(view: self)
         
         getEmpoloee()
 
@@ -56,7 +58,7 @@ class EmploeeTableViewController: UITableViewController {
     
     
     public func getEmpoloee(){
-        self.user?.company.getCompanyUsers(token: self.user?.getToken() ?? "", completion: { isGetted, employee, error in
+        self.presenter?.getCompanyUsers(completion: { isGetted, employee, error in
             
             if let err = error{
                 self.alerts.errorAlert(self, errorCompanyApi: err)

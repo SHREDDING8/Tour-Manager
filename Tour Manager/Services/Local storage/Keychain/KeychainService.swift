@@ -9,25 +9,11 @@ import Foundation
 import KeychainSwift
 
 
-public enum AccessLevelKeys:String{
-    case readCompanyEmployee = "readCompanyEmployee"
-    case readLocalIdCompany = "readLocalIdCompany"
-    case readGeneralCompanyInformation = "readGeneralCompanyInformation"
-    case writeGeneralCompanyInformation = "writeGeneralCompanyInformation"
-    case canChangeAccessLevel = "canChangeAccessLevel"
-    case isOwner = "isOwner"
-    case canReadTourList = "canReadTourList"
-    case canWriteTourList = "canWriteTourList"
-    case isGuide = "isGuide"
-    
-}
-
 protocol KeychainServiceProtocol{
     
     func getAcessToken() -> String?
     func setAcessToken(token:String)
     func isAcessTokenAvailable() -> Bool
-    func getLastRefreshDate()->Date?
     
     func getRefreshToken()->String?
     func setRefreshToken(token:String)
@@ -39,25 +25,11 @@ protocol KeychainServiceProtocol{
     func getLocalId()->String?
     func setLocalId(id:String)
     
-    func setEmail(email:String)
-    func setFirstName(firstName:String)
-    func setSecondName(secondName:String)
-    func setPhone(phone:String)
-    func setBirthday(birthday:String)
     func setCompanyLocalId(companyLocalId:String)
     func setCompanyName(companyName:String)
     
-    func getEmail()->String?
-    func getFirstName()->String?
-    func getSecondName()->String?
-    func getPhone()->String?
-    func getBirthday()->String?
     func getCompanyLocalId()->String?
     func getCompanyName()->String?
-    
-    
-    func getAccessLevel(key:AccessLevelKeys) -> Bool
-    func setAccessLevel(key:AccessLevelKeys, value:Bool)
     
     
     func removeAllData()
@@ -79,11 +51,6 @@ class KeychainService:KeychainServiceProtocol{
     private enum UserDataKeys{
         static let localId = "localId"
         
-        static let email = "email"
-        static let firstName = "firstName"
-        static let secondName = "secondName"
-        static let phone = "phone"
-        static let birthday = "birthday"
         static let companyLocalId = "companyLocalId"
         static let companyName = "companyName"
     }
@@ -147,21 +114,7 @@ class KeychainService:KeychainServiceProtocol{
         keychain.set(id, forKey: UserDataKeys.localId)
     }
     
-    func setEmail(email:String){
-        keychain.set(email, forKey: UserDataKeys.email)
-    }
-    func setFirstName(firstName:String){
-        keychain.set(firstName, forKey: UserDataKeys.firstName)
-    }
-    func setSecondName(secondName:String){
-        keychain.set(secondName, forKey: UserDataKeys.secondName)
-    }
-    func setPhone(phone:String){
-        keychain.set(phone, forKey: UserDataKeys.phone)
-    }
-    func setBirthday(birthday:String){
-        keychain.set(birthday, forKey: UserDataKeys.birthday)
-    }
+
     func setCompanyLocalId(companyLocalId:String){
         keychain.set(companyLocalId, forKey: UserDataKeys.companyLocalId)
     }
@@ -169,21 +122,6 @@ class KeychainService:KeychainServiceProtocol{
         keychain.set(companyName, forKey: UserDataKeys.companyName)
     }
     
-    func getEmail()->String?{
-        return keychain.get(UserDataKeys.email)
-    }
-    func getFirstName()->String?{
-        return keychain.get(UserDataKeys.firstName)
-    }
-    func getSecondName()->String?{
-        return keychain.get(UserDataKeys.secondName)
-    }
-    func getPhone()->String?{
-        return keychain.get(UserDataKeys.phone)
-    }
-    func getBirthday()->String?{
-        return keychain.get(UserDataKeys.birthday)
-    }
     func getCompanyLocalId()->String?{
         return keychain.get(UserDataKeys.companyLocalId)
     }
@@ -191,12 +129,6 @@ class KeychainService:KeychainServiceProtocol{
         return keychain.get(UserDataKeys.companyName)
     }
     
-    func getAccessLevel(key:AccessLevelKeys) -> Bool{
-        return keychain.getBool(key.rawValue) ?? false
-    }
-    func setAccessLevel(key:AccessLevelKeys, value:Bool){
-        keychain.set(value, forKey: key.rawValue)
-    }
     
     func removeAllData(){
         for key in keychain.allKeys{

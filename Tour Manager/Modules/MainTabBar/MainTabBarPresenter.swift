@@ -23,6 +23,8 @@ class MainTabBarPresenter:MainTabBarPresenterProtocol{
     let keychain = KeychainService()
     let apiCompany = ApiManagerCompany()
     
+    let userRealmService = UsersRealmService()
+    
     required init(view:MainTabBarViewProtocol) {
         self.view = view
     }
@@ -35,17 +37,20 @@ class MainTabBarPresenter:MainTabBarPresenterProtocol{
             }
             
             if accessLevel != nil{
-                self.keychain.setAccessLevel(key: .readCompanyEmployee, value: accessLevel?.read_company_employee ?? false)
-                self.keychain.setAccessLevel(key: .readLocalIdCompany, value: accessLevel?.read_local_id_company ?? false)
-                self.keychain.setAccessLevel(key: .readGeneralCompanyInformation, value: accessLevel?.read_general_company_information ?? false)
-                self.keychain.setAccessLevel(key: .writeGeneralCompanyInformation, value: accessLevel?.write_general_company_information ?? false)
-                self.keychain.setAccessLevel(key: .canChangeAccessLevel, value: accessLevel?.can_change_access_level ?? false)
-                self.keychain.setAccessLevel(key: .isOwner, value: accessLevel?.is_owner ?? false)
                 
-                self.keychain.setAccessLevel(key: .canReadTourList, value: accessLevel?.can_read_tour_list ?? false)
-                self.keychain.setAccessLevel(key: .canWriteTourList, value: accessLevel?.can_write_tour_list ?? false)
-                self.keychain.setAccessLevel(key: .isGuide, value: accessLevel?.is_guide ?? false)
-                
+                let accessLevels = UserAccessLevelRealm(
+                    readCompanyEmployee: accessLevel?.read_company_employee ?? false,
+                    readLocalIdCompany: accessLevel?.read_local_id_company ?? false,
+                    readGeneralCompanyInformation: accessLevel?.read_general_company_information ?? false,
+                    writeGeneralCompanyInformation: accessLevel?.write_general_company_information ?? false,
+                    canChangeAccessLevel: accessLevel?.can_change_access_level ?? false,
+                    isOwner: accessLevel?.is_owner ?? false,
+                    canReadTourList: accessLevel?.can_read_tour_list ?? false,
+                    canWriteTourList: accessLevel?.can_write_tour_list ?? false,
+                    isGuide: accessLevel?.is_guide ?? false)
+                                
+                self.userRealmService.updateUserAccessLevel(localId: self.keychain.getLocalId() ?? "", accessLevels: accessLevels)
+                                
                 completion(true,nil)
             }
         }

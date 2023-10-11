@@ -13,10 +13,11 @@ class LaunchScreenViewController: UIViewController {
     // MARK: - My varibles
     
     let controllers = Controllers()
-    let user = AppDelegate.user
     let alerts = Alert()
     
-    let userDefaultsService = WorkWithUserDefaults()
+    
+    let keychain = KeychainService()
+    let apiUserData = ApiManagerUserData()
     
     // MARK: - Life Cycle
     
@@ -27,31 +28,10 @@ class LaunchScreenViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        let token = self.userDefaultsService.getAuthToken()
-        let localId = self.userDefaultsService.getLocalId()
+        let token = self.keychain.getAcessToken()
+        let refreshToken = self.keychain.getRefreshToken()
+        let companyId = self.keychain.getCompanyLocalId()
         
-        if token != nil && localId != ""{
-            self.user?.setToken(token: token!)
-            self.user?.setLocalID(localId: localId)
-            
-            self.user?.getUserInfoFromApi(completion: { isGetted, error in
-                
-//                print("Lauch: \(isGetted) \(error)")
-                
-                if isGetted{
-                    self.controllers.goToMainTabBar(view: self.view, direction: .fade)
-                }
-//                else if error == .notConnected{
-//                    self.controllers.goToNoConnection(view: self.view, direction: .fade)
-//                    
-//                }
-                else{
-                    self.controllers.goToLoginPage(view: self.view, direction: .fade)
-                }
-            })
-            
-        } else{
-            self.controllers.goToLoginPage(view: self.view, direction: .fade)
-        }
+        (token != nil && refreshToken != nil && companyId != nil) ? self.controllers.goToMainTabBar(view: self.view, direction: .fade) : self.controllers.goToLoginPage(view: self.view, direction: .fade)
     }
 }

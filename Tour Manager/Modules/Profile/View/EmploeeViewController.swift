@@ -7,9 +7,10 @@
 
 import UIKit
 
-class EmploeeViewController: UIViewController {
+class EmploeeViewController: UIViewController, EmployeeViewProtocol {
     
-    let user = AppDelegate.user
+    var presenter:EmployeePresenter?
+    
     let profileModel = Profile()
     let alerts = Alert()
     
@@ -35,6 +36,8 @@ class EmploeeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.presenter = EmployeePresenter(view: self)
         
         configurationView()
         
@@ -63,7 +66,7 @@ class EmploeeViewController: UIViewController {
         
         self.profilePhoto.layer.cornerRadius = self.profilePhoto.frame.height / 2
         
-        self.user?.downloadProfilePhoto(localId: self.employee.getLocalID() ?? "", completion: { data, error in
+        self.presenter?.downloadProfilePhoto(localId: self.employee.getLocalID() ?? "", completion: { data, error in
             if data != nil{
                 self.setProfilePhoto(image: UIImage(data: data!)!)
             }
@@ -254,7 +257,7 @@ extension EmploeeViewController:UITableViewDelegate,UITableViewDataSource{
         
         switchButton.removeTarget(self, action: nil, for: .valueChanged)
         switchButton.addAction(UIAction(handler: { _ in
-            self.user?.updateAccessLevel(employe: self.employee, accessLevel: rule, value: switchButton.isOn) { isUpdated, error in
+            self.presenter?.updateAccessLevel(employe: self.employee, accessLevel: rule, value: switchButton.isOn) { isUpdated, error in
 
                 if  let err = error{
                     self.alerts.errorAlert(self, errorCompanyApi: err) {
@@ -265,15 +268,15 @@ extension EmploeeViewController:UITableViewDelegate,UITableViewDataSource{
         }), for: .valueChanged)
         
         
-        if !(self.user?.getAccessLevel(rule: .canChangeAccessLevel) ?? false) ||
-            !(self.user?.getAccessLevel(rule: rule) ?? false) ||
-            self.user?.getLocalID() == employee.getLocalID() ||
+        if !(self.presenter?.getAccessLevel(localId: employee.localId ?? "", rule: .canChangeAccessLevel) ?? false) ||
+            !(self.presenter?.getAccessLevel(localId: employee.localId ?? "", rule: .canReadTourList) ?? false) || // rule
+            self.presenter?.getLocalID() == employee.getLocalID() ||
             self.employee.getAccessLevel(rule: .isOwner){
             switchButton.isEnabled = false
             switchButton.layer.opacity = 0.5
         }
         
-        if self.user?.getAccessLevel(rule: .isOwner) ?? false && rule == .isGuide{
+        if self.presenter?.getAccessLevel(localId: employee.localId ?? "", rule: .isOwner) ?? false && rule == .isGuide{
             switchButton.isEnabled = true
             switchButton.layer.opacity = 1
         }

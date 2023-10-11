@@ -63,13 +63,12 @@ class mainTabBarViewController: UITabBarController {
         let profileNavController = controllers.getControllerMain(.profileNavigationViewController)
         profileNavController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person.fill"), tag: 1)
         
-//        let excursionManagementNavViewController = controllers.getControllerMain(.excursionManagementNavigationViewController)
-//        
-//        excursionManagementNavViewController.tabBarItem = UITabBarItem(title: "Управление", image: UIImage(systemName: "calendar"), tag: 2)
-//        
-//        
-//        let excursionsNavigationController = controllers.getControllerMain(.excursionsNavigationController)
-//        excursionsNavigationController.tabBarItem = UITabBarItem(title: "Экскурсии", image: UIImage(systemName: "calendar"), tag: 2)
+        let excursionManagementNavViewController = controllers.getControllerMain(.excursionManagementNavigationViewController)
+        
+        excursionManagementNavViewController.tabBarItem = UITabBarItem(title: "Управление", image: UIImage(systemName: "calendar"), tag: 2)
+        
+        let excursionsNavigationController = controllers.getControllerMain(.excursionsNavigationController)
+        excursionsNavigationController.tabBarItem = UITabBarItem(title: "Экскурсии", image: UIImage(systemName: "calendar"), tag: 2)
 //        
 
 //        
@@ -82,11 +81,12 @@ class mainTabBarViewController: UITabBarController {
 //            controllersList.append(excursionManagementNavViewController)
 //        }
         
-//        controllersList.append(profileNavController)
+        controllersList.append(excursionsNavigationController)
+        controllersList.append(excursionManagementNavViewController)
+        controllersList.append(profileNavController)
         
-        controllersList = [profileNavController]
         
-        self.setViewControllers([profileNavController], animated: true)
+        self.setViewControllers(controllersList, animated: true)
         print("setViewControllers")
         
         if controllersList.count == 3{

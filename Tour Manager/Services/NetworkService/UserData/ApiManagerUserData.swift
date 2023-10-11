@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 
-public enum customErrorUserData{
+public enum customErrorUserData:Error{
     case tokenExpired
     case invalidToken
     
@@ -45,9 +45,13 @@ public enum UserDataFields:String{
 
 
 
+protocol ApiManagerUserDataProtocol{
+    func getUserInfo() async throws -> ResponseGetUserInfoJsonStruct
+}
 
-public class ApiManagerUserData{
+public class ApiManagerUserData: ApiManagerUserDataProtocol{
     let generalData = GeneralData()
+    let keychainService = KeychainService()
     private let domain:String
     private let prefix:String
     
@@ -76,6 +80,44 @@ public class ApiManagerUserData{
         self.routeDeletePhoto = prefix + "delete_profile_picture"
     }
     
+    func getUserInfo() async throws -> ResponseGetUserInfoJsonStruct{
+        let url = URL(string: self.routeGetUserInfo)
+        let jsonData = SendGetUserInfoJsonStruct(token: keychainService.getAcessToken() ?? "")
+        
+        let refresh = try await ApiManagerAuth.refreshToken()
+        
+        if !refresh{
+            throw customErrorUserData.unknowmError
+        }
+        
+        let result:ResponseGetUserInfoJsonStruct = try await withCheckedThrowingContinuation { continuation in
+            
+            AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
+                
+                switch response.result {
+                case .success(_):
+                    if response.response?.statusCode == 400{
+                        
+                        let error = self.checkError(data: response.data ?? Data())
+                        continuation.resume(throwing: error)
+                        
+                    } else if response.response?.statusCode == 200{
+                        let responseData = try! JSONDecoder().decode(ResponseGetUserInfoJsonStruct.self, from: response.data!)
+                        continuation.resume(returning: responseData)
+                    }else {
+                        continuation.resume(throwing: customErrorUserData.unknowmError)
+                    }
+                    
+                case .failure(_):
+                    continuation.resume(throwing: customErrorUserData.unknowmError)
+                }
+            }
+            
+        }
+        
+        
+        return result
+    }
     
     // MARK: - getUserInfo
     public func getUserInfo(token:String, completion: @escaping (Bool,ResponseGetUserInfoJsonStruct?,customErrorUserData?)->Void ){
@@ -229,6 +271,7 @@ public class ApiManagerUserData{
                 for (key,value) in parameter{
                     multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key)
                 }
+                
                 multipartFormData.append(imageData, withName: "file", fileName: "profile photo.jpg")
                 
             }, to: url!).response { response in
@@ -276,7 +319,7 @@ public class ApiManagerUserData{
                         completion(false, nil, error)
                         
                     } else if response.response?.statusCode == 200{
-                        completion(true, response.data! ,nil)
+                        completion(true, response.data! , nil)
                     }else{
                         completion(false, nil, .unknowmError)
                     }

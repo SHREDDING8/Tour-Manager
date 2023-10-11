@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 
-public enum customErrorAuth{
+public enum customErrorAuth:Error{
     case invalidEmailOrPassword
     
     case emailIsNotVerifyed
@@ -26,10 +26,20 @@ public enum customErrorAuth{
     case notConnected
 }
 
-
-public class ApiManagerAuth{
+protocol ApiManagerAuthProtocol{
+    func logIn(email:String,password:String, deviceToken:String) async throws -> ResponseLogInJsonStruct
     
-    let userDefaults = WorkWithUserDefaults()
+    func signUp(email:String,password:String) async throws -> Bool
+    
+    func resetPassword(email:String) async -> Bool
+    
+    func sendVerifyEmail(email:String, password:String) async -> Bool
+    
+    static func refreshToken() async throws -> Bool
+}
+
+
+public class ApiManagerAuth: ApiManagerAuthProtocol{
     
     let generalData = GeneralData()
     
@@ -64,9 +74,78 @@ public class ApiManagerAuth{
     
     
     // MARK: - logIn
+    func logIn(email:String,password:String,deviceToken:String) async throws -> ResponseLogInJsonStruct{
+        
+        let jsonData = await SendLogInJsonStruct(email: email, password: password, apnsToken: ApnsToken(vendorID: UIDevice.current.identifierForVendor?.uuidString ?? "", deviceToken: deviceToken, deviceName: UIDevice.current.name))
+        
+        let url = URL(string: routeLogIn)
+        
+        let result:ResponseLogInJsonStruct = try await withCheckedThrowingContinuation { continuation in
+            AF.request(url!,method: .post, parameters: jsonData,encoder: .json).response { response in
+                switch response.result {
+                case .success(_):
+                    if response.response?.statusCode == 400{
+                        let error = self.checkError(data: response.data!)
+                        continuation.resume(throwing: error)
+                        
+                    } else if response.response?.statusCode == 200{
+                        if let logInData = try? JSONDecoder().decode(ResponseLogInJsonStruct.self, from: response.data!){
+                            
+                            continuation.resume(returning: logInData)
+                        }
+                    } else {
+                        continuation.resume(throwing: customErrorAuth.unknowmError)
+                    }
+                    
+                case .failure(_):
+                    continuation.resume(throwing: customErrorAuth.unknowmError)
+                }
+                
+            }
+        }
+        
+        return result
+        
+    }
+    
+    static func refreshToken() async throws -> Bool{
+        let keychainService = KeychainService()
+        let generalData = GeneralData()
+        
+        if keychainService.isAcessTokenAvailable(){
+            return true
+        }
+        
+        let refreshToken = keychainService.getRefreshToken() ?? ""
+        
+        
+        let jsonData = ["refresh_token": refreshToken]
+        
+        let url = URL(string: generalData.domain + "auth/refresh_user_token")!
+        
+        let result:Bool = try await withCheckedThrowingContinuation { continuation in
+            
+            AF.request(url,method: .post, parameters: jsonData,encoder: .json).response{
+                response in
+                
+                if response.response?.statusCode == 200{
+                    
+                    let newToken = try! JSONDecoder().decode(ResponseRefreshToken.self, from: response.data!)
+                    keychainService.setAcessToken(token: newToken.token)
+                    continuation.resume(returning: true)                    
+                }else{
+                    continuation.resume(returning: false)
+                }
+            }
+        }
+        
+        return result
+        
+    }
+    
     public func logIn(email:String,password:String, deviceToken:String, completion: @escaping (Bool, ResponseLogInJsonStruct?, customErrorAuth?)->Void ){
         
-        let jsonData = sendLogInJsonStruct(email: email, password: password, apnsToken: ApnsToken(vendorID: UIDevice.current.identifierForVendor?.uuidString ?? "", deviceToken: deviceToken, deviceName: UIDevice.current.name))
+        let jsonData = SendLogInJsonStruct(email: email, password: password, apnsToken: ApnsToken(vendorID: UIDevice.current.identifierForVendor?.uuidString ?? "", deviceToken: deviceToken, deviceName: UIDevice.current.name))
         
         let url = URL(string: routeLogIn)
         
@@ -80,7 +159,7 @@ public class ApiManagerAuth{
                 } else if response.response?.statusCode == 200{
                     if let logInData = try? JSONDecoder().decode(ResponseLogInJsonStruct.self, from: response.data!){
                         completion(true, logInData, nil)
-                        self.userDefaults.setLastRefreshDate(date: Date.now)
+//                        self.userDefaults.setLastRefreshDate(date: Date.now)
                     }
                 } else {
                     completion(false, nil, .unknowmError)
@@ -126,6 +205,40 @@ public class ApiManagerAuth{
     
     
     // MARK: - signUp
+    func signUp(email:String,password:String) async throws -> Bool{
+        
+        let jsonData = [
+            "email": email,
+            "password": password
+        ]
+        
+        let url = URL(string: routeSignIn)
+        
+        let result:Bool = try await withCheckedThrowingContinuation { continuation in
+            
+            AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
+                
+                switch response.result {
+                case .success(_):
+                    if response.response?.statusCode == 200{
+                        continuation.resume(returning: true)
+                    }else if response.response?.statusCode == 400 {
+                        let error = self.checkError(data: response.data!)
+                        continuation.resume(throwing: error)
+                    } else{
+                        continuation.resume(throwing: customErrorAuth.unknowmError)
+                    }
+                case .failure(_):
+                    continuation.resume(throwing: customErrorAuth.unknowmError)
+                }
+            }
+            
+        }
+        
+        return result
+        
+    }
+    
     public func signUp(email:String,password:String, completion: @escaping (Bool,customErrorAuth?)->Void ){
         
         let jsonData = [
@@ -156,27 +269,18 @@ public class ApiManagerAuth{
     }
     
     // MARK: - Reset Password
-    public func resetPassword(email:String,completion:  @escaping (Bool,customErrorAuth?)->Void){
+    func resetPassword(email:String) async -> Bool{
         let jsonData = sendResetPassword(email: email)
-        
         let url = URL(string: routeResetPassword)
         
-        AF.request(url!, method: .post, parameters:  jsonData,encoder: .json).response { response in
+        let result:Bool = await withCheckedContinuation { continuation in
             
-            switch response.result {
-            case .success(_):
-                if response.response?.statusCode == 400{
-                    let error = self.checkError(data: response.data!)
-                    completion(false, error)
-                } else if response.response?.statusCode == 200{
-                    completion(true,nil)
-                } else {
-                    completion(false,.unknowmError)
-                }
-            case .failure(_):
-                completion(false,.notConnected)
+            AF.request(url!, method: .post, parameters:  jsonData,encoder: .json).response { response in
+                continuation.resume(returning: response.response?.statusCode == 200 ? true : false)
             }
         }
+        
+        return result
     }
     
     // MARK: - updatePassword
@@ -203,35 +307,33 @@ public class ApiManagerAuth{
             }
         }
     }
-    
-    // MARK: - isUserExists
-    public func isUserExists(email:String, completion:  @escaping (Bool?,customErrorAuth?)->Void ){
-        
-        let jsonData = sendResetPassword(email: email)
-        
-        let url = URL(string: routeIsEmailBusy)
-        
-        AF.request(url!, method: .post, parameters:  jsonData,encoder: .json).response { response in
-            
-            switch response.result {
-            case .success(_):
-                if response.response?.statusCode == 400{
-                    let error = self.checkError(data: response.data!)
-                    completion(nil, error)
-                    
-                }else if response.response?.statusCode == 200{
-                    let successfulCheckEmail = try! JSONDecoder().decode(ResponseIsUserExistsJsonStruct.self, from: response.data!)
-                    completion(successfulCheckEmail.userExists,nil)
-                }else {
-                    completion(nil,.unknowmError)
-                }
-            case .failure(_):
-                completion(nil,.notConnected)
-            }
-        }
-    }
             
     // MARK: - sendVerifyEmail
+    func sendVerifyEmail(email:String, password:String) async -> Bool{
+        
+        let jsonData = [
+            "email": email,
+            "password": password
+        ]
+        
+        let url = URL(string: routeSendVerifyEmail)
+        
+        let result:Bool = await withCheckedContinuation { continuation in
+            
+            AF.request(url!, method: .post, parameters:  jsonData,encoder: .json).response { response in
+                
+                if response.response?.statusCode == 200{
+                    continuation.resume(returning: true)
+                }else{
+                    continuation.resume(returning: false)
+                }
+            }
+        }
+        
+        return result
+        
+    }
+    
     public func sendVerifyEmail(email:String, password:String, completion:  @escaping (Bool?,customErrorAuth?)->Void ) {
         
         let jsonData = [

@@ -19,21 +19,7 @@ public struct UserDataServerStruct:Codable{
 }
 
 
-protocol UserProtocol{
-
-    func setToken(token:String)
-    func getToken() -> String
-    
-    func setLocalID(localId:String)
-    func getLocalID()->String?
-    
-    func setDataAuth(token:String,localId:String,refreshToken:String)
-    
-}
-
-
-
-class User:UserProtocol, Equatable{
+class User: Equatable{
     static func == (lhs: User, rhs: User) -> Bool {
         return lhs.getLocalID() == rhs.getLocalID()
     }
@@ -44,12 +30,7 @@ class User:UserProtocol, Equatable{
     internal let apiUserData = ApiManagerUserData()
     
     internal let apiCompany = ApiManagerCompany()
-    
-    internal let company = Company()
-    
-    internal let userDefaultsService = WorkWithUserDefaults()
-    
-    
+
     enum AccessLevelEnum:String{
         
         case isOwner = ""
@@ -132,7 +113,7 @@ class User:UserProtocol, Equatable{
         self.secondName = secondName
         self.birthday = birthday
         self.phone = phone
-        self.company.setLocalIDCompany(localIdCompany: companyId)
+//        self.company.setLocalIDCompany(localIdCompany: companyId)
         
         self.accessLevel[.readGeneralCompanyInformation] = accessLevel.readGeneralCompanyInformation
         self.accessLevel[.writeGeneralCompanyInformation] = accessLevel.writeGeneralCompanyInformation

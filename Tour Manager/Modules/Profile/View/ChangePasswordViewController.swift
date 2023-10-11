@@ -7,11 +7,11 @@
 
 import UIKit
 
-class ChangePasswordViewController: UIViewController {
+class ChangePasswordViewController: UIViewController, ChangePasswordViewProtocol {
     
     // MARK: - My variables
+    var presenter:ChangePasswordPresenterProtocol!
     
-    let user = AppDelegate.user
     let alerts = Alert()
     
     let controllers = Controllers()
@@ -41,6 +41,7 @@ class ChangePasswordViewController: UIViewController {
     // MARK: - lifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter = ChangePasswordPresenter(view: self)
         
         self.addKeyboardObservers()
         self.configureView()
@@ -111,7 +112,7 @@ class ChangePasswordViewController: UIViewController {
     @IBAction func changePassword(_ sender: Any) {
         if stringValidation.validatePasswordsString(self.passwords["newPassword"] ?? "", self.passwords["secondNewPassword"] ?? ""){
             
-            self.user?.updatePassword(oldPassword: self.passwords["oldPassword"] ?? "", newPassword: self.passwords["newPassword"] ?? "", completion: { isUpdated, error in
+            self.presenter.updatePassword(oldPassword: self.passwords["oldPassword"] ?? "", newPassword: self.passwords["newPassword"] ?? "", completion: { isUpdated, error in
                 
                 if error == .invalidEmailOrPassword{
                     self.alerts.errorAlert(self, errorTypeApi: .invalidEmailOrPassword)
