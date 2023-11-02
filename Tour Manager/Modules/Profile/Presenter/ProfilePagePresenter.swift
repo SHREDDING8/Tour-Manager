@@ -58,7 +58,7 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
     }
     
     func getBirthday() -> String{
-        return usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")?.birthday.birthdayToString() ?? ""
+        return usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")?.birthday?.birthdayToString() ?? ""
     }
     
     func getPhone() -> String{

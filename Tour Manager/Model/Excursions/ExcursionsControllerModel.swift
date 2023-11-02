@@ -20,40 +20,6 @@ class ExcursionsControllerModel{
     }
     
     
-    
-    public func getExcursionsFromApi(token:String, companyId:String, date:Date, completion: @escaping (Bool, customErrorExcursion?)->Void ){
-        
-        self.excursions = []
-        var newTours:[Excursion] = []
-        
-        apiManagerExcursions.GetExcursions(token: token, companyId: companyId, date: date.birthdayToString()) { isGetted, excursionsfromApi, error in
-            
-            if isGetted{
-                for excursion in excursionsfromApi!{
-                    
-                    let newExcursion = Excursion(localId: excursion.tourId, excursionName: excursion.tourName, route: excursion.tourRoute, additionalInfromation: excursion.tourNotes, guideAccessNotes: excursion.tourNotesVisible, numberOfPeople: excursion.tourNumberOfPeople, dateAndTime: Date.dateAndTimeToDate(dateString: date.birthdayToString(), timeString: excursion.tourTimeStart), customerCompanyName: excursion.customerCompanyName, customerGuideName: excursion.customerGuideName, companyGuidePhone: excursion.customerGuideContact,isPaid: excursion.isPaid, paymentMethod: excursion.paymentMethod, paymentAmount: excursion.paymentAmount)
-                    
-                    for guide in excursion.tourGuides{
-                        let newGuideInfo = User(localId: guide.guideID, firstName: guide.guideFirstName, secondName: guide.guideLastName,email: guide.guideEmail,phone: guide.guidePhone,birthdayDate: Date.dateStringToDate(dateString: guide.birthdayDate))
-                        let newGuide = SelfGuide(guideInfo: newGuideInfo, isMain: guide.isMain, status: .init(rawValue: guide.status) ?? .waiting)
-                        
-                        newExcursion.selfGuides.append(newGuide)
-                    }
-                    
-                    newTours.append(newExcursion)
-                }
-                self.excursions = newTours
-                completion(true, nil)
-                return
-                
-            }
-            
-            completion(false,error)
-            
-        }
-    }
-    
-    
     public func getExcursionsForGuidesFromApi(token:String, companyId:String, date:Date, completion: @escaping (Bool, customErrorExcursion?)->Void){
         
         self.excursions = []
@@ -89,27 +55,6 @@ class ExcursionsControllerModel{
     }
     
     
-    public func createNewExcursion(token: String, companyId: String, excursion:Excursion, completion: @escaping (Bool, customErrorExcursion?)->Void){
-
-        apiManagerExcursions.AddNewExcursion(token: token, companyId: companyId,excursion: excursion) { isAdded, error in
-            completion(isAdded,error)
-        }
-        
-    }
-    
-    public func updateExcursion(token: String, companyId: String, excursion:Excursion, oldDate:Date, completion: @escaping (Bool, customErrorExcursion?)->Void){
-        
-        apiManagerExcursions.updateExcursion(token: token, companyId: companyId, excursion: excursion, oldDate: oldDate) { isUpdated, error in
-            completion(isUpdated,error)
-        }
-    }
-    
-    public func deleteExcursion(token: String, companyId: String, excursion:Excursion, completion: @escaping (Bool, customErrorExcursion?)->Void){
-        apiManagerExcursions.deleteExcursion(token: token, companyId: companyId, date: excursion.dateAndTime.birthdayToString(), excursionId: excursion.localId) { isDeleted, error in
-            completion(isDeleted,error)
-        }
-    }
-    
     public func getAutofill(token: String, companyId: String, autofillKey:AutofillKeys,completion: @escaping (Bool, [String]?,  customErrorAutofill?)->Void){
         apiManagerAutofill.getAutofill(token: token, companyId: companyId, autoFillKey: autofillKey) { isGetted, values, error in
             completion(isGetted,values,error)
@@ -128,11 +73,6 @@ class ExcursionsControllerModel{
         }
     }
     
-    public func getExcursionsListByRange(token:String, companyId:String, startDate:String, endDate:String, completion: @escaping (Bool, ExcursionsListByRange?, customErrorExcursion?)->Void ){
-        apiManagerExcursions.getExcursionsListByRange(token: token, companyId: companyId, startDate: startDate, endDate: endDate) { isGetted, list, error in
-            completion(isGetted,list,error)
-        }
-    }
     
     public func getExcursionsListForGuideByRange(token:String, companyId:String, startDate:String, endDate:String, completion: @escaping (Bool, ExcursionsListForGuideByRange?, customErrorExcursion?)->Void ){
         apiManagerExcursions.getExcursionsForGuideListByRange(token: token, companyId: companyId, startDate: startDate, endDate: endDate) { isGetted, list, error in

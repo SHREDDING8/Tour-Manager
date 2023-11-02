@@ -52,6 +52,7 @@ public enum customErrorCompany:Error{
 
 protocol ApiManagerCompanyProtocol{
     func getCurrentAccessLevel() async throws -> ResponseAccessLevel
+    func getCompanyUsers() async throws -> [GetCompanyUsersElement]
 }
 
 public class ApiManagerCompany:ApiManagerCompanyProtocol{
@@ -304,6 +305,53 @@ public class ApiManagerCompany:ApiManagerCompanyProtocol{
         }
     }
     
+    // MARK: - getCompanyUsers
+    func getCompanyUsers() async throws -> [GetCompanyUsersElement]{
+        let refreshToken = try! await ApiManagerAuth.refreshToken()
+        if !refreshToken{
+            throw customErrorCompany.unknowmError
+        }
+        
+        let url = URL(string: self.routeGetCompanyUsers)
+        
+        let jsonData = SendAddEmployeeToCompanyJsonStruct(token: keychainService.getAcessToken() ?? "", company_id: keychainService.getCompanyLocalId() ?? "")
+        
+        let result:[GetCompanyUsersElement] = try await withCheckedThrowingContinuation { continuation in
+            
+            AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
+                
+                switch response.result {
+                    
+                case .success(_):
+                    if response.response?.statusCode == 400{
+                        let error = self.checkError(data: response.data ?? Data())
+                        continuation.resume(throwing: error)
+                        
+                    } else if response.response?.statusCode == 200{
+                        typealias GetCompanyUsers = [GetCompanyUsersElement]
+                        
+                        if let companyUsers = try? JSONDecoder().decode(GetCompanyUsers.self, from: response.data!){
+                            continuation.resume(returning: companyUsers)
+                        }else{
+                            continuation.resume(throwing: customErrorCompany.unknowmError)
+                        }
+                        
+                    }else{
+                        continuation.resume(throwing: customErrorCompany.unknowmError)
+                    }
+                case .failure(_):
+                    continuation.resume(throwing: customErrorCompany.unknowmError)
+                }
+                
+            }
+            
+        }
+        
+        return result
+        
+    }
+    
+    
     public func getCompanyUsers(token:String, companyId:String, completion: @escaping (Bool, [GetCompanyUsersElement]?, customErrorCompany?)->Void ) {
         
         generalData.requestWithCheckRefresh { newToken in
@@ -334,8 +382,6 @@ public class ApiManagerCompany:ApiManagerCompanyProtocol{
                 case .failure(_):
                     completion(false, nil, .notConnected)
                 }
-                
-                
                 
             }
             

@@ -13,9 +13,9 @@ class UserRealm: Object {
     @Persisted(primaryKey: true) var localId:String
     @Persisted var firstName:String
     @Persisted var secondName:String
-    @Persisted var email:String
-    @Persisted var phone:String
-    @Persisted var birthday:Date
+    @Persisted var email:String?
+    @Persisted var phone:String?
+    @Persisted var birthday:Date?
     @Persisted var image:Data?
     
     @Persisted var accesslLevels:UserAccessLevelRealm?
@@ -40,6 +40,16 @@ class UserRealm: Object {
         self.image = image
         self.accesslLevels = accesslLevels
     }
+    
+    convenience init (
+        localId:String,
+        firstName:String,
+        secondName:String){
+            self.init()
+            self.localId = localId
+            self.firstName = firstName
+            self.secondName = secondName
+        }
 }
 
 class UserAccessLevelRealm: EmbeddedObject{

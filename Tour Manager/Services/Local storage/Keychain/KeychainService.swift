@@ -91,7 +91,7 @@ class KeychainService:KeychainServiceProtocol{
             
             let tokenExpired = Calendar.current.date(byAdding: .minute, value: 55, to: lastRefreshDate)!
             
-            return tokenExpired > lastRefreshDate
+            return tokenExpired > Date.now
             
         }
         

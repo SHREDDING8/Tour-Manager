@@ -7,33 +7,17 @@
 
 import UIKit
 
-enum TypeOfNewComponent{
-    case route
-    case customerCompanyName
-    case customerGuiedName
-    case excursionPaymentMethod
-    
-    case guides
-    
-}
 
-class AddingNewComponentViewController: UIViewController, AddingNewComponentViewProtocol {
+class AddingNewComponentViewController: UIViewController {
     
     var presenter:AddingNewComponentPresenterProtocol!
     
+    var doAfterClose: ((String)->Void)?
+    
     // MARK: - My variables
-    
-    var excursion:Excursion!
-    
+        
     let alerts = Alert()
         
-    var fullArrayComponents:[String] = []
-    
-    var fullArrayWithGuides:[SelfGuide] = []
-    
-    var arrayComponents:[String] = []
-    
-    var arrayWithGuides:[SelfGuide] = []
         
     // MARK: - Objects
     
@@ -46,13 +30,6 @@ class AddingNewComponentViewController: UIViewController, AddingNewComponentView
     var tableView:UITableView = {
         let tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        let refreshController = UIRefreshControl()
-        refreshController.tintColor = UIColor(named: "blueText")
-        refreshController.tag = 1
-        
-        tableView.refreshControl = refreshController
         
         return tableView
     }()
@@ -67,13 +44,11 @@ class AddingNewComponentViewController: UIViewController, AddingNewComponentView
     }()
     
     
-    var typeOfNewComponent:TypeOfNewComponent = .route
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        presenter = AddingNewComponentPresenter(view: self)
-        
+                
         configureView()
         addSubviews()
         configureTextFieldAndLine()
@@ -81,165 +56,131 @@ class AddingNewComponentViewController: UIViewController, AddingNewComponentView
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.willAppear()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-
+        self.textField.becomeFirstResponder()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        presenter.willDissapear()
         
         self.textField.resignFirstResponder()
-        
-        switch typeOfNewComponent {
-        case .route:
-            presenter.addAutofill(autofillKey: .excursionRoute, autofillValue: self.excursion.route) { isAdded, error in
-                
-                if let err = error{
-                    self.alerts.errorAlert(self, errorAutoFillApi: err)
-                }
-                
-            }
-        case .customerCompanyName:
-            presenter.addAutofill(autofillKey: .excursionCustomerCompanyName, autofillValue: self.excursion.customerCompanyName) { isAdded, error in
-                
-                if let err = error{
-                    self.alerts.errorAlert(self, errorAutoFillApi: err)
-                }
-                
-            }
-        case .customerGuiedName:
-            presenter.addAutofill(autofillKey: .excursionCustomerGuideContact, autofillValue: self.excursion.customerGuideName) { isAdded, error in
-                
-                if let err = error{
-                    self.alerts.errorAlert(self, errorAutoFillApi: err)
-                }
-                
-            }
-        case .excursionPaymentMethod:
-            presenter.addAutofill(autofillKey: .excursionPaymentMethod, autofillValue: self.excursion.paymentMethod) { isAdded, error in
-                
-                if let err = error{
-                    self.alerts.errorAlert(self, errorAutoFillApi: err)
-                }
-                
-            }
-            
-        case .guides:
-            break
-        }
+        doAfterClose?(presenter.selectedValue)
         
     }
     
     
     // MARK: - configuration
     
-    fileprivate func getHintsFromApi() {
-        self.arrayComponents = []
-        self.arrayWithGuides = []
-        
-        switch typeOfNewComponent{
-        case .route:
-            self.title = "Маршрут"
-            textField.placeholder = "Маршрут"
-            textField.text = excursion.route
-            
-            presenter.getAutofill(autofillKey: .excursionRoute) { isGetted, values, error in
-                if let err = error{
-                    self.alerts.errorAlert(self, errorAutoFillApi: err)
-                }
-                if isGetted{
-                    self.arrayComponents = values!
-                    self.fullArrayComponents = self.arrayComponents
-                    self.tableView.reloadData()
-                }
-            }
-        case .customerCompanyName:
-            self.title = "Название компании"
-            textField.placeholder = "Название компании"
-            textField.text = excursion.customerCompanyName
-            presenter.getAutofill(autofillKey: .excursionCustomerCompanyName) { isGetted, values, error in
-                if let err = error{
-                    self.alerts.errorAlert(self, errorAutoFillApi: err)
-                }
-                if isGetted{
-                    self.arrayComponents = values!
-                    self.fullArrayComponents = self.arrayComponents
-                    self.tableView.reloadData()
-                }
-            }
-        case .customerGuiedName:
-            self.title = "ФИО сопровождающего"
-            textField.placeholder = "ФИО сопровождающего"
-            textField.text = excursion.customerGuideName
-            presenter.getAutofill(autofillKey: .excursionCustomerGuideContact) { isGetted, values, error in
-                if let err = error{
-                    self.alerts.errorAlert(self, errorAutoFillApi: err)
-                }
-                if isGetted{
-                    self.arrayComponents = values!
-                    self.fullArrayComponents = self.arrayComponents
-                    self.tableView.reloadData()
-                }
-            }
-            
-        case .excursionPaymentMethod:
-            self.title = "Способ оплаты"
-            textField.placeholder = "Способ оплаты"
-            textField.text = excursion.paymentMethod
-            
-            presenter.getAutofill(autofillKey: .excursionPaymentMethod) { isGetted, values, error in
-                if let err = error{
-                    self.alerts.errorAlert(self, errorAutoFillApi: err)
-                }
-                if isGetted{
-                    self.arrayComponents = values!
-                    self.fullArrayComponents = self.arrayComponents
-                    self.tableView.reloadData()
-                }
-            }
-            
-            
-        case .guides:
-            self.title = "Экскурсоводы"
-            textField.placeholder = "Найти"
-            
-            presenter.getCompanyGuides(completion: { isGetted, guides, error in
-                
-                if let err = error{
-                    self.alerts.errorAlert(self, errorCompanyApi: err)
-                }
-                
-                if isGetted{
-                    for guide in guides!{
-                        let newGuide = SelfGuide(guideInfo: guide, isMain: false)
-                        self.arrayWithGuides.append(newGuide)
-                    }
-                    self.fullArrayWithGuides = self.arrayWithGuides
-                    self.tableView.reloadData()
-                    
-                    if self.fullArrayWithGuides.count > 0{
-                        self.showContextualAction(cell: self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! NewComponentTableViewCell)
-                    }
-                    
-                }
-            })
-        }
-    }
+//    fileprivate func getHintsFromApi() {
+//        self.arrayComponents = []
+//        self.arrayWithGuides = []
+//        
+//        switch typeOfNewComponent{
+//        case .route:
+//            self.title = "Маршрут"
+//            textField.placeholder = "Маршрут"
+//            textField.text = excursion.route
+//            
+//            presenter.getAutofill(autofillKey: .excursionRoute) { isGetted, values, error in
+//                if let err = error{
+//                    self.alerts.errorAlert(self, errorAutoFillApi: err)
+//                }
+//                if isGetted{
+//                    self.arrayComponents = values!
+//                    self.fullArrayComponents = self.arrayComponents
+//                    self.tableView.reloadData()
+//                }
+//            }
+//        case .customerCompanyName:
+//            self.title = "Название компании"
+//            textField.placeholder = "Название компании"
+//            textField.text = excursion.customerCompanyName
+//            presenter.getAutofill(autofillKey: .excursionCustomerCompanyName) { isGetted, values, error in
+//                if let err = error{
+//                    self.alerts.errorAlert(self, errorAutoFillApi: err)
+//                }
+//                if isGetted{
+//                    self.arrayComponents = values!
+//                    self.fullArrayComponents = self.arrayComponents
+//                    self.tableView.reloadData()
+//                }
+//            }
+//        case .customerGuiedName:
+//            self.title = "ФИО сопровождающего"
+//            textField.placeholder = "ФИО сопровождающего"
+//            textField.text = excursion.customerGuideName
+//            presenter.getAutofill(autofillKey: .excursionCustomerGuideContact) { isGetted, values, error in
+//                if let err = error{
+//                    self.alerts.errorAlert(self, errorAutoFillApi: err)
+//                }
+//                if isGetted{
+//                    self.arrayComponents = values!
+//                    self.fullArrayComponents = self.arrayComponents
+//                    self.tableView.reloadData()
+//                }
+//            }
+//            
+//        case .excursionPaymentMethod:
+//            self.title = "Способ оплаты"
+//            textField.placeholder = "Способ оплаты"
+//            textField.text = excursion.paymentMethod
+//            
+//            presenter.getAutofill(autofillKey: .excursionPaymentMethod) { isGetted, values, error in
+//                if let err = error{
+//                    self.alerts.errorAlert(self, errorAutoFillApi: err)
+//                }
+//                if isGetted{
+//                    self.arrayComponents = values!
+//                    self.fullArrayComponents = self.arrayComponents
+//                    self.tableView.reloadData()
+//                }
+//            }
+//            
+//            
+//        case .guides:
+//            self.title = "Экскурсоводы"
+//            textField.placeholder = "Найти"
+//            
+//            presenter.getCompanyGuides(completion: { isGetted, guides, error in
+//                
+//                if let err = error{
+//                    self.alerts.errorAlert(self, errorCompanyApi: err)
+//                }
+//                
+//                if isGetted{
+//                    for guide in guides!{
+//                        let newGuide = SelfGuide(guideInfo: guide, isMain: false)
+//                        self.arrayWithGuides.append(newGuide)
+//                    }
+//                    self.fullArrayWithGuides = self.arrayWithGuides
+//                    self.tableView.reloadData()
+//                    
+//                    if self.fullArrayWithGuides.count > 0{
+//                        self.showContextualAction(cell: self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! NewComponentTableViewCell)
+//                    }
+//                    
+//                }
+//            })
+//        }
+//    }
     
     fileprivate func configureView(){
         
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationController?.interactivePopGestureRecognizer?.delegate? = self
         
-        if typeOfNewComponent != .guides{
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(toggleEditMode))
-        }
-        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(toggleEditMode))
+                        
         self.textField.addTarget(self, action: #selector(getNewHint), for: .editingChanged)
         
-        self.getHintsFromApi()
+//        self.getHintsFromApi()
     }
     
     // MARK: - addSubviews
@@ -280,18 +221,6 @@ class AddingNewComponentViewController: UIViewController, AddingNewComponentView
         tableView.dataSource = self
         tableView.backgroundColor = .clear
         
-        
-        let refreshContoller = self.tableView.refreshControl
-        
-        refreshContoller?.addAction(UIAction(handler: { _ in
-            
-            self.getHintsFromApi()
-            
-            refreshContoller?.endRefreshing()
-            
-        }), for: .primaryActionTriggered)
-        
-        
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: line.bottomAnchor,constant: 30),
             tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
@@ -312,66 +241,10 @@ extension AddingNewComponentViewController:UITextFieldDelegate{
         return textField.resignFirstResponder()
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        
-        switch typeOfNewComponent{
-        case .route:
-            self.excursion.route = textField.text ?? ""
-        case .customerCompanyName:
-            self.excursion.customerCompanyName = textField.text ?? ""
-        case .customerGuiedName:
-            self.excursion.customerGuideName = textField.text ?? ""
-        
-        case .excursionPaymentMethod:
-            self.excursion.paymentMethod = textField.text ?? ""
-            
-        case .guides:
-            break
-        }
-    }
-    
-    
     @objc func getNewHint(){
-        if typeOfNewComponent != .guides{
-            self.arrayComponents = []
-            if !self.textField.hasText{
-                self.arrayComponents = fullArrayComponents
-                UIView.transition(with: self.tableView, duration: 0.2,options: .transitionCrossDissolve) {
-                    self.tableView.reloadData()
-                }
-                return
-            }
-                for hint in fullArrayComponents{
-                    if hint.lowercased().contains(self.textField.text!.lowercased()){
-                        arrayComponents.append(hint)
-                    }
-                }
-                UIView.transition(with: self.tableView, duration: 0.2,options: .transitionCrossDissolve) {
-                    self.tableView.reloadData()
-                }
-            return
-            
-        }
         
-        self.arrayWithGuides = []
+        presenter.textFieldChanged(text: self.textField.text ?? "")
         
-        if !self.textField.hasText{
-            self.arrayWithGuides = self.fullArrayWithGuides
-            UIView.transition(with: self.tableView, duration: 0.2,options: .transitionCrossDissolve) {
-                self.tableView.reloadData()
-            }
-            return
-        }
-        
-        for hint in fullArrayWithGuides{
-            if hint.guideInfo.getFullName().lowercased().contains(self.textField.text!.lowercased()){
-                arrayWithGuides.append(hint)
-            }
-        }
-        UIView.transition(with: self.tableView, duration: 0.2,options: .transitionCrossDissolve) {
-            self.tableView.reloadData()
-        }
-    return
     }
 }
 
@@ -380,37 +253,15 @@ extension AddingNewComponentViewController:UITextFieldDelegate{
 extension AddingNewComponentViewController:UITableViewDelegate,UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if typeOfNewComponent == .guides{
-            return self.arrayWithGuides.count
-        }
-        return self.arrayComponents.count
+        return presenter.presentedValues.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if typeOfNewComponent != .guides{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "NewComponentTableViewCell") as! NewComponentTableViewCell
-            cell.componentText.text = arrayComponents[indexPath.row]
-            return cell
-        }
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewComponentTableViewCell") as! NewComponentTableViewCell
-        cell.componentText.text = arrayWithGuides[indexPath.row].guideInfo.getFullName()
         
-        cell.componentText.font = Font.getFont(name: .americanTypewriter, style: .regular, size: 20)
-        
-        for guide in excursion.selfGuides{
-            if arrayWithGuides[indexPath.row].guideInfo == guide.guideInfo{
-                cell.accessoryType = .checkmark
-                
-                if guide.isMain{
-                    cell.componentText.font = Font.getFont(name: .americanTypewriter, style: .bold, size: 20)
-                }
-                
-            }
-        }
+        cell.componentText.text = presenter.presentedValues[indexPath.row].value 
         
         return cell
     }
@@ -439,55 +290,12 @@ extension AddingNewComponentViewController:UITableViewDelegate,UITableViewDataSo
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-
-            if typeOfNewComponent == .guides{
-            
-            let cell = tableView.cellForRow(at: indexPath)
-            
-            if cell?.accessoryType != .checkmark{
-                cell?.accessoryType = .checkmark
-                
-                excursion.selfGuides.append(self.arrayWithGuides[indexPath.row])
-                
-                if excursion.selfGuides.count == 1{
-                    excursion.selfGuides[0].isMain = true
-                }
-            }else{
-                cell?.accessoryType = .none
-                
-                let unselectedGuide = self.arrayWithGuides[indexPath.row]
-                
-                for indexGuide in 0..<excursion.selfGuides.count{
-                    
-                    if unselectedGuide.guideInfo == excursion.selfGuides[indexGuide].guideInfo{
-                        excursion.selfGuides.remove(at: indexGuide)
-                            break
-                    }
-                }
-                
-                if excursion.selfGuides.count == 1{
-                    excursion.selfGuides[0].isMain = true
-                }
-            }
-                self.tableView.reloadData()
-            return
-        }
-        
-        self.textField.text = (tableView.cellForRow(at: indexPath) as! NewComponentTableViewCell).componentText.text
-        
-        self.textFieldDidEndEditing(self.textField)
-        
-        self.navigationController?.popViewController(animated: true)
-        
+        textField.resignFirstResponder()
+        presenter.didSelect(index: indexPath.row)
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        
-        if typeOfNewComponent == .guides{
-            return true
-        }
-        
+                
         if tableView.isEditing{
             self.navigationItem.rightBarButtonItem!.title = "Done"
         }else{
@@ -496,135 +304,28 @@ extension AddingNewComponentViewController:UITableViewDelegate,UITableViewDataSo
         return true
     }
     
-    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
-        if typeOfNewComponent != .guides{
-            return nil
-        }
-         
-        let mainGuideAction = UIContextualAction(style: .destructive, title: "Главный гид") {  (contextualAction, view, boolValue) in
-            
-            var contains_guide:Bool = false
-            
-            for guide in self.excursion.selfGuides{
-                if guide.guideInfo == self.arrayWithGuides[indexPath.row].guideInfo{
-                    contains_guide = true
-                    break
-                }
-            }
-            
-            if contains_guide{
-                for guide in 0..<self.excursion.selfGuides.count{
-                    if self.excursion.selfGuides[guide].guideInfo == self.arrayWithGuides[indexPath.row].guideInfo{
-                        
-                        self.excursion.selfGuides[guide].isMain = true
-                    }else{
-                        self.excursion.selfGuides[guide].isMain = false
-                    }
-                }
-                self.tableView.reloadData()
-            }
-            
-            boolValue(true)
-        }
-        mainGuideAction.backgroundColor = .systemGreen
-        
-        let swipeConfiguration = UISwipeActionsConfiguration(actions: [mainGuideAction])
-        
-        return swipeConfiguration
-    }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        if typeOfNewComponent == .guides{
-            return .none
-        }
+        
         return .delete
         
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
-        if typeOfNewComponent == .guides {
-            return
-        }
-        
+                
         if editingStyle == .delete{
-            
-            
-            switch typeOfNewComponent{
-                
-            case .route:
-                self.presenter.deleteAutofill(autofillKey: .excursionRoute, autofillValue: arrayComponents[indexPath.row]) { isDeleted, error in
-                    if let err = error{
-                        self.alerts.errorAlert(self, errorAutoFillApi: err)
-                    }
-                    if isDeleted{
-                        self.arrayComponents.remove(at: indexPath.row)
-                        
-                        self.tableView.deleteRows(at: [indexPath], with: .automatic)
-                    }
-                    
-                }
-            case .customerCompanyName:
-                self.presenter.deleteAutofill(autofillKey: .excursionCustomerCompanyName, autofillValue: arrayComponents[indexPath.row]) {
-                    isDeleted, error in
-                    
-                    if let err = error{
-                        self.alerts.errorAlert(self, errorAutoFillApi: err)
-                    }
-                    
-                    if isDeleted{
-                        self.arrayComponents.remove(at: indexPath.row)
-                        
-                        self.tableView.deleteRows(at: [indexPath], with: .automatic)
-                    }
-                    
-                }
-            case .customerGuiedName:
-                self.presenter.deleteAutofill(autofillKey: .excursionCustomerGuideContact, autofillValue: arrayComponents[indexPath.row]) { isDeleted, error in
-                    
-                    if let err = error{
-                        self.alerts.errorAlert(self, errorAutoFillApi: err)
-                    }
-                    
-                    if isDeleted{
-                        self.arrayComponents.remove(at: indexPath.row)
-                        
-                        self.tableView.deleteRows(at: [indexPath], with: .automatic)
-                    }
-                }
-            
-            case .excursionPaymentMethod:
-                self.presenter.deleteAutofill(autofillKey: .excursionPaymentMethod, autofillValue: arrayComponents[indexPath.row]) { isDeleted, error in
-                    
-                    if let err = error{
-                        self.alerts.errorAlert(self, errorAutoFillApi: err)
-                    }
-                    
-                    if isDeleted{
-                        self.arrayComponents.remove(at: indexPath.row)
-                        
-                        self.tableView.deleteRows(at: [indexPath], with: .automatic)
-                    }
-                }
-                
-            case .guides:
-                break
-            }
+            presenter.deleteAt(index: indexPath.row)
         }
         
-        if arrayComponents.isEmpty{
+        if presenter.presentedValues.count == 0{
             self.navigationItem.rightBarButtonItem!.title = "Edit"
             self.tableView.setEditing(false, animated: true)
         }
     }
+    
     @objc func toggleEditMode(){
-        if typeOfNewComponent == .guides{
-            return
-        }
-        
+
         self.tableView.isEditing ? self.tableView.setEditing(false, animated: true) : self.tableView.setEditing(true, animated: true)
-        
     }
     
 }
@@ -635,4 +336,45 @@ extension AddingNewComponentViewController:UIGestureRecognizerDelegate{
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
+}
+
+extension AddingNewComponentViewController:AddingNewComponentViewProtocol{
+    
+    func configureRouteView() {
+        let valueString = "Маршрут"
+        self.navigationItem.title = valueString
+        textField.placeholder = valueString
+    }
+    
+    func configureCustomerCompanyNameView() {
+        let valueString = "Название компании"
+        self.navigationItem.title = valueString
+        textField.placeholder = valueString
+    }
+    
+    func configureCustomerGuiedNameView() {
+        let valueString = "Сопровождающий"
+        self.navigationItem.title = valueString
+        textField.placeholder = valueString
+    }
+    
+    func configureExcursionPaymentMethodView() {
+        let valueString = "Способ оплаты"
+        self.navigationItem.title = valueString
+        textField.placeholder = valueString
+    }
+    
+    func updateTableView() {
+        self.tableView.reloadData()
+    }
+    
+    func setTextField(text: String) {
+        self.textField.text = text
+    }
+    
+    func closePage() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    
 }

@@ -6,67 +6,165 @@
 //
 
 import Foundation
+import UIKit
 
 protocol NewExcursionViewProtocol:AnyObject{
+    func delete(isSuccess:Bool)
+    func isAdded(isSuccess:Bool)
+    func isUpdated(isSuccess:Bool)
     
+    func updateCollectionView()
 }
 
 protocol NewExcursionPresenterProtocol:AnyObject{
-    init(view:NewExcursionViewProtocol)
+    init(view:NewExcursionViewProtocol, tour:ExcrusionModel?)
+    
+    var tour:ExcrusionModel! { get set }
+    
     func isAccessLevel(key:AccessLevelKeys) -> Bool
     
-    func updateExcursion(excursion:Excursion, oldDate:Date, completion: @escaping (Bool, customErrorExcursion?)->Void)
+    func isEqualTours()->Bool
     
-    func createNewExcursion(excursion:Excursion, completion: @escaping (Bool, customErrorExcursion?)->Void)
+    func updateExcursion()
     
-    func deleteExcursion(excursion:Excursion, completion: @escaping (Bool, customErrorExcursion?)->Void)
+    func createNewExcursion()
+        
+    func deleteTour()
     
-    func downloadProfilePhoto(localId:String, completion: @escaping (Data?,customErrorUserData?)->Void)
+    func getUserPhotoFromRealm(by index:Int) -> UIImage?
+    func getUserPhotoFromServer(by index:Int, completion: @escaping ((UIImage?)->Void) )
+        
 }
 
 class NewExcursionPresenter:NewExcursionPresenterProtocol{
     weak var view:NewExcursionViewProtocol?
     
-    let keychain = KeychainService()
-    let usersRealmService = UsersRealmService()
+    var tour:ExcrusionModel!
     
-    let apiManagerExcursions = ApiManagerExcursions()
+    var oldTour:ExcrusionModel!
+    
+    let keychain = KeychainService()
     
     let apiUserData = ApiManagerUserData()
     
-    required init(view:NewExcursionViewProtocol) {
+    let toursNetworkService:ApiManagerExcursionsProtocol = ApiManagerExcursions()
+    let toursRealmService:ExcursionsRealmServiceProtocol = ExcursionsRealmService()
+    
+    let usersRealmService:UsersRealmServiceProtocol = UsersRealmService()
+    let usersNetworkSevise:ApiManagerUserDataProtocol = ApiManagerUserData()
+
+    required init(view:NewExcursionViewProtocol, tour:ExcrusionModel?) {
         self.view = view
+        if tour != nil{
+            self.tour = tour
+            oldTour = tour
+        }else{
+            self.tour = ExcrusionModel(guides: [])
+        }
+        
     }
     
     public func isAccessLevel(key:AccessLevelKeys) -> Bool{
         return usersRealmService.getUserAccessLevel(localId: keychain.getLocalId() ?? "", key)
     }
     
-    public func updateExcursion(excursion:Excursion, oldDate:Date, completion: @escaping (Bool, customErrorExcursion?)->Void){
-        
-        apiManagerExcursions.updateExcursion(token: keychain.getAcessToken() ?? "", companyId: keychain.getCompanyLocalId() ?? "", excursion: excursion, oldDate: oldDate) { isUpdated, error in
-            completion(isUpdated,error)
-        }
+    func isEqualTours()->Bool{
+        return self.tour == oldTour
     }
     
-    public func createNewExcursion(excursion:Excursion, completion: @escaping (Bool, customErrorExcursion?)->Void){
-
-        apiManagerExcursions.AddNewExcursion(token: keychain.getAcessToken() ?? "", companyId: keychain.getCompanyLocalId() ?? "" ,excursion: excursion) { isAdded, error in
-            completion(isAdded,error)
-        }
-    }
-    
-    public func deleteExcursion(excursion:Excursion, completion: @escaping (Bool, customErrorExcursion?)->Void){
-        apiManagerExcursions.deleteExcursion(token: keychain.getAcessToken() ?? "", companyId: keychain.getCompanyLocalId() ?? "", date: excursion.dateAndTime.birthdayToString(), excursionId: excursion.localId) { isDeleted, error in
-            completion(isDeleted,error)
-        }
-    }
-    
-    public func downloadProfilePhoto(localId:String, completion: @escaping (Data?,customErrorUserData?)->Void){
-        
-        self.apiUserData.downloadProfilePhoto(token: keychain.getAcessToken() ?? "", localId: localId) { isDownloaded, data, error in
+    public func updateExcursion(){
+        Task{
+            do{
+                if try await toursNetworkService.updateExcursion(tour: tour, oldDate:oldTour.dateAndTime){
+                    DispatchQueue.main.async {
+                        self.view?.isUpdated(isSuccess: true)
+                    }
+                }
+            } catch{
+                DispatchQueue.main.async {
+                    self.view?.isUpdated(isSuccess: false)
+                }
+                
+            }
             
-            completion(data,error)
         }
+        
+    }
+    
+    public func createNewExcursion(){
+        Task{
+            do{
+                if try await toursNetworkService.AddNewExcursion(tour:self.tour){
+                    DispatchQueue.main.async {
+                        self.view?.isAdded(isSuccess: true)
+                    }
+                }
+                
+            } catch{
+                DispatchQueue.main.async {
+                    self.view?.isAdded(isSuccess: false)
+                }
+                
+            }
+        }
+        
+    }
+    
+    func deleteTour(){
+        Task{
+            do{
+                let result = try await toursNetworkService.deleteExcursion(date: tour.dateAndTime.birthdayToString(), excursionId: tour.tourId)
+                
+                if result{
+                    DispatchQueue.main.async {
+                        self.toursRealmService.deleteTour(tourId: self.tour.tourId)
+                        self.view?.delete(isSuccess: true)
+                    }
+                }
+                
+            } catch{
+                DispatchQueue.main.async {
+                    self.view?.delete(isSuccess: false)
+                }
+            }
+        }
+    }
+        
+    
+    public func getUserPhotoFromRealm(by index:Int) -> UIImage?{
+        
+        if let imageData = usersRealmService.getUserInfo(localId: self.tour.guides[index].id)?.image{
+            return UIImage(data: imageData)
+        }
+        
+        return nil
+    }
+    
+    public func getUserPhotoFromServer(by index:Int, completion: @escaping ((UIImage?)->Void) ){
+        Task{
+            do {
+                let imageData = try await usersNetworkSevise.downloadProfilePhoto(localId:self.tour.guides[index].id)
+                
+                DispatchQueue.main.async{
+                    let guide = self.tour.guides[index]
+                    
+                    if self.usersRealmService.getUserInfo(localId: guide.id) == nil{
+                        let newUser = UserRealm(localId: guide.id, firstName: guide.firstName, secondName: guide.lastName)
+                        self.usersRealmService.setUserInfo(user: newUser)
+                    }
+                    
+                    self.usersRealmService.updateImage(id: self.tour.guides[index].id, image: imageData)
+                   completion(UIImage(data: imageData))
+                }
+                
+            } catch{
+                
+            }
+        }
+    }
+    
+    // MARK: - setData
+    func setAmount(text:String){
+        tour.paymentAmount = text
     }
 }

@@ -13,4 +13,6 @@ target 'Tour Manager' do
 
 	pod 'KeychainSwift', '~> 20.0'
 
+ 	pod 'SnapKit', '~> 5.6.0'
+
 end

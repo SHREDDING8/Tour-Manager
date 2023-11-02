@@ -6,29 +6,32 @@
 //
 
 import UIKit
+import AlertKit
 
-class EmploeeTableViewController: UITableViewController, EmployeesListViewProtocol {
+class EmploeeTableViewController: UITableViewController {
     
-    var presenter:EmployeesListPresenter?
+    var presenter:EmployeesListPresenterProtocol!
     
     let controllers = Controllers()
     let alerts = Alert()
-    
-    var emploee:[User] = []
-        
+            
     let refreshControll = UIRefreshControl()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.presenter = EmployeesListPresenter(view: self)
+        presenter.getUsersFromRealm()
         
-        getEmpoloee()
-
+        DispatchQueue.main.async {
+            self.presenter.getUsersFromServer()
+        }
+        
         self.navigationItem.title = "Работники"
         
         let refresh = UIAction { _ in
-            self.getEmpoloee()
+            DispatchQueue.main.async {
+                self.presenter.getUsersFromServer()
+            }
         }
         
         refreshControll.addAction(refresh, for: .valueChanged)
@@ -43,7 +46,7 @@ class EmploeeTableViewController: UITableViewController, EmployeesListViewProtoc
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return emploee.count
+        return presenter.users.count
     }
 
     
@@ -51,49 +54,29 @@ class EmploeeTableViewController: UITableViewController, EmployeesListViewProtoc
         let cell = tableView.dequeueReusableCell(withIdentifier: "emploeeCell", for: indexPath)
         
         let label = cell.viewWithTag(2) as! UILabel
-        label.text = emploee[indexPath.row].getFullName()
+        label.text = presenter.users[indexPath.row].fullName
         
         return cell
     }
     
-    
-    public func getEmpoloee(){
-        self.presenter?.getCompanyUsers(completion: { isGetted, employee, error in
-            
-            if let err = error{
-                self.alerts.errorAlert(self, errorCompanyApi: err)
-            }
-            
-            if isGetted{
-                self.emploee = employee ?? []
-                
-                
-                UIView.transition(with: self.tableView, duration: 0.3,options: .transitionCrossDissolve) {
-                    self.tableView.reloadData()
-                }
-                
-                self.refreshControll.endRefreshing()
-            }
-        })
-    }
-    
-
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        self.goToEmployeeViewController(employee: self.emploee[indexPath.row])
-    }
-
-
-
-
-
-    // MARK: - Navigation
-    fileprivate func goToEmployeeViewController(employee:User){
-        
-        let destination = controllers.getControllerMain(.employeeViewController) as! EmploeeViewController
-        destination.employee = employee
+        let destination = EmployeeAseembly.EmployeeDetailController(user: presenter.users[indexPath.row])
         self.navigationController?.pushViewController(destination, animated: true)
+        
     }
 
+}
+
+extension EmploeeTableViewController:EmployeesListViewProtocol{
+    
+    func updateUsersList() {
+        self.tableView.reloadData()
+        self.tableView.refreshControl?.endRefreshing()
+    }
+    
+    func unknownError(){
+        AlertKitAPI.present(title: "Нeизвестная ошибка", icon: .error, style: .iOS17AppleMusic, haptic: .error)
+    }
+    
 }

@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 
-enum customErrorExcursion{
+enum customErrorExcursion:Error{
     case unknown
     
     case dataNotFound
@@ -54,9 +54,25 @@ enum customErrorExcursion{
     }
 }
 
-class ApiManagerExcursions{
+protocol ApiManagerExcursionsProtocol{
+    func GetExcursions(date:String) async throws -> [ResponseGetExcursion]
+    
+    func AddNewExcursion(tour:ExcrusionModel) async throws -> Bool
+    
+    func updateExcursion(tour:ExcrusionModel, oldDate:Date) async throws -> Bool
+    
+    func deleteExcursion(date:String, excursionId:String) async throws -> Bool
+    
+    func getExcursionsListByRange(startDate:String, endDate:String) async throws -> ExcursionsListByRange
+    
+    func GetExcursionsForGuide(date:String) async throws -> [ResponseGetExcursion]
+}
+
+class ApiManagerExcursions: ApiManagerExcursionsProtocol{
     
     let generalData = GeneralData()
+    
+    let keychainService:KeychainServiceProtocol = KeychainService()
     
     private let domain:String
     private let prefix:String
@@ -92,15 +108,18 @@ class ApiManagerExcursions{
         self.routeSetGuideTourStatus = prefix + "set_guide_tour_status"
     }
     
-    
-    public func GetExcursions(token:String, companyId:String, date:String, completion: @escaping (Bool, [ResponseGetExcursion]?, customErrorExcursion?)->Void ){
+    // MARK: - GetExcursions
+    func GetExcursions(date:String) async throws -> [ResponseGetExcursion]{
+        let refresh = try await ApiManagerAuth.refreshToken()
         
-        generalData.requestWithCheckRefresh { newToken in
-            let requestToken = newToken == nil ? token : newToken!
-            
-            let url = URL(string: self.routeGetExcursions)!
-            
-            let jsonData = sendForGetExcursion(token: requestToken, company_id: companyId, tour_date: date)
+        if !refresh{
+            throw customErrorUserData.unknowmError
+        }
+        
+        let url = URL(string: self.routeGetExcursions)!
+        let jsonData = sendForGetExcursion(token: keychainService.getAcessToken() ?? "", company_id: keychainService.getCompanyLocalId() ?? "", tour_date: date)
+        
+        let result:[ResponseGetExcursion] = try await withCheckedThrowingContinuation { continuaiton in
             
             AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
                 
@@ -109,42 +128,72 @@ class ApiManagerExcursions{
                     if response.response?.statusCode == 400{
                         
                         let error = self.checkError(data: response.data ?? Data())
-                        completion(false, nil, error)
+                        continuaiton.resume(throwing: error)
                         
                     }else if response.response?.statusCode == 200{
                         typealias excursionsJsonStruct = [ResponseGetExcursion]
                         
                         let excursions = try! JSONDecoder().decode(excursionsJsonStruct.self, from: response.data!)
                         
-                        completion(true, excursions, nil )
+                        continuaiton.resume(returning: excursions)
                         
                     }else{
-                        completion(false,nil, .unknown)
+                        continuaiton.resume(throwing: customErrorExcursion.unknown)
                     }
                 case .failure(_):
-                        completion(false,nil, .notConnected)
+                    continuaiton.resume(throwing: customErrorExcursion.unknown)
                     
                 }
             }
+            
         }
         
+        return result
     }
     
-    public func AddNewExcursion(token: String, companyId: String, excursion:Excursion, completion: @escaping (Bool, customErrorExcursion?)->Void ){
+    
+    public func AddNewExcursion(tour:ExcrusionModel) async throws -> Bool{
         
-        generalData.requestWithCheckRefresh { newToken in
-            let requestToken = newToken == nil ? token : newToken!
-            let url = URL(string: self.routeAddNewExcursion)!
-            
-            var guides:[SendGuide] = []
-            
-            for guide in excursion.selfGuides{
-                guides.append(SendGuide(guide_id: guide.guideInfo.getLocalID() ?? "", is_main: guide.isMain, status: guide.status.rawValue))
-            }
-            
-            let jsonData = SendAddNewExcursion(token: requestToken, companyId: companyId, tourName: excursion.excursionName, tourRoute: excursion.route, tourNotes: excursion.additionalInfromation, tourNotesVisible: excursion.guideAccessNotes, tourNumberOfPeople: excursion.numberOfPeople, tourTimeStart: excursion.dateAndTime.timeToString(), tourDate: excursion.dateAndTime.birthdayToString(), customerCompanyName: excursion.customerCompanyName, customerGuideName: excursion.customerGuideName, customerGuideContact: excursion.companyGuidePhone,isPaid: excursion.isPaid, paymentMethod: excursion.paymentMethod, paymentAmount: excursion.paymentAmount,guides: guides)
-            
-            
+        let refresh = try await ApiManagerAuth.refreshToken()
+        
+        if !refresh{
+            throw customErrorUserData.unknowmError
+        }
+        
+        let url = URL(string: self.routeAddNewExcursion)!
+        
+        var guides:[SendGuide] = []
+        
+        for guide in tour.guides{
+            guides.append(
+                SendGuide(
+                    guide_id: guide.id,
+                    is_main: guide.isMain,
+                    status: guide.status.rawValue
+                )
+            )
+        }
+        
+        let jsonData = SendAddNewExcursion(
+            token: keychainService.getAcessToken() ?? "",
+            companyId: keychainService.getCompanyLocalId() ?? "",
+            tourName: tour.tourTitle,
+            tourRoute: tour.route,
+            tourNotes: tour.notes,
+            tourNotesVisible: tour.guideCanSeeNotes,
+            tourNumberOfPeople: tour.numberOfPeople,
+            tourTimeStart: tour.dateAndTime.timeToString(),
+            tourDate: tour.dateAndTime.birthdayToString(),
+            customerCompanyName: tour.customerCompanyName,
+            customerGuideName: tour.customerGuideName,
+            customerGuideContact: tour.companyGuidePhone,
+            isPaid: tour.isPaid,
+            paymentMethod: tour.paymentMethod,
+            paymentAmount: tour.paymentAmount,
+            guides: guides
+        )
+        
+        let result:Bool = try await withCheckedThrowingContinuation { continuation in
             AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
                 
                 switch response.result {
@@ -152,37 +201,67 @@ class ApiManagerExcursions{
                     if response.response?.statusCode == 400{
                         
                         let error = self.checkError(data: response.data ?? Data())
-                        completion(false, error)
+                        continuation.resume(throwing: error)
                         
                     } else if response.response?.statusCode == 200{
-                        completion(true, nil)
+                        continuation.resume(returning: true)
+                        
                     } else{
-                        completion(false, .unknown)
+                        continuation.resume(throwing: customErrorExcursion.unknown)
                     }
+                    
                 case .failure(_):
-                    completion(false, .notConnected)
+                    continuation.resume(throwing: customErrorExcursion.unknown)
                 }
             }
         }
+        
+        return result
     }
     
-    public func updateExcursion(token: String, companyId: String, excursion:Excursion,oldDate:Date, completion: @escaping (Bool, customErrorExcursion?)->Void ){
+    public func updateExcursion(tour:ExcrusionModel, oldDate:Date) async throws -> Bool{
+        let refresh = try await ApiManagerAuth.refreshToken()
         
-        generalData.requestWithCheckRefresh { newToken in
-            let requestToken = newToken == nil ? token : newToken!
-            
-            let url = URL(string: self.routeUpdateExcursion)!
-            
-            var guides:[SendGuide] = []
-            
-            for guide in excursion.selfGuides{
-                guides.append(SendGuide(guide_id: guide.guideInfo.getLocalID() ?? "", is_main: guide.isMain, status: guide.status.rawValue))
-            }
-            
-            
-            let jsonData = SendUpdateExcursion(token: requestToken, companyId: companyId, excursionId: excursion.localId , tourName: excursion.excursionName, tourRoute: excursion.route, tourNotes: excursion.additionalInfromation, tourNotesVisible: excursion.guideAccessNotes, tourNumberOfPeople: excursion.numberOfPeople, tourTimeStart: excursion.dateAndTime.timeToString(), tourDate: excursion.dateAndTime.birthdayToString(), oldDate: oldDate.birthdayToString(), customerCompanyName: excursion.customerCompanyName, customerGuideName: excursion.customerGuideName, customerGuideContact: excursion.companyGuidePhone,isPaid: excursion.isPaid, paymentMethod: excursion.paymentMethod, paymentAmount: excursion.paymentAmount,guides: guides)
-            
-            
+        if !refresh{
+            throw customErrorUserData.unknowmError
+        }
+        
+        let url = URL(string: self.routeAddNewExcursion)!
+        
+        var guides:[SendGuide] = []
+        
+        for guide in tour.guides{
+            guides.append(
+                SendGuide(
+                    guide_id: guide.id,
+                    is_main: guide.isMain,
+                    status: guide.status.rawValue
+                )
+            )
+        }
+        
+        let jsonData = SendUpdateExcursion(
+            token: keychainService.getAcessToken() ?? "",
+            companyId: keychainService.getCompanyLocalId() ?? "",
+            excursionId: tour.tourId ,
+            tourName: tour.tourTitle,
+            tourRoute: tour.route,
+            tourNotes: tour.notes,
+            tourNotesVisible: tour.guideCanSeeNotes,
+            tourNumberOfPeople: tour.numberOfPeople,
+            tourTimeStart: tour.dateAndTime.timeToString(),
+            tourDate: tour.dateAndTime.birthdayToString(),
+            oldDate: oldDate.birthdayToString(),
+            customerCompanyName: tour.customerCompanyName,
+            customerGuideName: tour.customerGuideName,
+            customerGuideContact: tour.companyGuidePhone,
+            isPaid: tour.isPaid,
+            paymentMethod: tour.paymentMethod,
+            paymentAmount: tour.paymentAmount,
+            guides: guides
+        )
+        
+        let result:Bool = try await withCheckedThrowingContinuation { continuation in
             AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
                 
                 switch response.result {
@@ -190,29 +269,36 @@ class ApiManagerExcursions{
                     if response.response?.statusCode == 400{
                         
                         let error = self.checkError(data: response.data ?? Data())
-                        completion(false, error)
+                        continuation.resume(throwing: error)
                         
                     } else if response.response?.statusCode == 200{
-                        completion(true, nil)
+                        continuation.resume(returning: true)
                     } else{
-                        completion(false, .unknown)
+                        continuation.resume(throwing: customErrorExcursion.unknown)
                     }
                 case .failure(_):
-                    completion(false, .notConnected)
+                    continuation.resume(throwing: customErrorExcursion.unknown)
                 }
             }
         }
+        
+        return result
     }
     
-    public func deleteExcursion(token:String, companyId:String, date:String, excursionId:String, completion: @escaping (Bool, customErrorExcursion?)->Void ){
+    // MARK: - DeleteExcursion
+    
+    func deleteExcursion(date:String, excursionId:String) async throws -> Bool{
+        let refresh = try await ApiManagerAuth.refreshToken()
         
-        generalData.requestWithCheckRefresh { newToken in
-            let requestToken = newToken == nil ? token : newToken!
-            
-            let url = URL(string: self.routeDelteExcursion)!
-            
-            let jsonData = sendForDeleteExcursion(token: requestToken, company_id: companyId, tour_date: date, tour_id: excursionId)
-            
+        if !refresh{
+            throw customErrorUserData.unknowmError
+        }
+        
+        let url = URL(string: self.routeDelteExcursion)!
+        
+        let jsonData = sendForDeleteExcursion(token: keychainService.getAcessToken() ?? "", company_id: keychainService.getCompanyLocalId() ?? "", tour_date: date, tour_id: excursionId)
+        
+        let result:Bool = try await withCheckedThrowingContinuation { continuation in
             AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
                 
                 switch response.result {
@@ -220,21 +306,66 @@ class ApiManagerExcursions{
                     if response.response?.statusCode == 400{
                         
                         let error = self.checkError(data: response.data ?? Data())
-                        completion(false, error)
+                        continuation.resume(throwing: error)
                         
                     }else if response.response?.statusCode == 200{
                         
-                        
-                        completion(true, nil)
+                        continuation.resume(returning: true)
                         
                     }else{
-                        completion(false, .unknown)
+                        continuation.resume(returning: false)
                     }
                 case .failure(_):
-                    completion(false, .notConnected)
+                    continuation.resume(returning: false)
                 }
             }
         }
+        return result
+    }
+    
+    func GetExcursionsForGuide(date:String) async throws -> [ResponseGetExcursion]{
+        let url = URL(string: self.routeGetExcursionsForGuides)!
+        
+        
+        let refresh = try await ApiManagerAuth.refreshToken()
+        
+        if !refresh{
+            throw customErrorUserData.unknowmError
+        }
+        
+        let jsonData = sendForGetExcursion(token: keychainService.getAcessToken() ?? "", company_id: keychainService.getCompanyLocalId() ?? "", tour_date: date)
+        
+        let result:[ResponseGetExcursion] = try await withCheckedThrowingContinuation { continuaiton in
+            
+            AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
+                
+                switch response.result {
+                case .success(_):
+                    if response.response?.statusCode == 400{
+                        
+                        let error = self.checkError(data: response.data ?? Data())
+                        continuaiton.resume(throwing: error)
+                        
+                    }else if response.response?.statusCode == 200{
+                        typealias excursionsJsonStruct = [ResponseGetExcursion]
+                        
+                        let excursions = try! JSONDecoder().decode(excursionsJsonStruct.self, from: response.data!)
+                        
+                        continuaiton.resume(returning: excursions)
+                        
+                    }else{
+                        continuaiton.resume(throwing: customErrorExcursion.unknown)
+                    }
+                case .failure(_):
+                    continuaiton.resume(throwing: customErrorExcursion.unknown)
+                    
+                }
+            }
+            
+        }
+        
+        return result
+        
     }
     
     public func GetExcursionsForGuides(token:String, companyId:String, date:String, completion: @escaping (Bool, [ResponseGetExcursion]?, customErrorExcursion?)->Void ){
@@ -272,41 +403,46 @@ class ApiManagerExcursions{
         }
     }
     
-    public func getExcursionsListByRange(token:String, companyId:String, startDate:String, endDate:String, completion: @escaping (Bool, ExcursionsListByRange?, customErrorExcursion?)->Void ){
+    // MARK: - getExcursionsListByRange
+    func getExcursionsListByRange(startDate:String, endDate:String) async throws -> ExcursionsListByRange{
+        let refresh = try await ApiManagerAuth.refreshToken()
         
-        generalData.requestWithCheckRefresh { newToken in
-            let requestToken = newToken == nil ? token : newToken!
-            
-            let url = URL(string: self.routeGetTourListInRange)!
-            
-            //        print("\n\n[getExcursionsListByRange: \(token)]\n\n")
-            
-            let jsonData = SendGetExcursionsListByRange(token: requestToken, company_id: companyId, tour_date_start: startDate, tour_date_end: endDate)
+        if !refresh{
+            throw customErrorUserData.unknowmError
+        }
+        
+        let url = URL(string: self.routeGetTourListInRange)!
+        
+        let jsonData = SendGetExcursionsListByRange(token: keychainService.getAcessToken() ?? "", company_id: keychainService.getCompanyLocalId() ?? "", tour_date_start: startDate, tour_date_end: endDate)
+        
+        let result:ExcursionsListByRange = try await withCheckedThrowingContinuation { continuation in
             
             AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
-                
+                                
                 switch response.result {
                 case .success(_):
                     if response.response?.statusCode == 400{
                         
+                        
                         let error = self.checkError(data: response.data ?? Data())
-                        completion(false, nil, error)
+                        continuation.resume(throwing: error)
                         
                     }else if response.response?.statusCode == 200{
                         let response = try! JSONDecoder().decode(ExcursionsListByRange.self, from: response.data!)
-                        completion(true, response, nil)
+                        continuation.resume(returning: response)
                     }else{
-                        completion(false, nil, .unknown)
+                        continuation.resume(throwing: customErrorExcursion.unknown)
                     }
                 case .failure(_):
-                    completion(false, nil, .notConnected)
+                    continuation.resume(throwing: customErrorExcursion.unknown)
                 }
- 
             }
+            
         }
         
+        return result
+        
     }
-    
     
     public func getExcursionsForGuideListByRange(token:String, companyId:String, startDate:String, endDate:String, completion: @escaping (Bool, ExcursionsListForGuideByRange?, customErrorExcursion?)->Void ){
         

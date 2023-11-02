@@ -100,7 +100,7 @@ public class Profile{
         case .lastName:
             return user?.secondName ?? ""
         case .birthday:
-            return user?.birthday.birthdayToString() ?? ""
+            return user?.birthday?.birthdayToString() ?? ""
         case .email:
             return user?.email ?? ""
         case .phone:

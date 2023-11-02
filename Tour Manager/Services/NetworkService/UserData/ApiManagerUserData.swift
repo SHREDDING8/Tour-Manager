@@ -47,6 +47,8 @@ public enum UserDataFields:String{
 
 protocol ApiManagerUserDataProtocol{
     func getUserInfo() async throws -> ResponseGetUserInfoJsonStruct
+    
+    func downloadProfilePhoto(localId:String) async throws -> Data
 }
 
 public class ApiManagerUserData: ApiManagerUserDataProtocol{
@@ -292,6 +294,50 @@ public class ApiManagerUserData: ApiManagerUserDataProtocol{
                 }
             }
         }
+        
+    }
+    
+    // MARK: - downloadProfilePhoto
+    func downloadProfilePhoto(localId:String) async throws -> Data{
+        
+        let refresh = try await ApiManagerAuth.refreshToken()
+        
+        if !refresh{
+            throw customErrorUserData.unknowmError
+        }
+        
+        let url = URL(string: self.routeDownLoadPhoto)!
+        
+        let json = [
+            "token": keychainService.getAcessToken() ?? "",
+            "target_uid" : localId
+        ]
+        
+        let result:Data = try await withCheckedThrowingContinuation { continuation in
+            
+            AF.request(url, method: .post, parameters: json, encoder: .json).response { response in
+                
+                switch response.result {
+                case .success(_):
+                    if response.response?.statusCode == 400{
+                        
+                        let error = self.checkError(data: response.data ?? Data())
+                        continuation.resume(throwing: error)
+                        
+                    } else if response.response?.statusCode == 200{
+                        continuation.resume(returning: response.data!)
+                    }else{
+                        continuation.resume(throwing: customErrorUserData.unknowmError)
+                    }
+                    
+                case .failure(_):
+                    continuation.resume(throwing: customErrorUserData.unknowmError)
+                }
+            }
+            
+        }
+        
+        return result
         
     }
     

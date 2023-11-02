@@ -384,8 +384,8 @@ extension ExcursionForGuideTableViewController:UICollectionViewDelegate,UICollec
         
         let guideController = self.controllers.getControllerMain(.employeeViewController) as! EmploeeViewController
         
-        guideController.employee = self.excursion.selfGuides[indexPath.row].guideInfo
-        guideController.isShowAccessLevels = false
+//        guideController.employee = self.excursion.selfGuides[indexPath.row].guideInfo
+//        guideController.isShowAccessLevels = false
         
         self.navigationController?.pushViewController(guideController, animated: true)
         

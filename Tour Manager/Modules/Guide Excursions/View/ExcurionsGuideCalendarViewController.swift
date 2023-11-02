@@ -8,8 +8,8 @@
 import UIKit
 import FSCalendar
 
-class ExcurionsGuideCalendarViewController: UIViewController, ExcursionsGuideCalendarViewProtocol {
-    
+class ExcurionsGuideCalendarViewController: UIViewController {
+
     var presenter:ExcursionsGuideCalendarPresenterProtocol!
     
     // MARK: - my variables
@@ -97,13 +97,14 @@ class ExcurionsGuideCalendarViewController: UIViewController, ExcursionsGuideCal
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.getExcursions(date: self.calendar.calendar.selectedDate ?? Date.now)
+        presenter.loadTours(date: self.calendar.calendar.selectedDate ?? Date.now)
+        self.getEventsForDates()
                 
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.getEventsForDates()
+       
     }
     
     // MARK: - configureView
@@ -150,7 +151,7 @@ class ExcurionsGuideCalendarViewController: UIViewController, ExcursionsGuideCal
         let refreshController = tableViewCalendar.viewWithTag(3) as! UIRefreshControl
         
         refreshController.addAction(UIAction(handler: { _ in
-            self.getExcursions(date: self.calendar.calendar.selectedDate ?? Date.now)
+            self.presenter.loadTours(date: self.calendar.calendar.selectedDate ?? Date.now)
             
             self.getEventsForDates()
             
@@ -272,13 +273,13 @@ class ExcurionsGuideCalendarViewController: UIViewController, ExcursionsGuideCal
                 }
                 return false
             }
-            self.getExcursions(date: date)
+            self.presenter.loadTours(date: date)
             return true
         }
         
     fileprivate func calendarDeselect(date:Date){
         self.calendar.calendar.deselect(date)
-        self.getExcursions(date: Date.now)
+        self.presenter.loadTours(date: Date.now)
         self.calendar.onOffResetButton(Date.now)
     }
         
@@ -352,49 +353,6 @@ class ExcurionsGuideCalendarViewController: UIViewController, ExcursionsGuideCal
         
     }
     
-    public func getExcursions(date:Date){
-        self.presenter.excursions = []
-
-        self.reloadData(isNotTours: false)
-        
-        let activityIndicator = self.tableViewCalendar.viewWithTag(2) as! UIActivityIndicatorView
-        
-        activityIndicator.startAnimating()
-        UIView.animate(withDuration: 0.3) {
-            activityIndicator.layer.opacity = 1
-        }
-        
-        presenter.getExcursionsForGuidesFromApi(date: date) { isGetted, error in
-            
-            if let err = error{
-                if err != .dataNotFound{
-                    self.alerts.errorAlert(self, errorExcursionsApi: err)
-                }else{
-                    self.reloadData()
-                }
-            }
-            
-            
-            if isGetted{
-                UIView.transition(with: self.tableViewCalendar, duration: 0.3, options: .transitionCrossDissolve) {
-                    if let selectedDate = self.calendar.calendar.selectedDate{
-                        if selectedDate.birthdayToString() == date.birthdayToString(){
-                            self.reloadData()
-                        }
-                    }else if Date.now.birthdayToString() == date.birthdayToString(){
-                            self.reloadData()
-                        }
-                }
-            }
-            
-            UIView.animate(withDuration: 0.3) {
-                activityIndicator.layer.opacity = 0
-            }
-            activityIndicator.stopAnimating()
-        }
-    }
-    
-    
 }
 
 
@@ -402,48 +360,49 @@ class ExcurionsGuideCalendarViewController: UIViewController, ExcursionsGuideCal
 // MARK: - UITableViewDelegate
 extension ExcurionsGuideCalendarViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.presenter.excursions.count
+        
+        self.presenter.tours[(self.calendar.calendar.selectedDate ?? Date.now).birthdayToString()]?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ExcursionTableViewCell", for: indexPath) as! ExcursionTableViewCell
-        
-        cell.nameLabel.text = self.presenter.excursions[indexPath.row].excursionName
-        cell.routeLabel.text = self.presenter.excursions[indexPath.row].route
-        
-        cell.startTimeLabel.text = self.presenter.excursions[indexPath.row].dateAndTime.timeToString()
-        
-        var guides = ""
-        
-        var statuses:[Status] = []
-        
-        for guide in self.presenter.excursions[indexPath.row].selfGuides{
-            guides += guide.guideInfo.getFirstName() + ", "
+    
+        if let tour = presenter.tours[calendar.calendar.selectedDate?.birthdayToString() ?? Date.now.birthdayToString()]?[indexPath.row]{
             
-//            if guide.guideInfo == self.user{
-//                statuses.append(guide.status)
-//                cell.statusView.backgroundColor = guide.statusColor
-//            }
-           
-        }
-        
-        if guides.count > 2{
-            guides.removeLast()
-            guides.removeLast()
+            cell.nameLabel.text = tour.tourTitle
+            cell.routeLabel.text = tour.route
+            
+            cell.startTimeLabel.text = tour.dateAndTime.timeToString()
                         
-        }else{
-            cell.statusView.backgroundColor = .systemBlue
+            var guides = ""
+                        
+            for guide in tour.guides{
+                guides += guide.firstName + " " + guide.lastName + ", "
+                
+                let keychain = KeychainService()
+                if guide.id == keychain.getLocalId(){
+                    cell.statusView.backgroundColor = guide.status.getColor()
+                }
+               
+            }
+            
+            if guides.count > 2{
+                guides.removeLast()
+                guides.removeLast()
+                            
+            }else{
+                cell.statusView.backgroundColor = .systemBlue
+            }
+            
+            cell.guidesLabel.text = guides
+            
+            if tour.dateAndTime < Date.now{
+                cell.contentView.layer.opacity = 0.5
+            }else{
+                cell.contentView.layer.opacity = 1
+            }
         }
-        
-        cell.guidesLabel.text = guides
-        
-        
-        if self.presenter.excursions[indexPath.row].dateAndTime < Date.now{
-            cell.contentView.layer.opacity = 0.5
-        }else{
-            cell.contentView.layer.opacity = 1
-        }
-        
+                
         
         return cell
     }
@@ -453,7 +412,7 @@ extension ExcurionsGuideCalendarViewController:UITableViewDelegate,UITableViewDa
                 
         let destination = controllers.getControllerMain(.excursionForGuideTableViewController) as! ExcursionForGuideTableViewController
         
-        destination.excursion = presenter.excursions[indexPath.row]
+//        destination.excursion = presenter.excursions[indexPath.row]
         
         self.navigationController?.pushViewController(destination, animated: true)
         
@@ -465,5 +424,16 @@ extension ExcurionsGuideCalendarViewController:UITableViewDelegate,UITableViewDa
                 self.calendar.buttonShowCloseTapped()
             }
         }
+    }
+}
+
+
+extension ExcurionsGuideCalendarViewController:ExcursionsGuideCalendarViewProtocol{
+    func updateTours() {
+        self.tableViewCalendar.reloadData()
+    }
+    
+    func updateEvents() {
+        
     }
 }

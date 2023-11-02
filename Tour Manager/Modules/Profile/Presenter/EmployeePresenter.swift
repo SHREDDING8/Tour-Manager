@@ -8,31 +8,40 @@
 import Foundation
 
 protocol EmployeeViewProtocol:AnyObject{
-    
+    func setImage(imageData:Data)
 }
 
 protocol EmployeePresenterProtocol:AnyObject{
-    init(view:EmployeeViewProtocol)
+    init(view:EmployeeViewProtocol, user:UsersModel)
 }
 class EmployeePresenter:EmployeePresenterProtocol{
     weak var view:EmployeeViewProtocol?
     
-    let apiUserData = ApiManagerUserData()
+    var user:UsersModel!
+    
+    let apiUserData:ApiManagerUserDataProtocol = ApiManagerUserData()
     let apiCompany = ApiManagerCompany()
     let keychain = KeychainService()
     let userRealmService = UsersRealmService()
     
-    required init(view:EmployeeViewProtocol) {
+    required init(view:EmployeeViewProtocol, user:UsersModel) {
         self.view = view
+        self.user = user
     }
     
-    public func downloadProfilePhoto(localId:String, completion: @escaping (Data?,customErrorUserData?)->Void){
+    public func downloadProfilePhoto(localId:String){
         
-        self.apiUserData.downloadProfilePhoto(token: keychain.getAcessToken() ?? "", localId: localId) { isDownloaded, data, error in
-            
-            completion(data,error)
+        Task{
+            do{
+                let imageData = try await self.apiUserData.downloadProfilePhoto(localId: user.localId)
+                view?.setImage(imageData: imageData)
+            } catch{
+                
+            }
         }
+        
     }
+    
     
     public func getAccessLevel(localId:String, rule:AccessLevelKeys) -> Bool{
         return userRealmService.getUserAccessLevel(localId: localId, rule)

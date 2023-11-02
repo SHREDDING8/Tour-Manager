@@ -26,10 +26,12 @@ protocol UsersRealmServiceProtocol{
     
     func setUserInfo(user:UserRealm)
     func getUserInfo(localId:String) -> UserRealm?
+    func getAllUsers() -> Results<UserRealm>
     func getUserAccessLevel(localId:String, _ key:AccessLevelKeys) -> Bool
     func updateUserAccessLevel(localId:String, accessLevels: UserAccessLevelRealm)
     func updateField(localId:String, updateField: UserDataFields, value:String)
     func updateBirhday(localId:String,date:Date)
+    func updateImage(id:String, image:Data)
 }
 
 class UsersRealmService:UsersRealmServiceProtocol{
@@ -38,12 +40,16 @@ class UsersRealmService:UsersRealmServiceProtocol{
     
     func setUserInfo(user: UserRealm) {
         try! realm.write({
-            realm.add(user)
+            realm.add(user, update: .modified)
         })
     }
     
     func getUserInfo(localId:String) -> UserRealm?{
         realm.object(ofType: UserRealm.self, forPrimaryKey: localId)
+    }
+    
+    func getAllUsers() -> Results<UserRealm>{
+        realm.objects(UserRealm.self)
     }
     
     func getUserAccessLevel(localId:String, _ key:AccessLevelKeys) -> Bool{
@@ -104,6 +110,14 @@ class UsersRealmService:UsersRealmServiceProtocol{
         if let user = self.getUserInfo(localId: localId){
             try! realm.write({
                 user.birthday = date
+            })
+        }
+    }
+    
+    func updateImage(id:String, image:Data){
+        if let user = self.getUserInfo(localId: id){
+            try! realm.write({
+                user.image = image
             })
         }
     }

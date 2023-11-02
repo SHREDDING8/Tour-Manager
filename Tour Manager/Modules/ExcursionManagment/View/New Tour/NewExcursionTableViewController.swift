@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewExcursionTableViewController: UITableViewController, NewExcursionViewProtocol {
+class NewExcursionTableViewController: UITableViewController {
     
     // MARK: - Outlets
     
@@ -16,14 +16,9 @@ class NewExcursionTableViewController: UITableViewController, NewExcursionViewPr
     
     @IBOutlet weak var excursionName: UITextField!
     
-    
     @IBOutlet weak var routeLabel: UILabel!
     
-    @IBOutlet weak var additionalInformation: UITextView!{
-        didSet{
-            additionalInformation.addDoneCancelToolbar()
-        }
-    }
+    @IBOutlet weak var notesLabel: UILabel!
     
     @IBOutlet weak var notesForGuidesSwitch: UISwitch!
     
@@ -59,8 +54,6 @@ class NewExcursionTableViewController: UITableViewController, NewExcursionViewPr
     @IBOutlet weak var guiedsCollectionView: UICollectionView!
     
     // MARK: - my variables
-    var excursion = Excursion()
-    var oldTour = Excursion()
     let controllers = Controllers()
     let alerts = Alert()
     let validation = StringValidation()
@@ -71,28 +64,7 @@ class NewExcursionTableViewController: UITableViewController, NewExcursionViewPr
     // MARK: - Lyfe Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter = NewExcursionPresenter(view: self)
-        
-        oldTour = excursion.copy()
-        
-        if presenter.isAccessLevel(key: .canWriteTourList){
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonClick))
-        }
-        
-        if presenter.isAccessLevel(key: .canWriteTourList){
-            if #available(iOS 16.0, *) {
-                self.navigationItem.backAction = UIAction(handler: { _ in
-                    if !(self.oldTour == self.excursion){
-                        self.warningAlertDuringExit(isPopController: true)
-                    }else{
-                        self.navigationController?.popViewController(animated: true)
-                    }
-                })
-            }
-        }
-        
-        
-       
+                
         if isUpdate{
             if presenter.isAccessLevel(key: .canWriteTourList){
                 self.navigationItem.title = "Редактирование"
@@ -100,7 +72,6 @@ class NewExcursionTableViewController: UITableViewController, NewExcursionViewPr
                 self.navigationItem.title = "Просмотр"
             }
            
-            self.oldDate = excursion.dateAndTime
         }else{
             self.navigationItem.title = "Добавление"
         }
@@ -111,51 +82,67 @@ class NewExcursionTableViewController: UITableViewController, NewExcursionViewPr
     override func viewWillAppear(_ animated: Bool) {
         if presenter.isAccessLevel(key: .canWriteTourList){
             self.navigationController?.interactivePopGestureRecognizer?.delegate! = self
+            
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonClick))
         }
-       
+        
+        if presenter.isAccessLevel(key: .canWriteTourList){
+            if #available(iOS 16.0, *) {
+                self.navigationItem.backAction = UIAction(handler: { _ in
+                    if !(self.presenter.isEqualTours()){
+                        self.warningAlertDuringExit(isPopController: true)
+                    }else{
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                })
+            }
+        }
+               
         configureFieldsWithExcursionInfo()
         guiedsCollectionView.reloadData()
     }
+    
+    
     
     // MARK: - Configuration Labels
     
     fileprivate func configureFieldsWithExcursionInfo(){
         
-        self.excursionName.text = self.excursion.excursionName
+        self.excursionName.text = self.presenter.tour.tourTitle
         
-        self.routeLabel.text = !self.excursion.route.isEmpty ? self.excursion.route : "Не выбрано"
+        self.routeLabel.text = !self.presenter.tour.route.isEmpty ? self.presenter.tour.route : "Не выбрано"
         
-        self.additionalInformation.text = self.excursion.additionalInfromation
+        self.notesLabel.text = self.presenter.tour.notes
         
-        self.notesForGuidesSwitch.isOn = self.excursion.guideAccessNotes
+        self.notesForGuidesSwitch.isOn = self.presenter.tour.guideCanSeeNotes
         
-        self.numberOfPeople.text = String(self.excursion.numberOfPeople)
+        self.numberOfPeople.text = self.presenter.tour.numberOfPeople
         
-        self.customerCompanyNameLabel.text = !self.excursion.customerCompanyName.isEmpty ? self.excursion.customerCompanyName : "Не выбрано"
+        self.customerCompanyNameLabel.text = !self.presenter.tour.customerCompanyName.isEmpty ? self.presenter.tour.customerCompanyName : "Не выбрано"
         
-        self.customerGuiedNameLabel.text = !self.excursion.customerGuideName.isEmpty ? self.excursion.customerGuideName : "Не выбрано"
+        self.customerGuiedNameLabel.text = !self.presenter.tour.customerGuideName.isEmpty ? self.presenter.tour.customerGuideName : "Не выбрано"
         
-        self.customerGuidePhone.text = self.excursion.companyGuidePhone
+        self.customerGuidePhone.text = self.presenter.tour.companyGuidePhone
         
-        self.paymentMethodSwitch.setOn(self.excursion.isPaid, animated: false)
-        self.paymentMethodLabel.text = !self.excursion.paymentMethod.isEmpty ? self.excursion.paymentMethod : "Не выбрано"
-        self.paymentAmountTextField.text = String(self.excursion.paymentAmount)
+        self.paymentMethodSwitch.setOn(self.presenter.tour.isPaid, animated: false)
+        self.paymentMethodLabel.text = !self.presenter.tour.paymentMethod.isEmpty ? self.presenter.tour.paymentMethod : "Не выбрано"
         
-        self.dateAndTime.setDate(excursion.dateAndTime, animated: true)
+        self.paymentAmountTextField.text = self.presenter.tour.paymentAmount
         
-        self.excursion.dateAndTime = self.dateAndTime.date
+        self.dateAndTime.setDate(self.presenter.tour.dateAndTime, animated: true)
+        
     }
     
     
     // MARK: - save Button Click
     
     @objc fileprivate func saveButtonClick(){
-        if !validation.validateLenghtString(string: self.excursion.excursionName, min: 1, max: 100){
+        if !validation.validateLenghtString(string: self.presenter.tour.tourTitle, min: 1, max: 100){
             self.alerts.validationStringError(self, title: "Ошибка в названии экскурсии",message: "Минимальная длина - 1. Максимальная длина - 100")
             return
         }
         
-        if !validation.validateLenghtString(string: self.excursion.additionalInfromation, max: 1000){
+        if !validation.validateLenghtString(string: self.presenter.tour.notes, max: 1000){
             self.alerts.validationStringError(self, title: "Ошибка в заметках", message: "Максимальная длина - 1000")
             return
         }
@@ -165,73 +152,47 @@ class NewExcursionTableViewController: UITableViewController, NewExcursionViewPr
 //            return
 //        }
         
-        if !validation.validateNumberWithPlus(value: self.excursion.numberOfPeople){
+        if !validation.validateNumberWithPlus(value: self.presenter.tour.numberOfPeople){
             self.alerts.validationStringError(self, title: "Ошибка в количестве человек")
             return
         }
         
-        if !validation.validateNumberWithPlus(value: self.excursion.paymentAmount){
+        if !validation.validateNumberWithPlus(value: self.presenter.tour.paymentAmount){
             self.alerts.validationStringError(self, title: "Ошибка сумме оплаты")
             return
         }
         
         
-        
-        
-        
         if isUpdate{
-            presenter.updateExcursion(excursion: excursion, oldDate: self.oldDate) { isUpdated, error in
-                if let err = error{
-                    self.alerts.errorAlert(self, errorExcursionsApi: err)
-                }
-                if isUpdated{
-                    self.navigationController?.popViewController(animated: true)
-                }
-               
-            }
+            presenter.updateExcursion()
         }else{
-            presenter.createNewExcursion(excursion: excursion) { isAdded, error in
-                if let err = error{
-                    self.alerts.errorAlert(self, errorExcursionsApi: err)
-                }
-                if isAdded{
-                    self.navigationController?.popViewController(animated: true)
-                }
-            }
+            presenter.createNewExcursion()
         }
-        
     }
     
     // MARK: - Datepicker
     
     
     @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {
-        self.excursion.dateAndTime = sender.date
+        self.presenter.tour.dateAndTime = sender.date
         
     }
     
     // MARK: - IsPaid
     
     @IBAction func isPaidAction(_ sender: UISwitch) {
-        self.excursion.isPaid = sender.isOn
+        self.presenter.tour.isPaid = sender.isOn
     }
     
     @IBAction func notesForGuidesSwitch(_ sender: UISwitch) {
-        self.excursion.guideAccessNotes = sender.isOn
+        self.presenter.tour.guideCanSeeNotes = sender.isOn
     }
     
     // MARK: - delete Excursion
     @IBAction func deleteExcursionTap(_ sender: Any) {
         
         self.alerts.deleteAlert(self, title: "Вы уверены что хотите удалить экскурсию?", buttonTitle: "Удалить") {
-            self.presenter.deleteExcursion(excursion: self.excursion) { isDeleted, error in
-                if let err = error{
-                    self.alerts.errorAlert(self, errorExcursionsApi: err)
-                }
-                if isDeleted{
-                    self.navigationController?.popViewController(animated: true)
-                }
-            }
+            self.presenter.deleteTour()
         }
     }
 }
@@ -251,7 +212,6 @@ extension NewExcursionTableViewController{
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        
         switch section{
         case 0:
             return 6
@@ -276,32 +236,66 @@ extension NewExcursionTableViewController{
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
                 
-        let destinantion = controllers.getControllerMain(.addingNewComponentViewController) as! AddingNewComponentViewController
-        destinantion.excursion = excursion
-        
         if indexPath.section == 0 && indexPath.row == 1{
-            destinantion.typeOfNewComponent = .route
-            self.navigationController?.pushViewController(destinantion, animated: true)
-        } else if
+            let newComponentVC = TourManadmentAssembly.createAutoFillComponentsController(type: .route, baseValue: self.presenter.tour.route) as! AddingNewComponentViewController
+            
+            newComponentVC.doAfterClose = { value in
+                self.presenter.tour.route = value
+            }
+            
+            self.navigationController?.pushViewController(newComponentVC, animated: true)
+            
+        }else if indexPath.section == 0 && indexPath.row == 5{
+            
+            let notesVC = NotesViewController()
+            notesVC.textView.text = self.presenter.tour.notes
+            notesVC.doAfterClose = { notes in
+                self.presenter.tour.notes = notes
+                self.notesLabel.text = notes
+            }
+            
+            self.navigationController?.pushViewController(notesVC, animated: true)
+            
+        }else if
             indexPath.section == 1 && indexPath.row == 0{
-            destinantion.typeOfNewComponent = .customerCompanyName
+            let newComponentVC = TourManadmentAssembly.createAutoFillComponentsController(type: .customerCompanyName, baseValue: self.presenter.tour.customerCompanyName) as! AddingNewComponentViewController
+            
+            newComponentVC.doAfterClose = { value in
+                self.presenter.tour.customerCompanyName = value
+            }
 
-            self.navigationController?.pushViewController(destinantion, animated: true)
+            self.navigationController?.pushViewController(newComponentVC, animated: true)
         } else if
             indexPath.section == 1 && indexPath.row == 1{
-            destinantion.typeOfNewComponent = .customerGuiedName
+            
+            let newComponentVC = TourManadmentAssembly.createAutoFillComponentsController(type: .customerGuiedName, baseValue: self.presenter.tour.customerGuideName) as! AddingNewComponentViewController
+            
+            newComponentVC.doAfterClose = { value in
+                self.presenter.tour.customerGuideName = value
+            }
 
-            self.navigationController?.pushViewController(destinantion, animated: true)
+            self.navigationController?.pushViewController(newComponentVC, animated: true)
         }else if indexPath.section == 2 && indexPath.row == 1 {
-            destinantion.typeOfNewComponent = .excursionPaymentMethod
-
-            self.navigationController?.pushViewController(destinantion, animated: true)
+            
+            let newComponentVC = TourManadmentAssembly.createAutoFillComponentsController(type: .excursionPaymentMethod, baseValue: self.presenter.tour.paymentMethod) as! AddingNewComponentViewController
+            
+            newComponentVC.doAfterClose = { value in
+                self.presenter.tour.paymentMethod = value
+            }
+            
+            self.navigationController?.pushViewController(newComponentVC, animated: true)
             
         }
         else if indexPath.section == 3 && indexPath.row == 0{
-            destinantion.typeOfNewComponent = .guides
+            
+            let selectGuidesVC = TourManadmentAssembly.createAddGuideController(selectedGuides: self.presenter.tour.guides) as! AddGuideViewController
+            
+            selectGuidesVC.doAfterClose = {guides in
+                self.presenter.tour.guides = guides
+                self.guiedsCollectionView.reloadData()
+            }
 
-            self.navigationController?.pushViewController(destinantion, animated: true)
+            self.navigationController?.pushViewController(selectGuidesVC, animated: true)
         }
     }
 }
@@ -317,7 +311,7 @@ extension NewExcursionTableViewController:UITextFieldDelegate{
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField.restorationIdentifier == "excursionName"{
-            self.excursion.excursionName = textField.text ?? ""
+            self.presenter.tour.tourTitle = textField.text ?? ""
         }
         else if textField.restorationIdentifier == "numberOfPeople"{
             
@@ -325,21 +319,22 @@ extension NewExcursionTableViewController:UITextFieldDelegate{
             
             newNumberOfPeople = newNumberOfPeople == "" ? "0" : newNumberOfPeople
 
-            self.excursion.numberOfPeople = newNumberOfPeople
+            self.presenter.tour.numberOfPeople = newNumberOfPeople
             textField.text = newNumberOfPeople
         } else if textField.restorationIdentifier == "customerGuidePhone"{
             let newPhone = textField.text?.replacingOccurrences(of: "-", with: "").replacingOccurrences(of: "‑", with: "").replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "").replacingOccurrences(of: " ", with: "").replacingOccurrences(of: " ", with: "") ?? ""
             
             textField.text = newPhone
             
-            self.excursion.companyGuidePhone = newPhone
+            self.presenter.tour.companyGuidePhone = newPhone
             
         }else if textField.restorationIdentifier == "amount"{
+            
             
             var newAmount = (textField.text ?? "0").replacingOccurrences(of: " ", with: "")
             
             newAmount = newAmount == "" ? "0" : newAmount
-            self.excursion.paymentAmount =  newAmount
+            self.presenter.tour.paymentAmount = newAmount
             textField.text = newAmount
         }
     }
@@ -348,7 +343,7 @@ extension NewExcursionTableViewController:UITextFieldDelegate{
 // MARK: - UITextViewDelegate
 extension NewExcursionTableViewController:UITextViewDelegate{
     func textViewDidEndEditing(_ textView: UITextView) {
-        self.excursion.additionalInfromation = textView.text
+        self.presenter.tour.notes = textView.text
     }
 }
 
@@ -357,7 +352,7 @@ extension NewExcursionTableViewController:UITextViewDelegate{
 extension NewExcursionTableViewController:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.excursion.selfGuides.count
+        return self.presenter.tour.guides.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -367,22 +362,27 @@ extension NewExcursionTableViewController:UICollectionViewDelegate,UICollectionV
                 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GuideCollectionViewCell", for: indexPath) as! GuideCollectionViewCell
         
-        cell.fullName.text = self.excursion.selfGuides[indexPath.row].guideInfo.getFullName()
-        if self.excursion.selfGuides[indexPath.row].isMain{
+        let guide = self.presenter.tour.guides[indexPath.row]
+        
+        cell.fullName.text = guide.firstName + " " + guide.lastName
+        if guide.isMain{
             cell.isMainGuide.isHidden = false
         }else{
             cell.isMainGuide.isHidden = true
         }
-                
-        cell.status.tintColor = self.excursion.selfGuides[indexPath.row].status.getColor()
         
-        presenter.downloadProfilePhoto(localId: self.excursion.selfGuides[indexPath.row].guideInfo.getLocalID() ?? "", completion: { data, error in
-            if data != nil{
-                UIView.transition(with: cell.profilePhoto, duration: 0.3, options: .transitionCrossDissolve) {
-                    cell.profilePhoto.image = UIImage(data: data!)!
+        cell.status.tintColor = guide.status.getColor()
+        if let image = self.presenter.getUserPhotoFromRealm(by: indexPath.row){
+            cell.profilePhoto.image = image
+        }
+        
+        presenter.getUserPhotoFromServer(by: indexPath.row) { image in
+            UIView.transition(with: cell.profilePhoto, duration: 0.3, options: .transitionCrossDissolve){
+                if image != nil{
+                    cell.profilePhoto.image = image
                 }
             }
-        })
+        }
         
         return cell
     }
@@ -400,8 +400,8 @@ extension NewExcursionTableViewController:UICollectionViewDelegate,UICollectionV
         
         let guideController = self.controllers.getControllerMain(.employeeViewController) as! EmploeeViewController
         
-        guideController.employee = self.excursion.selfGuides[indexPath.row].guideInfo
-        guideController.isShowAccessLevels = false
+//        guideController.employee = self.excursion.selfGuides[indexPath.row].guideInfo
+//        guideController.isShowAccessLevels = false
         
         self.navigationController?.pushViewController(guideController, animated: true)
         
@@ -427,7 +427,7 @@ extension NewExcursionTableViewController{
 // MARK: - UIGestureRecognizerDelegate
 extension NewExcursionTableViewController:UIGestureRecognizerDelegate{
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if !(oldTour == excursion){
+        if !(self.presenter.isEqualTours()){
             warningAlertDuringExit(isPopController: true)
             return false
         }
@@ -437,3 +437,31 @@ extension NewExcursionTableViewController:UIGestureRecognizerDelegate{
     }
 }
 
+extension NewExcursionTableViewController:NewExcursionViewProtocol{
+    
+    func updateCollectionView() {
+        self.guiedsCollectionView.reloadData()
+    }
+    
+    
+    func isUpdated(isSuccess: Bool) {
+        if isSuccess{
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    func isAdded(isSuccess: Bool) {
+        if isSuccess{
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+    }
+    
+    
+    func delete(isSuccess: Bool) {
+        if isSuccess{
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
+}

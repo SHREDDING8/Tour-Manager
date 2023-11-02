@@ -7,17 +7,12 @@
 
 import UIKit
 
-class EmploeeViewController: UIViewController, EmployeeViewProtocol {
+class EmploeeViewController: UIViewController {
     
     var presenter:EmployeePresenter?
     
-    let profileModel = Profile()
     let alerts = Alert()
-    
-    var isShowAccessLevels = true
-    
-    var employee:User!
-    
+            
     let generalLogic = GeneralLogic()
     
     
@@ -36,12 +31,10 @@ class EmploeeViewController: UIViewController, EmployeeViewProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+                
+//        configurationView()
         
-        self.presenter = EmployeePresenter(view: self)
-        
-        configurationView()
-        
-        profilePhotoConfiguration()
+//        profilePhotoConfiguration()
         
     }
     
@@ -49,7 +42,7 @@ class EmploeeViewController: UIViewController, EmployeeViewProtocol {
     // MARK: - ConfigurationView
     
     public func configurationView(){
-        self.navigationItem.title = employee.getFullName()
+        self.navigationItem.title = presenter?.user.fullName
     }
     
     
@@ -66,11 +59,11 @@ class EmploeeViewController: UIViewController, EmployeeViewProtocol {
         
         self.profilePhoto.layer.cornerRadius = self.profilePhoto.frame.height / 2
         
-        self.presenter?.downloadProfilePhoto(localId: self.employee.getLocalID() ?? "", completion: { data, error in
-            if data != nil{
-                self.setProfilePhoto(image: UIImage(data: data!)!)
-            }
-        })
+//        self.presenter?.downloadProfilePhoto(localId: self.employee.getLocalID() ?? "", completion: { data, error in
+//            if data != nil{
+//                self.setProfilePhoto(image: UIImage(data: data!)!)
+//            }
+//        })
     }
 
 
@@ -106,7 +99,7 @@ extension EmploeeViewController:UITableViewDelegate,UITableViewDataSource{
     
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return isShowAccessLevels ? 2 : 1
+        return 2
     }
     
     
@@ -115,7 +108,7 @@ extension EmploeeViewController:UITableViewDelegate,UITableViewDataSource{
         case 0:
             return 5
         case 1:
-            return employee.getNumberOfAccessLevel() - 1
+            return 9
         default:
             return 0
         }
@@ -141,7 +134,7 @@ extension EmploeeViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 0 && indexPath.row == 4{
-            generalLogic.callNumber(phoneNumber: self.employee.getPhone())
+            generalLogic.callNumber(phoneNumber: presenter?.user.phone ?? "")
         }
     }
     
@@ -184,7 +177,7 @@ extension EmploeeViewController:UITableViewDelegate,UITableViewDataSource{
     
     fileprivate func personalDataCell(indexPath:IndexPath) -> UITableViewCell{
         var cell = UITableViewCell()
-        let cellType = profileModel.getProfilePersonalDataCellType(index: indexPath.row)
+//        let cellType = profileModel.getProfilePersonalDataCellType(index: indexPath.row)
         
         switch indexPath.row{
         case 0...1, 3...4:
@@ -193,27 +186,27 @@ extension EmploeeViewController:UITableViewDelegate,UITableViewDataSource{
             let textField:UITextField = cell.viewWithTag(2) as! UITextField
             
             
-            switch cellType{
-                
-            case .firstName:
-                textField.text = employee.getFirstName()
-            case .lastName:
-                textField.text = employee.getSecondName()
+//            switch cellType{
+//                
+//            case .firstName:
+//                textField.text = employee.getFirstName()
+//            case .lastName:
+//                textField.text = employee.getSecondName()
+//
+//            case .email:
+//                textField.text = employee.getEmail()
+//            case .phone:
+//                textField.text = employee.getPhone()
+//            case .changePassword:
+//                break
+//            case .birthday:
+//                break
+//            }
 
-            case .email:
-                textField.text = employee.getEmail()
-            case .phone:
-                textField.text = employee.getPhone()
-            case .changePassword:
-                break
-            case .birthday:
-                break
-            }
-
-            textField.restorationIdentifier = cellType.rawValue.2
-            
-            let cellLabel:UILabel = cell.viewWithTag(1) as! UILabel
-            cellLabel.text = cellType.rawValue.0
+//            textField.restorationIdentifier = cellType.rawValue.2
+//            
+//            let cellLabel:UILabel = cell.viewWithTag(1) as! UILabel
+//            cellLabel.text = cellType.rawValue.0
 
             let changeButton:UIButton = cell.viewWithTag(3) as! UIButton
            
@@ -222,11 +215,11 @@ extension EmploeeViewController:UITableViewDelegate,UITableViewDataSource{
         case 2:
             cell = tableView.dequeueReusableCell(withIdentifier: "birthdayCell", for: indexPath)
             
-            let cellLabel:UILabel = cell.viewWithTag(1) as! UILabel
-            cellLabel.text = cellType.rawValue.0
-            
-            let cellLabel2:UILabel = cell.viewWithTag(2) as! UILabel
-            cellLabel2.text = employee.getBirthday()
+//            let cellLabel:UILabel = cell.viewWithTag(1) as! UILabel
+//            cellLabel.text = cellType.rawValue.0
+//            
+//            let cellLabel2:UILabel = cell.viewWithTag(2) as! UILabel
+//            cellLabel2.text = employee.getBirthday()
             
             let changeButton:UIButton = cell.viewWithTag(3) as! UIButton
             changeButton.isHidden = true
@@ -249,41 +242,49 @@ extension EmploeeViewController:UITableViewDelegate,UITableViewDataSource{
         let switchButton = cell.viewWithTag(2) as! UISwitch
         
         
-        
-        let rule = employee.getAccessLevelRule(index: indexPath.row + 1)
-        label.text = employee.getAccessLevelLabel(rule: rule)
-        
-        switchButton.isOn = employee.getAccessLevel(rule: rule)
+//        
+//        let rule = employee.getAccessLevelRule(index: indexPath.row + 1)
+//        label.text = employee.getAccessLevelLabel(rule: rule)
+//        
+//        switchButton.isOn = employee.getAccessLevel(rule: rule)
         
         switchButton.removeTarget(self, action: nil, for: .valueChanged)
-        switchButton.addAction(UIAction(handler: { _ in
-            self.presenter?.updateAccessLevel(employe: self.employee, accessLevel: rule, value: switchButton.isOn) { isUpdated, error in
-
-                if  let err = error{
-                    self.alerts.errorAlert(self, errorCompanyApi: err) {
-                        switchButton.isOn = !switchButton.isOn
-                    }
-                }
-            }
-        }), for: .valueChanged)
+//        switchButton.addAction(UIAction(handler: { _ in
+//            self.presenter?.updateAccessLevel(employe: self.employee, accessLevel: rule, value: switchButton.isOn) { isUpdated, error in
+//
+//                if  let err = error{
+//                    self.alerts.errorAlert(self, errorCompanyApi: err) {
+//                        switchButton.isOn = !switchButton.isOn
+//                    }
+//                }
+//            }
+//        }), for: .valueChanged)
         
         
-        if !(self.presenter?.getAccessLevel(localId: employee.localId ?? "", rule: .canChangeAccessLevel) ?? false) ||
-            !(self.presenter?.getAccessLevel(localId: employee.localId ?? "", rule: .canReadTourList) ?? false) || // rule
-            self.presenter?.getLocalID() == employee.getLocalID() ||
-            self.employee.getAccessLevel(rule: .isOwner){
-            switchButton.isEnabled = false
-            switchButton.layer.opacity = 0.5
-        }
+//        if !(self.presenter?.getAccessLevel(localId: employee.localId ?? "", rule: .canChangeAccessLevel) ?? false) ||
+//            !(self.presenter?.getAccessLevel(localId: employee.localId ?? "", rule: .canReadTourList) ?? false) || // rule
+//            self.presenter?.getLocalID() == employee.getLocalID() ||
+//            self.employee.getAccessLevel(rule: .isOwner){
+//            switchButton.isEnabled = false
+//            switchButton.layer.opacity = 0.5
+//        }
         
-        if self.presenter?.getAccessLevel(localId: employee.localId ?? "", rule: .isOwner) ?? false && rule == .isGuide{
-            switchButton.isEnabled = true
-            switchButton.layer.opacity = 1
-        }
+//        if self.presenter?.getAccessLevel(localId: employee.localId ?? "", rule: .isOwner) ?? false && rule == .isGuide{
+//            switchButton.isEnabled = true
+//            switchButton.layer.opacity = 1
+//        }
 
         
         return cell
         
     }
+    
+}
+
+extension EmploeeViewController:EmployeeViewProtocol{
+    func setImage(imageData: Data) {
+        
+    }
+    
     
 }
