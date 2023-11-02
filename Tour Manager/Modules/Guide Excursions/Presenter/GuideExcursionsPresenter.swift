@@ -51,9 +51,9 @@ class ExcursionsGuideCalendarPresenter:ExcursionsGuideCalendarPresenterProtocol{
         self.view?.updateTours()
         
         print("toursRealmService.getTours")
-        if let tours = toursRealmService.getToursForGuide(dateString: dateString){
+        if let tours = toursRealmService.getToursForGuide(dateString: dateString)?.getTours(){
             var toursModel:[ExcrusionModel] = []
-            for tour in tours.tours{
+            for tour in tours{
                 var guides:[ExcrusionModel.Guide] = []
                 
                 for guide in tour.guides{

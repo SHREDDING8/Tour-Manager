@@ -409,12 +409,12 @@ extension ExcurionsGuideCalendarViewController:UITableViewDelegate,UITableViewDa
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableViewCalendar.deselectRow(at: indexPath, animated: true)
-                
-        let destination = controllers.getControllerMain(.excursionForGuideTableViewController) as! ExcursionForGuideTableViewController
         
-//        destination.excursion = presenter.excursions[indexPath.row]
-        
-        self.navigationController?.pushViewController(destination, animated: true)
+        if let tour = presenter.tours[calendar.calendar.selectedDate?.birthdayToString() ?? Date.now.birthdayToString()]?[indexPath.row]{
+            
+            let destination = TourManadmentAssembly.createTourForGuideViewController(tour: tour)
+            self.navigationController?.pushViewController(destination, animated: true)
+        }
         
     }
     

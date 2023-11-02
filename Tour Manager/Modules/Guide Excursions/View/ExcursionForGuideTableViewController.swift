@@ -11,9 +11,7 @@ import EventKit
 class ExcursionForGuideTableViewController: UITableViewController, OneGuideExcursionViewProtocol {
     
     var presenter:OneGuideExcursionPresenterProtocol!
-    
-    var excursion = Excursion()
-    
+        
     let alerts = Alert()
     
     let generalLogic = GeneralLogic()
@@ -56,31 +54,35 @@ class ExcursionForGuideTableViewController: UITableViewController, OneGuideExcur
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        presenter = OneGuideExcursionPresenter(view: self)
-        
-        configureValues()
-        
+                
         self.tabBarController?.tabBar.backgroundColor = UIColor(named: "background")
         
-        self.navigationItem.title = excursion.excursionName
         self.navigationController?.navigationBar.backgroundColor = UIColor(named: "background")
+                
+        self.navigationItem.largeTitleDisplayMode = .always
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        if self.excursion.dateAndTime > Date.now{
+        self.navigationItem.title = presenter.tour.tourTitle
+        
+        if presenter.tour.dateAndTime > Date.now{
             self.navigationItem.rightBarButtonItems = [
                 UIBarButtonItem(image: UIImage(systemName: "star.fill"), style: .plain, target: self, action: #selector(showAcceptAlert))
             ]
-        
-            for guide in self.excursion.selfGuides{
+            
+            let keychain = KeychainService()
+            for guide in presenter.tour.guides{
                 
-//                if guide.guideInfo == self.user{
-//                    self.navigationItem.rightBarButtonItems![0].tintColor = guide.statusColor
-//                    break
-//                }
+                if guide.id == keychain.getLocalId(){
+                    self.navigationItem.rightBarButtonItems![0].tintColor = guide.status.getColor()
+                    break
+                }
             }
         }
         
-        self.navigationItem.largeTitleDisplayMode = .always
+        configureValues()
     }
     
     
@@ -88,88 +90,74 @@ class ExcursionForGuideTableViewController: UITableViewController, OneGuideExcur
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if self.excursion.dateAndTime > Date.now{
-            for guide in excursion.selfGuides{
-//                if guide.guideInfo == self.user && guide.status == .waiting{
-//                    self.showAcceptAlert()
-//                }
+        let keychain = KeychainService()
+        
+        if presenter.tour.dateAndTime > Date.now{
+            for guide in presenter.tour.guides{
+                if guide.id == keychain.getLocalId() && guide.status == .waiting{
+                    self.showAcceptAlert()
+                }
             }
         }
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        UIView.animate(withDuration: 0.3) {
-            self.tabBarController?.tabBar.layer.opacity = 1
-        }
-    }
-    
-    
+
     @IBAction func copyCustomerGuideNumber(_ sender: UIButton) {
         
-            UIPasteboard.general.string = self.excursion.companyGuidePhone
-            
-            let alert = UIAlertController(title: "Id компании был скопирован", message: nil, preferredStyle: .alert)
-            let actionOk = UIAlertAction(title: "Ok", style: .default)
-            alert.addAction(actionOk)
-            self.present(alert, animated: true)
+        UIPasteboard.general.string = presenter.tour.companyGuidePhone
+        
+        let alert = UIAlertController(title: "Id компании был скопирован", message: nil, preferredStyle: .alert)
+        let actionOk = UIAlertAction(title: "Ok", style: .default)
+        alert.addAction(actionOk)
+        self.present(alert, animated: true)
     }
     
 
     // MARK: - configureValues
     
     fileprivate func configureValues(){
-        self.excursionNameLabel.text = excursion.excursionName
+        self.excursionNameLabel.text = presenter.tour.tourTitle
         
         // route
-        if self.excursion.route == ""{
+        if presenter.tour.route == ""{
             self.routeLabel.text = "Нет"
         }else{
-            self.routeLabel.text = excursion.route
+            self.routeLabel.text = presenter.tour.route
         }
         
-        self.numberOfPeopleLabel.text = String(excursion.numberOfPeople)
+        self.numberOfPeopleLabel.text = presenter.tour.numberOfPeople
         
-        self.datePicker.date = excursion.dateAndTime
+        self.datePicker.date = presenter.tour.dateAndTime
         
-        self.notesTextView.text = excursion.additionalInfromation
-        
-       
+        self.notesTextView.text = presenter.tour.notes
         
         // customerGuideName
-        if self.excursion.customerGuideName == ""{
+        if presenter.tour.customerGuideName == ""{
             self.customerGuideName.text = "Нет"
         }else{
-            self.customerGuideName.text = excursion.customerGuideName
+            self.customerGuideName.text = presenter.tour.customerGuideName
         }
         
         // customerGuideContact
-        if self.excursion.companyGuidePhone == ""{
+        if presenter.tour.companyGuidePhone == ""{
             self.copyCustomerGuidePhone.layer.opacity = 0
             self.customerGuideContact.text = "Нет"
         }else{
-            self.customerGuideContact.text = excursion.companyGuidePhone
+            self.customerGuideContact.text = presenter.tour.companyGuidePhone
         }
        
-        self.isPaidSwitch.isOn = excursion.isPaid
-        self.paymentAmountLabel.text = String(excursion.paymentAmount)
-        
-        
+        self.isPaidSwitch.isOn = presenter.tour.isPaid
+        self.paymentAmountLabel.text = presenter.tour.paymentAmount
         
     }
     
     
     @objc private func showAcceptAlert(){
         
-        let acceptAlert = UIAlertController(title: "Подтверждение экскурсии", message: "Экскурсия '\(self.excursion.excursionName)' \(self.excursion.dateAndTime.birthdayToString()) в \(self.excursion.dateAndTime.timeToString())", preferredStyle: .alert)
+        let acceptAlert = UIAlertController(title: "Подтверждение экскурсии", message: "Экскурсия '\(presenter.tour.tourTitle)' \(presenter.tour.dateAndTime.birthdayToString()) в \(presenter.tour.dateAndTime.timeToString())", preferredStyle: .alert)
         
         let acceptAction = UIAlertAction(title: "Принять", style: .default) { _ in
-            self.presenter.setGuideTourStatus(tourDate: self.excursion.dateAndTime.birthdayToString(), tourId: self.excursion.localId , guideStatus: .accepted) { isSetted, error in
+            self.presenter.setGuideTourStatus(tourDate: self.presenter.tour.dateAndTime.birthdayToString(), tourId: self.presenter.tour.tourId , guideStatus: .accepted) { isSetted, error in
                 
                 if let err = error{
                     self.alerts.errorAlert(self, errorExcursionsApi: err)
@@ -178,14 +166,14 @@ class ExcursionForGuideTableViewController: UITableViewController, OneGuideExcur
                 if isSetted{
                     
                     self.addReminderToCalendar()
-                    
-                    for guideIndex in 0..<self.excursion.selfGuides.count{
+                    let keychain = KeychainService()
+                    for guideIndex in 0..<self.presenter.tour.guides.count{
                         
-//                        if self.excursion.selfGuides[guideIndex].guideInfo == self.user{
-//                            self.excursion.selfGuides[guideIndex].status = .accepted
-//                            self.navigationItem.rightBarButtonItems![0].tintColor = self.excursion.selfGuides[guideIndex].statusColor
-//                            break
-//                        }
+                        if self.presenter.tour.guides[guideIndex].id == keychain.getLocalId(){
+                            self.presenter.tour.guides[guideIndex].status = .accept
+                            self.navigationItem.rightBarButtonItems![0].tintColor = self.presenter.tour.guides[guideIndex].status.getColor()
+                            break
+                        }
                     }
                     
                     self.guidesCollectionView.reloadData()
@@ -194,7 +182,7 @@ class ExcursionForGuideTableViewController: UITableViewController, OneGuideExcur
         }
         
         let cancelAction = UIAlertAction(title: "Отклонить", style: .destructive) { _ in
-            self.presenter.setGuideTourStatus(tourDate: self.excursion.dateAndTime.birthdayToString(), tourId: self.excursion.localId , guideStatus: .cancel) { isSetted, error in
+            self.presenter.setGuideTourStatus(tourDate: self.presenter.tour.dateAndTime.birthdayToString(), tourId: self.presenter.tour.tourId , guideStatus: .cancel) { isSetted, error in
                 
                 if let err = error{
                     self.alerts.errorAlert(self, errorExcursionsApi: err)
@@ -203,13 +191,14 @@ class ExcursionForGuideTableViewController: UITableViewController, OneGuideExcur
                 
                 if isSetted{
                     
-                    for guideIndex in 0..<self.excursion.selfGuides.count{
+                    let keychain = KeychainService()
+                    for guideIndex in 0..<self.presenter.tour.guides.count{
                         
-//                        if self.excursion.selfGuides[guideIndex].guideInfo == self.user{
-//                            self.excursion.selfGuides[guideIndex].status = .cancel
-//                            self.navigationItem.rightBarButtonItems![0].tintColor = self.excursion.selfGuides[guideIndex].statusColor
-//                            break
-//                        }
+                        if self.presenter.tour.guides[guideIndex].id == keychain.getLocalId(){
+                            self.presenter.tour.guides[guideIndex].status = .cancel
+                            self.navigationItem.rightBarButtonItems![0].tintColor = self.presenter.tour.guides[guideIndex].status.getColor()
+                            break
+                        }
                     }
                     
                     self.guidesCollectionView.reloadData()
@@ -223,20 +212,21 @@ class ExcursionForGuideTableViewController: UITableViewController, OneGuideExcur
         
         let noChoiceAction = UIAlertAction(title: "Отменить", style: .cancel)
         
-        for guide in self.excursion.selfGuides{
+        let keyChain = KeychainService()
+        for guide in presenter.tour.guides{
             
-//            if guide.guideInfo == self.user{
-//                if guide.status == .cancel || guide.status == .waiting{
-//                    acceptAlert.addAction(acceptAction)
-//                }
-//                
-//                if guide.status == .accepted || guide.status == .waiting {
-//                    acceptAlert.addAction(cancelAction)
-//                }
-//                
-//                acceptAlert.addAction(noChoiceAction)
-//                break
-//            }
+            if guide.id == keyChain.getLocalId(){
+                if guide.status == .cancel || guide.status == .waiting{
+                    acceptAlert.addAction(acceptAction)
+                }
+                
+                if guide.status == .accept || guide.status == .waiting {
+                    acceptAlert.addAction(cancelAction)
+                }
+                
+                acceptAlert.addAction(noChoiceAction)
+                break
+            }
         }
         
         
@@ -246,7 +236,7 @@ class ExcursionForGuideTableViewController: UITableViewController, OneGuideExcur
     
     private func addReminderToCalendar(){
         
-        let alert = UIAlertController(title: "Добавить событие в календарь?", message: "Экскурсия '\(self.excursion.excursionName)' \(self.excursion.dateAndTime.birthdayToString()) в \(self.excursion.dateAndTime.timeToString())", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Добавить событие в календарь?", message: "Экскурсия '\(presenter.tour.tourTitle)' \(presenter.tour.dateAndTime.birthdayToString()) в \(presenter.tour.dateAndTime.timeToString())", preferredStyle: .alert)
         
         let actionCancel = UIAlertAction(title: "Отменить", style: .cancel)
         
@@ -287,14 +277,14 @@ class ExcursionForGuideTableViewController: UITableViewController, OneGuideExcur
     
     private func configureAndSaveCalendarEvent(){
         let event:EKEvent = EKEvent(eventStore: self.eventStore)
-        event.title = self.excursion.excursionName
-        event.startDate = self.excursion.dateAndTime
-        event.endDate = Calendar.current.date(byAdding: .init(minute: 90), to: self.excursion.dateAndTime)
+        event.title = presenter.tour.tourTitle
+        event.startDate = presenter.tour.dateAndTime
+        event.endDate = Calendar.current.date(byAdding: .init(minute: 90), to: presenter.tour.dateAndTime)
         
         event.calendar = eventStore.defaultCalendarForNewEvents
         
-        let remiderDate = Calendar.current.date(byAdding: .init(minute: -30), to: self.excursion.dateAndTime)
-        event.addAlarm(EKAlarm(absoluteDate: remiderDate ?? self.excursion.dateAndTime))
+        let remiderDate = Calendar.current.date(byAdding: .init(minute: -30), to: presenter.tour.dateAndTime)
+        event.addAlarm(EKAlarm(absoluteDate: remiderDate ?? presenter.tour.dateAndTime))
         
         do {
             try self.eventStore.save(event, span: .thisEvent)
@@ -317,9 +307,9 @@ class ExcursionForGuideTableViewController: UITableViewController, OneGuideExcur
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         switch section{
-        case 0: return  self.excursion.guideAccessNotes ? 5 : 4
+        case 0: return  presenter.tour.guideCanSeeNotes ? 5 : 4
         case 1: return 2
-        case 2: return excursion.isPaid ? 1 : 2
+        case 2: return presenter.tour.isPaid ? 1 : 2
         case 3: return 1
         default: return 0
         }
@@ -328,8 +318,8 @@ class ExcursionForGuideTableViewController: UITableViewController, OneGuideExcur
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 1 && indexPath.row == 1{
-            if self.excursion.companyGuidePhone != ""{
-                generalLogic.callNumber(phoneNumber: self.excursion.companyGuidePhone)
+            if presenter.tour.companyGuidePhone != ""{
+                generalLogic.callNumber(phoneNumber: presenter.tour.companyGuidePhone)
             }
         }
     }
@@ -339,7 +329,7 @@ class ExcursionForGuideTableViewController: UITableViewController, OneGuideExcur
 extension ExcursionForGuideTableViewController:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.excursion.selfGuides.count
+        return presenter.tour.guides.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -349,16 +339,17 @@ extension ExcursionForGuideTableViewController:UICollectionViewDelegate,UICollec
                 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GuideCollectionViewCell", for: indexPath) as! GuideCollectionViewCell
         
-        cell.fullName.text = self.excursion.selfGuides[indexPath.row].guideInfo.getFullName()
-        if self.excursion.selfGuides[indexPath.row].isMain{
+        let guide = presenter.tour.guides[indexPath.row]
+        cell.fullName.text = guide.firstName + " " + guide.lastName
+        if guide.isMain{
             cell.isMainGuide.isHidden = false
         }else{
             cell.isMainGuide.isHidden = true
         }
         
-        cell.status.tintColor = self.excursion.selfGuides[indexPath.row].status.getColor()
+        cell.status.tintColor = guide.status.getColor()
         
-        self.presenter.downloadProfilePhoto(localId: self.excursion.selfGuides[indexPath.row].guideInfo.getLocalID() ?? "", completion: { data, error in
+        self.presenter.downloadProfilePhoto(localId: guide.id, completion: { data, error in
             if data != nil{
                 UIView.transition(with: cell.profilePhoto, duration: 0.3, options: .transitionCrossDissolve) {
                     cell.profilePhoto.image = UIImage(data: data!)!

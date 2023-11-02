@@ -7,6 +7,7 @@
 
 import UIKit
 import UserNotifications
+import RealmSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     public static var tabBar:UITabBarController? = nil
             
     let keychainService = KeychainService()
+    let userDefaultsService:UserDefaultsServiceProtocol = UserDefaultsService()
     
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -21,6 +23,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         registerForPushNotifications()
         
         UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+        
+        if userDefaultsService.isFirstLaunch(){
+            keychainService.removeAllData()
+            let realm =  try! Realm()
+            try! realm.write {
+                realm.deleteAll()
+            }
+        }
                 
         return true
     }

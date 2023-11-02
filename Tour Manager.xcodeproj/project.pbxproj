@@ -30,6 +30,7 @@
 		EE4C89392A2CF1E7004D3CB9 /* Access Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4C89382A2CF1E7004D3CB9 /* Access Level.swift */; };
 		EE4C893B2A2CF53D004D3CB9 /* UiButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4C893A2A2CF53D004D3CB9 /* UiButton.swift */; };
 		EE4C893E2A2E3D85004D3CB9 /* Excursion.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4C893D2A2E3D85004D3CB9 /* Excursion.swift */; };
+		EE4DA1562AF4390900F3D2E9 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4DA1552AF4390900F3D2E9 /* UserDefaultsService.swift */; };
 		EE52E16F29E5C1C8000C0E5B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE52E16E29E5C1C8000C0E5B /* AppDelegate.swift */; };
 		EE52E17129E5C1C8000C0E5B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE52E17029E5C1C8000C0E5B /* SceneDelegate.swift */; };
 		EE52E17629E5C1C8000C0E5B /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE52E17429E5C1C8000C0E5B /* Auth.storyboard */; };
@@ -149,6 +150,7 @@
 		EE4C89382A2CF1E7004D3CB9 /* Access Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Access Level.swift"; sourceTree = "<group>"; };
 		EE4C893A2A2CF53D004D3CB9 /* UiButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiButton.swift; sourceTree = "<group>"; };
 		EE4C893D2A2E3D85004D3CB9 /* Excursion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Excursion.swift; sourceTree = "<group>"; };
+		EE4DA1552AF4390900F3D2E9 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
 		EE52E16B29E5C1C8000C0E5B /* Tour Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tour Manager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE52E16E29E5C1C8000C0E5B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE52E17029E5C1C8000C0E5B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -371,6 +373,14 @@
 				EEB73FA22A365ABC004D7A25 /* ExcursionsControllerModel.swift */,
 			);
 			path = Excursions;
+			sourceTree = "<group>";
+		};
+		EE4DA1542AF438F200F3D2E9 /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				EE4DA1552AF4390900F3D2E9 /* UserDefaultsService.swift */,
+			);
+			path = UserDefaults;
 			sourceTree = "<group>";
 		};
 		EE52E16229E5C1C8000C0E5B = {
@@ -807,6 +817,7 @@
 		EED6451C2A98D30300F2ADC9 /* Local storage */ = {
 			isa = PBXGroup;
 			children = (
+				EE4DA1542AF438F200F3D2E9 /* UserDefaults */,
 				EED645342A99524900F2ADC9 /* Realm */,
 				EED6451D2A98D30900F2ADC9 /* Keychain */,
 			);
@@ -1027,6 +1038,7 @@
 				EE5F91CF2A200C7700B39BB1 /* sendAuthStructs.swift in Sources */,
 				EEF776402ADAA37000532440 /* UiViewController extension.swift in Sources */,
 				EEA4C08029FDDC650083154E /* ApiManagerAuth.swift in Sources */,
+				EE4DA1562AF4390900F3D2E9 /* UserDefaultsService.swift in Sources */,
 				EEF0BE8C2AD72C91002CEE4D /* LoginModel.swift in Sources */,
 				EE783F492AD5664800DA820F /* AddingNewComponentPresenter.swift in Sources */,
 				EEF27A592A05C7BC006E5E53 /* VerifyEmailViewController.swift in Sources */,

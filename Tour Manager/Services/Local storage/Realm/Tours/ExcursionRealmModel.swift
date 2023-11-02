@@ -18,6 +18,12 @@ class DatesExcursion:Object{
         self.dateString = dateString
         self.tours = tours
     }
+    
+    func getTours() -> [ExcursionRealmModel]{
+        return tours.sorted { first, second in
+            first.dateAndTime < second.dateAndTime
+        }
+    }
 }
 
 class ExcursionRealmModel:Object{
@@ -72,7 +78,7 @@ class OneGuideRealmModel:Object{
         case accept = "accept"
     }
     
-    @Persisted(primaryKey: true) var id:String
+    @Persisted var id:String
     @Persisted var firstName:String
     @Persisted var lastName:String
     @Persisted var isMain:Bool

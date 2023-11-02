@@ -12,6 +12,8 @@ protocol TourManadmentAssemblyProtocol{
     static func createNewTourController(isUpdate:Bool, model:ExcrusionModel?) -> UIViewController
     static func createAutoFillComponentsController(type:AutofillType, baseValue:String?) -> UIViewController
     static func createAddGuideController(selectedGuides:[ExcrusionModel.Guide]) -> UIViewController
+    
+    static func createTourForGuideViewController(tour: ExcrusionModel)->UIViewController
 }
 
 class TourManadmentAssembly:TourManadmentAssemblyProtocol{
@@ -41,6 +43,14 @@ class TourManadmentAssembly:TourManadmentAssemblyProtocol{
         view.presenter = presenter
         
         return view
+    }
+    
+    static func createTourForGuideViewController(tour: ExcrusionModel)->UIViewController{
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ExcursionForGuideTableViewController") as! ExcursionForGuideTableViewController
+        
+        let presenter = OneGuideExcursionPresenter(view: vc, tour: tour)
+        vc.presenter = presenter
+        return vc
     }
 
 }
