@@ -81,7 +81,7 @@ class NewExcursionTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         if presenter.isAccessLevel(key: .canWriteTourList){
-            self.navigationController?.interactivePopGestureRecognizer?.delegate! = self
+            self.navigationController?.interactivePopGestureRecognizer?.delegate = self
             
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonClick))
         }

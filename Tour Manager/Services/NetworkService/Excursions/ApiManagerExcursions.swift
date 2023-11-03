@@ -226,7 +226,7 @@ class ApiManagerExcursions: ApiManagerExcursionsProtocol{
             throw customErrorUserData.unknowmError
         }
         
-        let url = URL(string: self.routeAddNewExcursion)!
+        let url = URL(string: self.routeUpdateExcursion)!
         
         var guides:[SendGuide] = []
         
