@@ -28,7 +28,7 @@ class ExcursionForGuideTableViewController: UITableViewController, OneGuideExcur
     
     @IBOutlet weak var numberOfPeopleLabel: UILabel!
     
-    @IBOutlet weak var notesTextView: UITextView!
+    @IBOutlet weak var notesLabel:UILabel!
     
     @IBOutlet weak var datePicker: UIDatePicker!
     
@@ -129,7 +129,7 @@ class ExcursionForGuideTableViewController: UITableViewController, OneGuideExcur
         
         self.datePicker.date = presenter.tour.dateAndTime
         
-        self.notesTextView.text = presenter.tour.notes
+        self.notesLabel.text = presenter.tour.notes
         
         // customerGuideName
         if presenter.tour.customerGuideName == ""{
@@ -321,6 +321,12 @@ class ExcursionForGuideTableViewController: UITableViewController, OneGuideExcur
             if presenter.tour.companyGuidePhone != ""{
                 generalLogic.callNumber(phoneNumber: presenter.tour.companyGuidePhone)
             }
+        }else if indexPath.section == 0 && indexPath.row == 4{
+            let notesVC = NotesViewController()
+            notesVC.isGuide = true
+            notesVC.textView.text = self.presenter.tour.notes
+            
+            self.navigationController?.pushViewController(notesVC, animated: true)
         }
     }
 
@@ -374,12 +380,8 @@ extension ExcursionForGuideTableViewController:UICollectionViewDelegate,UICollec
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let guideController = self.controllers.getControllerMain(.employeeViewController) as! EmploeeViewController
-        
-//        guideController.employee = self.excursion.selfGuides[indexPath.row].guideInfo
-//        guideController.isShowAccessLevels = false
-        
+                
         self.navigationController?.pushViewController(guideController, animated: true)
-        
         
     }
 

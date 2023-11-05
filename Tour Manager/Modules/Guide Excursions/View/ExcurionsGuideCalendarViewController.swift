@@ -18,10 +18,7 @@ class ExcurionsGuideCalendarViewController: UIViewController {
     
     let controllers = Controllers()
     
-    var events:[ResponseGetExcursionsForGuideListByRange] = []
-    
-    
-    
+
     // MARK: - objects
     
     // MARK: - Table view Object
@@ -232,18 +229,8 @@ class ExcurionsGuideCalendarViewController: UIViewController {
             break
         }
         
-        presenter.getExcursionsListForGuideByRange(startDate: startDate.birthdayToString(), endDate: endDate.birthdayToString()) { isGetted, list, error in
-            
-            if let err = error{
-                self.alerts.errorAlert(self, errorExcursionsApi: err)
-            }
-            
-            if isGetted{
-                self.events = list!
-                
-                self.calendar.calendar.reloadData()
-            }
-            
+        DispatchQueue.main.async {
+            self.presenter.getExcursionsListByRangeFromServer(startDate: startDate, endDate: endDate)
         }
         
     }
@@ -296,15 +283,16 @@ class ExcurionsGuideCalendarViewController: UIViewController {
     }
         
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-        for event in events{
-            if event.tourDate == date.birthdayToString(){
-                var result = event.cancel.toInt() + event.waiting.toInt()
-                if result == 0{
-                    result += event.accept.toInt()
-                }
-                return result
+        if let event = presenter.getEvent(tourDate: date){
+            
+            var result = event.cancel.toInt() + event.waiting.toInt()
+            if result == 0{
+                result += event.accept.toInt()
             }
+            return result
+            
         }
+        
         return 0
     }
         
@@ -312,19 +300,17 @@ class ExcurionsGuideCalendarViewController: UIViewController {
         
         var eventsColors:[UIColor] = []
         
-        for event in events{
-            if event.tourDate == date.birthdayToString(){
-                if event.waiting{
-                    eventsColors.append(.systemYellow)
-                }
-                if event.cancel{
-                    eventsColors.append(.systemRed)
-                }
-                if event.accept{
-                    eventsColors.append(.systemGreen)
-                }
+        if let event = presenter.getEvent(tourDate: date){
+            if event.waiting{
+                eventsColors.append(.systemYellow)
+            }
+            if event.cancel{
+                eventsColors.append(.systemRed)
             }
             
+            if event.accept{
+                eventsColors.append(.systemGreen)
+            }
         }
         
         return eventsColors
@@ -334,19 +320,17 @@ class ExcurionsGuideCalendarViewController: UIViewController {
         
         var eventsColors:[UIColor] = []
         
-        for event in events{
-            if event.tourDate == date.birthdayToString(){
-                if event.waiting{
-                    eventsColors.append(.systemYellow)
-                }
-                if event.cancel{
-                    eventsColors.append(.systemRed)
-                }
-                if event.accept{
-                    eventsColors.append(.systemGreen)
-                }
+        if let event = presenter.getEvent(tourDate: date){
+            if event.waiting{
+                eventsColors.append(.systemYellow)
+            }
+            if event.cancel{
+                eventsColors.append(.systemRed)
             }
             
+            if event.accept{
+                eventsColors.append(.systemGreen)
+            }
         }
         
         return eventsColors
@@ -434,6 +418,6 @@ extension ExcurionsGuideCalendarViewController:ExcursionsGuideCalendarViewProtoc
     }
     
     func updateEvents() {
-        
+        self.calendar.calendar.reloadData()
     }
 }

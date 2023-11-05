@@ -20,7 +20,9 @@ protocol ExcursionsGuideCalendarPresenterProtocol:AnyObject{
     
     func loadTours(date:Date)
     
-    func getExcursionsListForGuideByRange(startDate:String, endDate:String, completion: @escaping (Bool, ExcursionsListForGuideByRange?, customErrorExcursion?)->Void )
+    func getExcursionsListByRangeFromServer(startDate:Date, endDate:Date)
+    func getEvent(tourDate:Date) -> EventRealmModelForGuide?
+    
     }
 
 class ExcursionsGuideCalendarPresenter:ExcursionsGuideCalendarPresenterProtocol{
@@ -159,11 +161,38 @@ class ExcursionsGuideCalendarPresenter:ExcursionsGuideCalendarPresenterProtocol{
         }
     }
     
-    
-    
-    public func getExcursionsListForGuideByRange(startDate:String, endDate:String, completion: @escaping (Bool, ExcursionsListForGuideByRange?, customErrorExcursion?)->Void ){
-        apiManagerExcursions.getExcursionsForGuideListByRange(token: keychain.getAcessToken() ?? "", companyId: keychain.getCompanyLocalId() ?? "", startDate: startDate, endDate: endDate) { isGetted, list, error in
-            completion(isGetted,list,error)
+    func getExcursionsListByRangeFromServer(startDate:Date, endDate:Date){
+        view?.updateEvents()
+        Task{
+            do{
+                let results = try await toursNetworkService.getExcursionsForGuideListByRange(startDate: startDate.birthdayToString(), endDate: endDate.birthdayToString())
+                
+                var eventsRealm:[EventRealmModelForGuide] = []
+                for result in results{
+                    let eventRealm = EventRealmModelForGuide(
+                        tourDate: result.tourDate,
+                        accept: result.accept,
+                        waiting: result.waiting,
+                        cancel: result.cancel
+                    )
+                    eventsRealm.append(eventRealm)
+                }
+                
+                DispatchQueue.main.sync {
+                    
+                    self.toursRealmService.addEventsForGuide(events: eventsRealm)
+                    view?.updateEvents()
+                    
+                }
+                
+            } catch{
+                print("catch")
+            }
         }
+        
+    }
+    
+    func getEvent(tourDate:Date) -> EventRealmModelForGuide?{
+        toursRealmService.getEventForGuide(tourDate: tourDate.birthdayToString())
     }
 }

@@ -59,7 +59,6 @@ class ExcursionManadmentPresenter:ExcursionManadmentPresenterProtocol{
         let dateString = date.birthdayToString()
         self.view?.updateTours()
         
-        print("toursRealmService.getTours")
         if let tours = toursRealmService.getTours(dateString: dateString)?.getTours(){
             var toursModel:[ExcrusionModel] = []
             for tour in tours{
@@ -106,7 +105,6 @@ class ExcursionManadmentPresenter:ExcursionManadmentPresenterProtocol{
             }
             
             self.tours.updateValue(toursModel, forKey: dateString)
-            print("toursRealmService.updateTours")
             self.view?.updateTours()
             
         }
@@ -208,7 +206,7 @@ class ExcursionManadmentPresenter:ExcursionManadmentPresenterProtocol{
                 }
                 
                 DispatchQueue.main.sync {
-                    print("addEvents")
+                    
                     self.toursRealmService.addEvents(events: eventsRealm)
                     view?.updateEvents()
                     
