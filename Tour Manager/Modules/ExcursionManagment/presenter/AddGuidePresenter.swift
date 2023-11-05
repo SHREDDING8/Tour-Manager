@@ -124,7 +124,7 @@ class AddGuidePresenter:AddGuidePresenterProtocol{
     func setMain(index:Int){
         if self.isGuideContains(index: index){
             for guideIndex in 0..<selectedGuides.count {
-                if selectedGuides[guideIndex].id == presentedGuides[index].localId{
+                if selectedGuides[guideIndex].id == selectedGuides[index].id{
                     selectedGuides[guideIndex].isMain = true
                 }else{
                     selectedGuides[guideIndex].isMain = false
@@ -139,7 +139,7 @@ class AddGuidePresenter:AddGuidePresenterProtocol{
     func isMain(index:Int) ->Bool{
         if self.isGuideContains(index: index){
             return selectedGuides.first { selectedGuide in
-                selectedGuide.id == presentedGuides[index].localId
+                selectedGuide.id == selectedGuides[index].id
             }?.isMain ?? false
         }
         

@@ -15,8 +15,12 @@ class NotesViewController: UIViewController {
     public lazy var textView:UITextView = {
         let textView = UITextView()
         textView.backgroundColor = .systemGray6
-        textView.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
-        textView.dataDetectorTypes = .all
+        textView.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        textView.isSelectable = true
+        textView.isScrollEnabled = true
+        textView.dataDetectorTypes = [.phoneNumber]
+        textView.textContainerInset = UIEdgeInsets(top: 0, left: 20, bottom: 20, right: 20)
+        textView.addDoneCancelToolbar()
         return textView
     }()
     
@@ -35,7 +39,7 @@ class NotesViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if !isGuide{
-            viewTapped()
+            self.textView.becomeFirstResponder()
         }
         
     }
@@ -48,8 +52,6 @@ class NotesViewController: UIViewController {
         self.navigationItem.title = "Заметки"
         self.view.backgroundColor = .white
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
-        self.textView.addGestureRecognizer(tapGesture)
         if !isGuide{
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "pencil.tip.crop.circle.badge.minus"), style: .plain, target: self, action: #selector(changeIsEditable))
         }
@@ -66,17 +68,11 @@ class NotesViewController: UIViewController {
         }
     }
     
-    @objc func viewTapped(){
-        if textView.isFirstResponder{
-            self.textView.resignFirstResponder()
-        }else{
-            self.textView.becomeFirstResponder()
-        }
-    }
     
     @objc func changeIsEditable(){
         if textView.isEditable{
             self.navigationItem.rightBarButtonItem?.image = UIImage(systemName: "pencil.tip.crop.circle.badge.plus")
+            self.textView.resignFirstResponder()
             self.textView.isEditable = false
         }else{
             self.navigationItem.rightBarButtonItem?.image = UIImage(systemName: "pencil.tip.crop.circle.badge.minus")
