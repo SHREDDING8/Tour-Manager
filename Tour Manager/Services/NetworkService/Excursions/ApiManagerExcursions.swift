@@ -68,6 +68,8 @@ protocol ApiManagerExcursionsProtocol{
     func getExcursionsForGuideListByRange(startDate:String, endDate:String) async throws -> ExcursionsListForGuideByRange
     
     func GetExcursionsForGuide(date:String) async throws -> [ResponseGetExcursion]
+    
+    func setGuideTourStatus(tourDate:String, tourId:String, guideStatus:Status) async throws ->Bool
 }
 
 class ApiManagerExcursions: ApiManagerExcursionsProtocol{
@@ -457,37 +459,48 @@ class ApiManagerExcursions: ApiManagerExcursionsProtocol{
         
     }
     
-    
-    public func setGuideTourStatus(token:String, uid:String, companyId:String, tourDate:String, tourId:String, guideStatus:Status, completion: @escaping (Bool, customErrorExcursion?)->Void ){
+    func setGuideTourStatus(tourDate:String, tourId:String, guideStatus:Status) async throws -> Bool{
+        let refresh = try await ApiManagerAuth.refreshToken()
         
-        generalData.requestWithCheckRefresh { newToken in
-            let requestToken = newToken == nil ? token : newToken!
-            
-            let url = URL(string: self.routeSetGuideTourStatus)!
-            
-            let jsonData = SendSetGuideStatus(token: requestToken, uid: uid, company_id: companyId, tour_date: tourDate, tour_id: tourId, guide_status: guideStatus.rawValue)
-            
-            
+        if !refresh{
+            throw customErrorUserData.unknowmError
+        }
+        
+        let url = URL(string: self.routeSetGuideTourStatus)!
+                
+        
+        let jsonData = SendSetGuideStatus(
+            token: keychainService.getAcessToken() ?? "",
+            uid: keychainService.getLocalId() ?? "",
+            company_id: keychainService.getCompanyLocalId() ?? "",
+            tour_date: tourDate,
+            tour_id: tourId,
+            guide_status: guideStatus.rawValue
+        )
+        
+        let result:Bool = try await withCheckedThrowingContinuation { continuation in
             AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
                 
                 switch response.result {
                 case .success(_):
                     if response.response?.statusCode == 400{
                         let error = self.checkError(data: response.data ?? Data())
-                        completion(false, error)
+                        continuation.resume(throwing: error)
                         
                     }else if response.response?.statusCode == 200{
-                        completion(true, nil)
+                        continuation.resume(returning: true)
                     }else{
-                        completion(false, .unknown)
+                        continuation.resume(throwing: customErrorExcursion.unknown)
                     }
                 case .failure(_):
-                    completion(false, .notConnected)
+                    continuation.resume(throwing: customErrorExcursion.unknown)
                 }
             }
         }
+        
+        return result
     }
-    
+        
     private func checkError(data:Data)->customErrorExcursion{
         if let error = try? JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: data){
             switch error.message{

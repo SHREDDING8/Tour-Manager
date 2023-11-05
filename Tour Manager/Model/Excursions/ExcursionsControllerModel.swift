@@ -9,17 +9,9 @@ import Foundation
 
 
 class ExcursionsControllerModel{
-    
-    let apiManagerExcursions = ApiManagerExcursions()
     let apiManagerAutofill = ApiManagerAutoFill()
     
-    public var excursions:[Excursion] = []{
-        didSet{
-            excursions = excursions.sorted(by: { $0.dateAndTime < $1.dateAndTime })
-        }
-    }
-    
-        
+            
     public func getAutofill(token: String, companyId: String, autofillKey:AutofillKeys,completion: @escaping (Bool, [String]?,  customErrorAutofill?)->Void){
         apiManagerAutofill.getAutofill(token: token, companyId: companyId, autoFillKey: autofillKey) { isGetted, values, error in
             completion(isGetted,values,error)
@@ -37,13 +29,5 @@ class ExcursionsControllerModel{
             completion(isDeleted,error)
         }
     }
-    
-        
-    public func setGuideTourStatus(token: String, uid: String, companyId: String, tourDate: String, tourId: String, guideStatus: Status, completion: @escaping (Bool, customErrorExcursion?)->Void ){
-        apiManagerExcursions.setGuideTourStatus(token: token, uid: uid, companyId: companyId, tourDate: tourDate, tourId: tourId, guideStatus: guideStatus) { isSetted, error in
-            completion(isSetted,error)
-        }
-    }
-    
     
 }

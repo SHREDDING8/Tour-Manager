@@ -8,7 +8,7 @@
 import UIKit
 import EventKit
 
-class ExcursionForGuideTableViewController: UITableViewController, OneGuideExcursionViewProtocol {
+class ExcursionForGuideTableViewController: UITableViewController {
     
     var presenter:OneGuideExcursionPresenterProtocol!
         
@@ -157,54 +157,15 @@ class ExcursionForGuideTableViewController: UITableViewController, OneGuideExcur
         let acceptAlert = UIAlertController(title: "Подтверждение экскурсии", message: "Экскурсия '\(presenter.tour.tourTitle)' \(presenter.tour.dateAndTime.birthdayToString()) в \(presenter.tour.dateAndTime.timeToString())", preferredStyle: .alert)
         
         let acceptAction = UIAlertAction(title: "Принять", style: .default) { _ in
-            self.presenter.setGuideTourStatus(tourDate: self.presenter.tour.dateAndTime.birthdayToString(), tourId: self.presenter.tour.tourId , guideStatus: .accepted) { isSetted, error in
-                
-                if let err = error{
-                    self.alerts.errorAlert(self, errorExcursionsApi: err)
-                }
-                
-                if isSetted{
-                    
-                    self.addReminderToCalendar()
-                    let keychain = KeychainService()
-                    for guideIndex in 0..<self.presenter.tour.guides.count{
-                        
-                        if self.presenter.tour.guides[guideIndex].id == keychain.getLocalId(){
-                            self.presenter.tour.guides[guideIndex].status = .accept
-                            self.navigationItem.rightBarButtonItems![0].tintColor = self.presenter.tour.guides[guideIndex].status.getColor()
-                            break
-                        }
-                    }
-                    
-                    self.guidesCollectionView.reloadData()
-                }
-            }
+            
+            self.presenter.setGuideTourStatus(guideStatus: .accepted)
+            
         }
         
         let cancelAction = UIAlertAction(title: "Отклонить", style: .destructive) { _ in
-            self.presenter.setGuideTourStatus(tourDate: self.presenter.tour.dateAndTime.birthdayToString(), tourId: self.presenter.tour.tourId , guideStatus: .cancel) { isSetted, error in
-                
-                if let err = error{
-                    self.alerts.errorAlert(self, errorExcursionsApi: err)
-                }
-                
-                
-                if isSetted{
-                    
-                    let keychain = KeychainService()
-                    for guideIndex in 0..<self.presenter.tour.guides.count{
-                        
-                        if self.presenter.tour.guides[guideIndex].id == keychain.getLocalId(){
-                            self.presenter.tour.guides[guideIndex].status = .cancel
-                            self.navigationItem.rightBarButtonItems![0].tintColor = self.presenter.tour.guides[guideIndex].status.getColor()
-                            break
-                        }
-                    }
-                    
-                    self.guidesCollectionView.reloadData()
-                    
-                }
-            }
+            
+            self.presenter.setGuideTourStatus(guideStatus: .cancel)
+            
         }
         
         
@@ -385,6 +346,27 @@ extension ExcursionForGuideTableViewController:UICollectionViewDelegate,UICollec
         
     }
 
+}
+
+extension ExcursionForGuideTableViewController:OneGuideExcursionViewProtocol{
+    
+    
+    func updateGuideStatus(guideStatus: Status) {
+        if guideStatus == .accepted{
+            self.addReminderToCalendar()
+        }
+        let keychain = KeychainService()
+        for guideIndex in 0..<self.presenter.tour.guides.count{
+            
+            if self.presenter.tour.guides[guideIndex].id == keychain.getLocalId(){
+                self.presenter.tour.guides[guideIndex].status = guideStatus == .accepted ? .accept : .cancel
+                self.navigationItem.rightBarButtonItems![0].tintColor = self.presenter.tour.guides[guideIndex].status.getColor()
+                break
+            }
+        }
+        
+        self.guidesCollectionView.reloadData()
+    }
     
     
 }
