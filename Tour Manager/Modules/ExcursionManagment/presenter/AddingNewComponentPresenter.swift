@@ -35,8 +35,6 @@ protocol AddingNewComponentPresenterProtocol:AnyObject{
     var presentedValues:[AutofillRealmModel] { get }
     var selectedValue:String { get set }
         
-    func getCompanyGuides(completion: @escaping (Bool, [User]? , customErrorCompany?) ->Void)
-    
     func willAppear()
     func didSelect(index:Int)
     func deleteAt(index:Int)
@@ -121,28 +119,4 @@ class AddingNewComponentPresenter:AddingNewComponentPresenterProtocol{
         }
     }
     
-    
-    public func getCompanyGuides(completion: @escaping (Bool, [User]? , customErrorCompany?) ->Void){
-        self.apiCompany.getCompanyGuides(token: keychain.getAcessToken() ?? "", companyId: self.keychain.getCompanyLocalId() ?? "") { isGetted, users, error in
-            
-            if error != nil{
-                completion(false, nil, error)
-            }
-            if isGetted{
-                var emloyee:[User] = []
-                
-                for userApi in users ?? [] {
-                    let date = Date.birthdayFromString(dateString: userApi.birthdayDate)
-                    
-                    
-                    let user = User(localId: userApi.uid, email: userApi.email, firstName: userApi.firstName, secondName: userApi.lastName, birthday: date, phone: userApi.phone, companyId: userApi.companyID, accessLevel: userApi.accessLevels)
-                    
-                    emloyee.append(user)
-                }
-                
-                completion(true, emloyee, nil)
-            }
-
-        }
-    }
 }

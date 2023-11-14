@@ -9,16 +9,16 @@ import UIKit
 import FSCalendar
 
 class ExcurionsGuideCalendarViewController: UIViewController {
-
+    
     var presenter:ExcursionsGuideCalendarPresenterProtocol!
     
     // MARK: - my variables
-        
+    
     let alerts = Alert()
     
     let controllers = Controllers()
     
-
+    
     // MARK: - objects
     
     // MARK: - Table view Object
@@ -79,7 +79,7 @@ class ExcurionsGuideCalendarViewController: UIViewController {
     // MARK: - Buttons Objects
     
     var calendar:FSCalendarSchedule!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter = ExcursionsGuideCalendarPresenter(view: self)
@@ -96,12 +96,12 @@ class ExcurionsGuideCalendarViewController: UIViewController {
         
         presenter.loadTours(date: self.calendar.calendar.selectedDate ?? Date.now)
         self.getEventsForDates()
-                
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-       
+        
     }
     
     // MARK: - configureView
@@ -166,7 +166,7 @@ class ExcurionsGuideCalendarViewController: UIViewController {
             tableViewCalendar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             tableViewCalendar.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
         ])
-
+        
     }
     
     // MARK: - Handle Actions
@@ -205,11 +205,11 @@ class ExcurionsGuideCalendarViewController: UIViewController {
             
             let label = self.tableViewCalendar.viewWithTag(1)
             label?.layer.opacity = 0
-//            if self.excursionsModel.excursions.count == 0 && isNotTours{
-//                label?.layer.opacity = 0.5
-//            }else{
-//                label?.layer.opacity = 0
-//            }
+            //            if self.excursionsModel.excursions.count == 0 && isNotTours{
+            //                label?.layer.opacity = 0.5
+            //            }else{
+            //                label?.layer.opacity = 0
+            //            }
             
         }
     }
@@ -240,37 +240,37 @@ class ExcurionsGuideCalendarViewController: UIViewController {
 
 
 // MARK: - FSCalendarDelegate
-    extension ExcurionsGuideCalendarViewController:FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance{
+extension ExcurionsGuideCalendarViewController:FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance{
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
         self.calendar.setCalendarHeightConstraint(bounds.height)
         self.view.layoutIfNeeded()
     }
-        
+    
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
         return self.calendarShouldSelect(calendar, date: date)
     }
-        
-        fileprivate func calendarShouldSelect(_ calendar:FSCalendar, date:Date)->Bool{
-            self.calendar.onOffResetButton(date)
-            if date == calendar.today{
-                if let selectedDate = calendar.selectedDate{
-                   
-                    self.calendarDeselect(date:selectedDate)
-                }
-                return false
+    
+    fileprivate func calendarShouldSelect(_ calendar:FSCalendar, date:Date)->Bool{
+        self.calendar.onOffResetButton(date)
+        if date == calendar.today{
+            if let selectedDate = calendar.selectedDate{
+                
+                self.calendarDeselect(date:selectedDate)
             }
-            self.presenter.loadTours(date: date)
-            return true
+            return false
         }
-        
+        self.presenter.loadTours(date: date)
+        return true
+    }
+    
     fileprivate func calendarDeselect(date:Date){
         self.calendar.calendar.deselect(date)
         self.presenter.loadTours(date: Date.now)
         self.calendar.onOffResetButton(Date.now)
     }
-        
-        
+    
+    
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
         // change the month
         let dateFormatter = DateFormatter()
@@ -281,7 +281,7 @@ class ExcurionsGuideCalendarViewController: UIViewController {
         
         self.getEventsForDates()
     }
-        
+    
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
         if let event = presenter.getEvent(tourDate: date){
             
@@ -295,7 +295,7 @@ class ExcurionsGuideCalendarViewController: UIViewController {
         
         return 0
     }
-        
+    
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventDefaultColorsFor date: Date) -> [UIColor]? {
         
         var eventsColors:[UIColor] = []
@@ -350,16 +350,16 @@ extension ExcurionsGuideCalendarViewController:UITableViewDelegate,UITableViewDa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ExcursionTableViewCell", for: indexPath) as! ExcursionTableViewCell
-    
+        
         if let tour = presenter.tours[calendar.calendar.selectedDate?.birthdayToString() ?? Date.now.birthdayToString()]?[indexPath.row]{
             
             cell.nameLabel.text = tour.tourTitle
             cell.routeLabel.text = tour.route
             
             cell.startTimeLabel.text = tour.dateAndTime.timeToString()
-                        
+            
             var guides = ""
-                        
+            
             for guide in tour.guides{
                 guides += guide.firstName + " " + guide.lastName + ", "
                 
@@ -367,13 +367,13 @@ extension ExcurionsGuideCalendarViewController:UITableViewDelegate,UITableViewDa
                 if guide.id == keychain.getLocalId(){
                     cell.statusView.backgroundColor = guide.status.getColor()
                 }
-               
+                
             }
             
             if guides.count > 2{
                 guides.removeLast()
                 guides.removeLast()
-                            
+                
             }else{
                 cell.statusView.backgroundColor = .systemBlue
             }
@@ -386,7 +386,7 @@ extension ExcurionsGuideCalendarViewController:UITableViewDelegate,UITableViewDa
                 cell.contentView.layer.opacity = 1
             }
         }
-                
+        
         
         return cell
     }

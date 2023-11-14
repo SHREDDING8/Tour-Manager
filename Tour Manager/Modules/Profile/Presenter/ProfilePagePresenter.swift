@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol ProfileViewProtocol:AnyObject{
-    
+    func setProfilePhoto(image:UIImage)
 }
 
 protocol ProfilePagePresenterProtocol:AnyObject{
@@ -18,8 +18,14 @@ protocol ProfilePagePresenterProtocol:AnyObject{
     func isAccessLevel(key:AccessLevelKeys) -> Bool
     func getCompanyName() -> String
     
+    func getProfilePhoto()
+    func getProfilePhotoFromRealm() -> UIImage
     func getFirstName() ->String
     func getSecondName() ->String
+    func getFullName() ->String
+    func getBirthday() -> String
+    func getPhone() -> String
+    func getEmail() -> String
     
 //    func downloadProfilePhoto(localId:String, completion: @escaping (Data?,customErrorUserData?)->Void)
 }
@@ -45,15 +51,34 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
         return keychain.getCompanyName() ?? ""
     }
     
+    func getProfilePhoto(){
+        downloadProfilePhoto()
+        
+        if let imageData = usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")?.image{
+            view?.setProfilePhoto(image: UIImage(data: imageData)!)
+        }else{
+            view?.setProfilePhoto(image: UIImage(resource: .noProfilePhoto))
+        }
+        
+    }
+    
+    func getProfilePhotoFromRealm() -> UIImage{
+        if let imageData = usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")?.image{
+            UIImage(data: imageData)!
+        }else{
+            UIImage(resource: .noProfilePhoto)
+        }
+    }
+    
     func getFirstName() -> String{
         return usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")?.firstName ?? ""
     }
     func getSecondName() -> String{
         return usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")?.secondName ?? ""
     }
+    
     func getFullName() ->String{
         let user = usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")
-        
         return (user?.firstName ?? "") + " " + (user?.secondName ?? "")
     }
     
@@ -63,6 +88,10 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
     
     func getPhone() -> String{
         return usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")?.phone ?? ""
+    }
+    
+    func getEmail() -> String{
+        return usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")?.email ?? ""
     }
     
     public func deleteCurrentUser(completion: @escaping (Bool, customErrorUserData?)->Void){
@@ -93,11 +122,19 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
         }
     }
     
-    public func downloadProfilePhoto(completion: @escaping (Data?,customErrorUserData?)->Void){
-        
-        self.apiUserData.downloadProfilePhoto(token: keychain.getAcessToken() ?? "", localId: keychain.getLocalId() ?? "") { isDownloaded, data, error in
-            
-            completion(data,error)
+    private func downloadProfilePhoto(){
+        Task{
+            do{
+                let imageData = try await self.apiUserData.downloadProfilePhoto(localId: keychain.getLocalId() ?? "")
+                
+                DispatchQueue.main.async {
+                    self.usersRealmService.updateImage(id: self.keychain.getLocalId() ?? "", image: imageData)
+                    self.view?.setProfilePhoto(image: UIImage(data: imageData)!)
+                }
+
+            }catch{
+                
+            }
         }
     }
     

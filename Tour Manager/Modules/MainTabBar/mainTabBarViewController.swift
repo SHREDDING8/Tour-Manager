@@ -59,8 +59,8 @@ extension mainTabBarViewController:MainTabBarViewProtocol{
     func updateControllers() {
         var controllersList:[UIViewController] = []
         
-        let profileNavController = controllers.getControllerMain(.profileNavigationViewController)
-        profileNavController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person.fill"), tag: 1)
+        let profile = ProfileAssembly.createProfileViewController()
+        profile.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person.fill"), tag: 1)
         
         let excursionManagementNavViewController = controllers.getControllerMain(.excursionManagementNavigationViewController)
         
@@ -80,7 +80,7 @@ extension mainTabBarViewController:MainTabBarViewProtocol{
             controllersList.append(excursionManagementNavViewController)
         }
                 
-        controllersList.append(profileNavController)
+        controllersList.append(profile)
         
         self.setViewControllers(controllersList, animated: true)
         

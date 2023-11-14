@@ -26,6 +26,8 @@
 		EE330A802AE5738C00109E4E /* Results Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE330A7F2AE5738C00109E4E /* Results Extension.swift */; };
 		EE330A822AE590F400109E4E /* AddGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE330A812AE590F400109E4E /* AddGuideViewController.swift */; };
 		EE330A842AE5D2F100109E4E /* AddGuidePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE330A832AE5D2F100109E4E /* AddGuidePresenter.swift */; };
+		EE4506C72AFFBDD800603E57 /* ProfileViewElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4506C62AFFBDD800603E57 /* ProfileViewElement.swift */; };
+		EE4506C92B010BF400603E57 /* ProfileAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4506C82B010BF300603E57 /* ProfileAssembly.swift */; };
 		EE4619132A6C229C00EBE695 /* Notification.wav in Resources */ = {isa = PBXBuildFile; fileRef = EE4619122A6C229C00EBE695 /* Notification.wav */; };
 		EE4C89392A2CF1E7004D3CB9 /* Access Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4C89382A2CF1E7004D3CB9 /* Access Level.swift */; };
 		EE4C893B2A2CF53D004D3CB9 /* UiButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4C893A2A2CF53D004D3CB9 /* UiButton.swift */; };
@@ -64,6 +66,8 @@
 		EE783F512AD594B000DA820F /* OneGuideExcursionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE783F502AD594B000DA820F /* OneGuideExcursionPresenter.swift */; };
 		EE8474012A4CB5DD0082DE7E /* GeneralLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8474002A4CB5DD0082DE7E /* GeneralLogic.swift */; };
 		EE8474082A4D99620082DE7E /* sub.caf in Resources */ = {isa = PBXBuildFile; fileRef = EE8474072A4D99620082DE7E /* sub.caf */; };
+		EE926DB02AFE7ED3005F2851 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE926DAF2AFE7ED3005F2851 /* ProfileView.swift */; };
+		EE926DB22AFE7EEA005F2851 /* ProfileNewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE926DB12AFE7EEA005F2851 /* ProfileNewViewController.swift */; };
 		EE9788692A28D4FA0086C034 /* EmploeeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9788682A28D4FA0086C034 /* EmploeeTableViewController.swift */; };
 		EE97886B2A28EA710086C034 /* EmploeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE97886A2A28EA710086C034 /* EmploeeViewController.swift */; };
 		EEA07CB12A4DD7FC00F14778 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA07CB02A4DD7FB00F14778 /* LoginViewController.swift */; };
@@ -146,6 +150,8 @@
 		EE330A7F2AE5738C00109E4E /* Results Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Results Extension.swift"; sourceTree = "<group>"; };
 		EE330A812AE590F400109E4E /* AddGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGuideViewController.swift; sourceTree = "<group>"; };
 		EE330A832AE5D2F100109E4E /* AddGuidePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGuidePresenter.swift; sourceTree = "<group>"; };
+		EE4506C62AFFBDD800603E57 /* ProfileViewElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewElement.swift; sourceTree = "<group>"; };
+		EE4506C82B010BF300603E57 /* ProfileAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAssembly.swift; sourceTree = "<group>"; };
 		EE4619122A6C229C00EBE695 /* Notification.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Notification.wav; sourceTree = "<group>"; };
 		EE4C89382A2CF1E7004D3CB9 /* Access Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Access Level.swift"; sourceTree = "<group>"; };
 		EE4C893A2A2CF53D004D3CB9 /* UiButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiButton.swift; sourceTree = "<group>"; };
@@ -186,6 +192,8 @@
 		EE783F502AD594B000DA820F /* OneGuideExcursionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneGuideExcursionPresenter.swift; sourceTree = "<group>"; };
 		EE8474002A4CB5DD0082DE7E /* GeneralLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralLogic.swift; sourceTree = "<group>"; };
 		EE8474072A4D99620082DE7E /* sub.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sub.caf; sourceTree = "<group>"; };
+		EE926DAF2AFE7ED3005F2851 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		EE926DB12AFE7EEA005F2851 /* ProfileNewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNewViewController.swift; sourceTree = "<group>"; };
 		EE9788682A28D4FA0086C034 /* EmploeeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmploeeTableViewController.swift; sourceTree = "<group>"; };
 		EE97886A2A28EA710086C034 /* EmploeeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmploeeViewController.swift; sourceTree = "<group>"; };
 		EEA07CB02A4DD7FB00F14778 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -635,6 +643,16 @@
 			path = Sounds;
 			sourceTree = "<group>";
 		};
+		EE926DAD2AFE7EAD005F2851 /* Profile Page */ = {
+			isa = PBXGroup;
+			children = (
+				EE926DAF2AFE7ED3005F2851 /* ProfileView.swift */,
+				EE926DB12AFE7EEA005F2851 /* ProfileNewViewController.swift */,
+				EE4506C62AFFBDD800603E57 /* ProfileViewElement.swift */,
+			);
+			path = "Profile Page";
+			sourceTree = "<group>";
+		};
 		EEB73F9A2A364B59004D7A25 /* Excursions */ = {
 			isa = PBXGroup;
 			children = (
@@ -774,9 +792,11 @@
 		EED645162A98CE1000F2ADC9 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				EE926DAD2AFE7EAD005F2851 /* Profile Page */,
 				EED645192A98CE3900F2ADC9 /* Model */,
 				EED645182A98CE3600F2ADC9 /* View */,
 				EED645172A98CE2C00F2ADC9 /* Presenter */,
+				EE4506C82B010BF300603E57 /* ProfileAssembly.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -1065,16 +1085,19 @@
 				EEF27A512A059BE4006E5E53 /* TextFieldValidation.swift in Sources */,
 				EEF6EBA82A41BADE00DC5F6A /* GuideCollectionViewCell.swift in Sources */,
 				EEF27A482A05551E006E5E53 /* Font.swift in Sources */,
+				EE4506C92B010BF400603E57 /* ProfileAssembly.swift in Sources */,
 				EE6DE06A2A1E681100507A27 /* User.swift in Sources */,
 				EE2C9A5029FD858500B7D74F /* ProfilePageViewController.swift in Sources */,
 				EEB73FA32A365ABC004D7A25 /* ExcursionsControllerModel.swift in Sources */,
 				EEF18C952A4258EE00A91D2F /* FS calendar.swift in Sources */,
+				EE926DB22AFE7EEA005F2851 /* ProfileNewViewController.swift in Sources */,
 				EE6756082AC0721800E253DA /* EmployeesListPresenter.swift in Sources */,
 				EEA07CB12A4DD7FC00F14778 /* LoginViewController.swift in Sources */,
 				EE5F91B62A1E839E00B39BB1 /* UiWindow.swift in Sources */,
 				EED645362A99526B00F2ADC9 /* UsersRealmModel.swift in Sources */,
 				EE97886B2A28EA710086C034 /* EmploeeViewController.swift in Sources */,
 				EED645382A99568800F2ADC9 /* UsersRealmService.swift in Sources */,
+				EE4506C72AFFBDD800603E57 /* ProfileViewElement.swift in Sources */,
 				EEB73F9F2A364B9B004D7A25 /* SendExcursions.swift in Sources */,
 				EE5F91CB2A2003A200B39BB1 /* sendStructs.swift in Sources */,
 				EEF2F63B2ADCBE010070D083 /* ExcursionRealmModel.swift in Sources */,
@@ -1094,6 +1117,7 @@
 				EED8F6952AF08528003D118A /* ExcursionsRealmServiceForGuide.swift in Sources */,
 				EED645272A98F32700F2ADC9 /* VerifyEmailPresenter.swift in Sources */,
 				EE4C89392A2CF1E7004D3CB9 /* Access Level.swift in Sources */,
+				EE926DB02AFE7ED3005F2851 /* ProfileView.swift in Sources */,
 				EEF2F63F2ADD5B630070D083 /* ExcursionsRealmService.swift in Sources */,
 				EEF18C932A4235A500A91D2F /* DatepickerFromBottom.swift in Sources */,
 				EE9788692A28D4FA0086C034 /* EmploeeTableViewController.swift in Sources */,

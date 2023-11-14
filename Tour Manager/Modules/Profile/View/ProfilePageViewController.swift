@@ -124,23 +124,18 @@ class ProfilePageViewController: UIViewController {
         
         self.profilePhoto.addGestureRecognizer(gestureChangePhoto)
         
-        self.changePhotoButton.addTarget(self, action: #selector(tapChangePhoto), for: .touchUpInside)
+//        self.changePhotoButton.addTarget(self, action: #selector(tapChangePhoto), for: .touchUpInside)
     }
     
     fileprivate func profilePhotoConfiguration(){
         self.profilePhoto.clipsToBounds = true
         self.profilePhoto.layer.masksToBounds = true
         
-        self.profilePhoto.layer.cornerRadius = self.profilePhoto.frame.height / 2
+//        self.profilePhoto.layer.cornerRadius = self.profilePhoto.frame.height / 2
         
-        self.presenter?.downloadProfilePhoto(completion: { data, error in
-            if data != nil{
-                self.setProfilePhoto(image: UIImage(data: data!)!)
-            }
-        })
     }
     
-    fileprivate func setProfilePhoto(image:UIImage){
+    internal func setProfilePhoto(image:UIImage){
         UIView.transition(with: self.profilePhoto, duration: 0.3, options: .transitionCrossDissolve) {
         self.profilePhoto.image = image
     }
@@ -344,7 +339,7 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
         let opacity = (self.tableViewTopConstraint.constant / self.maxTableViewTopConstraintConstant)
         self.profilePhoto.layer.opacity = Float(opacity)
         self.fullNameLabel.layer.opacity = Float(opacity)
-        self.changePhotoButton.layer.opacity = Float(opacity)
+//        self.changePhotoButton.layer.opacity = Float(opacity)
     }
     
     // MARK: - PersonalData Cell
@@ -366,7 +361,6 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
             
             let changeButton:UIButton = cell.viewWithTag(3) as! UIButton
             changeButton.titleLabel?.font = Font.getFont(name: .americanTypewriter, style: .regular, size: 14)
-            changeButton.setTitle("Изменить", for: .normal)
         
             changeButton.removeTarget(nil, action: nil, for: .touchUpInside)
            
@@ -508,7 +502,6 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
             
             let changeButton:UIButton = cell.viewWithTag(3) as! UIButton
             changeButton.titleLabel?.font = Font.getFont(name: .americanTypewriter, style: .regular, size: 14)
-            changeButton.setTitle("Изменить", for: .normal)
             
             changeButton.removeTarget(nil, action: nil, for: .touchUpInside)
             
@@ -562,7 +555,7 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
         
         let changeButton:UIButton = cell.viewWithTag(3) as! UIButton
         changeButton.titleLabel?.font = Font.getFont(name: .americanTypewriter, style: .regular, size: 14)
-        changeButton.setTitle("Скопировать", for: .normal)
+        changeButton.setImage(UIImage(systemName: "doc.on.doc"), for: .normal)
         changeButton.removeTarget(nil, action: nil, for: .touchUpInside)
         
         let action = UIAction(handler: { _ in
