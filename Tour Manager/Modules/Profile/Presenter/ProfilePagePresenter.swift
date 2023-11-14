@@ -17,6 +17,7 @@ protocol ProfilePagePresenterProtocol:AnyObject{
     
     func isAccessLevel(key:AccessLevelKeys) -> Bool
     func getCompanyName() -> String
+    func getCompanyId() -> String
     
     func getProfilePhoto()
     func getProfilePhotoFromRealm() -> UIImage
@@ -49,6 +50,10 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
     
     public func getCompanyName() -> String{
         return keychain.getCompanyName() ?? ""
+    }
+    
+    public func getCompanyId() -> String{
+        return keychain.getCompanyLocalId() ?? ""
     }
     
     func getProfilePhoto(){
@@ -93,6 +98,7 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
     func getEmail() -> String{
         return usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")?.email ?? ""
     }
+    
     
     public func deleteCurrentUser(completion: @escaping (Bool, customErrorUserData?)->Void){
         self.apiUserData.deleteCurrentUser(token: keychain.getAcessToken() ?? "") { isDeleted, error in
@@ -145,19 +151,22 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
         }
     }
     
-    public func updatePersonalData(updateField: UserDataFields,value:String, completion:  @escaping (Bool, customErrorUserData? )->Void ){
-        self.apiUserData.updateUserInfo(token: keychain.getAcessToken() ?? "" , updateField: updateField , value: value) { isSetted, error in
-            if error != nil{
-                completion(false, error)
-            } else{
-                if updateField == .birthdayDate{
-                    self.usersRealmService.updateBirhday(localId: self.keychain.getLocalId() ?? "", date: Date.birthdayFromString(dateString: value))
-                }else{
-                    self.usersRealmService.updateField(localId: self.keychain.getLocalId() ?? "", updateField: updateField, value: value)
+    public func updatePersonalData(updateField: UserDataFields,value:String) {
+        Task{
+            do{
+                if try await self.apiUserData.updateUserInfo(updateField: updateField, value: value){
+                    if updateField == .birthdayDate{
+                        self.usersRealmService.updateBirhday(localId: self.keychain.getLocalId() ?? "", date: Date.birthdayFromString(dateString: value))
+                    }else{
+                        self.usersRealmService.updateField(localId: self.keychain.getLocalId() ?? "", updateField: updateField, value: value)
+                    }
                 }
-                completion(true, nil)
+                
+            } catch{
+                
             }
         }
+        
     }
     
     public func updateCompanyInfo(companyName:String, completion: @escaping (Bool, customErrorCompany?) ->Void){

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AlertKit
 
 class ProfileNewViewController: UIViewController {
     
@@ -24,6 +25,8 @@ class ProfileNewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        addTargets()
+        addDelegates()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,12 +34,35 @@ class ProfileNewViewController: UIViewController {
         
         configureGeneralInfo()
         configurePersonalInfo()
+        configureCompanyInfo()
+        
+        configureVisibleElements()
         
     }
     
     // MARK: - Targets
     
     private func addTargets(){
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(employeeTapped))
+        self.view().employee.addGestureRecognizer(gesture)
+        
+        self.view().companyId.button.addTarget(self, action: #selector(copyCompanyId), for: .touchUpInside)
+    }
+    
+    private func addDelegates(){
+        self.view().firstName.textField.delegate = self
+        self.view().lastName.textField.delegate = self
+        self.view().birthday.textField.delegate = self
+        self.view().phone.textField.delegate = self
+        
+        self.view().companyNameElement.textField.delegate = self
+        
+        self.view().firstName.textField.restorationIdentifier = "firstName"
+        self.view().lastName.textField.restorationIdentifier = "lastName"
+        self.view().birthday.textField.restorationIdentifier = "birthday"
+        self.view().phone.textField.restorationIdentifier = "phone"
+        
+        self.view().companyNameElement.textField.restorationIdentifier = "companyNameElement"
         
     }
     
@@ -62,6 +88,51 @@ class ProfileNewViewController: UIViewController {
         )
     }
     
+    private func configureCompanyInfo(){
+        self.view().configureCompanyInfo(
+            companyName: presenter.getCompanyName(),
+            companyId: presenter.getCompanyId()
+        )
+    }
+    
+    private func configureVisibleElements(){
+        self.view().configureVisibleElements(
+            isReadLocalIdCompany: presenter.isAccessLevel(key: .readLocalIdCompany),
+            isReadGeneralCompanyInformation: presenter.isAccessLevel(key: .readGeneralCompanyInformation),
+            isReadCompanyEmployee: presenter.isAccessLevel(key: .readCompanyEmployee),
+            isWriteGeneralCompanyInformation: presenter.isAccessLevel(key: .writeGeneralCompanyInformation)
+        )
+    }
+    
+    // MARK: - Actions
+    
+    @objc func employeeTapped(){
+        let controllers = Controllers()
+        let destination = controllers.getControllerMain(.emploeeTableViewController)
+        
+        self.navigationController?.pushViewController(destination, animated: true)
+    }
+    
+    @objc func copyCompanyId(){
+        UIPasteboard.general.string = presenter.getCompanyId()
+        AlertKitAPI.present(
+            title: "Индентификатор скопирован",
+            icon: .done,
+            style: .iOS17AppleMusic,
+            haptic: .success
+        )
+    }
+    
+}
+
+extension ProfileNewViewController:UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        textField.isUserInteractionEnabled = false
+        return true
+    }
+    
 }
 
 extension ProfileNewViewController:ProfileViewProtocol{
@@ -70,6 +141,5 @@ extension ProfileNewViewController:ProfileViewProtocol{
             self.view().profileImage.image = image
         }
     }
-    
     
 }

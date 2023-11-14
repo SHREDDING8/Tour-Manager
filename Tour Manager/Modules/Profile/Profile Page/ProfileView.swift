@@ -56,6 +56,23 @@ class ProfileView: UIView {
         return label
     }()
     
+    lazy var changePhotoButton:UIButton = {
+        var conf = UIButton.Configuration.plain()
+        
+        conf.buttonSize = .large
+        
+        let button = UIButton(configuration: conf)
+        button.setImage(UIImage(systemName:"photo.circle"), for: .normal)
+        button.tintColor = .white
+        
+        button.layer.shadowOffset = CGSize(width: 1, height: 1)
+        button.layer.shadowOpacity = 0.5
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowRadius = 5
+        
+        return button
+    }()
+    
     
     // MARK: - scroll
     
@@ -95,42 +112,88 @@ class ProfileView: UIView {
     lazy var firstName:ProfileViewElement = {
         let view = ProfileViewElement()
         view.elementLabel.text = "Имя"
+        
+        view.textField.isUserInteractionEnabled = false
+        
+        view.button.addAction(UIAction(handler: { _ in
+            view.textField.isUserInteractionEnabled = true
+            view.textField.becomeFirstResponder()
+        }), for: .touchUpInside)
         return view
     }()
     
     lazy var lastName:ProfileViewElement = {
         let view = ProfileViewElement()
         view.elementLabel.text = "Фамилия"
+        
+        view.textField.isUserInteractionEnabled = false
+        
+        view.button.addAction(UIAction(handler: { _ in
+            view.textField.isUserInteractionEnabled = true
+            view.textField.becomeFirstResponder()
+        }), for: .touchUpInside)
+        
         return view
     }()
     
     lazy var birthday:ProfileViewElement = {
         let view = ProfileViewElement()
         view.elementLabel.text = "Дата рождения"
+        view.textField.isUserInteractionEnabled = false
+        
+        let datePicker = UIDatePicker(frame: .zero)
+        datePicker.preferredDatePickerStyle = .wheels
+        datePicker.datePickerMode = .date
+        view.textField.inputView = datePicker
+        
+        view.button.addAction(UIAction(handler: { _ in
+            view.textField.isUserInteractionEnabled = true
+            view.textField.becomeFirstResponder()
+        }), for: .touchUpInside)
+        
         return view
     }()
     
     lazy var email:ProfileViewElement = {
         let view = ProfileViewElement()
         view.elementLabel.text = "Email"
+        view.textField.isUserInteractionEnabled = false
+        view.button.isHidden = true
+        
         return view
     }()
     
     lazy var phone:ProfileViewElement = {
         let view = ProfileViewElement()
         view.elementLabel.text = "Телефон"
+        view.textField.isUserInteractionEnabled = false
+        
+        view.button.addAction(UIAction(handler: { _ in
+            view.textField.isUserInteractionEnabled = true
+            view.textField.becomeFirstResponder()
+        }), for: .touchUpInside)
+        
         return view
     }()
     
     lazy var changePassword:ProfileViewElement = {
         let view = ProfileViewElement()
         view.elementLabel.isHidden = true
-        view.textField.text = "Изменить пароль"
+        view.textField.text = "Расширенные настройки"
+        
+        view.textField.isUserInteractionEnabled = false
+        
         view.button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
         return view
     }()
     
-    
+    lazy var companyStackView:UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.distribution = .equalCentering
+        
+        return view
+    }()
     lazy var companyInfoLabel:UILabel = {
         let label = UILabel()
         label.textColor = .black
@@ -143,24 +206,48 @@ class ProfileView: UIView {
     lazy var companyNameElement:ProfileViewElement = {
         let view = ProfileViewElement()
         view.elementLabel.text = "Название"
+        
+        view.textField.isUserInteractionEnabled = false
+        
+        view.button.addAction(UIAction(handler: { _ in
+            view.textField.isUserInteractionEnabled = true
+            view.textField.becomeFirstResponder()
+        }), for: .touchUpInside)
+        
         return view
     }()
     
     lazy var companyId:ProfileViewElement = {
         let view = ProfileViewElement()
         view.elementLabel.text = "Индентификатор"
+        
+        view.textField.isUserInteractionEnabled = false
+        view.textField.isSecureTextEntry = true
+        view.button.setImage(UIImage(systemName: "doc.on.doc"), for: .normal)
+
         return view
     }()
     
     lazy var employee:ProfileViewElement = {
         let view = ProfileViewElement()
+        view.isUserInteractionEnabled = true
+        
         view.elementLabel.isHidden = true
         view.textField.text = "Сотрудники"
+        view.textField.isUserInteractionEnabled = false
+        
         view.button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
         return view
     }()
-        
     
+    lazy var logOutButton:UIButton = {
+        let button = UIButton()
+        button.setTitle("Выйти", for: .normal)
+        button.backgroundColor = .clear
+        button.setTitleColor(.systemRed, for: .normal)
+        return button
+    }()
+        
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -198,6 +285,8 @@ class ProfileView: UIView {
         self.nameView.addSubview(fullName)
         self.nameView.addSubview(companyName)
         
+        self.profileImage.addSubview(changePhotoButton)
+        
         self.addSubview(scrollView)
         
         profileImage.snp.makeConstraints { make in
@@ -217,6 +306,11 @@ class ProfileView: UIView {
         companyName.snp.makeConstraints { make in
             make.top.equalTo(fullName.snp.bottom).offset(5)
             make.leading.trailing.bottom.equalToSuperview().inset(20)
+        }
+        
+        changePhotoButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().inset(20)
+            make.top.equalToSuperview().offset(50)
         }
         
         scrollView.snp.makeConstraints { make in
@@ -240,11 +334,14 @@ class ProfileView: UIView {
         scrollContent.addSubview(email)
         scrollContent.addSubview(phone)
         scrollContent.addSubview(changePassword)
+                
+        scrollContent.addSubview(logOutButton)
         
-        scrollContent.addSubview(companyInfoLabel)
-        scrollContent.addSubview(companyNameElement)
-        scrollContent.addSubview(companyId)
-        scrollContent.addSubview(employee)
+        scrollContent.addSubview(companyStackView)
+        companyStackView.addArrangedSubview(companyInfoLabel)
+        companyStackView.addArrangedSubview(companyNameElement)
+        companyStackView.addArrangedSubview(companyId)
+        companyStackView.addArrangedSubview(employee)
         
         scrollContent.snp.makeConstraints { make in
             make.top.leading.trailing.bottom.equalToSuperview()
@@ -285,23 +382,13 @@ class ProfileView: UIView {
             make.leading.trailing.equalToSuperview().inset(20)
         }
         
-        companyInfoLabel.snp.makeConstraints { make in
+        companyStackView.snp.makeConstraints { make in
             make.top.equalTo(changePassword.snp.bottom).offset(30)
             make.leading.trailing.equalToSuperview().inset(20)
         }
-        
-        companyNameElement.snp.makeConstraints { make in
-            make.top.equalTo(companyInfoLabel.snp.bottom).offset(20)
-            make.leading.trailing.equalToSuperview().inset(20)
-        }
-        
-        companyId.snp.makeConstraints { make in
-            make.top.equalTo(companyNameElement.snp.bottom)
-            make.leading.trailing.equalToSuperview().inset(20)
-        }
-        
-        employee.snp.makeConstraints { make in
-            make.top.equalTo(companyId.snp.bottom)
+                
+        logOutButton.snp.makeConstraints { make in
+            make.top.equalTo(companyStackView.snp.bottom).offset(50)
             make.leading.trailing.equalToSuperview().inset(20)
             make.bottom.equalToSuperview()
         }
@@ -328,6 +415,24 @@ class ProfileView: UIView {
         self.birthday.textField.text = birhday
         self.email.textField.text = email
         self.phone.textField.text = phone
+    }
+    
+    public func configureCompanyInfo(
+        companyName:String,
+        companyId:String
+    ){
+        self.companyNameElement.textField.text = companyName
+        self.companyId.textField.text = companyId
+    }
+    
+    public func configureVisibleElements(
+        isReadLocalIdCompany:Bool,
+        isReadGeneralCompanyInformation:Bool,
+        isReadCompanyEmployee:Bool,
+        isWriteGeneralCompanyInformation:Bool
+    ){
+        if !isReadLocalIdCompany{
+        }
     }
     
 }

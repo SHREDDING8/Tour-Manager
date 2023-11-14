@@ -111,7 +111,7 @@ class ExcursionManagementViewController: UIViewController{
         if self.presenter.isAccessLevel(key: .canWriteTourList){
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .add, primaryAction: UIAction(handler: { _ in
                 
-                let newExcursionController = TourManadmentAssembly.createNewTourController(isUpdate: false)
+                let newExcursionController = TourManadmentAssembly.createNewTourController(isUpdate: false, dateTime: self.calendar.calendar.selectedDate ?? Date.now)
                 
                 self.navigationController?.pushViewController(newExcursionController, animated: true)
             }))

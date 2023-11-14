@@ -148,19 +148,19 @@ class ProfilePageViewController: UIViewController {
     // MARK: - configure Date Picker
     fileprivate func datePickerConfiguration(){
         
-        self.datePicker = DatepickerFromBottom(viewController: self, doneAction: { date in
-            
-            self.presenter?.updatePersonalData(updateField: .birthdayDate, value: date.birthdayToString()) { isSetted, error in
-                if let err = error{
-                    self.alerts.errorAlert(self, errorUserDataApi: err) {
-                        self.dateLabel.text = self.presenter?.getBirthday()
-                    }
-                }
-                if isSetted{
-                    self.dateLabel.text = date.birthdayToString()
-                }
-            }
-        })
+//        self.datePicker = DatepickerFromBottom(viewController: self, doneAction: { date in
+//            
+//            self.presenter?.updatePersonalData(updateField: .birthdayDate, value: date.birthdayToString()) { isSetted, error in
+//                if let err = error{
+//                    self.alerts.errorAlert(self, errorUserDataApi: err) {
+//                        self.dateLabel.text = self.presenter?.getBirthday()
+//                    }
+//                }
+//                if isSetted{
+//                    self.dateLabel.text = date.birthdayToString()
+//                }
+//            }
+//        })
     }
     // MARK: - Image
     
@@ -272,6 +272,7 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
             return 1 + self.profileModel.getNumberCellCompanySection()
         case 2: return 1
         default: return 0
+            
         }
     }
     
@@ -656,7 +657,7 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
 //                            self.controllers.goToNoConnection(view: self.view, direction: .fade)
 //                            return
 //                        }
-
+                        
                         let alert = self.alerts.infoAlert(title: "Неизвестная ошибка", meesage: "Вы не вышли из системы")
                         
                         self.present(alert, animated: true)
@@ -697,18 +698,18 @@ extension ProfilePageViewController:UITextFieldDelegate{
                 return
             }
             
-            self.presenter?.updatePersonalData(updateField: .firstName, value: value) { isSetted, error in
-                
-                if let err = error{
-                    self.alerts.errorAlert(self, errorUserDataApi: err) {
-                        textField.text = self.presenter?.getFirstName()
-                    }
-                }
-                
-                if isSetted{
-                    self.fullNameLabel.text = self.presenter?.getFullName() ?? ""
-                }
-            }
+//            self.presenter?.updatePersonalData(updateField: .firstName, value: value) { isSetted, error in
+//                
+//                if let err = error{
+//                    self.alerts.errorAlert(self, errorUserDataApi: err) {
+//                        textField.text = self.presenter?.getFirstName()
+//                    }
+//                }
+//                
+//                if isSetted{
+//                    self.fullNameLabel.text = self.presenter?.getFullName() ?? ""
+//                }
+//            }
             
         }else if textField.restorationIdentifier == "secondName"{
             
@@ -719,18 +720,18 @@ extension ProfilePageViewController:UITextFieldDelegate{
                 return
             }
             
-            self.presenter?.updatePersonalData(updateField: .secondName, value: value) { isSetted, error in
-                
-                if let err = error{
-                    self.alerts.errorAlert(self, errorUserDataApi: err) {
-                        textField.text = self.presenter?.getSecondName()
-                    }
-                }
-                
-                if isSetted{
-                    self.fullNameLabel.text = self.presenter?.getFullName() ?? ""
-                }
-            }
+//            self.presenter?.updatePersonalData(updateField: .secondName, value: value) { isSetted, error in
+//                
+//                if let err = error{
+//                    self.alerts.errorAlert(self, errorUserDataApi: err) {
+//                        textField.text = self.presenter?.getSecondName()
+//                    }
+//                }
+//                
+//                if isSetted{
+//                    self.fullNameLabel.text = self.presenter?.getFullName() ?? ""
+//                }
+//            }
             
         } else if textField.restorationIdentifier == "phone"{
             
@@ -744,14 +745,14 @@ extension ProfilePageViewController:UITextFieldDelegate{
                 return
             }
             
-            self.presenter?.updatePersonalData(updateField: .phone, value: newPhone) { isSetted, error in
-                
-                if let err = error{
-                    self.alerts.errorAlert(self, errorUserDataApi: err) {
-                        textField.text = self.presenter?.getPhone()
-                    }
-                }
-            }
+//            self.presenter?.updatePersonalData(updateField: .phone, value: newPhone) { isSetted, error in
+//                
+//                if let err = error{
+//                    self.alerts.errorAlert(self, errorUserDataApi: err) {
+//                        textField.text = self.presenter?.getPhone()
+//                    }
+//                }
+//            }
             
         } else if textField.restorationIdentifier == "companyName"{
             if validationString.validateIsEmptyString([value]){

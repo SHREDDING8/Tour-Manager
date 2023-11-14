@@ -18,7 +18,7 @@ final class ProfileAssembly:ProfileAssemblyProtocol{
         let view = ProfileNewViewController()
         let presenter = ProfilePagePresenter(view: view)
         view.presenter = presenter
-        return view
+        return UINavigationController(rootViewController: view)
     }
     
 }

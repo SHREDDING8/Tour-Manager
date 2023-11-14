@@ -49,6 +49,8 @@ protocol ApiManagerUserDataProtocol{
     func getUserInfo() async throws -> ResponseGetUserInfoJsonStruct
     
     func downloadProfilePhoto(localId:String) async throws -> Data
+    
+    func updateUserInfo(updateField: UserDataFields, value:String) async throws -> Bool
 }
 
 public class ApiManagerUserData: ApiManagerUserDataProtocol{
@@ -189,19 +191,16 @@ public class ApiManagerUserData: ApiManagerUserDataProtocol{
     }
     
     // MARK: - updateUserInfo
-    public func updateUserInfo(token:String, updateField: UserDataFields, value:String, completion: @escaping (Bool,customErrorUserData?)->Void ){
+    public func updateUserInfo(updateField: UserDataFields, value:String) async throws -> Bool{
         
+        let url = URL(string: self.routeSetUserInfo)
         
-        self.generalData.requestWithCheckRefresh { newToken in
-            let requestToken = newToken == nil ? token : newToken!
-            
-            
-            let url = URL(string: self.routeSetUserInfo)
-            let jsonData = [
-                "token": requestToken,
-                updateField.rawValue : value
-            ]
-            
+        let jsonData = [
+            "token": keychainService.getAcessToken() ?? "",
+            updateField.rawValue : value
+        ]
+        
+        let result:Bool = try await withCheckedThrowingContinuation { continuation in
             AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
                 
                 switch response.result {
@@ -209,18 +208,20 @@ public class ApiManagerUserData: ApiManagerUserDataProtocol{
                     if response.response?.statusCode == 400{
                         
                         let error = self.checkError(data: response.data ?? Data())
-                        completion(false, error)
+                        continuation.resume(throwing: error)
                         
                     } else if response.response?.statusCode == 200{
-                        completion(true,nil)
+                        continuation.resume(returning: true)
                     } else {
-                        completion(false, .unknowmError)
+                        continuation.resume(throwing: customErrorUserData.unknowmError)
                     }
                 case .failure(_):
-                    completion(false, .notConnected)
+                    continuation.resume(throwing: customErrorUserData.unknowmError)
                 }
             }
         }
+        
+        return result
     }
     
     

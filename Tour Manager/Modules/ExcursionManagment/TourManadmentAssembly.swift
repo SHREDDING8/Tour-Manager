@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol TourManadmentAssemblyProtocol{
-    static func createNewTourController(isUpdate:Bool, model:ExcrusionModel?) -> UIViewController
+    static func createNewTourController(isUpdate:Bool,dateTime:Date?, model:ExcrusionModel?) -> UIViewController
     static func createAutoFillComponentsController(type:AutofillType, baseValue:String?) -> UIViewController
     static func createAddGuideController(selectedGuides:[ExcrusionModel.Guide]) -> UIViewController
     
@@ -17,11 +17,11 @@ protocol TourManadmentAssemblyProtocol{
 }
 
 class TourManadmentAssembly:TourManadmentAssemblyProtocol{
-    static func createNewTourController(isUpdate:Bool,model:ExcrusionModel?  = nil) -> UIViewController{
+    static func createNewTourController(isUpdate:Bool,dateTime:Date? = nil ,model:ExcrusionModel?  = nil) -> UIViewController{
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "NewExcursionTableViewController") as! NewExcursionTableViewController
         vc.isUpdate = isUpdate
         vc.hidesBottomBarWhenPushed = true
-        let presenter = NewExcursionPresenter(view: vc, tour: model)
+        let presenter = NewExcursionPresenter(view: vc, tour: model, date: dateTime)
         vc.presenter = presenter
         
         return vc

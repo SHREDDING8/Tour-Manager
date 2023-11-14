@@ -17,7 +17,7 @@ protocol NewExcursionViewProtocol:AnyObject{
 }
 
 protocol NewExcursionPresenterProtocol:AnyObject{
-    init(view:NewExcursionViewProtocol, tour:ExcrusionModel?)
+    init(view:NewExcursionViewProtocol, tour:ExcrusionModel?, date:Date?)
     
     var tour:ExcrusionModel! { get set }
     
@@ -53,13 +53,14 @@ class NewExcursionPresenter:NewExcursionPresenterProtocol{
     let usersRealmService:UsersRealmServiceProtocol = UsersRealmService()
     let usersNetworkSevise:ApiManagerUserDataProtocol = ApiManagerUserData()
 
-    required init(view:NewExcursionViewProtocol, tour:ExcrusionModel?) {
+    required init(view:NewExcursionViewProtocol, tour:ExcrusionModel?, date:Date?) {
         self.view = view
         if tour != nil{
             self.tour = tour
             oldTour = tour
         }else{
             self.tour = ExcrusionModel(guides: [])
+            self.tour?.dateAndTime = date ?? Date.now
         }
         
     }
