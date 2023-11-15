@@ -431,8 +431,29 @@ class ProfileView: UIView {
         isReadCompanyEmployee:Bool,
         isWriteGeneralCompanyInformation:Bool
     ){
-        if !isReadLocalIdCompany{
+        // removeAll
+        for subview in companyStackView.subviews{
+            subview.removeFromSuperview()
         }
+        
+        if isReadGeneralCompanyInformation{
+            companyStackView.addArrangedSubview(companyInfoLabel)
+            companyStackView.addArrangedSubview(companyNameElement)
+            
+            if isReadLocalIdCompany{
+                companyStackView.addArrangedSubview(companyId)
+            }
+            if isReadCompanyEmployee{
+                companyStackView.addArrangedSubview(employee)
+            }
+            
+        }
+        
+        self.layoutIfNeeded()
+        
+        // show close companyName editable
+        self.companyNameElement.button.isHidden = !isWriteGeneralCompanyInformation
+       
     }
     
 }
