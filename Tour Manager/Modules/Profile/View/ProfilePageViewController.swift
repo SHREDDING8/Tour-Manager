@@ -177,18 +177,7 @@ class ProfilePageViewController: UIViewController {
         }
         
         let actionDeletePhoto = UIAlertAction(title: "Delete Photo", style: .default) { [self] _ in
-            
-            self.presenter?.deleteProfilePhoto(completion: { isDeleted, error in
-                if let err = error{
-                    self.alerts.errorAlert(self, errorUserDataApi: err)
-                }
-                
-                if isDeleted{
-                    self.setProfilePhoto(image: UIImage(named: "no profile photo")!)
-                }
-            })
-            
-            
+                        
         }
         let actionCancel = UIAlertAction(title: "Cancel", style: .cancel)
         
@@ -650,19 +639,7 @@ extension ProfilePageViewController:UITableViewDataSource,UITableViewDelegate{
         let actionExit = UIAction { _ in
             
             self.alerts.deleteAlert(self, title: "Вы уверены что хотите выйти?", buttonTitle: "Выйти") {
-                self.presenter?.logOut(completion: { isLogOut, error in
-                    if error != nil{
-                        
-//                        if error == .notConnected{
-//                            self.controllers.goToNoConnection(view: self.view, direction: .fade)
-//                            return
-//                        }
-                        
-                        let alert = self.alerts.infoAlert(title: "Неизвестная ошибка", meesage: "Вы не вышли из системы")
-                        
-                        self.present(alert, animated: true)
-                    }
-                })
+
                 self.controllers.goToLoginPage(view: self.view, direction: .toBottom)
             }
         }
@@ -762,19 +739,19 @@ extension ProfilePageViewController:UITextFieldDelegate{
                 return
             }
             
-            self.presenter?.updateCompanyInfo(companyName: value, completion: { isUpdated, error in
-                
-                if let err = error{
-                    self.alerts.errorAlert(self, errorCompanyApi: err) {
-                        textField.text = self.presenter?.getCompanyName()
-                    }
-                }
-                                
-                if isUpdated{
-                    self.navigationItem.title = self.presenter?.getCompanyName()
-                }
-                
-            })
+//            self.presenter?.updateCompanyInfo(companyName: value, completion: { isUpdated, error in
+//                
+//                if let err = error{
+//                    self.alerts.errorAlert(self, errorCompanyApi: err) {
+//                        textField.text = self.presenter?.getCompanyName()
+//                    }
+//                }
+//                                
+//                if isUpdated{
+//                    self.navigationItem.title = self.presenter?.getCompanyName()
+//                }
+//                
+//            })
             
         }
     }
@@ -787,18 +764,6 @@ extension ProfilePageViewController:UIImagePickerControllerDelegate,UINavigation
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.editedImage] as? UIImage{
             self.dismiss(animated: true)
-            
-            
-            self.presenter?.uploadProfilePhoto(image: image, completion: { isUpload, error in
-                
-                if let err = error{
-                    self.alerts.errorAlert(self, errorUserDataApi: err)
-                }
-                
-                if isUpload{
-                    self.setProfilePhoto(image: image)
-                }
-            })
         }
         
     }
@@ -808,5 +773,45 @@ extension ProfilePageViewController:UIImagePickerControllerDelegate,UINavigation
 }
 
 extension ProfilePageViewController:ProfileViewProtocol{
+    func logoutSuccess() {
+        
+    }
+    
+    func logoutError() {
+        
+    }
+    
+    func updateInfoError() {
+        
+    }
+    
+    func updateInfoSuccess() {
+        
+    }
+    
+    func updateCompanyInfoError() {
+        
+    }
+    
+    func updateCompanyInfoSuccess() {
+        
+    }
+    
+    func uploadSuccess(image: UIImage) {
+        
+    }
+    
+    func uploadError() {
+        
+    }
+    
+    func deletePhotoSuccess() {
+        
+    }
+    
+    func deletePhotoError() {
+        
+    }
+    
     
 }

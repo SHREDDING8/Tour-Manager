@@ -10,6 +10,20 @@ import UIKit
 
 protocol ProfileViewProtocol:AnyObject{
     func setProfilePhoto(image:UIImage)
+    
+    func deletePhotoSuccess()
+    func deletePhotoError()
+    func uploadSuccess(image:UIImage)
+    func uploadError()
+    
+    func updateInfoError()
+    func updateInfoSuccess()
+    
+    func updateCompanyInfoError()
+    func updateCompanyInfoSuccess()
+    
+    func logoutSuccess()
+    func logoutError()
 }
 
 protocol ProfilePagePresenterProtocol:AnyObject{
@@ -28,7 +42,15 @@ protocol ProfilePagePresenterProtocol:AnyObject{
     func getPhone() -> String
     func getEmail() -> String
     
-//    func downloadProfilePhoto(localId:String, completion: @escaping (Data?,customErrorUserData?)->Void)
+    func uploadProfilePhoto(image:UIImage)
+    func deleteProfilePhoto()
+    
+    func updatePersonalData(updateField: UserDataFields,value:String) 
+    
+    func updateCompanyInfo(companyName:String)
+    
+    func logOut()
+    
 }
 class ProfilePagePresenter:ProfilePagePresenterProtocol{
     weak var view:ProfileViewProtocol?
@@ -56,7 +78,7 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
         return keychain.getCompanyLocalId() ?? ""
     }
     
-    func getProfilePhoto(){
+    public func getProfilePhoto(){
         downloadProfilePhoto()
         
         if let imageData = usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")?.image{
@@ -67,7 +89,7 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
         
     }
     
-    func getProfilePhotoFromRealm() -> UIImage{
+    public func getProfilePhotoFromRealm() -> UIImage{
         if let imageData = usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")?.image{
             UIImage(data: imageData)!
         }else{
@@ -75,27 +97,27 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
         }
     }
     
-    func getFirstName() -> String{
+    public func getFirstName() -> String{
         return usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")?.firstName ?? ""
     }
-    func getSecondName() -> String{
+    public func getSecondName() -> String{
         return usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")?.secondName ?? ""
     }
     
-    func getFullName() ->String{
+    public func getFullName() ->String{
         let user = usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")
         return (user?.firstName ?? "") + " " + (user?.secondName ?? "")
     }
     
-    func getBirthday() -> String{
+    public func getBirthday() -> String{
         return usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")?.birthday?.birthdayToString() ?? ""
     }
     
-    func getPhone() -> String{
+    public func getPhone() -> String{
         return usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")?.phone ?? ""
     }
     
-    func getEmail() -> String{
+    public func getEmail() -> String{
         return usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")?.email ?? ""
     }
     
@@ -106,10 +128,20 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
         }
     }
     
-    public func logOut(completion: @escaping (Bool, customErrorAuth?)->Void){
-                
-        self.apiAuth.logOut(token: keychain.getAcessToken() ?? "" ) { isLogout, error in
-                completion(isLogout,error)
+    public func logOut(){
+        Task{
+            do{
+                if try await self.apiAuth.logOut(){
+                    DispatchQueue.main.async {
+                        self.view?.logoutSuccess()
+                    }
+                    
+                }
+            }catch{
+                DispatchQueue.main.async {
+                    self.view?.logoutError()
+                }
+            }
         }
         
     }
@@ -121,10 +153,23 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
     }
     
     
-    public func uploadProfilePhoto(image:UIImage, completion: @escaping (Bool,customErrorUserData?)->Void){
-        
-        self.apiUserData.uploadProfilePhoto(token: keychain.getAcessToken() ?? "", image: image) { isUploaded, error in
-            completion(isUploaded,error)
+    public func uploadProfilePhoto(image:UIImage){
+        Task{
+            do{
+                if try await self.apiUserData.uploadProfilePhoto(image:image){
+                    DispatchQueue.main.async {
+                        self.usersRealmService.updateImage(id: self.keychain.getLocalId() ?? "", image: image.pngData()!)
+                        self.view?.uploadSuccess(image: image)
+                    }
+                }
+                
+            } catch{
+                DispatchQueue.main.async {
+                    self.view?.uploadError()
+                }
+                
+            }
+            
         }
     }
     
@@ -144,10 +189,18 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
         }
     }
     
-    public func deleteProfilePhoto(completion: @escaping (Bool,customErrorUserData?)->Void){
-        
-        self.apiUserData.deleteProfilePhoto(token: keychain.getAcessToken() ?? "" ) { isDeleted, error in
-            completion(isDeleted,error)
+    public func deleteProfilePhoto(){
+        Task{
+            do{
+                if try await self.apiUserData.deleteProfilePhoto(){
+                    DispatchQueue.main.async {
+                        self.usersRealmService.deleteImage(id: self.keychain.getAcessToken() ?? "")
+                        self.view?.deletePhotoSuccess()
+                    }
+                }
+            }catch{
+                
+            }
         }
     }
     
@@ -155,29 +208,42 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
         Task{
             do{
                 if try await self.apiUserData.updateUserInfo(updateField: updateField, value: value){
-                    if updateField == .birthdayDate{
-                        self.usersRealmService.updateBirhday(localId: self.keychain.getLocalId() ?? "", date: Date.birthdayFromString(dateString: value))
-                    }else{
-                        self.usersRealmService.updateField(localId: self.keychain.getLocalId() ?? "", updateField: updateField, value: value)
+                    DispatchQueue.main.async {
+                        if updateField == .birthdayDate{
+                            self.usersRealmService.updateBirhday(localId: self.keychain.getLocalId() ?? "", date: Date.birthdayFromString(dateString: value))
+                        }else{
+                            self.usersRealmService.updateField(localId: self.keychain.getLocalId() ?? "", updateField: updateField, value: value)
+                        }
+                        
+                        self.view?.updateInfoSuccess()
                     }
+                    
                 }
                 
             } catch{
+                DispatchQueue.main.async {
+                    self.view?.updateInfoError()
+                }
                 
             }
         }
-        
     }
     
-    public func updateCompanyInfo(companyName:String, completion: @escaping (Bool, customErrorCompany?) ->Void){
-        self.apiCompany.updateCompanyInfo(token: keychain.getAcessToken() ?? "", companyId: keychain.getCompanyLocalId() ?? "", companyName: companyName) { isUpdated, error in
-            if error != nil{
-                completion(false,error)
-            }
-            
-            if isUpdated{
-                self.keychain.setCompanyName(companyName: companyName)
-                completion(true, nil)
+    public func updateCompanyInfo(companyName:String){
+        Task{
+            do{
+                if try await self.apiCompany.updateCompanyInfo(companyName:companyName){
+                    DispatchQueue.main.async {
+                        self.keychain.setCompanyName(companyName: companyName)
+                        self.view?.updateCompanyInfoSuccess()
+                    }
+                    
+                }
+            } catch{
+                DispatchQueue.main.async {
+                    self.view?.updateCompanyInfoError()
+                }
+                
             }
         }
     }

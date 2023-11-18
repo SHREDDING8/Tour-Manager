@@ -58,6 +58,7 @@
 		EE6756082AC0721800E253DA /* EmployeesListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6756072AC0721800E253DA /* EmployeesListPresenter.swift */; };
 		EE67560A2AC076FF00E253DA /* EmployeePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6756092AC076FF00E253DA /* EmployeePresenter.swift */; };
 		EE6DE06A2A1E681100507A27 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6DE0692A1E681100507A27 /* User.swift */; };
+		EE6FCB3A2B0634BE00A49604 /* DeviceKit in Frameworks */ = {isa = PBXBuildFile; productRef = EE6FCB392B0634BE00A49604 /* DeviceKit */; };
 		EE783F432AD4834C00DA820F /* ExcursionManadmentPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE783F422AD4834C00DA820F /* ExcursionManadmentPresenter.swift */; };
 		EE783F452AD4835C00DA820F /* TourManadmentAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE783F442AD4835C00DA820F /* TourManadmentAssembly.swift */; };
 		EE783F472AD4905A00DA820F /* NewExcursionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE783F462AD4905A00DA820F /* NewExcursionPresenter.swift */; };
@@ -255,6 +256,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EEF0BE8F2AD7350D002CEE4D /* AlertKit in Frameworks */,
+				EE6FCB3A2B0634BE00A49604 /* DeviceKit in Frameworks */,
 				EED645332A9951D200F2ADC9 /* RealmSwift in Frameworks */,
 				EED645312A9951D200F2ADC9 /* Realm in Frameworks */,
 				EEF27A402A044E7D006E5E53 /* Pods_Tour_Manager.framework in Frameworks */,
@@ -940,6 +942,7 @@
 				EED645302A9951D200F2ADC9 /* Realm */,
 				EED645322A9951D200F2ADC9 /* RealmSwift */,
 				EEF0BE8E2AD7350D002CEE4D /* AlertKit */,
+				EE6FCB392B0634BE00A49604 /* DeviceKit */,
 			);
 			productName = "Tour Manager";
 			productReference = EE52E16B29E5C1C8000C0E5B /* Tour Manager.app */;
@@ -972,6 +975,7 @@
 			packageReferences = (
 				EED6452F2A9951D200F2ADC9 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				EEF0BE8D2AD7350D002CEE4D /* XCRemoteSwiftPackageReference "AlertKit" */,
+				EE6FCB382B0634BE00A49604 /* XCRemoteSwiftPackageReference "DeviceKit" */,
 			);
 			productRefGroup = EE52E16C29E5C1C8000C0E5B /* Products */;
 			projectDirPath = "";
@@ -1391,6 +1395,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		EE6FCB382B0634BE00A49604 /* XCRemoteSwiftPackageReference "DeviceKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devicekit/DeviceKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.0;
+			};
+		};
 		EED6452F2A9951D200F2ADC9 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
@@ -1410,6 +1422,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		EE6FCB392B0634BE00A49604 /* DeviceKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EE6FCB382B0634BE00A49604 /* XCRemoteSwiftPackageReference "DeviceKit" */;
+			productName = DeviceKit;
+		};
 		EED645302A9951D200F2ADC9 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = EED6452F2A9951D200F2ADC9 /* XCRemoteSwiftPackageReference "realm-swift" */;

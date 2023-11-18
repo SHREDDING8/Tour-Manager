@@ -166,16 +166,22 @@ public class ApiManagerCompany:ApiManagerCompanyProtocol{
         }
     }
     
-    public func updateCompanyInfo(token:String, companyId:String, companyName:String, completion: @escaping (Bool,customErrorCompany?)->Void ){
+    public func updateCompanyInfo(companyName:String) async throws -> Bool{
         
-        generalData.requestWithCheckRefresh { newToken in
-            let requestToken = newToken == nil ? token : newToken!
-            
-            
-            let url = URL(string: self.routeUpdateCompanyInfo)
-            
-            let jsonData = SendCompanyInfoJsonStruct(token: requestToken, company_id: companyId, company_name: companyName)
-            
+        let refreshToken = try! await ApiManagerAuth.refreshToken()
+        if !refreshToken{
+            throw customErrorCompany.unknowmError
+        }
+        
+        let url = URL(string: self.routeUpdateCompanyInfo)
+        
+        let jsonData = SendCompanyInfoJsonStruct(
+            token: keychainService.getAcessToken() ?? "",
+            company_id: keychainService.getCompanyLocalId() ?? "",
+            company_name: companyName
+        )
+        
+        let result:Bool = try await withCheckedThrowingContinuation { continuation in
             AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
                 
                 switch response.result {
@@ -183,33 +189,35 @@ public class ApiManagerCompany:ApiManagerCompanyProtocol{
                     if response.response?.statusCode == 400{
                         
                         let error = self.checkError(data: response.data ?? Data())
-                        completion(false,error)
+                        continuation.resume(throwing: error)
                         
                     } else if response.response?.statusCode == 200{
-                        completion(true, nil)
+                        continuation.resume(returning: true)
                     }else{
-                        completion(false, .unknowmError)
+                        continuation.resume(throwing: customErrorCompany.unknowmError)
                     }
                 case .failure(_):
-                    completion(false, .notConnected)
+                    continuation.resume(throwing: customErrorCompany.unknowmError)
                 }
                 
             }
         }
+        
+        return result
     }
     
     // MARK: - getCurrentAccessLevel
     func getCurrentAccessLevel() async throws -> ResponseAccessLevel{
-        
-        let url = URL(string: self.routeGetCurrentAccesslevel)
-        
-        let jsonData = SendAddEmployeeToCompanyJsonStruct(token: keychainService.getAcessToken() ?? "", company_id: keychainService.getCompanyLocalId() ?? "")
         
         let refreshToken = try! await ApiManagerAuth.refreshToken()
         if !refreshToken{
             throw customErrorCompany.unknowmError
         }
         
+        let url = URL(string: self.routeGetCurrentAccesslevel)
+        
+        let jsonData = SendAddEmployeeToCompanyJsonStruct(token: keychainService.getAcessToken() ?? "", company_id: keychainService.getCompanyLocalId() ?? "")
+                
         let result: ResponseAccessLevel = try await withCheckedThrowingContinuation { continuation in
             
             AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in

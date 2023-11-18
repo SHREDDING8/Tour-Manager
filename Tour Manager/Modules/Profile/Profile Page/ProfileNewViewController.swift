@@ -8,9 +8,16 @@
 import UIKit
 import AlertKit
 
-class ProfileNewViewController: UIViewController {
+class ProfileNewViewController: UIViewController{
     
     var presenter:ProfilePagePresenterProtocol!
+    
+    lazy var imagePicker:UIImagePickerController = {
+        let picker = UIImagePickerController()
+        picker.allowsEditing = true
+       
+        return picker
+    }()
     
     private func view() -> ProfileView{
         return self.view as! ProfileView
@@ -24,6 +31,8 @@ class ProfileNewViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.view().changePhotoButton)
         
         addTargets()
         addDelegates()
@@ -47,6 +56,8 @@ class ProfileNewViewController: UIViewController {
         self.view().employee.addGestureRecognizer(gesture)
         
         self.view().companyId.button.addTarget(self, action: #selector(copyCompanyId), for: .touchUpInside)
+        
+        self.view().changePhotoButton.addTarget(self, action: #selector(tapChangePhoto), for: .touchUpInside)
     }
     
     private func addDelegates(){
@@ -63,6 +74,10 @@ class ProfileNewViewController: UIViewController {
         self.view().phone.textField.restorationIdentifier = "phone"
         
         self.view().companyNameElement.textField.restorationIdentifier = "companyNameElement"
+        
+        self.imagePicker.delegate = self
+        
+        self.view().logOutButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
         
     }
     
@@ -123,19 +138,228 @@ class ProfileNewViewController: UIViewController {
         )
     }
     
-}
-
-extension ProfileNewViewController:UITextFieldDelegate {
+    @objc private func tapChangePhoto(){
+        let alert = UIAlertController(title: "Изменить фото", message: nil, preferredStyle: .actionSheet)
+        
+        let actionLibary = UIAlertAction(title: "Медиатека", style: .default) { [self] _ in
+            imagePicker.sourceType = .photoLibrary
+            self.present(imagePicker, animated: true)
+        }
+        let actionCamera = UIAlertAction(title: "Камера", style: .default) { [self] _ in
+            imagePicker.sourceType = .camera
+            self.present(imagePicker, animated: true)
+        }
+        
+        let actionDeletePhoto = UIAlertAction(title: "Удалить фотографию", style: .default) { _ in
+            
+            self.presenter.deleteProfilePhoto()
+                        
+        }
+        let actionCancel = UIAlertAction(title: "Отменить", style: .cancel)
+        
+        alert.addAction(actionLibary)
+        alert.addAction(actionCamera)
+        alert.addAction(actionCancel)
+        if self.view().profileImage.image != UIImage(resource: .noProfilePhoto){
+            alert.addAction(actionDeletePhoto)
+        }
+        
+        
+        self.present(alert, animated: true)
+     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        textField.isUserInteractionEnabled = false
-        return true
+    @objc func logout(){
+        let alert = UIAlertController(title: "Вы уверены что хотите выйти?", message: nil, preferredStyle: .actionSheet)
+        
+        let exit = UIAlertAction(title: "Выйти", style: .destructive) { _ in
+            self.presenter.logOut()
+        }
+        
+        let cancel = UIAlertAction(title: "Отменить", style: .cancel)
+        
+        alert.addAction(exit)
+        alert.addAction(cancel)
+        
+        self.present(alert, animated: true)
+        
     }
     
 }
 
+extension ProfileNewViewController:UITextFieldDelegate {
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if textField.restorationIdentifier == "birthday"{
+            (textField.inputView as? UIDatePicker)?.date = Date.birthdayFromString(dateString: self.presenter.getBirthday())
+        }
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.isUserInteractionEnabled = false
+        
+        
+        self.view().firstName.textField.restorationIdentifier = "firstName"
+        self.view().lastName.textField.restorationIdentifier = "lastName"
+        self.view().birthday.textField.restorationIdentifier = "birthday"
+        self.view().phone.textField.restorationIdentifier = "phone"
+        
+        self.view().companyNameElement.textField.restorationIdentifier = "companyNameElement"
+        
+        var updateField:UserDataFields? = nil
+        switch textField.restorationIdentifier{
+        case "firstName":
+            updateField = .firstName
+        case "lastName":
+            updateField = .secondName
+        case "birthday":
+            updateField = .birthdayDate
+        case "phone":
+            updateField = .phone
+        case "companyNameElement":
+            self.presenter.updateCompanyInfo(companyName: textField.text ?? "")
+        default:
+            fatalError("Unknown TextField")
+        }
+        
+        if let field = updateField{
+            self.presenter.updatePersonalData(updateField: field, value: textField.text ?? "")
+        }
+        
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+    }
+    
+}
+
+extension ProfileNewViewController:UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[.editedImage] as? UIImage{
+            self.dismiss(animated: true)
+            
+            
+            self.presenter.uploadProfilePhoto(image: image)
+            
+        }
+        
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true)
+    }
+}
+
 extension ProfileNewViewController:ProfileViewProtocol{
+    
+    func logoutSuccess() {
+        
+        // TODO сделать алерт в котроллере логина
+        AlertKitAPI.present(
+            title: "Вы вышли из системы",
+            icon: .done,
+            style: .iOS17AppleMusic,
+            haptic: .success
+        )
+        AuthAssembly.goToLogin(view: self.view())
+    }
+    
+    func logoutError() {
+        AlertKitAPI.present(
+            title: "Ошибка выхода из системы",
+            icon: .error,
+            style: .iOS17AppleMusic,
+            haptic: .error
+        )
+    }
+    
+    
+    func updateCompanyInfoError() {
+        self.configureCompanyInfo()
+        
+        AlertKitAPI.present(
+            title: "Ошибка изменения данных",
+            icon: .error,
+            style: .iOS17AppleMusic,
+            haptic: .error
+        )
+    }
+    
+    func updateCompanyInfoSuccess() {
+        self.configureGeneralInfo()
+        AlertKitAPI.present(
+            title: "Данные изменены",
+            icon: .done,
+            style: .iOS17AppleMusic,
+            haptic: .success
+        )
+    }
+    
+    
+    func updateInfoSuccess() {
+        self.configureGeneralInfo()
+        
+        AlertKitAPI.present(
+            title: "Данные изменены",
+            icon: .done,
+            style: .iOS17AppleMusic,
+            haptic: .success
+        )
+    }
+    
+    func updateInfoError() {
+        self.configureGeneralInfo()
+        self.configurePersonalInfo()
+        
+        AlertKitAPI.present(
+            title: "Ошибка изменения данных",
+            icon: .error,
+            style: .iOS17AppleMusic,
+            haptic: .error
+        )
+    }
+    
+    func uploadSuccess(image: UIImage) {
+        self.setProfilePhoto(image: image)
+        
+        AlertKitAPI.present(
+            title: "Фото загружено",
+            icon: .done,
+            style: .iOS17AppleMusic,
+            haptic: .success
+        )
+    }
+    
+    func uploadError() {
+        AlertKitAPI.present(
+            title: "Ошибка при загрузке фото",
+            icon: .error,
+            style: .iOS17AppleMusic,
+            haptic: .error
+        )
+    }
+    
+
+    func deletePhotoSuccess() {
+        self.view().profileImage.image = UIImage(resource: .noProfilePhoto)
+        
+        AlertKitAPI.present(
+            title: "Фото удалено",
+            icon: .done,
+            style: .iOS17AppleMusic,
+            haptic: .success
+        )
+    }
+    
+    func deletePhotoError() {
+        AlertKitAPI.present(
+            title: "Ошибка при удалении фото",
+            icon: .error,
+            style: .iOS17AppleMusic,
+            haptic: .error
+        )
+    }
+    
     func setProfilePhoto(image: UIImage) {
         UIView.transition(with: self.view().profileImage, duration: 0.3, options: .transitionCrossDissolve) {
             self.view().profileImage.image = image

@@ -25,4 +25,17 @@ class AuthAssembly:AuthAssemblyProtocol{
                 
         return loginVC
     }
+    
+    static public func goToLogin(view:UIView){
+        let mainLogIn = self.loginController()
+        
+        let window = view.window
+        let options = UIWindow.TransitionOptions()
+        
+        options.direction = .fade
+        options.duration = 0.5
+        options.style = .easeOut
+        
+        window?.set(rootViewController: mainLogIn, options: options)
+    }
 }

@@ -87,6 +87,7 @@ class ProfileView: UIView {
         
         view.delegate = self
         view.alwaysBounceVertical = true
+        view.showsVerticalScrollIndicator = false
         
         
         return view
@@ -145,6 +146,11 @@ class ProfileView: UIView {
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.datePickerMode = .date
         view.textField.inputView = datePicker
+        view.textField.addDoneCancelToolbar()
+        
+        datePicker.addAction(UIAction(handler: { _ in
+            view.textField.text = datePicker.date.birthdayToString()
+        }), for: .valueChanged)
         
         view.button.addAction(UIAction(handler: { _ in
             view.textField.isUserInteractionEnabled = true
@@ -167,6 +173,9 @@ class ProfileView: UIView {
         let view = ProfileViewElement()
         view.elementLabel.text = "Телефон"
         view.textField.isUserInteractionEnabled = false
+        
+        view.textField.keyboardType = .phonePad
+        view.textField.addDoneCancelToolbar()
         
         view.button.addAction(UIAction(handler: { _ in
             view.textField.isUserInteractionEnabled = true
@@ -284,9 +293,7 @@ class ProfileView: UIView {
         self.profileImage.addSubview(nameView)
         self.nameView.addSubview(fullName)
         self.nameView.addSubview(companyName)
-        
-        self.profileImage.addSubview(changePhotoButton)
-        
+                
         self.addSubview(scrollView)
         
         profileImage.snp.makeConstraints { make in
@@ -308,10 +315,6 @@ class ProfileView: UIView {
             make.leading.trailing.bottom.equalToSuperview().inset(20)
         }
         
-        changePhotoButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().inset(20)
-            make.top.equalToSuperview().offset(50)
-        }
         
         scrollView.snp.makeConstraints { make in
             make.top.equalTo(profileImage.snp.bottom)

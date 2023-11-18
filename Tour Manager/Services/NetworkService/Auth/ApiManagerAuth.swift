@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import DeviceKit
 
 public enum customErrorAuth:Error{
     case invalidEmailOrPassword
@@ -43,6 +44,8 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
     
     let generalData = GeneralData()
     
+    let kechainService = KeychainService()
+    
     
     private let domain:String
     private let prefix:String
@@ -76,7 +79,15 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
     // MARK: - logIn
     func logIn(email:String,password:String,deviceToken:String) async throws -> ResponseLogInJsonStruct{
         
-        let jsonData = await SendLogInJsonStruct(email: email, password: password, apnsToken: ApnsToken(vendorID: UIDevice.current.identifierForVendor?.uuidString ?? "", deviceToken: deviceToken, deviceName: UIDevice.current.name))
+        let jsonData = await SendLogInJsonStruct(
+            email: email,
+            password: password,
+            apnsToken: ApnsToken(
+                vendorID: UIDevice.current.identifierForVendor?.uuidString ?? "",
+                deviceToken: deviceToken,
+                deviceName: Device.current.safeDescription
+            )
+        )
         
         let url = URL(string: routeLogIn)
         
@@ -173,34 +184,43 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
     }
     
     
-    public func logOut(token:String, completion: @escaping (Bool, customErrorAuth?)->Void ){
+    public func logOut() async throws -> Bool{
         
-        self.generalData.requestWithCheckRefresh { newToken in
-            let requestToken = newToken == nil ? token : newToken!
-            
-            
-            let jsonData = sendLogOut(token: requestToken, apns_vendor_id: UIDevice.current.identifierForVendor?.uuidString ?? "")
-            
-            let url = URL(string: self.routeLogOut)
-            
+        let refresh = try await ApiManagerAuth.refreshToken()
+        
+        if !refresh{
+            throw customErrorUserData.unknowmError
+        }
+        
+        let url = URL(string: self.routeLogOut)
+        
+        let jsonData = await sendLogOut(
+            token: kechainService.getAcessToken() ?? "",
+            apns_vendor_id: UIDevice.current.identifierForVendor?.uuidString ?? ""
+        )
+        
+        let result:Bool = try await withCheckedThrowingContinuation { continuation in
             AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response{
                 response in
                 
                 switch response.result {
                 case .success(_):
                     if response.response?.statusCode == 200{
-                        completion(true,nil)
+                        continuation.resume(returning: true)
                     }else if response.response?.statusCode == 400 {
                         let error = self.checkError(data: response.data!)
-                        completion(false, error)
+                        continuation.resume(throwing: error)
                     }else{
-                        completion(false, .unknowmError)
+                        continuation.resume(throwing: customErrorAuth.unknowmError)
                     }
                 case .failure(_):
-                    completion(false, .notConnected)
+                    continuation.resume(throwing: customErrorAuth.unknowmError)
                 }
             }
         }
+        
+        
+        return result
     }
     
     

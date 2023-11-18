@@ -318,8 +318,8 @@
             filePath = "Tour Manager/Services/NetworkService/Auth/ApiManagerAuth.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
             landmarkName = "refreshToken()"
             landmarkType = "7">
          </BreakpointContent>
@@ -334,8 +334,8 @@
             filePath = "Tour Manager/Services/NetworkService/Auth/ApiManagerAuth.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "131"
-            endingLineNumber = "131"
+            startingLineNumber = "142"
+            endingLineNumber = "142"
             landmarkName = "refreshToken()"
             landmarkType = "7">
          </BreakpointContent>
@@ -414,8 +414,8 @@
             filePath = "Tour Manager/Services/Local storage/Realm/Users/UsersRealmService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
             landmarkName = "updateImage(id:image:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -526,8 +526,8 @@
             filePath = "Tour Manager/Modules/Profile/Profile Page/ProfileView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "276"
-            endingLineNumber = "276"
+            startingLineNumber = "285"
+            endingLineNumber = "285"
             landmarkName = "draw(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -542,9 +542,9 @@
             filePath = "Tour Manager/Modules/Profile/Presenter/ProfilePagePresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
-            landmarkName = "getSecondName()"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
+            landmarkName = "getFirstName()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -558,8 +558,8 @@
             filePath = "Tour Manager/Modules/Profile/Presenter/ProfilePagePresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
             landmarkName = "getFullName()"
             landmarkType = "7">
             <Locations>
@@ -622,9 +622,152 @@
             filePath = "Tour Manager/Modules/Profile/Profile Page/ProfileView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "424"
-            endingLineNumber = "424"
+            startingLineNumber = "427"
+            endingLineNumber = "427"
             landmarkName = "configureCompanyInfo(companyName:companyId:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D83684DB-9A42-4B80-BCB1-A20456648388"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Modules/Profile/Profile Page/ProfileNewViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "226"
+            endingLineNumber = "226"
+            landmarkName = "textFieldDidEndEditing(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8E3EBBA1-10D1-4990-9599-5BC56B1ED7CE"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Modules/Profile/Presenter/ProfilePagePresenter.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "225"
+            endingLineNumber = "225"
+            landmarkName = "updatePersonalData(updateField:value:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "8E3EBBA1-10D1-4990-9599-5BC56B1ED7CE - 6bb6cf035f76e40b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #1 @Sendable () async -&gt; () in Tour_Manager.ProfilePagePresenter.updatePersonalData(updateField: Tour_Manager.UserDataFields, value: Swift.String) -&gt; ()"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Modules/Profile/Presenter/ProfilePagePresenter.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "212"
+                  endingLineNumber = "212"
+                  offsetFromSymbolStart = "560">
+               </Location>
+               <Location
+                  uuid = "8E3EBBA1-10D1-4990-9599-5BC56B1ED7CE - a2d3bec21ee7450a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for closure #1 @Sendable () async -&gt; () in Tour_Manager.ProfilePagePresenter.updatePersonalData(updateField: Tour_Manager.UserDataFields, value: Swift.String) -&gt; ()"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Modules/Profile/Presenter/ProfilePagePresenter.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "212"
+                  endingLineNumber = "212"
+                  offsetFromSymbolStart = "436">
+               </Location>
+               <Location
+                  uuid = "8E3EBBA1-10D1-4990-9599-5BC56B1ED7CE - ad48e369db98a176"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 @Swift.MainActor @Sendable () -&gt; () in closure #1 @Sendable () async -&gt; () in Tour_Manager.ProfilePagePresenter.updatePersonalData(updateField: Tour_Manager.UserDataFields, value: Swift.String) -&gt; ()"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Modules/Profile/Presenter/ProfilePagePresenter.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "210"
+                  endingLineNumber = "210"
+                  offsetFromSymbolStart = "32">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A989F942-A07B-4785-B729-F36115EB58E3"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Modules/Profile/Presenter/ProfilePagePresenter.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "211"
+            endingLineNumber = "211"
+            landmarkName = "updatePersonalData(updateField:value:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A989F942-A07B-4785-B729-F36115EB58E3 - 6bb6cf035f76fafb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #1 @Sendable () async -&gt; () in Tour_Manager.ProfilePagePresenter.updatePersonalData(updateField: Tour_Manager.UserDataFields, value: Swift.String) -&gt; ()"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Modules/Profile/Presenter/ProfilePagePresenter.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "196"
+                  endingLineNumber = "196"
+                  offsetFromSymbolStart = "212">
+               </Location>
+               <Location
+                  uuid = "A989F942-A07B-4785-B729-F36115EB58E3 - d21995d2864dd5a4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor @Sendable () -&gt; () in closure #1 @Sendable () async -&gt; () in Tour_Manager.ProfilePagePresenter.updatePersonalData(updateField: Tour_Manager.UserDataFields, value: Swift.String) -&gt; ()"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Modules/Profile/Presenter/ProfilePagePresenter.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "197"
+                  endingLineNumber = "197"
+                  offsetFromSymbolStart = "144">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DBB18097-4E7D-43D9-A3CB-C45F323D368F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Modules/Profile/Profile Page/ProfileNewViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "257"
+            endingLineNumber = "257"
+            landmarkName = "logoutSuccess()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

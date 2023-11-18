@@ -31,7 +31,9 @@ protocol UsersRealmServiceProtocol{
     func updateUserAccessLevel(localId:String, accessLevels: UserAccessLevelRealm)
     func updateField(localId:String, updateField: UserDataFields, value:String)
     func updateBirhday(localId:String,date:Date)
+    
     func updateImage(id:String, image:Data)
+    func deleteImage(id:String)
 }
 
 class UsersRealmService:UsersRealmServiceProtocol{
@@ -118,6 +120,14 @@ class UsersRealmService:UsersRealmServiceProtocol{
         if let user = self.getUserInfo(localId: id){
             try! realm.write({
                 user.image = image
+            })
+        }
+    }
+    
+    func deleteImage(id:String){
+        if let user = self.getUserInfo(localId: id){
+            try! realm.write({
+                user.image = nil
             })
         }
     }
