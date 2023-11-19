@@ -10,6 +10,7 @@ import UIKit
 
 protocol ProfileAssemblyProtocol{
     static func createProfileViewController()->UIViewController
+    static func createExtendedSettingsViewController() ->UIViewController
 }
 
 final class ProfileAssembly:ProfileAssemblyProtocol{
@@ -19,6 +20,16 @@ final class ProfileAssembly:ProfileAssemblyProtocol{
         let presenter = ProfilePagePresenter(view: view)
         view.presenter = presenter
         return UINavigationController(rootViewController: view)
+    }
+    
+    static func createExtendedSettingsViewController() ->UIViewController{
+        
+        let view = ExtendedSettingsViewController()
+        
+        let presenter = ExtendedSettingsPresenter(view: view)
+        view.presenter = presenter
+        
+        return view
     }
     
 }

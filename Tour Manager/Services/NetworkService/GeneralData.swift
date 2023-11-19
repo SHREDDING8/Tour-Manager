@@ -62,12 +62,7 @@ class GeneralData{
     }
         
     private func refreshToken(refreshToken:String, completion: @escaping (Bool,String?, customErrorAuth?)->Void){
-        
-        let jsonData = ["refresh_token":refreshToken]
-        
-        let url = URL(string: routeRefreshToken)!
-        
-        
+
 //        AF.request(url,method: .post, parameters: jsonData,encoder: .json).response{
 //            response in
 //                        

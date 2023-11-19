@@ -10,15 +10,15 @@
 				<key>location-parameters</key>
 				<dict>
 					<key>EndingColumnNumber</key>
-					<string>34</string>
+					<string>0</string>
 					<key>EndingLineNumber</key>
-					<string>256</string>
+					<string>266</string>
 					<key>StartingColumnNumber</key>
-					<string>8</string>
+					<string>0</string>
 					<key>StartingLineNumber</key>
-					<string>256</string>
+					<string>265</string>
 					<key>Timestamp</key>
-					<string>721829963.340029</string>
+					<string>722038116.344323</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -34,15 +34,16 @@
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string>// TODO сделать алерт в ко</string>
+				<string>        // TODO сделать алерт в котроллере логина
+</string>
 				<key>leading</key>
 				<string>    func logoutSuccess() {
         
-        </string>
+</string>
 				<key>trailing</key>
-				<string>троллере логина
-        AlertKitAPI.present(
+				<string>        AlertKitAPI.present(
             title: "Вы вышли из системы",
+            icon: .done,
 </string>
 			</dict>
 			<key>title</key>

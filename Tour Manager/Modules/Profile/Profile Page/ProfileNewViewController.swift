@@ -58,6 +58,9 @@ class ProfileNewViewController: UIViewController{
         self.view().companyId.button.addTarget(self, action: #selector(copyCompanyId), for: .touchUpInside)
         
         self.view().changePhotoButton.addTarget(self, action: #selector(tapChangePhoto), for: .touchUpInside)
+        
+        let tapExtendedGesture = UITapGestureRecognizer(target: self, action: #selector(tapExtended))
+        self.view().extendedSettings.addGestureRecognizer(tapExtendedGesture)
     }
     
     private func addDelegates(){
@@ -167,6 +170,12 @@ class ProfileNewViewController: UIViewController{
         
         self.present(alert, animated: true)
      }
+    
+    @objc func tapExtended(){
+        let view = ProfileAssembly.createExtendedSettingsViewController()
+        
+        self.navigationController?.pushViewController(view, animated: true)
+    }
     
     @objc func logout(){
         let alert = UIAlertController(title: "Вы уверены что хотите выйти?", message: nil, preferredStyle: .actionSheet)

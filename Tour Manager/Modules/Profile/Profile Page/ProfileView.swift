@@ -185,7 +185,7 @@ class ProfileView: UIView {
         return view
     }()
     
-    lazy var changePassword:ProfileViewElement = {
+    lazy var extendedSettings:ProfileViewElement = {
         let view = ProfileViewElement()
         view.elementLabel.isHidden = true
         view.textField.text = "Расширенные настройки"
@@ -193,6 +193,8 @@ class ProfileView: UIView {
         view.textField.isUserInteractionEnabled = false
         
         view.button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+        
+        view.isUserInteractionEnabled = true
         return view
     }()
     
@@ -336,7 +338,7 @@ class ProfileView: UIView {
         scrollContent.addSubview(birthday)
         scrollContent.addSubview(email)
         scrollContent.addSubview(phone)
-        scrollContent.addSubview(changePassword)
+        scrollContent.addSubview(extendedSettings)
                 
         scrollContent.addSubview(logOutButton)
         
@@ -380,13 +382,13 @@ class ProfileView: UIView {
             make.top.equalTo(email.snp.bottom)
             make.leading.trailing.equalToSuperview().inset(20)
         }
-        changePassword.snp.makeConstraints { make in
+        extendedSettings.snp.makeConstraints { make in
             make.top.equalTo(phone.snp.bottom)
             make.leading.trailing.equalToSuperview().inset(20)
         }
         
         companyStackView.snp.makeConstraints { make in
-            make.top.equalTo(changePassword.snp.bottom).offset(30)
+            make.top.equalTo(extendedSettings.snp.bottom).offset(30)
             make.leading.trailing.equalToSuperview().inset(20)
         }
                 
