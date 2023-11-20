@@ -125,6 +125,20 @@ class ExtendedSettingsViewController: UIViewController {
 }
 
 extension ExtendedSettingsViewController:ExtendedSettingsViewProtocol{
+    func deleteSuccess() {
+        let controllers = Controllers()
+        controllers.goToLoginPage(view: self.view, direction: .fade)
+    }
+    
+    func deleteError() {
+        AlertKitAPI.present(
+            title: "Ошибка при удалении аккаунта",
+            icon: .error,
+            style: .iOS17AppleMusic,
+            haptic: .error
+        )
+    }
+    
     func logoutAllSuccessful() {
         let controllers = Controllers()
         controllers.goToLoginPage(view: self.view, direction: .fade)

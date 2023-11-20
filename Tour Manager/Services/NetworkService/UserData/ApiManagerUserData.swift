@@ -56,6 +56,8 @@ protocol ApiManagerUserDataProtocol{
     // userInfo
     func updateUserInfo(updateField: UserDataFields, value:String) async throws -> Bool
     
+    func deleteCurrentUser() async throws -> Bool
+    
     
 }
 
@@ -237,16 +239,20 @@ public class ApiManagerUserData: ApiManagerUserDataProtocol{
     }
     
     
-    public func deleteCurrentUser(token:String, completion: @escaping (Bool,customErrorUserData?)->Void  ){
+    public func deleteCurrentUser() async throws -> Bool{
         
-        self.generalData.requestWithCheckRefresh { newToken in
-            let requestToken = newToken == nil ? token : newToken!
-            
-            
-            let url = URL(string: self.routeDeleteCurrentUser)
-            let jsonData = [
-                "token": requestToken,
-            ]
+        let refresh = try await ApiManagerAuth.refreshToken()
+        
+        if !refresh{
+            throw customErrorUserData.unknowmError
+        }
+        
+        let url = URL(string: self.routeDeleteCurrentUser)
+        let jsonData = [
+            "token": keychainService.getAcessToken() ?? "",
+        ]
+        
+        let result:Bool = try await withCheckedThrowingContinuation { continuation in
             
             AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
                 
@@ -255,19 +261,20 @@ public class ApiManagerUserData: ApiManagerUserDataProtocol{
                     if response.response?.statusCode == 400{
                         
                         let error = self.checkError(data: response.data ?? Data())
-                        completion(false, error)
+                        continuation.resume(throwing: error)
                         
                     } else if response.response?.statusCode == 200{
-                        completion(true,nil)
+                        continuation.resume(returning: true)
                     }else{
-                        completion(false, .unknowmError)
+                        continuation.resume(throwing: customErrorUserData.unknowmError)
                     }
                 case .failure(_):
-                    completion(false, .notConnected)
+                    continuation.resume(throwing: customErrorUserData.unknowmError)
                 }
             }
         }
         
+        return result
     }
     
     public func uploadProfilePhoto(image:UIImage) async throws ->Bool{

@@ -232,7 +232,6 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
         return result
     }
     
-    
     // MARK: - signUp
     func signUp(email:String,password:String) async throws -> Bool{
         
@@ -429,7 +428,6 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
     
     private func checkError(data:Data)->customErrorAuth{
         if let error = try? JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: data){
-//            print(error.message)
             switch error.message{
             case "Email exists":
                 return .emailExist

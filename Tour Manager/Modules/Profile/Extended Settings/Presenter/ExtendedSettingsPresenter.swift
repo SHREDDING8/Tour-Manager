@@ -13,6 +13,9 @@ protocol ExtendedSettingsViewProtocol:AnyObject{
     func logoutAllSuccessful()
     func logoutAllError()
     
+    func deleteSuccess()
+    func deleteError()
+    
 }
 
 protocol ExtendedSettingsPresenterProtocol:AnyObject{
@@ -33,11 +36,15 @@ class ExtendedSettingsPresenter:ExtendedSettingsPresenterProtocol{
     weak var view:ExtendedSettingsViewProtocol?
     
     let keychainService:KeychainServiceProtocol = KeychainService()
+    
     let usersRealmService:UsersRealmServiceProtocol = UsersRealmService()
+    let devicesRealmService:DevicesRealmServiceProtocol = DevicesRealmService()
     
     let authNetworkService:ApiManagerAuthProtocol = ApiManagerAuth()
+    let usersNetworkService:ApiManagerUserDataProtocol = ApiManagerUserData()
+    let companyNetworkService:ApiManagerCompanyProtocol = ApiManagerCompany()
     
-    let devicesRealmService:DevicesRealmServiceProtocol = DevicesRealmService()
+    
     
     required init(view:ExtendedSettingsViewProtocol) {
         self.view = view
@@ -61,11 +68,37 @@ class ExtendedSettingsPresenter:ExtendedSettingsPresenterProtocol{
     }
     
     func deleteAccount(){
-        
+        Task{
+            do{
+                if try await self.usersNetworkService.deleteCurrentUser(){
+                    DispatchQueue.main.async {
+                        self.view?.deleteSuccess()
+                    }
+                }
+            }catch{
+                DispatchQueue.main.async {
+                    self.view?.deleteError()
+                }
+            }
+            
+        }
     }
     
     func deleteCompany(){
-        
+        Task{
+            do{
+                if try await self.companyNetworkService.DeleteCompany(){
+                    DispatchQueue.main.async {
+                        self.view?.deleteSuccess()
+                    }
+                }
+            }catch{
+                DispatchQueue.main.async {
+                    self.view?.deleteError()
+                }
+            }
+            
+        }
     }
     
     func loadLoggedDevices(){
