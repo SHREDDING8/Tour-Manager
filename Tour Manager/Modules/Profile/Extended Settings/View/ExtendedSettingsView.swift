@@ -163,25 +163,23 @@ class ExtendedSettingsView: UIView {
         stack.axis = .horizontal
         stack.distribution = .equalCentering
         stack.spacing = 10
+        
+        var tintColor:UIColor = .systemBlue
                         
         let image:UIImage? = {
             switch device.type {
-            case .iphone:
-                return UIImage(systemName: "iphone")
-            case .ipad:
-                return UIImage(systemName: "ipad.landscape")
-            case .mac:
-                return UIImage(systemName: "macbook")
+            case .apple:
+                tintColor = .systemGray
+                return UIImage(systemName: "applelogo")
             case .telegram:
                 return UIImage(systemName: "paperplane.circle.fill")
-            case .unknowm:
-                return UIImage(systemName: "smartphone")
             }
         }()
         
         var conf = UIButton.Configuration.plain()
         conf.buttonSize = .large
         conf.image = image
+        conf.baseForegroundColor = tintColor
         let button = UIButton(configuration: conf)
                 
         button.snp.makeConstraints { make in

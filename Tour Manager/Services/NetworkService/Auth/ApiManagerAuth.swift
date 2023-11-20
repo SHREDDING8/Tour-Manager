@@ -36,6 +36,10 @@ protocol ApiManagerAuthProtocol{
     
     func sendVerifyEmail(email:String, password:String) async -> Bool
     
+    func getLoggedDevices() async throws -> ResponseGetAllDevices
+    
+    func logoutAllDevices() async throws -> Bool
+    
     static func refreshToken() async throws -> Bool
 }
 
@@ -44,8 +48,7 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
     
     let generalData = GeneralData()
     
-    let kechainService = KeychainService()
-    
+    let keychainService = KeychainService()
     
     private let domain:String
     private let prefix:String
@@ -60,6 +63,9 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
     private let routeSendVerifyEmail:String
     private let routeUpdatePassword:String
     
+    private let routeGetLoggedDevices:String
+    private let routeLogoutAllDevices:String
+    
     init(){
         self.domain = generalData.domain
         self.prefix = domain + "auth/"
@@ -73,6 +79,9 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
         self.routeResetPassword = prefix + "reset_password"
         self.routeSendVerifyEmail = prefix + "send_verify_email"
         self.routeUpdatePassword = prefix + "update_user_password"
+        
+        self.routeGetLoggedDevices = prefix + "get_logged_in_devices"
+        self.routeLogoutAllDevices = prefix + "logout_all_devices"
     }
     
     
@@ -120,8 +129,8 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
     }
     
     static func refreshToken() async throws -> Bool{
-        let keychainService = KeychainService()
         let generalData = GeneralData()
+        let keychainService = KeychainService()
         
         if keychainService.isAcessTokenAvailable(){
             return true
@@ -195,7 +204,7 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
         let url = URL(string: self.routeLogOut)
         
         let jsonData = await sendLogOut(
-            token: kechainService.getAcessToken() ?? "",
+            token: keychainService.getAcessToken() ?? "",
             apns_vendor_id: UIDevice.current.identifierForVendor?.uuidString ?? ""
         )
         
@@ -346,6 +355,75 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
                 completion(nil,.notConnected)
             }
         }
+    }
+    
+    func getLoggedDevices() async throws -> ResponseGetAllDevices{
+        let refresh = try await ApiManagerAuth.refreshToken()
+        
+        if !refresh{
+            throw customErrorUserData.unknowmError
+        }
+        
+        let url = URL(string: self.routeGetLoggedDevices)!
+        
+        
+        let jsonData = [
+            "token": keychainService.getAcessToken() ?? ""
+        ]
+        
+        let result:ResponseGetAllDevices = try await withCheckedThrowingContinuation { continuation in
+            
+            AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
+                
+                switch response.result {
+                case .success(let success):
+                    
+                    if let loggedDevices = try? JSONDecoder().decode(ResponseGetAllDevices.self, from: success ?? Data()){
+                        continuation.resume(returning: loggedDevices)
+                    }else{
+                        continuation.resume(throwing: self.checkError(data: success ?? Data() ))
+                    }
+                    
+                case .failure(_):
+                    continuation.resume(throwing: customErrorAuth.unknowmError)
+                }
+            }
+            
+        }
+        
+        return result
+    }
+    
+    func logoutAllDevices() async throws -> Bool{
+        let refresh = try await ApiManagerAuth.refreshToken()
+        
+        if !refresh{
+            throw customErrorUserData.unknowmError
+        }
+        
+        let url = URL(string: self.routeLogoutAllDevices)!
+        
+        
+        let jsonData = [
+            "token": keychainService.getAcessToken() ?? ""
+        ]
+        
+        let result:Bool = try await withCheckedThrowingContinuation { continuation in
+            AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
+                switch response.result {
+                case .success(let success):
+                    if response.response?.statusCode == 200{
+                        continuation.resume(returning: true)
+                    }else{
+                        continuation.resume(throwing: self.checkError(data: success ?? Data()))
+                    }
+                case .failure(_):
+                    continuation.resume(throwing: customErrorAuth.unknowmError)
+                }
+            }
+        }
+        
+        return result
     }
     
     

@@ -25,20 +25,12 @@ class ExtendedSettingsViewController: UIViewController {
         super.viewDidLoad()
         
         addTargets()
-
-        self.view().configureDevices(devices: [
-            DevicesModel(type: .iphone, name: "14 pro max 123 asd dsgsdf  asdf  ad f a ddsf sdfsdf s"),
-            DevicesModel(type: .ipad, name: "Ipad 9 generatino 324 sfasdf asdf adf sdfsd sdf"),
-            DevicesModel(type: .mac, name: "macbook PRO 1078293081 0187238018023  sdfsdfsdfsdf "),
-            DevicesModel(type: .telegram, name: "XR"),
-            DevicesModel(type: .unknowm, name: "123 ljhjkfdslj alksjdhfkjas hjdhjfkalsf sdfsdfsdfsdfsdf"),
-            
-            DevicesModel(type: .iphone, name: "14 pro max"),
-            DevicesModel(type: .ipad, name: "Ipad 9 generatino"),
-            DevicesModel(type: .mac, name: "macbook PRO"),
-            DevicesModel(type: .telegram, name: "XR"),
-            DevicesModel(type: .unknowm, name: "123")
-        ])
+        self.presenter.loadLoggedDevices()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.presenter.loadLoggedDevices()
     }
     
     func addTargets(){
@@ -46,6 +38,13 @@ class ExtendedSettingsViewController: UIViewController {
         
         let changePasswordGesture = UITapGestureRecognizer(target: self, action: #selector(goToChangePassword))
         self.view().changePasswordStackView.addGestureRecognizer(changePasswordGesture)
+        
+        self.view().logoutAll.addTarget(self, action: #selector(logoutAll), for: .touchUpInside)
+        
+        let refresh = UIRefreshControl(frame: .zero, primaryAction: UIAction(handler: { _ in
+            self.presenter.getLoggedDevicesFromServer()
+        }))
+        self.view().scrollView.refreshControl = refresh
     }
     
     // MARK: - Actions
@@ -101,6 +100,19 @@ class ExtendedSettingsViewController: UIViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    @objc func logoutAll(){
+        let alert = UIAlertController(title: "Выйти со всех устройств", message: "Вы также выйдите с текущего устройства", preferredStyle: .alert)
+        let exit = UIAlertAction(title: "Выйти", style: .destructive) { _ in
+            self.presenter.revokeAllDevices()
+        }
+        let cancel = UIAlertAction(title: "Отменить", style: .cancel)
+        
+        alert.addAction(exit)
+        alert.addAction(cancel)
+        self.present(alert, animated: true)
+        
+    }
+    
     private func showDataError(){
         AlertKitAPI.present(
             title: "Не правильно введены данные",
@@ -113,5 +125,24 @@ class ExtendedSettingsViewController: UIViewController {
 }
 
 extension ExtendedSettingsViewController:ExtendedSettingsViewProtocol{
+    func logoutAllSuccessful() {
+        let controllers = Controllers()
+        controllers.goToLoginPage(view: self.view, direction: .fade)
+    }
+    
+    func logoutAllError() {
+        AlertKitAPI.present(
+            title: "Ошибка выхода со всех устройств",
+            icon: .error,
+            style: .iOS17AppleMusic,
+            haptic: .error
+        )
+    }
+    
+    func updateLoggedDevices(devices: [DevicesModel]) {
+        self.view().configureDevices(devices: devices)
+        self.view().scrollView.refreshControl?.endRefreshing()
+    }
+    
     
 }

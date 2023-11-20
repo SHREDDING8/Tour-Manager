@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import SnapKit
 
-class HeaderView: UIView {
+class OneEmployeView: UIView {
     lazy var headerImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "no profile photo")
@@ -99,10 +99,7 @@ class HeaderView: UIView {
 #if DEBUG
 import SwiftUI
 
-struct HeaderView_Preview: PreviewProvider {
-    static var previews: some View {
-        // view controller using programmatic UI
-        HeaderView().showPreview()
-    }
-}
+#Preview(body: {
+    OneEmployeView().showPreview()
+})
 #endif

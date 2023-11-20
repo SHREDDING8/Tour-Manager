@@ -28,3 +28,13 @@ struct ResponseIsUserExistsJsonStruct: Codable {
 public struct ResponseRefreshToken: Codable {
     let token:String
 }
+
+
+struct ResponseGetAllDevices: Codable {
+    let appleDevices, telegramDevices: [String]
+
+    enum CodingKeys: String, CodingKey {
+        case appleDevices = "apple_devices"
+        case telegramDevices = "telegram_devices"
+    }
+}

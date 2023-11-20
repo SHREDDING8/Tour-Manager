@@ -51,6 +51,53 @@
 			<key>type</key>
 			<string>bookmark</string>
 		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>0</string>
+					<key>EndingLineNumber</key>
+					<string>10</string>
+					<key>StartingColumnNumber</key>
+					<string>56</string>
+					<key>StartingLineNumber</key>
+					<string>9</string>
+					<key>Timestamp</key>
+					<string>722180804.238904</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>Tour Manager/Tour Manager/Modules/MainTabBar/MainTabBarPresenter.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>оторая отвечает за refreshError
+</string>
+				<key>leading</key>
+				<string>import Foundation
+
+// Cделать главный view controller где сделать фукнцию к</string>
+				<key>trailing</key>
+				<string>
+protocol MainTabBarViewProtocol:AnyObject{
+    func unknownError()
+</string>
+			</dict>
+			<key>title</key>
+			<string>TODO</string>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
 	</array>
 </dict>
 </plist>

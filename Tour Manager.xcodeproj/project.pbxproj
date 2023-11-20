@@ -28,6 +28,8 @@
 		EE330A842AE5D2F100109E4E /* AddGuidePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE330A832AE5D2F100109E4E /* AddGuidePresenter.swift */; };
 		EE38C65F2B0A4B9D00DAEC4F /* DevicesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE38C65E2B0A4B9D00DAEC4F /* DevicesModel.swift */; };
 		EE38C6622B0A59FF00DAEC4F /* ExtendedSettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE38C6612B0A59FF00DAEC4F /* ExtendedSettingsPresenter.swift */; };
+		EE38C6742B0B8FC600DAEC4F /* DeviceRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE38C6732B0B8FC600DAEC4F /* DeviceRealmModel.swift */; };
+		EE38C6762B0B907100DAEC4F /* DevicesRealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE38C6752B0B907100DAEC4F /* DevicesRealmService.swift */; };
 		EE4506C72AFFBDD800603E57 /* ProfileViewElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4506C62AFFBDD800603E57 /* ProfileViewElement.swift */; };
 		EE4506C92B010BF400603E57 /* ProfileAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4506C82B010BF300603E57 /* ProfileAssembly.swift */; };
 		EE4619132A6C229C00EBE695 /* Notification.wav in Resources */ = {isa = PBXBuildFile; fileRef = EE4619122A6C229C00EBE695 /* Notification.wav */; };
@@ -157,6 +159,8 @@
 		EE330A832AE5D2F100109E4E /* AddGuidePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGuidePresenter.swift; sourceTree = "<group>"; };
 		EE38C65E2B0A4B9D00DAEC4F /* DevicesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesModel.swift; sourceTree = "<group>"; };
 		EE38C6612B0A59FF00DAEC4F /* ExtendedSettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedSettingsPresenter.swift; sourceTree = "<group>"; };
+		EE38C6732B0B8FC600DAEC4F /* DeviceRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRealmModel.swift; sourceTree = "<group>"; };
+		EE38C6752B0B907100DAEC4F /* DevicesRealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesRealmService.swift; sourceTree = "<group>"; };
 		EE4506C62AFFBDD800603E57 /* ProfileViewElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewElement.swift; sourceTree = "<group>"; };
 		EE4506C82B010BF300603E57 /* ProfileAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAssembly.swift; sourceTree = "<group>"; };
 		EE4619122A6C229C00EBE695 /* Notification.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Notification.wav; sourceTree = "<group>"; };
@@ -398,6 +402,23 @@
 				EE38C6612B0A59FF00DAEC4F /* ExtendedSettingsPresenter.swift */,
 			);
 			path = Presenter;
+			sourceTree = "<group>";
+		};
+		EE38C6632B0A62B900DAEC4F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EEF776422ADAA3B600532440 /* OneEmployeView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EE38C6722B0B8FB100DAEC4F /* Devices */ = {
+			isa = PBXGroup;
+			children = (
+				EE38C6732B0B8FC600DAEC4F /* DeviceRealmModel.swift */,
+				EE38C6752B0B907100DAEC4F /* DevicesRealmService.swift */,
+			);
+			path = Devices;
 			sourceTree = "<group>";
 		};
 		EE4C893C2A2E3D3C004D3CB9 /* Excursions */ = {
@@ -847,6 +868,7 @@
 			children = (
 				EE6FCB3B2B08EAC100A49604 /* Extended Settings */,
 				EE926DAD2AFE7EAD005F2851 /* Profile Page */,
+				EEF776412ADAA3A500532440 /* One Employee */,
 				EED645192A98CE3900F2ADC9 /* Model */,
 				EED645182A98CE3600F2ADC9 /* View */,
 				EED645172A98CE2C00F2ADC9 /* Presenter */,
@@ -869,7 +891,6 @@
 		EED645182A98CE3600F2ADC9 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				EEF776412ADAA3A500532440 /* One Employee */,
 				EE2C9A4F29FD858500B7D74F /* ProfilePageViewController.swift */,
 				EE1770ED2A239A7E00B18055 /* ChangePasswordViewController.swift */,
 				EE9788682A28D4FA0086C034 /* EmploeeTableViewController.swift */,
@@ -918,6 +939,7 @@
 		EED645342A99524900F2ADC9 /* Realm */ = {
 			isa = PBXGroup;
 			children = (
+				EE38C6722B0B8FB100DAEC4F /* Devices */,
 				EE330A7A2AE44C2A00109E4E /* Autofill */,
 				EEF2F63D2ADD5B310070D083 /* Tours */,
 				EEF2F63C2ADD5B1E0070D083 /* Users */,
@@ -967,7 +989,7 @@
 		EEF776412ADAA3A500532440 /* One Employee */ = {
 			isa = PBXGroup;
 			children = (
-				EEF776422ADAA3B600532440 /* OneEmployeView.swift */,
+				EE38C6632B0A62B900DAEC4F /* View */,
 			);
 			path = "One Employee";
 			sourceTree = "<group>";
@@ -1116,6 +1138,7 @@
 				EEA4C08029FDDC650083154E /* ApiManagerAuth.swift in Sources */,
 				EE4DA1562AF4390900F3D2E9 /* UserDefaultsService.swift in Sources */,
 				EEF0BE8C2AD72C91002CEE4D /* LoginModel.swift in Sources */,
+				EE38C6742B0B8FC600DAEC4F /* DeviceRealmModel.swift in Sources */,
 				EE783F492AD5664800DA820F /* AddingNewComponentPresenter.swift in Sources */,
 				EEF27A592A05C7BC006E5E53 /* VerifyEmailViewController.swift in Sources */,
 				EE5F91D72A20A1E700B39BB1 /* mainTabBarViewController.swift in Sources */,
@@ -1182,6 +1205,7 @@
 				EEF18C932A4235A500A91D2F /* DatepickerFromBottom.swift in Sources */,
 				EE9788692A28D4FA0086C034 /* EmploeeTableViewController.swift in Sources */,
 				EEC9BA182A2670A100BC026A /* Bool.swift in Sources */,
+				EE38C6762B0B907100DAEC4F /* DevicesRealmService.swift in Sources */,
 				EE5F91C62A1FD16200B39BB1 /* responseStructs.swift in Sources */,
 				EEB73FA12A364BA9004D7A25 /* ResponseExcursions.swift in Sources */,
 				EEE8026A2A2E4E1A00162622 /* ExcursionManagementViewController.swift in Sources */,

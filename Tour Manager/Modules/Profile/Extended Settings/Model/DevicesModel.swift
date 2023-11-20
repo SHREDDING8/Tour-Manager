@@ -9,11 +9,8 @@ import Foundation
 
 struct DevicesModel{
     enum DeviceType{
-        case iphone
-        case ipad
-        case mac
+        case apple
         case telegram
-        case unknowm
     }
     
     var type:DeviceType
