@@ -9,6 +9,19 @@ import Foundation
 import UIKit
 
 struct UsersModel{
+    
+    enum AccessLevel{
+        case readCompanyEmployee
+        case readLocalIdCompany
+        case readGeneralCompanyInformation
+        case writeGeneralCompanyInformation
+        case canChangeAccessLevel
+        case isOwner
+        case canReadTourList
+        case canWriteTourList
+        case isGuide
+    }
+    
     struct UserAccessLevels{
         var readCompanyEmployee:Bool
         var readLocalIdCompany:Bool

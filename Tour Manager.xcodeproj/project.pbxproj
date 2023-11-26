@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		EE0528CA2A30DA3C006C8C98 /* NewExcursionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0528C92A30DA3C006C8C98 /* NewExcursionTableViewController.swift */; };
+		EE14D3742B12541000A188F8 /* AccessLevelElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE14D3732B12541000A188F8 /* AccessLevelElement.swift */; };
 		EE1770EE2A239A7E00B18055 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1770ED2A239A7E00B18055 /* ChangePasswordViewController.swift */; };
 		EE1770F02A23BD9500B18055 /* StringValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1770EF2A23BD9500B18055 /* StringValidation.swift */; };
 		EE1770F32A23EE5A00B18055 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1770F22A23EE5A00B18055 /* LaunchScreenViewController.swift */; };
@@ -30,6 +31,7 @@
 		EE38C6622B0A59FF00DAEC4F /* ExtendedSettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE38C6612B0A59FF00DAEC4F /* ExtendedSettingsPresenter.swift */; };
 		EE38C6742B0B8FC600DAEC4F /* DeviceRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE38C6732B0B8FC600DAEC4F /* DeviceRealmModel.swift */; };
 		EE38C6762B0B907100DAEC4F /* DevicesRealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE38C6752B0B907100DAEC4F /* DevicesRealmService.swift */; };
+		EE38C67B2B0BAEFE00DAEC4F /* OneEmployeeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE38C67A2B0BAEFE00DAEC4F /* OneEmployeeTableViewCell.swift */; };
 		EE4506C72AFFBDD800603E57 /* ProfileViewElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4506C62AFFBDD800603E57 /* ProfileViewElement.swift */; };
 		EE4506C92B010BF400603E57 /* ProfileAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4506C82B010BF300603E57 /* ProfileAssembly.swift */; };
 		EE4619132A6C229C00EBE695 /* Notification.wav in Resources */ = {isa = PBXBuildFile; fileRef = EE4619122A6C229C00EBE695 /* Notification.wav */; };
@@ -138,6 +140,7 @@
 		4C239F2D7A9DD96051CDD690 /* Pods-Tour Manager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tour Manager.release.xcconfig"; path = "Target Support Files/Pods-Tour Manager/Pods-Tour Manager.release.xcconfig"; sourceTree = "<group>"; };
 		68E77E428BEC283B907E8208 /* Pods-Tour Manager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tour Manager.debug.xcconfig"; path = "Target Support Files/Pods-Tour Manager/Pods-Tour Manager.debug.xcconfig"; sourceTree = "<group>"; };
 		EE0528C92A30DA3C006C8C98 /* NewExcursionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewExcursionTableViewController.swift; sourceTree = "<group>"; };
+		EE14D3732B12541000A188F8 /* AccessLevelElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessLevelElement.swift; sourceTree = "<group>"; };
 		EE1770ED2A239A7E00B18055 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		EE1770EF2A23BD9500B18055 /* StringValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringValidation.swift; sourceTree = "<group>"; };
 		EE1770F22A23EE5A00B18055 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
@@ -161,6 +164,7 @@
 		EE38C6612B0A59FF00DAEC4F /* ExtendedSettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedSettingsPresenter.swift; sourceTree = "<group>"; };
 		EE38C6732B0B8FC600DAEC4F /* DeviceRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRealmModel.swift; sourceTree = "<group>"; };
 		EE38C6752B0B907100DAEC4F /* DevicesRealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesRealmService.swift; sourceTree = "<group>"; };
+		EE38C67A2B0BAEFE00DAEC4F /* OneEmployeeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneEmployeeTableViewCell.swift; sourceTree = "<group>"; };
 		EE4506C62AFFBDD800603E57 /* ProfileViewElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewElement.swift; sourceTree = "<group>"; };
 		EE4506C82B010BF300603E57 /* ProfileAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAssembly.swift; sourceTree = "<group>"; };
 		EE4619122A6C229C00EBE695 /* Notification.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Notification.wav; sourceTree = "<group>"; };
@@ -296,6 +300,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		EE14D3722B0E9F3D00A188F8 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				EE97886A2A28EA710086C034 /* EmploeeViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		EE1805EA2AD5A5990083952D /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -408,6 +420,7 @@
 			isa = PBXGroup;
 			children = (
 				EEF776422ADAA3B600532440 /* OneEmployeView.swift */,
+				EE14D3732B12541000A188F8 /* AccessLevelElement.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -419,6 +432,31 @@
 				EE38C6752B0B907100DAEC4F /* DevicesRealmService.swift */,
 			);
 			path = Devices;
+			sourceTree = "<group>";
+		};
+		EE38C6772B0BAAE600DAEC4F /* ListEmployee */ = {
+			isa = PBXGroup;
+			children = (
+				EE38C6792B0BAE9600DAEC4F /* ViewController */,
+				EE38C6782B0BAE9100DAEC4F /* View */,
+			);
+			path = ListEmployee;
+			sourceTree = "<group>";
+		};
+		EE38C6782B0BAE9100DAEC4F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EE38C67A2B0BAEFE00DAEC4F /* OneEmployeeTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EE38C6792B0BAE9600DAEC4F /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				EE9788682A28D4FA0086C034 /* EmploeeTableViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		EE4C893C2A2E3D3C004D3CB9 /* Excursions */ = {
@@ -866,6 +904,7 @@
 		EED645162A98CE1000F2ADC9 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				EE38C6772B0BAAE600DAEC4F /* ListEmployee */,
 				EE6FCB3B2B08EAC100A49604 /* Extended Settings */,
 				EE926DAD2AFE7EAD005F2851 /* Profile Page */,
 				EEF776412ADAA3A500532440 /* One Employee */,
@@ -893,8 +932,6 @@
 			children = (
 				EE2C9A4F29FD858500B7D74F /* ProfilePageViewController.swift */,
 				EE1770ED2A239A7E00B18055 /* ChangePasswordViewController.swift */,
-				EE9788682A28D4FA0086C034 /* EmploeeTableViewController.swift */,
-				EE97886A2A28EA710086C034 /* EmploeeViewController.swift */,
 				EE63A6C52A59E968007B8FC1 /* AdvancedSettingsViewController.swift */,
 			);
 			path = View;
@@ -989,6 +1026,7 @@
 		EEF776412ADAA3A500532440 /* One Employee */ = {
 			isa = PBXGroup;
 			children = (
+				EE14D3722B0E9F3D00A188F8 /* ViewController */,
 				EE38C6632B0A62B900DAEC4F /* View */,
 			);
 			path = "One Employee";
@@ -1187,6 +1225,7 @@
 				EED4DA7E2ADDA12A00C76FE3 /* EventRealmModel.swift in Sources */,
 				EED8F6932AF071F6003D118A /* EventRealmModelForGuide.swift in Sources */,
 				EE38C65F2B0A4B9D00DAEC4F /* DevicesModel.swift in Sources */,
+				EE38C67B2B0BAEFE00DAEC4F /* OneEmployeeTableViewCell.swift in Sources */,
 				EE783F432AD4834C00DA820F /* ExcursionManadmentPresenter.swift in Sources */,
 				EEF7763B2AD802C900532440 /* UsersModel.swift in Sources */,
 				EEB73F9C2A364B82004D7A25 /* ApiManagerExcursions.swift in Sources */,
@@ -1210,6 +1249,7 @@
 				EEB73FA12A364BA9004D7A25 /* ResponseExcursions.swift in Sources */,
 				EEE8026A2A2E4E1A00162622 /* ExcursionManagementViewController.swift in Sources */,
 				EE4C893B2A2CF53D004D3CB9 /* UiButton.swift in Sources */,
+				EE14D3742B12541000A188F8 /* AccessLevelElement.swift in Sources */,
 				EE52E16F29E5C1C8000C0E5B /* AppDelegate.swift in Sources */,
 				EE52E17129E5C1C8000C0E5B /* SceneDelegate.swift in Sources */,
 				EED645212A98D33500F2ADC9 /* KeychainService.swift in Sources */,

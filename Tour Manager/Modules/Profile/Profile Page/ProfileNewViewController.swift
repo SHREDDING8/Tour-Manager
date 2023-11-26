@@ -125,8 +125,7 @@ class ProfileNewViewController: UIViewController{
     // MARK: - Actions
     
     @objc func employeeTapped(){
-        let controllers = Controllers()
-        let destination = controllers.getControllerMain(.emploeeTableViewController)
+        let destination = ProfileAssembly.createEmployeeListViewController()
         
         self.navigationController?.pushViewController(destination, animated: true)
     }

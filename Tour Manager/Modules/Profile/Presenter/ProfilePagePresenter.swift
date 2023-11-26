@@ -123,9 +123,7 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
     
     
     public func deleteCurrentUser(completion: @escaping (Bool, customErrorUserData?)->Void){
-        self.apiUserData.deleteCurrentUser(token: keychain.getAcessToken() ?? "") { isDeleted, error in
-            completion(isDeleted,error)
-        }
+
     }
     
     public func logOut(){
@@ -147,9 +145,6 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
     }
     
     public func DeleteCompany(completion: @escaping (Bool, customErrorCompany?) ->Void){
-        self.apiCompany.DeleteCompany(token: keychain.getAcessToken() ?? "", companyId: keychain.getCompanyLocalId() ?? "") { isDeleted, error in
-            completion(isDeleted,error)
-        }
     }
     
     

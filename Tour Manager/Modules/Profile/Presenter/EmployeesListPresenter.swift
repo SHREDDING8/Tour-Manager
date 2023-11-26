@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol EmployeesListViewProtocol:AnyObject{
     func updateUsersList()
@@ -20,6 +21,7 @@ protocol EmployeesListPresenterProtocol:AnyObject{
     
     func getUsersFromRealm()
     func getUsersFromServer()
+    
 }
 
 class EmployeesListPresenter:EmployeesListPresenterProtocol{
@@ -29,6 +31,8 @@ class EmployeesListPresenter:EmployeesListPresenterProtocol{
     
     let apiCompany:ApiManagerCompanyProtocol = ApiManagerCompany()
     let keychain = KeychainService()
+    
+    let usersNetworkService:ApiManagerUserDataProtocol = ApiManagerUserData()
     
     let usersRealmService = UsersRealmService()
     
@@ -41,6 +45,11 @@ class EmployeesListPresenter:EmployeesListPresenterProtocol{
         self.users = []
         
         for user in realmUsers{
+            var image:UIImage? = nil
+            if let imageData = user.image{
+                image = UIImage(data: imageData)
+            }
+            
             let newUserModel = UsersModel(
                 localId: user.localId,
                 firstName: user.firstName,
@@ -48,6 +57,7 @@ class EmployeesListPresenter:EmployeesListPresenterProtocol{
                 email: user.email ?? "",
                 phone: user.phone ?? "",
                 birthday: user.birthday ?? Date.now,
+                image: image,
                 accessLevels: UsersModel.UserAccessLevels(
                     readCompanyEmployee: user.accesslLevels?.readCompanyEmployee ?? false,
                     readLocalIdCompany: user.accesslLevels?.readLocalIdCompany ?? false,
@@ -92,7 +102,20 @@ class EmployeesListPresenter:EmployeesListPresenterProtocol{
                         usersRealmService.setUserInfo(user: realmUser)
                     }
                     
+                    
+                    // добавить фото как в petConnect
+                    do{
+                        let imageData = try await self.usersNetworkService.downloadProfilePhoto(localId: jsonUser.uid)
+                        
+                        DispatchQueue.main.sync {
+                            self.usersRealmService.updateImage(id: jsonUser.uid, image: imageData)
+                        }
+                        
+                    }catch{
+                        
+                    }
                 }
+                
                 DispatchQueue.main.async {
                     self.getUsersFromRealm()
                 }

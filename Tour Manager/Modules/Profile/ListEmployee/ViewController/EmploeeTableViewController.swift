@@ -19,14 +19,15 @@ class EmploeeTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.presenter = EmployeesListPresenter(view: self)
+        self.tableView.register(OneEmployeeTableViewCell.self, forCellReuseIdentifier: "employee")
+        
         presenter.getUsersFromRealm()
         
         DispatchQueue.main.async {
             self.presenter.getUsersFromServer()
         }
         
-        self.navigationItem.title = "Работники"
+        self.navigationItem.title = "Сотрудники"
         
         let refresh = UIAction { _ in
             DispatchQueue.main.async {
@@ -51,10 +52,13 @@ class EmploeeTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "emploeeCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "employee", for: indexPath) as! OneEmployeeTableViewCell
+        let employee = presenter.users[indexPath.row]
+        cell.name.text = employee.fullName
         
-        let label = cell.viewWithTag(2) as! UILabel
-        label.text = presenter.users[indexPath.row].fullName
+        if let image = employee.image{
+            cell.image.image = image
+        }
         
         return cell
     }
@@ -64,6 +68,10 @@ class EmploeeTableViewController: UITableViewController {
         let destination = EmployeeAseembly.EmployeeDetailController(user: presenter.users[indexPath.row])
         self.navigationController?.pushViewController(destination, animated: true)
         
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        60
     }
 
 }

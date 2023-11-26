@@ -25,6 +25,8 @@ enum AccessLevelKeys:String{
 protocol UsersRealmServiceProtocol{
     
     func setUserInfo(user:UserRealm)
+    func isUserExist(localId:String) -> Bool
+    
     func getUserInfo(localId:String) -> UserRealm?
     func getAllUsers() -> Results<UserRealm>
     func getUserAccessLevel(localId:String, _ key:AccessLevelKeys) -> Bool
@@ -39,15 +41,30 @@ protocol UsersRealmServiceProtocol{
 class UsersRealmService:UsersRealmServiceProtocol{
     
     let realm = try! Realm()
-    
-    func setUserInfo(user: UserRealm) {
-        try! realm.write({
-            realm.add(user, update: .modified)
-        })
+        
+    func setUserInfo(user: UserRealm){
+        if let realmUser = realm.object(ofType: UserRealm.self, forPrimaryKey: user.localId){
+            try! realm.write({
+                realmUser.firstName = user.firstName
+                realmUser.secondName = user.secondName
+                realmUser.email = user.email
+                realmUser.birthday = user.birthday
+                realmUser.phone = user.phone
+                realmUser.accesslLevels = user.accesslLevels
+            })
+        }else{
+            try! realm.write({
+                realm.add(user, update: .modified)
+            })
+        }
     }
     
     func getUserInfo(localId:String) -> UserRealm?{
         realm.object(ofType: UserRealm.self, forPrimaryKey: localId)
+    }
+    
+    func isUserExist(localId:String)->Bool{
+        realm.object(ofType: UserRealm.self, forPrimaryKey: localId) != nil
     }
     
     func getAllUsers() -> Results<UserRealm>{

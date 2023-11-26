@@ -53,8 +53,11 @@ public enum customErrorCompany:Error{
 protocol ApiManagerCompanyProtocol{
     func getCurrentAccessLevel() async throws -> ResponseAccessLevel
     func getCompanyUsers() async throws -> [GetCompanyUsersElement]
+    func updateCompanyInfo(companyName:String) async throws -> Bool
     
     func DeleteCompany() async throws ->Bool
+    
+    func updateUserAccessLevel(_ jsonData:SendUpdateUserAccessLevel) async throws -> Bool
 }
 
 public class ApiManagerCompany:ApiManagerCompanyProtocol{
@@ -250,40 +253,7 @@ public class ApiManagerCompany:ApiManagerCompanyProtocol{
         
         return result
     }
-    
-    public func getCurrentAccessLevel(token:String, companyId:String,completion: @escaping (ResponseAccessLevel?,customErrorCompany?)->Void ){
         
-        generalData.requestWithCheckRefresh { newToken in
-            let requestToken = newToken == nil ? token : newToken!
-            
-            let url = URL(string: self.routeGetCurrentAccesslevel)
-            
-            let jsonData = SendAddEmployeeToCompanyJsonStruct(token: requestToken, company_id: companyId)
-            
-            AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
-                
-                switch response.result {
-                case .success(_):
-                    if response.response?.statusCode == 400{
-                        
-                        let error = self.checkError(data: response.data ?? Data())
-                        completion(nil, error)
-                        
-                    } else if response.response?.statusCode == 200{
-                        let accessLevels = try? JSONDecoder().decode(ResponseAccessLevel.self, from: response.data!)
-                        completion(accessLevels, nil)
-                    }else{
-                        completion(nil, .unknowmError)
-                    }
-                case .failure(_):
-                    completion(nil, .notConnected)
-                }
-            }
-        }
-        
-        
-    }
-    
     public func DeleteCompany() async throws ->Bool{
         
         let refreshToken = try! await ApiManagerAuth.refreshToken()
@@ -368,34 +338,39 @@ public class ApiManagerCompany:ApiManagerCompanyProtocol{
         
     }
     
-    public func updateUserAccessLevel(_ jsonData:SendUpdateUserAccessLevel, completion: @escaping (Bool, customErrorCompany?)->Void ){
+    public func updateUserAccessLevel(_ jsonData:SendUpdateUserAccessLevel) async throws -> Bool{
         
+        let refreshToken = try! await ApiManagerAuth.refreshToken()
+        if !refreshToken{
+            throw customErrorCompany.unknowmError
+        }
         
-        generalData.requestWithCheckRefresh { newToken in
-            var jsonDataRequest =  jsonData
-            jsonDataRequest.token = (newToken == nil ? jsonDataRequest.token : newToken)!
-            
-            let url = URL(string: self.routeUpdateUserAccessLevel)!
-            
+        let url = URL(string: self.routeUpdateUserAccessLevel)!
+        
+        var jsonDataRequest =  jsonData
+        jsonDataRequest.token = keychainService.getAcessToken() ?? ""
+        
+        let result:Bool = try await withCheckedThrowingContinuation { continuation in
             AF.request(url, method: .post, parameters: jsonDataRequest, encoder: .json).response { response in
                 switch response.result {
                 case .success(_):
                     if response.response?.statusCode == 400{
                         let error = self.checkError(data: response.data ?? Data())
-                        completion(false,error)
+                        continuation.resume(throwing: error)
                         
                     }else if response.response?.statusCode == 200{
-                        
+                        continuation.resume(returning: true)
                     } else{
-                        completion(false, .unknowmError)
+                        continuation.resume(throwing: customErrorCompany.unknowmError)
                     }
                 case .failure(_):
-                    completion(false, .notConnected)
+                    continuation.resume(throwing: customErrorCompany.unknowmError)
                 }
-                
-                
             }
+            
         }
+        
+        return result
         
     }
     
