@@ -55,9 +55,9 @@ class OneGuideExcursionPresenter:OneGuideExcursionPresenterProtocol{
         
     public func downloadProfilePhoto(localId:String, completion: @escaping (Data?,customErrorUserData?)->Void){
         
-        self.apiUserData.downloadProfilePhoto(token: keychain.getAcessToken() ?? "", localId: localId) { isDownloaded, data, error in
-            
-            completion(data,error)
-        }
+//        self.apiUserData.downloadProfilePhoto(token: keychain.getAcessToken() ?? "", localId: localId) { isDownloaded, data, error in
+//            
+//            completion(data,error)
+//        }
     }
 }

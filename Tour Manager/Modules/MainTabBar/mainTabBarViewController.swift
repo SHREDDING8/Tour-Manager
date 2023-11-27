@@ -64,7 +64,7 @@ extension mainTabBarViewController:MainTabBarViewProtocol{
         
         let excursionManagementNavViewController = controllers.getControllerMain(.excursionManagementNavigationViewController)
         
-        excursionManagementNavViewController.tabBarItem = UITabBarItem(title: "Управление", image: UIImage(systemName: "calendar"), tag: 2)
+        excursionManagementNavViewController.tabBarItem = UITabBarItem(title: "Управление", image: UIImage(systemName: "person.3.sequence.fill"), tag: 2)
         
         let excursionsNavigationController = controllers.getControllerMain(.excursionsNavigationController)
         excursionsNavigationController.tabBarItem = UITabBarItem(title: "Экскурсии", image: UIImage(systemName: "calendar"), tag: 2)

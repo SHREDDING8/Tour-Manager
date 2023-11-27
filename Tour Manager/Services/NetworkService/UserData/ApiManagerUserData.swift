@@ -366,42 +366,6 @@ public class ApiManagerUserData: ApiManagerUserDataProtocol{
     }
     
     
-    public func downloadProfilePhoto(token:String, localId:String, completion: @escaping (Bool,Data?,customErrorUserData?)->Void){
-        
-        self.generalData.requestWithCheckRefresh { newToken in
-            let requestToken = newToken == nil ? token : newToken!
-            
-            
-            let url = URL(string: self.routeDownLoadPhoto)!
-            
-            let json = [
-                "token": requestToken,
-                "target_uid" : localId
-            ]
-            
-            AF.request(url, method: .post, parameters: json, encoder: .json).response { response in
-                
-                switch response.result {
-                case .success(_):
-                    if response.response?.statusCode == 400{
-                        
-                        let error = self.checkError(data: response.data ?? Data())
-                        completion(false, nil, error)
-                        
-                    } else if response.response?.statusCode == 200{
-                        completion(true, response.data! , nil)
-                    }else{
-                        completion(false, nil, .unknowmError)
-                    }
-                case .failure(_):
-                    completion(false, nil, .notConnected)
-                }
-            }
-        }
-        
-    }
-    
-    
     public func deleteProfilePhoto() async throws -> Bool{
         
         let refresh = try await ApiManagerAuth.refreshToken()

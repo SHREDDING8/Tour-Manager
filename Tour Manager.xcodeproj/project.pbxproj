@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		EE0528CA2A30DA3C006C8C98 /* NewExcursionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0528C92A30DA3C006C8C98 /* NewExcursionTableViewController.swift */; };
 		EE14D3742B12541000A188F8 /* AccessLevelElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE14D3732B12541000A188F8 /* AccessLevelElement.swift */; };
+		EE14D3782B140FDD00A188F8 /* ToursGeneralModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE14D3772B140FDD00A188F8 /* ToursGeneralModel.swift */; };
 		EE1770EE2A239A7E00B18055 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1770ED2A239A7E00B18055 /* ChangePasswordViewController.swift */; };
 		EE1770F02A23BD9500B18055 /* StringValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1770EF2A23BD9500B18055 /* StringValidation.swift */; };
 		EE1770F32A23EE5A00B18055 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1770F22A23EE5A00B18055 /* LaunchScreenViewController.swift */; };
@@ -35,9 +36,7 @@
 		EE4506C72AFFBDD800603E57 /* ProfileViewElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4506C62AFFBDD800603E57 /* ProfileViewElement.swift */; };
 		EE4506C92B010BF400603E57 /* ProfileAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4506C82B010BF300603E57 /* ProfileAssembly.swift */; };
 		EE4619132A6C229C00EBE695 /* Notification.wav in Resources */ = {isa = PBXBuildFile; fileRef = EE4619122A6C229C00EBE695 /* Notification.wav */; };
-		EE4C89392A2CF1E7004D3CB9 /* Access Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4C89382A2CF1E7004D3CB9 /* Access Level.swift */; };
 		EE4C893B2A2CF53D004D3CB9 /* UiButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4C893A2A2CF53D004D3CB9 /* UiButton.swift */; };
-		EE4C893E2A2E3D85004D3CB9 /* Excursion.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4C893D2A2E3D85004D3CB9 /* Excursion.swift */; };
 		EE4DA1562AF4390900F3D2E9 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4DA1552AF4390900F3D2E9 /* UserDefaultsService.swift */; };
 		EE52E16F29E5C1C8000C0E5B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE52E16E29E5C1C8000C0E5B /* AppDelegate.swift */; };
 		EE52E17129E5C1C8000C0E5B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE52E17029E5C1C8000C0E5B /* SceneDelegate.swift */; };
@@ -63,7 +62,6 @@
 		EE6756062AC03E0A00E253DA /* GeneralRealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6756052AC03E0A00E253DA /* GeneralRealmService.swift */; };
 		EE6756082AC0721800E253DA /* EmployeesListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6756072AC0721800E253DA /* EmployeesListPresenter.swift */; };
 		EE67560A2AC076FF00E253DA /* EmployeePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6756092AC076FF00E253DA /* EmployeePresenter.swift */; };
-		EE6DE06A2A1E681100507A27 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6DE0692A1E681100507A27 /* User.swift */; };
 		EE6FCB3A2B0634BE00A49604 /* DeviceKit in Frameworks */ = {isa = PBXBuildFile; productRef = EE6FCB392B0634BE00A49604 /* DeviceKit */; };
 		EE6FCB3E2B08EAE100A49604 /* ExtendedSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6FCB3D2B08EAE100A49604 /* ExtendedSettingsView.swift */; };
 		EE6FCB412B096C6F00A49604 /* ExtendedSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6FCB402B096C6E00A49604 /* ExtendedSettingsViewController.swift */; };
@@ -84,7 +82,6 @@
 		EEB73F9C2A364B82004D7A25 /* ApiManagerExcursions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB73F9B2A364B82004D7A25 /* ApiManagerExcursions.swift */; };
 		EEB73F9F2A364B9B004D7A25 /* SendExcursions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB73F9E2A364B9B004D7A25 /* SendExcursions.swift */; };
 		EEB73FA12A364BA9004D7A25 /* ResponseExcursions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB73FA02A364BA9004D7A25 /* ResponseExcursions.swift */; };
-		EEB73FA32A365ABC004D7A25 /* ExcursionsControllerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB73FA22A365ABC004D7A25 /* ExcursionsControllerModel.swift */; };
 		EEB764A22A387B2200579E6B /* NewComponentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB764A02A387B2200579E6B /* NewComponentTableViewCell.swift */; };
 		EEB764A32A387B2200579E6B /* NewComponentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEB764A12A387B2200579E6B /* NewComponentTableViewCell.xib */; };
 		EEC9BA182A2670A100BC026A /* Bool.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC9BA172A2670A100BC026A /* Bool.swift */; };
@@ -141,6 +138,7 @@
 		68E77E428BEC283B907E8208 /* Pods-Tour Manager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tour Manager.debug.xcconfig"; path = "Target Support Files/Pods-Tour Manager/Pods-Tour Manager.debug.xcconfig"; sourceTree = "<group>"; };
 		EE0528C92A30DA3C006C8C98 /* NewExcursionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewExcursionTableViewController.swift; sourceTree = "<group>"; };
 		EE14D3732B12541000A188F8 /* AccessLevelElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessLevelElement.swift; sourceTree = "<group>"; };
+		EE14D3772B140FDD00A188F8 /* ToursGeneralModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToursGeneralModel.swift; sourceTree = "<group>"; };
 		EE1770ED2A239A7E00B18055 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		EE1770EF2A23BD9500B18055 /* StringValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringValidation.swift; sourceTree = "<group>"; };
 		EE1770F22A23EE5A00B18055 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
@@ -168,9 +166,7 @@
 		EE4506C62AFFBDD800603E57 /* ProfileViewElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewElement.swift; sourceTree = "<group>"; };
 		EE4506C82B010BF300603E57 /* ProfileAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAssembly.swift; sourceTree = "<group>"; };
 		EE4619122A6C229C00EBE695 /* Notification.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Notification.wav; sourceTree = "<group>"; };
-		EE4C89382A2CF1E7004D3CB9 /* Access Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Access Level.swift"; sourceTree = "<group>"; };
 		EE4C893A2A2CF53D004D3CB9 /* UiButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiButton.swift; sourceTree = "<group>"; };
-		EE4C893D2A2E3D85004D3CB9 /* Excursion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Excursion.swift; sourceTree = "<group>"; };
 		EE4DA1552AF4390900F3D2E9 /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
 		EE52E16B29E5C1C8000C0E5B /* Tour Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tour Manager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE52E16E29E5C1C8000C0E5B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -198,7 +194,6 @@
 		EE6756052AC03E0A00E253DA /* GeneralRealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralRealmService.swift; sourceTree = "<group>"; };
 		EE6756072AC0721800E253DA /* EmployeesListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesListPresenter.swift; sourceTree = "<group>"; };
 		EE6756092AC076FF00E253DA /* EmployeePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeePresenter.swift; sourceTree = "<group>"; };
-		EE6DE0692A1E681100507A27 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		EE6FCB3D2B08EAE100A49604 /* ExtendedSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedSettingsView.swift; sourceTree = "<group>"; };
 		EE6FCB402B096C6E00A49604 /* ExtendedSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedSettingsViewController.swift; sourceTree = "<group>"; };
 		EE783F422AD4834C00DA820F /* ExcursionManadmentPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcursionManadmentPresenter.swift; sourceTree = "<group>"; };
@@ -218,7 +213,6 @@
 		EEB73F9B2A364B82004D7A25 /* ApiManagerExcursions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManagerExcursions.swift; sourceTree = "<group>"; };
 		EEB73F9E2A364B9B004D7A25 /* SendExcursions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendExcursions.swift; sourceTree = "<group>"; };
 		EEB73FA02A364BA9004D7A25 /* ResponseExcursions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseExcursions.swift; sourceTree = "<group>"; };
-		EEB73FA22A365ABC004D7A25 /* ExcursionsControllerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcursionsControllerModel.swift; sourceTree = "<group>"; };
 		EEB764A02A387B2200579E6B /* NewComponentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewComponentTableViewCell.swift; sourceTree = "<group>"; };
 		EEB764A12A387B2200579E6B /* NewComponentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewComponentTableViewCell.xib; sourceTree = "<group>"; };
 		EEC9BA172A2670A100BC026A /* Bool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bool.swift; sourceTree = "<group>"; };
@@ -306,6 +300,22 @@
 				EE97886A2A28EA710086C034 /* EmploeeViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		EE14D3752B140FC300A188F8 /* Tours */ = {
+			isa = PBXGroup;
+			children = (
+				EE14D3762B140FC900A188F8 /* Model */,
+			);
+			path = Tours;
+			sourceTree = "<group>";
+		};
+		EE14D3762B140FC900A188F8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EE14D3772B140FDD00A188F8 /* ToursGeneralModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		EE1805EA2AD5A5990083952D /* Custom Views */ = {
@@ -459,15 +469,6 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
-		EE4C893C2A2E3D3C004D3CB9 /* Excursions */ = {
-			isa = PBXGroup;
-			children = (
-				EE4C893D2A2E3D85004D3CB9 /* Excursion.swift */,
-				EEB73FA22A365ABC004D7A25 /* ExcursionsControllerModel.swift */,
-			);
-			path = Excursions;
-			sourceTree = "<group>";
-		};
 		EE4DA1542AF438F200F3D2E9 /* UserDefaults */ = {
 			isa = PBXGroup;
 			children = (
@@ -507,20 +508,9 @@
 				EED6450C2A98CC6A00F2ADC9 /* Services */,
 				EED6450B2A98CBD400F2ADC9 /* App */,
 				EE1770F72A23FA5500B18055 /* Tour Manager.entitlements */,
-				EE5F91DA2A21514200B39BB1 /* Model */,
 				EE52E17C29E5C1CB000C0E5B /* Info.plist */,
 			);
 			path = "Tour Manager";
-			sourceTree = "<group>";
-		};
-		EE5F91DA2A21514200B39BB1 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				EE8473FF2A4CB5C90082DE7E /* General Logic */,
-				EE4C893C2A2E3D3C004D3CB9 /* Excursions */,
-				EE5F91DD2A21528100B39BB1 /* User */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		EE5F91DC2A21526600B39BB1 /* Profile */ = {
@@ -529,15 +519,6 @@
 				EEF27A442A055443006E5E53 /* Profile.swift */,
 			);
 			path = Profile;
-			sourceTree = "<group>";
-		};
-		EE5F91DD2A21528100B39BB1 /* User */ = {
-			isa = PBXGroup;
-			children = (
-				EE6DE0692A1E681100507A27 /* User.swift */,
-				EE4C89382A2CF1E7004D3CB9 /* Access Level.swift */,
-			);
-			path = User;
 			sourceTree = "<group>";
 		};
 		EE5F91DE2A21528D00B39BB1 /* Controllers */ = {
@@ -730,14 +711,6 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
-		EE8473FF2A4CB5C90082DE7E /* General Logic */ = {
-			isa = PBXGroup;
-			children = (
-				EE8474002A4CB5DD0082DE7E /* GeneralLogic.swift */,
-			);
-			path = "General Logic";
-			sourceTree = "<group>";
-		};
 		EE8474052A4D99180082DE7E /* Library */ = {
 			isa = PBXGroup;
 			children = (
@@ -805,6 +778,7 @@
 		EED6450C2A98CC6A00F2ADC9 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				EE8474002A4CB5DD0082DE7E /* GeneralLogic.swift */,
 				EEF27A462A0554F6006E5E53 /* Font */,
 				EE5F91DF2A21529C00B39BB1 /* Validation */,
 				EED6451C2A98D30300F2ADC9 /* Local storage */,
@@ -816,6 +790,7 @@
 		EED6450D2A98CC7500F2ADC9 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				EE14D3752B140FC300A188F8 /* Tours */,
 				EE783F4A2AD56C5800DA820F /* Guide Excursions */,
 				EE783F3E2AD482F400DA820F /* ExcursionManagment */,
 				EED6452A2A990D9A00F2ADC9 /* MainTabBar */,
@@ -1191,8 +1166,8 @@
 				EE5F91D12A200D2D00B39BB1 /* ResponseAuthStructs.swift in Sources */,
 				EE5EEC2E2A06D0660025336E /* AddingPersonalDataViewController.swift in Sources */,
 				EE6756062AC03E0A00E253DA /* GeneralRealmService.swift in Sources */,
-				EE4C893E2A2E3D85004D3CB9 /* Excursion.swift in Sources */,
 				EE783F4F2AD56D7B00DA820F /* GuideExcursionsPresenter.swift in Sources */,
+				EE14D3782B140FDD00A188F8 /* ToursGeneralModel.swift in Sources */,
 				EED645252A98DA9500F2ADC9 /* AuthAssembly.swift in Sources */,
 				EEB764A22A387B2200579E6B /* NewComponentTableViewCell.swift in Sources */,
 				EE1770EE2A239A7E00B18055 /* ChangePasswordViewController.swift in Sources */,
@@ -1203,9 +1178,7 @@
 				EEF6EBA82A41BADE00DC5F6A /* GuideCollectionViewCell.swift in Sources */,
 				EEF27A482A05551E006E5E53 /* Font.swift in Sources */,
 				EE4506C92B010BF400603E57 /* ProfileAssembly.swift in Sources */,
-				EE6DE06A2A1E681100507A27 /* User.swift in Sources */,
 				EE2C9A5029FD858500B7D74F /* ProfilePageViewController.swift in Sources */,
-				EEB73FA32A365ABC004D7A25 /* ExcursionsControllerModel.swift in Sources */,
 				EEF18C952A4258EE00A91D2F /* FS calendar.swift in Sources */,
 				EE926DB22AFE7EEA005F2851 /* ProfileNewViewController.swift in Sources */,
 				EE6756082AC0721800E253DA /* EmployeesListPresenter.swift in Sources */,
@@ -1238,7 +1211,6 @@
 				EEDA5E9B2A378215002CC5C8 /* UiTextField.swift in Sources */,
 				EED8F6952AF08528003D118A /* ExcursionsRealmServiceForGuide.swift in Sources */,
 				EED645272A98F32700F2ADC9 /* VerifyEmailPresenter.swift in Sources */,
-				EE4C89392A2CF1E7004D3CB9 /* Access Level.swift in Sources */,
 				EE926DB02AFE7ED3005F2851 /* ProfileView.swift in Sources */,
 				EEF2F63F2ADD5B630070D083 /* ExcursionsRealmService.swift in Sources */,
 				EEF18C932A4235A500A91D2F /* DatepickerFromBottom.swift in Sources */,

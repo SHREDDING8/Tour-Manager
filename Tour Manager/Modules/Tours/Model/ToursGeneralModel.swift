@@ -1,13 +1,12 @@
 //
-//  Excursion.swift
+//  ToursGeneralModel.swift
 //  Tour Manager
 //
-//  Created by SHREDDING on 05.06.2023.
+//  Created by SHREDDING on 27.11.2023.
 //
 
 import Foundation
 import UIKit
-
 enum Status:String{
     case waiting = "waiting"
     case cancel = "cancel"
@@ -28,5 +27,3 @@ enum Status:String{
         }
     }
 }
-
-
