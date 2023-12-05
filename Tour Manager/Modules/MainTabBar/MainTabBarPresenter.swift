@@ -28,7 +28,7 @@ class MainTabBarPresenter:MainTabBarPresenterProtocol{
     weak var view:MainTabBarViewProtocol?
     
     let keychain = KeychainService()
-    let apiCompany:ApiManagerCompanyProtocol = ApiManagerCompany()
+    let employeeNetworkService:EmployeeNetworkServiceProtocol = EmployeeNetworkService()
     
     let userRealmService = UsersRealmService()
     
@@ -39,7 +39,7 @@ class MainTabBarPresenter:MainTabBarPresenterProtocol{
     public func getAccessLevelFromApi(){
         Task{
             do{
-                let accessLevel = try await self.apiCompany.getCurrentAccessLevel()
+                let accessLevel = try await self.employeeNetworkService.getCurrentCompanyUserAccessLevels()
                 
                 DispatchQueue.main.async {
                     let accessLevels = UserAccessLevelRealm(

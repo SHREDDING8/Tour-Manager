@@ -350,8 +350,8 @@
             filePath = "Tour Manager/Modules/ExcursionManagment/View/ExcursionManagementViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "277"
-            endingLineNumber = "277"
+            startingLineNumber = "278"
+            endingLineNumber = "278"
             landmarkName = "calendar(_:numberOfEventsFor:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -816,6 +816,826 @@
             startingLineNumber = "418"
             endingLineNumber = "418"
             landmarkName = "configureIsChangingAccessLevels(isReadGeneralCompanyInformation:isWriteGeneralCompanyInformation:isReadLocalIdCompany:isReadCompanyEmployee:isChangeAccessLevels:isReadTours:isWriteTour:isGuide:isOwner:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "80229A73-2DD2-4508-8AAB-1EB286799FCA"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Services/NetworkService/Tours/ApiManagerExcursions.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "377"
+            endingLineNumber = "377"
+            landmarkName = "getDateTourList(date:guideOnly:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "80229A73-2DD2-4508-8AAB-1EB286799FCA - debc012d08185599"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) await resume partial function for Tour_Manager.ApiManagerExcursions.setGuideTourStatus(tourDate: Swift.String, tourId: Swift.String, guideStatus: Tour_Manager.Status) async throws -&gt; Swift.Bool"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Services/NetworkService/Tours/ApiManagerExcursions.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "466"
+                  endingLineNumber = "466"
+                  offsetFromSymbolStart = "264">
+               </Location>
+               <Location
+                  uuid = "80229A73-2DD2-4508-8AAB-1EB286799FCA - 6ff9a44646d7e927"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) suspend resume partial function for Tour_Manager.ApiManagerExcursions.setGuideTourStatus(tourDate: Swift.String, tourId: Swift.String, guideStatus: Tour_Manager.Status) async throws -&gt; Swift.Bool"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Services/NetworkService/Tours/ApiManagerExcursions.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "466"
+                  endingLineNumber = "466"
+                  offsetFromSymbolStart = "372">
+               </Location>
+               <Location
+                  uuid = "80229A73-2DD2-4508-8AAB-1EB286799FCA - 10d6cfff1a9ed59a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for Tour_Manager.ApiManagerExcursions.setGuideTourStatus(tourDate: Swift.String, tourId: Swift.String, guideStatus: Tour_Manager.Status) async throws -&gt; Swift.Bool"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Services/NetworkService/Tours/ApiManagerExcursions.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "466"
+                  endingLineNumber = "466"
+                  offsetFromSymbolStart = "304">
+               </Location>
+               <Location
+                  uuid = "80229A73-2DD2-4508-8AAB-1EB286799FCA - 21cf5af46d5f151"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) suspend resume partial function for Tour_Manager.ApiManagerExcursions.getTourDates(startDate: Swift.String, endDate: Swift.String, guideOnly: Swift.Bool) async throws -&gt; Swift.Array&lt;Tour_Manager.ResponseGetExcursionsListByRange&gt;"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Services/NetworkService/Tours/ApiManagerExcursions.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "466"
+                  endingLineNumber = "466"
+                  offsetFromSymbolStart = "1268">
+               </Location>
+               <Location
+                  uuid = "80229A73-2DD2-4508-8AAB-1EB286799FCA - 69cddba64ee0a16e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) await resume partial function for Tour_Manager.ApiManagerExcursions.getTourDates(startDate: Swift.String, endDate: Swift.String, guideOnly: Swift.Bool) async throws -&gt; Swift.Array&lt;Tour_Manager.ResponseGetExcursionsListByRange&gt;"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Services/NetworkService/Tours/ApiManagerExcursions.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "466"
+                  endingLineNumber = "466"
+                  offsetFromSymbolStart = "36">
+               </Location>
+               <Location
+                  uuid = "80229A73-2DD2-4508-8AAB-1EB286799FCA - b557962cc7383357"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for Tour_Manager.ApiManagerExcursions.getTourDates(startDate: Swift.String, endDate: Swift.String, guideOnly: Swift.Bool) async throws -&gt; Swift.Array&lt;Tour_Manager.ResponseGetExcursionsListByRange&gt;"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Services/NetworkService/Tours/ApiManagerExcursions.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "466"
+                  endingLineNumber = "466"
+                  offsetFromSymbolStart = "148">
+               </Location>
+               <Location
+                  uuid = "80229A73-2DD2-4508-8AAB-1EB286799FCA - 7c3506eb87a9dc54"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for Tour_Manager.ApiManagerExcursions.getTourDates(startDate: Swift.String, endDate: Swift.String, guideOnly: Swift.Bool) async throws -&gt; Swift.Array&lt;Tour_Manager.ResponseGetExcursionsListByRange&gt;"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Services/NetworkService/Tours/ApiManagerExcursions.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "466"
+                  endingLineNumber = "466"
+                  offsetFromSymbolStart = "132">
+               </Location>
+               <Location
+                  uuid = "80229A73-2DD2-4508-8AAB-1EB286799FCA - b833c254bde8a0bf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.CheckedContinuation&lt;Swift.Array&lt;Tour_Manager.ResponseGetExcursionsListByRange&gt;, Swift.Error&gt;) -&gt; () in Tour_Manager.ApiManagerExcursions.getTourDates(startDate: Swift.String, endDate: Swift.String, guideOnly: Swift.Bool) async throws -&gt; Swift.Array&lt;Tour_Manager.ResponseGetExcursionsListByRange&gt;"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Services/NetworkService/Tours/ApiManagerExcursions.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "468"
+                  endingLineNumber = "468"
+                  offsetFromSymbolStart = "240">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "692608C1-CE8E-4A29-A00C-D21011AA6729"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Services/NetworkService/Tours/ApiManagerExcursions.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "360"
+            endingLineNumber = "360"
+            landmarkName = "getDateTourList(date:guideOnly:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F9787D72-86A1-4F12-B93C-68D01E8FEA37"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Modules/Guide Excursions/Presenter/GuideExcursionsPresenter.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "171"
+            endingLineNumber = "171"
+            landmarkName = "getExcursionsListByRangeFromServer(startDate:endDate:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F9FB8ECA-61D6-408F-B81A-88C2A264D3FE"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Services/NetworkService/Tours/ApiManagerExcursions.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "386"
+            endingLineNumber = "386"
+            landmarkName = "getDateTourList(date:guideOnly:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F02B8C33-13DC-447A-981C-3F5D10BF7E71"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Modules/ExcursionManagment/presenter/AddGuidePresenter.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "206"
+            endingLineNumber = "206"
+            landmarkName = "getUsersFromServer()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0EEB3769-9F3B-48FA-B460-68CFB65A1447"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Modules/Tours/ToursManadgment/ToursManadgmentViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "scrollViewDidEndDecelerating(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "112EDBBD-BE4B-4C35-95EB-BBCEF35E33C9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Modules/Tours/View/ToursView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "197"
+            endingLineNumber = "197"
+            landmarkName = "calendar(_:didSelectDate:cell:cellState:indexPath:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DE63C8D5-91B5-43FD-AD87-89453A10CE37"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Modules/Tours/View/ToursView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "184"
+            endingLineNumber = "184"
+            landmarkName = "calendar(_:shouldSelectDate:cell:cellState:indexPath:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "DE63C8D5-91B5-43FD-AD87-89453A10CE37 - 65a3b00b1e718a86"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tour_Manager.ToursView.calendar(_: JTAppleCalendar.JTACMonthView, shouldSelectDate: Foundation.Date, cell: Swift.Optional&lt;JTAppleCalendar.JTACDayCell&gt;, cellState: JTAppleCalendar.CellState, indexPath: Foundation.IndexPath) -&gt; Swift.Bool"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Modules/Tours/View/ToursView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "173"
+                  endingLineNumber = "173"
+                  offsetFromSymbolStart = "168">
+               </Location>
+               <Location
+                  uuid = "DE63C8D5-91B5-43FD-AD87-89453A10CE37 - 65a3b00b1e718ad9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tour_Manager.ToursView.calendar(_: JTAppleCalendar.JTACMonthView, shouldSelectDate: Foundation.Date, cell: Swift.Optional&lt;JTAppleCalendar.JTACDayCell&gt;, cellState: JTAppleCalendar.CellState, indexPath: Foundation.IndexPath) -&gt; Swift.Bool"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Modules/Tours/View/ToursView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "174"
+                  endingLineNumber = "174"
+                  offsetFromSymbolStart = "176">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D1B637AF-3B68-4E0F-80BD-770CAC1AE8D0"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Modules/Tours/View/ToursView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "196"
+            endingLineNumber = "196"
+            landmarkName = "ToursView"
+            landmarkType = "21">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "708AA24B-3F25-4C11-A31D-9C627B0A03E3"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Modules/Tours/View/ToursView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "198"
+            endingLineNumber = "198"
+            landmarkName = "calendar(_:didSelectDate:cell:cellState:indexPath:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "450CB5AE-145B-4477-A0F3-09A773B11CB3"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Modules/Tours/View/ToursView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "201"
+            endingLineNumber = "201"
+            landmarkName = "calendar(_:didSelectDate:cell:cellState:indexPath:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0EB81C06-6399-4B49-B91F-C199391D09D9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Modules/Tours/View/ToursView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "242"
+            endingLineNumber = "242"
+            landmarkName = "calendar(_:didSelectDate:cell:cellState:indexPath:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F46A5D1B-1E8C-43BF-AA17-846F7170D6BC"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Modules/Tours/View/ToursView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "231"
+            endingLineNumber = "231"
+            landmarkName = "calendar(_:didSelectDate:cell:cellState:indexPath:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "F46A5D1B-1E8C-43BF-AA17-846F7170D6BC - 1db1f839bccb466e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tour_Manager.ToursView.calendar(_: JTAppleCalendar.JTACMonthView, didSelectDate: Foundation.Date, cell: Swift.Optional&lt;JTAppleCalendar.JTACDayCell&gt;, cellState: JTAppleCalendar.CellState, indexPath: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Modules/Tours/View/ToursView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "229"
+                  endingLineNumber = "229"
+                  offsetFromSymbolStart = "3276">
+               </Location>
+               <Location
+                  uuid = "F46A5D1B-1E8C-43BF-AA17-846F7170D6BC - 1db1f839bccb464f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tour_Manager.ToursView.calendar(_: JTAppleCalendar.JTACMonthView, didSelectDate: Foundation.Date, cell: Swift.Optional&lt;JTAppleCalendar.JTACDayCell&gt;, cellState: JTAppleCalendar.CellState, indexPath: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Modules/Tours/View/ToursView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "228"
+                  endingLineNumber = "228"
+                  offsetFromSymbolStart = "3204">
+               </Location>
+               <Location
+                  uuid = "F46A5D1B-1E8C-43BF-AA17-846F7170D6BC - 1db1f839bccb464f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tour_Manager.ToursView.calendar(_: JTAppleCalendar.JTACMonthView, didSelectDate: Foundation.Date, cell: Swift.Optional&lt;JTAppleCalendar.JTACDayCell&gt;, cellState: JTAppleCalendar.CellState, indexPath: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Modules/Tours/View/ToursView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "228"
+                  endingLineNumber = "228"
+                  offsetFromSymbolStart = "3236">
+               </Location>
+               <Location
+                  uuid = "F46A5D1B-1E8C-43BF-AA17-846F7170D6BC - 1db1f839bccb464f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tour_Manager.ToursView.calendar(_: JTAppleCalendar.JTACMonthView, didSelectDate: Foundation.Date, cell: Swift.Optional&lt;JTAppleCalendar.JTACDayCell&gt;, cellState: JTAppleCalendar.CellState, indexPath: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Modules/Tours/View/ToursView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "228"
+                  endingLineNumber = "228"
+                  offsetFromSymbolStart = "3228">
+               </Location>
+               <Location
+                  uuid = "F46A5D1B-1E8C-43BF-AA17-846F7170D6BC - 1db1f839bccb464f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tour_Manager.ToursView.calendar(_: JTAppleCalendar.JTACMonthView, didSelectDate: Foundation.Date, cell: Swift.Optional&lt;JTAppleCalendar.JTACDayCell&gt;, cellState: JTAppleCalendar.CellState, indexPath: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Modules/Tours/View/ToursView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "228"
+                  endingLineNumber = "228"
+                  offsetFromSymbolStart = "3240">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "758900D1-C346-4F54-A75F-BC7E370F8300"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Modules/Tours/View/ToursView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "237"
+            endingLineNumber = "237"
+            landmarkName = "calendar(_:didSelectDate:cell:cellState:indexPath:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2F668493-3A0B-4956-8037-40DDCC39768A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Modules/Tours/ToursManadgment/TourManadgmentViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "14"
+            endingLineNumber = "14"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "486047D9-F0C2-485C-891D-4CB61F1D3C9B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Modules/LaunchScreen/View/LaunchScreenViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "viewDidAppear(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C981CF24-3644-468A-8CC9-BD4C06EDC3C0"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Modules/LaunchScreen/View/LaunchScreenViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "viewDidAppear(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "154104B9-2C4D-4940-80CE-E2B73FC5D565"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Modules/MainTabBar/mainTabBarViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "updateControllers()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C4442030-7E1A-484F-B16A-345E5E6031AC"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Modules/MainTabBar/mainTabBarViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "updateControllers()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9C1545D8-E1F8-4F52-AF08-D58443A5FEBF"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Modules/MainTabBar/mainTabBarViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "updateControllers()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5F941AA6-C3A6-4BAC-B8A1-A86E9F9FF855"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Modules/ExcursionManagment/presenter/ExcursionManadmentPresenter.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
+            landmarkName = "loadToursFromServer(date:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "5F941AA6-C3A6-4BAC-B8A1-A86E9F9FF855 - 6eaab553d9b37a08"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #1 @Sendable () async -&gt; () in Tour_Manager.ExcursionManadmentPresenter.loadToursFromServer(date: Foundation.Date) -&gt; ()"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Modules/ExcursionManagment/presenter/ExcursionManadmentPresenter.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "116"
+                  endingLineNumber = "116"
+                  offsetFromSymbolStart = "84">
+               </Location>
+               <Location
+                  uuid = "5F941AA6-C3A6-4BAC-B8A1-A86E9F9FF855 - 3dcd0d61f7be4f5e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for closure #1 @Sendable () async -&gt; () in Tour_Manager.ExcursionManadmentPresenter.loadToursFromServer(date: Foundation.Date) -&gt; ()"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Modules/ExcursionManagment/presenter/ExcursionManadmentPresenter.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "116"
+                  endingLineNumber = "116"
+                  offsetFromSymbolStart = "52">
+               </Location>
+               <Location
+                  uuid = "5F941AA6-C3A6-4BAC-B8A1-A86E9F9FF855 - ff6f95d15aae380a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #1 @Sendable () async -&gt; () in Tour_Manager.ExcursionManadmentPresenter.loadToursFromServer(date: Foundation.Date) -&gt; ()"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Modules/ExcursionManagment/presenter/ExcursionManadmentPresenter.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "116"
+                  endingLineNumber = "116"
+                  offsetFromSymbolStart = "148">
+               </Location>
+               <Location
+                  uuid = "5F941AA6-C3A6-4BAC-B8A1-A86E9F9FF855 - c4d205961a1f9f0d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for closure #1 @Sendable () async -&gt; () in Tour_Manager.ExcursionManadmentPresenter.loadToursFromServer(date: Foundation.Date) -&gt; ()"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Modules/ExcursionManagment/presenter/ExcursionManadmentPresenter.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "116"
+                  endingLineNumber = "116"
+                  offsetFromSymbolStart = "48">
+               </Location>
+               <Location
+                  uuid = "5F941AA6-C3A6-4BAC-B8A1-A86E9F9FF855 - c4d205961a1f9f0d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for closure #1 @Sendable () async -&gt; () in Tour_Manager.ExcursionManadmentPresenter.loadToursFromServer(date: Foundation.Date) -&gt; ()"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Modules/ExcursionManagment/presenter/ExcursionManadmentPresenter.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "116"
+                  endingLineNumber = "116"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "981A3A8D-7DD3-4B39-9916-852CB6B7705A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Modules/Tours/View/ToursView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "204"
+            endingLineNumber = "204"
+            landmarkName = "calendar(_:didSelectDate:cell:cellState:indexPath:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "981A3A8D-7DD3-4B39-9916-852CB6B7705A - 1db1f839bccb4b99"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tour_Manager.ToursView.calendar(_: JTAppleCalendar.JTACMonthView, didSelectDate: Foundation.Date, cell: Swift.Optional&lt;JTAppleCalendar.JTACDayCell&gt;, cellState: JTAppleCalendar.CellState, indexPath: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Modules/Tours/View/ToursView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "206"
+                  endingLineNumber = "206"
+                  offsetFromSymbolStart = "1704">
+               </Location>
+               <Location
+                  uuid = "981A3A8D-7DD3-4B39-9916-852CB6B7705A - 1db1f839bccb4b99"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tour_Manager.ToursView.calendar(_: JTAppleCalendar.JTACMonthView, didSelectDate: Foundation.Date, cell: Swift.Optional&lt;JTAppleCalendar.JTACDayCell&gt;, cellState: JTAppleCalendar.CellState, indexPath: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Modules/Tours/View/ToursView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "206"
+                  endingLineNumber = "206"
+                  offsetFromSymbolStart = "1668">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C71CABEE-0EA1-4916-824E-76A3B99FF445"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Modules/Tours/View/ToursView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "214"
+            endingLineNumber = "214"
+            landmarkName = "calendar(_:didSelectDate:cell:cellState:indexPath:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "56560877-1827-4CFE-AC86-D2A68BCBCBE4"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Modules/Tours/View/ToursView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "173"
+            endingLineNumber = "173"
+            landmarkName = "calendar(_:cellForItemAt:cellState:indexPath:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E4A1F221-69F0-45A3-812A-77589954B9D1"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Modules/Tours/ToursManadgment/TourManadgmentViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
+            landmarkName = "getEventsColorsForDate(date:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "76174386-E4A9-49F7-AEFA-56455BD9A856"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Modules/Tours/ToursManadgment/TourManadgmentViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
+            landmarkName = "getEventsColorsForDate(date:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "76174386-E4A9-49F7-AEFA-56455BD9A856 - b6d7d3c0c70a130b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tour_Manager.TourManadgmentViewController.getEventsColorsForDate(date: Foundation.Date) -&gt; Swift.Array&lt;__C.UIColor&gt;"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Modules/Tours/ToursManadgment/TourManadgmentViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "153"
+                  endingLineNumber = "153"
+                  offsetFromSymbolStart = "116">
+               </Location>
+               <Location
+                  uuid = "76174386-E4A9-49F7-AEFA-56455BD9A856 - b6d7d3c0c70a12b7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tour_Manager.TourManadgmentViewController.getEventsColorsForDate(date: Foundation.Date) -&gt; Swift.Array&lt;__C.UIColor&gt;"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Modules/Tours/ToursManadgment/TourManadgmentViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "157"
+                  endingLineNumber = "157"
+                  offsetFromSymbolStart = "116">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "785E2D71-F535-4B64-92B1-85EC15259285"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Modules/Tours/View/FullCalendarView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "208"
+            endingLineNumber = "208"
+            landmarkName = "calendar(_:didSelectDate:cell:cellState:indexPath:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8281A3B0-D881-40D6-B1F4-AA1A4AF64B7E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Modules/Tours/View Controller/ToursBaseViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
+            landmarkName = "collectionView(_:cellForItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -46,7 +46,7 @@ protocol ApiManagerAuthProtocol{
 
 public class ApiManagerAuth: ApiManagerAuthProtocol{
     
-    let generalData = GeneralData()
+    let generalData = NetworkServiceHelper()
     
     let keychainService = KeychainService()
     
@@ -129,7 +129,7 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
     }
     
     static func refreshToken() async throws -> Bool{
-        let generalData = GeneralData()
+        let generalData = NetworkServiceHelper()
         let keychainService = KeychainService()
         
         if keychainService.isAcessTokenAvailable(){

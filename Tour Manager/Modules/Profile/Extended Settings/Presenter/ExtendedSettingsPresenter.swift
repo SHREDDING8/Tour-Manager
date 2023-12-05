@@ -87,7 +87,7 @@ class ExtendedSettingsPresenter:ExtendedSettingsPresenterProtocol{
     func deleteCompany(){
         Task{
             do{
-                if try await self.companyNetworkService.DeleteCompany(){
+                if try await self.companyNetworkService.deleteCompany(){
                     DispatchQueue.main.async {
                         self.view?.deleteSuccess()
                     }

@@ -17,7 +17,7 @@ protocol ProfileAssemblyProtocol{
 final class ProfileAssembly:ProfileAssemblyProtocol{
     
     static func createProfileViewController() -> UIViewController {
-        let view = ProfileNewViewController()
+        let view = ProfileViewController()
         let presenter = ProfilePagePresenter(view: view)
         view.presenter = presenter
         return UINavigationController(rootViewController: view)

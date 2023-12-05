@@ -81,4 +81,11 @@ extension Date{
         
     }
     
+    public func getDayName()->String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "E"
+        
+        return dateFormatter.string(from: self)
+    }
+    
 }

@@ -51,36 +51,22 @@ public enum customErrorCompany:Error{
 
 
 protocol ApiManagerCompanyProtocol{
-    func getCurrentAccessLevel() async throws -> ResponseAccessLevel
-    func getCompanyUsers() async throws -> [GetCompanyUsersElement]
     func updateCompanyInfo(companyName:String) async throws -> Bool
     
-    func DeleteCompany() async throws ->Bool
+    func deleteCompany() async throws ->Bool
     
-    func updateUserAccessLevel(_ jsonData:SendUpdateUserAccessLevel) async throws -> Bool
 }
 
 public class ApiManagerCompany:ApiManagerCompanyProtocol{
     
-    private let generalData = GeneralData()
-    private let keychainService = KeychainService()
+    private let generalData = NetworkServiceHelper()
+    private let keychainService:KeychainServiceProtocol = KeychainService()
     
     private let domain:String
     private let prefix:String
     
     private let routeAddCompany:String
     private let routeAddEmployeeToCompany:String
-    
-    private let routeUpdateCompanyInfo:String
-    private let routeGetCurrentAccesslevel:String
-    
-    private let routeDeleteCompany:String
-    
-    private let routeGetCompanyUsers:String
-    
-    private let routeGetCompanyGuides:String
-    private let routeUpdateUserAccessLevel:String
-    
     
     init() {
         self.domain = generalData.domain
@@ -89,15 +75,6 @@ public class ApiManagerCompany:ApiManagerCompanyProtocol{
         self.routeAddCompany = prefix + "add_company"
         self.routeAddEmployeeToCompany = prefix + "add_employee_to_company"
         
-        self.routeUpdateCompanyInfo = prefix + "update_company_info"
-        self.routeGetCurrentAccesslevel = prefix + "get_current_access_level"
-        
-        self.routeDeleteCompany = prefix + "delete_company"
-        
-        self.routeGetCompanyUsers = prefix + "get_company_users"
-        
-        self.routeGetCompanyGuides = prefix + "get_company_guides"
-        self.routeUpdateUserAccessLevel = prefix + "update_user_access_level"
     }
     
     public func addCompany(token:String, companyName:String, completion: @escaping (Bool,ResponseAddCompanyJsonStruct?,customErrorCompany?)->Void ){
@@ -171,6 +148,8 @@ public class ApiManagerCompany:ApiManagerCompanyProtocol{
         }
     }
     
+    
+    
     public func updateCompanyInfo(companyName:String) async throws -> Bool{
         
         let refreshToken = try! await ApiManagerAuth.refreshToken()
@@ -178,16 +157,17 @@ public class ApiManagerCompany:ApiManagerCompanyProtocol{
             throw customErrorCompany.unknowmError
         }
         
-        let url = URL(string: self.routeUpdateCompanyInfo)
+        let url = URL(string: NetworkServiceHelper.Companies.updateCompanyInfo(companyId: keychainService.getCompanyLocalId() ?? ""))
         
         let jsonData = SendCompanyInfoJsonStruct(
-            token: keychainService.getAcessToken() ?? "",
-            company_id: keychainService.getCompanyLocalId() ?? "",
-            company_name: companyName
+            companyName: companyName
         )
         
+        let headers = NetworkServiceHelper.Headers()
+        headers.addAccessTokenHeader()
+        
         let result:Bool = try await withCheckedThrowingContinuation { continuation in
-            AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
+            AF.request(url!, method: .put, parameters: jsonData, encoder: .json, headers: headers.getHeaders()).response { response in
                 
                 switch response.result {
                 case .success(_):
@@ -211,65 +191,21 @@ public class ApiManagerCompany:ApiManagerCompanyProtocol{
         return result
     }
     
-    // MARK: - getCurrentAccessLevel
-    func getCurrentAccessLevel() async throws -> ResponseAccessLevel{
+        
+    public func deleteCompany() async throws ->Bool{
         
         let refreshToken = try! await ApiManagerAuth.refreshToken()
         if !refreshToken{
             throw customErrorCompany.unknowmError
         }
         
-        let url = URL(string: self.routeGetCurrentAccesslevel)
+        let url = URL(string: NetworkServiceHelper.Companies.deleteCompany(companyId: keychainService.getCompanyLocalId() ?? ""))
         
-        let jsonData = SendAddEmployeeToCompanyJsonStruct(token: keychainService.getAcessToken() ?? "", company_id: keychainService.getCompanyLocalId() ?? "")
+        let headers = NetworkServiceHelper.Headers()
+        headers.addAccessTokenHeader()
                 
-        let result: ResponseAccessLevel = try await withCheckedThrowingContinuation { continuation in
-            
-            AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
-                
-                switch response.result {
-                case .success(_):
-                    if response.response?.statusCode == 400{
-                        
-                        let error = self.checkError(data: response.data ?? Data())
-                        continuation.resume(throwing: error)
-                        
-                    } else if response.response?.statusCode == 200{
-                        if let accessLevels = try? JSONDecoder().decode(ResponseAccessLevel.self, from: response.data!){
-                            continuation.resume(returning: accessLevels)
-                        }else{
-                            continuation.resume(throwing: customErrorCompany.unknowmError)
-                        }
-                        
-                    }else{
-                        continuation.resume(throwing: customErrorCompany.unknowmError)
-                    }
-                case .failure(_):
-                    continuation.resume(throwing: customErrorCompany.unknowmError)
-                }
-            }
-            
-        }
-        
-        return result
-    }
-        
-    public func DeleteCompany() async throws ->Bool{
-        
-        let refreshToken = try! await ApiManagerAuth.refreshToken()
-        if !refreshToken{
-            throw customErrorCompany.unknowmError
-        }
-        
-        let url = URL(string: self.routeDeleteCompany)
-        
-        let jsonData = SendAddEmployeeToCompanyJsonStruct(
-            token: keychainService.getAcessToken() ?? "",
-            company_id: keychainService.getCompanyLocalId() ?? ""
-        )
-        
         let result:Bool = try await withCheckedThrowingContinuation { continuation in
-            AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
+            AF.request(url!, method: .delete,headers: headers.getHeaders()).response { response in
                 
                 switch response.result {
                 case .success(_):
@@ -292,88 +228,7 @@ public class ApiManagerCompany:ApiManagerCompanyProtocol{
         return result
     }
     
-    // MARK: - getCompanyUsers
-    func getCompanyUsers() async throws -> [GetCompanyUsersElement]{
-        let refreshToken = try! await ApiManagerAuth.refreshToken()
-        if !refreshToken{
-            throw customErrorCompany.unknowmError
-        }
         
-        let url = URL(string: self.routeGetCompanyUsers)
-        
-        let jsonData = SendAddEmployeeToCompanyJsonStruct(token: keychainService.getAcessToken() ?? "", company_id: keychainService.getCompanyLocalId() ?? "")
-        
-        let result:[GetCompanyUsersElement] = try await withCheckedThrowingContinuation { continuation in
-            
-            AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
-                
-                switch response.result {
-                    
-                case .success(_):
-                    if response.response?.statusCode == 400{
-                        let error = self.checkError(data: response.data ?? Data())
-                        continuation.resume(throwing: error)
-                        
-                    } else if response.response?.statusCode == 200{
-                        typealias GetCompanyUsers = [GetCompanyUsersElement]
-                        
-                        if let companyUsers = try? JSONDecoder().decode(GetCompanyUsers.self, from: response.data!){
-                            continuation.resume(returning: companyUsers)
-                        }else{
-                            continuation.resume(throwing: customErrorCompany.unknowmError)
-                        }
-                        
-                    }else{
-                        continuation.resume(throwing: customErrorCompany.unknowmError)
-                    }
-                case .failure(_):
-                    continuation.resume(throwing: customErrorCompany.unknowmError)
-                }
-                
-            }
-            
-        }
-        
-        return result
-        
-    }
-    
-    public func updateUserAccessLevel(_ jsonData:SendUpdateUserAccessLevel) async throws -> Bool{
-        
-        let refreshToken = try! await ApiManagerAuth.refreshToken()
-        if !refreshToken{
-            throw customErrorCompany.unknowmError
-        }
-        
-        let url = URL(string: self.routeUpdateUserAccessLevel)!
-        
-        var jsonDataRequest =  jsonData
-        jsonDataRequest.token = keychainService.getAcessToken() ?? ""
-        
-        let result:Bool = try await withCheckedThrowingContinuation { continuation in
-            AF.request(url, method: .post, parameters: jsonDataRequest, encoder: .json).response { response in
-                switch response.result {
-                case .success(_):
-                    if response.response?.statusCode == 400{
-                        let error = self.checkError(data: response.data ?? Data())
-                        continuation.resume(throwing: error)
-                        
-                    }else if response.response?.statusCode == 200{
-                        continuation.resume(returning: true)
-                    } else{
-                        continuation.resume(throwing: customErrorCompany.unknowmError)
-                    }
-                case .failure(_):
-                    continuation.resume(throwing: customErrorCompany.unknowmError)
-                }
-            }
-            
-        }
-        
-        return result
-        
-    }
-    
     private func checkError(data:Data)->customErrorCompany{
         if let error = try? JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: data){
             switch error.message{

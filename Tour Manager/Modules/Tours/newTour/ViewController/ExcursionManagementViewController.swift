@@ -1,32 +1,33 @@
 //
-//  ExcurionsGuideCalendarViewController.swift
+//  ExcursionManagementViewController.swift
 //  Tour Manager
 //
-//  Created by SHREDDING on 15.06.2023.
+//  Created by SHREDDING on 05.06.2023.
 //
 
 import UIKit
 import FSCalendar
 
-class ExcurionsGuideCalendarViewController: UIViewController {
+class ExcursionManagementViewController: UIViewController{
     
-    var presenter:ExcursionsGuideCalendarPresenterProtocol!
+    var presenter:ExcursionManadmentPresenterProtocol!
     
-    // MARK: - my variables
-    
-    let alerts = Alert()
+    // MARK: - some varibales
     
     let controllers = Controllers()
+        
+    let alerts = Alert()
+        
+    // MARK: - Excursions
     
-    
-    // MARK: - objects
+    var calendar:FSCalendarSchedule!
     
     // MARK: - Table view Object
     
     let tableViewCalendar:UITableView = {
         let tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
+        tableView.restorationIdentifier = "tableViewCalendar"
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        
         
         
         let labelNotTours = UILabel()
@@ -63,40 +64,33 @@ class ExcurionsGuideCalendarViewController: UIViewController {
             activityIndicator.centerYAnchor.constraint(equalTo: tableView.centerYAnchor),
         ])
         
-        
         let refreshCotroller = UIRefreshControl()
         refreshCotroller.tintColor = UIColor(named: "blueText")
         refreshCotroller.tag = 3
         
         tableView.refreshControl = refreshCotroller
         
-        
-        
         return tableView
     }()
     
-    
-    // MARK: - Buttons Objects
-    
-    var calendar:FSCalendarSchedule!
-    
+        
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter = ExcursionsGuideCalendarPresenter(view: self)
+        presenter = ExcursionManadmentPresenter(view: self)
         
         self.configureView()
         self.addSubviews()
         
         self.configureFSCalendar()
         self.configureTableView()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         presenter.loadTours(date: self.calendar.calendar.selectedDate ?? Date.now)
         self.getEventsForDates()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -104,9 +98,27 @@ class ExcurionsGuideCalendarViewController: UIViewController {
         
     }
     
-    // MARK: - configureView
+    // MARK: - addSubviews
+    
+    fileprivate func addSubviews(){
+        self.view.addSubview(tableViewCalendar)
+    }
+    
+    // MARK: - Configuration View
+    
     fileprivate func configureView(){
-        self.navigationItem.title = "Экскурсии"
+        self.navigationItem.title = "Управление"
+        
+        if self.presenter.isAccessLevel(key: .canWriteTourList){
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .add, primaryAction: UIAction(handler: { _ in
+                
+                let newExcursionController = TourManadmentAssembly.createNewTourController(isUpdate: false, dateTime: self.calendar.calendar.selectedDate ?? Date.now)
+                
+                self.navigationController?.pushViewController(newExcursionController, animated: true)
+            }))
+        }
+        
+        
         
         
         // swipes left and right to change day in calendar
@@ -118,25 +130,16 @@ class ExcurionsGuideCalendarViewController: UIViewController {
         swipeLeft.direction = .left
         self.view.addGestureRecognizer(swipeLeft)
         
-        
     }
-    
-    
-    
-    // MARK: - addSubviews
-    
-    fileprivate func addSubviews(){
-    }
-    
     
     // MARK: - Configaration FS Calendar
     
     fileprivate func configureFSCalendar(){
-        
         calendar = FSCalendarSchedule(self, actionTodayButton: UIAction(handler: { _ in
             self.calendarDeselect(date: Date.now)
         }))
         self.view.addSubview(tableViewCalendar)
+        
     }
     
     // MARK: - Configuration Table View
@@ -151,24 +154,23 @@ class ExcurionsGuideCalendarViewController: UIViewController {
             self.presenter.loadTours(date: self.calendar.calendar.selectedDate ?? Date.now)
             
             self.getEventsForDates()
-            
             refreshController.endRefreshing()
         }), for: .primaryActionTriggered)
         
-        let cell = UINib(nibName: "ExcursionTableViewCell", bundle: nil)
+        let cell = UINib(nibName: "TourManadgmentTableViewCell", bundle: nil)
         
-        tableViewCalendar.register(cell, forCellReuseIdentifier: "ExcursionTableViewCell")
+        tableViewCalendar.register(cell, forCellReuseIdentifier: "TourManadgmentTableViewCell")
         
         NSLayoutConstraint.activate([
             
-            tableViewCalendar.topAnchor.constraint(equalTo:self .calendar.showCloseCalendarButton.bottomAnchor, constant: 10),
+            tableViewCalendar.topAnchor.constraint(equalTo:self.calendar.showCloseCalendarButton.bottomAnchor, constant: 10),
             tableViewCalendar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             tableViewCalendar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             tableViewCalendar.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0)
         ])
-        
+
     }
-    
+        
     // MARK: - Handle Actions
     
     @objc func swipeAction(gesture:UISwipeGestureRecognizer){
@@ -188,43 +190,31 @@ class ExcurionsGuideCalendarViewController: UIViewController {
         
         nextOrPrevDay = Calendar.current.date(byAdding: DateComponents(day: addingDays), to: self.calendar.calendar.selectedDate ?? date)
         
+        
         self.calendar.calendar.select(nextOrPrevDay, scrollToDate: true)
         _  = self.calendarShouldSelect(self.calendar.calendar, date: nextOrPrevDay ?? date)
         
-        reloadData()
     }
-    
     /**
      this function updates the table view
      
      */
-    fileprivate func reloadData(isNotTours:Bool = true) {
-        UIView.transition(with: self.tableViewCalendar, duration: 0.5,options: .transitionCrossDissolve) {
-            self.tableViewCalendar.reloadData()
-            
-            
-            let label = self.tableViewCalendar.viewWithTag(1)
-            label?.layer.opacity = 0
-            //            if self.excursionsModel.excursions.count == 0 && isNotTours{
-            //                label?.layer.opacity = 0.5
-            //            }else{
-            //                label?.layer.opacity = 0
-            //            }
-            
-        }
-    }
     
-    
-    fileprivate func getEventsForDates(){
+    // MARK: - Get excursions
         
-        let startDate:Date = Calendar.current.date(byAdding: DateComponents(day: -5), to: self.calendar.calendar.currentPage)!
+    fileprivate func getEventsForDates(){
+        var startDate:Date = .now
         var endDate:Date = .now
         
         switch self.calendar.calendar.scope{
         case .month:
-            endDate = Calendar.current.date(byAdding: DateComponents(day: 35), to: self.calendar.calendar.currentPage)!
+            endDate = Calendar.current.date(byAdding: DateComponents(day: 30), to: self.calendar.calendar.currentPage)!
+            startDate = Calendar.current.date(byAdding: DateComponents(day: 0), to: self.calendar.calendar.currentPage)!
         case .week:
             endDate = Calendar.current.date(byAdding: DateComponents(day: 10), to: self.calendar.calendar.currentPage)!
+            
+            startDate = Calendar.current.date(byAdding: DateComponents(day: 0), to: self.calendar.calendar.currentPage)!
+            
         @unknown default:
             break
         }
@@ -232,7 +222,6 @@ class ExcurionsGuideCalendarViewController: UIViewController {
         DispatchQueue.main.async {
             self.presenter.getExcursionsListByRangeFromServer(startDate: startDate, endDate: endDate)
         }
-        
     }
     
 }
@@ -240,10 +229,10 @@ class ExcurionsGuideCalendarViewController: UIViewController {
 
 
 // MARK: - FSCalendarDelegate
-extension ExcurionsGuideCalendarViewController:FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance{
+extension ExcursionManagementViewController:FSCalendarDelegate, FSCalendarDataSource,FSCalendarDelegateAppearance{
     
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
-        self.calendar.setCalendarHeightConstraint(bounds.height)
+        self.calendar.calendarHeightConstraint.constant = bounds.height
         self.view.layoutIfNeeded()
     }
     
@@ -255,7 +244,7 @@ extension ExcurionsGuideCalendarViewController:FSCalendarDelegate, FSCalendarDat
         self.calendar.onOffResetButton(date)
         if date == calendar.today{
             if let selectedDate = calendar.selectedDate{
-                
+               
                 self.calendarDeselect(date:selectedDate)
             }
             return false
@@ -264,11 +253,13 @@ extension ExcurionsGuideCalendarViewController:FSCalendarDelegate, FSCalendarDat
         return true
     }
     
-    fileprivate func calendarDeselect(date:Date){
-        self.calendar.calendar.deselect(date)
-        self.presenter.loadTours(date: Date.now)
-        self.calendar.onOffResetButton(Date.now)
-    }
+    
+fileprivate func calendarDeselect(date:Date){
+    self.calendar.calendar.deselect(date)
+    self.presenter.loadTours(date: Date.now)
+    self.calendar.onOffResetButton(Date.now)
+}
+    
     
     
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
@@ -280,12 +271,13 @@ extension ExcurionsGuideCalendarViewController:FSCalendarDelegate, FSCalendarDat
         calendar.appearance.headerDateFormat = dateFormatter.string(from: calendar.currentPage)
         
         self.getEventsForDates()
+                
     }
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
         if let event = presenter.getEvent(tourDate: date){
             
-            var result = event.cancel.toInt() + event.waiting.toInt()
+            var result = event.cancel.toInt() + event.emptyGuide.toInt() + event.waiting.toInt()
             if result == 0{
                 result += event.accept.toInt()
             }
@@ -307,7 +299,9 @@ extension ExcurionsGuideCalendarViewController:FSCalendarDelegate, FSCalendarDat
             if event.cancel{
                 eventsColors.append(.systemRed)
             }
-            
+            if event.emptyGuide{
+                eventsColors.append(.systemBlue)
+            }
             if event.accept{
                 eventsColors.append(.systemGreen)
             }
@@ -327,7 +321,9 @@ extension ExcurionsGuideCalendarViewController:FSCalendarDelegate, FSCalendarDat
             if event.cancel{
                 eventsColors.append(.systemRed)
             }
-            
+            if event.emptyGuide{
+                eventsColors.append(.systemBlue)
+            }
             if event.accept{
                 eventsColors.append(.systemGreen)
             }
@@ -336,45 +332,51 @@ extension ExcurionsGuideCalendarViewController:FSCalendarDelegate, FSCalendarDat
         return eventsColors
         
     }
-    
 }
 
 
-
 // MARK: - UITableViewDelegate
-extension ExcurionsGuideCalendarViewController:UITableViewDelegate,UITableViewDataSource{
+extension ExcursionManagementViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        self.presenter.tours[(self.calendar.calendar.selectedDate ?? Date.now).birthdayToString()]?.count ?? 0
+
+        return self.presenter.tours[(self.calendar.calendar.selectedDate ?? Date.now).birthdayToString()]?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ExcursionTableViewCell", for: indexPath) as! ExcursionTableViewCell
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TourManadgmentTableViewCell", for: indexPath) as! TourManadgmentTableViewCell
         
         if let tour = presenter.tours[calendar.calendar.selectedDate?.birthdayToString() ?? Date.now.birthdayToString()]?[indexPath.row]{
-            
+           
             cell.nameLabel.text = tour.tourTitle
             cell.routeLabel.text = tour.route
             
             cell.startTimeLabel.text = tour.dateAndTime.timeToString()
             
+            cell.numberOfPeople.text = tour.numberOfPeople
+            
+            cell.customerCompanyName.text = tour.customerCompanyName
+            
             var guides = ""
+            var statuses:[ExcrusionModel.GuideStatus] = []
             
             for guide in tour.guides{
                 guides += guide.firstName + " " + guide.lastName + ", "
                 
-                let keychain = KeychainService()
-                if guide.id == keychain.getLocalId(){
-                    cell.statusView.backgroundColor = guide.status.getColor()
-                }
-                
+                statuses.append(guide.status)
+            }
+            if guides.count > 0{
+                guides.removeLast()
+                guides.removeLast()
             }
             
-            if guides.count > 2{
-                guides.removeLast()
-                guides.removeLast()
-                
-            }else{
+            if statuses.contains(.cancel){
+                cell.statusView.backgroundColor = .systemRed
+            } else if statuses.contains(.waiting){
+                cell.statusView.backgroundColor = .systemYellow
+            } else if statuses.contains(.accept){
+                cell.statusView.backgroundColor = .systemGreen
+            } else {
                 cell.statusView.backgroundColor = .systemBlue
             }
             
@@ -386,18 +388,45 @@ extension ExcurionsGuideCalendarViewController:UITableViewDelegate,UITableViewDa
                 cell.contentView.layer.opacity = 1
             }
         }
-        
-        
+                        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        
+        if let tour = presenter.tours[calendar.calendar.selectedDate?.birthdayToString() ?? Date.now.birthdayToString()]?[indexPath.row]{
+            
+            let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: {
+                let newTourVC = TourManadmentAssembly.createNewTourController(isUpdate: true, model: tour)
+                return newTourVC
+            }) { elements in
+                let delete = UIAction(title: "Удалить", image: UIImage(systemName: "trash"), attributes: .destructive) { action in
+                    
+                    self.alerts.deleteAlert(self, title: "Вы уверены что хотите удалить экскурсию?", buttonTitle: "Удалить") {
+                        self.presenter.deleteTour(date: tour.dateAndTime, excursionId: tour.tourId)
+                        
+                    }
+                    
+                }
+                
+                return UIMenu(options: .displayInline, children: [delete])
+            }
+            
+            return configuration
+            
+        }
+        
+        return nil
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.tableViewCalendar.deselectRow(at: indexPath, animated: true)
-        
+                
         if let tour = presenter.tours[calendar.calendar.selectedDate?.birthdayToString() ?? Date.now.birthdayToString()]?[indexPath.row]{
+            let newTourVC = TourManadmentAssembly.createNewTourController(isUpdate: true, model: tour)
             
-            let destination = TourManadmentAssembly.createTourForGuideViewController(tour: tour)
-            self.navigationController?.pushViewController(destination, animated: true)
+            self.navigationController?.pushViewController(newTourVC, animated: true)
         }
         
     }
@@ -411,21 +440,18 @@ extension ExcurionsGuideCalendarViewController:UITableViewDelegate,UITableViewDa
     }
 }
 
-
-extension ExcurionsGuideCalendarViewController:ExcursionsGuideCalendarViewProtocol{
-    func updateTours(date: Date) {
-        
-    }
-    
+extension ExcursionManagementViewController:ExcursionManadmentViewProtocol{
     func updateEvents(startDate: Date, endDate: Date) {
         
     }
     
-    func updateTours() {
+    func updateTours(date:Date) {
         self.tableViewCalendar.reloadData()
     }
     
-    func updateEvents() {
+    func updateEvents(){
+        print("updateEvents")
         self.calendar.calendar.reloadData()
     }
+    
 }

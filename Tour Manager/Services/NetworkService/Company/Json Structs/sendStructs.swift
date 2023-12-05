@@ -18,17 +18,15 @@ struct SendAddEmployeeToCompanyJsonStruct:Codable{
 }
 
 struct SendCompanyInfoJsonStruct:Codable{
-    let token:String
-    let company_id:String
-    let company_name:String
+    let companyName:String
+    
+    enum CodingKeys: String, CodingKey {
+        case companyName = "company_name"
+    }
     
 }
 
 public struct SendUpdateUserAccessLevel:Codable{
-    var token:String
-    let company_id:String
-    let target_uid:String
-    
     let can_change_access_level:Bool
     let can_read_tour_list:Bool
     let can_write_tour_list:Bool

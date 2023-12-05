@@ -45,7 +45,7 @@ public enum customErrorAutofill{
 }
 class ApiManagerAutoFill{
     
-    let generalData = GeneralData()
+    let generalData = NetworkServiceHelper()
     private let domain:String
     private let prefix:String
     

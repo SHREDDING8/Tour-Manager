@@ -29,7 +29,7 @@ class EmployeesListPresenter:EmployeesListPresenterProtocol{
     
     var users:[UsersModel] = []
     
-    let apiCompany:ApiManagerCompanyProtocol = ApiManagerCompany()
+    let employeeNetworkService:EmployeeNetworkServiceProtocol = EmployeeNetworkService()
     let keychain = KeychainService()
     
     let usersNetworkService:ApiManagerUserDataProtocol = ApiManagerUserData()
@@ -77,7 +77,7 @@ class EmployeesListPresenter:EmployeesListPresenterProtocol{
     func getUsersFromServer(){
         Task{
             do {
-                let jsonUsers = try await self.apiCompany.getCompanyUsers()
+                let jsonUsers = try await self.employeeNetworkService.getCompanyUsers()
                 
                 for jsonUser in jsonUsers {
                     let realmUser = UserRealm(

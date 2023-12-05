@@ -26,7 +26,7 @@ class EmployeePresenter:EmployeePresenterProtocol{
     var user:UsersModel
     
     let apiUserData:ApiManagerUserDataProtocol = ApiManagerUserData()
-    let apiCompany = ApiManagerCompany()
+    let employeeNetworkService:EmployeeNetworkService = EmployeeNetworkService()
     let keychain = KeychainService()
     let userRealmService = UsersRealmService()
     
@@ -86,9 +86,6 @@ class EmployeePresenter:EmployeePresenterProtocol{
         }
         
         let jsonData = SendUpdateUserAccessLevel(
-            token: keychain.getAcessToken() ?? "",
-            company_id: keychain.getCompanyLocalId() ?? "",
-            target_uid: newEmployee.localId,
             can_change_access_level: newEmployee.accessLevels.canChangeAccessLevel,
             can_read_tour_list: newEmployee.accessLevels.canReadTourList,
             can_write_tour_list: newEmployee.accessLevels.canWriteTourList,
@@ -101,7 +98,7 @@ class EmployeePresenter:EmployeePresenterProtocol{
         
         Task{
             do{
-                if try await apiCompany.updateUserAccessLevel(jsonData){
+                if try await employeeNetworkService.updateCompanyUserAccessLevel(employeeId: user.localId, jsonData){
                     DispatchQueue.main.async {
                         switch accessLevel {
                         case .readCompanyEmployee:

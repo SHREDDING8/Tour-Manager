@@ -62,7 +62,7 @@ protocol ApiManagerUserDataProtocol{
 }
 
 public class ApiManagerUserData: ApiManagerUserDataProtocol{
-    let generalData = GeneralData()
+    let generalData = NetworkServiceHelper()
     let keychainService = KeychainService()
     private let domain:String
     private let prefix:String

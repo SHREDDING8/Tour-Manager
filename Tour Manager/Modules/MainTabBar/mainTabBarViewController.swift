@@ -62,11 +62,14 @@ extension mainTabBarViewController:MainTabBarViewProtocol{
         let profile = ProfileAssembly.createProfileViewController()
         profile.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(systemName: "person.fill"), tag: 1)
         
-        let excursionManagementNavViewController = controllers.getControllerMain(.excursionManagementNavigationViewController)
-        
+        let excursionManagementNavViewController = TourManadmentAssembly.createToursManadgmentViewController()
+                
         excursionManagementNavViewController.tabBarItem = UITabBarItem(title: "Управление", image: UIImage(systemName: "person.3.sequence.fill"), tag: 2)
         
-        let excursionsNavigationController = controllers.getControllerMain(.excursionsNavigationController)
+//        let excursionsNavigationController = controllers.getControllerMain(.excursionsNavigationController)
+        
+        let excursionsNavigationController = TourManadmentAssembly.createGuidesToursViewController()
+        
         excursionsNavigationController.tabBarItem = UITabBarItem(title: "Экскурсии", image: UIImage(systemName: "calendar"), tag: 2)
 
 
@@ -82,11 +85,14 @@ extension mainTabBarViewController:MainTabBarViewProtocol{
                 
         controllersList.append(profile)
         
-        self.setViewControllers(controllersList, animated: true)
-        
-        if controllersList.count == 3{
-            self.selectedIndex = 1
+        if self.viewControllers?.count != controllersList.count{
+            self.setViewControllers(controllersList, animated: true)
+            
+            if controllersList.count == 3{
+                self.selectedIndex = 1
+            }
         }
+        
     }
     
 }
