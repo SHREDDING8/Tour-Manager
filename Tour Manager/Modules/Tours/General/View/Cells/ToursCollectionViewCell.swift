@@ -30,6 +30,11 @@ class ToursCollectionViewCell: UICollectionViewCell {
         
         tableView.register(cell, forCellReuseIdentifier: "TourManadgmentTableViewCell")
         
+        let cell2 = UINib(nibName: "ExcursionTableViewCell", bundle: nil)
+        
+        tableView.register(cell2, forCellReuseIdentifier: "ExcursionTableViewCell")
+        
+        
         tableView.backgroundColor = .clear
                 
         return tableView

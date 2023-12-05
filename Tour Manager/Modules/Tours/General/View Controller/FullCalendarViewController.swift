@@ -92,22 +92,39 @@ extension FullCalendarViewController:FullCalendarViewProtocol{
 extension FullCalendarViewController:FullCalendarViewDelegate{
     func getEventsForDate(date: Date) -> [UIColor] {
         var res:[UIColor] = []
-        if let eventModel = self.presenter.getEvent(tourDate: date){
-            
-            if eventModel.waiting{
-                res.append(.systemYellow)
-            }
-            if eventModel.cancel{
-                res.append(.systemRed)
-            }
-            if eventModel.emptyGuide{
-                res.append(.systemBlue)
-            }
-            if eventModel.accept{
-                res.append(.green)
-            }
-        }
         
+        if presenter.isGuide{
+            if let eventModel = self.presenter.getGuideEvent(tourDate: date){
+                
+                if eventModel.waiting{
+                    res.append(.systemYellow)
+                }
+                if eventModel.cancel{
+                    res.append(.systemRed)
+                }
+                if eventModel.accept{
+                    res.append(.green)
+                }
+            }
+            
+        }else{
+            if let eventModel = self.presenter.getEvent(tourDate: date){
+                
+                if eventModel.waiting{
+                    res.append(.systemYellow)
+                }
+                if eventModel.cancel{
+                    res.append(.systemRed)
+                }
+                if eventModel.emptyGuide{
+                    res.append(.systemBlue)
+                }
+                if eventModel.accept{
+                    res.append(.green)
+                }
+            }
+            
+        }
         return res
     }
     

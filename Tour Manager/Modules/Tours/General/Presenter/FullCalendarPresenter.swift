@@ -13,8 +13,10 @@ protocol FullCalendarViewProtocol:AnyObject{
 
 protocol FullCalendarPresenterProtocol:AnyObject{
     init(view:FullCalendarViewProtocol, isGuide:Bool)
+    var isGuide:Bool { get }
     
     func getEvent(tourDate:Date) -> EventRealmModel?
+    func getGuideEvent(tourDate:Date) -> EventRealmModelForGuide?
     
     func getTourDates(startDate:Date, endDate:Date)
 }
@@ -27,6 +29,7 @@ class FullCalendarPresenter:FullCalendarPresenterProtocol{
     
     let keychain = KeychainService()
     let toursRealmService:ExcursionsRealmServiceProtocol = ExcursionsRealmService()
+    let toursGuideRealmService:ExcursionsRealmServiceForGuideProtocol = ExcursionsRealmServiceForGuide()
     
     let toursNetworkService:ApiManagerExcursionsProtocol = ApiManagerExcursions()
     
@@ -36,7 +39,11 @@ class FullCalendarPresenter:FullCalendarPresenterProtocol{
     }
     
     func getEvent(tourDate:Date) -> EventRealmModel?{
-        toursRealmService.getEvent(tourDate: tourDate.birthdayToString())
+        return toursRealmService.getEvent(tourDate: tourDate.birthdayToString())
+    }
+    
+    func getGuideEvent(tourDate:Date) -> EventRealmModelForGuide?{
+        return toursGuideRealmService.getEventForGuide(tourDate: tourDate.birthdayToString())
     }
     
     func getTourDates(startDate:Date, endDate:Date){
@@ -60,6 +67,24 @@ class FullCalendarPresenter:FullCalendarPresenterProtocol{
                     DispatchQueue.main.sync {
                         
                         self.toursRealmService.addEvents(events: eventsRealm)
+                        view?.updateEvents(startDate: startDate, endDate: endDate)
+                        
+                    }
+                }else{
+                    var eventsRealm:[EventRealmModelForGuide] = []
+                    for result in results{
+                        let eventRealm = EventRealmModelForGuide(
+                            tourDate: result.tourDate,
+                            accept: result.accept,
+                            waiting: result.waiting,
+                            cancel: result.cancel
+                        )
+                        eventsRealm.append(eventRealm)
+                    }
+                    
+                    DispatchQueue.main.sync {
+                        
+                        self.toursGuideRealmService.addEventsForGuide(events: eventsRealm)
                         view?.updateEvents(startDate: startDate, endDate: endDate)
                         
                     }

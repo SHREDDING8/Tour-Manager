@@ -34,18 +34,21 @@ class ProfileViewController: UIViewController{
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.view().changePhotoButton)
         
-        addTargets()
-        addDelegates()
+        DispatchQueue.main.async {
+            self.addTargets()
+            self.addDelegates()
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        configureGeneralInfo()
-        configurePersonalInfo()
-        configureCompanyInfo()
+        self.configureGeneralInfo()
+        self.configurePersonalInfo()
+        self.configureCompanyInfo()
         
-        configureVisibleElements()
+        self.configureVisibleElements()
         
     }
     

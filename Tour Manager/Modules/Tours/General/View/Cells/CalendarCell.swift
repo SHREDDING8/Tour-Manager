@@ -15,7 +15,7 @@ class CalendarCell:JTACDayCell{
     public var date:Date!
     
     enum CellColor{
-        static let unselectedBackgound = UIColor.lightGray
+        static let unselectedBackgound = UIColor(resource: .background)
         static let selectedBackgound = UIColor(resource: .blueText)
         
         static let unselectedSubtitle = UIColor.black
@@ -32,6 +32,11 @@ class CalendarCell:JTACDayCell{
         let view = UIView()
         view.layer.cornerRadius = 6
         view.backgroundColor = CellColor.unselectedBackgound
+        
+        view.layer.shadowColor = UIColor(resource: .black40).cgColor
+        view.layer.shadowOpacity = 0.3
+        view.layer.shadowOffset = CGSize(width: 1, height: 1)
+        view.layer.shadowRadius = 3
         return view
     }()
     

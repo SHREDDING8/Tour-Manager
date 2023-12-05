@@ -361,11 +361,7 @@ class ApiManagerExcursions: ApiManagerExcursionsProtocol{
                 
                 switch response.result {
                 case .success(_):
-                    
-                    print(url)
-                    print(try? JSONSerialization.jsonObject(with: response.data ?? Data()))
-                    print(response.response?.statusCode)
-                    
+                                        
                     if response.response?.statusCode == 400{
                         
                         let error = self.checkError(data: response.data ?? Data())
@@ -416,11 +412,7 @@ class ApiManagerExcursions: ApiManagerExcursionsProtocol{
         let result:ExcursionsListByRange = try await withCheckedThrowingContinuation { continuation in
             
             AF.request(url,method: .get, headers: headers.getHeaders()).response { response in
-                
-                print(url)
-                print(try? JSONSerialization.jsonObject(with: response.data ?? Data()))
-                print(response.response?.statusCode)
-                
+                                
                 switch response.result {
                 case .success(_):
                     if response.response?.statusCode == 400{
