@@ -136,7 +136,7 @@ protocol MainTabBarViewProtocol:AnyObject{
                     // добавить фото ка</string>
 				<key>trailing</key>
 				<string>                    do{
-                        let imageData = try await self.usersNetworkService.downloadProfilePhoto(localId: jsonUser.uid)
+                        let imageData = try await self.usersNetworkService.downloadProfilePhoto(pictureId: "mock")
                         
 </string>
 			</dict>

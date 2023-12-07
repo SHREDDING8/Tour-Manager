@@ -114,6 +114,8 @@
 		EEDA5E9B2A378215002CC5C8 /* UiTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDA5E9A2A378215002CC5C8 /* UiTextField.swift */; };
 		EEDA5E9D2A37BFA9002CC5C8 /* UiTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDA5E9C2A37BFA9002CC5C8 /* UiTextView.swift */; };
 		EEDA5E9F2A37C153002CC5C8 /* AddingNewComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDA5E9E2A37C153002CC5C8 /* AddingNewComponentViewController.swift */; };
+		EEDF10862B21D0E100509A63 /* ImageRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDF10852B21D0E100509A63 /* ImageRealmModel.swift */; };
+		EEDF108B2B21DC9000509A63 /* ImagesRealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDF108A2B21DC9000509A63 /* ImagesRealmService.swift */; };
 		EEE8026A2A2E4E1A00162622 /* ExcursionManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE802692A2E4E1A00162622 /* ExcursionManagementViewController.swift */; };
 		EEE802702A2E5DED00162622 /* ExcursionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE8026E2A2E5DED00162622 /* ExcursionTableViewCell.swift */; };
 		EEE802712A2E5DED00162622 /* ExcursionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEE8026F2A2E5DED00162622 /* ExcursionTableViewCell.xib */; };
@@ -251,6 +253,8 @@
 		EEDA5E9A2A378215002CC5C8 /* UiTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiTextField.swift; sourceTree = "<group>"; };
 		EEDA5E9C2A37BFA9002CC5C8 /* UiTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiTextView.swift; sourceTree = "<group>"; };
 		EEDA5E9E2A37C153002CC5C8 /* AddingNewComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingNewComponentViewController.swift; sourceTree = "<group>"; };
+		EEDF10852B21D0E100509A63 /* ImageRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRealmModel.swift; sourceTree = "<group>"; };
+		EEDF108A2B21DC9000509A63 /* ImagesRealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesRealmService.swift; sourceTree = "<group>"; };
 		EEE802692A2E4E1A00162622 /* ExcursionManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcursionManagementViewController.swift; sourceTree = "<group>"; };
 		EEE8026E2A2E5DED00162622 /* ExcursionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcursionTableViewCell.swift; sourceTree = "<group>"; };
 		EEE8026F2A2E5DED00162622 /* ExcursionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExcursionTableViewCell.xib; sourceTree = "<group>"; };
@@ -862,9 +866,9 @@
 		EE926DAD2AFE7EAD005F2851 /* Profile Page */ = {
 			isa = PBXGroup;
 			children = (
-				EE926DAF2AFE7ED3005F2851 /* ProfileView.swift */,
-				EE926DB12AFE7EEA005F2851 /* ProfileViewController.swift */,
-				EE4506C62AFFBDD800603E57 /* ProfileViewElement.swift */,
+				EEDF10892B21DB5F00509A63 /* Presenter */,
+				EEDF10882B21DB5800509A63 /* ViewController */,
+				EEDF10872B21DB4C00509A63 /* View */,
 			);
 			path = "Profile Page";
 			sourceTree = "<group>";
@@ -1015,7 +1019,6 @@
 		EED645172A98CE2C00F2ADC9 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				EED6452D2A994F1400F2ADC9 /* ProfilePagePresenter.swift */,
 				EE6756072AC0721800E253DA /* EmployeesListPresenter.swift */,
 				EE6756092AC076FF00E253DA /* EmployeePresenter.swift */,
 				EE1805E82AD59ACE0083952D /* ChangePasswordPresenter.swift */,
@@ -1069,6 +1072,7 @@
 		EED645342A99524900F2ADC9 /* Realm */ = {
 			isa = PBXGroup;
 			children = (
+				EEDF10842B21CE5A00509A63 /* Images */,
 				EE38C6722B0B8FB100DAEC4F /* Devices */,
 				EE330A7A2AE44C2A00109E4E /* Autofill */,
 				EEF2F63D2ADD5B310070D083 /* Tours */,
@@ -1076,6 +1080,40 @@
 				EE6756052AC03E0A00E253DA /* GeneralRealmService.swift */,
 			);
 			path = Realm;
+			sourceTree = "<group>";
+		};
+		EEDF10842B21CE5A00509A63 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				EEDF10852B21D0E100509A63 /* ImageRealmModel.swift */,
+				EEDF108A2B21DC9000509A63 /* ImagesRealmService.swift */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		EEDF10872B21DB4C00509A63 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EE4506C62AFFBDD800603E57 /* ProfileViewElement.swift */,
+				EE926DAF2AFE7ED3005F2851 /* ProfileView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EEDF10882B21DB5800509A63 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				EE926DB12AFE7EEA005F2851 /* ProfileViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		EEDF10892B21DB5F00509A63 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				EED6452D2A994F1400F2ADC9 /* ProfilePagePresenter.swift */,
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		EEF27A462A0554F6006E5E53 /* Font */ = {
@@ -1301,6 +1339,7 @@
 				EEF27A482A05551E006E5E53 /* Font.swift in Sources */,
 				EE4506C92B010BF400603E57 /* ProfileAssembly.swift in Sources */,
 				EEF18C952A4258EE00A91D2F /* FS calendar.swift in Sources */,
+				EEDF10862B21D0E100509A63 /* ImageRealmModel.swift in Sources */,
 				EE926DB22AFE7EEA005F2851 /* ProfileViewController.swift in Sources */,
 				EE6756082AC0721800E253DA /* EmployeesListPresenter.swift in Sources */,
 				EEA07CB12A4DD7FC00F14778 /* LoginViewController.swift in Sources */,
@@ -1327,6 +1366,7 @@
 				EE783F472AD4905A00DA820F /* NewExcursionPresenter.swift in Sources */,
 				EED645232A98DA7C00F2ADC9 /* LoginViewPresenter.swift in Sources */,
 				EE67560A2AC076FF00E253DA /* EmployeePresenter.swift in Sources */,
+				EEDF108B2B21DC9000509A63 /* ImagesRealmService.swift in Sources */,
 				EED6452C2A990DB500F2ADC9 /* MainTabBarPresenter.swift in Sources */,
 				EE5F91C42A1FCEAE00B39BB1 /* ApiManagerCompany.swift in Sources */,
 				EEFD30EF2A3B7905003192A1 /* ExcurionsGuideCalendarViewController.swift in Sources */,

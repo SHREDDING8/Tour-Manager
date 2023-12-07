@@ -43,7 +43,7 @@ class EmployeePresenter:EmployeePresenterProtocol{
         
         Task{
             do{
-                let imageData = try await self.apiUserData.downloadProfilePhoto(localId: user.localId)
+                let imageData = try await self.apiUserData.downloadProfilePhoto(pictureId: "mock")
                 view?.setImage(imageData: imageData)
             } catch{
                 

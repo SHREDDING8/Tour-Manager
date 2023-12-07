@@ -318,8 +318,8 @@
             filePath = "Tour Manager/Services/NetworkService/Auth/ApiManagerAuth.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "135"
-            endingLineNumber = "135"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
             landmarkName = "refreshToken()"
             landmarkType = "7">
          </BreakpointContent>
@@ -334,8 +334,8 @@
             filePath = "Tour Manager/Services/NetworkService/Auth/ApiManagerAuth.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
+            startingLineNumber = "152"
+            endingLineNumber = "152"
             landmarkName = "refreshToken()"
             landmarkType = "7">
          </BreakpointContent>
@@ -416,7 +416,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "137"
             endingLineNumber = "137"
-            landmarkName = "updateImage(id:image:)"
+            landmarkName = "updateImage(userId:pictureId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -542,8 +542,8 @@
             filePath = "Tour Manager/Modules/Profile/Presenter/ProfilePagePresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
             landmarkName = "getFirstName()"
             landmarkType = "7">
          </BreakpointContent>
@@ -558,8 +558,8 @@
             filePath = "Tour Manager/Modules/Profile/Presenter/ProfilePagePresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
             landmarkName = "getFullName()"
             landmarkType = "7">
             <Locations>
@@ -654,8 +654,8 @@
             filePath = "Tour Manager/Modules/Profile/Presenter/ProfilePagePresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "220"
-            endingLineNumber = "220"
+            startingLineNumber = "221"
+            endingLineNumber = "221"
             landmarkName = "updatePersonalData(updateField:value:)"
             landmarkType = "7">
             <Locations>
@@ -717,8 +717,8 @@
             filePath = "Tour Manager/Modules/Profile/Presenter/ProfilePagePresenter.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "206"
-            endingLineNumber = "206"
+            startingLineNumber = "207"
+            endingLineNumber = "207"
             landmarkName = "updatePersonalData(updateField:value:)"
             landmarkType = "7">
             <Locations>
@@ -1637,6 +1637,131 @@
             endingLineNumber = "130"
             landmarkName = "collectionView(_:cellForItemAt:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "99E4AA74-1C64-418A-9C94-100806AA5C3C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Services/NetworkService/UserData/ApiManagerUserData.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "142"
+            endingLineNumber = "142"
+            landmarkName = "getUserInfo(token:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "39E2F49E-1D3D-444C-9D35-ACA4C9806FD4"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Services/NetworkService/Auth/ApiManagerAuth.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "logIn(email:password:deviceToken:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4944A3AB-4CA7-41EC-8ABA-9471DEDB7FAB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Services/NetworkService/Auth/ApiManagerAuth.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
+            landmarkName = "logIn(email:password:deviceToken:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "4944A3AB-4CA7-41EC-8ABA-9471DEDB7FAB - 2976cc8d643ffd6f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for Tour_Manager.ApiManagerAuth.logIn(email: Swift.String, password: Swift.String, deviceToken: Swift.String) async throws -&gt; Tour_Manager.ResponseLogInJsonStruct"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Services/NetworkService/Auth/ApiManagerAuth.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "103"
+                  endingLineNumber = "103"
+                  offsetFromSymbolStart = "1196">
+               </Location>
+               <Location
+                  uuid = "4944A3AB-4CA7-41EC-8ABA-9471DEDB7FAB - 7302e210aee4692f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(6) await resume partial function for Tour_Manager.ApiManagerAuth.logIn(email: Swift.String, password: Swift.String, deviceToken: Swift.String) async throws -&gt; Tour_Manager.ResponseLogInJsonStruct"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Services/NetworkService/Auth/ApiManagerAuth.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "103"
+                  endingLineNumber = "103"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  uuid = "4944A3AB-4CA7-41EC-8ABA-9471DEDB7FAB - e3cd338b43e839ed"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(7) suspend resume partial function for Tour_Manager.ApiManagerAuth.logIn(email: Swift.String, password: Swift.String, deviceToken: Swift.String) async throws -&gt; Tour_Manager.ResponseLogInJsonStruct"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Services/NetworkService/Auth/ApiManagerAuth.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "103"
+                  endingLineNumber = "103"
+                  offsetFromSymbolStart = "140">
+               </Location>
+               <Location
+                  uuid = "4944A3AB-4CA7-41EC-8ABA-9471DEDB7FAB - c689351451ff67aa"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(8) suspend resume partial function for Tour_Manager.ApiManagerAuth.logIn(email: Swift.String, password: Swift.String, deviceToken: Swift.String) async throws -&gt; Tour_Manager.ResponseLogInJsonStruct"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Services/NetworkService/Auth/ApiManagerAuth.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "103"
+                  endingLineNumber = "103"
+                  offsetFromSymbolStart = "144">
+               </Location>
+               <Location
+                  uuid = "4944A3AB-4CA7-41EC-8ABA-9471DEDB7FAB - 15b86f58f41107ad"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.CheckedContinuation&lt;Tour_Manager.ResponseLogInJsonStruct, Swift.Error&gt;) -&gt; () in Tour_Manager.ApiManagerAuth.logIn(email: Swift.String, password: Swift.String, deviceToken: Swift.String) async throws -&gt; Tour_Manager.ResponseLogInJsonStruct"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Services/NetworkService/Auth/ApiManagerAuth.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "104"
+                  endingLineNumber = "104"
+                  offsetFromSymbolStart = "424">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

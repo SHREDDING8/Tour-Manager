@@ -49,9 +49,9 @@ protocol ApiManagerUserDataProtocol{
     func getUserInfo() async throws -> ResponseGetUserInfoJsonStruct
     
     // photo
-    func downloadProfilePhoto(localId:String) async throws -> Data
-    func uploadProfilePhoto(image:UIImage) async throws ->Bool
-    func deleteProfilePhoto() async throws -> Bool
+    func downloadProfilePhoto(pictureId:String) async throws -> Data
+    func uploadProfilePhoto(image:UIImage) async throws -> String
+    func deleteProfilePhoto(pictureId:String) async throws -> Bool
     
     // userInfo
     func updateUserInfo(updateField: UserDataFields, value:String) async throws -> Bool
@@ -99,12 +99,14 @@ public class ApiManagerUserData: ApiManagerUserDataProtocol{
             throw customErrorUserData.unknowmError
         }
         
-        let url = URL(string: self.routeGetUserInfo)
-        let jsonData = SendGetUserInfoJsonStruct(token: keychainService.getAcessToken() ?? "")
+        let url = URL(string: NetworkServiceHelper.Users.getUserInfo)!
         
+        let headers = NetworkServiceHelper.Headers()
+        headers.addAccessTokenHeader()
+                
         let result:ResponseGetUserInfoJsonStruct = try await withCheckedThrowingContinuation { continuation in
             
-            AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
+            AF.request(url, method: .get, headers: headers.getHeaders()).response { response in
                 
                 switch response.result {
                 case .success(_):
@@ -137,12 +139,12 @@ public class ApiManagerUserData: ApiManagerUserDataProtocol{
         self.generalData.requestWithCheckRefresh { newToken in
             let requestToken = newToken == nil ? token : newToken!
                         
-            let url = URL(string: self.routeGetUserInfo)
+            let url = URL(string: NetworkServiceHelper.Users.getUserInfo)!
             
+            let headers = NetworkServiceHelper.Headers()
+            headers.addAccessTokenHeader()
             
-            let jsonData = SendGetUserInfoJsonStruct(token: requestToken)
-            
-            AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
+            AF.request(url, method: .get, headers: headers.getHeaders()).response { response in
                 
                 switch response.result {
                 case .success(_):
@@ -207,15 +209,17 @@ public class ApiManagerUserData: ApiManagerUserDataProtocol{
             throw customErrorUserData.unknowmError
         }
         
-        let url = URL(string: self.routeSetUserInfo)
+        let url = URL(string: NetworkServiceHelper.Users.updateUserInfo)
+        
+        let headers = NetworkServiceHelper.Headers()
+        headers.addAccessTokenHeader()
         
         let jsonData = [
-            "token": keychainService.getAcessToken() ?? "",
             updateField.rawValue : value
         ]
         
         let result:Bool = try await withCheckedThrowingContinuation { continuation in
-            AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
+            AF.request(url!, method: .put, parameters: jsonData, encoder: .json,headers: headers.getHeaders()).response { response in
                 
                 switch response.result {
                 case .success(_):
@@ -247,14 +251,13 @@ public class ApiManagerUserData: ApiManagerUserDataProtocol{
             throw customErrorUserData.unknowmError
         }
         
-        let url = URL(string: self.routeDeleteCurrentUser)
-        let jsonData = [
-            "token": keychainService.getAcessToken() ?? "",
-        ]
+        let url = URL(string: NetworkServiceHelper.Users.deleteUser)
+        let headers = NetworkServiceHelper.Headers()
+        headers.addAccessTokenHeader()
         
         let result:Bool = try await withCheckedThrowingContinuation { continuation in
             
-            AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
+            AF.request(url!, method: .delete, headers: headers.getHeaders()).response { response in
                 
                 switch response.result {
                 case .success(_):
@@ -277,36 +280,38 @@ public class ApiManagerUserData: ApiManagerUserDataProtocol{
         return result
     }
     
-    public func uploadProfilePhoto(image:UIImage) async throws ->Bool{
+    public func uploadProfilePhoto(image:UIImage) async throws -> String{
         let refresh = try await ApiManagerAuth.refreshToken()
         
         if !refresh{
             throw customErrorUserData.unknowmError
         }
         
-        let url = URL(string: self.routeUploadPhoto)
-        let parameter = ["token" : keychainService.getAcessToken() ?? ""]
+        let url = URL(string: NetworkServiceHelper.Users.addUserProfilePicture)
+        let headers = NetworkServiceHelper.Headers()
+        headers.addAccessTokenHeader()
         
         let imageData = image.jpegData(compressionQuality: 1)!
         
-        let result:Bool = try await withCheckedThrowingContinuation { continuation in
+        let result:String = try await withCheckedThrowingContinuation { continuation in
             AF.upload(multipartFormData: { multipartFormData in
-                for (key,value) in parameter{
-                    multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key)
-                }
                 
                 multipartFormData.append(imageData, withName: "file", fileName: "profile photo.jpg")
                 
-            }, to: url!).response { response in
+            }, to: url!,headers: headers.getHeaders()).response { response in
                 
                 switch response.result {
-                case .success(_):
+                case .success(let success):
                     if response.response?.statusCode == 400{
                         let error = self.checkError(data: response.data ?? Data())
                         continuation.resume(throwing: error)
                         
                     } else if response.response?.statusCode == 200{
-                        continuation.resume(returning: true)
+                        if let decoded = try? JSONDecoder().decode(ResponseUploadPhoto.self, from: success ?? Data()){
+                            continuation.resume(returning: decoded.pictureID)
+                        }else{
+                            continuation.resume(throwing: customErrorUserData.unknowmError)
+                        }
                         
                     }else{
                         continuation.resume(throwing: customErrorUserData.unknowmError)
@@ -322,7 +327,7 @@ public class ApiManagerUserData: ApiManagerUserDataProtocol{
     }
     
     // MARK: - downloadProfilePhoto
-    func downloadProfilePhoto(localId:String) async throws -> Data{
+    func downloadProfilePhoto(pictureId:String) async throws -> Data{
         
         let refresh = try await ApiManagerAuth.refreshToken()
         
@@ -330,16 +335,13 @@ public class ApiManagerUserData: ApiManagerUserDataProtocol{
             throw customErrorUserData.unknowmError
         }
         
-        let url = URL(string: self.routeDownLoadPhoto)!
-        
-        let json = [
-            "token": keychainService.getAcessToken() ?? "",
-            "target_uid" : localId
-        ]
-        
+        let url = URL(string: NetworkServiceHelper.Users.getUserProfilePicture(pictureId: pictureId))!
+        let headers = NetworkServiceHelper.Headers()
+        headers.addAccessTokenHeader()
+                
         let result:Data = try await withCheckedThrowingContinuation { continuation in
             
-            AF.request(url, method: .post, parameters: json, encoder: .json).response { response in
+            AF.request(url, method: .get, headers: headers.getHeaders()).response { response in
                 
                 switch response.result {
                 case .success(_):
@@ -366,7 +368,7 @@ public class ApiManagerUserData: ApiManagerUserDataProtocol{
     }
     
     
-    public func deleteProfilePhoto() async throws -> Bool{
+    public func deleteProfilePhoto(pictureId:String) async throws -> Bool{
         
         let refresh = try await ApiManagerAuth.refreshToken()
         
@@ -374,14 +376,13 @@ public class ApiManagerUserData: ApiManagerUserDataProtocol{
             throw customErrorUserData.unknowmError
         }
         
-        let url = URL(string: self.routeDeletePhoto)!
-        let json = [
-            "token": keychainService.getAcessToken() ?? "",
-        ]
+        let url = URL(string: NetworkServiceHelper.Users.deleteUserProfilePicture(pictureId: pictureId))!
+        let headers = NetworkServiceHelper.Headers()
+        headers.addAccessTokenHeader()
         
         let result:Bool = try await withCheckedThrowingContinuation { continuation in
             
-            AF.request(url, method: .post, parameters: json, encoder: .json).response { response in
+            AF.request(url, method: .delete, headers: headers.getHeaders()).response { response in
                 
                 switch response.result {
                 case .success(_):

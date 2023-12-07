@@ -16,7 +16,7 @@ class UserRealm: Object {
     @Persisted var email:String?
     @Persisted var phone:String?
     @Persisted var birthday:Date?
-    @Persisted var image:Data?
+    @Persisted var imageIDs:List<String>
     
     @Persisted var accesslLevels:UserAccessLevelRealm?
     
@@ -27,7 +27,7 @@ class UserRealm: Object {
         email:String,
         phone:String,
         birthday:Date,
-        image:Data? = nil,
+        imageIDs:[String],
         accesslLevels:UserAccessLevelRealm? = nil
     ) {
         self.init()
@@ -37,7 +37,10 @@ class UserRealm: Object {
         self.email = email
         self.phone = phone
         self.birthday = birthday
-        self.image = image
+        
+        let newImageIDs = List<String>()
+        newImageIDs.append(objectsIn: imageIDs)
+        self.imageIDs = newImageIDs
         self.accesslLevels = accesslLevels
     }
     

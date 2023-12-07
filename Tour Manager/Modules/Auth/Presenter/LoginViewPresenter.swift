@@ -135,7 +135,7 @@ class LoginPresenter:LoginPresenterProtocol{
                 
                 DispatchQueue.main.async {
                     
-                    let me = UserRealm(localId: self.keychainService.getLocalId()!, firstName: userDataResult.first_name, secondName: userDataResult.last_name, email: userDataResult.email, phone: userDataResult.phone, birthday: Date.dateStringToDate(dateString: userDataResult.birthday_date))
+                    let me = UserRealm(localId: self.keychainService.getLocalId()!, firstName: userDataResult.first_name, secondName: userDataResult.last_name, email: userDataResult.email, phone: userDataResult.phone, birthday: Date.dateStringToDate(dateString: userDataResult.birthday_date), imageIDs: userDataResult.profile_pictures)
                     
                     self.usersRealmService.setUserInfo(user: me)
                     
@@ -247,7 +247,7 @@ class LoginPresenter:LoginPresenterProtocol{
                 return
             }
             
-            let me = UserRealm(localId: self.keychainService.getLocalId()!, firstName: response!.first_name, secondName: response!.last_name, email: response!.email, phone: response!.phone, birthday: Date.dateStringToDate(dateString: response!.birthday_date))
+            let me = UserRealm(localId: self.keychainService.getLocalId()!, firstName: response!.first_name, secondName: response!.last_name, email: response!.email, phone: response!.phone, birthday: Date.dateStringToDate(dateString: response!.birthday_date), imageIDs: response!.profile_pictures)
             
             self.usersRealmService.setUserInfo(user: me)
 

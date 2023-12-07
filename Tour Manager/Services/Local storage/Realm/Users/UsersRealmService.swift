@@ -34,8 +34,8 @@ protocol UsersRealmServiceProtocol{
     func updateField(localId:String, updateField: UserDataFields, value:String)
     func updateBirhday(localId:String,date:Date)
     
-    func updateImage(id:String, image:Data)
-    func deleteImage(id:String)
+    func updateImage(userId:String, pictureId:String)
+    func deleteImage(userId:String, pictureId:String)
 }
 
 class UsersRealmService:UsersRealmServiceProtocol{
@@ -133,18 +133,21 @@ class UsersRealmService:UsersRealmServiceProtocol{
         }
     }
     
-    func updateImage(id:String, image:Data){
-        if let user = self.getUserInfo(localId: id){
+    func updateImage(userId:String, pictureId:String){
+        if let user = self.getUserInfo(localId: userId){
             try! realm.write({
-                user.image = image
+                user.imageIDs.insert(pictureId, at: 0)
             })
         }
     }
     
-    func deleteImage(id:String){
-        if let user = self.getUserInfo(localId: id){
+    func deleteImage(userId:String, pictureId:String){
+        if let user = self.getUserInfo(localId: userId){
             try! realm.write({
-                user.image = nil
+                if let index = user.imageIDs.firstIndex(of: pictureId){
+                    user.imageIDs.remove(at: index)
+                }
+                
             })
         }
     }

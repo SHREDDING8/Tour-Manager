@@ -19,4 +19,15 @@ public struct ResponseGetUserInfoJsonStruct: Codable{
     let company_name:String
     
     let private_company:Bool
+    
+    let profile_pictures:[String]
+    
+}
+
+struct ResponseUploadPhoto: Codable {
+    let pictureID: String
+
+    enum CodingKeys: String, CodingKey {
+        case pictureID = "picture_id"
+    }
 }

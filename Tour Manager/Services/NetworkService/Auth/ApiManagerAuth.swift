@@ -98,12 +98,13 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
             )
         )
         
-        let url = URL(string: routeLogIn)
+        let url = URL(string: "https://24tour-manager.ru/auth/login")!
         
         let result:ResponseLogInJsonStruct = try await withCheckedThrowingContinuation { continuation in
-            AF.request(url!,method: .post, parameters: jsonData,encoder: .json).response { response in
+            AF.request(url,method: .post, parameters: jsonData,encoder: .json).response { response in
                 switch response.result {
                 case .success(_):
+                    
                     if response.response?.statusCode == 400{
                         let error = self.checkError(data: response.data!)
                         continuation.resume(throwing: error)

@@ -57,6 +57,7 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
     
     let keychain = KeychainService()
     let usersRealmService = UsersRealmService()
+    let imageService:ImagesRealmServiceProtocol = ImagesRealmService()
     
     let apiUserData = ApiManagerUserData()
     let apiCompany = ApiManagerCompany()
@@ -79,22 +80,29 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
     }
     
     public func getProfilePhoto(){
-        downloadProfilePhoto()
         
-        if let imageData = usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")?.image{
-            view?.setProfilePhoto(image: UIImage(data: imageData)!)
-        }else{
-            view?.setProfilePhoto(image: UIImage(resource: .noProfilePhoto))
+        if let imageId = usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")?.imageIDs.first{
+            if let imageData = imageService.getImage(by: imageId){
+                view?.setProfilePhoto(image: UIImage(data: imageData)!)
+                return
+            }else{
+                self.downloadProfilePhoto(pictureId: imageId)
+            }
         }
+        
+        view?.setProfilePhoto(image: UIImage(resource: .noProfilePhoto))
         
     }
     
     public func getProfilePhotoFromRealm() -> UIImage{
-        if let imageData = usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")?.image{
-            UIImage(data: imageData)!
-        }else{
-            UIImage(resource: .noProfilePhoto)
+        
+        if let imageId = usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")?.imageIDs.first{
+            if let imageData = imageService.getImage(by: imageId){
+                return UIImage(data: imageData)!
+            }
         }
+        
+        return UIImage(resource: .noProfilePhoto)
     }
     
     public func getFirstName() -> String{
@@ -151,12 +159,13 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
     public func uploadProfilePhoto(image:UIImage){
         Task{
             do{
-                if try await self.apiUserData.uploadProfilePhoto(image:image){
-                    DispatchQueue.main.async {
-                        self.usersRealmService.updateImage(id: self.keychain.getLocalId() ?? "", image: image.pngData()!)
-                        self.view?.uploadSuccess(image: image)
-                    }
+                let newPictureId = try await self.apiUserData.uploadProfilePhoto(image:image)
+                DispatchQueue.main.async {
+                    self.usersRealmService.updateImage(userId: self.keychain.getLocalId() ?? "", pictureId: newPictureId)
+                    self.imageService.setNewImage(id: newPictureId, image.pngData()!)
+                    self.view?.uploadSuccess(image: image)
                 }
+                
                 
             } catch{
                 DispatchQueue.main.async {
@@ -168,13 +177,14 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
         }
     }
     
-    private func downloadProfilePhoto(){
+    private func downloadProfilePhoto(pictureId:String){
         Task{
             do{
-                let imageData = try await self.apiUserData.downloadProfilePhoto(localId: keychain.getLocalId() ?? "")
+                let imageData = try await self.apiUserData.downloadProfilePhoto(pictureId: pictureId)
                 
                 DispatchQueue.main.async {
-                    self.usersRealmService.updateImage(id: self.keychain.getLocalId() ?? "", image: imageData)
+                    self.usersRealmService.updateImage(userId: self.keychain.getLocalId() ?? "", pictureId: pictureId)
+                    self.imageService.setNewImage(id: pictureId, imageData)
                     self.view?.setProfilePhoto(image: UIImage(data: imageData)!)
                 }
 
@@ -185,18 +195,27 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
     }
     
     public func deleteProfilePhoto(){
-        Task{
-            do{
-                if try await self.apiUserData.deleteProfilePhoto(){
-                    DispatchQueue.main.async {
-                        self.usersRealmService.deleteImage(id: self.keychain.getAcessToken() ?? "")
-                        self.view?.deletePhotoSuccess()
+            
+                if let imageId = usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")?.imageIDs.first{
+                    
+                    Task{
+                        do{
+                            if try await self.apiUserData.deleteProfilePhoto(pictureId: imageId){
+                                DispatchQueue.main.async {
+                                    self.usersRealmService.deleteImage(userId: self.keychain.getAcessToken() ?? "", pictureId: imageId)
+                                    self.imageService.deleteImage(by: imageId)
+                                    self.view?.deletePhotoSuccess()
+                                }
+                            }
+                        }catch{
+                            
+                        }
+
                     }
+
                 }
-            }catch{
                 
-            }
-        }
+        
     }
     
     public func updatePersonalData(updateField: UserDataFields,value:String) {

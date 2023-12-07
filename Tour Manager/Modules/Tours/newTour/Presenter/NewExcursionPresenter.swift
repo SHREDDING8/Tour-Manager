@@ -134,9 +134,9 @@ class NewExcursionPresenter:NewExcursionPresenterProtocol{
     
     public func getUserPhotoFromRealm(by index:Int) -> UIImage?{
         
-        if let imageData = usersRealmService.getUserInfo(localId: self.tour.guides[index].id)?.image{
-            return UIImage(data: imageData)
-        }
+//        if let imageData = usersRealmService.getUserInfo(localId: self.tour.guides[index].id)?.image{
+//            return UIImage(data: imageData)
+//        }
         
         return nil
     }
@@ -144,7 +144,7 @@ class NewExcursionPresenter:NewExcursionPresenterProtocol{
     public func getUserPhotoFromServer(by index:Int, completion: @escaping ((UIImage?)->Void) ){
         Task{
             do {
-                let imageData = try await usersNetworkSevise.downloadProfilePhoto(localId:self.tour.guides[index].id)
+                let imageData = try await usersNetworkSevise.downloadProfilePhoto(pictureId: "mock")
                 
                 DispatchQueue.main.async{
                     let guide = self.tour.guides[index]
@@ -154,7 +154,7 @@ class NewExcursionPresenter:NewExcursionPresenterProtocol{
                         self.usersRealmService.setUserInfo(user: newUser)
                     }
                     
-                    self.usersRealmService.updateImage(id: self.tour.guides[index].id, image: imageData)
+//                    self.usersRealmService.updateImage(id: self.tour.guides[index].id, image: imageData)
                    completion(UIImage(data: imageData))
                 }
                 

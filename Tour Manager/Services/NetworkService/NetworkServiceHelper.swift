@@ -113,6 +113,30 @@ class NetworkServiceHelper{
         }
     }
     
+    public class Users{
+        private static var usersBaseUrl = newDomain + "users"
+        
+        public static var getUserInfo = usersBaseUrl + "/";
+        public static var updateUserInfo = usersBaseUrl + "/";
+        
+        public static var deleteUser = usersBaseUrl + "/";
+        public static func getUserInfoByTarget(targetId:String, companyId:String) ->String{
+            return "\(usersBaseUrl)/\(targetId)?companyId=\(companyId)"
+        }
+        
+        private static var profilePictureBaseUrl = "\(usersBaseUrl)/profile_picture"
+        
+        public static var addUserProfilePicture = profilePictureBaseUrl
+        public static func deleteUserProfilePicture(pictureId:String) -> String{
+            return "\(profilePictureBaseUrl)/\(pictureId)"
+        }
+        
+        public static func getUserProfilePicture(pictureId:String) ->String{
+            return "\(profilePictureBaseUrl)/\(pictureId)"
+        }
+        
+    }
+    
     
     public class Headers{
         private var headers:[String:String] = [:]

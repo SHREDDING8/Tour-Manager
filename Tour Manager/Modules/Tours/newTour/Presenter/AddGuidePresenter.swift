@@ -210,7 +210,7 @@ class AddGuidePresenter:AddGuidePresenterProtocol{
                         secondName: jsonUser.lastName,
                         email: jsonUser.email,
                         phone: jsonUser.phone,
-                        birthday: Date.birthdayFromString(dateString: jsonUser.birthdayDate),
+                        birthday: Date.birthdayFromString(dateString: jsonUser.birthdayDate), imageIDs: [],
                         accesslLevels: UserAccessLevelRealm(
                             readCompanyEmployee: jsonUser.accessLevels.readCompanyEmployee,
                             readLocalIdCompany: jsonUser.accessLevels.readLocalIDCompany,

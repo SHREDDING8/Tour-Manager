@@ -80,7 +80,7 @@ class VerifyEmailPresenter:VerifyEmailPresenterProtocol{
                 return
             }
             
-            let me = UserRealm(localId: self.keychainService.getLocalId()!, firstName: response!.first_name, secondName: response!.last_name, email: response!.email, phone: response!.phone, birthday: Date.dateStringToDate(dateString: response!.birthday_date))
+            let me = UserRealm(localId: self.keychainService.getLocalId()!, firstName: response!.first_name, secondName: response!.last_name, email: response!.email, phone: response!.phone, birthday: Date.dateStringToDate(dateString: response!.birthday_date), imageIDs: response!.profile_pictures)
             
             self.usersRealmService.setUserInfo(user: me)
 

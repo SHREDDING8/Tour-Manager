@@ -46,9 +46,9 @@ class EmployeesListPresenter:EmployeesListPresenterProtocol{
         
         for user in realmUsers{
             var image:UIImage? = nil
-            if let imageData = user.image{
-                image = UIImage(data: imageData)
-            }
+//            if let imageData = user.image{
+//                image = UIImage(data: imageData)
+//            }
             
             let newUserModel = UsersModel(
                 localId: user.localId,
@@ -86,7 +86,7 @@ class EmployeesListPresenter:EmployeesListPresenterProtocol{
                         secondName: jsonUser.lastName,
                         email: jsonUser.email,
                         phone: jsonUser.phone,
-                        birthday: Date.birthdayFromString(dateString: jsonUser.birthdayDate),
+                        birthday: Date.birthdayFromString(dateString: jsonUser.birthdayDate), imageIDs: [],
                         accesslLevels: UserAccessLevelRealm(
                             readCompanyEmployee: jsonUser.accessLevels.readCompanyEmployee,
                             readLocalIdCompany: jsonUser.accessLevels.readLocalIDCompany,
@@ -105,10 +105,10 @@ class EmployeesListPresenter:EmployeesListPresenterProtocol{
                     
                     // добавить фото как в petConnect
                     do{
-                        let imageData = try await self.usersNetworkService.downloadProfilePhoto(localId: jsonUser.uid)
+                        let imageData = try await self.usersNetworkService.downloadProfilePhoto(pictureId: "mock")
                         
                         DispatchQueue.main.sync {
-                            self.usersRealmService.updateImage(id: jsonUser.uid, image: imageData)
+//                            self.usersRealmService.updateImage(id: jsonUser.uid, image: imageData)
                         }
                         
                     }catch{
