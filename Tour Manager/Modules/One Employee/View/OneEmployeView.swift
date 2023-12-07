@@ -14,18 +14,24 @@ class OneEmployeView: UIView {
     var firstLoad = true
     var employeeIsOwner = false
     
-    lazy var profileImage:UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
+    public lazy var profileImagesCollectionView:UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        layout.scrollDirection = .horizontal
         
-        imageView.image = UIImage(resource: .noProfilePhoto)
-        
-        return imageView
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.backgroundColor = .clear
+        view.showsHorizontalScrollIndicator = false
+        view.isPagingEnabled = true
+        view.contentInsetAdjustmentBehavior = .never
+        view.register(ProfilePhotoCollectionViewCell.self, forCellWithReuseIdentifier: "ProfilePhotoCollectionViewCell")
+        return view
     }()
-    
+        
     lazy var nameView:UIView = {
         let view = UIView()
+        view.isUserInteractionEnabled = false
         
         return view
     }()
@@ -241,20 +247,24 @@ class OneEmployeView: UIView {
     
     private func setupView() {
         self.backgroundColor = UIColor(resource: .background)
-        self.addSubview(profileImage)
-        self.profileImage.addSubview(nameView)
+        
+        self.addSubview(profileImagesCollectionView)
+        
+//        self.addSubview(profileImage)
+        
+        self.addSubview(nameView)
         self.nameView.addSubview(fullName)
         self.nameView.addSubview(companyName)
         
         self.addSubview(scrollView)
         
-        profileImage.snp.makeConstraints { make in
+        profileImagesCollectionView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
             make.height.equalTo(self.snp.width)
         }
         
         nameView.snp.makeConstraints { make in
-            make.bottom.leading.trailing.equalToSuperview()
+            make.bottom.leading.trailing.equalTo(profileImagesCollectionView)
         }
         
         fullName.snp.makeConstraints { make in
@@ -268,7 +278,7 @@ class OneEmployeView: UIView {
         }
         
         scrollView.snp.makeConstraints { make in
-            make.top.equalTo(profileImage.snp.bottom)
+            make.top.equalTo(profileImagesCollectionView.snp.bottom)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
         }
@@ -451,14 +461,6 @@ class OneEmployeView: UIView {
         self.phone.textField.text = phone
         
     }
-    func setPhoto(image:UIImage?){
-        if image != nil{
-            self.profileImage.image = image
-        }else{
-            self.profileImage.image = UIImage(resource: .noProfilePhoto)
-        }
-        
-    }
     
 }
 
@@ -479,7 +481,7 @@ extension OneEmployeView: UIScrollViewDelegate{
         
         if contentMovesUp {
             // Уменьшаем константу констрэйнта
-            newConstraintConstant = max(scrollViewOffset - scrollDiff, -(self.profileImage.frame.height - self.safeAreaLayoutGuide.layoutFrame.minY - 5))
+            newConstraintConstant = max(scrollViewOffset - scrollDiff, -(self.profileImagesCollectionView.frame.height - self.safeAreaLayoutGuide.layoutFrame.minY - 5))
             
         } else if contentMovesDown {
             // Увеличиваем константу констрэйнта
@@ -490,7 +492,7 @@ extension OneEmployeView: UIScrollViewDelegate{
         if newConstraintConstant != scrollViewOffset {
             
             self.scrollView.snp.updateConstraints { make in
-                make.top.equalTo(profileImage.snp.bottom).offset(newConstraintConstant)
+                make.top.equalTo(profileImagesCollectionView.snp.bottom).offset(newConstraintConstant)
             }
             
             scrollView.contentOffset.y = previousContentOffsetY
@@ -500,9 +502,9 @@ extension OneEmployeView: UIScrollViewDelegate{
         
         self.previousContentOffsetY = scrollView.contentOffset.y
         
-        let opacity = 1 - (abs(scrollViewOffset) / (self.profileImage.frame.height - self.safeAreaLayoutGuide.layoutFrame.minY - 5))
+        let opacity = 1 - (abs(scrollViewOffset) / (self.profileImagesCollectionView.frame.height - self.safeAreaLayoutGuide.layoutFrame.minY - 5))
         
-        self.profileImage.layer.opacity = Float(opacity)
+        self.profileImagesCollectionView.layer.opacity = Float(opacity)
     }
     
 }

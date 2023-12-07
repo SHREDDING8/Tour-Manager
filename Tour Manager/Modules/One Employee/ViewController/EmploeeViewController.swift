@@ -30,11 +30,9 @@ final class EmploeeViewController: UIViewController {
         configureInfo()
         
         configureAccessLevels()
-        if let image = presenter.user.images.first{
-            view().setPhoto(image: image.image)
-        }
        
         addTargets()
+        addDelegates()
                 
     }
     
@@ -95,6 +93,11 @@ final class EmploeeViewController: UIViewController {
         
     }
     
+    private func addDelegates(){
+        self.view().profileImagesCollectionView.delegate = self
+        self.view().profileImagesCollectionView.dataSource = self
+    }
+    
     // MARK: - Actions
     
     @objc private func call(){
@@ -139,51 +142,37 @@ final class EmploeeViewController: UIViewController {
 }
 
 
-// MARK: - Table view Delegate
+// MARK: - Collection view DataSource
 
-//extension EmploeeViewController:UITableViewDelegate,UITableViewDataSource{
-        
-    // MARK: - PersonalData Cell
-        
-//    fileprivate func accessLevelCell(indexPath:IndexPath) ->UITableViewCell{
-        
-
-//        let rule = employee.getAccessLevelRule(index: indexPath.row + 1)
-//        label.text = employee.getAccessLevelLabel(rule: rule)
-//        
-//        switchButton.isOn = employee.getAccessLevel(rule: rule)
-        
-//        switchButton.removeTarget(self, action: nil, for: .valueChanged)
-//        switchButton.addAction(UIAction(handler: { _ in
-//            self.presenter?.updateAccessLevel(employe: self.employee, accessLevel: rule, value: switchButton.isOn) { isUpdated, error in
-//
-//                if  let err = error{
-//                    self.alerts.errorAlert(self, errorCompanyApi: err) {
-//                        switchButton.isOn = !switchButton.isOn
-//                    }
-//                }
-//            }
-//        }), for: .valueChanged)
-        
-        
-//        if !(self.presenter?.getAccessLevel(localId: employee.localId ?? "", rule: .canChangeAccessLevel) ?? false) ||
-//            !(self.presenter?.getAccessLevel(localId: employee.localId ?? "", rule: .canReadTourList) ?? false) || // rule
-//            self.presenter?.getLocalID() == employee.getLocalID() ||
-//            self.employee.getAccessLevel(rule: .isOwner){
-//            switchButton.isEnabled = false
-//            switchButton.layer.opacity = 0.5
-//        }
-        
-//        if self.presenter?.getAccessLevel(localId: employee.localId ?? "", rule: .isOwner) ?? false && rule == .isGuide{
-//            switchButton.isEnabled = true
-//            switchButton.layer.opacity = 1
-//        }
-
-        
-//        return UITableViewCell()
-        
-//    }
+extension EmploeeViewController:UICollectionViewDataSource{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let num = self.presenter.getNumberOfPhotos()
+        return num == 0 ? 1 : num
+    }
     
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfilePhotoCollectionViewCell", for: indexPath) as! ProfilePhotoCollectionViewCell
+        
+        if let image = self.presenter.getProfilePhoto(indexPath: indexPath){
+            cell.setProfilePhoto(image: image)
+        }
+        
+        return cell
+    }
+    
+    
+}
+
+extension EmploeeViewController:UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        return CGSize(width: collectionView.frame.width, height: collectionView.frame.width)
+    }
+}
+
+
 
 extension EmploeeViewController:EmployeeViewProtocol{
     func changeLevelSuccess() {
@@ -207,8 +196,10 @@ extension EmploeeViewController:EmployeeViewProtocol{
     }
     
     
-    func setImage(imageData: Data) {
-        
+    func updateImage(at indexPath:IndexPath, image:UIImage){
+        if let cell = self.view().profileImagesCollectionView.cellForItem(at: indexPath) as? ProfilePhotoCollectionViewCell{
+            cell.setProfilePhoto(image: image, animated: true)
+        }
     }
     
 }

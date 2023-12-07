@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import UIKit
 
 protocol EmployeeViewProtocol:AnyObject{
-    func setImage(imageData:Data)
+    func updateImage(at indexPath:IndexPath, image:UIImage)
     func changeLevelSuccess()
     func changeLevelError()
 }
@@ -18,10 +19,13 @@ protocol EmployeePresenterProtocol:AnyObject{
     
     func getAccessLevel(_ key:AccessLevelKeys)->Bool
     
-    func loadPhotos()
+    func getNumberOfPhotos() -> Int
+        
+    func getProfilePhoto(indexPath:IndexPath) -> UIImage?
     
     
 }
+
 class EmployeePresenter:EmployeePresenterProtocol{
     weak var view:EmployeeViewProtocol?
     
@@ -42,18 +46,44 @@ class EmployeePresenter:EmployeePresenterProtocol{
         userRealmService.getUserAccessLevel(localId: keychain.getLocalId() ?? "", key)
     }
     
-    public func downloadProfilePhoto(pictureIds:[String]){
+    func getNumberOfPhotos() -> Int{
+        self.userRealmService.getUserInfo(localId: self.user.localId)?.imageIDs.count ?? 0
+    }
+    
+    func getProfilePhoto(indexPath:IndexPath) -> UIImage?{
+        if indexPath.row < user.images.count{
+            return user.images[indexPath.row].image
+        }
         
+        if let user = self.userRealmService.getUserInfo(localId: user.localId), indexPath.row < user.imageIDs.count{
+            if let imageData = imageService.getImage(by: user.imageIDs[indexPath.row]){
+                let image = UIImage(data: imageData)!
+                self.user.images.append( (user.imageIDs[indexPath.row], image) )
+                return image
+                
+            }else{
+                self.downloadProfilePhoto(indexPath: indexPath, pictureId: user.imageIDs[indexPath.row])
+            }
+        }
+        
+        return nil
+    }
+    
+    private func downloadProfilePhoto(indexPath:IndexPath, pictureId:String){
         Task{
-            for pictureId in pictureIds{
                 do{
                     let imageData = try await self.apiUserData.downloadProfilePhoto(pictureId: pictureId)
-                    imageService.setNewImage(id: pictureId, imageData)
-//                    view?.setImage(imageData: imageData)
+                    
+                    DispatchQueue.main.async {
+                        self.imageService.setNewImage(id: pictureId, imageData)
+                        let image = UIImage(data: imageData)!
+                        self.user.images.append((pictureId, image))
+                        self.view?.updateImage(at: indexPath, image: image)
+                    }
+                    
                 } catch{
                     
                 }
-            }
             
         }
         
