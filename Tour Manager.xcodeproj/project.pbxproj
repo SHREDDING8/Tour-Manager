@@ -330,6 +330,7 @@
 		EE14D3752B140FC300A188F8 /* Tours */ = {
 			isa = PBXGroup;
 			children = (
+				EE783F442AD4835C00DA820F /* TourManadmentAssembly.swift */,
 				EE261BDE2B1F4C5B0010DD9B /* GuideTours */,
 				EE261BDD2B1F432E0010DD9B /* General */,
 				EE261BD92B1F42AC0010DD9B /* newTour */,
@@ -912,7 +913,6 @@
 			isa = PBXGroup;
 			children = (
 				EE14D3752B140FC300A188F8 /* Tours */,
-				EE783F442AD4835C00DA820F /* TourManadmentAssembly.swift */,
 				EE783F4A2AD56C5800DA820F /* Guide Excursions */,
 				EED6452A2A990D9A00F2ADC9 /* MainTabBar */,
 				EEF776412ADAA3A500532440 /* One Employee */,

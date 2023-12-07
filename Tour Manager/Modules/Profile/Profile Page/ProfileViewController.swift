@@ -15,6 +15,7 @@ class ProfileViewController: UIViewController{
     lazy var imagePicker:UIImagePickerController = {
         let picker = UIImagePickerController()
         picker.allowsEditing = true
+        picker.delegate = self
        
         return picker
     }()
@@ -51,6 +52,7 @@ class ProfileViewController: UIViewController{
         self.configureVisibleElements()
         
     }
+
     
     // MARK: - Targets
     
@@ -64,6 +66,8 @@ class ProfileViewController: UIViewController{
         
         let tapExtendedGesture = UITapGestureRecognizer(target: self, action: #selector(tapExtended))
         self.view().extendedSettings.addGestureRecognizer(tapExtendedGesture)
+        
+        self.view().logOutButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
     }
     
     private func addDelegates(){
@@ -80,10 +84,6 @@ class ProfileViewController: UIViewController{
         self.view().phone.textField.restorationIdentifier = "phone"
         
         self.view().companyNameElement.textField.restorationIdentifier = "companyNameElement"
-        
-        self.imagePicker.delegate = self
-        
-        self.view().logOutButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
         
     }
     
