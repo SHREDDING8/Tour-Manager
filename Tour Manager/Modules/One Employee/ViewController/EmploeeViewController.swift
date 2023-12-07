@@ -30,8 +30,10 @@ final class EmploeeViewController: UIViewController {
         configureInfo()
         
         configureAccessLevels()
-//        view().setPhoto(image: presenter.user.images.first)
-        
+        if let image = presenter.user.images.first{
+            view().setPhoto(image: image.image)
+        }
+       
         addTargets()
                 
     }

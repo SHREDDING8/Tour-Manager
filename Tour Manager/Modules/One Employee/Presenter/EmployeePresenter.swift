@@ -18,6 +18,8 @@ protocol EmployeePresenterProtocol:AnyObject{
     
     func getAccessLevel(_ key:AccessLevelKeys)->Bool
     
+    func loadPhotos()
+    
     
 }
 class EmployeePresenter:EmployeePresenterProtocol{
@@ -29,6 +31,7 @@ class EmployeePresenter:EmployeePresenterProtocol{
     let employeeNetworkService:EmployeeNetworkService = EmployeeNetworkService()
     let keychain = KeychainService()
     let userRealmService = UsersRealmService()
+    let imageService:ImagesRealmServiceProtocol = ImagesRealmService()
     
     required init(view:EmployeeViewProtocol, user:UsersModel) {
         self.view = view
@@ -39,17 +42,32 @@ class EmployeePresenter:EmployeePresenterProtocol{
         userRealmService.getUserAccessLevel(localId: keychain.getLocalId() ?? "", key)
     }
     
-    public func downloadProfilePhoto(localId:String){
+    public func downloadProfilePhoto(pictureIds:[String]){
         
         Task{
-            do{
-                let imageData = try await self.apiUserData.downloadProfilePhoto(pictureId: "mock")
-                view?.setImage(imageData: imageData)
-            } catch{
-                
+            for pictureId in pictureIds{
+                do{
+                    let imageData = try await self.apiUserData.downloadProfilePhoto(pictureId: pictureId)
+                    imageService.setNewImage(id: pictureId, imageData)
+//                    view?.setImage(imageData: imageData)
+                } catch{
+                    
+                }
             }
+            
         }
         
+    }
+    
+    func loadPhotos(){
+        var imageForDownload:[String] = []
+        if let userImageIds = userRealmService.getUserInfo(localId: user.localId)?.imageIDs{
+            for imageid in userImageIds {
+                if imageService.getImage(by: imageid) == nil{
+                    imageForDownload.append(imageid)
+                }
+            }
+        }
     }
     
     public func getLocalID() -> String{
