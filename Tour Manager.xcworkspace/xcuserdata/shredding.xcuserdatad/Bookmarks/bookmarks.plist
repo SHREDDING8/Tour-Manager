@@ -175,12 +175,12 @@ protocol MainTabBarViewProtocol:AnyObject{
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string>// TODO:- реализовать в view GetTour
+				<string>        // TODO:- реализовать в view GetTour
 </string>
 				<key>leading</key>
 				<string>    func deleteTour(date:String, tourId:String) async throws -&gt; Bool{
         let refresh = try await ApiManagerAuth.refreshToken()
-        </string>
+</string>
 				<key>trailing</key>
 				<string>        if !refresh{
             throw customErrorUserData.unknowmError

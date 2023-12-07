@@ -36,6 +36,7 @@ public struct ResponseAccessLevel:Codable{
 public struct GetCompanyUsersElement: Codable {
     let uid, firstName, lastName, email: String
     let phone, birthdayDate, companyID: String
+    let profilePictures:[String]
     let accessLevels: AccessLevels
 
     enum CodingKeys: String, CodingKey {
@@ -45,6 +46,7 @@ public struct GetCompanyUsersElement: Codable {
         case email, phone
         case birthdayDate = "birthday_date"
         case companyID = "company_id"
+        case profilePictures = "profile_pictures"
         case accessLevels = "access_levels"
     }
 }

@@ -51,6 +51,7 @@ class UsersRealmService:UsersRealmServiceProtocol{
                 realmUser.birthday = user.birthday
                 realmUser.phone = user.phone
                 realmUser.accesslLevels = user.accesslLevels
+                realmUser.imageIDs = user.imageIDs
             })
         }else{
             try! realm.write({

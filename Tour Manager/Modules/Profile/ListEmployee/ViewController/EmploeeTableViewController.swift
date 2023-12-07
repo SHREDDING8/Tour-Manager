@@ -16,6 +16,8 @@ class EmploeeTableViewController: UITableViewController {
     let alerts = Alert()
             
     let refreshControll = UIRefreshControl()
+    
+    var isFirstLoad = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,8 +58,8 @@ class EmploeeTableViewController: UITableViewController {
         let employee = presenter.users[indexPath.row]
         cell.name.text = employee.fullName
         
-        if let image = employee.image{
-            cell.image.image = image
+        if let image = employee.images.first{
+            cell.image.image = image.image
         }
         
         return cell

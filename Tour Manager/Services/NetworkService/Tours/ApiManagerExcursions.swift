@@ -361,7 +361,7 @@ class ApiManagerExcursions: ApiManagerExcursionsProtocol{
                 
                 switch response.result {
                 case .success(_):
-                                        
+                    print(date)
                     if response.response?.statusCode == 400{
                         
                         let error = self.checkError(data: response.data ?? Data())
@@ -370,9 +370,12 @@ class ApiManagerExcursions: ApiManagerExcursionsProtocol{
                     }else if response.response?.statusCode == 200{
                         typealias excursionsJsonStruct = [ResponseGetExcursion]
                         
-                        let excursions = try! JSONDecoder().decode(excursionsJsonStruct.self, from: response.data!)
+                        if let excursions = try? JSONDecoder().decode(excursionsJsonStruct.self, from: response.data!){
+                            continuaiton.resume(returning: excursions)
+                        }else{
+                            continuaiton.resume(throwing: customErrorExcursion.unknown)
+                        }
                         
-                        continuaiton.resume(returning: excursions)
                         
                     }else{
                         continuaiton.resume(throwing: customErrorExcursion.unknown)

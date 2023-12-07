@@ -40,7 +40,7 @@ struct UsersModel{
     var email:String
     var phone:String
     var birthday:Date
-    var image:UIImage?
+    var images:[(id:String, image:UIImage)]
     var accessLevels:UserAccessLevels
     
     var fullName:String{

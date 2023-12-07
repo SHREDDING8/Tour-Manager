@@ -632,6 +632,7 @@
 		EE38C6772B0BAAE600DAEC4F /* ListEmployee */ = {
 			isa = PBXGroup;
 			children = (
+				EEDF108C2B21F25000509A63 /* Presenter */,
 				EE38C6792B0BAE9600DAEC4F /* ViewController */,
 				EE38C6782B0BAE9100DAEC4F /* View */,
 			);
@@ -1019,7 +1020,6 @@
 		EED645172A98CE2C00F2ADC9 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				EE6756072AC0721800E253DA /* EmployeesListPresenter.swift */,
 				EE6756092AC076FF00E253DA /* EmployeePresenter.swift */,
 				EE1805E82AD59ACE0083952D /* ChangePasswordPresenter.swift */,
 			);
@@ -1112,6 +1112,14 @@
 			isa = PBXGroup;
 			children = (
 				EED6452D2A994F1400F2ADC9 /* ProfilePagePresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		EEDF108C2B21F25000509A63 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				EE6756072AC0721800E253DA /* EmployeesListPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";

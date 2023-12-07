@@ -176,6 +176,7 @@ class AddGuidePresenter:AddGuidePresenterProtocol{
                     email: user.email ?? "",
                     phone: user.phone ?? "",
                     birthday: user.birthday ?? Date.now,
+                    images: [],
                     accessLevels: UsersModel.UserAccessLevels(
                         readCompanyEmployee: user.accesslLevels?.readCompanyEmployee ?? false,
                         readLocalIdCompany: user.accesslLevels?.readLocalIdCompany ?? false,

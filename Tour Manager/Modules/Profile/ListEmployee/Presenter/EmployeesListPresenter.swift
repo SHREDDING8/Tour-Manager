@@ -33,6 +33,7 @@ class EmployeesListPresenter:EmployeesListPresenterProtocol{
     let keychain = KeychainService()
     
     let usersNetworkService:ApiManagerUserDataProtocol = ApiManagerUserData()
+    let imageService:ImagesRealmServiceProtocol = ImagesRealmService()
     
     let usersRealmService = UsersRealmService()
     
@@ -45,10 +46,13 @@ class EmployeesListPresenter:EmployeesListPresenterProtocol{
         self.users = []
         
         for user in realmUsers{
-            var image:UIImage? = nil
-//            if let imageData = user.image{
-//                image = UIImage(data: imageData)
-//            }
+            var images:[(String, UIImage)] = []
+                        
+            for id in user.imageIDs{
+                if let imageData = imageService.getImage(by: id){
+                    images.append(( id, UIImage(data: imageData)! ))
+                }
+            }
             
             let newUserModel = UsersModel(
                 localId: user.localId,
@@ -57,7 +61,7 @@ class EmployeesListPresenter:EmployeesListPresenterProtocol{
                 email: user.email ?? "",
                 phone: user.phone ?? "",
                 birthday: user.birthday ?? Date.now,
-                image: image,
+                images: images,
                 accessLevels: UsersModel.UserAccessLevels(
                     readCompanyEmployee: user.accesslLevels?.readCompanyEmployee ?? false,
                     readLocalIdCompany: user.accesslLevels?.readLocalIdCompany ?? false,
@@ -79,6 +83,8 @@ class EmployeesListPresenter:EmployeesListPresenterProtocol{
             do {
                 let jsonUsers = try await self.employeeNetworkService.getCompanyUsers()
                 
+                var usersImages:[String] = []
+                
                 for jsonUser in jsonUsers {
                     let realmUser = UserRealm(
                         localId: jsonUser.uid,
@@ -86,7 +92,8 @@ class EmployeesListPresenter:EmployeesListPresenterProtocol{
                         secondName: jsonUser.lastName,
                         email: jsonUser.email,
                         phone: jsonUser.phone,
-                        birthday: Date.birthdayFromString(dateString: jsonUser.birthdayDate), imageIDs: [],
+                        birthday: Date.birthdayFromString(dateString: jsonUser.birthdayDate),
+                        imageIDs: jsonUser.profilePictures,
                         accesslLevels: UserAccessLevelRealm(
                             readCompanyEmployee: jsonUser.accessLevels.readCompanyEmployee,
                             readLocalIdCompany: jsonUser.accessLevels.readLocalIDCompany,
@@ -100,15 +107,24 @@ class EmployeesListPresenter:EmployeesListPresenterProtocol{
                     
                     DispatchQueue.main.sync {
                         usersRealmService.setUserInfo(user: realmUser)
+                        if let firstId = jsonUser.profilePictures.first, imageService.getImage(by: firstId) == nil{
+                            usersImages.append(firstId)
+                        }
                     }
                     
-                    
+                }
+                
+                DispatchQueue.main.async {
+                    self.getUsersFromRealm()
+                }
+                
+                for imageId in usersImages{
                     // добавить фото как в petConnect
                     do{
-                        let imageData = try await self.usersNetworkService.downloadProfilePhoto(pictureId: "mock")
+                        let imageData = try await self.usersNetworkService.downloadProfilePhoto(pictureId: imageId)
                         
                         DispatchQueue.main.sync {
-//                            self.usersRealmService.updateImage(id: jsonUser.uid, image: imageData)
+                            self.imageService.setNewImage(id: imageId, imageData)
                         }
                         
                     }catch{
@@ -116,9 +132,12 @@ class EmployeesListPresenter:EmployeesListPresenterProtocol{
                     }
                 }
                 
-                DispatchQueue.main.async {
-                    self.getUsersFromRealm()
+                if usersImages.count > 0{
+                    DispatchQueue.main.async {
+                        self.getUsersFromRealm()
+                    }
                 }
+
                 
             } catch customErrorCompany.unknowmError{
                 DispatchQueue.main.async {
