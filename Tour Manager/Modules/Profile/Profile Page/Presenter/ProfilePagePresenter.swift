@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol ProfileViewProtocol:AnyObject{
-    func setProfilePhoto(image:UIImage)
+    func updateImage(at indexPath:IndexPath, image:UIImage)
     
     func deletePhotoSuccess()
     func deletePhotoError()
@@ -32,15 +32,16 @@ protocol ProfilePagePresenterProtocol:AnyObject{
     func isAccessLevel(key:AccessLevelKeys) -> Bool
     func getCompanyName() -> String
     func getCompanyId() -> String
-    
-    func getProfilePhoto()
-    func getProfilePhotoFromRealm() -> UIImage
+        
     func getFirstName() ->String
     func getSecondName() ->String
     func getFullName() ->String
     func getBirthday() -> String
     func getPhone() -> String
     func getEmail() -> String
+    
+    func getNumberOfPhotos() -> Int
+    func getProfilePhoto(indexPath:IndexPath) -> UIImage?
     
     func uploadProfilePhoto(image:UIImage)
     func deleteProfilePhoto()
@@ -79,31 +80,46 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
         return keychain.getCompanyLocalId() ?? ""
     }
     
-    public func getProfilePhoto(){
+    func getNumberOfPhotos() -> Int{
+        self.usersRealmService.getUserInfo(localId: self.keychain.getLocalId() ?? "" )?.imageIDs.count ?? 0
+    }
+    
+    func getProfilePhoto(indexPath:IndexPath) -> UIImage?{
         
-        if let imageId = usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")?.imageIDs.first{
-            if let imageData = imageService.getImage(by: imageId){
-                view?.setProfilePhoto(image: UIImage(data: imageData)!)
-                return
+        guard let userRealm = self.usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "") else { fatalError("Current User not found")}
+                
+        if indexPath.row < userRealm.imageIDs.count{
+            if let imageData = imageService.getImage(by: userRealm.imageIDs[indexPath.row]){
+                let image = UIImage(data: imageData)!
+                return image
+                
             }else{
-                self.downloadProfilePhoto(pictureId: imageId)
+                self.downloadProfilePhoto(indexPath: indexPath, pictureId: userRealm.imageIDs[indexPath.row])
             }
         }
         
-        view?.setProfilePhoto(image: UIImage(resource: .noProfilePhoto))
+        return nil
+    }
+    
+    private func downloadProfilePhoto(indexPath:IndexPath, pictureId:String){
+        Task{
+            do{
+                let imageData = try await self.apiUserData.downloadProfilePhoto(pictureId: pictureId)
+                
+                DispatchQueue.main.async {
+                    self.imageService.setNewImage(id: pictureId, imageData)
+                    let image = UIImage(data: imageData)!
+                    self.view?.updateImage(at: indexPath, image: image)
+                }
+                
+            } catch{
+                
+            }
+            
+        }
         
     }
     
-    public func getProfilePhotoFromRealm() -> UIImage{
-        
-        if let imageId = usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")?.imageIDs.first{
-            if let imageData = imageService.getImage(by: imageId){
-                return UIImage(data: imageData)!
-            }
-        }
-        
-        return UIImage(resource: .noProfilePhoto)
-    }
     
     public func getFirstName() -> String{
         return usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")?.firstName ?? ""
@@ -128,12 +144,7 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
     public func getEmail() -> String{
         return usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")?.email ?? ""
     }
-    
-    
-    public func deleteCurrentUser(completion: @escaping (Bool, customErrorUserData?)->Void){
-
-    }
-    
+        
     public func logOut(){
         Task{
             do{
@@ -150,9 +161,6 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
             }
         }
         
-    }
-    
-    public func DeleteCompany(completion: @escaping (Bool, customErrorCompany?) ->Void){
     }
     
     
@@ -177,44 +185,27 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
         }
     }
     
-    private func downloadProfilePhoto(pictureId:String){
-        Task{
-            do{
-                let imageData = try await self.apiUserData.downloadProfilePhoto(pictureId: pictureId)
-                
-                DispatchQueue.main.async {
-                    self.usersRealmService.updateImage(userId: self.keychain.getLocalId() ?? "", pictureId: pictureId)
-                    self.imageService.setNewImage(id: pictureId, imageData)
-                    self.view?.setProfilePhoto(image: UIImage(data: imageData)!)
+    public func deleteProfilePhoto(){
+        
+        if let imageId = usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")?.imageIDs.first{
+            
+            Task{
+                do{
+                    if try await self.apiUserData.deleteProfilePhoto(pictureId: imageId){
+                        DispatchQueue.main.async {
+                            self.usersRealmService.deleteImage(userId: self.keychain.getAcessToken() ?? "", pictureId: imageId)
+                            self.imageService.deleteImage(by: imageId)
+                            self.view?.deletePhotoSuccess()
+                        }
+                    }
+                }catch{
+                    
                 }
-
-            }catch{
                 
             }
-        }
-    }
-    
-    public func deleteProfilePhoto(){
             
-                if let imageId = usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")?.imageIDs.first{
-                    
-                    Task{
-                        do{
-                            if try await self.apiUserData.deleteProfilePhoto(pictureId: imageId){
-                                DispatchQueue.main.async {
-                                    self.usersRealmService.deleteImage(userId: self.keychain.getAcessToken() ?? "", pictureId: imageId)
-                                    self.imageService.deleteImage(by: imageId)
-                                    self.view?.deletePhotoSuccess()
-                                }
-                            }
-                        }catch{
-                            
-                        }
-
-                    }
-
-                }
-                
+        }
+        
         
     }
     

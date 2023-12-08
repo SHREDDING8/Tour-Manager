@@ -71,19 +71,19 @@ class EmployeePresenter:EmployeePresenterProtocol{
     
     private func downloadProfilePhoto(indexPath:IndexPath, pictureId:String){
         Task{
-                do{
-                    let imageData = try await self.apiUserData.downloadProfilePhoto(pictureId: pictureId)
-                    
-                    DispatchQueue.main.async {
-                        self.imageService.setNewImage(id: pictureId, imageData)
-                        let image = UIImage(data: imageData)!
-                        self.user.images.append((pictureId, image))
-                        self.view?.updateImage(at: indexPath, image: image)
-                    }
-                    
-                } catch{
-                    
+            do{
+                let imageData = try await self.apiUserData.downloadProfilePhoto(pictureId: pictureId)
+                
+                DispatchQueue.main.async {
+                    self.imageService.setNewImage(id: pictureId, imageData)
+                    let image = UIImage(data: imageData)!
+                    self.user.images.append((pictureId, image))
+                    self.view?.updateImage(at: indexPath, image: image)
                 }
+                
+            } catch{
+                
+            }
             
         }
         

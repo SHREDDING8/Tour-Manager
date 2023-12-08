@@ -43,11 +43,11 @@ class ProfilePhotoCollectionViewCell: UICollectionViewCell {
             self.profileImage.image = image
         }
         
-        
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         profileImage.image = UIImage(resource: .noProfilePhoto)
     }
+    
 }

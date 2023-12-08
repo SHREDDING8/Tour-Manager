@@ -12,6 +12,8 @@ class ProfileViewController: UIViewController{
     
     var presenter:ProfilePagePresenterProtocol!
     
+    private var collectionViewPage:Int = 0
+    
     lazy var imagePicker:UIImagePickerController = {
         let picker = UIImagePickerController()
         picker.allowsEditing = true
@@ -35,10 +37,8 @@ class ProfileViewController: UIViewController{
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.view().changePhotoButton)
         
-        DispatchQueue.main.async {
-            self.addTargets()
-            self.addDelegates()
-        }
+        self.addTargets()
+        self.addDelegates()
         
     }
     
@@ -76,6 +76,9 @@ class ProfileViewController: UIViewController{
         self.view().birthday.textField.delegate = self
         self.view().phone.textField.delegate = self
         
+        self.view().profileImagesCollectionView.delegate = self
+        self.view().profileImagesCollectionView.dataSource = self
+        
         self.view().companyNameElement.textField.delegate = self
         
         self.view().firstName.textField.restorationIdentifier = "firstName"
@@ -90,10 +93,7 @@ class ProfileViewController: UIViewController{
     // MARK: - configureViewWithData
     private func configureGeneralInfo(){
         
-        presenter.getProfilePhoto()
-        
         self.view().configureGeneralInfo(
-            userImage: presenter.getProfilePhotoFromRealm(),
             fullname: presenter.getFullName(),
             companyName: presenter.isAccessLevel(key: .readGeneralCompanyInformation) == true ? presenter.getCompanyName() : nil
         )
@@ -165,9 +165,9 @@ class ProfileViewController: UIViewController{
         alert.addAction(actionLibary)
         alert.addAction(actionCamera)
         alert.addAction(actionCancel)
-        if self.view().profileImage.image != UIImage(resource: .noProfilePhoto){
-            alert.addAction(actionDeletePhoto)
-        }
+//        if self.view().profileImage.image != UIImage(resource: .noProfilePhoto){
+//            alert.addAction(actionDeletePhoto)
+//        }
         
         
         self.present(alert, animated: true)
@@ -261,7 +261,64 @@ extension ProfileViewController:UIImagePickerControllerDelegate, UINavigationCon
     }
 }
 
+extension ProfileViewController:UICollectionViewDataSource{
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let num = self.presenter.getNumberOfPhotos()
+        return num == 0 ? 1 : num
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfilePhotoCollectionViewCell", for: indexPath) as! ProfilePhotoCollectionViewCell
+        
+        if let image = self.presenter.getProfilePhoto(indexPath: indexPath){
+            cell.setProfilePhoto(image: image)
+        }
+        
+        return cell
+    }
+    
+    
+    
+}
+
+extension ProfileViewController:UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        return CGSize(width: collectionView.frame.width, height: collectionView.frame.width)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // Рассчитываем центральную точку коллекции
+        
+        if scrollView == self.view().profileImagesCollectionView{
+            let centerX = scrollView.contentOffset.x + (scrollView.bounds.width / 2)
+
+            // Находим индекс страницы, используя центральную точку
+            if let indexPath = self.view().profileImagesCollectionView.indexPathForItem(at: CGPoint(x: centerX, y: self.view().profileImagesCollectionView.bounds.height / 2)) {
+                self.collectionViewPage =  indexPath.item
+                print("Текущая страница: \(collectionViewPage)")
+                
+                if let cell = self.view().profileImagesCollectionView.cellForItem(at: indexPath) as? ProfilePhotoCollectionViewCell{
+                    self.view().BGimageView.image = cell.profileImage.image
+                }
+            }
+            
+        }
+
+    }
+}
+
 extension ProfileViewController:ProfileViewProtocol{
+    
+    func updateImage(at indexPath: IndexPath, image: UIImage) {
+        if let cell = self.view().profileImagesCollectionView.cellForItem(at: indexPath) as? ProfilePhotoCollectionViewCell{
+            cell.setProfilePhoto(image: image, animated: true)
+        }
+    }
+    
     
     func logoutSuccess() {
         
@@ -331,7 +388,12 @@ extension ProfileViewController:ProfileViewProtocol{
     }
     
     func uploadSuccess(image: UIImage) {
-        self.setProfilePhoto(image: image)
+        self.view().profileImagesCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .centeredHorizontally, animated: true)
+        
+        UIView.transition(with: self.view().profileImagesCollectionView, duration: 0.3, options: .transitionFlipFromLeft) {
+            self.view().profileImagesCollectionView.reloadData()
+        }
+        
         
         AlertKitAPI.present(
             title: "Фото загружено",
@@ -352,7 +414,6 @@ extension ProfileViewController:ProfileViewProtocol{
     
 
     func deletePhotoSuccess() {
-        self.view().profileImage.image = UIImage(resource: .noProfilePhoto)
         
         AlertKitAPI.present(
             title: "Фото удалено",
@@ -369,12 +430,6 @@ extension ProfileViewController:ProfileViewProtocol{
             style: .iOS17AppleMusic,
             haptic: .error
         )
-    }
-    
-    func setProfilePhoto(image: UIImage) {
-        UIView.transition(with: self.view().profileImage, duration: 0.3, options: .transitionCrossDissolve) {
-            self.view().profileImage.image = image
-        }
     }
     
 }

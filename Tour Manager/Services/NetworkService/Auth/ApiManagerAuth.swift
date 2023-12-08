@@ -98,7 +98,7 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
             )
         )
         
-        let url = URL(string: "https://24tour-manager.ru/auth/login")!
+        let url = URL(string: "https://24tour-manager.ru/api/auth/login")!
         
         let result:ResponseLogInJsonStruct = try await withCheckedThrowingContinuation { continuation in
             AF.request(url,method: .post, parameters: jsonData,encoder: .json).response { response in
@@ -202,7 +202,7 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
             throw customErrorUserData.unknowmError
         }
         
-        let url = URL(string: self.routeLogOut)
+        let url = URL(string:  "https://24tour-manager.ru/api/auth/logout")
         
         let jsonData = await sendLogOut(
             token: keychainService.getAcessToken() ?? "",
