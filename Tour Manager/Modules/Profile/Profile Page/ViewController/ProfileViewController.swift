@@ -40,17 +40,22 @@ class ProfileViewController: UIViewController{
         self.addTargets()
         self.addDelegates()
         
+        self.presenter.getUserInfoFromServer()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        configureView()
+    }
+    
+    private func configureView(){
         self.configureGeneralInfo()
         self.configurePersonalInfo()
         self.configureCompanyInfo()
         
         self.configureVisibleElements()
-        
     }
 
     
@@ -68,6 +73,10 @@ class ProfileViewController: UIViewController{
         self.view().extendedSettings.addGestureRecognizer(tapExtendedGesture)
         
         self.view().logOutButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
+        
+        self.view().scrollView.refreshControl = UIRefreshControl(frame: .zero, primaryAction: UIAction(handler: {_ in 
+            self.presenter.getUserInfoFromServer()
+        }))
     }
     
     private func addDelegates(){
@@ -281,8 +290,6 @@ extension ProfileViewController:UICollectionViewDataSource{
         return cell
     }
     
-    
-    
 }
 
 extension ProfileViewController:UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
@@ -313,6 +320,12 @@ extension ProfileViewController:UICollectionViewDelegate, UICollectionViewDelega
 }
 
 extension ProfileViewController:ProfileViewProtocol{
+    func loadUserInfoFromServer() {
+        self.configureView()
+        self.view().profileImagesCollectionView.reloadData()
+        self.view().scrollView.refreshControl?.endRefreshing()
+    }
+    
     
     func updateImage(at indexPath: IndexPath, image: UIImage) {
         if let cell = self.view().profileImagesCollectionView.cellForItem(at: indexPath) as? ProfilePhotoCollectionViewCell{

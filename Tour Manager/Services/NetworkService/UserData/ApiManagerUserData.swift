@@ -47,6 +47,7 @@ public enum UserDataFields:String{
 
 protocol ApiManagerUserDataProtocol{
     func getUserInfo() async throws -> ResponseGetUserInfoJsonStruct
+//    func getUserInfoByTarget() async throws -> 
     
     // photo
     func downloadProfilePhoto(pictureId:String) async throws -> Data

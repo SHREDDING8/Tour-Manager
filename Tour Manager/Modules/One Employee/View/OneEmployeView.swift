@@ -13,7 +13,7 @@ import SnapKit
 class OneEmployeView: UIView {
     var firstLoad = true
     var employeeIsOwner = false
-    
+        
     public lazy var profileImagesCollectionView:UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
@@ -96,8 +96,7 @@ class OneEmployeView: UIView {
         view.delegate = self
         view.alwaysBounceVertical = true
         view.showsVerticalScrollIndicator = false
-        
-        
+                
         return view
     }()
     
@@ -267,6 +266,10 @@ class OneEmployeView: UIView {
     private func setupView() {
         self.backgroundColor = UIColor(resource: .background)
         self.profileImagesCollectionView.backgroundView = self.BGimageView
+        
+//        self.addSubview(mainsScrollViewForUpdate)
+//        self.mainsScrollViewForUpdate.addSubview(mainScrollContent)
+        
         self.addSubview(profileImagesCollectionView)
                 
         self.addSubview(nameView)
@@ -274,6 +277,17 @@ class OneEmployeView: UIView {
         self.nameView.addSubview(companyName)
         
         self.addSubview(scrollView)
+        
+//        mainsScrollViewForUpdate.snp.makeConstraints { make in
+//            make.top.trailing.leading.equalToSuperview()
+//            make.bottom.equalTo(self.safeAreaLayoutGuide)
+//        }
+//        
+//        mainScrollContent.snp.makeConstraints { make in
+//            make.top.leading.trailing.bottom.equalToSuperview()
+//            
+//            make.width.height.equalToSuperview()
+//        }
         
         profileImagesCollectionView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
@@ -297,7 +311,7 @@ class OneEmployeView: UIView {
         scrollView.snp.makeConstraints { make in
             make.top.equalTo(profileImagesCollectionView.snp.bottom)
             make.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
+            make.bottom.equalTo(self.safeAreaLayoutGuide)
         }
         
         configureScrollView()
@@ -482,6 +496,11 @@ class OneEmployeView: UIView {
 }
 
 extension OneEmployeView: UIScrollViewDelegate{
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        print("scrollViewWillBeginDragging")
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let currentContentOffsetY = scrollView.contentOffset.y
         let scrollDiff = currentContentOffsetY - self.previousContentOffsetY
@@ -522,6 +541,7 @@ extension OneEmployeView: UIScrollViewDelegate{
         let opacity = 1 - (abs(scrollViewOffset) / (self.profileImagesCollectionView.frame.height - self.safeAreaLayoutGuide.layoutFrame.minY - 5))
         
         self.profileImagesCollectionView.layer.opacity = Float(opacity)
+        
     }
     
 }

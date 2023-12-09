@@ -24,12 +24,17 @@ protocol ProfileViewProtocol:AnyObject{
     
     func logoutSuccess()
     func logoutError()
+    
+    func loadUserInfoFromServer()
 }
 
 protocol ProfilePagePresenterProtocol:AnyObject{
     init(view:ProfileViewProtocol)
     
     func isAccessLevel(key:AccessLevelKeys) -> Bool
+    
+    func getUserInfoFromServer()
+    
     func getCompanyName() -> String
     func getCompanyId() -> String
         
@@ -56,12 +61,13 @@ protocol ProfilePagePresenterProtocol:AnyObject{
 class ProfilePagePresenter:ProfilePagePresenterProtocol{
     weak var view:ProfileViewProtocol?
     
-    let keychain = KeychainService()
-    let usersRealmService = UsersRealmService()
+    let keychain:KeychainServiceProtocol = KeychainService()
+    let usersRealmService:UsersRealmServiceProtocol = UsersRealmService()
     let imageService:ImagesRealmServiceProtocol = ImagesRealmService()
     
     let apiUserData = ApiManagerUserData()
     let apiCompany = ApiManagerCompany()
+    let employeeNetworkService:EmployeeNetworkServiceProtocol = EmployeeNetworkService()
     let apiAuth = ApiManagerAuth()
     
     required init(view:ProfileViewProtocol) {
@@ -82,6 +88,45 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
     
     func getNumberOfPhotos() -> Int{
         self.usersRealmService.getUserInfo(localId: self.keychain.getLocalId() ?? "" )?.imageIDs.count ?? 0
+    }
+    
+    func getUserInfoFromServer(){
+        Task{
+            do{
+                let newInfo = try await apiUserData.getUserInfo()
+                let newAccessLevels = try await employeeNetworkService.getCurrentCompanyUserAccessLevels()
+                
+                let newUserRealm = UserRealm(
+                    localId: keychain.getLocalId() ?? "",
+                    firstName: newInfo.first_name,
+                    secondName: newInfo.last_name,
+                    email: newInfo.email,
+                    phone: newInfo.phone,
+                    birthday: Date.birthdayFromString(dateString: newInfo.birthday_date),
+                    imageIDs: newInfo.profile_pictures,
+                    accesslLevels: UserAccessLevelRealm(
+                        readCompanyEmployee: newAccessLevels.read_company_employee,
+                        readLocalIdCompany: newAccessLevels.read_local_id_company,
+                        readGeneralCompanyInformation: newAccessLevels.read_general_company_information,
+                        writeGeneralCompanyInformation: newAccessLevels.write_general_company_information,
+                        canChangeAccessLevel: newAccessLevels.can_change_access_level,
+                        isOwner: newAccessLevels.is_owner,
+                        canReadTourList: newAccessLevels.can_read_tour_list,
+                        canWriteTourList: newAccessLevels.can_write_tour_list,
+                        isGuide: newAccessLevels.is_guide
+                    )
+                )
+                
+                DispatchQueue.main.async {
+                    self.usersRealmService.setUserInfo(user: newUserRealm)
+                    self.view?.loadUserInfoFromServer()
+                }
+                
+            }catch{
+                print("catch")
+            }
+            
+        }
     }
     
     func getProfilePhoto(indexPath:IndexPath) -> UIImage?{

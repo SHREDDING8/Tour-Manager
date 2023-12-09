@@ -33,6 +33,8 @@ final class EmploeeViewController: UIViewController {
        
         addTargets()
         addDelegates()
+        
+        self.presenter.getUserInfoFromServer()
                 
     }
     
@@ -90,6 +92,10 @@ final class EmploeeViewController: UIViewController {
         self.view().readTours.switchControll.addTarget(self, action: #selector(changeAccessLevel(_:)), for: .valueChanged)
         self.view().writeTours.switchControll.addTarget(self, action: #selector(changeAccessLevel(_:)), for: .valueChanged)
         self.view().isGuide.switchControll.addTarget(self, action: #selector(changeAccessLevel(_:)), for: .valueChanged)
+        
+        self.view().scrollView.refreshControl = UIRefreshControl(frame: .zero, primaryAction: UIAction(handler: { _ in
+            self.presenter.getUserInfoFromServer()
+        }))
         
     }
     
@@ -193,6 +199,14 @@ extension EmploeeViewController:UICollectionViewDelegate, UICollectionViewDelega
 
 
 extension EmploeeViewController:EmployeeViewProtocol{
+    func loadUserInfoFromServer() {
+        self.configureInfo()
+        self.configureAccessLevels()
+        
+        self.view().profileImagesCollectionView.reloadData()
+        self.view().scrollView.refreshControl?.endRefreshing()
+    }
+    
     func changeLevelSuccess() {
         AlertKitAPI.present(
             title: "Права доступа изменены",

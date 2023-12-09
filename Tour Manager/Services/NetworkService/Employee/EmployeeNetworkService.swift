@@ -32,6 +32,8 @@ protocol EmployeeNetworkServiceProtocol{
     func getCompanyUsers() async throws -> [GetCompanyUsersElement]
     
     func getCompanyGuides() async throws -> [GetCompanyUsersElement]
+    
+    func getEmployeeInfoById(employeeId:String) async throws -> GetCompanyUsersElement
 }
 
 class EmployeeNetworkService:EmployeeNetworkServiceProtocol{
@@ -206,6 +208,47 @@ class EmployeeNetworkService:EmployeeNetworkServiceProtocol{
                 
             }
             
+        }
+        
+        return result
+    }
+    
+    func getEmployeeInfoById(employeeId:String) async throws -> GetCompanyUsersElement{
+        let refreshToken = try! await ApiManagerAuth.refreshToken()
+        if !refreshToken{
+            throw customErrorCompany.unknowmError
+        }
+        
+        let url = URL( string: NetworkServiceHelper.Employee.getUserInfoByTarget(targetId: employeeId, companyId: keychainService.getCompanyLocalId() ?? "")
+            )!
+        
+        let headers = NetworkServiceHelper.Headers()
+        headers.addAccessTokenHeader()
+        
+        let result:GetCompanyUsersElement = try await withCheckedThrowingContinuation { continuation in
+            AF.request(url, method: .get, headers: headers.getHeaders()).response { response in
+                switch response.result {
+                    
+                case .success(_):
+                    if response.response?.statusCode == 400{
+                        let error = self.checkError(data: response.data ?? Data())
+                        continuation.resume(throwing: error)
+                        
+                    } else if response.response?.statusCode == 200{
+                        
+                        if let user = try? JSONDecoder().decode(GetCompanyUsersElement.self, from: response.data!){
+                            continuation.resume(returning: user)
+                        }else{
+                            continuation.resume(throwing: CustomErrorEmployee.unknowmError)
+                        }
+                        
+                    }else{
+                        continuation.resume(throwing: CustomErrorEmployee.unknowmError)
+                    }
+                case .failure(_):
+                    continuation.resume(throwing: CustomErrorEmployee.unknowmError)
+                }
+            }
         }
         
         return result

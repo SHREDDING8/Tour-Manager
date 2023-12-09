@@ -12,6 +12,8 @@ protocol EmployeeViewProtocol:AnyObject{
     func updateImage(at indexPath:IndexPath, image:UIImage)
     func changeLevelSuccess()
     func changeLevelError()
+    
+    func loadUserInfoFromServer()
 }
 
 protocol EmployeePresenterProtocol:AnyObject{
@@ -22,6 +24,8 @@ protocol EmployeePresenterProtocol:AnyObject{
     func getNumberOfPhotos() -> Int
         
     func getProfilePhoto(indexPath:IndexPath) -> UIImage?
+    
+    func getUserInfoFromServer()
     
     
 }
@@ -97,6 +101,73 @@ class EmployeePresenter:EmployeePresenterProtocol{
                     imageForDownload.append(imageid)
                 }
             }
+        }
+    }
+    
+    func getUserInfoFromServer(){
+        Task{
+            do{
+                let newInfo = try await employeeNetworkService.getEmployeeInfoById(employeeId: self.user.localId)
+                let newUserRealm = UserRealm(
+                    localId: self.user.localId,
+                    firstName: newInfo.firstName,
+                    secondName: newInfo.lastName,
+                    email: newInfo.email,
+                    phone: newInfo.phone,
+                    birthday: Date.birthdayFromString(dateString: newInfo.birthdayDate),
+                    imageIDs: newInfo.profilePictures,
+                    accesslLevels: UserAccessLevelRealm(
+                        readCompanyEmployee: newInfo.accessLevels.readCompanyEmployee,
+                        readLocalIdCompany: newInfo.accessLevels.readLocalIDCompany,
+                        readGeneralCompanyInformation: newInfo.accessLevels.readGeneralCompanyInformation,
+                        writeGeneralCompanyInformation: newInfo.accessLevels.writeGeneralCompanyInformation,
+                        canChangeAccessLevel: newInfo.accessLevels.canChangeAccessLevel,
+                        isOwner: newInfo.accessLevels.isOwner,
+                        canReadTourList: newInfo.accessLevels.canReadTourList,
+                        canWriteTourList: newInfo.accessLevels.canWriteTourList,
+                        isGuide: newInfo.accessLevels.isGuide
+                    )
+                )
+                
+                DispatchQueue.main.async {
+                    self.userRealmService.setUserInfo(user: newUserRealm)
+                    
+                    var newImages:[(String, UIImage)] = []
+                    
+                    for id in newInfo.profilePictures{
+                        if let imageData = self.imageService.getImage(by: id){
+                            newImages.append((id, UIImage(data: imageData)!))
+                        }
+                    }
+                    
+                    self.user = UsersModel(
+                        localId: newInfo.uid,
+                        firstName: newInfo.firstName,
+                        secondName: newInfo.lastName,
+                        email: newInfo.email,
+                        phone: newInfo.phone,
+                        birthday: Date.birthdayFromString(dateString: newInfo.birthdayDate),
+                        images: newImages,
+                        accessLevels: UsersModel.UserAccessLevels(
+                            readCompanyEmployee: newInfo.accessLevels.readCompanyEmployee,
+                            readLocalIdCompany: newInfo.accessLevels.readLocalIDCompany,
+                            readGeneralCompanyInformation: newInfo.accessLevels.readGeneralCompanyInformation,
+                            writeGeneralCompanyInformation: newInfo.accessLevels.writeGeneralCompanyInformation,
+                            canChangeAccessLevel: newInfo.accessLevels.canChangeAccessLevel,
+                            isOwner: newInfo.accessLevels.isOwner,
+                            canReadTourList: newInfo.accessLevels.canReadTourList,
+                            canWriteTourList: newInfo.accessLevels.canWriteTourList,
+                            isGuide: newInfo.accessLevels.isGuide
+                        )
+                    )
+                    
+                    self.view?.loadUserInfoFromServer()
+                }
+                
+            }catch{
+                print("catch")
+            }
+            
         }
     }
     

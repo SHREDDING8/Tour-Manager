@@ -15,8 +15,8 @@ class NetworkServiceHelper{
     // https://server.shredding-quiner.ru/
     public let domain = "https://server.shredding-quiner.ru/"
     
-//    private static let newDomain = "https://24tour-manager.ru/api/"
-    private static let newDomain = "http://193.164.150.181:32799/"
+    private static let newDomain = "https://24tour-manager.ru/api/"
+//    private static let newDomain = "http://193.164.150.181:32799/"
     
     
     private let routeRefreshToken:String
@@ -28,6 +28,30 @@ class NetworkServiceHelper{
     }
     
     // MARK: - URLS Base
+    
+    public class Auth{
+        private static let authUrlBase = newDomain + "auth"
+        
+        public static let signUp = authUrlBase + "/signup"
+        public static let login = authUrlBase + "/login"
+        public static let logout = authUrlBase + "/logout"
+        public static let logoutAllDevices = authUrlBase + "/logout_all_devices"
+        public static let refreshUserToken = authUrlBase + "/refresh_user_token"
+        public static func checkEmail(email:String) -> String {
+            return authUrlBase + "/refresh_user_token?email=\(email)"
+        }
+        
+        public static let getLoggedDevices = authUrlBase + "/logged_in_devices"
+        public static let sendVerifyEmail = authUrlBase + "/send_verify_email"
+        
+        public static func resetPassword(email:String) ->String{
+            return authUrlBase + "/reset_password?email=\(email)"
+        }
+        
+        public static let updatepassword = authUrlBase + "/update_password"
+        
+    }
+    
     public class Companies{
         fileprivate static let companiesUrlBase = newDomain + "companies"
         
@@ -87,28 +111,32 @@ class NetworkServiceHelper{
     }
     
     public class Employee{
-        private static func toursBaseUrl(companyId:String) -> String{
+        private static func employeeBaseUrl(companyId:String) -> String{
             return "\(Companies.companiesUrlBase)/\(companyId)/employee"
         }
         
         public static func getCurrentCompanyUserAccessLevels(companyId:String) -> String{
-            return toursBaseUrl(companyId: companyId) + "/"
+            return employeeBaseUrl(companyId: companyId) + "/"
         }
         
         public static func registerToCompany(companyId:String) ->String {
-            return toursBaseUrl(companyId: companyId) + "/"
+            return employeeBaseUrl(companyId: companyId) + "/"
         }
         
         public static func updateCompanyUserAccessLevels(companyId:String, employeeId:String) -> String{
-            return toursBaseUrl(companyId: companyId) + "/" + employeeId
+            return employeeBaseUrl(companyId: companyId) + "/" + employeeId
         }
         
         public static func getCompanyUsers(companyId:String) -> String{
-            return toursBaseUrl(companyId: companyId) + "/all"
+            return employeeBaseUrl(companyId: companyId) + "/all"
         }
         
         public static func getCompanyGuides(companyId:String) -> String{
-            return toursBaseUrl(companyId: companyId) + "/guides"
+            return employeeBaseUrl(companyId: companyId) + "/guides"
+        }
+        
+        public static func getUserInfoByTarget(targetId:String, companyId:String) ->String{
+            return employeeBaseUrl(companyId: companyId) + "/\(targetId)"
         }
     }
     
@@ -119,9 +147,6 @@ class NetworkServiceHelper{
         public static var updateUserInfo = usersBaseUrl + "/";
         
         public static var deleteUser = usersBaseUrl + "/";
-        public static func getUserInfoByTarget(targetId:String, companyId:String) ->String{
-            return "\(usersBaseUrl)/\(targetId)?companyId=\(companyId)"
-        }
         
         private static var profilePictureBaseUrl = "\(usersBaseUrl)/profile_picture"
         

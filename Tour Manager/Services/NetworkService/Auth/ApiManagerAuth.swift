@@ -364,16 +364,13 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
             throw customErrorUserData.unknowmError
         }
         
-        let url = URL(string: self.routeGetLoggedDevices)!
-        
-        
-        let jsonData = [
-            "token": keychainService.getAcessToken() ?? ""
-        ]
+        let url = URL(string: NetworkServiceHelper.Auth.getLoggedDevices)!
+        let headers = NetworkServiceHelper.Headers()
+        headers.addAccessTokenHeader()
         
         let result:ResponseGetAllDevices = try await withCheckedThrowingContinuation { continuation in
             
-            AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
+            AF.request(url, method: .get, headers: headers.getHeaders()).response { response in
                 
                 switch response.result {
                 case .success(let success):

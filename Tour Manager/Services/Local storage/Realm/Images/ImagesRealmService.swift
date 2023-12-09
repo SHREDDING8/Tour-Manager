@@ -24,7 +24,7 @@ class ImagesRealmService:ImagesRealmServiceProtocol{
         )
         
         try! realm.write({
-            realm.add(imageModel)
+            realm.add(imageModel, update: .modified)
         })
         
     }
