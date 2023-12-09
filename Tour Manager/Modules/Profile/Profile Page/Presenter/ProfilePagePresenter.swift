@@ -44,7 +44,7 @@ protocol ProfilePagePresenterProtocol:AnyObject{
     func getProfilePhoto(indexPath:IndexPath) -> UIImage?
     
     func uploadProfilePhoto(image:UIImage)
-    func deleteProfilePhoto()
+    func deleteProfilePhoto(index:Int)
     
     func updatePersonalData(updateField: UserDataFields,value:String) 
     
@@ -185,21 +185,21 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
         }
     }
     
-    public func deleteProfilePhoto(){
+    public func deleteProfilePhoto(index:Int){
         
-        if let imageId = usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")?.imageIDs.first{
+        if let imageId = usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")?.imageIDs[index]{
             
             Task{
                 do{
                     if try await self.apiUserData.deleteProfilePhoto(pictureId: imageId){
                         DispatchQueue.main.async {
-                            self.usersRealmService.deleteImage(userId: self.keychain.getAcessToken() ?? "", pictureId: imageId)
+                            self.usersRealmService.deleteImage(userId: self.keychain.getLocalId() ?? "", pictureId: imageId)
                             self.imageService.deleteImage(by: imageId)
                             self.view?.deletePhotoSuccess()
                         }
                     }
                 }catch{
-                    
+                    print("deleteError")
                 }
                 
             }

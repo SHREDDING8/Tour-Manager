@@ -15,8 +15,8 @@ class NetworkServiceHelper{
     // https://server.shredding-quiner.ru/
     public let domain = "https://server.shredding-quiner.ru/"
     
-    private static let newDomain = "https://24tour-manager.ru/api/"
-//    private static let newDomain = "http://10.91.58.210:8080/"
+//    private static let newDomain = "https://24tour-manager.ru/api/"
+    private static let newDomain = "http://193.164.150.181:32799/"
     
     
     private let routeRefreshToken:String

@@ -170,6 +170,24 @@ extension EmploeeViewController:UICollectionViewDelegate, UICollectionViewDelega
         
         return CGSize(width: collectionView.frame.width, height: collectionView.frame.width)
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // Рассчитываем центральную точку коллекции
+        
+        if scrollView == self.view().profileImagesCollectionView{
+            let centerX = scrollView.contentOffset.x + (scrollView.bounds.width / 2)
+
+            // Находим индекс страницы, используя центральную точку
+            if let indexPath = self.view().profileImagesCollectionView.indexPathForItem(at: CGPoint(x: centerX, y: self.view().profileImagesCollectionView.bounds.height / 2)) {
+                
+                if let cell = self.view().profileImagesCollectionView.cellForItem(at: indexPath) as? ProfilePhotoCollectionViewCell{
+                    self.view().BGimageView.image = cell.profileImage.image
+                }
+            }
+            
+        }
+
+    }
 }
 
 

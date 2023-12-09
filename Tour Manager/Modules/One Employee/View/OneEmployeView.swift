@@ -28,6 +28,25 @@ class OneEmployeView: UIView {
         view.register(ProfilePhotoCollectionViewCell.self, forCellWithReuseIdentifier: "ProfilePhotoCollectionViewCell")
         return view
     }()
+    
+    lazy var BGimageView:UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        
+        imageView.image = UIImage(resource: .noProfilePhoto)
+        
+        var blur = UIBlurEffect(style: .regular)
+        var blurView = UIVisualEffectView(effect: blur)
+                
+        imageView.addSubview(blurView)
+        
+        blurView.snp.makeConstraints { make in
+            make.top.bottom.leading.trailing.equalToSuperview()
+        }
+        
+        return imageView
+    }()
         
     lazy var nameView:UIView = {
         let view = UIView()
@@ -247,11 +266,9 @@ class OneEmployeView: UIView {
     
     private func setupView() {
         self.backgroundColor = UIColor(resource: .background)
-        
+        self.profileImagesCollectionView.backgroundView = self.BGimageView
         self.addSubview(profileImagesCollectionView)
-        
-//        self.addSubview(profileImage)
-        
+                
         self.addSubview(nameView)
         self.nameView.addSubview(fullName)
         self.nameView.addSubview(companyName)

@@ -155,9 +155,9 @@ class ProfileViewController: UIViewController{
             self.present(imagePicker, animated: true)
         }
         
-        let actionDeletePhoto = UIAlertAction(title: "Удалить фотографию", style: .default) { _ in
+        let actionDeletePhoto = UIAlertAction(title: "Удалить фотографию", style: .destructive) { _ in
             
-            self.presenter.deleteProfilePhoto()
+            self.presenter.deleteProfilePhoto(index: self.collectionViewPage)
                         
         }
         let actionCancel = UIAlertAction(title: "Отменить", style: .cancel)
@@ -165,9 +165,9 @@ class ProfileViewController: UIViewController{
         alert.addAction(actionLibary)
         alert.addAction(actionCamera)
         alert.addAction(actionCancel)
-//        if self.view().profileImage.image != UIImage(resource: .noProfilePhoto){
-//            alert.addAction(actionDeletePhoto)
-//        }
+        if let cell = self.view().profileImagesCollectionView.cellForItem(at: IndexPath(row: self.collectionViewPage, section: 0)) as? ProfilePhotoCollectionViewCell, cell.profileImage.image != UIImage(resource: .noProfilePhoto){
+            alert.addAction(actionDeletePhoto)
+        }
         
         
         self.present(alert, animated: true)
@@ -276,6 +276,8 @@ extension ProfileViewController:UICollectionViewDataSource{
             cell.setProfilePhoto(image: image)
         }
         
+        self.view().BGimageView.image = cell.profileImage.image
+        
         return cell
     }
     
@@ -299,7 +301,6 @@ extension ProfileViewController:UICollectionViewDelegate, UICollectionViewDelega
             // Находим индекс страницы, используя центральную точку
             if let indexPath = self.view().profileImagesCollectionView.indexPathForItem(at: CGPoint(x: centerX, y: self.view().profileImagesCollectionView.bounds.height / 2)) {
                 self.collectionViewPage =  indexPath.item
-                print("Текущая страница: \(collectionViewPage)")
                 
                 if let cell = self.view().profileImagesCollectionView.cellForItem(at: indexPath) as? ProfilePhotoCollectionViewCell{
                     self.view().BGimageView.image = cell.profileImage.image
@@ -414,6 +415,11 @@ extension ProfileViewController:ProfileViewProtocol{
     
 
     func deletePhotoSuccess() {
+        self.view().profileImagesCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .centeredHorizontally, animated: true)
+        
+        UIView.transition(with: self.view().profileImagesCollectionView, duration: 0.3, options: .transitionFlipFromLeft) {
+            self.view().profileImagesCollectionView.reloadData()
+        }
         
         AlertKitAPI.present(
             title: "Фото удалено",
