@@ -45,23 +45,19 @@ extension GuideToursViewController:ToursBaseViewControllerDataSource{
 extension GuideToursViewController:ToursBaseViewControllerDelegate{
     
     func tourCell(_ tableView: UITableView, cellForRowAt indexPath: IndexPath, inDate: Date) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ExcursionTableViewCell", for: indexPath) as! ExcursionTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TourTableViewCell", for: indexPath) as! TourTableViewCell
         
         if let tour = presenter.tours[inDate.birthdayToString()]?[indexPath.row]{
             
-            cell.nameLabel.text = tour.tourTitle
-            cell.routeLabel.text = tour.route
-            
-            cell.startTimeLabel.text = tour.dateAndTime.timeToString()
-            
             var guides = ""
+            var status:UIColor = .systemBlue
             
             for guide in tour.guides{
                 guides += guide.firstName + " " + guide.lastName + ", "
                 
                 let keychain = KeychainService()
                 if guide.id == keychain.getLocalId(){
-                    cell.statusView.backgroundColor = guide.status.getColor()
+                    status = guide.status.getColor()
                 }
                 
             }
@@ -71,10 +67,20 @@ extension GuideToursViewController:ToursBaseViewControllerDelegate{
                 guides.removeLast()
                 
             }else{
-                cell.statusView.backgroundColor = .systemBlue
+                status = .systemBlue
             }
             
-            cell.guidesLabel.text = guides
+            cell.configure(
+                time: tour.dateAndTime.timeToString(),
+                title: tour.tourTitle,
+                route: tour.route,
+                guides: guides,
+                numOfPeople: tour.numberOfPeople,
+                customer: tour.customerCompanyName,
+                statusColor: status,
+                isGuide: true
+            )
+            
             
             if tour.dateAndTime < Date.now{
                 cell.contentView.layer.opacity = 0.5

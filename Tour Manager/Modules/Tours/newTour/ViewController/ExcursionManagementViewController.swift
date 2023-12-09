@@ -344,18 +344,18 @@ extension ExcursionManagementViewController:UITableViewDelegate,UITableViewDataS
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TourManadgmentTableViewCell", for: indexPath) as! TourManadgmentTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TourManadgmentTableViewCell", for: indexPath) as! TourTableViewCell
         
         if let tour = presenter.tours[calendar.calendar.selectedDate?.birthdayToString() ?? Date.now.birthdayToString()]?[indexPath.row]{
            
-            cell.nameLabel.text = tour.tourTitle
-            cell.routeLabel.text = tour.route
-            
-            cell.startTimeLabel.text = tour.dateAndTime.timeToString()
-            
-            cell.numberOfPeople.text = tour.numberOfPeople
-            
-            cell.customerCompanyName.text = tour.customerCompanyName
+//            cell.nameLabel.text = tour.tourTitle
+//            cell.routeLabel.text = tour.route
+//            
+//            cell.startTimeLabel.text = tour.dateAndTime.timeToString()
+//            
+//            cell.numberOfPeople.text = tour.numberOfPeople
+//            
+//            cell.customerCompanyName.text = tour.customerCompanyName
             
             var guides = ""
             var statuses:[ExcrusionModel.GuideStatus] = []
@@ -370,17 +370,17 @@ extension ExcursionManagementViewController:UITableViewDelegate,UITableViewDataS
                 guides.removeLast()
             }
             
-            if statuses.contains(.cancel){
-                cell.statusView.backgroundColor = .systemRed
-            } else if statuses.contains(.waiting){
-                cell.statusView.backgroundColor = .systemYellow
-            } else if statuses.contains(.accept){
-                cell.statusView.backgroundColor = .systemGreen
-            } else {
-                cell.statusView.backgroundColor = .systemBlue
-            }
-            
-            cell.guidesLabel.text = guides
+//            if statuses.contains(.cancel){
+//                cell.statusView.backgroundColor = .systemRed
+//            } else if statuses.contains(.waiting){
+//                cell.statusView.backgroundColor = .systemYellow
+//            } else if statuses.contains(.accept){
+//                cell.statusView.backgroundColor = .systemGreen
+//            } else {
+//                cell.statusView.backgroundColor = .systemBlue
+//            }
+//            
+//            cell.guidesLabel.text = guides
             
             if tour.dateAndTime < Date.now{
                 cell.contentView.layer.opacity = 0.5

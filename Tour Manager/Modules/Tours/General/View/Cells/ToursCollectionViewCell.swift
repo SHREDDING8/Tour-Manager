@@ -25,15 +25,10 @@ class ToursCollectionViewCell: UICollectionViewCell {
     lazy var tableView:UITableView = {
         let tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
         tableView.restorationIdentifier = "tableViewCalendar"
-        
-        let cell = UINib(nibName: "TourManadgmentTableViewCell", bundle: nil)
-        
-        tableView.register(cell, forCellReuseIdentifier: "TourManadgmentTableViewCell")
-        
-        let cell2 = UINib(nibName: "ExcursionTableViewCell", bundle: nil)
-        
-        tableView.register(cell2, forCellReuseIdentifier: "ExcursionTableViewCell")
-        
+                
+        tableView.register(TourTableViewCell.self, forCellReuseIdentifier: "TourTableViewCell")
+                
+        tableView.separatorStyle = .none
         
         tableView.backgroundColor = .clear
                 

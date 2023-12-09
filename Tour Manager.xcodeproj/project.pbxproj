@@ -24,8 +24,7 @@
 		EE18F4662A3E4FB00047E068 /* ResponseAutoFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE18F4652A3E4FB00047E068 /* ResponseAutoFill.swift */; };
 		EE18F4682A3E503F0047E068 /* ApiManagerAutoFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE18F4672A3E503F0047E068 /* ApiManagerAutoFill.swift */; };
 		EE1A678F2A40F50F007A1A84 /* ExcursionForGuideTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1A678E2A40F50F007A1A84 /* ExcursionForGuideTableViewController.swift */; };
-		EE1D14122A577A1500A125F2 /* TourManadgmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1D14102A577A1500A125F2 /* TourManadgmentTableViewCell.swift */; };
-		EE1D14132A577A1500A125F2 /* TourManadgmentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE1D14112A577A1500A125F2 /* TourManadgmentTableViewCell.xib */; };
+		EE1D14122A577A1500A125F2 /* TourTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1D14102A577A1500A125F2 /* TourTableViewCell.swift */; };
 		EE2377362A0816D900CB9D70 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2377352A0816D900CB9D70 /* Alerts.swift */; };
 		EE261BCD2B1E28550010DD9B /* FullCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE261BCC2B1E28550010DD9B /* FullCalendarView.swift */; };
 		EE261BCF2B1E286E0010DD9B /* FullCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE261BCE2B1E286E0010DD9B /* FullCalendarViewController.swift */; };
@@ -163,8 +162,7 @@
 		EE18F4652A3E4FB00047E068 /* ResponseAutoFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseAutoFill.swift; sourceTree = "<group>"; };
 		EE18F4672A3E503F0047E068 /* ApiManagerAutoFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManagerAutoFill.swift; sourceTree = "<group>"; };
 		EE1A678E2A40F50F007A1A84 /* ExcursionForGuideTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcursionForGuideTableViewController.swift; sourceTree = "<group>"; };
-		EE1D14102A577A1500A125F2 /* TourManadgmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourManadgmentTableViewCell.swift; sourceTree = "<group>"; };
-		EE1D14112A577A1500A125F2 /* TourManadgmentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TourManadgmentTableViewCell.xib; sourceTree = "<group>"; };
+		EE1D14102A577A1500A125F2 /* TourTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourTableViewCell.swift; sourceTree = "<group>"; };
 		EE2377352A0816D900CB9D70 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		EE261BCA2B1E254E0010DD9B /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		EE261BCB2B1E254E0010DD9B /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Auth.strings; sourceTree = "<group>"; };
@@ -379,8 +377,7 @@
 			children = (
 				EEB764A02A387B2200579E6B /* NewComponentTableViewCell.swift */,
 				EEB764A12A387B2200579E6B /* NewComponentTableViewCell.xib */,
-				EE1D14102A577A1500A125F2 /* TourManadgmentTableViewCell.swift */,
-				EE1D14112A577A1500A125F2 /* TourManadgmentTableViewCell.xib */,
+				EE1D14102A577A1500A125F2 /* TourTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1257,7 +1254,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE52E17B29E5C1CB000C0E5B /* LaunchScreen.storyboard in Resources */,
-				EE1D14132A577A1500A125F2 /* TourManadgmentTableViewCell.xib in Resources */,
 				EEF6EBA92A41BADE00DC5F6A /* GuideCollectionViewCell.xib in Resources */,
 				EE4619132A6C229C00EBE695 /* Notification.wav in Resources */,
 				EE1770F62A23F00300B18055 /* Launch.storyboard in Resources */,
@@ -1422,7 +1418,7 @@
 				EE18F4682A3E503F0047E068 /* ApiManagerAutoFill.swift in Sources */,
 				EED09DA52AE2DA99000CDA7F /* NotesViewController.swift in Sources */,
 				EE5EEC312A06EDC20025336E /* ChoiceOfTypeAccountViewController.swift in Sources */,
-				EE1D14122A577A1500A125F2 /* TourManadgmentTableViewCell.swift in Sources */,
+				EE1D14122A577A1500A125F2 /* TourTableViewCell.swift in Sources */,
 				EE330A802AE5738C00109E4E /* Results Extension.swift in Sources */,
 				EE2377362A0816D900CB9D70 /* Alerts.swift in Sources */,
 				EE0649392B160D65007EF0A1 /* ToursCollectionViewCell.swift in Sources */,

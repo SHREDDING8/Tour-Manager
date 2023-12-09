@@ -62,19 +62,9 @@ extension TourManadgmentViewController:ToursBaseViewControllerDataSource{
 extension TourManadgmentViewController:ToursBaseViewControllerDelegate{
     
     func tourCell(_ tableView: UITableView, cellForRowAt indexPath: IndexPath, inDate: Date) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TourManadgmentTableViewCell", for: indexPath) as! TourManadgmentTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TourTableViewCell", for: indexPath) as! TourTableViewCell
         
         if let tour = presenter.tours[inDate.birthdayToString()]?[indexPath.row]{
-           
-            cell.nameLabel.text = tour.tourTitle
-            cell.routeLabel.text = tour.route
-            
-            cell.startTimeLabel.text = tour.dateAndTime.timeToString()
-            
-            cell.numberOfPeople.text = tour.numberOfPeople
-            
-            cell.customerCompanyName.text = tour.customerCompanyName
-            
             var guides = ""
             var statuses:[ExcrusionModel.GuideStatus] = []
             
@@ -88,18 +78,27 @@ extension TourManadgmentViewController:ToursBaseViewControllerDelegate{
                 guides.removeLast()
             }
             
+            var statusColor:UIColor
             if statuses.contains(.cancel){
-                cell.statusView.backgroundColor = .systemRed
+                statusColor = .systemRed
             } else if statuses.contains(.waiting){
-                cell.statusView.backgroundColor = .systemYellow
+                statusColor = .systemYellow
             } else if statuses.contains(.accept){
-                cell.statusView.backgroundColor = .systemGreen
+                statusColor = .systemGreen
             } else {
-                cell.statusView.backgroundColor = .systemBlue
+                statusColor = .systemBlue
             }
             
-            cell.guidesLabel.text = guides
-            
+            cell.configure(
+                time:tour.dateAndTime.timeToString(),
+                title: tour.tourTitle,
+                route: tour.route,
+                guides: guides,
+                numOfPeople: tour.numberOfPeople,
+                customer: tour.customerCompanyName,
+                statusColor: statusColor
+            )
+                                                           
             if tour.dateAndTime < Date.now{
                 cell.contentView.layer.opacity = 0.5
             }else{

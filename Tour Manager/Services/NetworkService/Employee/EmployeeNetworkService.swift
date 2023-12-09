@@ -136,7 +136,8 @@ class EmployeeNetworkService:EmployeeNetworkServiceProtocol{
         let result:[GetCompanyUsersElement] = try await withCheckedThrowingContinuation { continuation in
             
             AF.request(url, method: .get, headers: headers.getHeaders()).response { response in
-                
+                print(try? JSONSerialization.jsonObject(with: response.data ?? Data() ))
+                      
                 switch response.result {
                     
                 case .success(_):

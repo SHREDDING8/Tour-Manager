@@ -139,7 +139,7 @@ class EmployeesListPresenter:EmployeesListPresenterProtocol{
                 }
 
                 
-            } catch customErrorCompany.unknowmError{
+            } catch{
                 DispatchQueue.main.async {
                     self.view?.unknownError()
                 }
