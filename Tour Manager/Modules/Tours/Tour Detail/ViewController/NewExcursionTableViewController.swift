@@ -360,17 +360,17 @@ extension NewExcursionTableViewController:UICollectionViewDelegate,UICollectionV
         let nib = UINib(nibName: "GuideCollectionViewCell", bundle: nil)
         collectionView.register(nib, forCellWithReuseIdentifier: "GuideCollectionViewCell")
                 
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GuideCollectionViewCell", for: indexPath) as! GuideCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GuideCollectionViewCell", for: indexPath)
         
-        let guide = self.presenter.tour.guides[indexPath.row]
-        
-        cell.fullName.text = guide.firstName + " " + guide.lastName
-        if guide.isMain{
-            cell.isMainGuide.isHidden = false
-        }else{
-            cell.isMainGuide.isHidden = true
-        }
-            
+//        let guide = self.presenter.tour.guides[indexPath.row]
+//        
+//        cell.fullName.text = guide.firstName + " " + guide.lastName
+//        if guide.isMain{
+//            cell.isMainGuide.isHidden = false
+//        }else{
+//            cell.isMainGuide.isHidden = true
+//        }
+//            
         return cell
     }
     

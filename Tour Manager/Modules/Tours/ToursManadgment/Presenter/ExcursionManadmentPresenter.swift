@@ -116,7 +116,7 @@ class ExcursionManadmentPresenter:ExcursionManadmentPresenterProtocol{
         Task{
             do{
                 let toursJson = try await toursNetworkService.getDateTourList(date: date.birthdayToString(), guideOnly: false)
-                
+            DispatchQueue.main.async {
                 let realmTours:List<ExcursionRealmModel> = List<ExcursionRealmModel>()
                 for tourJson in toursJson{
                     let guides: List<OneGuideRealmModel> = List<OneGuideRealmModel>()
@@ -158,7 +158,6 @@ class ExcursionManadmentPresenter:ExcursionManadmentPresenterProtocol{
                 
                 let realm = DatesExcursion(dateString: date.birthdayToString(), tours: realmTours)
                 
-                DispatchQueue.main.async {
                     self.toursRealmService.setTours(dateExcursions: realm)
                     self.loadToursFromRealm(date: date)
                 }

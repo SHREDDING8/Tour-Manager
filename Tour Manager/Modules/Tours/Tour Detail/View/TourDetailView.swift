@@ -327,7 +327,7 @@ class TourDetailView: UIView {
         
         layoutSubviews()
         
-        if !canWrite{
+        if !canWrite || isGuide{
             self.tourRoute.nextPageImage.isHidden = true
             self.customerCompanyName.nextPageImage.isHidden = true
             self.customerGuide.nextPageImage.isHidden = true

@@ -118,6 +118,7 @@
 		EEDA5E9D2A37BFA9002CC5C8 /* UiTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDA5E9C2A37BFA9002CC5C8 /* UiTextView.swift */; };
 		EEDA5E9F2A37C153002CC5C8 /* AddingNewComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDA5E9E2A37C153002CC5C8 /* AddingNewComponentViewController.swift */; };
 		EEDB60212B25D40C00495263 /* GuideTourItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDB60202B25D40C00495263 /* GuideTourItem.swift */; };
+		EEDB60252B262DF800495263 /* TourDetailForGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDB60242B262DF800495263 /* TourDetailForGuideViewController.swift */; };
 		EEDF10862B21D0E100509A63 /* ImageRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDF10852B21D0E100509A63 /* ImageRealmModel.swift */; };
 		EEDF108B2B21DC9000509A63 /* ImagesRealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDF108A2B21DC9000509A63 /* ImagesRealmService.swift */; };
 		EEDF108F2B222E4900509A63 /* ProfilePhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDF108E2B222E4900509A63 /* ProfilePhotoCollectionViewCell.swift */; };
@@ -133,13 +134,10 @@
 		EEF27A592A05C7BC006E5E53 /* VerifyEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A582A05C7BC006E5E53 /* VerifyEmailViewController.swift */; };
 		EEF2F63B2ADCBE010070D083 /* ExcursionRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF2F63A2ADCBE010070D083 /* ExcursionRealmModel.swift */; };
 		EEF2F63F2ADD5B630070D083 /* ExcursionsRealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF2F63E2ADD5B630070D083 /* ExcursionsRealmService.swift */; };
-		EEF6EBA82A41BADE00DC5F6A /* GuideCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF6EBA62A41BADE00DC5F6A /* GuideCollectionViewCell.swift */; };
-		EEF6EBA92A41BADE00DC5F6A /* GuideCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEF6EBA72A41BADE00DC5F6A /* GuideCollectionViewCell.xib */; };
 		EEF7763B2AD802C900532440 /* UsersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF7763A2AD802C900532440 /* UsersModel.swift */; };
 		EEF7763E2AD80D2B00532440 /* EmployeeAseembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF7763D2AD80D2B00532440 /* EmployeeAseembly.swift */; };
 		EEF776402ADAA37000532440 /* UiViewController extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF7763F2ADAA37000532440 /* UiViewController extension.swift */; };
 		EEF776432ADAA3B600532440 /* OneEmployeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF776422ADAA3B600532440 /* OneEmployeView.swift */; };
-		EEFD30ED2A3B6400003192A1 /* ExcursionsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEFD30EC2A3B6400003192A1 /* ExcursionsNavigationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -258,6 +256,7 @@
 		EEDA5E9C2A37BFA9002CC5C8 /* UiTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiTextView.swift; sourceTree = "<group>"; };
 		EEDA5E9E2A37C153002CC5C8 /* AddingNewComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingNewComponentViewController.swift; sourceTree = "<group>"; };
 		EEDB60202B25D40C00495263 /* GuideTourItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideTourItem.swift; sourceTree = "<group>"; };
+		EEDB60242B262DF800495263 /* TourDetailForGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourDetailForGuideViewController.swift; sourceTree = "<group>"; };
 		EEDF10852B21D0E100509A63 /* ImageRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRealmModel.swift; sourceTree = "<group>"; };
 		EEDF108A2B21DC9000509A63 /* ImagesRealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesRealmService.swift; sourceTree = "<group>"; };
 		EEDF108E2B222E4900509A63 /* ProfilePhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePhotoCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -272,13 +271,10 @@
 		EEF27A582A05C7BC006E5E53 /* VerifyEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyEmailViewController.swift; sourceTree = "<group>"; };
 		EEF2F63A2ADCBE010070D083 /* ExcursionRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcursionRealmModel.swift; sourceTree = "<group>"; };
 		EEF2F63E2ADD5B630070D083 /* ExcursionsRealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcursionsRealmService.swift; sourceTree = "<group>"; };
-		EEF6EBA62A41BADE00DC5F6A /* GuideCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideCollectionViewCell.swift; sourceTree = "<group>"; };
-		EEF6EBA72A41BADE00DC5F6A /* GuideCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuideCollectionViewCell.xib; sourceTree = "<group>"; };
 		EEF7763A2AD802C900532440 /* UsersModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersModel.swift; sourceTree = "<group>"; };
 		EEF7763D2AD80D2B00532440 /* EmployeeAseembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeAseembly.swift; sourceTree = "<group>"; };
 		EEF7763F2ADAA37000532440 /* UiViewController extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UiViewController extension.swift"; sourceTree = "<group>"; };
 		EEF776422ADAA3B600532440 /* OneEmployeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneEmployeView.swift; sourceTree = "<group>"; };
-		EEFD30EC2A3B6400003192A1 /* ExcursionsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcursionsNavigationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -339,7 +335,7 @@
 				EE783F442AD4835C00DA820F /* TourManadmentAssembly.swift */,
 				EE261BDE2B1F4C5B0010DD9B /* GuideTours */,
 				EE261BDD2B1F432E0010DD9B /* General */,
-				EE261BD92B1F42AC0010DD9B /* newTour */,
+				EE261BD92B1F42AC0010DD9B /* Tour Detail */,
 				EE0649332B160A74007EF0A1 /* ToursManadgment */,
 			);
 			path = Tours;
@@ -380,15 +376,6 @@
 				EEB764A02A387B2200579E6B /* NewComponentTableViewCell.swift */,
 				EEB764A12A387B2200579E6B /* NewComponentTableViewCell.xib */,
 				EE1D14102A577A1500A125F2 /* TourTableViewCell.swift */,
-			);
-			path = Cells;
-			sourceTree = "<group>";
-		};
-		EE1805EC2AD5A60F0083952D /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				EEF6EBA62A41BADE00DC5F6A /* GuideCollectionViewCell.swift */,
-				EEF6EBA72A41BADE00DC5F6A /* GuideCollectionViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -476,14 +463,14 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
-		EE261BD92B1F42AC0010DD9B /* newTour */ = {
+		EE261BD92B1F42AC0010DD9B /* Tour Detail */ = {
 			isa = PBXGroup;
 			children = (
 				EE261BDC2B1F42C00010DD9B /* Presenter */,
 				EE261BDB2B1F42B80010DD9B /* ViewController */,
 				EE261BDA2B1F42B40010DD9B /* View */,
 			);
-			path = newTour;
+			path = "Tour Detail";
 			sourceTree = "<group>";
 		};
 		EE261BDA2B1F42B40010DD9B /* View */ = {
@@ -499,11 +486,10 @@
 		EE261BDB2B1F42B80010DD9B /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				EEDA5E9E2A37C153002CC5C8 /* AddingNewComponentViewController.swift */,
-				EE330A812AE590F400109E4E /* AddGuideViewController.swift */,
+				EEDB60222B262DCA00495263 /* SubViewControllers */,
 				EE0528C92A30DA3C006C8C98 /* NewExcursionTableViewController.swift */,
-				EED09DA42AE2DA99000CDA7F /* NotesViewController.swift */,
 				EE8701382B24FB0A003139E5 /* TourDetailViewController.swift */,
+				EEDB60242B262DF800495263 /* TourDetailForGuideViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -511,6 +497,7 @@
 		EE261BDC2B1F42C00010DD9B /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				EE783F502AD594B000DA820F /* OneGuideExcursionPresenter.swift */,
 				EE783F462AD4905A00DA820F /* NewExcursionPresenter.swift */,
 				EE330A832AE5D2F100109E4E /* AddGuidePresenter.swift */,
 				EE783F482AD5664800DA820F /* AddingNewComponentPresenter.swift */,
@@ -816,7 +803,6 @@
 		EE783F4A2AD56C5800DA820F /* Guide Excursions */ = {
 			isa = PBXGroup;
 			children = (
-				EE783F4D2AD56C7200DA820F /* Presenter */,
 				EE783F4C2AD56C6D00DA820F /* View */,
 				EE783F4B2AD56C6800DA820F /* Model */,
 			);
@@ -833,19 +819,9 @@
 		EE783F4C2AD56C6D00DA820F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				EE1805EC2AD5A60F0083952D /* Cells */,
 				EE1A678E2A40F50F007A1A84 /* ExcursionForGuideTableViewController.swift */,
-				EEFD30EC2A3B6400003192A1 /* ExcursionsNavigationController.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		EE783F4D2AD56C7200DA820F /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				EE783F502AD594B000DA820F /* OneGuideExcursionPresenter.swift */,
-			);
-			path = Presenter;
 			sourceTree = "<group>";
 		};
 		EE8474052A4D99180082DE7E /* Library */ = {
@@ -1092,6 +1068,16 @@
 			path = Realm;
 			sourceTree = "<group>";
 		};
+		EEDB60222B262DCA00495263 /* SubViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				EE330A812AE590F400109E4E /* AddGuideViewController.swift */,
+				EED09DA42AE2DA99000CDA7F /* NotesViewController.swift */,
+				EEDA5E9E2A37C153002CC5C8 /* AddingNewComponentViewController.swift */,
+			);
+			path = SubViewControllers;
+			sourceTree = "<group>";
+		};
 		EEDF10842B21CE5A00509A63 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -1265,7 +1251,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE52E17B29E5C1CB000C0E5B /* LaunchScreen.storyboard in Resources */,
-				EEF6EBA92A41BADE00DC5F6A /* GuideCollectionViewCell.xib in Resources */,
 				EE4619132A6C229C00EBE695 /* Notification.wav in Resources */,
 				EE1770F62A23F00300B18055 /* Launch.storyboard in Resources */,
 				EE8474082A4D99620082DE7E /* sub.caf in Resources */,
@@ -1325,7 +1310,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EEFD30ED2A3B6400003192A1 /* ExcursionsNavigationController.swift in Sources */,
 				EE5F91C02A1EA3C900B39BB1 /* ResponseUserDataStructs.swift in Sources */,
 				EE330A7E2AE44F4B00109E4E /* AutoFillRealmService.swift in Sources */,
 				EE783F452AD4835C00DA820F /* TourManadmentAssembly.swift in Sources */,
@@ -1359,7 +1343,6 @@
 				EE8474012A4CB5DD0082DE7E /* GeneralLogic.swift in Sources */,
 				EED8F6912AF070CA003D118A /* GuideToursRealmModel.swift in Sources */,
 				EEF27A512A059BE4006E5E53 /* TextFieldValidation.swift in Sources */,
-				EEF6EBA82A41BADE00DC5F6A /* GuideCollectionViewCell.swift in Sources */,
 				EE8701392B24FB0A003139E5 /* TourDetailViewController.swift in Sources */,
 				EE3328E72B1A75B9002FAC8F /* TourManadgmentViewController.swift in Sources */,
 				EEF27A482A05551E006E5E53 /* Font.swift in Sources */,
@@ -1404,6 +1387,7 @@
 				EE926DB02AFE7ED3005F2851 /* ProfileView.swift in Sources */,
 				EEF2F63F2ADD5B630070D083 /* ExcursionsRealmService.swift in Sources */,
 				EEF18C932A4235A500A91D2F /* DatepickerFromBottom.swift in Sources */,
+				EEDB60252B262DF800495263 /* TourDetailForGuideViewController.swift in Sources */,
 				EE9788692A28D4FA0086C034 /* EmploeeTableViewController.swift in Sources */,
 				EEC9BA182A2670A100BC026A /* Bool.swift in Sources */,
 				EE38C6762B0B907100DAEC4F /* DevicesRealmService.swift in Sources */,

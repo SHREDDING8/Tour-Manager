@@ -12,6 +12,7 @@ protocol ExcursionsRealmServiceForGuideProtocol{
 
     func setToursForGuide(dateExcursions:DatesExcursionForGuide)
     func getToursForGuide(dateString:String) -> DatesExcursionForGuide?
+    func updateTour(tourId:String, tour:ExcursionRealmModelForGuide)
     
     func getEventForGuide(tourDate:String) -> EventRealmModelForGuide?
     func addEventsForGuide(events:[EventRealmModelForGuide])
@@ -27,6 +28,14 @@ class ExcursionsRealmServiceForGuide:ExcursionsRealmServiceForGuideProtocol{
     func setToursForGuide(dateExcursions:DatesExcursionForGuide){
         try! realm.write {
             realm.add(dateExcursions, update: .modified)
+        }
+    }
+    
+    func updateTour(tourId:String, tour:ExcursionRealmModelForGuide){
+        if let tour = realm.object(ofType: ExcursionRealmModelForGuide.self, forPrimaryKey: tourId){
+            try! realm.write({
+                realm.add(tour, update: .modified)
+            })
         }
     }
     

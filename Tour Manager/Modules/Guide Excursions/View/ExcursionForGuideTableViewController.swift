@@ -304,25 +304,25 @@ extension ExcursionForGuideTableViewController:UICollectionViewDelegate,UICollec
         let nib = UINib(nibName: "GuideCollectionViewCell", bundle: nil)
         collectionView.register(nib, forCellWithReuseIdentifier: "GuideCollectionViewCell")
                 
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GuideCollectionViewCell", for: indexPath) as! GuideCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GuideCollectionViewCell", for: indexPath)
         
-        let guide = presenter.tour.guides[indexPath.row]
-        cell.fullName.text = guide.firstName + " " + guide.lastName
-        if guide.isMain{
-            cell.isMainGuide.isHidden = false
-        }else{
-            cell.isMainGuide.isHidden = true
-        }
+//        let guide = presenter.tour.guides[indexPath.row]
+//        cell.fullName.text = guide.firstName + " " + guide.lastName
+//        if guide.isMain{
+//            cell.isMainGuide.isHidden = false
+//        }else{
+//            cell.isMainGuide.isHidden = true
+//        }
+//        
+//        cell.status.tintColor = guide.status.getColor()
         
-        cell.status.tintColor = guide.status.getColor()
-        
-        self.presenter.downloadProfilePhoto(localId: guide.id, completion: { data, error in
-            if data != nil{
-                UIView.transition(with: cell.profilePhoto, duration: 0.3, options: .transitionCrossDissolve) {
-                    cell.profilePhoto.image = UIImage(data: data!)!
-                }
-            }
-        })
+//        self.presenter.downloadProfilePhoto(localId: guide.id, completion: { data, error in
+//            if data != nil{
+//                UIView.transition(with: cell.profilePhoto, duration: 0.3, options: .transitionCrossDissolve) {
+//                    cell.profilePhoto.image = UIImage(data: data!)!
+//                }
+//            }
+//        })
         
         return cell
     }
@@ -349,6 +349,14 @@ extension ExcursionForGuideTableViewController:UICollectionViewDelegate,UICollec
 }
 
 extension ExcursionForGuideTableViewController:OneGuideExcursionViewProtocol{
+    func refreshSuccess() {
+        
+    }
+    
+    func fillGuides() {
+        
+    }
+    
     
     
     func updateGuideStatus(guideStatus: Status) {

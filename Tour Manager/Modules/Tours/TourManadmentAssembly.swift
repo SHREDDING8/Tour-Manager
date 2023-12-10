@@ -59,8 +59,9 @@ class TourManadmentAssembly:TourManadmentAssemblyProtocol{
     }
     
     static func createTourForGuideViewController(tour: ExcrusionModel)->UIViewController{
-        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ExcursionForGuideTableViewController") as! ExcursionForGuideTableViewController
-        
+        let vc = TourDetailForGuideViewController()
+        vc.hidesBottomBarWhenPushed = true
+                
         let presenter = OneGuideExcursionPresenter(view: vc, tour: tour)
         vc.presenter = presenter
         return vc
