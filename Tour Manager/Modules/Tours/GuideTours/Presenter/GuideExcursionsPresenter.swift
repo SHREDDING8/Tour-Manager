@@ -37,6 +37,8 @@ class ExcursionsGuideCalendarPresenter:ExcursionsGuideCalendarPresenterProtocol{
     
     let toursNetworkService:ApiManagerExcursionsProtocol = ApiManagerExcursions()
     
+    let userRealmService:UsersRealmServiceProtocol = UsersRealmService()
+    
     required init(view:ExcursionsGuideCalendarViewProtocol) {
         self.view = view
     }
@@ -68,7 +70,6 @@ class ExcursionsGuideCalendarPresenter:ExcursionsGuideCalendarPresenterProtocol{
                             return .accept
                         }
                     }()
-                    print(guide.status)
                     let newGuide = ExcrusionModel.Guide(
                         id: guide.id, firstName: guide.firstName,
                         lastName: guide.lastName,
@@ -109,46 +110,48 @@ class ExcursionsGuideCalendarPresenter:ExcursionsGuideCalendarPresenterProtocol{
             do{
                 let toursJson = try await toursNetworkService.getDateTourList(date: date.birthdayToString(), guideOnly: true)
                 
-                let realmTours:List<ExcursionRealmModelForGuide> = List<ExcursionRealmModelForGuide>()
-                for tourJson in toursJson{
-                    let guides: List<OneGuideRealmModelForGuide> = List<OneGuideRealmModelForGuide>()
-                    
-                    for tourGuide in tourJson.tourGuides {
-                        let guide = OneGuideRealmModelForGuide(
-                            id: tourGuide.guideID,
-                            firstName: tourGuide.guideFirstName ?? "",
-                            lastName: tourGuide.guideLastName ?? "",
-                            image: nil,
-                            isMain: tourGuide.isMain,
-                            status: .init(rawValue: tourGuide.status) ?? .waiting
+                DispatchQueue.main.async {
+                    let realmTours:List<ExcursionRealmModelForGuide> = List<ExcursionRealmModelForGuide>()
+                    for tourJson in toursJson{
+                        let guides: List<OneGuideRealmModelForGuide> = List<OneGuideRealmModelForGuide>()
+                        
+                        for tourGuide in tourJson.tourGuides {
+                            let guide = OneGuideRealmModelForGuide(
+                                id: tourGuide.guideID,
+                                firstName: tourGuide.guideFirstName ?? "",
+                                lastName: tourGuide.guideLastName ?? "",
+                                image: nil,
+                                isMain: tourGuide.isMain,
+                                status: .init(rawValue: tourGuide.status) ?? .waiting
+                            )
+                            guides.append(guide)
+                            
+                            self.userRealmService.ovverideImages(userId: tourGuide.guideID, pictureIds: tourGuide.profilePictures)
+                        }
+                        
+                        
+                        let newRealmTour = ExcursionRealmModelForGuide(
+                            tourId: tourJson.tourId,
+                            tourTitle: tourJson.tourName,
+                            route: tourJson.tourRoute,
+                            notes: tourJson.tourNotes,
+                            guideCanSeeNotes: tourJson.tourNotesVisible,
+                            dateAndTime: Date.dateAndTimeToDate(dateString: date.birthdayToString(), timeString: tourJson.tourTimeStart),
+                            numberOfPeople: tourJson.tourNumberOfPeople,
+                            customerCompanyName: tourJson.customerCompanyName,
+                            customerGuideName: tourJson.customerGuideName,
+                            companyGuidePhone: tourJson.customerGuideContact,
+                            paymentMethod: tourJson.paymentMethod,
+                            paymentAmount: tourJson.paymentAmount,
+                            isPaid: tourJson.isPaid,
+                            guides: guides
                         )
-                        guides.append(guide)
+                        
+                        realmTours.append(newRealmTour)
                     }
                     
+                    let realm = DatesExcursionForGuide(dateString: date.birthdayToString(), tours: realmTours)
                     
-                    let newRealmTour = ExcursionRealmModelForGuide(
-                        tourId: tourJson.tourId,
-                        tourTitle: tourJson.tourName,
-                        route: tourJson.tourRoute,
-                        notes: tourJson.tourNotes,
-                        guideCanSeeNotes: tourJson.tourNotesVisible,
-                        dateAndTime: Date.dateAndTimeToDate(dateString: date.birthdayToString(), timeString: tourJson.tourTimeStart),
-                        numberOfPeople: tourJson.tourNumberOfPeople,
-                        customerCompanyName: tourJson.customerCompanyName,
-                        customerGuideName: tourJson.customerGuideName,
-                        companyGuidePhone: tourJson.customerGuideContact,
-                        paymentMethod: tourJson.paymentMethod,
-                        paymentAmount: tourJson.paymentAmount,
-                        isPaid: tourJson.isPaid,
-                        guides: guides
-                    )
-                    
-                    realmTours.append(newRealmTour)
-                }
-                
-                let realm = DatesExcursionForGuide(dateString: date.birthdayToString(), tours: realmTours)
-                
-                DispatchQueue.main.async {
                     self.toursRealmService.setToursForGuide(dateExcursions: realm)
                     self.loadToursFromRealm(date: date)
                 }

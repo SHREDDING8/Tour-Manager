@@ -40,6 +40,8 @@ class ExcursionManadmentPresenter:ExcursionManadmentPresenterProtocol{
     
     let toursNetworkService:ApiManagerExcursionsProtocol = ApiManagerExcursions()
     
+    let userRealmService:UsersRealmServiceProtocol = UsersRealmService()
+    
     required init(view:ExcursionManadmentViewProtocol) {
         self.view = view
     }
@@ -129,6 +131,8 @@ class ExcursionManadmentPresenter:ExcursionManadmentPresenterProtocol{
                             status: .init(rawValue: tourGuide.status) ?? .waiting
                         )
                         guides.append(guide)
+                        
+                        self.userRealmService.ovverideImages(userId: tourGuide.guideID, pictureIds: tourGuide.profilePictures)
                     }
                     
                     

@@ -163,11 +163,11 @@ class NewExcursionTableViewController: UITableViewController {
         }
         
         
-        if isUpdate{
-            presenter.updateExcursion()
-        }else{
-            presenter.createNewExcursion()
-        }
+//        if isUpdate{
+//            presenter.updateExcursion()
+//        }else{
+//            presenter.createNewExcursion()
+//        }
     }
     
     // MARK: - Datepicker
@@ -370,20 +370,7 @@ extension NewExcursionTableViewController:UICollectionViewDelegate,UICollectionV
         }else{
             cell.isMainGuide.isHidden = true
         }
-        
-        cell.status.tintColor = guide.status.getColor()
-        if let image = self.presenter.getUserPhotoFromRealm(by: indexPath.row){
-            cell.profilePhoto.image = image
-        }
-        
-        presenter.getUserPhotoFromServer(by: indexPath.row) { image in
-            UIView.transition(with: cell.profilePhoto, duration: 0.3, options: .transitionCrossDissolve){
-                if image != nil{
-                    cell.profilePhoto.image = image
-                }
-            }
-        }
-        
+            
         return cell
     }
     
@@ -438,6 +425,22 @@ extension NewExcursionTableViewController:UIGestureRecognizerDelegate{
 }
 
 extension NewExcursionTableViewController:NewExcursionViewProtocol{
+    func refreshSuccess() {
+        
+    }
+    
+    func validationError(title: String, msg: String) {
+        
+    }
+    
+    func fillGuides() {
+        
+    }
+    
+    func fillFields() {
+        
+    }
+    
     
     func updateCollectionView() {
         self.guiedsCollectionView.reloadData()

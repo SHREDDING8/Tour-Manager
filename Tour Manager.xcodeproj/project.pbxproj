@@ -82,6 +82,10 @@
 		EE783F512AD594B000DA820F /* OneGuideExcursionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE783F502AD594B000DA820F /* OneGuideExcursionPresenter.swift */; };
 		EE8474012A4CB5DD0082DE7E /* GeneralLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8474002A4CB5DD0082DE7E /* GeneralLogic.swift */; };
 		EE8474082A4D99620082DE7E /* sub.caf in Resources */ = {isa = PBXBuildFile; fileRef = EE8474072A4D99620082DE7E /* sub.caf */; };
+		EE8701302B24E2DC003139E5 /* TourDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE87012F2B24E2DC003139E5 /* TourDetailView.swift */; };
+		EE8701352B24E853003139E5 /* TitleWithTextFieldTourItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8701342B24E853003139E5 /* TitleWithTextFieldTourItem.swift */; };
+		EE8701372B24EE2F003139E5 /* TitleWithSwitchTourItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8701362B24EE2F003139E5 /* TitleWithSwitchTourItem.swift */; };
+		EE8701392B24FB0A003139E5 /* TourDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8701382B24FB0A003139E5 /* TourDetailViewController.swift */; };
 		EE926DB02AFE7ED3005F2851 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE926DAF2AFE7ED3005F2851 /* ProfileView.swift */; };
 		EE926DB22AFE7EEA005F2851 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE926DB12AFE7EEA005F2851 /* ProfileViewController.swift */; };
 		EE9788692A28D4FA0086C034 /* EmploeeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9788682A28D4FA0086C034 /* EmploeeTableViewController.swift */; };
@@ -113,12 +117,10 @@
 		EEDA5E9B2A378215002CC5C8 /* UiTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDA5E9A2A378215002CC5C8 /* UiTextField.swift */; };
 		EEDA5E9D2A37BFA9002CC5C8 /* UiTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDA5E9C2A37BFA9002CC5C8 /* UiTextView.swift */; };
 		EEDA5E9F2A37C153002CC5C8 /* AddingNewComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDA5E9E2A37C153002CC5C8 /* AddingNewComponentViewController.swift */; };
+		EEDB60212B25D40C00495263 /* GuideTourItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDB60202B25D40C00495263 /* GuideTourItem.swift */; };
 		EEDF10862B21D0E100509A63 /* ImageRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDF10852B21D0E100509A63 /* ImageRealmModel.swift */; };
 		EEDF108B2B21DC9000509A63 /* ImagesRealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDF108A2B21DC9000509A63 /* ImagesRealmService.swift */; };
 		EEDF108F2B222E4900509A63 /* ProfilePhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDF108E2B222E4900509A63 /* ProfilePhotoCollectionViewCell.swift */; };
-		EEE8026A2A2E4E1A00162622 /* ExcursionManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE802692A2E4E1A00162622 /* ExcursionManagementViewController.swift */; };
-		EEE802702A2E5DED00162622 /* ExcursionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE8026E2A2E5DED00162622 /* ExcursionTableViewCell.swift */; };
-		EEE802712A2E5DED00162622 /* ExcursionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEE8026F2A2E5DED00162622 /* ExcursionTableViewCell.xib */; };
 		EEF0BE8C2AD72C91002CEE4D /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF0BE8B2AD72C91002CEE4D /* LoginModel.swift */; };
 		EEF0BE8F2AD7350D002CEE4D /* AlertKit in Frameworks */ = {isa = PBXBuildFile; productRef = EEF0BE8E2AD7350D002CEE4D /* AlertKit */; };
 		EEF18C8E2A4209F800A91D2F /* LoadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF18C8D2A4209F800A91D2F /* LoadView.swift */; };
@@ -138,7 +140,6 @@
 		EEF776402ADAA37000532440 /* UiViewController extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF7763F2ADAA37000532440 /* UiViewController extension.swift */; };
 		EEF776432ADAA3B600532440 /* OneEmployeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF776422ADAA3B600532440 /* OneEmployeView.swift */; };
 		EEFD30ED2A3B6400003192A1 /* ExcursionsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEFD30EC2A3B6400003192A1 /* ExcursionsNavigationController.swift */; };
-		EEFD30EF2A3B7905003192A1 /* ExcurionsGuideCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEFD30EE2A3B7905003192A1 /* ExcurionsGuideCalendarViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -223,6 +224,10 @@
 		EE783F502AD594B000DA820F /* OneGuideExcursionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneGuideExcursionPresenter.swift; sourceTree = "<group>"; };
 		EE8474002A4CB5DD0082DE7E /* GeneralLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralLogic.swift; sourceTree = "<group>"; };
 		EE8474072A4D99620082DE7E /* sub.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sub.caf; sourceTree = "<group>"; };
+		EE87012F2B24E2DC003139E5 /* TourDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourDetailView.swift; sourceTree = "<group>"; };
+		EE8701342B24E853003139E5 /* TitleWithTextFieldTourItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleWithTextFieldTourItem.swift; sourceTree = "<group>"; };
+		EE8701362B24EE2F003139E5 /* TitleWithSwitchTourItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleWithSwitchTourItem.swift; sourceTree = "<group>"; };
+		EE8701382B24FB0A003139E5 /* TourDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourDetailViewController.swift; sourceTree = "<group>"; };
 		EE926DAF2AFE7ED3005F2851 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		EE926DB12AFE7EEA005F2851 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		EE9788682A28D4FA0086C034 /* EmploeeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmploeeTableViewController.swift; sourceTree = "<group>"; };
@@ -252,12 +257,10 @@
 		EEDA5E9A2A378215002CC5C8 /* UiTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiTextField.swift; sourceTree = "<group>"; };
 		EEDA5E9C2A37BFA9002CC5C8 /* UiTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiTextView.swift; sourceTree = "<group>"; };
 		EEDA5E9E2A37C153002CC5C8 /* AddingNewComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingNewComponentViewController.swift; sourceTree = "<group>"; };
+		EEDB60202B25D40C00495263 /* GuideTourItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideTourItem.swift; sourceTree = "<group>"; };
 		EEDF10852B21D0E100509A63 /* ImageRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRealmModel.swift; sourceTree = "<group>"; };
 		EEDF108A2B21DC9000509A63 /* ImagesRealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesRealmService.swift; sourceTree = "<group>"; };
 		EEDF108E2B222E4900509A63 /* ProfilePhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePhotoCollectionViewCell.swift; sourceTree = "<group>"; };
-		EEE802692A2E4E1A00162622 /* ExcursionManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcursionManagementViewController.swift; sourceTree = "<group>"; };
-		EEE8026E2A2E5DED00162622 /* ExcursionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcursionTableViewCell.swift; sourceTree = "<group>"; };
-		EEE8026F2A2E5DED00162622 /* ExcursionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExcursionTableViewCell.xib; sourceTree = "<group>"; };
 		EEF0BE8B2AD72C91002CEE4D /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		EEF18C8D2A4209F800A91D2F /* LoadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadView.swift; sourceTree = "<group>"; };
 		EEF18C922A4235A500A91D2F /* DatepickerFromBottom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatepickerFromBottom.swift; sourceTree = "<group>"; };
@@ -276,7 +279,6 @@
 		EEF7763F2ADAA37000532440 /* UiViewController extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UiViewController extension.swift"; sourceTree = "<group>"; };
 		EEF776422ADAA3B600532440 /* OneEmployeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneEmployeView.swift; sourceTree = "<group>"; };
 		EEFD30EC2A3B6400003192A1 /* ExcursionsNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcursionsNavigationController.swift; sourceTree = "<group>"; };
-		EEFD30EE2A3B7905003192A1 /* ExcurionsGuideCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcurionsGuideCalendarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -387,8 +389,6 @@
 			children = (
 				EEF6EBA62A41BADE00DC5F6A /* GuideCollectionViewCell.swift */,
 				EEF6EBA72A41BADE00DC5F6A /* GuideCollectionViewCell.xib */,
-				EEE8026E2A2E5DED00162622 /* ExcursionTableViewCell.swift */,
-				EEE8026F2A2E5DED00162622 /* ExcursionTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -489,7 +489,9 @@
 		EE261BDA2B1F42B40010DD9B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				EE8701332B24E82A003139E5 /* Items */,
 				EE1805EB2AD5A5DC0083952D /* Cells */,
+				EE87012F2B24E2DC003139E5 /* TourDetailView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -497,11 +499,11 @@
 		EE261BDB2B1F42B80010DD9B /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				EEE802692A2E4E1A00162622 /* ExcursionManagementViewController.swift */,
 				EEDA5E9E2A37C153002CC5C8 /* AddingNewComponentViewController.swift */,
 				EE330A812AE590F400109E4E /* AddGuideViewController.swift */,
 				EE0528C92A30DA3C006C8C98 /* NewExcursionTableViewController.swift */,
 				EED09DA42AE2DA99000CDA7F /* NotesViewController.swift */,
+				EE8701382B24FB0A003139E5 /* TourDetailViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -834,7 +836,6 @@
 				EE1805EC2AD5A60F0083952D /* Cells */,
 				EE1A678E2A40F50F007A1A84 /* ExcursionForGuideTableViewController.swift */,
 				EEFD30EC2A3B6400003192A1 /* ExcursionsNavigationController.swift */,
-				EEFD30EE2A3B7905003192A1 /* ExcurionsGuideCalendarViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -862,6 +863,16 @@
 				EE4619122A6C229C00EBE695 /* Notification.wav */,
 			);
 			path = Sounds;
+			sourceTree = "<group>";
+		};
+		EE8701332B24E82A003139E5 /* Items */ = {
+			isa = PBXGroup;
+			children = (
+				EE8701342B24E853003139E5 /* TitleWithTextFieldTourItem.swift */,
+				EE8701362B24EE2F003139E5 /* TitleWithSwitchTourItem.swift */,
+				EEDB60202B25D40C00495263 /* GuideTourItem.swift */,
+			);
+			path = Items;
 			sourceTree = "<group>";
 		};
 		EE926DAD2AFE7EAD005F2851 /* Profile Page */ = {
@@ -1258,7 +1269,6 @@
 				EE4619132A6C229C00EBE695 /* Notification.wav in Resources */,
 				EE1770F62A23F00300B18055 /* Launch.storyboard in Resources */,
 				EE8474082A4D99620082DE7E /* sub.caf in Resources */,
-				EEE802712A2E5DED00162622 /* ExcursionTableViewCell.xib in Resources */,
 				EEB764A32A387B2200579E6B /* NewComponentTableViewCell.xib in Resources */,
 				EE52E17829E5C1CB000C0E5B /* Assets.xcassets in Resources */,
 				EE52E17629E5C1C8000C0E5B /* Auth.storyboard in Resources */,
@@ -1346,14 +1356,15 @@
 				EED645252A98DA9500F2ADC9 /* AuthAssembly.swift in Sources */,
 				EEB764A22A387B2200579E6B /* NewComponentTableViewCell.swift in Sources */,
 				EE1770EE2A239A7E00B18055 /* ChangePasswordViewController.swift in Sources */,
-				EEE802702A2E5DED00162622 /* ExcursionTableViewCell.swift in Sources */,
 				EE8474012A4CB5DD0082DE7E /* GeneralLogic.swift in Sources */,
 				EED8F6912AF070CA003D118A /* GuideToursRealmModel.swift in Sources */,
 				EEF27A512A059BE4006E5E53 /* TextFieldValidation.swift in Sources */,
 				EEF6EBA82A41BADE00DC5F6A /* GuideCollectionViewCell.swift in Sources */,
+				EE8701392B24FB0A003139E5 /* TourDetailViewController.swift in Sources */,
 				EE3328E72B1A75B9002FAC8F /* TourManadgmentViewController.swift in Sources */,
 				EEF27A482A05551E006E5E53 /* Font.swift in Sources */,
 				EE4506C92B010BF400603E57 /* ProfileAssembly.swift in Sources */,
+				EE8701372B24EE2F003139E5 /* TitleWithSwitchTourItem.swift in Sources */,
 				EEF18C952A4258EE00A91D2F /* FS calendar.swift in Sources */,
 				EEDF10862B21D0E100509A63 /* ImageRealmModel.swift in Sources */,
 				EE926DB22AFE7EEA005F2851 /* ProfileViewController.swift in Sources */,
@@ -1363,6 +1374,7 @@
 				EED645362A99526B00F2ADC9 /* UsersRealmModel.swift in Sources */,
 				EE261BD42B1F24320010DD9B /* FullCalendarPresenter.swift in Sources */,
 				EE97886B2A28EA710086C034 /* EmploeeViewController.swift in Sources */,
+				EE8701302B24E2DC003139E5 /* TourDetailView.swift in Sources */,
 				EED645382A99568800F2ADC9 /* UsersRealmService.swift in Sources */,
 				EE4506C72AFFBDD800603E57 /* ProfileViewElement.swift in Sources */,
 				EE38C6622B0A59FF00DAEC4F /* ExtendedSettingsPresenter.swift in Sources */,
@@ -1385,7 +1397,7 @@
 				EEDF108B2B21DC9000509A63 /* ImagesRealmService.swift in Sources */,
 				EED6452C2A990DB500F2ADC9 /* MainTabBarPresenter.swift in Sources */,
 				EE5F91C42A1FCEAE00B39BB1 /* ApiManagerCompany.swift in Sources */,
-				EEFD30EF2A3B7905003192A1 /* ExcurionsGuideCalendarViewController.swift in Sources */,
+				EE8701352B24E853003139E5 /* TitleWithTextFieldTourItem.swift in Sources */,
 				EEDA5E9B2A378215002CC5C8 /* UiTextField.swift in Sources */,
 				EED8F6952AF08528003D118A /* ExcursionsRealmServiceForGuide.swift in Sources */,
 				EED645272A98F32700F2ADC9 /* VerifyEmailPresenter.swift in Sources */,
@@ -1397,7 +1409,6 @@
 				EE38C6762B0B907100DAEC4F /* DevicesRealmService.swift in Sources */,
 				EE5F91C62A1FD16200B39BB1 /* responseStructs.swift in Sources */,
 				EEB73FA12A364BA9004D7A25 /* ResponseExcursions.swift in Sources */,
-				EEE8026A2A2E4E1A00162622 /* ExcursionManagementViewController.swift in Sources */,
 				EE4C893B2A2CF53D004D3CB9 /* UiButton.swift in Sources */,
 				EE14D3742B12541000A188F8 /* AccessLevelElement.swift in Sources */,
 				EE52E16F29E5C1C8000C0E5B /* AppDelegate.swift in Sources */,
@@ -1419,6 +1430,7 @@
 				EED09DA52AE2DA99000CDA7F /* NotesViewController.swift in Sources */,
 				EE5EEC312A06EDC20025336E /* ChoiceOfTypeAccountViewController.swift in Sources */,
 				EE1D14122A577A1500A125F2 /* TourTableViewCell.swift in Sources */,
+				EEDB60212B25D40C00495263 /* GuideTourItem.swift in Sources */,
 				EE330A802AE5738C00109E4E /* Results Extension.swift in Sources */,
 				EE2377362A0816D900CB9D70 /* Alerts.swift in Sources */,
 				EE0649392B160D65007EF0A1 /* ToursCollectionViewCell.swift in Sources */,

@@ -25,9 +25,15 @@ protocol TourManadmentAssemblyProtocol{
 
 class TourManadmentAssembly:TourManadmentAssemblyProtocol{
     static func createNewTourController(isUpdate:Bool,dateTime:Date? = nil ,model:ExcrusionModel?  = nil) -> UIViewController{
-        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "NewExcursionTableViewController") as! NewExcursionTableViewController
-        vc.isUpdate = isUpdate
+//        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "NewExcursionTableViewController") as! NewExcursionTableViewController
+//        vc.isUpdate = isUpdate
+//        vc.hidesBottomBarWhenPushed = true
+//        let presenter = NewExcursionPresenter(view: vc, tour: model, date: dateTime)
+//        vc.presenter = presenter
+        
+        let vc = TourDetailViewController()
         vc.hidesBottomBarWhenPushed = true
+        
         let presenter = NewExcursionPresenter(view: vc, tour: model, date: dateTime)
         vc.presenter = presenter
         

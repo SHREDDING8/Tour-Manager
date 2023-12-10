@@ -12,6 +12,7 @@ protocol ExcursionsRealmServiceProtocol{
     func setTours(dateExcursions:DatesExcursion)
     func getTours(dateString:String) -> DatesExcursion?
     func deleteTour(tourId:String)
+    func updateTour(tourId:String, tour:ExcursionRealmModel)
     
     func getEvent(tourDate:String) -> EventRealmModel?
     func addEvents(events:[EventRealmModel])
@@ -35,6 +36,14 @@ class ExcursionsRealmService:ExcursionsRealmServiceProtocol{
         if let tour = realm.object(ofType: ExcursionRealmModel.self, forPrimaryKey: tourId){
             try! realm.write({
                 realm.delete(tour)
+            })
+        }
+    }
+    
+    func updateTour(tourId:String, tour:ExcursionRealmModel){
+        if let tour = realm.object(ofType: ExcursionRealmModel.self, forPrimaryKey: tourId){
+            try! realm.write({
+                realm.add(tour, update: .modified)
             })
         }
     }

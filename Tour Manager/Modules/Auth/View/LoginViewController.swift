@@ -61,6 +61,8 @@ class LoginViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         stackViewPoint = stackView.frame.origin.y
+
+        self.view.bringSubviewToFront(self.logInButton)
         
     }
     
@@ -76,6 +78,7 @@ class LoginViewController: UIViewController {
     // MARK: - Buttons Tapped
     
     @IBAction func logIn(_ sender: Any) {
+        print("logIn")
         presenter?.loginButtonTapped()
         
     }

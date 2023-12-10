@@ -35,6 +35,8 @@ protocol UsersRealmServiceProtocol{
     func updateBirhday(localId:String,date:Date)
     
     func updateImage(userId:String, pictureId:String)
+    func ovverideImages(userId:String, pictureIds:[String])
+    
     func deleteImage(userId:String, pictureId:String)
 }
 
@@ -138,6 +140,16 @@ class UsersRealmService:UsersRealmServiceProtocol{
         if let user = self.getUserInfo(localId: userId){
             try! realm.write({
                 user.imageIDs.insert(pictureId, at: 0)
+            })
+        }
+    }
+    
+    func ovverideImages(userId:String, pictureIds:[String]){
+        if let user = self.getUserInfo(localId: userId){
+            try! realm.write({
+                let newList:List<String> = List<String>()
+                newList.append(objectsIn: pictureIds)
+                user.imageIDs = newList
             })
         }
     }

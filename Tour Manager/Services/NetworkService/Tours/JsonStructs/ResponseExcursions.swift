@@ -60,6 +60,7 @@ struct TourGuide: Codable {
     let guideFirstName, guideLastName, guideEmail, guidePhone: String?
     let isMain: Bool
     let status, guideID, birthdayDate: String
+    let profilePictures:[String]
 
     enum CodingKeys: String, CodingKey {
         case guideFirstName = "guide_first_name"
@@ -70,6 +71,7 @@ struct TourGuide: Codable {
         case status
         case guideID = "guide_id"
         case birthdayDate = "birthday_date"
+        case profilePictures = "profile_pictures"
     }
 }
 
