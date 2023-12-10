@@ -12,6 +12,8 @@ protocol ProfileAssemblyProtocol{
     static func createProfileViewController()->UIViewController
     static func createExtendedSettingsViewController() -> UIViewController
     static func createEmployeeListViewController() -> UIViewController
+    
+    static func createChangePasswordViewController() -> UIViewController
 }
 
 final class ProfileAssembly:ProfileAssemblyProtocol{
@@ -37,6 +39,15 @@ final class ProfileAssembly:ProfileAssemblyProtocol{
         let view = EmploeeTableViewController(style: .plain)
         let presenter = EmployeesListPresenter(view: view)
         view.presenter = presenter
+        return view
+    }
+    
+    static func createChangePasswordViewController() -> UIViewController{
+        let view = ChangePasswordViewController()
+        
+        let presenter = ChangePasswordPresenter(view: view)
+        view.presenter = presenter
+        
         return view
     }
     

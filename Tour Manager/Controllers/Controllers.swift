@@ -18,27 +18,6 @@ enum PossibleControllersAuth:String{
     case choiceOfTypeAccountViewController = "ChoiceOfTypeAccountViewController"
 }
 
-enum PossibleControllersMain:String{
-    case mainTabBarController = "mainTabBarController"
-    case profileNavigationViewController = "profileNavigationViewController"
-    case changePasswordViewController = "ChangePasswordViewController"
-    case emploeeTableViewController = "EmploeeTableViewController"
-    case employeeViewController = "EmploeeViewController"
-    
-    case excursionManagementNavigationViewController = "ExcursionManagementNavigationViewController"
-    
-    case newExcursionTableViewController = "NewExcursionTableViewController"
-    
-    case addingNewComponentViewController = "AddingNewComponentViewController"
-    
-    
-    case excursionsNavigationController = "ExcursionsNavigationController"
-    
-    case excursionForGuideTableViewController = "ExcursionForGuideTableViewController"
-    
-    case uiTableViewControllerContainer = "UITableViewControllerContainer"
-}
-
 enum TypeOfRegister{
     case emploee
     case company
@@ -51,17 +30,9 @@ class Controllers{
     
     let storyboardAuth = UIStoryboard(name: "Auth", bundle: nil)
     
-    let storyboardMain = UIStoryboard(name: "Main", bundle: nil)
-    
-    
     // MARK: - Get Controllers
     public func getControllerAuth(_ controller:PossibleControllersAuth) -> UIViewController{
         return storyboardAuth.instantiateViewController(withIdentifier: controller.rawValue)
-    }
-    
-    
-    public func getControllerMain(_ controller:PossibleControllersMain) -> UIViewController{
-        return storyboardMain.instantiateViewController(withIdentifier: controller.rawValue)
     }
     
     public func getLaunchScreen()->UIViewController{
@@ -69,11 +40,6 @@ class Controllers{
         
     }
     
-    public func getNoConnection()->UIViewController{
-        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "NoConnectionViewController")
-        
-    }
-        
     public func goToLoginPage(view:UIView, direction: UIWindow.TransitionOptions.Direction){
         let mainLogIn = self.getControllerAuth(.mainAuthController)
         
@@ -88,7 +54,7 @@ class Controllers{
     }
     
     public func goToMainTabBar(view:UIView, direction: UIWindow.TransitionOptions.Direction){
-        let mainTabBar = self.getControllerMain(.mainTabBarController)
+        let mainTabBar = mainTabBarViewController()
         
         let window = view.window
         let options = UIWindow.TransitionOptions()
@@ -113,19 +79,4 @@ class Controllers{
         window?.set(rootViewController: launchScreen, options: options)
     }
     
-//    public func goToNoConnection(view:UIView, direction: UIWindow.TransitionOptions.Direction){
-//        
-//        
-//        let noConnection = self.getNoConnection()
-//        
-//        let window = view.window
-//        let options = UIWindow.TransitionOptions()
-//        
-//        options.direction = direction
-//        options.duration = 0.5
-//        options.style = .easeOut
-//        
-//        window?.set(rootViewController: noConnection, options: options)
-//        
-//    }
 }

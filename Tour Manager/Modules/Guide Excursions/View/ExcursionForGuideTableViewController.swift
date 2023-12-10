@@ -340,9 +340,9 @@ extension ExcursionForGuideTableViewController:UICollectionViewDelegate,UICollec
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let guideController = self.controllers.getControllerMain(.employeeViewController) as! EmploeeViewController
+//        let guideController = self.controllers.getControllerMain(.employeeViewController) as! EmploeeViewController
                 
-        self.navigationController?.pushViewController(guideController, animated: true)
+//        self.navigationController?.pushViewController(guideController, animated: true)
         
     }
 

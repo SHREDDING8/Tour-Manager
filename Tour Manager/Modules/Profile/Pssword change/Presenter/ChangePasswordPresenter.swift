@@ -14,6 +14,8 @@ protocol ChangePasswordViewProtocol:AnyObject{
 protocol ChangePasswordPresenterProtocol:AnyObject{
     init(view:ChangePasswordViewProtocol)
     
+    var passwords:[String:String] { get set }
+    
     func updatePassword(oldPassword:String, newPassword:String,completion: @escaping (Bool, customErrorAuth?)->Void )
 }
 
@@ -23,6 +25,12 @@ class ChangePasswordPresenter:ChangePasswordPresenterProtocol{
     let keychain = KeychainService()
     let apiAuth = ApiManagerAuth()
     let usersRealm = UsersRealmService()
+    
+    var passwords:[String:String] = [
+        "oldPassword": "",
+        "newPassword": "",
+        "secondNewPassword": "",
+    ]
     
     required init(view:ChangePasswordViewProtocol) {
         self.view = view

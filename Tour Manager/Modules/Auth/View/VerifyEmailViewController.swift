@@ -165,18 +165,8 @@ class VerifyEmailViewController: UIViewController {
     }
     
     fileprivate func goToMainTabBar(){
-        let mainTabBar = self.controllers.getControllerMain(.mainTabBarController)
-        
-
-        let window = self.view.window
-        let options = UIWindow.TransitionOptions()
-        
-        options.direction = .toTop
-        options.duration = 0.3
-        options.style = .easeIn
-        
-        window?.set(rootViewController: mainTabBar,options: options)
-        
+        let c = Controllers()
+        c.goToMainTabBar(view: self.view, direction: .fade)        
     }
     fileprivate func goToLogInPage(){
         let mainLogIn = self.controllers.getControllerAuth(.mainAuthController)

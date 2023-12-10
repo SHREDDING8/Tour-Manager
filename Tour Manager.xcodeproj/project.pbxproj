@@ -66,7 +66,6 @@
 		EE5F91CD2A2007E400B39BB1 /* sendUserDataStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5F91CC2A2007E400B39BB1 /* sendUserDataStructs.swift */; };
 		EE5F91CF2A200C7700B39BB1 /* sendAuthStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5F91CE2A200C7700B39BB1 /* sendAuthStructs.swift */; };
 		EE5F91D12A200D2D00B39BB1 /* ResponseAuthStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5F91D02A200D2D00B39BB1 /* ResponseAuthStructs.swift */; };
-		EE5F91D32A202F0800B39BB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE5F91D22A202F0800B39BB1 /* Main.storyboard */; };
 		EE5F91D72A20A1E700B39BB1 /* mainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5F91D62A20A1E700B39BB1 /* mainTabBarViewController.swift */; };
 		EE6756062AC03E0A00E253DA /* GeneralRealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6756052AC03E0A00E253DA /* GeneralRealmService.swift */; };
 		EE6756082AC0721800E253DA /* EmployeesListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6756072AC0721800E253DA /* EmployeesListPresenter.swift */; };
@@ -119,6 +118,7 @@
 		EEDA5E9F2A37C153002CC5C8 /* AddingNewComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDA5E9E2A37C153002CC5C8 /* AddingNewComponentViewController.swift */; };
 		EEDB60212B25D40C00495263 /* GuideTourItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDB60202B25D40C00495263 /* GuideTourItem.swift */; };
 		EEDB60252B262DF800495263 /* TourDetailForGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDB60242B262DF800495263 /* TourDetailForGuideViewController.swift */; };
+		EEDB602B2B265A6700495263 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDB602A2B265A6700495263 /* ChangePasswordView.swift */; };
 		EEDF10862B21D0E100509A63 /* ImageRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDF10852B21D0E100509A63 /* ImageRealmModel.swift */; };
 		EEDF108B2B21DC9000509A63 /* ImagesRealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDF108A2B21DC9000509A63 /* ImagesRealmService.swift */; };
 		EEDF108F2B222E4900509A63 /* ProfilePhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDF108E2B222E4900509A63 /* ProfilePhotoCollectionViewCell.swift */; };
@@ -207,7 +207,6 @@
 		EE5F91CC2A2007E400B39BB1 /* sendUserDataStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sendUserDataStructs.swift; sourceTree = "<group>"; };
 		EE5F91CE2A200C7700B39BB1 /* sendAuthStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sendAuthStructs.swift; sourceTree = "<group>"; };
 		EE5F91D02A200D2D00B39BB1 /* ResponseAuthStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseAuthStructs.swift; sourceTree = "<group>"; };
-		EE5F91D22A202F0800B39BB1 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		EE5F91D62A20A1E700B39BB1 /* mainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainTabBarViewController.swift; sourceTree = "<group>"; };
 		EE6756052AC03E0A00E253DA /* GeneralRealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralRealmService.swift; sourceTree = "<group>"; };
 		EE6756072AC0721800E253DA /* EmployeesListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesListPresenter.swift; sourceTree = "<group>"; };
@@ -257,6 +256,7 @@
 		EEDA5E9E2A37C153002CC5C8 /* AddingNewComponentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingNewComponentViewController.swift; sourceTree = "<group>"; };
 		EEDB60202B25D40C00495263 /* GuideTourItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideTourItem.swift; sourceTree = "<group>"; };
 		EEDB60242B262DF800495263 /* TourDetailForGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourDetailForGuideViewController.swift; sourceTree = "<group>"; };
+		EEDB602A2B265A6700495263 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		EEDF10852B21D0E100509A63 /* ImageRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRealmModel.swift; sourceTree = "<group>"; };
 		EEDF108A2B21DC9000509A63 /* ImagesRealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesRealmService.swift; sourceTree = "<group>"; };
 		EEDF108E2B222E4900509A63 /* ProfilePhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePhotoCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -541,14 +541,6 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
-		EE2C9A4D29FD850500B7D74F /* Storyboard */ = {
-			isa = PBXGroup;
-			children = (
-				EE5F91D22A202F0800B39BB1 /* Main.storyboard */,
-			);
-			path = Storyboard;
-			sourceTree = "<group>";
-		};
 		EE330A7A2AE44C2A00109E4E /* Autofill */ = {
 			isa = PBXGroup;
 			children = (
@@ -678,7 +670,6 @@
 				EE5F91DE2A21528D00B39BB1 /* Controllers */,
 				EE1805ED2AD5A6CC0083952D /* Extensions */,
 				EE1805EA2AD5A5990083952D /* Custom Views */,
-				EE2C9A4D29FD850500B7D74F /* Storyboard */,
 				EED6450D2A98CC7500F2ADC9 /* Modules */,
 				EED6450C2A98CC6A00F2ADC9 /* Services */,
 				EED6450B2A98CBD400F2ADC9 /* App */,
@@ -993,31 +984,14 @@
 		EED645162A98CE1000F2ADC9 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				EEDB60262B2659E000495263 /* Pssword change */,
 				EE38C6772B0BAAE600DAEC4F /* ListEmployee */,
 				EE6FCB3B2B08EAC100A49604 /* Extended Settings */,
 				EE926DAD2AFE7EAD005F2851 /* Profile Page */,
 				EED645192A98CE3900F2ADC9 /* Model */,
-				EED645182A98CE3600F2ADC9 /* View */,
-				EED645172A98CE2C00F2ADC9 /* Presenter */,
 				EE4506C82B010BF300603E57 /* ProfileAssembly.swift */,
 			);
 			path = Profile;
-			sourceTree = "<group>";
-		};
-		EED645172A98CE2C00F2ADC9 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				EE1805E82AD59ACE0083952D /* ChangePasswordPresenter.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		EED645182A98CE3600F2ADC9 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				EE1770ED2A239A7E00B18055 /* ChangePasswordViewController.swift */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		EED645192A98CE3900F2ADC9 /* Model */ = {
@@ -1076,6 +1050,40 @@
 				EEDA5E9E2A37C153002CC5C8 /* AddingNewComponentViewController.swift */,
 			);
 			path = SubViewControllers;
+			sourceTree = "<group>";
+		};
+		EEDB60262B2659E000495263 /* Pssword change */ = {
+			isa = PBXGroup;
+			children = (
+				EEDB60292B265A3E00495263 /* Presenter */,
+				EEDB60282B265A3700495263 /* ViewController */,
+				EEDB60272B265A3200495263 /* View */,
+			);
+			path = "Pssword change";
+			sourceTree = "<group>";
+		};
+		EEDB60272B265A3200495263 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EEDB602A2B265A6700495263 /* ChangePasswordView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EEDB60282B265A3700495263 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				EE1770ED2A239A7E00B18055 /* ChangePasswordViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		EEDB60292B265A3E00495263 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				EE1805E82AD59ACE0083952D /* ChangePasswordPresenter.swift */,
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		EEDF10842B21CE5A00509A63 /* Images */ = {
@@ -1257,7 +1265,6 @@
 				EEB764A32A387B2200579E6B /* NewComponentTableViewCell.xib in Resources */,
 				EE52E17829E5C1CB000C0E5B /* Assets.xcassets in Resources */,
 				EE52E17629E5C1C8000C0E5B /* Auth.storyboard in Resources */,
-				EE5F91D32A202F0800B39BB1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1313,6 +1320,7 @@
 				EE5F91C02A1EA3C900B39BB1 /* ResponseUserDataStructs.swift in Sources */,
 				EE330A7E2AE44F4B00109E4E /* AutoFillRealmService.swift in Sources */,
 				EE783F452AD4835C00DA820F /* TourManadmentAssembly.swift in Sources */,
+				EEDB602B2B265A6700495263 /* ChangePasswordView.swift in Sources */,
 				EE5F91CF2A200C7700B39BB1 /* sendAuthStructs.swift in Sources */,
 				EEDF108F2B222E4900509A63 /* ProfilePhotoCollectionViewCell.swift in Sources */,
 				EEF776402ADAA37000532440 /* UiViewController extension.swift in Sources */,

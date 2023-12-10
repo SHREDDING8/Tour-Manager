@@ -93,10 +93,8 @@ class ExtendedSettingsViewController: UIViewController {
     }
     
     @objc func goToChangePassword(){
-        let controllers = Controllers()
         
-        let vc = controllers.getControllerMain(.changePasswordViewController)
-        
+        let vc = ProfileAssembly.createChangePasswordViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

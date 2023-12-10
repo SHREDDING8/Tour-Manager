@@ -36,6 +36,8 @@ protocol ApiManagerAuthProtocol{
     
     func sendVerifyEmail(email:String, password:String) async -> Bool
     
+    func updatePassword(email:String,oldPassword:String, newPassword:String) async throws -> Bool
+    
     func getLoggedDevices() async throws -> ResponseGetAllDevices
     
     func logoutAllDevices() async throws -> Bool
@@ -284,7 +286,21 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
     }
     
     // MARK: - updatePassword
+    func updatePassword(email:String,oldPassword:String, newPassword:String) async throws -> Bool{
+        let refresh = try await ApiManagerAuth.refreshToken()
+        
+        if !refresh{
+            throw customErrorUserData.unknowmError
+        }
+        
+        let url = URL(string: NetworkServiceHelper.Auth.updatepassword)!
+        
+        return false
+    }
+    
     public func updatePassword(email:String,oldPassword:String, newPassword:String, completion:  @escaping (Bool,customErrorAuth?)->Void ){
+        
+        
         
         let jsonData = sendUpdatePassword(email: email, old_password: oldPassword, new_password: newPassword)
         
