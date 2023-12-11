@@ -7,12 +7,19 @@
 
 import UIKit
 import SnapKit
+import AlertKit
 
 import Network
 
 protocol BaseViewControllerProtocol{
     func setUpdating()
     func stopUpdating()
+    
+    func setLoading()
+    func stopLoading()
+    
+    func setSaving()
+    func stopSaving()
 }
 
 class BaseViewController: UIViewController {
@@ -20,6 +27,8 @@ class BaseViewController: UIViewController {
         case normal
         case noConnection
         case updating
+        case loading
+        case saving
     }
     
     var monitor:NWPathMonitor?
@@ -85,9 +94,6 @@ class BaseViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-       
         
         self.titleViewStack.addArrangedSubview(titleViewLabel)
         self.titleViewStack.addArrangedSubview(activity)
@@ -170,7 +176,69 @@ extension BaseViewController:BaseViewControllerProtocol{
         }
     }
     
+    func setLoading(){
+        if self.titleState != .noConnection{
+            self.titleViewLabel.text = "Загрузка"
+            self.activity.startAnimating()
+            self.titleState = .loading
+        }
+    }
+    func stopLoading(){
+        if self.titleState == .loading{
+            self.titleViewLabel.text = self.titleString
+            self.activity.stopAnimating()
+            self.titleState = .normal
+        }
+    }
     
+    func setSaving(){
+        if self.titleState != .noConnection{
+            self.titleViewLabel.text = "Сохранение"
+            self.activity.startAnimating()
+            self.titleState = .saving
+        }
+    }
+    func stopSaving(){
+        if self.titleState == .saving{
+            self.titleViewLabel.text = self.titleString
+            self.activity.stopAnimating()
+            self.titleState = .normal
+        }
+    }
+    
+    func showError(error:NetworkServiceHelper.NetworkError){
+        let errorBody = error.getAlertBody()
+        
+        if error == .tokenExpired ||
+            error == .invalidFirebaseIdToken ||
+            error == .TOKEN_EXPIRED ||
+            error == .USER_DISABLED ||
+            error == .USER_NOT_FOUND ||
+            error == .INVALID_REFRESH_TOKEN{
+            
+            let alert = UIAlertController(
+                title: errorBody.title,
+                message: errorBody.msg,
+                preferredStyle: .actionSheet
+            )
+            let logOut = UIAlertAction(title: "Выйти", style: .destructive) { _ in
+                let controller = Controllers()
+                controller.goToLoginPage(view: self.view, direction: .fade)
+            }
+            
+            alert.addAction(logOut)
+            self.present(alert, animated: true)
+            return
+        }
+        
+        AlertKitAPI.present(
+            title: errorBody.title,
+            subtitle: errorBody.msg,
+            icon: .error,
+            style: .iOS17AppleMusic,
+            haptic: .error
+        )
+    }
 }
 
 

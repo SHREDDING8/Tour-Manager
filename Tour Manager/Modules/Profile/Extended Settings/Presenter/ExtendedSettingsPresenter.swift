@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ExtendedSettingsViewProtocol:AnyObject{
+protocol ExtendedSettingsViewProtocol:AnyObject, BaseViewControllerProtocol{
     func updateLoggedDevices(devices:[DevicesModel])
     
     func logoutAllSuccessful()
@@ -146,7 +146,6 @@ class ExtendedSettingsPresenter:ExtendedSettingsPresenterProtocol{
                 self.getLoggedDevicesFromRealm()
                 
             }catch{
-                
             }
         }
     }

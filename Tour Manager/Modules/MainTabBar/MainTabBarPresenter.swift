@@ -7,8 +7,6 @@
 
 import Foundation
 
-// Cделать главный view controller где сделать фукнцию которая отвечает за refreshError
-
 protocol MainTabBarViewProtocol:AnyObject{
     func unknownError()
     func updateControllers()
@@ -59,12 +57,13 @@ class MainTabBarPresenter:MainTabBarPresenterProtocol{
                     self.view?.updateControllers()
                 }
                 
-            } catch customErrorCompany.unknowmError{
-                DispatchQueue.main.async {
-                    self.view?.unknownError()
-                }
-                
-            }
+            } 
+//            catch customErrorCompany.unknowmError{
+//                DispatchQueue.main.async {
+//                    self.view?.unknownError()
+//                }
+//                
+//            }
             
         }
     }

@@ -8,52 +8,6 @@
 import Foundation
 import Alamofire
 
-enum customErrorExcursion:Error{
-    case unknown
-    
-    case dataNotFound
-    
-    case tokenExpired
-    case invalidToken
-    
-    case PermissionDenied
-    
-    case UserIsNotInThisCompany
-    
-    case CompanyDoesNotExist
-    
-    case TourDoesNotExist
-    
-    case guideIsNotInTour
-    
-    case notConnected
-    
-    public func getValuesForAlert()->AlertFields{
-        switch self {
-        case .unknown:
-            return AlertFields(title: "Произошла неизвестная ошибка на сервере")
-        case .dataNotFound:
-            return AlertFields(title: "Произошла ошибка", message: "Данные не были найдены")
-        case .tokenExpired:
-            return  AlertFields(title: "Произошла ошибка", message: "Ваша сессия закончилась")
-        case .invalidToken:
-            return  AlertFields(title: "Произошла ошибка", message: "Ваша сессия закончилась")
-        case .PermissionDenied:
-            return AlertFields(title: "Произошла ошибка", message: "Недостаточно прав доступа для совершения этого действия")
-        case .UserIsNotInThisCompany:
-            return AlertFields(title: "Произошла ошибка", message: "Пользователь не числится в этой компании")
-        case .CompanyDoesNotExist:
-            return AlertFields(title: "Произошла ошибка", message: "Компания является частной или не существует")
-        case .TourDoesNotExist:
-            return AlertFields(title: "Произошла ошибка", message: "Экскурсия не существует")
-        case .guideIsNotInTour:
-            return AlertFields(title: "Произошла ошибка", message: "Экскурсовод не находится в данной экскурсии")
-        case .notConnected:
-            return AlertFields(title: "Нет подключения к серверу")
-        }
-    }
-}
-
 protocol ApiManagerExcursionsProtocol{
         
     func addNewTour(tour:ExcrusionModel) async throws -> Bool
@@ -104,7 +58,7 @@ class ApiManagerExcursions: ApiManagerExcursionsProtocol{
         let refresh = try await ApiManagerAuth.refreshToken()
         
         if !refresh{
-            throw customErrorUserData.unknowmError
+            throw NetworkServiceHelper.NetworkError.unknown
         }
         
         let url = URL(
@@ -149,21 +103,20 @@ class ApiManagerExcursions: ApiManagerExcursionsProtocol{
             AF.request(url, method: .post, parameters: jsonData, encoder: .json, headers: headers.getHeaders()).response { response in
                 
                 switch response.result {
-                case .success(_):
-                    if response.response?.statusCode == 400{
-                        
-                        let error = self.checkError(data: response.data ?? Data())
-                        continuation.resume(throwing: error)
-                        
-                    } else if response.response?.statusCode == 200{
+                case .success(let success):
+                    
+                    switch response.response?.statusCode{
+                    case 500:
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.internalServerError)
+                    case 200:
                         continuation.resume(returning: true)
+                    default:
+                        continuation.resume(throwing: NetworkServiceHelper.parseError(data: success))
                         
-                    } else{
-                        continuation.resume(throwing: customErrorExcursion.unknown)
                     }
                     
                 case .failure(_):
-                    continuation.resume(throwing: customErrorExcursion.unknown)
+                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
                 }
             }
         }
@@ -175,7 +128,7 @@ class ApiManagerExcursions: ApiManagerExcursionsProtocol{
         let refresh = try await ApiManagerAuth.refreshToken()
         
         if !refresh{
-            throw customErrorUserData.unknowmError
+            throw NetworkServiceHelper.NetworkError.unknown
         }
         
         let url = URL(
@@ -221,19 +174,20 @@ class ApiManagerExcursions: ApiManagerExcursionsProtocol{
             AF.request(url, method: .put, parameters: jsonData, encoder: .json, headers: headers.getHeaders()).response { response in
                 
                 switch response.result {
-                case .success(_):
-                    if response.response?.statusCode == 400{
-                        
-                        let error = self.checkError(data: response.data ?? Data())
-                        continuation.resume(throwing: error)
-                        
-                    } else if response.response?.statusCode == 200{
+                case .success(let success):
+                    
+                    switch response.response?.statusCode{
+                    case 500:
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.internalServerError)
+                    case 200:
                         continuation.resume(returning: true)
-                    } else{
-                        continuation.resume(throwing: customErrorExcursion.unknown)
+                    default:
+                        continuation.resume(throwing: NetworkServiceHelper.parseError(data: success))
+                        
                     }
+                    
                 case .failure(_):
-                    continuation.resume(throwing: customErrorExcursion.unknown)
+                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
                 }
             }
         }
@@ -248,7 +202,7 @@ class ApiManagerExcursions: ApiManagerExcursionsProtocol{
         let refresh = try await ApiManagerAuth.refreshToken()
         // TODO:- реализовать в view GetTour
         if !refresh{
-            throw customErrorUserData.unknowmError
+            throw NetworkServiceHelper.NetworkError.unknown
         }
         
         let url = URL(
@@ -265,22 +219,22 @@ class ApiManagerExcursions: ApiManagerExcursionsProtocol{
         let result:Bool = try await withCheckedThrowingContinuation { continuation in
             AF.request(url, method: .delete,headers: headers.getHeaders()).response { response in
                 
+                
                 switch response.result {
-                case .success(_):
-                    if response.response?.statusCode == 400{
-                        
-                        let error = self.checkError(data: response.data ?? Data())
-                        continuation.resume(throwing: error)
-                        
-                    }else if response.response?.statusCode == 200{
-                        
+                case .success(let success):
+                    
+                    switch response.response?.statusCode{
+                    case 500:
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.internalServerError)
+                    case 200:
                         continuation.resume(returning: true)
+                    default:
+                        continuation.resume(throwing: NetworkServiceHelper.parseError(data: success))
                         
-                    }else{
-                        continuation.resume(returning: false)
                     }
+                    
                 case .failure(_):
-                    continuation.resume(returning: false)
+                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
                 }
             }
         }
@@ -292,7 +246,7 @@ class ApiManagerExcursions: ApiManagerExcursionsProtocol{
         let refresh = try await ApiManagerAuth.refreshToken()
         
         if !refresh{
-            throw customErrorUserData.unknowmError
+            throw NetworkServiceHelper.NetworkError.unknown
         }
         
         let url = URL(
@@ -310,25 +264,27 @@ class ApiManagerExcursions: ApiManagerExcursionsProtocol{
         let result:ResponseGetExcursion = try await withCheckedThrowingContinuation { continuation in
             
             AF.request(url, method: .get, headers: headers.getHeaders()).response { response in
+                
                 switch response.result {
-                case .success(_):
-                    if response.response?.statusCode == 400{
-                        
-                        let error = self.checkError(data: response.data ?? Data())
-                        continuation.resume(throwing: error)
-                        
-                    }else if response.response?.statusCode == 200{
-                        
-                        let tour = try! JSONDecoder().decode(ResponseGetExcursion.self, from: response.data!)
-                        
-                        continuation.resume(returning: tour)
-                        
-                    }else{
-                        continuation.resume(throwing: customErrorExcursion.unknown)
-                    }
-                case .failure(_):
-                    continuation.resume(throwing: customErrorExcursion.unknown)
+                case .success(let success):
                     
+                    switch response.response?.statusCode{
+                    case 500:
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.internalServerError)
+                    case 200:
+                        if let tour = try? JSONDecoder().decode(ResponseGetExcursion.self, from: success ?? Data()){
+                            continuation.resume(returning: tour)
+                        }else{
+                            continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                        }
+                        
+                    default:
+                        continuation.resume(throwing: NetworkServiceHelper.parseError(data: success))
+                        
+                    }
+                    
+                case .failure(_):
+                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
                 }
             }
         }
@@ -341,7 +297,7 @@ class ApiManagerExcursions: ApiManagerExcursionsProtocol{
         let refresh = try await ApiManagerAuth.refreshToken()
         
         if !refresh{
-            throw customErrorUserData.unknowmError
+            throw NetworkServiceHelper.NetworkError.unknown
         }
         
         let url = URL(
@@ -355,34 +311,32 @@ class ApiManagerExcursions: ApiManagerExcursionsProtocol{
         let headers = NetworkServiceHelper.Headers()
         headers.addAccessTokenHeader()
         
-        let result:[ResponseGetExcursion] = try await withCheckedThrowingContinuation { continuaiton in
+        let result:[ResponseGetExcursion] = try await withCheckedThrowingContinuation { continuation in
             
             AF.request(url, method: .get, headers: headers.getHeaders()).response { response in
                 
                 switch response.result {
-                case .success(_):
-                    print(date)
-                    if response.response?.statusCode == 400{
-                        
-                        let error = self.checkError(data: response.data ?? Data())
-                        continuaiton.resume(throwing: error)
-                        
-                    }else if response.response?.statusCode == 200{
+                case .success(let success):
+                    
+                    switch response.response?.statusCode{
+                    case 500:
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.internalServerError)
+                    case 200:
                         typealias excursionsJsonStruct = [ResponseGetExcursion]
                         
-                        if let excursions = try? JSONDecoder().decode(excursionsJsonStruct.self, from: response.data!){
-                            continuaiton.resume(returning: excursions)
+                        if let excursions = try? JSONDecoder().decode(excursionsJsonStruct.self, from: success ?? Data()){
+                            continuation.resume(returning: excursions)
                         }else{
-                            continuaiton.resume(throwing: customErrorExcursion.unknown)
+                            continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
                         }
+                                                
+                    default:
+                        continuation.resume(throwing: NetworkServiceHelper.parseError(data: success))
                         
-                        
-                    }else{
-                        continuaiton.resume(throwing: customErrorExcursion.unknown)
                     }
-                case .failure(_):
-                    continuaiton.resume(throwing: customErrorExcursion.unknown)
                     
+                case .failure(_):
+                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
                 }
             }
             
@@ -397,7 +351,7 @@ class ApiManagerExcursions: ApiManagerExcursionsProtocol{
         let refresh = try await ApiManagerAuth.refreshToken()
         
         if !refresh{
-            throw customErrorUserData.unknowmError
+            throw NetworkServiceHelper.NetworkError.unknown
         }
                 
         let url = URL(
@@ -415,21 +369,28 @@ class ApiManagerExcursions: ApiManagerExcursionsProtocol{
         let result:ExcursionsListByRange = try await withCheckedThrowingContinuation { continuation in
             
             AF.request(url,method: .get, headers: headers.getHeaders()).response { response in
-                                
+                
                 switch response.result {
-                case .success(_):
-                    if response.response?.statusCode == 400{
-                        let error = self.checkError(data: response.data ?? Data())
-                        continuation.resume(throwing: error)
+                case .success(let success):
+                    
+                    switch response.response?.statusCode{
+                    case 500:
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.internalServerError)
+                    case 200:
                         
-                    }else if response.response?.statusCode == 200{
-                        let response = try! JSONDecoder().decode(ExcursionsListByRange.self, from: response.data!)
-                        continuation.resume(returning: response)
-                    }else{
-                        continuation.resume(throwing: customErrorExcursion.unknown)
+                        if let response = try? JSONDecoder().decode(ExcursionsListByRange.self, from: success ?? Data()){
+                            continuation.resume(returning: response)
+                        }else{
+                            continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                        }
+                        
+                    default:
+                        continuation.resume(throwing: NetworkServiceHelper.parseError(data: success))
+                        
                     }
+                    
                 case .failure(_):
-                    continuation.resume(throwing: customErrorExcursion.unknown)
+                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
                 }
             }
         }
@@ -443,7 +404,7 @@ class ApiManagerExcursions: ApiManagerExcursionsProtocol{
         let refresh = try await ApiManagerAuth.refreshToken()
         
         if !refresh{
-            throw customErrorUserData.unknowmError
+            throw NetworkServiceHelper.NetworkError.unknown
         }
         
         let url = URL(
@@ -466,54 +427,28 @@ class ApiManagerExcursions: ApiManagerExcursionsProtocol{
             AF.request(url, method: .post, parameters: jsonData, encoder: .json, headers: headers.getHeaders()).response { response in
                 
                 switch response.result {
-                case .success(_):
-                    if response.response?.statusCode == 400{
-                        let error = self.checkError(data: response.data ?? Data())
-                        continuation.resume(throwing: error)
-                        
-                    }else if response.response?.statusCode == 200{
+                case .success(let success):
+                    
+                    switch response.response?.statusCode{
+                    case 500:
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.internalServerError)
+                    case 200:
                         continuation.resume(returning: true)
-                    }else{
-                        continuation.resume(throwing: customErrorExcursion.unknown)
+                        
+                    default:
+                        continuation.resume(throwing: NetworkServiceHelper.parseError(data: success))
+                        
                     }
+                    
                 case .failure(_):
-                    continuation.resume(throwing: customErrorExcursion.unknown)
+                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
                 }
             }
         }
         
         return result
     }
-        
-    private func checkError(data:Data)->customErrorExcursion{
-        if let error = try? JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: data){
-            switch error.message{
-            case "Token expired":
-                return .tokenExpired
-            case "Invalid Firebase ID token":
-                return .invalidToken
-                
-            case "Date does not exist", "Tour does not exist":
-                return .dataNotFound
-                
-            case "Permission denied":
-                return .PermissionDenied
-                
-            case "Current user is not in this company":
-                return .UserIsNotInThisCompany
-                
-            case "Company does not exist":
-                return .CompanyDoesNotExist
-                
-            case "Guide is not in tour":
-                return .guideIsNotInTour
-                
-            default:
-                return .unknown
-            }
-        }
-        return .unknown
-    }
+    
 }
 
 

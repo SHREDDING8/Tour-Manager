@@ -110,71 +110,71 @@ enum errorAlertsFront{
 class Alert{
     let controllers = Controllers()
         
-    public func errorAlert(_ viewController:UIViewController, errorCompanyApi:customErrorCompany, completion:(()->Void)? = nil ){
-        if errorCompanyApi == .invalidToken || errorCompanyApi == .tokenExpired{
-            self.invalidToken(viewController, message: errorCompanyApi.getValuesForAlert().message)
-            return
-        }
-        
-//        if errorCompanyApi == .notConnected{
-//            self.controllers.goToNoConnection(view: viewController.view, direction: .fade)
+//    public func errorAlert(_ viewController:UIViewController, errorCompanyApi:customErrorCompany, completion:(()->Void)? = nil ){
+//        if errorCompanyApi == .invalidToken || errorCompanyApi == .tokenExpired{
+//            self.invalidToken(viewController, message: errorCompanyApi.getValuesForAlert().message)
 //            return
 //        }
-        
-        let alertFields = errorCompanyApi.getValuesForAlert()
-        let alert = UIAlertController(title: alertFields.title, message: alertFields.message, preferredStyle: .alert)
-        
-        let actionOk = UIAlertAction(title: "Ок", style: .default) { _ in
-            completion?()
-        }
-        alert.addAction(actionOk)
-        
-        viewController.present(alert, animated: true)
-    }
+//        
+////        if errorCompanyApi == .notConnected{
+////            self.controllers.goToNoConnection(view: viewController.view, direction: .fade)
+////            return
+////        }
+//        
+//        let alertFields = errorCompanyApi.getValuesForAlert()
+//        let alert = UIAlertController(title: alertFields.title, message: alertFields.message, preferredStyle: .alert)
+//        
+//        let actionOk = UIAlertAction(title: "Ок", style: .default) { _ in
+//            completion?()
+//        }
+//        alert.addAction(actionOk)
+//        
+//        viewController.present(alert, animated: true)
+//    }
     
-    public func errorAlert(_ viewController:UIViewController, errorUserDataApi:customErrorUserData, completion:(()->Void)? = nil ){
-        if errorUserDataApi == .invalidToken || errorUserDataApi == .tokenExpired{
-            self.invalidToken(viewController, message: errorUserDataApi.getValuesForAlert().message)
-            return
-        }
-        
-//        if errorUserDataApi == .notConnected{
-//            self.controllers.goToNoConnection(view: viewController.view, direction: .fade)
+//    public func errorAlert(_ viewController:UIViewController, errorUserDataApi:customErrorUserData, completion:(()->Void)? = nil ){
+//        if errorUserDataApi == .invalidToken || errorUserDataApi == .tokenExpired{
+//            self.invalidToken(viewController, message: errorUserDataApi.getValuesForAlert().message)
 //            return
 //        }
-        
-        let alertFields = errorUserDataApi.getValuesForAlert()
-        let alert = UIAlertController(title: alertFields.title, message: alertFields.message, preferredStyle: .alert)
-        
-        let actionOk = UIAlertAction(title: "Ок", style: .default) { _ in
-            completion?()
-        }
-        alert.addAction(actionOk)
-        
-        viewController.present(alert, animated: true)
-    }
+//        
+////        if errorUserDataApi == .notConnected{
+////            self.controllers.goToNoConnection(view: viewController.view, direction: .fade)
+////            return
+////        }
+//        
+//        let alertFields = errorUserDataApi.getValuesForAlert()
+//        let alert = UIAlertController(title: alertFields.title, message: alertFields.message, preferredStyle: .alert)
+//        
+//        let actionOk = UIAlertAction(title: "Ок", style: .default) { _ in
+//            completion?()
+//        }
+//        alert.addAction(actionOk)
+//        
+//        viewController.present(alert, animated: true)
+//    }
     
-    public func errorAlert(_ viewController:UIViewController, errorExcursionsApi:customErrorExcursion, completion:(()->Void)? = nil ){
-        if errorExcursionsApi == .invalidToken || errorExcursionsApi == .tokenExpired{
-            self.invalidToken(viewController, message: errorExcursionsApi.getValuesForAlert().message)
-            return
-        }
-//        if errorExcursionsApi ==  .notConnected{
-//            self.controllers.goToNoConnection(view: viewController.view, direction: .fade)
+//    public func errorAlert(_ viewController:UIViewController, errorExcursionsApi:customErrorExcursion, completion:(()->Void)? = nil ){
+//        if errorExcursionsApi == .invalidToken || errorExcursionsApi == .tokenExpired{
+//            self.invalidToken(viewController, message: errorExcursionsApi.getValuesForAlert().message)
 //            return
 //        }
-        
-        
-        let alertFields = errorExcursionsApi.getValuesForAlert()
-        let alert = UIAlertController(title: alertFields.title, message: alertFields.message, preferredStyle: .alert)
-        
-        let actionOk = UIAlertAction(title: "Ок", style: .default) { _ in
-            completion?()
-        }
-        alert.addAction(actionOk)
-        
-        viewController.present(alert, animated: true)
-    }
+////        if errorExcursionsApi ==  .notConnected{
+////            self.controllers.goToNoConnection(view: viewController.view, direction: .fade)
+////            return
+////        }
+//        
+//        
+//        let alertFields = errorExcursionsApi.getValuesForAlert()
+//        let alert = UIAlertController(title: alertFields.title, message: alertFields.message, preferredStyle: .alert)
+//        
+//        let actionOk = UIAlertAction(title: "Ок", style: .default) { _ in
+//            completion?()
+//        }
+//        alert.addAction(actionOk)
+//        
+//        viewController.present(alert, animated: true)
+//    }
     
     
     public func errorAlert(_ viewController:UIViewController, errorAutoFillApi:customErrorAutofill, completion:(()->Void)? = nil ){

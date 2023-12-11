@@ -90,66 +90,66 @@ class VerifyEmailViewController: UIViewController {
     @IBAction func resendEmail(_ sender: Any) {
         self.loadUIView.setLoadUIView()
         
-        self.presenter?.sendVerifyEmail(email: self.email, password: self.password, completion: { isSent, error in
-            self.loadUIView.removeLoadUIView()
-            if error == .unknowmError{
-                self.alerts.errorAlert(self, errorTypeApi: .unknown)
-            }
-            
-            else{
-                self.setTimerSetEmailAgain()
-                let alert = self.alerts.infoAlert(title: "Email Отправлен", meesage: "Проверьте почту и подтвердите аккаунт")
-                self.present(alert, animated: true)
-            }
-           
-        })
+//        self.presenter?.sendVerifyEmail(email: self.email, password: self.password, completion: { isSent, error in
+//            self.loadUIView.removeLoadUIView()
+//            if error == .unknowmError{
+//                self.alerts.errorAlert(self, errorTypeApi: .unknown)
+//            }
+//            
+//            else{
+//                self.setTimerSetEmailAgain()
+//                let alert = self.alerts.infoAlert(title: "Email Отправлен", meesage: "Проверьте почту и подтвердите аккаунт")
+//                self.present(alert, animated: true)
+//            }
+//           
+//        })
     }
     
     fileprivate func logIn(){
         
-        self.presenter?.logIn(email: self.email, password: password, completion: { isLogIn, error in
-            if error == .emailIsNotVerifyed{
-                
-            } else if error == .invalidEmailOrPassword{
-                
-                self.alerts.errorAlert(self, errorTypeApi: .unknown)
-                
-            } else if error == .unknowmError{
-                
-                self.alerts.errorAlert(self, errorTypeApi: .unknown)
-                
-            }else if error == .notConnected{
-                self.controllers.goToLoginPage(view: self.view, direction: .fade)
-                return
-            }
-            
-            if !isLogIn{
-                self.loadUIView.removeLoadUIView()
-                return
-            }
-            
-            self.presenter?.getUserInfoFromApi(completion: { isInfo, error in
-                
-                if error == .dataNotFound{
-                    self.goToAddingPersonalData()
-                    self.loadUIView.removeLoadUIView()
-                    return
-                }
-                
-                if let err = error{
-                    self.alerts.errorAlert(self, errorUserDataApi: err) {
-                        self.loadUIView.removeLoadUIView()
-                        self.goToLogInPage()
-                    }
-                }
-                
-                if isInfo{
-                    self.loadUIView.removeLoadUIView()
-                    self.goToMainTabBar()
-                }
-            })
-            
-        })
+//        self.presenter?.logIn(email: self.email, password: password, completion: { isLogIn, error in
+//            if error == .emailIsNotVerifyed{
+//                
+//            } else if error == .invalidEmailOrPassword{
+//                
+//                self.alerts.errorAlert(self, errorTypeApi: .unknown)
+//                
+//            } else if error == .unknowmError{
+//                
+//                self.alerts.errorAlert(self, errorTypeApi: .unknown)
+//                
+//            }else if error == .notConnected{
+//                self.controllers.goToLoginPage(view: self.view, direction: .fade)
+//                return
+//            }
+//            
+//            if !isLogIn{
+//                self.loadUIView.removeLoadUIView()
+//                return
+//            }
+//            
+////            self.presenter?.getUserInfoFromApi(completion: { isInfo, error in
+////                
+////                if error == .dataNotFound{
+////                    self.goToAddingPersonalData()
+////                    self.loadUIView.removeLoadUIView()
+////                    return
+////                }
+////                
+////                if let err = error{
+////                    self.alerts.errorAlert(self, errorUserDataApi: err) {
+////                        self.loadUIView.removeLoadUIView()
+////                        self.goToLogInPage()
+////                    }
+////                }
+////                
+////                if isInfo{
+////                    self.loadUIView.removeLoadUIView()
+////                    self.goToMainTabBar()
+////                }
+////            })
+//            
+//        })
     }
     
     

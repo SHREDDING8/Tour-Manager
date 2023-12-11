@@ -9,32 +9,14 @@ import Foundation
 import Alamofire
 import DeviceKit
 
-public enum customErrorAuth:Error{
-    case invalidEmailOrPassword
-    
-    case emailIsNotVerifyed
-    
-    case emailExist
-    
-    case weakPassword
-    
-    case userNotFound
-    
-    case unknowmError
-    
-    case tokenExpired
-    
-    case notConnected
-}
-
 protocol ApiManagerAuthProtocol{
     func logIn(email:String,password:String, deviceToken:String) async throws -> ResponseLogInJsonStruct
     
     func signUp(email:String,password:String) async throws -> Bool
     
-    func resetPassword(email:String) async -> Bool
+    func resetPassword(email:String) async throws -> Bool
     
-    func sendVerifyEmail(email:String, password:String) async -> Bool
+    func sendVerifyEmail(email:String, password:String) async throws -> Bool
     
     func updatePassword(email:String,oldPassword:String, newPassword:String) async throws -> Bool
     
@@ -104,24 +86,28 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
         
         let result:ResponseLogInJsonStruct = try await withCheckedThrowingContinuation { continuation in
             AF.request(url,method: .post, parameters: jsonData,encoder: .json).response { response in
+                
                 switch response.result {
-                case .success(_):
+                case .success(let success):
                     
-                    if response.response?.statusCode == 400{
-                        let error = self.checkError(data: response.data!)
-                        continuation.resume(throwing: error)
-                        
-                    } else if response.response?.statusCode == 200{
-                        if let logInData = try? JSONDecoder().decode(ResponseLogInJsonStruct.self, from: response.data!){
+                    switch response.response?.statusCode{
+                    case 500:
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.internalServerError)
+                    case 200:
+                        if let logInData = try? JSONDecoder().decode(ResponseLogInJsonStruct.self, from: success ?? Data()){
                             
                             continuation.resume(returning: logInData)
+                        }else{
+                            continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
                         }
-                    } else {
-                        continuation.resume(throwing: customErrorAuth.unknowmError)
+                        
+                    default:
+                        continuation.resume(throwing: NetworkServiceHelper.parseError(data: success))
+                        
                     }
                     
                 case .failure(_):
-                    continuation.resume(throwing: customErrorAuth.unknowmError)
+                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
                 }
                 
             }
@@ -151,14 +137,29 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
             AF.request(url,method: .post, parameters: jsonData,encoder: .json).response{
                 response in
                 
-                if response.response?.statusCode == 200{
+                switch response.result {
+                case .success(let success):
                     
-                    let newToken = try! JSONDecoder().decode(ResponseRefreshToken.self, from: response.data!)
-                    keychainService.setAcessToken(token: newToken.token)
-                    continuation.resume(returning: true)                    
-                }else{
-                    continuation.resume(returning: false)
+                    switch response.response?.statusCode{
+                    case 500:
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.internalServerError)
+                    case 200:
+                        if let newToken = try? JSONDecoder().decode(ResponseRefreshToken.self, from: success ?? Data()){
+                            keychainService.setAcessToken(token: newToken.token)
+                            continuation.resume(returning: true)
+                        }else{
+                            continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                        }
+                        
+                    default:
+                        continuation.resume(throwing: NetworkServiceHelper.parseError(data: success))
+                        
+                    }
+                    
+                case .failure(_):
+                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
                 }
+                
             }
         }
         
@@ -166,34 +167,34 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
         
     }
     
-    public func logIn(email:String,password:String, deviceToken:String, completion: @escaping (Bool, ResponseLogInJsonStruct?, customErrorAuth?)->Void ){
-        
-        let jsonData = SendLogInJsonStruct(email: email, password: password, apnsToken: ApnsToken(vendorID: UIDevice.current.identifierForVendor?.uuidString ?? "", deviceToken: deviceToken, deviceName: UIDevice.current.name))
-        
-        let url = URL(string: routeLogIn)
-        
-
-        AF.request(url!,method: .post, parameters: jsonData,encoder: .json).response { response in
-            switch response.result {
-            case .success(_):
-                if response.response?.statusCode == 400{
-                    let error = self.checkError(data: response.data!)
-                    completion(false, nil, error)
-                } else if response.response?.statusCode == 200{
-                    if let logInData = try? JSONDecoder().decode(ResponseLogInJsonStruct.self, from: response.data!){
-                        completion(true, logInData, nil)
-//                        self.userDefaults.setLastRefreshDate(date: Date.now)
-                    }
-                } else {
-                    completion(false, nil, .unknowmError)
-                }
-                
-            case .failure(_):
-                completion(false, nil, .notConnected)
-            }
-            
-        }
-    }
+//    public func logIn(email:String,password:String, deviceToken:String, completion: @escaping (Bool, ResponseLogInJsonStruct?, customErrorAuth?)->Void ){
+//        
+//        let jsonData = SendLogInJsonStruct(email: email, password: password, apnsToken: ApnsToken(vendorID: UIDevice.current.identifierForVendor?.uuidString ?? "", deviceToken: deviceToken, deviceName: UIDevice.current.name))
+//        
+//        let url = URL(string: routeLogIn)
+//        
+//
+//        AF.request(url!,method: .post, parameters: jsonData,encoder: .json).response { response in
+//            switch response.result {
+//            case .success(_):
+//                if response.response?.statusCode == 400{
+//                    let error = self.checkError(data: response.data!)
+//                    completion(false, nil, error)
+//                } else if response.response?.statusCode == 200{
+//                    if let logInData = try? JSONDecoder().decode(ResponseLogInJsonStruct.self, from: response.data!){
+//                        completion(true, logInData, nil)
+////                        self.userDefaults.setLastRefreshDate(date: Date.now)
+//                    }
+//                } else {
+//                    completion(false, nil, .unknowmError)
+//                }
+//                
+//            case .failure(_):
+//                completion(false, nil, .notConnected)
+//            }
+//            
+//        }
+//    }
     
     
     public func logOut() async throws -> Bool{
@@ -201,7 +202,7 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
         let refresh = try await ApiManagerAuth.refreshToken()
         
         if !refresh{
-            throw customErrorUserData.unknowmError
+            throw NetworkServiceHelper.NetworkError.unknown
         }
         
         let url = URL(string:  "https://24tour-manager.ru/api/auth/logout")
@@ -216,17 +217,21 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
                 response in
                 
                 switch response.result {
-                case .success(_):
-                    if response.response?.statusCode == 200{
+                case .success(let success):
+                    
+                    switch response.response?.statusCode{
+                    case 500:
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.internalServerError)
+                    case 200:
                         continuation.resume(returning: true)
-                    }else if response.response?.statusCode == 400 {
-                        let error = self.checkError(data: response.data!)
-                        continuation.resume(throwing: error)
-                    }else{
-                        continuation.resume(throwing: customErrorAuth.unknowmError)
+                        
+                    default:
+                        continuation.resume(throwing: NetworkServiceHelper.parseError(data: success))
+                        
                     }
+                    
                 case .failure(_):
-                    continuation.resume(throwing: customErrorAuth.unknowmError)
+                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
                 }
             }
         }
@@ -250,17 +255,21 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
             AF.request(url!, method: .post, parameters: jsonData, encoder: .json).response { response in
                 
                 switch response.result {
-                case .success(_):
-                    if response.response?.statusCode == 200{
+                case .success(let success):
+                    
+                    switch response.response?.statusCode{
+                    case 500:
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.internalServerError)
+                    case 200:
                         continuation.resume(returning: true)
-                    }else if response.response?.statusCode == 400 {
-                        let error = self.checkError(data: response.data!)
-                        continuation.resume(throwing: error)
-                    } else{
-                        continuation.resume(throwing: customErrorAuth.unknowmError)
+                        
+                    default:
+                        continuation.resume(throwing: NetworkServiceHelper.parseError(data: success))
+                        
                     }
+                    
                 case .failure(_):
-                    continuation.resume(throwing: customErrorAuth.unknowmError)
+                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
                 }
             }
             
@@ -271,14 +280,31 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
     }
         
     // MARK: - Reset Password
-    func resetPassword(email:String) async -> Bool{
+    func resetPassword(email:String) async throws -> Bool{
         let jsonData = sendResetPassword(email: email)
         let url = URL(string: routeResetPassword)
         
-        let result:Bool = await withCheckedContinuation { continuation in
+        let result:Bool = try await withCheckedThrowingContinuation { continuation in
             
             AF.request(url!, method: .post, parameters:  jsonData,encoder: .json).response { response in
-                continuation.resume(returning: response.response?.statusCode == 200 ? true : false)
+                
+                switch response.result {
+                case .success(let success):
+                    
+                    switch response.response?.statusCode{
+                    case 500:
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.internalServerError)
+                    case 200:
+                        continuation.resume(returning: true)
+                        
+                    default:
+                        continuation.resume(throwing: NetworkServiceHelper.parseError(data: success))
+                        
+                    }
+                    
+                case .failure(_):
+                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                }
             }
         }
         
@@ -290,7 +316,7 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
         let refresh = try await ApiManagerAuth.refreshToken()
         
         if !refresh{
-            throw customErrorUserData.unknowmError
+            throw NetworkServiceHelper.NetworkError.unknown
         }
         
         let url = URL(string: NetworkServiceHelper.Auth.updatepassword)!
@@ -298,34 +324,34 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
         return false
     }
     
-    public func updatePassword(email:String,oldPassword:String, newPassword:String, completion:  @escaping (Bool,customErrorAuth?)->Void ){
-        
-        
-        
-        let jsonData = sendUpdatePassword(email: email, old_password: oldPassword, new_password: newPassword)
-        
-        let url = URL(string: routeUpdatePassword)
-        
-        AF.request(url!, method: .post, parameters:  jsonData,encoder: .json).response { response in
-            
-            switch response.result {
-            case .success(_):
-                if response.response?.statusCode == 400{
-                    let error = self.checkError(data: response.data!)
-                    completion(false, error)
-                } else if response.response?.statusCode == 200{
-                    completion(true,nil)
-                } else {
-                    completion(false,.unknowmError)
-                }
-            case .failure(_):
-                completion(false,.notConnected)
-            }
-        }
-    }
+//    public func updatePassword(email:String,oldPassword:String, newPassword:String, completion:  @escaping (Bool,customErrorAuth?)->Void ){
+//        
+//        
+//        
+//        let jsonData = sendUpdatePassword(email: email, old_password: oldPassword, new_password: newPassword)
+//        
+//        let url = URL(string: routeUpdatePassword)
+//        
+//        AF.request(url!, method: .post, parameters:  jsonData,encoder: .json).response { response in
+//            
+//            switch response.result {
+//            case .success(_):
+//                if response.response?.statusCode == 400{
+//                    let error = self.checkError(data: response.data!)
+//                    completion(false, error)
+//                } else if response.response?.statusCode == 200{
+//                    completion(true,nil)
+//                } else {
+//                    completion(false,.unknowmError)
+//                }
+//            case .failure(_):
+//                completion(false,.notConnected)
+//            }
+//        }
+//    }
             
     // MARK: - sendVerifyEmail
-    func sendVerifyEmail(email:String, password:String) async -> Bool{
+    func sendVerifyEmail(email:String, password:String) async throws -> Bool{
         
         let jsonData = [
             "email": email,
@@ -334,14 +360,26 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
         
         let url = URL(string: routeSendVerifyEmail)
         
-        let result:Bool = await withCheckedContinuation { continuation in
+        let result:Bool = try await withCheckedThrowingContinuation { continuation in
             
             AF.request(url!, method: .post, parameters:  jsonData,encoder: .json).response { response in
                 
-                if response.response?.statusCode == 200{
-                    continuation.resume(returning: true)
-                }else{
-                    continuation.resume(returning: false)
+                switch response.result {
+                case .success(let success):
+                    
+                    switch response.response?.statusCode{
+                    case 500:
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.internalServerError)
+                    case 200:
+                        continuation.resume(returning: true)
+                        
+                    default:
+                        continuation.resume(throwing: NetworkServiceHelper.parseError(data: success))
+                        
+                    }
+                    
+                case .failure(_):
+                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
                 }
             }
         }
@@ -350,34 +388,34 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
         
     }
     
-    public func sendVerifyEmail(email:String, password:String, completion:  @escaping (Bool?,customErrorAuth?)->Void ) {
-        
-        let jsonData = [
-            "email": email,
-            "password": password
-        ]
-        let url = URL(string: routeSendVerifyEmail)
-        
-        AF.request(url!, method: .post, parameters:  jsonData,encoder: .json).response { response in
-            
-            switch response.result {
-            case .success(_):
-                if response.response?.statusCode == 200{
-                    completion(true,nil)
-                } else {
-                    completion(nil,.unknowmError)
-                }
-            case .failure(_):
-                completion(nil,.notConnected)
-            }
-        }
-    }
+//    public func sendVerifyEmail(email:String, password:String, completion:  @escaping (Bool?,customErrorAuth?)->Void ) {
+//        
+//        let jsonData = [
+//            "email": email,
+//            "password": password
+//        ]
+//        let url = URL(string: routeSendVerifyEmail)
+//        
+//        AF.request(url!, method: .post, parameters:  jsonData,encoder: .json).response { response in
+//            
+//            switch response.result {
+//            case .success(_):
+//                if response.response?.statusCode == 200{
+//                    completion(true,nil)
+//                } else {
+//                    completion(nil,.unknowmError)
+//                }
+//            case .failure(_):
+//                completion(nil,.notConnected)
+//            }
+//        }
+//    }
     
     func getLoggedDevices() async throws -> ResponseGetAllDevices{
         let refresh = try await ApiManagerAuth.refreshToken()
         
         if !refresh{
-            throw customErrorUserData.unknowmError
+            throw NetworkServiceHelper.NetworkError.unknown
         }
         
         let url = URL(string: NetworkServiceHelper.Auth.getLoggedDevices)!
@@ -391,15 +429,25 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
                 switch response.result {
                 case .success(let success):
                     
-                    if let loggedDevices = try? JSONDecoder().decode(ResponseGetAllDevices.self, from: success ?? Data()){
-                        continuation.resume(returning: loggedDevices)
-                    }else{
-                        continuation.resume(throwing: self.checkError(data: success ?? Data() ))
+                    switch response.response?.statusCode{
+                    case 500:
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.internalServerError)
+                    case 200:
+                        if let loggedDevices = try? JSONDecoder().decode(ResponseGetAllDevices.self, from: success ?? Data()){
+                            continuation.resume(returning: loggedDevices)
+                        }else{
+                            continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                        }
+                        
+                    default:
+                        continuation.resume(throwing: NetworkServiceHelper.parseError(data: success))
+                        
                     }
                     
                 case .failure(_):
-                    continuation.resume(throwing: customErrorAuth.unknowmError)
+                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
                 }
+                
             }
             
         }
@@ -411,7 +459,7 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
         let refresh = try await ApiManagerAuth.refreshToken()
         
         if !refresh{
-            throw customErrorUserData.unknowmError
+            throw NetworkServiceHelper.NetworkError.unknown
         }
         
         let url = URL(string: self.routeLogoutAllDevices)!
@@ -423,48 +471,30 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
         
         let result:Bool = try await withCheckedThrowingContinuation { continuation in
             AF.request(url, method: .post, parameters: jsonData, encoder: .json).response { response in
+                
+                
                 switch response.result {
                 case .success(let success):
-                    if response.response?.statusCode == 200{
+                    
+                    switch response.response?.statusCode{
+                    case 500:
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.internalServerError)
+                    case 200:
                         continuation.resume(returning: true)
-                    }else{
-                        continuation.resume(throwing: self.checkError(data: success ?? Data()))
+                                            
+                    default:
+                        continuation.resume(throwing: NetworkServiceHelper.parseError(data: success))
+                        
                     }
+                    
                 case .failure(_):
-                    continuation.resume(throwing: customErrorAuth.unknowmError)
+                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
                 }
+                
             }
         }
         
         return result
-    }
-    
-    
-    private func checkError(data:Data)->customErrorAuth{
-        if let error = try? JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: data){
-            switch error.message{
-            case "Email exists":
-                return .emailExist
-            case "Email is not verified":
-                return .emailIsNotVerifyed
-                
-            case "Invalid email or password":
-                return .invalidEmailOrPassword
-                
-            case "User was not found":
-                return .userNotFound
-                
-            case "Weak password":
-                return .weakPassword
-                
-            case "TOKEN_EXPIRED":
-                return .tokenExpired
-                
-            default:
-                return .unknowmError
-            }
-        }
-        return .unknowmError
     }
     
 }

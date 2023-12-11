@@ -27,11 +27,11 @@ protocol AddingPersonalDataPresenterProtocol:AnyObject{
     
     var companyName:String { get set }
     
-    func setUserInfoApi(completion: @escaping (Bool, customErrorUserData?)->Void)
+    func setUserInfoApi(completion: @escaping (Bool)->Void)
     
-    func setCompanyNameApi(completion: @escaping (Bool, customErrorCompany?) -> Void)
+    func setCompanyNameApi(completion: @escaping (Bool) -> Void)
     
-    func addEmployeeToCompany(completion: @escaping (Bool, customErrorCompany?) -> Void)
+    func addEmployeeToCompany(completion: @escaping (Bool) -> Void)
 }
 class AddingPersonalDataPresenter:AddingPersonalDataPresenterProtocol{
     weak var view:AddingPersonalDataViewProtocol?
@@ -61,7 +61,7 @@ class AddingPersonalDataPresenter:AddingPersonalDataPresenterProtocol{
     
     // MARK: - setUserInfoApi
     
-    public func setUserInfoApi(completion: @escaping (Bool, customErrorUserData?)->Void){
+    public func setUserInfoApi(completion: @escaping (Bool)->Void){
         let data = UserDataServerStruct(
             token: keychain.getAcessToken() ?? "",
             email: self.email ,
@@ -71,36 +71,36 @@ class AddingPersonalDataPresenter:AddingPersonalDataPresenterProtocol{
             phone: self.phone
         )
         
-        self.apiUserData.setUserInfo(data: data) { isSetted, error in
-            completion(isSetted,error)
-        }
+//        self.apiUserData.setUserInfo(data: data) { isSetted, error in
+//            completion(isSetted,error)
+//        }
     }
     
     
     
-    public func setCompanyNameApi(completion: @escaping (Bool, customErrorCompany?) -> Void){
+    public func setCompanyNameApi(completion: @escaping (Bool) -> Void){
         
-        self.apiCompany.addCompany(token: keychain.getAcessToken() ?? "", companyName: self.companyName) { isSetted, response, error  in
-            if error != nil{
-                completion(false,error)
-            }
-            if isSetted{
-                self.keychain.setCompanyLocalId(companyLocalId: response?.company_id ?? "")
-                completion(true,nil)
-            }
-        }
+//        self.apiCompany.addCompany(token: keychain.getAcessToken() ?? "", companyName: self.companyName) { isSetted, response, error  in
+//            if error != nil{
+//                completion(false,error)
+//            }
+//            if isSetted{
+//                self.keychain.setCompanyLocalId(companyLocalId: response?.company_id ?? "")
+//                completion(true,nil)
+//            }
+//        }
     }
     
-    public func addEmployeeToCompany(completion: @escaping (Bool, customErrorCompany?) -> Void){
-        self.apiCompany.addEmployeeToCompany(token: keychain.getAcessToken() ?? "", companyId: self.companyLocalId) { isAdded, response, error in
-            if error != nil{
-                completion(false,error)
-            }
-            if isAdded{
-                self.keychain.setCompanyName(companyName: response?.company_name ?? "")
-                completion(true,nil)
-            }
-        }
+    public func addEmployeeToCompany(completion: @escaping (Bool) -> Void){
+//        self.apiCompany.addEmployeeToCompany(token: keychain.getAcessToken() ?? "", companyId: self.companyLocalId) { isAdded, response, error in
+//            if error != nil{
+//                completion(false,error)
+//            }
+//            if isAdded{
+//                self.keychain.setCompanyName(companyName: response?.company_name ?? "")
+//                completion(true,nil)
+//            }
+//        }
     }
     
 }

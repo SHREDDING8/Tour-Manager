@@ -16,16 +16,173 @@ class NetworkServiceHelper{
     public let domain = "https://server.shredding-quiner.ru/"
     
     private static let newDomain = "https://24tour-manager.ru/api/"
-//    private static let newDomain = "http://193.164.150.181:32799/"
+    //    private static let newDomain = "http://193.164.150.181:32799/"
     
     
-    private let routeRefreshToken:String
+    private let routeRefreshToken:String = ""
     
-            
-    init(){
-        routeRefreshToken = domain + "auth/refresh_user_token"
-    
+    // MARK: - Error
+    enum NetworkError:String, Error{
+        // main
+        case tokenExpired = "Token expired"
+        case invalidFirebaseIdToken = "Invalid Firebase ID token"
+        case internalServerError = "Internal server error"
+        case permissionDenied = "Permission denied"
+        
+        case userDoesNotExist = "User does not exist"
+        case companyDoesNotExist = "Company does not exist"
+        case userIsNotInThisCompany = "User is not in this company"
+        
+        case invalidDate = "invalid date"
+        
+        // Autofill
+        case autofillKeyDoesNotExist = "Autofill key does not exist"
+        
+        // Auth
+        case emailExists = "Email exists"
+        case weakPassword = "Weak password"
+        
+        case emailIsNotVerified = "Email is not verified"
+        case invalidEmailOrPassword = "Invalid email or password"
+        case TOO_MANY_ATTEMPTS_TRY_LATER = "TOO_MANY_ATTEMPTS_TRY_LATER"
+        
+        // refresh_user_token
+        case TOKEN_EXPIRED = "TOKEN_EXPIRED"
+        case USER_DISABLED = "USER_DISABLED"
+        case USER_NOT_FOUND = "USER_NOT_FOUND"
+        case INVALID_REFRESH_TOKEN = "INVALID_REFRESH_TOKEN"
+        
+        // check_email
+        case EMAIL_NOT_FOUND = "EMAIL_NOT_FOUND"
+        case INVALID_PASSWORD = "INVALID_PASSWORD"
+        
+        case userWasNotFound = "User was not found"
+        case userIsOwnerOfCompany = "User is owner of company"
+        
+        case invalidPictureId = "Invalid picture id"
+        case fileNotFound = "File not found"
+        
+        case userIsNotInYourCompany = "User is not in your company"
+        
+        case userIsAlreadyAttachedToCompany = "User is already attached to company"
+        
+        // Employee
+        case companyisPrivate = "Company is private"
+        
+        // Tours
+        
+        case dateShouldBeGreaterStart_date = "date should be greater start_date"
+        case dateShouldBeLessMax_date = "date should be less max_date"
+        case since_dateShouldBeLessThanEnd_dateWithDifferenceNotMoreThan31Day = "since_date should be less than end_date with difference not more than 31 day"
+        case tourYearDoesNotExist = "Tour year does not exist"
+        case tourMonthDoesNotExist = "Tour month does not exist"
+        case tourDayDoesNotExist = "Tour day does not exist"
+//        case User(s): [ids] not in your company = "User(s): [ids] not in your company"
+        
+        case tourDoesNotExist = "TourDoesNotExist" // выходить из тура
+        
+        case guideIsNotInTour = "GuideIsNotInTour" // выходить из тура
+        
+        case unknown = "unknown"
+        
+        // init
+        static func getError(msg:String) -> NetworkError{
+            if let err = NetworkError(rawValue: msg){
+                return err
+            }
+            return NetworkError.unknown
+        }
+        
+        func getAlertBody() ->(title:String, msg:String?){
+            switch self {
+            case .tokenExpired:
+                ("Ваша сессия закончилась", nil)
+            case .invalidFirebaseIdToken:
+                ("Ваша сессия закончилась", nil)
+            case .internalServerError:
+                ("Ошибка сервера", "Повторите попытку позже")
+            case .permissionDenied:
+                ("Недостаточно прав", nil)
+            case .userDoesNotExist:
+                ("Пользователя не существует", nil)
+            case .companyDoesNotExist:
+                ("Организации не существует", nil)
+            case .userIsNotInThisCompany:
+                ("Пользователь не в этой организации", nil)
+            case .invalidDate:
+                ("Неправильно введена дата", nil)
+            case .autofillKeyDoesNotExist:
+                ("", nil)
+            case .emailExists:
+                ("Email уже существует", nil)
+            case .weakPassword:
+                ("Слишком слабый пароль", nil)
+            case .emailIsNotVerified:
+                ("Email не подтвержден", nil)
+            case .invalidEmailOrPassword:
+                ("Неверный email или пароль", nil)
+            case .TOO_MANY_ATTEMPTS_TRY_LATER:
+                ("Слишком много попыток", "Повторите позже")
+            case .TOKEN_EXPIRED:
+                ("Ваша сессия закончилась", nil)
+            case .USER_DISABLED:
+                ("Пользователь не найден", nil)
+            case .USER_NOT_FOUND:
+                ("Пользователь не найден", nil)
+            case .INVALID_REFRESH_TOKEN:
+                ("Ваша сессия закончилась", nil)
+            case .EMAIL_NOT_FOUND:
+                ("Email не найден", nil)
+            case .INVALID_PASSWORD:
+                ("Неверный пароль", nil)
+            case .userWasNotFound:
+                ("Пользователь не найден", nil)
+            case .userIsOwnerOfCompany:
+                ("Пользователь владелец организации", nil)
+            case .invalidPictureId:
+                ("invalidPictureId", nil)
+            case .fileNotFound:
+                ("invalidPictureId", nil)
+            case .userIsNotInYourCompany:
+                ("Пользователь не в этой организации", nil)
+            case .userIsAlreadyAttachedToCompany:
+                ("Пользователь уже принадлежит организации", nil)
+            case .companyisPrivate:
+                ("Организации приватная", nil)
+            case .dateShouldBeGreaterStart_date:
+                ("Неправильная дата", nil)
+            case .dateShouldBeLessMax_date:
+                ("Неправильная дата", nil)
+            case .since_dateShouldBeLessThanEnd_dateWithDifferenceNotMoreThan31Day:
+                ("Неправильная дата", nil)
+            case .tourYearDoesNotExist:
+                ("Экскурсия не найдена", nil)
+            case .tourMonthDoesNotExist:
+                ("Экскурсия не найдена", nil)
+            case .tourDayDoesNotExist:
+                ("Экскурсия не найдена", nil)
+            case .tourDoesNotExist:
+                ("Экскурсия не найдена", nil)
+            case .guideIsNotInTour:
+                ("Экскурсовод не в этой экскурсии", nil)
+            case .unknown:
+                ("Неизвестная ошибка", nil)
+            }
+        }
     }
+    
+    public struct ResponseWithErrorJsonStruct: Codable {
+        let detail:String
+    }
+    
+    public static func parseError(data:Data?)->NetworkError{
+        if let errorDecoded = try? JSONDecoder().decode(ResponseWithErrorJsonStruct.self, from: data ?? Data()){
+            return NetworkError.getError(msg: errorDecoded.detail)
+        }
+        return NetworkError.unknown
+    }
+    
+    
     
     // MARK: - URLS Base
     
@@ -161,7 +318,6 @@ class NetworkServiceHelper{
         
     }
     
-    
     public class Headers{
         private var headers:[String:String] = [:]
         let keyChainService:KeychainServiceProtocol = KeychainService()
@@ -178,11 +334,6 @@ class NetworkServiceHelper{
             headers[Keys.accessToken] = keyChainService.getAcessToken() ?? ""
         }
     }
-    
-    
-    
-    
-
     
     
     public func checServerkConnection(completion: @escaping (Bool)->Void){
@@ -203,53 +354,4 @@ class NetworkServiceHelper{
         
     }
     
-    public func requestWithCheckRefresh(completion: @escaping (String?)->Void){
-        let keychain = KeychainService()
-        completion(keychain.getAcessToken())
-//        let refreshToken = self.userDefaults.getRefreshToken() ?? ""
-//
-//        if !self.userDefaults.isAuthToken(date: Date.now){
-//            self.refreshToken(refreshToken: refreshToken) { isRefreshed, newToken, error in
-//                if isRefreshed{
-//                    self.userDefaults.setAuthToken(token: newToken!)
-//                    
-//                    completion(newToken!)
-//                }else{
-//                    completion(nil)
-//                }
-//            }
-//        }else{
-//            completion(nil)
-//        }
-    }
-        
-    private func refreshToken(refreshToken:String, completion: @escaping (Bool,String?, customErrorAuth?)->Void){
-
-//        AF.request(url,method: .post, parameters: jsonData,encoder: .json).response{
-//            response in
-//                        
-//            switch response.result {
-//            case .success(_):
-//                if response.response?.statusCode == 400{
-//                    completion(false,nil, .unknowmError)
-//                }else if response.response?.statusCode == 200{
-//                    
-//                    let newToken = try! JSONDecoder().decode(ResponseRefreshToken.self, from: response.data!)
-//                    completion(true, newToken.token, nil)
-//                    self.userDefaults.setLastRefreshDate(date: Date.now)
-//                    
-//                }else{
-//                    completion(false,nil, .unknowmError)
-//                }
-//            case .failure(_):
-//                completion(false,nil, .notConnected)
-//            }
-//        }
-        
-    }
-    
-}
-
-public struct ResponseWithErrorJsonStruct: Codable {
-    let message:String
 }

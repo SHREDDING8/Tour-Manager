@@ -16,7 +16,7 @@ protocol ChangePasswordPresenterProtocol:AnyObject{
     
     var passwords:[String:String] { get set }
     
-    func updatePassword(oldPassword:String, newPassword:String,completion: @escaping (Bool, customErrorAuth?)->Void )
+    func updatePassword(oldPassword:String, newPassword:String,completion: @escaping (Bool)->Void )
 }
 
 class ChangePasswordPresenter:ChangePasswordPresenterProtocol{
@@ -36,14 +36,14 @@ class ChangePasswordPresenter:ChangePasswordPresenterProtocol{
         self.view = view
     }
     
-    public func updatePassword(oldPassword:String, newPassword:String,completion: @escaping (Bool, customErrorAuth?)->Void ){
+    public func updatePassword(oldPassword:String, newPassword:String,completion: @escaping (Bool)->Void ){
         let email = usersRealm.getUserInfo(localId: keychain.getLocalId() ?? "")?.email ?? ""
-        self.apiAuth.updatePassword(email: email, oldPassword: oldPassword, newPassword: newPassword) { isUpdated, error in
-            if error != nil{
-                completion(false,error)
-                return
-            }
-            completion(true,nil)
-        }
+//        self.apiAuth.updatePassword(email: email, oldPassword: oldPassword, newPassword: newPassword) { isUpdated, error in
+//            if error != nil{
+//                completion(false,error)
+//                return
+//            }
+//            completion(true,nil)
+//        }
     }
 }

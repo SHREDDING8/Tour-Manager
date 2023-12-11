@@ -318,24 +318,8 @@
             filePath = "Tour Manager/Services/NetworkService/Auth/ApiManagerAuth.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
-            landmarkName = "refreshToken()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "FCC689FF-A9A5-414D-B3F1-AD08B1B8C665"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Tour Manager/Services/NetworkService/Auth/ApiManagerAuth.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
             landmarkName = "refreshToken()"
             landmarkType = "7">
          </BreakpointContent>
@@ -806,144 +790,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "80229A73-2DD2-4508-8AAB-1EB286799FCA"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Tour Manager/Services/NetworkService/Tours/ApiManagerExcursions.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "373"
-            endingLineNumber = "373"
-            landmarkName = "getDateTourList(date:guideOnly:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "80229A73-2DD2-4508-8AAB-1EB286799FCA - debc012d08185599"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) await resume partial function for Tour_Manager.ApiManagerExcursions.setGuideTourStatus(tourDate: Swift.String, tourId: Swift.String, guideStatus: Tour_Manager.Status) async throws -&gt; Swift.Bool"
-                  moduleName = "Tour Manager"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Services/NetworkService/Tours/ApiManagerExcursions.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "466"
-                  endingLineNumber = "466"
-                  offsetFromSymbolStart = "264">
-               </Location>
-               <Location
-                  uuid = "80229A73-2DD2-4508-8AAB-1EB286799FCA - 6ff9a44646d7e927"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(2) suspend resume partial function for Tour_Manager.ApiManagerExcursions.setGuideTourStatus(tourDate: Swift.String, tourId: Swift.String, guideStatus: Tour_Manager.Status) async throws -&gt; Swift.Bool"
-                  moduleName = "Tour Manager"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Services/NetworkService/Tours/ApiManagerExcursions.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "466"
-                  endingLineNumber = "466"
-                  offsetFromSymbolStart = "372">
-               </Location>
-               <Location
-                  uuid = "80229A73-2DD2-4508-8AAB-1EB286799FCA - 10d6cfff1a9ed59a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(5) suspend resume partial function for Tour_Manager.ApiManagerExcursions.setGuideTourStatus(tourDate: Swift.String, tourId: Swift.String, guideStatus: Tour_Manager.Status) async throws -&gt; Swift.Bool"
-                  moduleName = "Tour Manager"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Services/NetworkService/Tours/ApiManagerExcursions.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "466"
-                  endingLineNumber = "466"
-                  offsetFromSymbolStart = "304">
-               </Location>
-               <Location
-                  uuid = "80229A73-2DD2-4508-8AAB-1EB286799FCA - 21cf5af46d5f151"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(2) suspend resume partial function for Tour_Manager.ApiManagerExcursions.getTourDates(startDate: Swift.String, endDate: Swift.String, guideOnly: Swift.Bool) async throws -&gt; Swift.Array&lt;Tour_Manager.ResponseGetExcursionsListByRange&gt;"
-                  moduleName = "Tour Manager"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Services/NetworkService/Tours/ApiManagerExcursions.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "466"
-                  endingLineNumber = "466"
-                  offsetFromSymbolStart = "1268">
-               </Location>
-               <Location
-                  uuid = "80229A73-2DD2-4508-8AAB-1EB286799FCA - 69cddba64ee0a16e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) await resume partial function for Tour_Manager.ApiManagerExcursions.getTourDates(startDate: Swift.String, endDate: Swift.String, guideOnly: Swift.Bool) async throws -&gt; Swift.Array&lt;Tour_Manager.ResponseGetExcursionsListByRange&gt;"
-                  moduleName = "Tour Manager"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Services/NetworkService/Tours/ApiManagerExcursions.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "466"
-                  endingLineNumber = "466"
-                  offsetFromSymbolStart = "36">
-               </Location>
-               <Location
-                  uuid = "80229A73-2DD2-4508-8AAB-1EB286799FCA - b557962cc7383357"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(4) suspend resume partial function for Tour_Manager.ApiManagerExcursions.getTourDates(startDate: Swift.String, endDate: Swift.String, guideOnly: Swift.Bool) async throws -&gt; Swift.Array&lt;Tour_Manager.ResponseGetExcursionsListByRange&gt;"
-                  moduleName = "Tour Manager"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Services/NetworkService/Tours/ApiManagerExcursions.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "466"
-                  endingLineNumber = "466"
-                  offsetFromSymbolStart = "148">
-               </Location>
-               <Location
-                  uuid = "80229A73-2DD2-4508-8AAB-1EB286799FCA - 7c3506eb87a9dc54"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(5) suspend resume partial function for Tour_Manager.ApiManagerExcursions.getTourDates(startDate: Swift.String, endDate: Swift.String, guideOnly: Swift.Bool) async throws -&gt; Swift.Array&lt;Tour_Manager.ResponseGetExcursionsListByRange&gt;"
-                  moduleName = "Tour Manager"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Services/NetworkService/Tours/ApiManagerExcursions.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "466"
-                  endingLineNumber = "466"
-                  offsetFromSymbolStart = "132">
-               </Location>
-               <Location
-                  uuid = "80229A73-2DD2-4508-8AAB-1EB286799FCA - b833c254bde8a0bf"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.CheckedContinuation&lt;Swift.Array&lt;Tour_Manager.ResponseGetExcursionsListByRange&gt;, Swift.Error&gt;) -&gt; () in Tour_Manager.ApiManagerExcursions.getTourDates(startDate: Swift.String, endDate: Swift.String, guideOnly: Swift.Bool) async throws -&gt; Swift.Array&lt;Tour_Manager.ResponseGetExcursionsListByRange&gt;"
-                  moduleName = "Tour Manager"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Services/NetworkService/Tours/ApiManagerExcursions.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "468"
-                  endingLineNumber = "468"
-                  offsetFromSymbolStart = "240">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "692608C1-CE8E-4A29-A00C-D21011AA6729"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -951,8 +797,8 @@
             filePath = "Tour Manager/Services/NetworkService/Tours/ApiManagerExcursions.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "360"
-            endingLineNumber = "360"
+            startingLineNumber = "316"
+            endingLineNumber = "316"
             landmarkName = "getDateTourList(date:guideOnly:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -970,22 +816,6 @@
             startingLineNumber = "171"
             endingLineNumber = "171"
             landmarkName = "getExcursionsListByRangeFromServer(startDate:endDate:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F9FB8ECA-61D6-408F-B81A-88C2A264D3FE"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Tour Manager/Services/NetworkService/Tours/ApiManagerExcursions.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "385"
-            endingLineNumber = "385"
-            landmarkName = "getDateTourList(date:guideOnly:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1626,22 +1456,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "99E4AA74-1C64-418A-9C94-100806AA5C3C"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Tour Manager/Services/NetworkService/UserData/ApiManagerUserData.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
-            landmarkName = "getUserInfo(token:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "39E2F49E-1D3D-444C-9D35-ACA4C9806FD4"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -1649,8 +1463,8 @@
             filePath = "Tour Manager/Services/NetworkService/Auth/ApiManagerAuth.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
             landmarkName = "logIn(email:password:deviceToken:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1665,8 +1479,8 @@
             filePath = "Tour Manager/Services/NetworkService/Auth/ApiManagerAuth.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
             landmarkName = "logIn(email:password:deviceToken:)"
             landmarkType = "7">
             <Locations>
@@ -2316,54 +2130,6 @@
                   startingLineNumber = "124"
                   endingLineNumber = "124"
                   offsetFromSymbolStart = "2020">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2A496D27-F1B6-4539-83D9-C4BA85130ED4"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Tour Manager/Services/NetworkService/Tours/ApiManagerExcursions.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "363"
-            endingLineNumber = "363"
-            landmarkName = "getDateTourList(date:guideOnly:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "2A496D27-F1B6-4539-83D9-C4BA85130ED4 - 9017107508f18f4d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Alamofire.DataResponse&lt;Swift.Optional&lt;Foundation.Data&gt;, Alamofire.AFError&gt;) -&gt; () in closure #1 (Swift.CheckedContinuation&lt;Swift.Array&lt;Tour_Manager.ResponseGetExcursion&gt;, Swift.Error&gt;) -&gt; () in Tour_Manager.ApiManagerExcursions.getDateTourList(date: Swift.String, guideOnly: Swift.Bool) async throws -&gt; Swift.Array&lt;Tour_Manager.ResponseGetExcursion&gt;"
-                  moduleName = "Tour Manager"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Services/NetworkService/Tours/ApiManagerExcursions.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "363"
-                  endingLineNumber = "363"
-                  offsetFromSymbolStart = "380">
-               </Location>
-               <Location
-                  uuid = "2A496D27-F1B6-4539-83D9-C4BA85130ED4 - 9017107508f18f4d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Alamofire.DataResponse&lt;Swift.Optional&lt;Foundation.Data&gt;, Alamofire.AFError&gt;) -&gt; () in closure #1 (Swift.CheckedContinuation&lt;Swift.Array&lt;Tour_Manager.ResponseGetExcursion&gt;, Swift.Error&gt;) -&gt; () in Tour_Manager.ApiManagerExcursions.getDateTourList(date: Swift.String, guideOnly: Swift.Bool) async throws -&gt; Swift.Array&lt;Tour_Manager.ResponseGetExcursion&gt;"
-                  moduleName = "Tour Manager"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Services/NetworkService/Tours/ApiManagerExcursions.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "363"
-                  endingLineNumber = "363"
-                  offsetFromSymbolStart = "408">
                </Location>
             </Locations>
          </BreakpointContent>

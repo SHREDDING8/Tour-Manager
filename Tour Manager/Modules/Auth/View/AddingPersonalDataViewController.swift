@@ -185,45 +185,45 @@ class AddingPersonalDataViewController: UIViewController {
         }
         
         
-        self.presenter?.setUserInfoApi(completion: { IsSetted, error in
-            if let err = error{
-                self.alerts.errorAlert(self, errorUserDataApi: err) {
-                    self.loadUIView.removeLoadUIView()
-                }
-                return
-            }
-            
-            if IsSetted {
-                switch self.typeOfRegister {
-                case .emploee:
-                    self.presenter?.addEmployeeToCompany(completion: { isAdded, error in
-                        self.loadUIView.removeLoadUIView()
-                        if let err = error{
-                            self.alerts.errorAlert(self, errorCompanyApi: err) {
-                                self.controllers.goToLoginPage(view: self.view, direction: .fade)
-                            }
-                        }
-                        if isAdded{
-                            self.controllers.goToMainTabBar(view: self.view, direction: .fade)
-                        }
-                        
-                    })
-                    
-                case .company:
-                    self.presenter?.setCompanyNameApi( completion: { isAdded, error in
-                        self.loadUIView.removeLoadUIView()
-                        if let err = error {
-                            self.alerts.errorAlert(self, errorCompanyApi: err) {
-                                self.controllers.goToLoginPage(view: self.view, direction: .fade)
-                            }
-                        }
-                        if isAdded{
-                            self.controllers.goToMainTabBar(view: self.view, direction: .fade)
-                        }
-                    })
-                }
-            }
-        })
+//        self.presenter?.setUserInfoApi(completion: { IsSetted, error in
+//            if let err = error{
+//                self.alerts.errorAlert(self, errorUserDataApi: err) {
+//                    self.loadUIView.removeLoadUIView()
+//                }
+//                return
+//            }
+//            
+//            if IsSetted {
+//                switch self.typeOfRegister {
+//                case .emploee:
+//                    self.presenter?.addEmployeeToCompany(completion: { isAdded, error in
+//                        self.loadUIView.removeLoadUIView()
+//                        if let err = error{
+//                            self.alerts.errorAlert(self, errorCompanyApi: err) {
+//                                self.controllers.goToLoginPage(view: self.view, direction: .fade)
+//                            }
+//                        }
+//                        if isAdded{
+//                            self.controllers.goToMainTabBar(view: self.view, direction: .fade)
+//                        }
+//                        
+//                    })
+//                    
+//                case .company:
+//                    self.presenter?.setCompanyNameApi( completion: { isAdded, error in
+//                        self.loadUIView.removeLoadUIView()
+//                        if let err = error {
+//                            self.alerts.errorAlert(self, errorCompanyApi: err) {
+//                                self.controllers.goToLoginPage(view: self.view, direction: .fade)
+//                            }
+//                        }
+//                        if isAdded{
+//                            self.controllers.goToMainTabBar(view: self.view, direction: .fade)
+//                        }
+//                    })
+//                }
+//            }
+//        })
         
     }
     

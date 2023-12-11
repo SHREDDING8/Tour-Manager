@@ -232,11 +232,12 @@ class AddGuidePresenter:AddGuidePresenterProtocol{
                     self.getUsersFromRealm()
                 }
                 
-            } catch customErrorCompany.unknowmError{
-                DispatchQueue.main.async {
-//                    self.view?.unknownError()
-                }
-            }
+            } 
+//            catch customErrorCompany.unknowmError{
+//                DispatchQueue.main.async {
+////                    self.view?.unknownError()
+//                }
+//            }
         }
     }
     
