@@ -8,7 +8,7 @@
 import UIKit
 import AlertKit
 
-final class EmploeeViewController: UIViewController {
+final class EmploeeViewController: BaseViewController {
     
     var presenter:EmployeePresenter!
     
@@ -27,6 +27,9 @@ final class EmploeeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.setBackButton()
+        
         configureInfo()
         
         configureAccessLevels()

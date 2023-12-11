@@ -8,7 +8,7 @@
 import UIKit
 import AlertKit
 
-class ExtendedSettingsViewController: UIViewController {
+final class ExtendedSettingsViewController: BaseViewController {
     
     var presenter:ExtendedSettingsPresenterProtocol!
     
@@ -23,6 +23,8 @@ class ExtendedSettingsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.setBackButton()
         
         addTargets()
         self.presenter.loadLoggedDevices()

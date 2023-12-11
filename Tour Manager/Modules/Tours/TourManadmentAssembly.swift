@@ -71,7 +71,7 @@ class TourManadmentAssembly:TourManadmentAssemblyProtocol{
         let vc = GuideToursViewController()
         let presenter = ExcursionsGuideCalendarPresenter(view: vc)
         vc.presenter = presenter
-        return UINavigationController(rootViewController: vc)
+        return BaseNavigationViewController(rootViewController: vc)
     }
     
     static func createToursManadgmentViewController() -> UIViewController{
@@ -81,7 +81,7 @@ class TourManadmentAssembly:TourManadmentAssemblyProtocol{
         
         vc.presenter = presenter
         
-        return UINavigationController(rootViewController: vc)
+        return BaseNavigationViewController(rootViewController: vc)
     }
     
     static func createFullCalendarViewController(isGuide:Bool) -> UIViewController{

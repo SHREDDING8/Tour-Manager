@@ -22,7 +22,7 @@ final class ProfileAssembly:ProfileAssemblyProtocol{
         let view = ProfileViewController()
         let presenter = ProfilePagePresenter(view: view)
         view.presenter = presenter
-        return UINavigationController(rootViewController: view)
+        return BaseNavigationViewController(rootViewController: view)
     }
     
     static func createExtendedSettingsViewController() ->UIViewController{
