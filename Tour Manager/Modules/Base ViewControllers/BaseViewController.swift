@@ -39,6 +39,8 @@ class BaseViewController: UIViewController {
     private var monitor:NWPathMonitor?
     private static var isNoConnectionAlertShowed = false
     private var titleState:TitleStates = .normal
+    
+    var keyboardIsShowed:Bool = false
 
     
     internal var titleString:String = ""{
@@ -138,11 +140,45 @@ class BaseViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.listenConnection()
+        self.addKeyboardObservers()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.stopListenConnection()
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    fileprivate func addKeyboardObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc fileprivate func keyboardWillShow(notification: NSNotification){
+        if keyboardIsShowed { return }
+        if let activeTextField = UIResponder.currentFirstResponder as? UITextField, let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue{
+            // Теперь у вас есть ссылка на активное поле ввода
+            let textFieldFrame = activeTextField.convert(activeTextField.bounds, to: self.view)
+            print(textFieldFrame.maxY, keyboardSize.origin.y)
+            if textFieldFrame.maxY + 50 > keyboardSize.origin.y{
+                keyboardIsShowed = true
+                self.navigationController?.navigationBar.layer.opacity = 0
+                self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+                view.frame.origin.y -= (textFieldFrame.maxY + 50 - keyboardSize.origin.y)
+            }
+        }
+        
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if keyboardIsShowed{
+            view.frame.origin.y = 0
+            self.navigationController?.navigationBar.layer.opacity = 1
+            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+            keyboardIsShowed = false
+        }
+        
     }
     
     public func setBackButton(){

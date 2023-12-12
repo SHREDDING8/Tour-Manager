@@ -88,7 +88,7 @@ class ProfileView: UIView {
         conf.buttonSize = .large
         
         let button = UIButton(configuration: conf)
-        button.setImage(UIImage(systemName:"photo.circle"), for: .normal)
+        button.setImage(UIImage(systemName:"camera.fill"), for: .normal)
         button.tintColor = .white
         
         button.layer.shadowOffset = CGSize(width: 1, height: 1)

@@ -115,10 +115,6 @@ class CalendarCell:JTACDayCell{
     }
     
     public func configureEvents(_ colors:[UIColor]){
-        if colors.count > 0{
-            self.dayNameLabel.text = "EV"
-        }
-        
         let resString = NSMutableAttributedString()
         
         for indexColor in 0..<2{

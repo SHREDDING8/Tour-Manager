@@ -98,6 +98,7 @@
 		EEB764A32A387B2200579E6B /* NewComponentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEB764A12A387B2200579E6B /* NewComponentTableViewCell.xib */; };
 		EEC9BA182A2670A100BC026A /* Bool.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC9BA172A2670A100BC026A /* Bool.swift */; };
 		EED09DA52AE2DA99000CDA7F /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED09DA42AE2DA99000CDA7F /* NotesViewController.swift */; };
+		EED2E2482B28E9AC00590371 /* UIRESPONDER.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED2E2472B28E9AC00590371 /* UIRESPONDER.swift */; };
 		EED4DA7E2ADDA12A00C76FE3 /* EventRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED4DA7D2ADDA12A00C76FE3 /* EventRealmModel.swift */; };
 		EED645212A98D33500F2ADC9 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED645202A98D33500F2ADC9 /* KeychainService.swift */; };
 		EED645232A98DA7C00F2ADC9 /* LoginViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED645222A98DA7C00F2ADC9 /* LoginViewPresenter.swift */; };
@@ -268,6 +269,7 @@
 		EEB764A12A387B2200579E6B /* NewComponentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewComponentTableViewCell.xib; sourceTree = "<group>"; };
 		EEC9BA172A2670A100BC026A /* Bool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bool.swift; sourceTree = "<group>"; };
 		EED09DA42AE2DA99000CDA7F /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
+		EED2E2472B28E9AC00590371 /* UIRESPONDER.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIRESPONDER.swift; sourceTree = "<group>"; };
 		EED4DA7D2ADDA12A00C76FE3 /* EventRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRealmModel.swift; sourceTree = "<group>"; };
 		EED645202A98D33500F2ADC9 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		EED645222A98DA7C00F2ADC9 /* LoginViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewPresenter.swift; sourceTree = "<group>"; };
@@ -451,6 +453,7 @@
 				EEC9BA172A2670A100BC026A /* Bool.swift */,
 				EEF7763F2ADAA37000532440 /* UiViewController extension.swift */,
 				EE330A7F2AE5738C00109E4E /* Results Extension.swift */,
+				EED2E2472B28E9AC00590371 /* UIRESPONDER.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1428,6 +1431,7 @@
 				EE14D3802B14B75000A188F8 /* CalendarCell.swift in Sources */,
 				EE5F91BE2A1E9FC400B39BB1 /* NetworkServiceHelper.swift in Sources */,
 				EE1A678F2A40F50F007A1A84 /* ExcursionForGuideTableViewController.swift in Sources */,
+				EED2E2482B28E9AC00590371 /* UIRESPONDER.swift in Sources */,
 				EEDA5E9D2A37BFA9002CC5C8 /* UiTextView.swift in Sources */,
 				EE5F91C92A1FFBB500B39BB1 /* ConvertDate.swift in Sources */,
 				EE261BE22B1F4C9E0010DD9B /* GuideToursViewController.swift in Sources */,

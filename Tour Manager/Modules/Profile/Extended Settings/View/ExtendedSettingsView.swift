@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import DeviceKit
 
 class ExtendedSettingsView: UIView {
     
@@ -39,8 +40,12 @@ class ExtendedSettingsView: UIView {
     
     lazy var logoutAll:UIButton = {
         let button = UIButton()
-
-        button.setImage(UIImage(systemName:"door.left.hand.open"), for: .normal)
+        if #available(iOS 16.0, *){
+            button.setImage(UIImage(systemName:"door.left.hand.open"), for: .normal)
+        }else{
+            button.setImage(UIImage(systemName: "xmark.circle"), for: .normal)
+        }
+        
         button.tintColor = .systemRed
         return button
     }()
@@ -113,7 +118,7 @@ class ExtendedSettingsView: UIView {
             make.top.equalTo(allDevicesHStack.snp.bottom).offset(20).labeled("devicesVStack")
             make.leading.trailing.equalToSuperview().inset(20).labeled("devicesVStack")
         }
-        
+                
         changePasswordStackView.snp.makeConstraints { make in
             make.top.equalTo(devicesVStack.snp.bottom).offset(20).labeled("changePasswordStackView")
             make.leading.trailing.equalToSuperview().inset(20).labeled("changePasswordStackView")
