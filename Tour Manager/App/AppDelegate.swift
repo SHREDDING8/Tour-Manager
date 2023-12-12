@@ -124,7 +124,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate{
        
         let notificationUserInfo = notification.request.content.userInfo
         
-        let notificationType =  notificationUserInfo["notification_type"] as? String
+//        let notificationType =  notificationUserInfo["notification_type"] as? String
             
         completionHandler([.banner,.badge,.sound])
        

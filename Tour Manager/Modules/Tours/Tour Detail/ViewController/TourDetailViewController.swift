@@ -44,7 +44,7 @@ class TourDetailViewController: BaseViewController {
         if presenter.isAccessLevel(key: .canWriteTourList){
 //            self.navigationController?.interactivePopGestureRecognizer?.delegate = self
             
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.down"), style: .done, target: self, action: #selector(saveButtonClick))
+            self.navigationItem.rightBarButtonItem =  UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonClick))
         }
     }
     

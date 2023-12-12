@@ -48,11 +48,21 @@ struct ExcrusionModel:Equatable{
     }
     
     struct Guide:Equatable{
+        static func == (lhs: ExcrusionModel.Guide, rhs: ExcrusionModel.Guide) -> Bool {
+            lhs.id == rhs.id &&
+            lhs.firstName == rhs.firstName &&
+            lhs.lastName == rhs.lastName &&
+            lhs.isMain == rhs.isMain &&
+            lhs.status == rhs.status
+        }
+        
         var id:String
         var firstName:String
         var lastName:String
         var isMain:Bool = false
         var status: GuideStatus = .waiting
+        
+        var images:[(id:String, image:UIImage)] = []
     }
         
     var tourId:String = ""

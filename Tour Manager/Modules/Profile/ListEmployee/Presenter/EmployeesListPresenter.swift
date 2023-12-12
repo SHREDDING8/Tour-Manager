@@ -129,7 +129,6 @@ class EmployeesListPresenter:EmployeesListPresenterProtocol{
             }
             
             for imageId in usersImages{
-                // добавить фото как в petConnect
                 do{
                     let imageData = try await self.usersNetworkService.downloadProfilePhoto(pictureId: imageId)
                     

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol AddGuideViewProtocol:AnyObject, BaseViewControllerProtocol{
     func updateUsersList()
@@ -40,7 +41,9 @@ class AddGuidePresenter:AddGuidePresenterProtocol{
     var presentedGuides:[UsersModel] = []
     
     var usersRealmService:UsersRealmServiceProtocol = UsersRealmService()
+    var imageService:ImagesRealmServiceProtocol = ImagesRealmService()
     var employeeNetworkService:EmployeeNetworkServiceProtocol = EmployeeNetworkService()
+    var usersNetworkService:ApiManagerUserDataProtocol = ApiManagerUserData()
     
     required init(view:AddGuideViewProtocol) {
         self.view = view
@@ -72,31 +75,7 @@ class AddGuidePresenter:AddGuidePresenterProtocol{
         }
 
     }
-    
-    func didSelect(index:Int){
-        let selectedGuide = presentedGuides[index]
-        var guideModel = ExcrusionModel.Guide(
-            id: selectedGuide.localId,
-            firstName: selectedGuide.firstName,
-            lastName: selectedGuide.secondName,
-            isMain: false,
-            status: .waiting
-        )
-        if !isGuideContains(index: index){
-            if selectedGuides.count == 0{
-                guideModel.isMain = true
-            }
-            self.selectedGuides.append(guideModel)
-        }else{
-            self.selectedGuides.removeAll { guide in
-                guide.id == selectedGuide.localId
-            }
-        }
         
-        self.view?.updateUsersList()
-        
-    }
-    
     func didSelectPresented(index:Int){
         let selectedGuide = filterPresentedGuides()[index]
         let guideModel = ExcrusionModel.Guide(
@@ -104,7 +83,8 @@ class AddGuidePresenter:AddGuidePresenterProtocol{
             firstName: selectedGuide.firstName,
             lastName: selectedGuide.secondName,
             isMain: selectedGuides.count == 0 ? true : false,
-            status: .waiting
+            status: .waiting,
+            images: selectedGuide.images
         )
         self.selectedGuides.append(guideModel)
         self.view?.updateUsersList()
@@ -168,6 +148,15 @@ class AddGuidePresenter:AddGuidePresenterProtocol{
         self.allGuides = []
         
         for user in realmUsers{
+            
+            var images:[(String, UIImage)] = []
+                        
+            for id in user.imageIDs{
+                if let imageData = imageService.getImage(by: id){
+                    images.append(( id, UIImage(data: imageData)! ))
+                }
+            }
+            
             if (user.accesslLevels?.isGuide ?? false){
                 let newUserModel = UsersModel(
                     localId: user.localId,
@@ -176,7 +165,7 @@ class AddGuidePresenter:AddGuidePresenterProtocol{
                     email: user.email ?? "",
                     phone: user.phone ?? "",
                     birthday: user.birthday ?? Date.now,
-                    images: [],
+                    images: images,
                     accessLevels: UsersModel.UserAccessLevels(
                         readCompanyEmployee: user.accesslLevels?.readCompanyEmployee ?? false,
                         readLocalIdCompany: user.accesslLevels?.readLocalIdCompany ?? false,
@@ -202,6 +191,8 @@ class AddGuidePresenter:AddGuidePresenterProtocol{
         
         view?.setUpdating()
         Task{
+            var usersImages:[String] = []
+            
             do {
                 let jsonUsers = try await self.employeeNetworkService.getCompanyUsers()
                 
@@ -212,7 +203,8 @@ class AddGuidePresenter:AddGuidePresenterProtocol{
                         secondName: jsonUser.lastName,
                         email: jsonUser.email,
                         phone: jsonUser.phone,
-                        birthday: Date.birthdayFromString(dateString: jsonUser.birthdayDate), imageIDs: [],
+                        birthday: Date.birthdayFromString(dateString: jsonUser.birthdayDate), 
+                        imageIDs: jsonUser.profilePictures,
                         accesslLevels: UserAccessLevelRealm(
                             readCompanyEmployee: jsonUser.accessLevels.readCompanyEmployee,
                             readLocalIdCompany: jsonUser.accessLevels.readLocalIDCompany,
@@ -226,6 +218,9 @@ class AddGuidePresenter:AddGuidePresenterProtocol{
                     
                     DispatchQueue.main.sync {
                         usersRealmService.setUserInfo(user: realmUser)
+                        if let firstId = jsonUser.profilePictures.first, imageService.getImage(by: firstId) == nil{
+                            usersImages.append(firstId)
+                        }
                     }
                     
                 }
@@ -236,6 +231,27 @@ class AddGuidePresenter:AddGuidePresenterProtocol{
             } catch let error{
                 if let err = error as? NetworkServiceHelper.NetworkError{
                     self.view?.showError(error: err)
+                }
+            }
+            
+            for imageId in usersImages{
+                do{
+                    let imageData = try await self.usersNetworkService.downloadProfilePhoto(pictureId: imageId)
+                    
+                    DispatchQueue.main.sync {
+                        self.imageService.setNewImage(id: imageId, imageData)
+                    }
+                    
+                } catch let error{
+                    if let err = error as? NetworkServiceHelper.NetworkError{
+                        self.view?.showError(error: err)
+                    }
+                }
+            }
+            
+            if usersImages.count > 0{
+                DispatchQueue.main.async {
+                    self.getUsersFromRealm()
                 }
             }
             

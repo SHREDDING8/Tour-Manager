@@ -12,24 +12,24 @@ class AddGuideViewController: BaseViewController {
     
     var presenter:AddGuidePresenterProtocol!
     var doAfterClose:(([ExcrusionModel.Guide])->Void)?
-    
-    lazy var textField:UITextField = {
-        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.font = Font.getFont(name: .americanTypewriter, style: .bold, size: 24)
-        textField.delegate = self
         
-        textField.placeholder = "Поиск"
-        textField.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
-        return textField
+    lazy var searchcontroller:UISearchController = {
+        let controller = UISearchController(searchResultsController: nil)
+        controller.searchResultsUpdater = self
+        controller.obscuresBackgroundDuringPresentation = false
+        controller.searchBar.placeholder = "Найти экскурсовода"
+        
+        return controller
     }()
     
     lazy var tableView:UITableView = {
-        let tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
+        let tableView = UITableView(frame: CGRect.zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = .clear
+        
+        tableView.register(OneEmployeeTableViewCell.self, forCellReuseIdentifier: "employee")
         
         let refresh = UIRefreshControl(frame: CGRect.zero, primaryAction: UIAction(handler: { _ in
             self.presenter.getUsersFromServer()
@@ -38,15 +38,6 @@ class AddGuideViewController: BaseViewController {
         tableView.refreshControl = refresh
         
         return tableView
-    }()
-    
-    lazy var line:UIView = {
-        let line = UIView()
-        line.translatesAutoresizingMaskIntoConstraints = false
-        line.backgroundColor = UIColor(resource: .blueText)
-        line.layer.cornerRadius = 5
-        line.layer.opacity = 0.5
-        return line
     }()
     
     override func viewDidLoad() {
@@ -71,28 +62,12 @@ class AddGuideViewController: BaseViewController {
         self.view.backgroundColor = UIColor(resource: .background)
         self.titleString = "Экскурсоводы"
         self.setBackButton()
+        self.navigationItem.searchController = searchcontroller
         
-        self.view.addSubview(self.textField)
-        self.view.addSubview(self.line)
         self.view.addSubview(self.tableView)
-        
-        let nibcell = UINib(nibName: "NewComponentTableViewCell", bundle: nil)
-        tableView.register(nibcell, forCellReuseIdentifier: "NewComponentTableViewCell")
-       
-        textField.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(20)
-            make.leading.trailing.equalToSuperview().inset(20)
-            make.height.equalTo(50)
-        }
-        
-        line.snp.makeConstraints { make in
-            make.trailing.leading.equalToSuperview().inset(10)
-            make.top.equalTo(textField.snp.bottom).offset(2)
-            make.height.equalTo(2)
-        }
-        
+               
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(line.snp.bottom).offset(30)
+            make.top.equalTo(self.view.safeAreaLayoutGuide)
             make.trailing.leading.bottom.equalToSuperview()
         }
         
@@ -101,16 +76,20 @@ class AddGuideViewController: BaseViewController {
 
 }
 
+extension AddGuideViewController:UISearchResultsUpdating{
+    func updateSearchResults(for searchController: UISearchController) {
+        presenter.textFieldChanged(text: searchController.searchBar.text ?? "")
+    }
+    
+    
+}
+
 extension AddGuideViewController:UITextFieldDelegate{
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return textField.resignFirstResponder()
     }
-    
-    @objc func textFieldChanged(){
-        presenter.textFieldChanged(text: self.textField.text ?? "")
-    }
-    
+        
 }
 
 extension AddGuideViewController:UITableViewDelegate,UITableViewDataSource{
@@ -136,28 +115,33 @@ extension AddGuideViewController:UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "employee") as! OneEmployeeTableViewCell
+        
+        cell.accessoryType = .none
+        
         if indexPath.section == 0{
             
-            let cell = tableView.dequeueReusableCell(withIdentifier: "NewComponentTableViewCell") as! NewComponentTableViewCell
             let guide = self.presenter.selectedGuides[indexPath.row]
             
-            cell.componentText.text = "\(guide.firstName) \(guide.lastName)"
-            cell.accessoryType = .checkmark
+            cell.name.text = "\(guide.isMain == true ? "★" : "") \(guide.firstName) \(guide.lastName)"
             
-            if guide.isMain{
-                cell.componentText.text! += " ★"
+            if let image = guide.images.first{
+                cell.image.image = image.image
             }
             
             return cell
             
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "NewComponentTableViewCell") as! NewComponentTableViewCell
+            
             
             let guide = presenter.getPresentGuide(index: indexPath.row)
             
-            cell.componentText.text = guide.fullName
+            cell.name.text = guide.fullName
             
-            cell.accessoryType = .none
+            
+            if let image = guide.images.first{
+                cell.image.image = image.image
+            }
             
             return cell
         }
@@ -172,6 +156,10 @@ extension AddGuideViewController:UITableViewDelegate,UITableViewDataSource{
             presenter.didSelectPresented(index: indexPath.row)
         }
         
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        60
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
