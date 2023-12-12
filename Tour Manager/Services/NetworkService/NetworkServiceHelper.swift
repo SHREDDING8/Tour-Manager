@@ -85,6 +85,8 @@ class NetworkServiceHelper{
         
         case unknown = "unknown"
         
+        case noConnection
+        
         // init
         static func getError(msg:String) -> NetworkError{
             if let err = NetworkError(rawValue: msg){
@@ -167,6 +169,8 @@ class NetworkServiceHelper{
                 ("Экскурсовод не в этой экскурсии", nil)
             case .unknown:
                 ("Неизвестная ошибка", nil)
+            case .noConnection:
+                ("Отсутствует интернет соединение", nil)
             }
         }
     }
@@ -324,6 +328,7 @@ class NetworkServiceHelper{
         
         private enum Keys{
             static let accessToken = "token"
+            static let refreshToken = "refresh-token"
         }
         
         public func getHeaders()->HTTPHeaders{
@@ -332,6 +337,10 @@ class NetworkServiceHelper{
         
         public func addAccessTokenHeader(){
             headers[Keys.accessToken] = keyChainService.getAcessToken() ?? ""
+        }
+        
+        public func addRefreshToken(){
+            headers[Keys.refreshToken] = keyChainService.getRefreshToken() ?? ""
         }
     }
     

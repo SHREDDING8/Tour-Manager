@@ -9,15 +9,13 @@ import Foundation
 import UIKit
 import RealmSwift
 
-protocol NewExcursionViewProtocol:AnyObject{
-    func delete(isSuccess:Bool)
-    func isAdded(isSuccess:Bool)
-    func isUpdated(isSuccess:Bool)
+protocol NewExcursionViewProtocol:AnyObject, BaseViewControllerProtocol{
+    func deleteSuccessful()
+    func addedSuccessful()
+    func updatedSuccessful()
     
     func refreshSuccess()
-    
-    func updateCollectionView()
-    
+        
     func validationError(title:String, msg:String)
     
     func fillFields()
@@ -131,6 +129,7 @@ class NewExcursionPresenter:NewExcursionPresenterProtocol{
     
     func loadTourFromServer(){
         if tour.tourId.isEmpty { fatalError("It is new tour")}
+        view?.setUpdating()
         Task{
             do{
                 let tourFromServer = try await toursNetworkService.getTour(
@@ -215,26 +214,38 @@ class NewExcursionPresenter:NewExcursionPresenterProtocol{
                     self.view?.refreshSuccess()
                 }
                 
-            } catch{
-                
+            } catch let error{
+                if let err = error as? NetworkServiceHelper.NetworkError{
+                    self.view?.showError(error: err)
+                }
             }
+            DispatchQueue.main.async {
+                self.view?.stopUpdating()
+            }
+            
             
         }
     }
     
     private func updateExcursion(){
+        view?.setSaving()
+        view?.showLoadingView()
         Task{
             do{
                 if try await toursNetworkService.updateTour(tour: tour, oldDate:oldTour.dateAndTime){
                     DispatchQueue.main.async {
-                        self.view?.isUpdated(isSuccess: true)
+                        self.view?.updatedSuccessful()
                     }
                 }
-            } catch{
-                DispatchQueue.main.async {
-                    self.view?.isUpdated(isSuccess: false)
+            } catch let error{
+                if let err = error as? NetworkServiceHelper.NetworkError{
+                    self.view?.showError(error: err)
                 }
                 
+            }
+            DispatchQueue.main.async {
+                self.view?.stopSaving()
+                self.view?.stopLoadingView()
             }
             
         }
@@ -242,25 +253,33 @@ class NewExcursionPresenter:NewExcursionPresenterProtocol{
     }
     
     private func createNewExcursion(){
+        view?.setSaving()
+        view?.showLoadingView()
         Task{
             do{
                 if try await toursNetworkService.addNewTour(tour:self.tour){
                     DispatchQueue.main.async {
-                        self.view?.isAdded(isSuccess: true)
+                        self.view?.addedSuccessful()
                     }
                 }
                 
-            } catch{
-                DispatchQueue.main.async {
-                    self.view?.isAdded(isSuccess: false)
+            } catch let error{
+                if let err = error as? NetworkServiceHelper.NetworkError{
+                    self.view?.showError(error: err)
                 }
-                
+            }
+            
+            DispatchQueue.main.async {
+                self.view?.stopSaving()
+                self.view?.stopLoadingView()
             }
         }
         
     }
     
     func deleteTour(){
+        view?.setSaving()
+        view?.showLoadingView()
         Task{
             do{
                 let result = try await toursNetworkService.deleteTour(date: oldTour.dateAndTime.birthdayToString(), tourId: tour.tourId)
@@ -268,14 +287,19 @@ class NewExcursionPresenter:NewExcursionPresenterProtocol{
                 if result{
                     DispatchQueue.main.async {
                         self.toursRealmService.deleteTour(tourId: self.tour.tourId)
-                        self.view?.delete(isSuccess: true)
+                        self.view?.deleteSuccessful()
                     }
                 }
                 
-            } catch{
-                DispatchQueue.main.async {
-                    self.view?.delete(isSuccess: false)
+            } catch let error{
+                if let err = error as? NetworkServiceHelper.NetworkError{
+                    self.view?.showError(error: err)
                 }
+            }
+            
+            DispatchQueue.main.async {
+                self.view?.stopSaving()
+                self.view?.stopLoadingView()
             }
         }
     }
@@ -333,16 +357,7 @@ class NewExcursionPresenter:NewExcursionPresenterProtocol{
         
         return res
     }
-        
     
-    public func getUserPhotoFromRealm(by index:Int) -> UIImage?{
-        
-//        if let imageData = usersRealmService.getUserInfo(localId: self.tour.guides[index].id)?.image{
-//            return UIImage(data: imageData)
-//        }
-        
-        return nil
-    }
     
     private func downloadPhotos(ids:[String]){
         Task{
@@ -363,29 +378,6 @@ class NewExcursionPresenter:NewExcursionPresenterProtocol{
                 }
                 
                 self.view?.fillGuides()
-            }
-        }
-    }
-    
-    public func getUserPhotoFromServer(by index:Int, completion: @escaping ((UIImage?)->Void) ){
-        Task{
-            do {
-                let imageData = try await usersNetworkSevise.downloadProfilePhoto(pictureId: "mock")
-                
-                DispatchQueue.main.async{
-                    let guide = self.tour.guides[index]
-                    
-                    if self.usersRealmService.getUserInfo(localId: guide.id) == nil{
-                        let newUser = UserRealm(localId: guide.id, firstName: guide.firstName, secondName: guide.lastName)
-                        self.usersRealmService.setUserInfo(user: newUser)
-                    }
-                    
-//                    self.usersRealmService.updateImage(id: self.tour.guides[index].id, image: imageData)
-                   completion(UIImage(data: imageData))
-                }
-                
-            } catch{
-                
             }
         }
     }

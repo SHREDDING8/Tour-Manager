@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AlertKit
 
 final class TourManadgmentViewController: ToursBaseViewController {
     
@@ -26,7 +27,7 @@ final class TourManadgmentViewController: ToursBaseViewController {
     }
     
     private func configureView(){
-        self.navigationItem.title = "Управление"
+        self.titleString = "Менеджмент"
         
         if self.presenter.isAccessLevel(key: .canWriteTourList){
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .add, primaryAction: UIAction(handler: { _ in
@@ -177,6 +178,16 @@ extension TourManadgmentViewController:ToursBaseViewControllerDelegate{
 }
 
 extension TourManadgmentViewController:ExcursionManadmentViewProtocol{
+    func tourDeleted() {
+        AlertKitAPI.present(
+            title: "Экскурсия удалена",
+            subtitle: nil,
+            icon: .done,
+            style: .iOS17AppleMusic,
+            haptic: .success
+        )
+    }
+    
 
     func updateTours(date:Date) {
         self.reloadTours(inDate: date)

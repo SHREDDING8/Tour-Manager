@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol AddGuideViewProtocol:AnyObject{
+protocol AddGuideViewProtocol:AnyObject, BaseViewControllerProtocol{
     func updateUsersList()
     func updateAllGuidesList()
 }
@@ -199,9 +199,10 @@ class AddGuidePresenter:AddGuidePresenterProtocol{
     }
     
     func getUsersFromServer(){
+        
+        view?.setUpdating()
         Task{
             do {
-                // TODO
                 let jsonUsers = try await self.employeeNetworkService.getCompanyUsers()
                 
                 for jsonUser in jsonUsers {
@@ -232,12 +233,15 @@ class AddGuidePresenter:AddGuidePresenterProtocol{
                     self.getUsersFromRealm()
                 }
                 
-            } 
-//            catch customErrorCompany.unknowmError{
-//                DispatchQueue.main.async {
-////                    self.view?.unknownError()
-//                }
-//            }
+            } catch let error{
+                if let err = error as? NetworkServiceHelper.NetworkError{
+                    self.view?.showError(error: err)
+                }
+            }
+            
+            DispatchQueue.main.async {
+                self.view?.stopUpdating()
+            }
         }
     }
     

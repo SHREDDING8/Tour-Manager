@@ -425,6 +425,54 @@ extension NewExcursionTableViewController:UIGestureRecognizerDelegate{
 }
 
 extension NewExcursionTableViewController:NewExcursionViewProtocol{
+    func deleteSuccessful() {
+        
+    }
+    
+    func addedSuccessful() {
+        
+    }
+    
+    func updatedSuccessful() {
+        
+    }
+    
+    func setUpdating() {
+        
+    }
+    
+    func stopUpdating() {
+        
+    }
+    
+    func setLoading() {
+        
+    }
+    
+    func stopLoading() {
+        
+    }
+    
+    func setSaving() {
+        
+    }
+    
+    func stopSaving() {
+        
+    }
+    
+    func showLoadingView() {
+        
+    }
+    
+    func stopLoadingView() {
+        
+    }
+    
+    func showError(error: NetworkServiceHelper.NetworkError) {
+        
+    }
+    
     func refreshSuccess() {
         
     }

@@ -7,8 +7,9 @@
 
 import UIKit
 import EventKit
+import AlertKit
 
-class TourDetailForGuideViewController: UIViewController {
+class TourDetailForGuideViewController: BaseViewController {
 
     private func view() -> TourDetailView{
         return view as! TourDetailView
@@ -30,18 +31,14 @@ class TourDetailForGuideViewController: UIViewController {
         super.viewDidLoad()
         
         addTargets()
-        
-        
-
-        // Do any additional setup after loading the view.
+        self.titleString = presenter.tour.tourTitle
+        self.setBackButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fillFields()
-        
-        self.navigationItem.title = presenter.tour.tourTitle
-        
+    
         if presenter.tour.dateAndTime > Date.now{
             self.navigationItem.rightBarButtonItems = [
                 UIBarButtonItem(image: UIImage(systemName: "star.fill"), style: .plain, target: self, action: #selector(showAcceptAlert))
@@ -180,6 +177,16 @@ extension TourDetailForGuideViewController: OneGuideExcursionViewProtocol{
     }
     
     func updateGuideStatus(guideStatus: Status) {
+        if guideStatus == .accepted || guideStatus == .cancel{
+            AlertKitAPI.present(
+                title: "Экскурсия \(guideStatus == .accepted ? "принята" : "отклонена")",
+                subtitle: nil,
+                icon: guideStatus == .accepted ? .heart : .custom(UIImage(resource: .sadSmile)),
+                style: .iOS17AppleMusic,
+                haptic: guideStatus == .accepted ? .success : .error
+            )
+        }
+        
         if guideStatus == .accepted{
             self.addReminderToCalendar()
         }

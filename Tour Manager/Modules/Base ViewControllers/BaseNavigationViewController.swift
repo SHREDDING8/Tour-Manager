@@ -13,6 +13,8 @@ class BaseNavigationViewController: UINavigationController {
         super.viewDidLoad()
         
         self.navigationBar.tintColor = UIColor(resource: .blueText)
+
+        
     }
     
 }

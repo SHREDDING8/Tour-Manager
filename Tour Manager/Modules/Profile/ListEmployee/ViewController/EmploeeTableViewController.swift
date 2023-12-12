@@ -7,21 +7,40 @@
 
 import UIKit
 import AlertKit
+import SnapKit
 
-class EmploeeTableViewController: UITableViewController {
+class EmploeeTableViewController: BaseViewController{
+    
+    lazy var tableView:UITableView = {
+        let tableView = UITableView(frame: .zero, style: .plain)
+        
+        tableView.register(OneEmployeeTableViewCell.self, forCellReuseIdentifier: "employee")
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        tableView.refreshControl = UIRefreshControl(frame: .zero, primaryAction: UIAction(handler: { _ in
+            DispatchQueue.main.async {
+                self.presenter.getUsersFromServer()
+            }
+        }))
+        
+        return tableView
+    }()
     
     var presenter:EmployeesListPresenterProtocol!
     
-    let controllers = Controllers()
-    let alerts = Alert()
-            
-    let refreshControll = UIRefreshControl()
-    
-    var isFirstLoad = true
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.register(OneEmployeeTableViewCell.self, forCellReuseIdentifier: "employee")
+        self.view.addSubview(tableView)
+        tableView.snp.makeConstraints { make in
+            make.top.bottom.leading.trailing.equalTo(self.view.safeAreaLayoutGuide)
+        }
+        
+        self.view.backgroundColor = UIColor(resource: .background)
+        
+        self.titleString = "Сотрудники"
+        self.setBackButton()
         
         presenter.getUsersFromRealm()
         
@@ -29,31 +48,21 @@ class EmploeeTableViewController: UITableViewController {
             self.presenter.getUsersFromServer()
         }
         
-        self.navigationItem.title = "Сотрудники"
-        
-        let refresh = UIAction { _ in
-            DispatchQueue.main.async {
-                self.presenter.getUsersFromServer()
-            }
-        }
-        
-        refreshControll.addAction(refresh, for: .valueChanged)
-        tableView.refreshControl = refreshControll
-        
     }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    
+}
+// MARK: - Table view data source
+extension EmploeeTableViewController:UITableViewDelegate, UITableViewDataSource{
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter.users.count
     }
 
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "employee", for: indexPath) as! OneEmployeeTableViewCell
         let employee = presenter.users[indexPath.row]
         cell.name.text = employee.fullName
@@ -65,28 +74,27 @@ class EmploeeTableViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         let destination = EmployeeAseembly.EmployeeDetailController(user: presenter.users[indexPath.row])
         self.navigationController?.pushViewController(destination, animated: true)
         
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         60
     }
-
 }
 
 extension EmploeeTableViewController:EmployeesListViewProtocol{
     
-    func updateUsersList() {
-        self.tableView.reloadData()
+    func endRefreshing(){
         self.tableView.refreshControl?.endRefreshing()
     }
     
-    func unknownError(){
-        AlertKitAPI.present(title: "Нeизвестная ошибка", icon: .error, style: .iOS17AppleMusic, haptic: .error)
+    func updateUsersList() {
+        self.tableView.reloadData()
+       
     }
     
 }

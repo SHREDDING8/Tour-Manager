@@ -8,13 +8,13 @@
 import Foundation
 import UIKit
 
-protocol ProfileViewProtocol:AnyObject{
+protocol ProfileViewProtocol:AnyObject, BaseViewControllerProtocol{
+    func endRefreshing()
+    
     func updateImage(at indexPath:IndexPath, image:UIImage)
     
     func deletePhotoSuccess()
-    func deletePhotoError()
     func uploadSuccess(image:UIImage)
-    func uploadError()
     
     func updateInfoError()
     func updateInfoSuccess()
@@ -23,7 +23,6 @@ protocol ProfileViewProtocol:AnyObject{
     func updateCompanyInfoSuccess()
     
     func logoutSuccess()
-    func logoutError()
     
     func loadUserInfoFromServer()
 }
@@ -37,7 +36,7 @@ protocol ProfilePagePresenterProtocol:AnyObject{
     
     func getCompanyName() -> String
     func getCompanyId() -> String
-        
+    
     func getFirstName() ->String
     func getSecondName() ->String
     func getFullName() ->String
@@ -51,7 +50,7 @@ protocol ProfilePagePresenterProtocol:AnyObject{
     func uploadProfilePhoto(image:UIImage)
     func deleteProfilePhoto(index:Int)
     
-    func updatePersonalData(updateField: UserDataFields,value:String) 
+    func updatePersonalData(updateField: UserDataFields,value:String)
     
     func updateCompanyInfo(companyName:String)
     
@@ -91,6 +90,7 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
     }
     
     func getUserInfoFromServer(){
+        view?.setUpdating()
         Task{
             do{
                 let newInfo = try await apiUserData.getUserInfo()
@@ -122,8 +122,17 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
                     self.view?.loadUserInfoFromServer()
                 }
                 
-            }catch{
-                print("catch")
+            }catch let error{
+                if let err = error as? NetworkServiceHelper.NetworkError{
+                    DispatchQueue.main.async {
+                        self.view?.showError(error: err)
+                    }
+                }
+            }
+            
+            DispatchQueue.main.async {
+                self.view?.stopUpdating()
+                self.view?.endRefreshing()
             }
             
         }
@@ -132,7 +141,7 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
     func getProfilePhoto(indexPath:IndexPath) -> UIImage?{
         
         guard let userRealm = self.usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "") else { fatalError("Current User not found")}
-                
+        
         if indexPath.row < userRealm.imageIDs.count{
             if let imageData = imageService.getImage(by: userRealm.imageIDs[indexPath.row]){
                 let image = UIImage(data: imageData)!
@@ -147,6 +156,7 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
     }
     
     private func downloadProfilePhoto(indexPath:IndexPath, pictureId:String){
+        view?.setUpdating()
         Task{
             do{
                 let imageData = try await self.apiUserData.downloadProfilePhoto(pictureId: pictureId)
@@ -157,8 +167,16 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
                     self.view?.updateImage(at: indexPath, image: image)
                 }
                 
-            } catch{
-                
+            }catch let error{
+                if let err = error as? NetworkServiceHelper.NetworkError{
+                    DispatchQueue.main.async {
+                        self.view?.showError(error: err)
+                    }
+                }
+            }
+            
+            DispatchQueue.main.async {
+                self.view?.stopUpdating()
             }
             
         }
@@ -189,8 +207,10 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
     public func getEmail() -> String{
         return usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")?.email ?? ""
     }
-        
+    
     public func logOut(){
+        view?.setLoading()
+        view?.showLoadingView()
         Task{
             do{
                 if try await self.apiAuth.logOut(){
@@ -199,10 +219,17 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
                     }
                     
                 }
-            }catch{
-                DispatchQueue.main.async {
-                    self.view?.logoutError()
+            }catch let error{
+                if let err = error as? NetworkServiceHelper.NetworkError{
+                    DispatchQueue.main.async {
+                        self.view?.showError(error: err)
+                    }
                 }
+            }
+            
+            DispatchQueue.main.async {
+                self.view?.stopLoading()
+                self.view?.stopLoadingView()
             }
         }
         
@@ -210,6 +237,8 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
     
     
     public func uploadProfilePhoto(image:UIImage){
+        view?.setLoading()
+        
         Task{
             do{
                 let newPictureId = try await self.apiUserData.uploadProfilePhoto(image:image)
@@ -220,11 +249,15 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
                 }
                 
                 
-            } catch{
-                DispatchQueue.main.async {
-                    self.view?.uploadError()
+            } catch let error{
+                if let err = error as? NetworkServiceHelper.NetworkError{
+                    DispatchQueue.main.async {
+                        self.view?.showError(error: err)
+                    }
                 }
-                
+            }
+            DispatchQueue.main.async {
+                self.view?.stopLoading()
             }
             
         }
@@ -234,6 +267,7 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
         
         if let imageId = usersRealmService.getUserInfo(localId: keychain.getLocalId() ?? "")?.imageIDs[index]{
             
+            view?.setLoading()
             Task{
                 do{
                     if try await self.apiUserData.deleteProfilePhoto(pictureId: imageId){
@@ -243,8 +277,14 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
                             self.view?.deletePhotoSuccess()
                         }
                     }
-                }catch{
-                    print("deleteError")
+                }catch let error{
+                    if let err = error as? NetworkServiceHelper.NetworkError{
+                        self.view?.showError(error: err)
+                    }
+                }
+                
+                DispatchQueue.main.async {
+                    self.view?.stopLoading()
                 }
                 
             }
@@ -255,6 +295,7 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
     }
     
     public func updatePersonalData(updateField: UserDataFields,value:String) {
+        view?.setLoading()
         Task{
             do{
                 if try await self.apiUserData.updateUserInfo(updateField: updateField, value: value){
@@ -270,16 +311,24 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
                     
                 }
                 
-            } catch{
+            } catch let error{
+                if let err = error as? NetworkServiceHelper.NetworkError{
+                    self.view?.showError(error: err)
+                }
                 DispatchQueue.main.async {
                     self.view?.updateInfoError()
                 }
                 
             }
+            
+            DispatchQueue.main.async {
+                self.view?.stopLoading()
+            }
         }
     }
     
     public func updateCompanyInfo(companyName:String){
+        view?.setLoading()
         Task{
             do{
                 if try await self.apiCompany.updateCompanyInfo(companyName:companyName){
@@ -289,11 +338,18 @@ class ProfilePagePresenter:ProfilePagePresenterProtocol{
                     }
                     
                 }
-            } catch{
+            } catch let error{
+                if let err = error as? NetworkServiceHelper.NetworkError{
+                    view?.showError(error: err)
+                }
                 DispatchQueue.main.async {
                     self.view?.updateCompanyInfoError()
                 }
                 
+            }
+            
+            DispatchQueue.main.async {
+                self.view?.stopLoading()
             }
         }
     }

@@ -8,7 +8,7 @@
 import UIKit
 import AlertKit
 
-class ProfileViewController: UIViewController{
+class ProfileViewController: BaseViewController{
     
     var presenter:ProfilePagePresenterProtocol!
     
@@ -320,10 +320,13 @@ extension ProfileViewController:UICollectionViewDelegate, UICollectionViewDelega
 }
 
 extension ProfileViewController:ProfileViewProtocol{
+    func endRefreshing() {
+        self.view().scrollView.refreshControl?.endRefreshing()
+    }
+    
     func loadUserInfoFromServer() {
         self.configureView()
         self.view().profileImagesCollectionView.reloadData()
-        self.view().scrollView.refreshControl?.endRefreshing()
     }
     
     
@@ -335,7 +338,6 @@ extension ProfileViewController:ProfileViewProtocol{
     
     
     func logoutSuccess() {
-        
         // TODO сделать алерт в котроллере логина
         AlertKitAPI.present(
             title: "Вы вышли из системы",
@@ -346,25 +348,8 @@ extension ProfileViewController:ProfileViewProtocol{
         AuthAssembly.goToLogin(view: self.view())
     }
     
-    func logoutError() {
-        AlertKitAPI.present(
-            title: "Ошибка выхода из системы",
-            icon: .error,
-            style: .iOS17AppleMusic,
-            haptic: .error
-        )
-    }
-    
-    
     func updateCompanyInfoError() {
         self.configureCompanyInfo()
-        
-        AlertKitAPI.present(
-            title: "Ошибка изменения данных",
-            icon: .error,
-            style: .iOS17AppleMusic,
-            haptic: .error
-        )
     }
     
     func updateCompanyInfoSuccess() {
@@ -392,13 +377,6 @@ extension ProfileViewController:ProfileViewProtocol{
     func updateInfoError() {
         self.configureGeneralInfo()
         self.configurePersonalInfo()
-        
-        AlertKitAPI.present(
-            title: "Ошибка изменения данных",
-            icon: .error,
-            style: .iOS17AppleMusic,
-            haptic: .error
-        )
     }
     
     func uploadSuccess(image: UIImage) {
@@ -417,16 +395,6 @@ extension ProfileViewController:ProfileViewProtocol{
         )
     }
     
-    func uploadError() {
-        AlertKitAPI.present(
-            title: "Ошибка при загрузке фото",
-            icon: .error,
-            style: .iOS17AppleMusic,
-            haptic: .error
-        )
-    }
-    
-
     func deletePhotoSuccess() {
         self.view().profileImagesCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .centeredHorizontally, animated: true)
         
@@ -441,14 +409,4 @@ extension ProfileViewController:ProfileViewProtocol{
             haptic: .success
         )
     }
-    
-    func deletePhotoError() {
-        AlertKitAPI.present(
-            title: "Ошибка при удалении фото",
-            icon: .error,
-            style: .iOS17AppleMusic,
-            haptic: .error
-        )
-    }
-    
 }

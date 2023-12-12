@@ -25,6 +25,7 @@ final class ExtendedSettingsViewController: BaseViewController {
         super.viewDidLoad()
         
         self.setBackButton()
+        self.titleString = "Расширенные настройки"
         
         addTargets()
         self.presenter.loadLoggedDevices()
@@ -101,14 +102,28 @@ final class ExtendedSettingsViewController: BaseViewController {
     }
     
     @objc func logoutAll(){
-        let alert = UIAlertController(title: "Выйти со всех устройств", message: "Вы также выйдите с текущего устройства", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Выйти со всех устройств кроме текущего", message: "Введите пароль", preferredStyle: .alert)
         let exit = UIAlertAction(title: "Выйти", style: .destructive) { _ in
-            self.presenter.revokeAllDevices()
+            self.presenter.revokeAllDevices(password: alert.textFields?.first?.text ?? "")
         }
         let cancel = UIAlertAction(title: "Отменить", style: .cancel)
         
+        alert.addTextField { (textField) in
+            textField.placeholder = "Пароль"
+            textField.isSecureTextEntry = true
+            // Обработчик события изменения текста в текстовом поле
+            textField.addAction(UIAction(handler: { _ in
+                if let text = textField.text, !text.isEmpty {
+                    alert.actions[0].isEnabled = true
+                } else {
+                    alert.actions[0].isEnabled = false
+                }
+            }), for: .editingChanged)
+            
+        }
         alert.addAction(exit)
         alert.addAction(cancel)
+        alert.actions[0].isEnabled = false
         self.present(alert, animated: true)
         
     }
@@ -130,31 +145,21 @@ extension ExtendedSettingsViewController:ExtendedSettingsViewProtocol{
         controllers.goToLoginPage(view: self.view, direction: .fade)
     }
     
-    func deleteError() {
-        AlertKitAPI.present(
-            title: "Ошибка при удалении аккаунта",
-            icon: .error,
-            style: .iOS17AppleMusic,
-            haptic: .error
-        )
-    }
-    
     func logoutAllSuccessful() {
-        let controllers = Controllers()
-        controllers.goToLoginPage(view: self.view, direction: .fade)
-    }
-    
-    func logoutAllError() {
         AlertKitAPI.present(
-            title: "Ошибка выхода со всех устройств",
-            icon: .error,
+            title: "Вы вышли со всех устройств",
+            subtitle: nil,
+            icon: .done,
             style: .iOS17AppleMusic,
-            haptic: .error
+            haptic: .success
         )
     }
-    
+        
     func updateLoggedDevices(devices: [DevicesModel]) {
         self.view().configureDevices(devices: devices)
+    }
+    
+    func endRefreshing(){
         self.view().scrollView.refreshControl?.endRefreshing()
     }
     

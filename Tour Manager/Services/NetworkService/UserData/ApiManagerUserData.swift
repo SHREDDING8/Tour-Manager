@@ -90,8 +90,14 @@ public class ApiManagerUserData: ApiManagerUserDataProtocol{
                         
                     }
                     
-                case .failure(_):
-                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                case .failure(let failure):
+                    if failure.isSessionTaskError, let urlError = failure.underlyingError as? URLError, urlError.code == .notConnectedToInternet {
+                        // no connection
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.noConnection)
+                    } else {
+                        // Другие типы ошибок
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                    }
                 }
                 
             }
@@ -139,8 +145,14 @@ public class ApiManagerUserData: ApiManagerUserDataProtocol{
                         
                     }
                     
-                case .failure(_):
-                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                case .failure(let failure):
+                    if failure.isSessionTaskError, let urlError = failure.underlyingError as? URLError, urlError.code == .notConnectedToInternet {
+                        // no connection
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.noConnection)
+                    } else {
+                        // Другие типы ошибок
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                    }
                 }
             }
         }
@@ -179,8 +191,14 @@ public class ApiManagerUserData: ApiManagerUserDataProtocol{
                         
                     }
                     
-                case .failure(_):
-                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                case .failure(let failure):
+                    if failure.isSessionTaskError, let urlError = failure.underlyingError as? URLError, urlError.code == .notConnectedToInternet {
+                        // no connection
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.noConnection)
+                    } else {
+                        // Другие типы ошибок
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                    }
                 }
             }
         }
@@ -226,8 +244,14 @@ public class ApiManagerUserData: ApiManagerUserDataProtocol{
                         
                     }
                     
-                case .failure(_):
-                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                case .failure(let failure):
+                    if failure.isSessionTaskError, let urlError = failure.underlyingError as? URLError, urlError.code == .notConnectedToInternet {
+                        // no connection
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.noConnection)
+                    } else {
+                        // Другие типы ошибок
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                    }
                 }
             }
         }
@@ -267,8 +291,14 @@ public class ApiManagerUserData: ApiManagerUserDataProtocol{
                         
                     }
                     
-                case .failure(_):
-                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                case .failure(let failure):
+                    if failure.isSessionTaskError, let urlError = failure.underlyingError as? URLError, urlError.code == .notConnectedToInternet {
+                        // no connection
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.noConnection)
+                    } else {
+                        // Другие типы ошибок
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                    }
                 }
             }
             
@@ -309,8 +339,14 @@ public class ApiManagerUserData: ApiManagerUserDataProtocol{
                         
                     }
                     
-                case .failure(_):
-                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                case .failure(let failure):
+                    if failure.isSessionTaskError, let urlError = failure.underlyingError as? URLError, urlError.code == .notConnectedToInternet {
+                        // no connection
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.noConnection)
+                    } else {
+                        // Другие типы ошибок
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                    }
                 }
             }
             

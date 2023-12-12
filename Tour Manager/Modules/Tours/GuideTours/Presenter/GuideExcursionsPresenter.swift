@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-protocol ExcursionsGuideCalendarViewProtocol:AnyObject{
+protocol ExcursionsGuideCalendarViewProtocol:AnyObject, BaseViewControllerProtocol{
     func updateTours(date:Date)
     func updateEvents(startDate:Date, endDate:Date)
 }
@@ -106,6 +106,7 @@ class ExcursionsGuideCalendarPresenter:ExcursionsGuideCalendarPresenterProtocol{
     }
     
     private func loadToursFromServer(date:Date){
+        view?.setUpdating()
         Task{
             do{
                 let toursJson = try await toursNetworkService.getDateTourList(date: date.birthdayToString(), guideOnly: true)
@@ -156,8 +157,15 @@ class ExcursionsGuideCalendarPresenter:ExcursionsGuideCalendarPresenterProtocol{
                     self.loadToursFromRealm(date: date)
                 }
                 
-            }catch{
+            }catch let error{
+                if let err = error as? NetworkServiceHelper.NetworkError{
+                    self.view?.showError(error: err)
+                }
                 
+            }
+            
+            DispatchQueue.main.async {
+                self.view?.stopUpdating()
             }
         }
     }
@@ -186,8 +194,10 @@ class ExcursionsGuideCalendarPresenter:ExcursionsGuideCalendarPresenterProtocol{
                     
                 }
                 
-            } catch{
-                print("catch")
+            } catch let error{
+                if let err = error as? NetworkServiceHelper.NetworkError{
+                    self.view?.showError(error: err)
+                }
             }
         }
         

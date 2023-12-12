@@ -8,9 +8,9 @@
 import Foundation
 import UIKit
 
-protocol EmployeesListViewProtocol:AnyObject{
+protocol EmployeesListViewProtocol:AnyObject, BaseViewControllerProtocol{
     func updateUsersList()
-    func unknownError()
+    func endRefreshing()
 }
 
 protocol EmployeesListPresenterProtocol:AnyObject{
@@ -79,11 +79,12 @@ class EmployeesListPresenter:EmployeesListPresenterProtocol{
     }
     
     func getUsersFromServer(){
+        view?.setUpdating()
         Task{
+            var usersImages:[String] = []
+            
             do {
                 let jsonUsers = try await self.employeeNetworkService.getCompanyUsers()
-                
-                var usersImages:[String] = []
                 
                 for jsonUser in jsonUsers {
                     let realmUser = UserRealm(
@@ -117,33 +118,42 @@ class EmployeesListPresenter:EmployeesListPresenterProtocol{
                 DispatchQueue.main.async {
                     self.getUsersFromRealm()
                 }
-                
-                for imageId in usersImages{
-                    // добавить фото как в petConnect
-                    do{
-                        let imageData = try await self.usersNetworkService.downloadProfilePhoto(pictureId: imageId)
-                        
-                        DispatchQueue.main.sync {
-                            self.imageService.setNewImage(id: imageId, imageData)
-                        }
-                        
-                    }catch{
-                        
-                    }
-                }
-                
-                if usersImages.count > 0{
-                    DispatchQueue.main.async {
-                        self.getUsersFromRealm()
-                    }
-                }
-
-                
-            } catch{
-                DispatchQueue.main.async {
-                    self.view?.unknownError()
+            } catch let error{
+                if let err = error as? NetworkServiceHelper.NetworkError{
+                    self.view?.showError(error: err)
                 }
             }
+            
+            DispatchQueue.main.async {
+                self.view?.endRefreshing()
+            }
+            
+            for imageId in usersImages{
+                // добавить фото как в petConnect
+                do{
+                    let imageData = try await self.usersNetworkService.downloadProfilePhoto(pictureId: imageId)
+                    
+                    DispatchQueue.main.sync {
+                        self.imageService.setNewImage(id: imageId, imageData)
+                    }
+                    
+                } catch let error{
+                    if let err = error as? NetworkServiceHelper.NetworkError{
+                        self.view?.showError(error: err)
+                    }
+                }
+            }
+            
+            if usersImages.count > 0{
+                DispatchQueue.main.async {
+                    self.getUsersFromRealm()
+                }
+            }
+            
+            DispatchQueue.main.async {
+                self.view?.stopUpdating()
+            }
+            
         }
     }
     

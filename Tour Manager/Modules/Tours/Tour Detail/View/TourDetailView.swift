@@ -96,6 +96,8 @@ class TourDetailView: UIView {
         let view = TitleWithTextFieldTourItem()
         view.title.text = "Количество человек"
         view.textField.placeholder = "0"
+        view.textField.keyboardType = .phonePad
+        view.textField.addDoneCancelToolbar()
         
         view.nextPageImage.isHidden = true
         
@@ -160,6 +162,10 @@ class TourDetailView: UIView {
     
     lazy var customerGuideContact:TitleWithTextFieldTourItem = {
         let view = TitleWithTextFieldTourItem()
+        view.addCopyButton()
+        view.textField.keyboardType = .phonePad
+        view.textField.addDoneCancelToolbar()
+        
         view.title.text = "Контакт"
         
         view.textField.placeholder = "Не выбрано"
@@ -210,6 +216,8 @@ class TourDetailView: UIView {
     lazy var paymentAmount:TitleWithTextFieldTourItem = {
         let view = TitleWithTextFieldTourItem()
         view.title.text = "Сумма оплаты"
+        view.textField.keyboardType = .phonePad
+        view.textField.addDoneCancelToolbar()
         
         view.textField.placeholder = "0"
         

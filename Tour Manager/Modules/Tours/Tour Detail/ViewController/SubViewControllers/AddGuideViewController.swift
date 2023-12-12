@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class AddGuideViewController: UIViewController {
+class AddGuideViewController: BaseViewController {
     
     var presenter:AddGuidePresenterProtocol!
     var doAfterClose:(([ExcrusionModel.Guide])->Void)?
@@ -69,7 +69,8 @@ class AddGuideViewController: UIViewController {
     
     func configureView(){
         self.view.backgroundColor = UIColor(resource: .background)
-        self.navigationItem.title = "Экскурсоводы"
+        self.titleString = "Экскурсоводы"
+        self.setBackButton()
         
         self.view.addSubview(self.textField)
         self.view.addSubview(self.line)

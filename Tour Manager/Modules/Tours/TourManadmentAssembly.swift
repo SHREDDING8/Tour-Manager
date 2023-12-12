@@ -86,11 +86,13 @@ class TourManadmentAssembly:TourManadmentAssemblyProtocol{
     
     static func createFullCalendarViewController(isGuide:Bool) -> UIViewController{
         let vc = FullCalendarViewController()
-        vc.modalPresentationStyle = .fullScreen
-        
         let presenter = FullCalendarPresenter(view: vc, isGuide: isGuide)
         vc.presenter = presenter
-        return vc
+        
+        let navVc = BaseNavigationViewController(rootViewController: vc)
+        navVc.modalPresentationStyle = .fullScreen
+        
+        return navVc
     }
 
 }

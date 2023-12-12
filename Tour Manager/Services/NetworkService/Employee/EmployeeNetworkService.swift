@@ -25,7 +25,7 @@ class EmployeeNetworkService:EmployeeNetworkServiceProtocol{
     let keychainService:KeychainServiceProtocol = KeychainService()
     
     func getCurrentCompanyUserAccessLevels() async throws -> ResponseAccessLevel{
-        let refreshToken = try! await ApiManagerAuth.refreshToken()
+        let refreshToken = try await ApiManagerAuth.refreshToken()
         if !refreshToken{
             throw NetworkServiceHelper.NetworkError.unknown
         }
@@ -56,8 +56,14 @@ class EmployeeNetworkService:EmployeeNetworkServiceProtocol{
                         
                     }
                     
-                case .failure(_):
-                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                case .failure(let failure):
+                    if failure.isSessionTaskError, let urlError = failure.underlyingError as? URLError, urlError.code == .notConnectedToInternet {
+                        // no connection
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.noConnection)
+                    } else {
+                        // Другие типы ошибок
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                    }
                 }
             }
             
@@ -67,7 +73,7 @@ class EmployeeNetworkService:EmployeeNetworkServiceProtocol{
     }
     
     func updateCompanyUserAccessLevel(employeeId:String, _ jsonData:SendUpdateUserAccessLevel) async throws -> Bool{
-        let refreshToken = try! await ApiManagerAuth.refreshToken()
+        let refreshToken = try await ApiManagerAuth.refreshToken()
         if !refreshToken{
             throw NetworkServiceHelper.NetworkError.unknown
         }
@@ -98,8 +104,14 @@ class EmployeeNetworkService:EmployeeNetworkServiceProtocol{
                         
                     }
                     
-                case .failure(_):
-                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                case .failure(let failure):
+                    if failure.isSessionTaskError, let urlError = failure.underlyingError as? URLError, urlError.code == .notConnectedToInternet {
+                        // no connection
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.noConnection)
+                    } else {
+                        // Другие типы ошибок
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                    }
                 }
                 
             }
@@ -110,7 +122,7 @@ class EmployeeNetworkService:EmployeeNetworkServiceProtocol{
     }
     
     func getCompanyUsers() async throws -> [GetCompanyUsersElement]{
-        let refreshToken = try! await ApiManagerAuth.refreshToken()
+        let refreshToken = try await ApiManagerAuth.refreshToken()
         if !refreshToken{
             throw NetworkServiceHelper.NetworkError.unknown
         }
@@ -146,8 +158,14 @@ class EmployeeNetworkService:EmployeeNetworkServiceProtocol{
                         
                     }
                     
-                case .failure(_):
-                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                case .failure(let failure):
+                    if failure.isSessionTaskError, let urlError = failure.underlyingError as? URLError, urlError.code == .notConnectedToInternet {
+                        // no connection
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.noConnection)
+                    } else {
+                        // Другие типы ошибок
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                    }
                 }
                 
             }
@@ -158,7 +176,7 @@ class EmployeeNetworkService:EmployeeNetworkServiceProtocol{
     }
     
     func getCompanyGuides() async throws -> [GetCompanyUsersElement]{
-        let refreshToken = try! await ApiManagerAuth.refreshToken()
+        let refreshToken = try await ApiManagerAuth.refreshToken()
         if !refreshToken{
             throw NetworkServiceHelper.NetworkError.unknown
         }
@@ -194,8 +212,14 @@ class EmployeeNetworkService:EmployeeNetworkServiceProtocol{
                         
                     }
                     
-                case .failure(_):
-                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                case .failure(let failure):
+                    if failure.isSessionTaskError, let urlError = failure.underlyingError as? URLError, urlError.code == .notConnectedToInternet {
+                        // no connection
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.noConnection)
+                    } else {
+                        // Другие типы ошибок
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                    }
                 }
                 
             }
@@ -206,7 +230,7 @@ class EmployeeNetworkService:EmployeeNetworkServiceProtocol{
     }
     
     func getEmployeeInfoById(employeeId:String) async throws -> GetCompanyUsersElement{
-        let refreshToken = try! await ApiManagerAuth.refreshToken()
+        let refreshToken = try await ApiManagerAuth.refreshToken()
         if !refreshToken{
             throw NetworkServiceHelper.NetworkError.unknown
         }
@@ -239,8 +263,14 @@ class EmployeeNetworkService:EmployeeNetworkServiceProtocol{
                         
                     }
                     
-                case .failure(_):
-                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                case .failure(let failure):
+                    if failure.isSessionTaskError, let urlError = failure.underlyingError as? URLError, urlError.code == .notConnectedToInternet {
+                        // no connection
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.noConnection)
+                    } else {
+                        // Другие типы ошибок
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                    }
                 }
                 
             }

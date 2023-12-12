@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol FullCalendarViewProtocol:AnyObject{
+protocol FullCalendarViewProtocol:AnyObject, BaseViewControllerProtocol{
     func updateEvents(startDate:Date, endDate:Date)
 }
 
@@ -47,6 +47,7 @@ class FullCalendarPresenter:FullCalendarPresenterProtocol{
     }
     
     func getTourDates(startDate:Date, endDate:Date){
+        view?.setUpdating()
         Task{
             do{
                 let results = try await toursNetworkService.getTourDates(startDate: startDate.birthdayToString(), endDate: endDate.birthdayToString(), guideOnly: isGuide)
@@ -91,9 +92,16 @@ class FullCalendarPresenter:FullCalendarPresenterProtocol{
                 }
 
                 
-            } catch{
-                print("catch")
+            } catch let error{
+                if let err = error as? NetworkServiceHelper.NetworkError{
+                    self.view?.showError(error: err)
+                }
             }
+            
+            DispatchQueue.main.async {
+                self.view?.stopUpdating()
+            }
+            
         }
         
     }

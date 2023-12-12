@@ -54,6 +54,16 @@ class CalendarCell:JTACDayCell{
         view.textAlignment = .center
         view.text = "•"
         view.textColor = .systemRed
+        view.numberOfLines = 1
+        return view
+    }()
+    private lazy var eventsLabel2:UILabel = {
+        let view = UILabel()
+        view.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        view.textAlignment = .center
+        view.text = "•"
+        view.textColor = .systemRed
+        view.numberOfLines = 1
         return view
     }()
 
@@ -74,6 +84,7 @@ class CalendarCell:JTACDayCell{
         self.mainView.addSubview(dayNameLabel)
         
         self.mainView.addSubview(eventsLabel)
+        self.mainView.addSubview(eventsLabel2)
                 
         mainView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
@@ -92,8 +103,13 @@ class CalendarCell:JTACDayCell{
         
         eventsLabel.snp.makeConstraints { make in
             make.top.equalTo(dayNameLabel.snp.bottom)
-            make.bottom.equalToSuperview()
             make.leading.trailing.equalToSuperview().inset(1)
+        }
+        
+        eventsLabel2.snp.makeConstraints { make in
+            make.top.equalTo(eventsLabel.snp.bottom).inset(7)
+            make.leading.trailing.equalToSuperview().inset(1)
+            make.bottom.equalToSuperview().inset(1)
         }
         
     }
@@ -101,9 +117,12 @@ class CalendarCell:JTACDayCell{
     public func configureEvents(_ colors:[UIColor]){
         let resString = NSMutableAttributedString()
         
-        
-        for indexColor in 0..<colors.count {
-            let string = NSAttributedString(string: "•" + (indexColor == colors.count - 1 ? "" : " "), attributes: [.foregroundColor: colors[indexColor] ])
+        for indexColor in 0..<2{
+            if indexColor >= colors.count{
+                break
+            }
+            
+            let string = NSAttributedString(string: "•" + (indexColor == 1 ? "" : " "), attributes: [.foregroundColor: colors[indexColor] ])
             resString.append(string)
         }
         
@@ -111,7 +130,20 @@ class CalendarCell:JTACDayCell{
             resString.append(NSAttributedString(string: " "))
         }
         
-        self.eventsLabel.attributedText = resString
+        self.eventsLabel2.attributedText = resString
+        
+        let resString2 = NSMutableAttributedString()
+        if colors.count > 2{
+            for indexColor in 2..<colors.count{
+                let string = NSAttributedString(string: "•" + (indexColor == colors.count - 1 ? "" : " "), attributes: [.foregroundColor: colors[indexColor] ])
+                resString2.append(string)
+            }
+        }else{
+            resString2.append(NSAttributedString(string: " "))
+        }
+        
+        self.eventsLabel.attributedText = resString2
+        
     }
     
     public func configureCell(cellState: CellState){

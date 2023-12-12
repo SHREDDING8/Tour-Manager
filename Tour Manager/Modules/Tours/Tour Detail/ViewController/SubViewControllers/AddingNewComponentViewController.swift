@@ -8,7 +8,7 @@
 import UIKit
 
 
-class AddingNewComponentViewController: UIViewController {
+class AddingNewComponentViewController: BaseViewController {
     
     var presenter:AddingNewComponentPresenterProtocol!
     
@@ -44,12 +44,12 @@ class AddingNewComponentViewController: UIViewController {
     }()
     
     
-
-
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(resource: .background)
-                
+        
+        self.setBackButton()
+        
         configureView()
         addSubviews()
         configureTextFieldAndLine()
@@ -174,10 +174,9 @@ class AddingNewComponentViewController: UIViewController {
     
     fileprivate func configureView(){
         
-        self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationController?.interactivePopGestureRecognizer?.delegate? = self
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(toggleEditMode))
+        self.navigationItem.rightBarButtonItem =  UIBarButtonItem(image: UIImage(systemName: "slider.horizontal.3"), style: .plain, target: self, action: #selector(toggleEditMode))
                         
         self.textField.addTarget(self, action: #selector(getNewHint), for: .editingChanged)
         
@@ -297,11 +296,6 @@ extension AddingNewComponentViewController:UITableViewDelegate,UITableViewDataSo
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
                 
-        if tableView.isEditing{
-            self.navigationItem.rightBarButtonItem!.title = "Done"
-        }else{
-            self.navigationItem.rightBarButtonItem!.title = "Edit"
-        }
         return true
     }
     
@@ -319,7 +313,6 @@ extension AddingNewComponentViewController:UITableViewDelegate,UITableViewDataSo
         }
         
         if presenter.presentedValues.count == 0{
-            self.navigationItem.rightBarButtonItem!.title = "Edit"
             self.tableView.setEditing(false, animated: true)
         }
     }
@@ -333,35 +326,35 @@ extension AddingNewComponentViewController:UITableViewDelegate,UITableViewDataSo
 
 
 // MARK: - UIGestureRecognizerDelegate
-extension AddingNewComponentViewController:UIGestureRecognizerDelegate{
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-}
+//extension AddingNewComponentViewController:UIGestureRecognizerDelegate{
+//    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+//        return true
+//    }
+//}
 
 extension AddingNewComponentViewController:AddingNewComponentViewProtocol{
     
     func configureRouteView() {
         let valueString = "Маршрут"
-        self.navigationItem.title = valueString
+        self.titleString = valueString
         textField.placeholder = valueString
     }
     
     func configureCustomerCompanyNameView() {
         let valueString = "Название компании"
-        self.navigationItem.title = valueString
+        self.titleString = valueString
         textField.placeholder = valueString
     }
     
     func configureCustomerGuiedNameView() {
         let valueString = "Сопровождающий"
-        self.navigationItem.title = valueString
+        self.titleString = valueString
         textField.placeholder = valueString
     }
     
     func configureExcursionPaymentMethodView() {
         let valueString = "Способ оплаты"
-        self.navigationItem.title = valueString
+        self.titleString = valueString
         textField.placeholder = valueString
     }
     

@@ -35,12 +35,30 @@ struct sendResetPassword: Codable{
 }
 struct sendUpdatePassword:Codable{
     let email:String
-    let old_password:String
-    let new_password:String
+    let password:String
+    let newPassword:String
+    
+    let apnsToken: ApnsToken
+    
+    enum CodingKeys: String, CodingKey {
+        case apnsToken = "apns_token"
+        case password
+        case email
+        case newPassword = "new_password"
+    }
+}
+
+struct logOutAll: Codable {
+    let apnsToken: ApnsToken
+    let password: String
+
+    enum CodingKeys: String, CodingKey {
+        case apnsToken = "apns_token"
+        case password
+    }
 }
 
 
 struct sendLogOut:Codable{
-    let token:String
     let apns_vendor_id:String
 }

@@ -110,7 +110,7 @@ public class ApiManagerCompany:ApiManagerCompanyProtocol{
     
     public func updateCompanyInfo(companyName:String) async throws -> Bool{
         
-        let refreshToken = try! await ApiManagerAuth.refreshToken()
+        let refreshToken = try await ApiManagerAuth.refreshToken()
         if !refreshToken{
             throw NetworkServiceHelper.NetworkError.unknown
         }
@@ -141,8 +141,14 @@ public class ApiManagerCompany:ApiManagerCompanyProtocol{
                         
                     }
                     
-                case .failure(_):
-                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                case .failure(let failure):
+                    if failure.isSessionTaskError, let urlError = failure.underlyingError as? URLError, urlError.code == .notConnectedToInternet {
+                        // no connection
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.noConnection)
+                    } else {
+                        // Другие типы ошибок
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                    }
                 }
                 
             }
@@ -154,7 +160,7 @@ public class ApiManagerCompany:ApiManagerCompanyProtocol{
         
     public func deleteCompany() async throws ->Bool{
         
-        let refreshToken = try! await ApiManagerAuth.refreshToken()
+        let refreshToken = try await ApiManagerAuth.refreshToken()
         if !refreshToken{
             throw NetworkServiceHelper.NetworkError.unknown
         }
@@ -181,8 +187,14 @@ public class ApiManagerCompany:ApiManagerCompanyProtocol{
                         
                     }
                     
-                case .failure(_):
-                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                case .failure(let failure):
+                    if failure.isSessionTaskError, let urlError = failure.underlyingError as? URLError, urlError.code == .notConnectedToInternet {
+                        // no connection
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.noConnection)
+                    } else {
+                        // Другие типы ошибок
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                    }
                 }
             }
         }

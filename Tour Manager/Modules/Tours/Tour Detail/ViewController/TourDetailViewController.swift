@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import AlertKit
 
-class TourDetailViewController: UIViewController {
+class TourDetailViewController: BaseViewController {
     
     var presenter:NewExcursionPresenterProtocol!
 
@@ -25,6 +26,13 @@ class TourDetailViewController: UIViewController {
         
         addDelegates()
         addTargets()
+        
+        if self.presenter.tour.tourId.isEmpty{
+            self.titleString = "Новая экскурсия"
+        }else{
+            self.titleString = "Редактирование"
+        }
+        self.setBackButton()
 
     }
     
@@ -175,6 +183,39 @@ class TourDetailViewController: UIViewController {
     
 }
 extension TourDetailViewController:NewExcursionViewProtocol{
+    func deleteSuccessful() {
+        AlertKitAPI.present(
+            title: "Экскурсия удалена",
+            subtitle: nil,
+            icon: .done,
+            style: .iOS17AppleMusic,
+            haptic: .success
+        )
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    func addedSuccessful() {
+        AlertKitAPI.present(
+            title: "Экскурсия добавлена",
+            subtitle: nil,
+            icon: .done,
+            style: .iOS17AppleMusic,
+            haptic: .success
+        )
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    func updatedSuccessful() {
+        AlertKitAPI.present(
+            title: "Экскурсия обновлена",
+            subtitle: nil,
+            icon: .done,
+            style: .iOS17AppleMusic,
+            haptic: .success
+        )
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     func refreshSuccess() {
         self.view().scrollView.refreshControl?.endRefreshing()
         self.fillFields()
@@ -188,31 +229,7 @@ extension TourDetailViewController:NewExcursionViewProtocol{
         
         self.present(alert, animated: true)
     }
-    
-    func isUpdated(isSuccess: Bool) {
-        if isSuccess{
-            self.navigationController?.popViewController(animated: true)
-        }
-    }
-    
-    func isAdded(isSuccess: Bool) {
-        if isSuccess{
-            self.navigationController?.popViewController(animated: true)
-        }
         
-    }
-    
-    
-    func delete(isSuccess: Bool) {
-        if isSuccess{
-            self.navigationController?.popViewController(animated: true)
-        }
-    }
-    
-    func updateCollectionView() {
-        
-    }
-    
     func fillFields(){
         self.view().tourTitle.textField.text = self.presenter.tour.tourTitle
         

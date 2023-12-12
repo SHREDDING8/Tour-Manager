@@ -9,19 +9,17 @@ import Foundation
 
 protocol ExtendedSettingsViewProtocol:AnyObject, BaseViewControllerProtocol{
     func updateLoggedDevices(devices:[DevicesModel])
+    func endRefreshing()
     
     func logoutAllSuccessful()
-    func logoutAllError()
     
     func deleteSuccess()
-    func deleteError()
-    
 }
 
 protocol ExtendedSettingsPresenterProtocol:AnyObject{
     init(view:ExtendedSettingsViewProtocol)
     
-    func revokeAllDevices()
+    func revokeAllDevices(password:String)
     func deleteAccount()
     func deleteCompany()
     func isOwner()->Bool
@@ -50,24 +48,37 @@ class ExtendedSettingsPresenter:ExtendedSettingsPresenterProtocol{
         self.view = view
     }
     
-    func revokeAllDevices(){
+    func revokeAllDevices(password:String){
+        view?.setLoading()
+        view?.showLoadingView()
         Task{
             do{
-                if try await self.authNetworkService.logoutAllDevices(){
+                if try await self.authNetworkService.logoutAllDevices(password: password){
                     DispatchQueue.main.async {
                         self.view?.logoutAllSuccessful()
+                        self.loadLoggedDevices()
                     }
                 }
                 
-            }catch{
-                DispatchQueue.main.async {
-                    self.view?.logoutAllError()
+            }catch let error{
+                if let err = error as? NetworkServiceHelper.NetworkError{
+                    DispatchQueue.main.async {
+                        self.view?.showError(error: err)
+                    }
                 }
             }
+            
+            DispatchQueue.main.async {
+                self.view?.stopLoading()
+                self.view?.stopLoadingView()
+            }
+            
         }
     }
     
     func deleteAccount(){
+        view?.setLoading()
+        view?.showLoadingView()
         Task{
             do{
                 if try await self.usersNetworkService.deleteCurrentUser(){
@@ -75,16 +86,28 @@ class ExtendedSettingsPresenter:ExtendedSettingsPresenterProtocol{
                         self.view?.deleteSuccess()
                     }
                 }
-            }catch{
-                DispatchQueue.main.async {
-                    self.view?.deleteError()
+            }catch let error{
+                if let err = error as? NetworkServiceHelper.NetworkError{
+                    DispatchQueue.main.async {
+                        self.view?.showError(error: err)
+                    }
                 }
+
             }
+            
+            DispatchQueue.main.async {
+                self.view?.stopLoading()
+                self.view?.stopLoadingView()
+            }
+            
             
         }
     }
     
     func deleteCompany(){
+        view?.setLoading()
+        view?.showLoadingView()
+        
         Task{
             do{
                 if try await self.companyNetworkService.deleteCompany(){
@@ -92,10 +115,18 @@ class ExtendedSettingsPresenter:ExtendedSettingsPresenterProtocol{
                         self.view?.deleteSuccess()
                     }
                 }
-            }catch{
-                DispatchQueue.main.async {
-                    self.view?.deleteError()
+            }catch let error{
+                if let err = error as? NetworkServiceHelper.NetworkError{
+                    DispatchQueue.main.async {
+                        self.view?.showError(error: err)
+                    }
                 }
+
+            }
+            
+            DispatchQueue.main.async {
+                self.view?.stopLoading()
+                self.view?.stopLoadingView()
             }
             
         }
@@ -114,6 +145,7 @@ class ExtendedSettingsPresenter:ExtendedSettingsPresenterProtocol{
     }
     
     public func getLoggedDevicesFromServer(){
+        view?.setUpdating()
         Task{
             do{
                 let devicesResponse = try await authNetworkService.getLoggedDevices()
@@ -145,8 +177,20 @@ class ExtendedSettingsPresenter:ExtendedSettingsPresenterProtocol{
                 }
                 self.getLoggedDevicesFromRealm()
                 
-            }catch{
+            }catch let error{
+                if let err = error as? NetworkServiceHelper.NetworkError{
+                    DispatchQueue.main.async {
+                        self.view?.showError(error: err)
+                    }
+                    
+                }
             }
+            
+            DispatchQueue.main.async {
+                self.view?.stopUpdating()
+                self.view?.endRefreshing()
+            }
+            
         }
     }
     

@@ -8,8 +8,9 @@
 import Foundation
 
 protocol MainTabBarViewProtocol:AnyObject{
-    func unknownError()
     func updateControllers()
+    
+    func showError(error:NetworkServiceHelper.NetworkError)
 }
 
 protocol MainTabBarPresenterProtocol:AnyObject{
@@ -57,13 +58,14 @@ class MainTabBarPresenter:MainTabBarPresenterProtocol{
                     self.view?.updateControllers()
                 }
                 
-            } 
-//            catch customErrorCompany.unknowmError{
-//                DispatchQueue.main.async {
-//                    self.view?.unknownError()
-//                }
-//                
-//            }
+            } catch let error{
+                if let err = error as? NetworkServiceHelper.NetworkError{
+                    DispatchQueue.main.async {
+                        self.view?.showError(error: err)
+                    }
+                    
+                }
+            }
             
         }
     }

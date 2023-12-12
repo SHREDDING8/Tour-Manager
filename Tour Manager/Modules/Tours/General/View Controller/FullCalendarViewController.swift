@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FullCalendarViewController: UIViewController {
+class FullCalendarViewController: BaseViewController {
     
     var presenter:FullCalendarPresenterProtocol!
     
@@ -26,9 +26,12 @@ class FullCalendarViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addTargets()
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.clockwise.circle"), style: .plain, target: self, action: #selector(refreshDates))
+         
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image:     UIImage(systemName: "xmark.circle"), style: .plain, target: self, action: #selector(closeTapped))
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -36,13 +39,6 @@ class FullCalendarViewController: UIViewController {
         self.view().calendar.selectDates([startDate], triggerSelectionDelegate: true)
         self.view().selectedDate = startDate
     }
-    
-    private func addTargets(){
-        self.view().closeButton.addTarget(self, action: #selector(closeTapped), for: .touchUpInside)
-        self.view().refreshButton.addTarget(self, action: #selector(refreshDates), for: .touchUpInside)
-    }
-    
-    
     // MARK: - Actions
     
     @objc private func closeTapped(){

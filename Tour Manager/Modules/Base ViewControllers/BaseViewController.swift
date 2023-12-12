@@ -20,6 +20,11 @@ protocol BaseViewControllerProtocol{
     
     func setSaving()
     func stopSaving()
+    
+    func showLoadingView()
+    func stopLoadingView()
+    
+    func showError(error:NetworkServiceHelper.NetworkError)
 }
 
 class BaseViewController: UIViewController {
@@ -31,13 +36,17 @@ class BaseViewController: UIViewController {
         case saving
     }
     
-    var monitor:NWPathMonitor?
-    var titleState:TitleStates = .normal
+    private var monitor:NWPathMonitor?
+    private static var isNoConnectionAlertShowed = false
+    private var titleState:TitleStates = .normal
 
     
     internal var titleString:String = ""{
         didSet{
-            
+            if titleState == .normal{
+                self.titleViewLabel.text = self.titleString
+                self.activity.stopAnimating()
+            }
         }
     }
     
@@ -87,6 +96,25 @@ class BaseViewController: UIViewController {
         activityIndicator.hidesWhenStopped = true
         return activityIndicator
     }()
+    
+    private lazy var loadingView:UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(resource: .background)
+        view.layer.opacity = 0
+        
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.hidesWhenStopped = true
+        
+        activityIndicator.style = .medium
+        
+        view.addSubview(activityIndicator)
+        
+        activityIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+        
+        return view
+    }()
 
     internal func navigationController() -> BaseNavigationViewController?{
         return self.navigationController as? BaseNavigationViewController
@@ -94,6 +122,11 @@ class BaseViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.addSubview(loadingView)
+        
+        loadingView.snp.makeConstraints { make in
+            make.top.leading.trailing.bottom.equalToSuperview()
+        }
         
         self.titleViewStack.addArrangedSubview(titleViewLabel)
         self.titleViewStack.addArrangedSubview(activity)
@@ -117,6 +150,10 @@ class BaseViewController: UIViewController {
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(popView))
         self.navigationItem.leftBarButtonItem?.customView?.addGestureRecognizer(tapGesture)
+        
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        
     }
     
     
@@ -124,6 +161,12 @@ class BaseViewController: UIViewController {
         self.navigationController()?.popViewController(animated: true)
     }
     
+}
+
+extension BaseViewController:UIGestureRecognizerDelegate{
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
 }
 
 // MARK: - Check connection
@@ -136,7 +179,8 @@ extension BaseViewController{
         monitor?.pathUpdateHandler = { path in
             if path.status == .satisfied {
                 DispatchQueue.main.sync {
-                    
+                    print("connect")
+                    BaseViewController.isNoConnectionAlertShowed = false
                     self.titleViewLabel.text = self.titleString
                     self.activity.stopAnimating()
                     self.titleState = .normal
@@ -144,6 +188,7 @@ extension BaseViewController{
                 
             } else {
                 DispatchQueue.main.sync {
+                    print("disconnect")
                     self.titleViewLabel.text = "Соединение"
                     self.activity.startAnimating()
                     self.titleState = .noConnection
@@ -160,6 +205,7 @@ extension BaseViewController{
 }
 
 extension BaseViewController:BaseViewControllerProtocol{
+    
     func setUpdating() {
         if self.titleState != .noConnection{
             self.titleViewLabel.text = "Обновление"
@@ -206,38 +252,72 @@ extension BaseViewController:BaseViewControllerProtocol{
         }
     }
     
-    func showError(error:NetworkServiceHelper.NetworkError){
-        let errorBody = error.getAlertBody()
+    func showLoadingView(){
+        let indicator = self.loadingView.subviews[0] as? UIActivityIndicatorView
+        indicator?.startAnimating()
+        self.navigationController?.navigationBar.isUserInteractionEnabled = false
+        self.tabBarController?.tabBar.isUserInteractionEnabled = false
         
-        if error == .tokenExpired ||
-            error == .invalidFirebaseIdToken ||
-            error == .TOKEN_EXPIRED ||
-            error == .USER_DISABLED ||
-            error == .USER_NOT_FOUND ||
-            error == .INVALID_REFRESH_TOKEN{
+        self.view.bringSubviewToFront(loadingView)
+        UIView.animate(withDuration: 0.3) {
+            self.loadingView.layer.opacity = 0.7
+        }
+    }
+    
+    func stopLoadingView(){
+        let indicator = self.loadingView.subviews[0] as? UIActivityIndicatorView
+        indicator?.stopAnimating()
+        self.navigationController?.navigationBar.isUserInteractionEnabled = true
+        self.tabBarController?.tabBar.isUserInteractionEnabled = true
+        
+        self.view.sendSubviewToBack(loadingView)
+        UIView.animate(withDuration: 0.3) {
+            self.loadingView.layer.opacity = 0
+        }
+    }
+    
+    func showError(error:NetworkServiceHelper.NetworkError){
+        DispatchQueue.main.async {
             
-            let alert = UIAlertController(
-                title: errorBody.title,
-                message: errorBody.msg,
-                preferredStyle: .actionSheet
-            )
-            let logOut = UIAlertAction(title: "Выйти", style: .destructive) { _ in
-                let controller = Controllers()
-                controller.goToLoginPage(view: self.view, direction: .fade)
+            let errorBody = error.getAlertBody()
+            
+            if error == .tokenExpired ||
+                error == .invalidFirebaseIdToken ||
+                error == .TOKEN_EXPIRED ||
+                error == .USER_DISABLED ||
+                error == .USER_NOT_FOUND ||
+                error == .INVALID_REFRESH_TOKEN{
+                
+                let alert = UIAlertController(
+                    title: errorBody.title,
+                    message: errorBody.msg,
+                    preferredStyle: .alert
+                )
+                let logOut = UIAlertAction(title: "Выйти", style: .destructive) { _ in
+                    let controller = Controllers()
+                    controller.goToLoginPage(view: self.view, direction: .fade)
+                }
+                
+                alert.addAction(logOut)
+                self.present(alert, animated: true)
+                return
             }
             
-            alert.addAction(logOut)
-            self.present(alert, animated: true)
-            return
+            if error == .noConnection{
+                if BaseViewController.isNoConnectionAlertShowed{
+                    return
+                }
+                BaseViewController.isNoConnectionAlertShowed = true
+            }
+            
+            AlertKitAPI.present(
+                title: errorBody.title,
+                subtitle: errorBody.msg,
+                icon: .error,
+                style: .iOS17AppleMusic,
+                haptic: .error
+            )
         }
-        
-        AlertKitAPI.present(
-            title: errorBody.title,
-            subtitle: errorBody.msg,
-            icon: .error,
-            style: .iOS17AppleMusic,
-            haptic: .error
-        )
     }
 }
 

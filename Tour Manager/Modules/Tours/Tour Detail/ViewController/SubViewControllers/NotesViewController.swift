@@ -8,13 +8,13 @@
 import UIKit
 import SnapKit
 
-class NotesViewController: UIViewController {
+class NotesViewController: BaseViewController {
     
     var isGuide:Bool = false
     
     public lazy var textView:UITextView = {
         let textView = UITextView()
-        textView.backgroundColor = .systemGray6
+        textView.backgroundColor = UIColor(resource: .background)
         textView.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         textView.isSelectable = true
         textView.isScrollEnabled = true
@@ -49,8 +49,9 @@ class NotesViewController: UIViewController {
     }
     
     func configureView(){
-        self.navigationItem.title = "Заметки"
-        self.view.backgroundColor = .white
+        self.titleString = "Заметки"
+        self.setBackButton()
+        self.view.backgroundColor = UIColor(resource: .background)
         
         if !isGuide{
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "pencil.tip.crop.circle.badge.minus"), style: .plain, target: self, action: #selector(changeIsEditable))
@@ -61,7 +62,7 @@ class NotesViewController: UIViewController {
     func configureTextView(){
         self.view.addSubview(textView)
         textView.snp.makeConstraints { make in
-            make.leading.trailing.bottom.top.equalToSuperview()
+            make.leading.trailing.bottom.top.equalTo(self.view.safeAreaLayoutGuide)
         }
         if isGuide{
             textView.isEditable = false

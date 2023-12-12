@@ -114,7 +114,7 @@ class ToursView: UIView {
         calendar.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
             make.top.equalTo(selectedDayStackView.snp.bottom).offset(20)
-            make.height.equalTo(70)
+            make.height.equalTo(90)
         }
         
         collectionViewTours.snp.makeConstraints { make in

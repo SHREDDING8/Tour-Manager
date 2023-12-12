@@ -115,8 +115,14 @@ class ApiManagerExcursions: ApiManagerExcursionsProtocol{
                         
                     }
                     
-                case .failure(_):
-                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                case .failure(let failure):
+                    if failure.isSessionTaskError, let urlError = failure.underlyingError as? URLError, urlError.code == .notConnectedToInternet {
+                        // no connection
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.noConnection)
+                    } else {
+                        // Другие типы ошибок
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                    }
                 }
             }
         }
@@ -186,8 +192,14 @@ class ApiManagerExcursions: ApiManagerExcursionsProtocol{
                         
                     }
                     
-                case .failure(_):
-                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                case .failure(let failure):
+                    if failure.isSessionTaskError, let urlError = failure.underlyingError as? URLError, urlError.code == .notConnectedToInternet {
+                        // no connection
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.noConnection)
+                    } else {
+                        // Другие типы ошибок
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                    }
                 }
             }
         }
@@ -200,7 +212,6 @@ class ApiManagerExcursions: ApiManagerExcursionsProtocol{
     // MARK: - DeleteExcursion
     func deleteTour(date:String, tourId:String) async throws -> Bool{
         let refresh = try await ApiManagerAuth.refreshToken()
-        // TODO:- реализовать в view GetTour
         if !refresh{
             throw NetworkServiceHelper.NetworkError.unknown
         }
@@ -233,8 +244,14 @@ class ApiManagerExcursions: ApiManagerExcursionsProtocol{
                         
                     }
                     
-                case .failure(_):
-                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                case .failure(let failure):
+                    if failure.isSessionTaskError, let urlError = failure.underlyingError as? URLError, urlError.code == .notConnectedToInternet {
+                        // no connection
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.noConnection)
+                    } else {
+                        // Другие типы ошибок
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                    }
                 }
             }
         }
@@ -283,8 +300,14 @@ class ApiManagerExcursions: ApiManagerExcursionsProtocol{
                         
                     }
                     
-                case .failure(_):
-                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                case .failure(let failure):
+                    if failure.isSessionTaskError, let urlError = failure.underlyingError as? URLError, urlError.code == .notConnectedToInternet {
+                        // no connection
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.noConnection)
+                    } else {
+                        // Другие типы ошибок
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                    }
                 }
             }
         }
@@ -329,14 +352,20 @@ class ApiManagerExcursions: ApiManagerExcursionsProtocol{
                         }else{
                             continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
                         }
-                                                
+                        
                     default:
                         continuation.resume(throwing: NetworkServiceHelper.parseError(data: success))
                         
                     }
                     
-                case .failure(_):
-                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                case .failure(let failure):
+                    if failure.isSessionTaskError, let urlError = failure.underlyingError as? URLError, urlError.code == .notConnectedToInternet {
+                        // no connection
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.noConnection)
+                    } else {
+                        // Другие типы ошибок
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                    }
                 }
             }
             
@@ -389,8 +418,14 @@ class ApiManagerExcursions: ApiManagerExcursionsProtocol{
                         
                     }
                     
-                case .failure(_):
-                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                case .failure(let failure):
+                    if failure.isSessionTaskError, let urlError = failure.underlyingError as? URLError, urlError.code == .notConnectedToInternet {
+                        // no connection
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.noConnection)
+                    } else {
+                        // Другие типы ошибок
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                    }
                 }
             }
         }
@@ -440,8 +475,14 @@ class ApiManagerExcursions: ApiManagerExcursionsProtocol{
                         
                     }
                     
-                case .failure(_):
-                    continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                case .failure(let failure):
+                    if failure.isSessionTaskError, let urlError = failure.underlyingError as? URLError, urlError.code == .notConnectedToInternet {
+                        // no connection
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.noConnection)
+                    } else {
+                        // Другие типы ошибок
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                    }
                 }
             }
         }

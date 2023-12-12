@@ -9,9 +9,10 @@ import Foundation
 import UIKit
 import RealmSwift
 
-protocol ExcursionManadmentViewProtocol:AnyObject{
+protocol ExcursionManadmentViewProtocol:AnyObject, BaseViewControllerProtocol{
     func updateTours(date:Date)
     func updateEvents(startDate:Date, endDate:Date)
+    func tourDeleted()
 }
 
 protocol ExcursionManadmentPresenterProtocol:AnyObject{
@@ -113,6 +114,7 @@ class ExcursionManadmentPresenter:ExcursionManadmentPresenterProtocol{
     }
     
     private func loadToursFromServer(date:Date){
+        view?.setUpdating()
         Task{
             do{
                 let toursJson = try await toursNetworkService.getDateTourList(date: date.birthdayToString(), guideOnly: false)
@@ -162,13 +164,22 @@ class ExcursionManadmentPresenter:ExcursionManadmentPresenterProtocol{
                     self.loadToursFromRealm(date: date)
                 }
                 
-            }catch{
-             print("error loadToursFromServer")
+            }catch let error{
+                if let err = error as? NetworkServiceHelper.NetworkError{
+                        view?.showError(error: err)
+                    
+                }
             }
+            
+            DispatchQueue.main.async {
+                self.view?.stopUpdating()
+            }
+            
         }
     }
     
     func deleteTour(date:Date, excursionId:String){
+        view?.setSaving()
         Task{
             do{
                 let result = try await toursNetworkService.deleteTour(date: date.birthdayToString(), tourId: excursionId)
@@ -177,11 +188,18 @@ class ExcursionManadmentPresenter:ExcursionManadmentPresenterProtocol{
                     DispatchQueue.main.async {
                         self.toursRealmService.deleteTour(tourId: excursionId)
                         self.loadToursFromRealm(date: date)
+                        self.view?.tourDeleted()
                     }
                 }
                 
-            } catch{
-                
+            } catch let error{
+                if let err = error as? NetworkServiceHelper.NetworkError{
+                    self.view?.showError(error: err)
+                }
+            }
+            
+            DispatchQueue.main.async {
+                self.view?.stopSaving()
             }
         }
         
@@ -214,9 +232,12 @@ class ExcursionManadmentPresenter:ExcursionManadmentPresenterProtocol{
                     
                 }
                 
-            } catch{
-                print("catch")
+            } catch let error{
+                if let err = error as? NetworkServiceHelper.NetworkError{
+                    self.view?.showError(error: err)
+                }
             }
+            
         }
         
     }

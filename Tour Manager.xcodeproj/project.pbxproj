@@ -856,16 +856,8 @@
 			isa = PBXGroup;
 			children = (
 				EE783F4C2AD56C6D00DA820F /* View */,
-				EE783F4B2AD56C6800DA820F /* Model */,
 			);
 			path = "Guide Excursions";
-			sourceTree = "<group>";
-		};
-		EE783F4B2AD56C6800DA820F /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		EE783F4C2AD56C6D00DA820F /* View */ = {

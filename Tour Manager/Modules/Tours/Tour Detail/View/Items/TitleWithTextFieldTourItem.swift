@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import AlertKit
 
 class TitleWithTextFieldTourItem: UIView {
     
@@ -22,7 +23,7 @@ class TitleWithTextFieldTourItem: UIView {
     lazy var textField:UITextField = {
         let textField = UITextField()
         textField.font = .systemFont(ofSize: 16)
-        textField.clearButtonMode = .whileEditing
+        textField.clearButtonMode = .never
         textField.borderStyle = .none
         return textField
     }()
@@ -34,6 +35,17 @@ class TitleWithTextFieldTourItem: UIView {
         let button = UIButton(configuration: conf)
         button.tintColor = .gray
         button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+        return button
+    }()
+
+    private lazy var copyButton:UIButton = {
+        var conf = UIButton.Configuration.plain()
+        conf.buttonSize = .mini
+        
+        let button = UIButton(configuration: conf)
+        button.tintColor = .gray
+        button.setImage(UIImage(systemName: "doc.on.doc"), for: .normal)
+        button.addTarget(self, action: #selector(textCopy), for: .touchUpInside)
         return button
     }()
     
@@ -66,12 +78,42 @@ class TitleWithTextFieldTourItem: UIView {
             make.trailing.equalTo(nextPageImage.snp.leading).inset(5)
         }
         
+        if copyButton.superview != nil{
+            copyButton.snp.makeConstraints { make in
+                make.trailing.equalTo(nextPageImage.snp.leading).inset(5)
+                make.centerY.equalToSuperview()
+                make.width.equalTo(50)
+            }
+        }
+        
         textField.snp.makeConstraints { make in
             make.top.equalTo(title.snp.bottom).offset(5)
             
             make.leading.equalToSuperview().inset(5)
-            make.trailing.equalTo(nextPageImage.snp.leading).inset(5)
+            if copyButton.superview != nil{
+                make.trailing.equalTo(copyButton.snp.leading).inset(5)
+            }else{
+                make.trailing.equalTo(nextPageImage.snp.leading).inset(5)
+            }
+            
             make.bottom.equalToSuperview().inset(5)
         }
     }
+    
+    public func addCopyButton(){
+        self.addSubview(copyButton)
+        self.layoutSubviews()
+    }
+    
+    @objc func textCopy(){
+        UIPasteboard.general.string = self.textField.text
+        AlertKitAPI.present(
+            title: "Скопировано",
+            subtitle: nil,
+            icon: .done,
+            style: .iOS17AppleMusic,
+            haptic: .success
+        )
+    }
+    
 }

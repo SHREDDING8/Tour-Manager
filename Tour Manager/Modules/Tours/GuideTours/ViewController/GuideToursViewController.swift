@@ -17,11 +17,7 @@ final class GuideToursViewController: ToursBaseViewController {
         self.dataSource = self
         self.delegate = self
         
-        self.configureView()
-    }
-    
-    private func configureView(){
-        self.navigationItem.title = "Экскурсии"
+        self.titleString = "Мои экскурсии"
     }
     
 }

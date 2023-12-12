@@ -202,12 +202,15 @@ extension EmploeeViewController:UICollectionViewDelegate, UICollectionViewDelega
 
 
 extension EmploeeViewController:EmployeeViewProtocol{
+    func stopRefreshing() {
+        self.view().scrollView.refreshControl?.endRefreshing()
+    }
+    
     func loadUserInfoFromServer() {
         self.configureInfo()
         self.configureAccessLevels()
         
         self.view().profileImagesCollectionView.reloadData()
-        self.view().scrollView.refreshControl?.endRefreshing()
     }
     
     func changeLevelSuccess() {
@@ -218,18 +221,6 @@ extension EmploeeViewController:EmployeeViewProtocol{
             haptic: .success
         )
     }
-    
-    func changeLevelError() {
-        self.configureAccessLevels()
-        
-        AlertKitAPI.present(
-            title: "Ошибка изменения прав доступа",
-            icon: .error,
-            style: .iOS17AppleMusic,
-            haptic: .error
-        )
-    }
-    
     
     func updateImage(at indexPath:IndexPath, image:UIImage){
         if let cell = self.view().profileImagesCollectionView.cellForItem(at: indexPath) as? ProfilePhotoCollectionViewCell{

@@ -7,8 +7,10 @@
 
 import Foundation
 
-protocol ChangePasswordViewProtocol:AnyObject{
-    
+protocol ChangePasswordViewProtocol:AnyObject, BaseViewControllerProtocol{
+    func passwordsAreNotTheSame()
+    func weakPassword()
+    func passwordUpdated()
 }
 
 protocol ChangePasswordPresenterProtocol:AnyObject{
@@ -16,11 +18,14 @@ protocol ChangePasswordPresenterProtocol:AnyObject{
     
     var passwords:[String:String] { get set }
     
-    func updatePassword(oldPassword:String, newPassword:String,completion: @escaping (Bool)->Void )
+    func updatePassword()
+    
 }
 
 class ChangePasswordPresenter:ChangePasswordPresenterProtocol{
     weak var view:ChangePasswordViewProtocol?
+    
+    let validation = StringValidation()
     
     let keychain = KeychainService()
     let apiAuth = ApiManagerAuth()
@@ -36,14 +41,41 @@ class ChangePasswordPresenter:ChangePasswordPresenterProtocol{
         self.view = view
     }
     
-    public func updatePassword(oldPassword:String, newPassword:String,completion: @escaping (Bool)->Void ){
+    public func updatePassword(){
+        if passwords["newPassword"] != passwords["secondNewPassword"]{
+            view?.passwordsAreNotTheSame()
+            return
+        }
+        if !validation.validatePasswordsString(passwords["newPassword"] ?? "", passwords["secondNewPassword"] ?? ""){
+            view?.weakPassword()
+            return
+        }
+        
         let email = usersRealm.getUserInfo(localId: keychain.getLocalId() ?? "")?.email ?? ""
-//        self.apiAuth.updatePassword(email: email, oldPassword: oldPassword, newPassword: newPassword) { isUpdated, error in
-//            if error != nil{
-//                completion(false,error)
-//                return
-//            }
-//            completion(true,nil)
-//        }
+        self.view?.setLoading()
+        self.view?.showLoadingView()
+        Task{
+            do{
+                if try await self.apiAuth.updatePassword(email: email, oldPassword:passwords["oldPassword"] ?? "", newPassword: passwords["newPassword"] ?? ""){
+                    DispatchQueue.main.async {
+                        self.view?.passwordUpdated()
+                    }
+                    
+                }
+            }catch let error{
+                if let err = error as? NetworkServiceHelper.NetworkError{
+                    DispatchQueue.main.async {
+                        self.view?.showError(error: err)
+                    }
+                }
+            }
+            DispatchQueue.main.async {
+                self.view?.stopLoading()
+                self.view?.stopLoadingView()
+            }
+            
+
+        }
+        
     }
 }

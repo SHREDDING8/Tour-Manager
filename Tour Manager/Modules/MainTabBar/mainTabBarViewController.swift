@@ -13,7 +13,6 @@ class mainTabBarViewController: UITabBarController {
     var presenter: MainTabBarPresenterProtocol?
     
     let controllers = Controllers()
-    let alerts = Alert()
         
     let activityIndicator:UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
@@ -39,7 +38,6 @@ class mainTabBarViewController: UITabBarController {
                 
     }
     
-        
     fileprivate func configureActivityIndicator(){
         self.view.addSubview(self.activityIndicator)
         
@@ -52,8 +50,41 @@ class mainTabBarViewController: UITabBarController {
 }
 
 extension mainTabBarViewController:MainTabBarViewProtocol{
-    func unknownError() {
-        AlertKitAPI.present(title: "Неизвестная ошибка", icon: .error, style: .iOS17AppleMusic, haptic: .error)
+    func showError(error: NetworkServiceHelper.NetworkError) {
+        DispatchQueue.main.async {
+            
+            let errorBody = error.getAlertBody()
+            
+            if error == .tokenExpired ||
+                error == .invalidFirebaseIdToken ||
+                error == .TOKEN_EXPIRED ||
+                error == .USER_DISABLED ||
+                error == .USER_NOT_FOUND ||
+                error == .INVALID_REFRESH_TOKEN{
+                
+                let alert = UIAlertController(
+                    title: errorBody.title,
+                    message: errorBody.msg,
+                    preferredStyle: .alert
+                )
+                let logOut = UIAlertAction(title: "Выйти", style: .destructive) { _ in
+                    let controller = Controllers()
+                    controller.goToLoginPage(view: self.view, direction: .fade)
+                }
+                
+                alert.addAction(logOut)
+                self.present(alert, animated: true)
+                return
+            }
+            
+            AlertKitAPI.present(
+                title: errorBody.title,
+                subtitle: errorBody.msg,
+                icon: .error,
+                style: .iOS17AppleMusic,
+                haptic: .error
+            )
+        }
     }
     
     func updateControllers() {
@@ -65,9 +96,7 @@ extension mainTabBarViewController:MainTabBarViewProtocol{
         let excursionManagementNavViewController = TourManadmentAssembly.createToursManadgmentViewController()
                 
         excursionManagementNavViewController.tabBarItem = UITabBarItem(title: "Управление", image: UIImage(systemName: "person.3.sequence.fill"), tag: 2)
-        
-//        let excursionsNavigationController = controllers.getControllerMain(.excursionsNavigationController)
-        
+                
         let excursionsNavigationController = TourManadmentAssembly.createGuidesToursViewController()
         
         excursionsNavigationController.tabBarItem = UITabBarItem(title: "Экскурсии", image: UIImage(systemName: "calendar"), tag: 2)

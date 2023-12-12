@@ -21,27 +21,7 @@ class FullCalendarView: UIView {
     
     var datesIndexPath:[Date:IndexPath] = [:]
     var isFirstLoad = true
-    
-    lazy var closeButton:UIButton = {
-        var conf = UIButton.Configuration.plain()
-        conf.buttonSize = .large
-        conf.baseForegroundColor = .gray
-        let button = UIButton(configuration: conf)
         
-        button.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
-        return button
-    }()
-    
-    lazy var refreshButton:UIButton = {
-        var conf = UIButton.Configuration.plain()
-        conf.buttonSize = .large
-        conf.baseForegroundColor = .gray
-        let button = UIButton(configuration: conf)
-        
-        button.setImage(UIImage(systemName: "arrow.clockwise.circle.fill"), for: .normal)
-        return button
-    }()
-    
     lazy var calendar:JTACMonthView = {
         let calendar = JTACMonthView()
         calendar.calendarDataSource = self
@@ -70,23 +50,11 @@ class FullCalendarView: UIView {
     
     private func commonInit(){
         self.backgroundColor = UIColor(resource: .background)
-        self.addSubview(closeButton)
-        self.addSubview(refreshButton)
         self.addSubview(calendar)
-        
-        refreshButton.snp.makeConstraints { make in
-            make.top.equalTo(self.safeAreaLayoutGuide)
-            make.leading.equalToSuperview().inset(20)
-        }
-        
-        closeButton.snp.makeConstraints { make in
-            make.top.equalTo(self.safeAreaLayoutGuide)
-            make.trailing.equalToSuperview().inset(20)
-        }
-        
+                
         calendar.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
-            make.top.equalTo(closeButton.snp.bottom)
+            make.top.equalTo(self.safeAreaLayoutGuide)
             make.bottom.equalToSuperview()
         }
         

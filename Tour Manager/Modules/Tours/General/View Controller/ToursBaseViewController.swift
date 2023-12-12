@@ -22,7 +22,7 @@ protocol ToursBaseViewControllerDelegate{
     func getEventsColorsForDate(date: Date) -> [UIColor]
 }
 
-class ToursBaseViewController: UIViewController {
+class ToursBaseViewController: BaseViewController {
     
     public var dataSource:ToursBaseViewControllerDataSource!
     public var delegate:ToursBaseViewControllerDelegate!
@@ -91,15 +91,17 @@ class ToursBaseViewController: UIViewController {
     }
     
     @objc private func showFullCalendar(){
-        let vc = TourManadmentAssembly.createFullCalendarViewController(isGuide: isGuide) as! FullCalendarViewController
-        vc.doAfterSelecting = { date in
-            self.view().calendar.scrollToDate(date, animateScroll: true)
-            self.view().selectedDate = date
-            self.view().calendar.selectDates([date])
+        if let navVc = (TourManadmentAssembly.createFullCalendarViewController(isGuide: isGuide) as? BaseNavigationViewController), let vc = navVc.viewControllers[0] as? FullCalendarViewController{
+            vc.doAfterSelecting = { date in
+                self.view().calendar.scrollToDate(date, animateScroll: true)
+                self.view().selectedDate = date
+                self.view().calendar.selectDates([date])
+            }
+            vc.startDate = self.view().selectedDate
+            
+            self.present(navVc, animated: true)
         }
-        vc.startDate = self.view().selectedDate
         
-        self.present(vc, animated: true)
     }
         
 }

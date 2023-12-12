@@ -21,6 +21,17 @@ public struct ResponseLogInJsonStruct: Codable {
     }
 }
 
+public struct ResponseLogOutAllJsonStruct: Codable {
+    let token:String
+    let refreshToken:String
+    
+    enum CodingKeys:String, CodingKey{
+        
+        case token
+        case refreshToken = "refresh_token"
+    }
+}
+
 struct ResponseIsUserExistsJsonStruct: Codable {
     let userExists:Bool
 }

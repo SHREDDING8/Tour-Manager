@@ -6,19 +6,12 @@
 //
 
 import UIKit
+import AlertKit
 
-class ChangePasswordViewController: UIViewController{
+class ChangePasswordViewController: BaseViewController{
     
     // MARK: - My variables
     var presenter:ChangePasswordPresenterProtocol!
-    
-    let alerts = Alert()
-    
-    let controllers = Controllers()
-    
-    
-    let stringValidation = StringValidation()
-    
     
     var stackViewPosition:CGFloat!
     
@@ -38,11 +31,16 @@ class ChangePasswordViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         addDelegates()
+        addTargets()
         
+        self.titleString = "Смена пароля"
+        self.setBackButton()
+        
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.addKeyboardObservers()
-        self.configureView()
-
-        // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -61,16 +59,8 @@ class ChangePasswordViewController: UIViewController{
         self.view().confirmPassword.textField.delegate = self
     }
     
-    
-    // MARK: - Configuration
-    
-    fileprivate func configureView(){
-        self.navigationItem.title = "Изменить пароль"
-        
-        let backButton = UIBarButtonItem()
-        backButton.title = "Назад"
-        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
-
+    func addTargets(){
+        self.view().changeButtonPassword.addTarget(self, action: #selector(changePassword), for: .touchUpInside)
     }
     
     // MARK: - keyboard
@@ -112,38 +102,8 @@ class ChangePasswordViewController: UIViewController{
     
     // MARK: - Actions
     
-    @IBAction func changePassword(_ sender: Any) {
-//        if stringValidation.validatePasswordsString(self.passwords["newPassword"] ?? "", self.passwords["secondNewPassword"] ?? ""){
-//            
-//            self.presenter.updatePassword(oldPassword: self.passwords["oldPassword"] ?? "", newPassword: self.passwords["newPassword"] ?? "", completion: { isUpdated, error in
-//                
-//                if error == .invalidEmailOrPassword{
-//                    self.alerts.errorAlert(self, errorTypeApi: .invalidEmailOrPassword)
-//                    
-//                } else if  error == .emailIsNotVerifyed{
-//                    self.alerts.errorAlert(self, errorTypeApi: .unknown)
-//                    
-//                    
-//                }else if error == .unknowmError{
-//                    self.alerts.errorAlert(self, errorTypeApi: .unknown)
-//                }
-////                else if error == .notConnected{
-////                    self.controllers.goToNoConnection(view: self.view, direction: .fade)
-////                }
-//                
-//                if isUpdated{
-//                    self.alerts.invalidToken(self, message: "Пароль успешно обновлен")                  
-//                }
-//                
-//            })
-//        }
-        
-    }
-    
-    // MARK: - Navigation
-    
-    fileprivate func goToBack(){
-        self.navigationController?.popViewController(animated: true)
+    @objc private func changePassword() {
+        self.presenter.updatePassword()
     }
     
 }
@@ -165,5 +125,33 @@ extension ChangePasswordViewController:UITextFieldDelegate{
 }
 
 extension ChangePasswordViewController:ChangePasswordViewProtocol{
+    func passwordsAreNotTheSame() {
+        let alert = UIAlertController(title: "Пароли не совпадают", message: nil, preferredStyle: .alert)
+        
+        let ok = UIAlertAction(title: "Ok", style: .default)
+        
+        alert.addAction(ok)
+        self.present(alert, animated: true)
+    }
+    
+    func weakPassword(){
+        let alert = UIAlertController(title: "Слабый пароль", message: nil, preferredStyle: .alert)
+        
+        let ok = UIAlertAction(title: "Ok", style: .default)
+        
+        alert.addAction(ok)
+        self.present(alert, animated: true)
+    }
+    
+    func passwordUpdated() {
+        AlertKitAPI.present(
+            title: "Пароль обновлен",
+            subtitle: nil,
+            icon: .done,
+            style: .iOS17AppleMusic,
+            haptic: .success
+        )
+    }
+    
     
 }

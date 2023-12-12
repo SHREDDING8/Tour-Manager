@@ -8,12 +8,12 @@
 import Foundation
 import UIKit
 
-protocol EmployeeViewProtocol:AnyObject{
+protocol EmployeeViewProtocol:AnyObject, BaseViewControllerProtocol{
     func updateImage(at indexPath:IndexPath, image:UIImage)
     func changeLevelSuccess()
-    func changeLevelError()
     
     func loadUserInfoFromServer()
+    func stopRefreshing()
 }
 
 protocol EmployeePresenterProtocol:AnyObject{
@@ -85,26 +85,18 @@ class EmployeePresenter:EmployeePresenterProtocol{
                     self.view?.updateImage(at: indexPath, image: image)
                 }
                 
-            } catch{
-                
+            } catch let error{
+                if let err = error as? NetworkServiceHelper.NetworkError{
+                    self.view?.showError(error: err)
+                }
             }
             
         }
         
     }
     
-    func loadPhotos(){
-        var imageForDownload:[String] = []
-        if let userImageIds = userRealmService.getUserInfo(localId: user.localId)?.imageIDs{
-            for imageid in userImageIds {
-                if imageService.getImage(by: imageid) == nil{
-                    imageForDownload.append(imageid)
-                }
-            }
-        }
-    }
-    
     func getUserInfoFromServer(){
+        view?.setUpdating()
         Task{
             do{
                 let newInfo = try await employeeNetworkService.getEmployeeInfoById(employeeId: self.user.localId)
@@ -164,8 +156,15 @@ class EmployeePresenter:EmployeePresenterProtocol{
                     self.view?.loadUserInfoFromServer()
                 }
                 
-            }catch{
-                print("catch")
+            }catch let error{
+                if let err = error as? NetworkServiceHelper.NetworkError{
+                    self.view?.showError(error: err)
+                }
+            }
+            
+            DispatchQueue.main.async {
+                self.view?.stopUpdating()
+                self.view?.stopRefreshing()
             }
             
         }
@@ -215,6 +214,8 @@ class EmployeePresenter:EmployeePresenterProtocol{
             write_general_company_information: newEmployee.accessLevels.writeGeneralCompanyInformation
         )
         
+        view?.setLoading()
+        view?.showLoadingView()
         Task{
             do{
                 if try await employeeNetworkService.updateCompanyUserAccessLevel(employeeId: user.localId, jsonData){
@@ -257,16 +258,18 @@ class EmployeePresenter:EmployeePresenterProtocol{
                         )
                     }
                 }
-            }catch{
-                
-                DispatchQueue.main.async {
-                    self.view?.changeLevelError()
+            }catch let error{
+                if let err = error as? NetworkServiceHelper.NetworkError{
+                    self.view?.showError(error: err)
                 }
-                
+            }
+            
+            DispatchQueue.main.async {
+                self.view?.stopLoading()
+                self.view?.stopLoadingView()
             }
         }
 
     }
-    
     
 }

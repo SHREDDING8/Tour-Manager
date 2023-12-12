@@ -349,6 +349,42 @@ extension ExcursionForGuideTableViewController:UICollectionViewDelegate,UICollec
 }
 
 extension ExcursionForGuideTableViewController:OneGuideExcursionViewProtocol{
+    func setUpdating() {
+        
+    }
+    
+    func stopUpdating() {
+        
+    }
+    
+    func setLoading() {
+        
+    }
+    
+    func stopLoading() {
+        
+    }
+    
+    func setSaving() {
+        
+    }
+    
+    func stopSaving() {
+        
+    }
+    
+    func showLoadingView() {
+        
+    }
+    
+    func stopLoadingView() {
+        
+    }
+    
+    func showError(error: NetworkServiceHelper.NetworkError) {
+        
+    }
+    
     func refreshSuccess() {
         
     }

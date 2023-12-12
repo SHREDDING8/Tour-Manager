@@ -28,6 +28,7 @@ final class ProfileAssembly:ProfileAssemblyProtocol{
     static func createExtendedSettingsViewController() ->UIViewController{
         
         let view = ExtendedSettingsViewController()
+        view.hidesBottomBarWhenPushed = true
         
         let presenter = ExtendedSettingsPresenter(view: view)
         view.presenter = presenter
@@ -36,7 +37,7 @@ final class ProfileAssembly:ProfileAssemblyProtocol{
     }
     
     static func createEmployeeListViewController() -> UIViewController{
-        let view = EmploeeTableViewController(style: .plain)
+        let view = EmploeeTableViewController()
         let presenter = EmployeesListPresenter(view: view)
         view.presenter = presenter
         return view

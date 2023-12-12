@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import RealmSwift
 
-protocol OneGuideExcursionViewProtocol:AnyObject{
+protocol OneGuideExcursionViewProtocol:AnyObject, BaseViewControllerProtocol{
     func updateGuideStatus(guideStatus: Status)
     func fillGuides()
     func refreshSuccess()
@@ -51,6 +51,7 @@ class OneGuideExcursionPresenter:OneGuideExcursionPresenterProtocol{
     
     func loadTourFromServer(){
         if tour.tourId.isEmpty { fatalError("It is new tour")}
+        view?.setUpdating()
         Task{
             do{
                 let tourFromServer = try await toursNetworkService.getTour(
@@ -135,14 +136,22 @@ class OneGuideExcursionPresenter:OneGuideExcursionPresenterProtocol{
                     self.view?.refreshSuccess()
                 }
                 
-            } catch{
-                
+            } catch let error{
+                if let err = error as? NetworkServiceHelper.NetworkError{
+                    self.view?.showError(error: err)
+                }
             }
+            DispatchQueue.main.async {
+                self.view?.stopUpdating()
+            }
+            
             
         }
     }
     
     func setGuideTourStatus(guideStatus: Status){
+        view?.setSaving()
+        view?.showLoadingView()
         Task{
             do{
                 if try await toursNetworkService.setGuideTourStatus(tourDate: tour.dateAndTime.birthdayToString(), tourId: tour.tourId, guideStatus: guideStatus){
@@ -150,8 +159,15 @@ class OneGuideExcursionPresenter:OneGuideExcursionPresenterProtocol{
                         self.view?.updateGuideStatus(guideStatus:guideStatus)
                     }
                 }
-            }catch{
-                
+            }catch let error{
+                if let err = error as? NetworkServiceHelper.NetworkError{
+                    self.view?.showError(error: err)
+                }
+            }
+            
+            DispatchQueue.main.async {
+                self.view?.stopSaving()
+                self.view?.stopLoadingView()
             }
             
         }
@@ -220,7 +236,10 @@ class OneGuideExcursionPresenter:OneGuideExcursionPresenterProtocol{
                     let imageData = try await usersNetworkSevise.downloadProfilePhoto(pictureId: id)
                     res.append((id,imageData))
                     
-                }catch{
+                }catch let error{
+                    if let err = error as? NetworkServiceHelper.NetworkError{
+                        self.view?.showError(error: err)
+                    }
                     
                 }
             }
@@ -234,6 +253,5 @@ class OneGuideExcursionPresenter:OneGuideExcursionPresenterProtocol{
             }
         }
     }
-    
     
 }
