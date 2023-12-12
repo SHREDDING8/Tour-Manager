@@ -391,7 +391,7 @@ class ApiManagerExcursions: ApiManagerExcursionsProtocol{
                 endDate: endDate
             )
         )!
-        
+                
         let headers = NetworkServiceHelper.Headers()
         headers.addAccessTokenHeader()
         

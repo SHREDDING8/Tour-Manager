@@ -52,11 +52,8 @@ class FullCalendarViewController: BaseViewController {
     
     public func reloadDates(_ dates: [Date]){
         for date in dates {
-            if let indexPath = self.view().datesIndexPath[date]{
-                if let cell = self.view().calendar.cellForItem(at: indexPath) as? CalendarCell{
-                    
-                    cell.configureEvents(self.view().viewDelegate.getEventsForDate(date: date))
-                }
+            if let cell = self.view().calendar.cellStatus(for: date)?.cell() as? CalendarCell{
+                cell.configureEvents(self.view().viewDelegate.getEventsForDate(date: date))
             }
         }
     }

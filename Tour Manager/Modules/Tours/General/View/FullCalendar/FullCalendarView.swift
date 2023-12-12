@@ -18,10 +18,7 @@ protocol FullCalendarViewDelegate{
 class FullCalendarView: UIView {
     var viewDelegate:FullCalendarViewDelegate!
     var selectedDate:Date = Date.now
-    
-    var datesIndexPath:[Date:IndexPath] = [:]
-    var isFirstLoad = true
-        
+            
     lazy var calendar:JTACMonthView = {
         let calendar = JTACMonthView()
         calendar.calendarDataSource = self
@@ -127,59 +124,12 @@ extension FullCalendarView:JTACMonthViewDelegate{
     }
         
     func calendar(_ calendar: JTACMonthView, didSelectDate date: Date, cell: JTACDayCell?, cellState: CellState, indexPath: IndexPath) {
-                
-        if self.isFirstLoad{
-            self.isFirstLoad = false
-            let numOfSections = self.calendar.numberOfSections
-            
-            // more
-            var currentCalendar = Calendar.current
-            currentCalendar.timeZone = .current
-                            
-            var addedDate = currentCalendar.date(byAdding: .day, value: -indexPath.row, to: date) ?? Date.now
-                            
-            for section in indexPath.section..<numOfSections{
-                var newIndexPath = IndexPath(row: 0, section: section)
-                let numOfItems = calendar.numberOfItems(inSection: section)
-                for row in 0..<numOfItems{
-                    newIndexPath.row = row
-                    
-//                        self.indexPathAndDates[newIndexPath] = addedDate
-                    self.datesIndexPath[addedDate] = newIndexPath
-                    addedDate = currentCalendar.date(byAdding: .day, value: 1, to: addedDate) ?? Date.now
-                }
-            }
-            
-            // less
-            addedDate = currentCalendar.date(byAdding: .day, value: -indexPath.row - 1, to: date) ?? Date.now
-
-            let range = 0...(indexPath.section - 1)
-            let reversedRange = range.reversed()
-            for section in reversedRange{
-                var newIndexPath = IndexPath(row: 0, section: section)
-                
-                let rangeInside = 0..<calendar.numberOfItems(inSection: section)
-                let reversedRangeInside = rangeInside.reversed()
-                
-                for row in reversedRangeInside{
-                    newIndexPath.row = row
-                    
-//                        self.indexPathAndDates[newIndexPath] = addedDate
-                    self.datesIndexPath[addedDate] = newIndexPath
-                    addedDate = currentCalendar.date(byAdding: .day, value: -1, to: addedDate) ?? Date.now
-                    
-                }
-            }
-            
-        }
-        
+                        
         if let cell = cell as? CalendarCell{
             cell.select(animated: true)
             self.selectedDate = date
             
-            if !self.isFirstLoad{
-                self.viewDelegate.didSelectDate(date: date)
-            }
+            self.viewDelegate.didSelectDate(date: date)
         }
     }
     
@@ -187,6 +137,7 @@ extension FullCalendarView:JTACMonthViewDelegate{
         let startDate = visibleDates.monthDates.first?.date ?? Date.now
         var endDate = Calendar.current.date(byAdding: .month, value: 1, to: startDate) ?? Date.now
         endDate = Calendar.current.date(byAdding: .day, value: -1, to: endDate) ?? Date.now
+        
         self.viewDelegate.loadEvents(startDate: startDate, endDate: endDate)
     }
     
