@@ -10,6 +10,7 @@ import UIKit
 protocol ToursBaseViewControllerDataSource{
     func numberOfTours(inDate:Date) -> Int
     func loadTours(inDate:Date)
+    func updateTours(inDate: Date)
     func loadEventsForDates(startDate:Date, endDate:Date)
 }
 
@@ -29,7 +30,9 @@ class ToursBaseViewController: BaseViewController {
     
     public var isGuide:Bool = false
     
+    private var isEndDeselerating:Bool = true
     private var beginScrollIndex:Int = 0
+    private var currentPage:Int = 0
     
     internal func view() -> ToursView{
         return view as! ToursView
@@ -61,6 +64,7 @@ class ToursBaseViewController: BaseViewController {
         
         view().didSelectDate = { indexPath in
             self.view().collectionViewTours.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+            self.isEndDeselerating = true
         }
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: #selector(showFullCalendar))
@@ -75,7 +79,14 @@ class ToursBaseViewController: BaseViewController {
     
     public func reloadTours(inDate:Date){
         if let indexPath = self.view().datesIndexPath[inDate], let cell = self.view().collectionViewTours.cellForItem(at: indexPath) as? ToursCollectionViewCell{
+            cell.tableView.refreshControl?.endRefreshing()
             cell.tableView.reloadData()
+        }
+    }
+    
+    public func endRefreshing(inDate:Date){
+        if let indexPath = self.view().datesIndexPath[inDate], let cell = self.view().collectionViewTours.cellForItem(at: indexPath) as? ToursCollectionViewCell{
+            cell.tableView.refreshControl?.endRefreshing()
         }
     }
     
@@ -126,9 +137,8 @@ extension ToursBaseViewController:UICollectionViewDataSource{
         cell.tableView.dataSource = self
         
         cell.tableView.refreshControl = UIRefreshControl(frame: .zero, primaryAction: UIAction(handler: { _ in
-            self.view().calendar.reloadItems(at: [indexPath])
-            cell.tableView.refreshControl?.endRefreshing()
-            self.view().calendar(self.view().calendar, didScrollToDateSegmentWith: self.view().calendar.visibleDates())
+            self.refreshTableView(cell: cell)
+            self.view().calendar.scrollToDate(cell.date)
         }))
         
         dataSource.loadTours(inDate: cell.date)
@@ -136,36 +146,37 @@ extension ToursBaseViewController:UICollectionViewDataSource{
                 
         return cell
     }
+    
+    func refreshTableView(cell:ToursCollectionViewCell){
+        dataSource.updateTours(inDate: cell.date)
+    }
 }
 
-extension ToursBaseViewController: UICollectionViewDelegate{
+extension ToursBaseViewController: UICollectionViewDelegate, UIScrollViewDelegate{
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if scrollView == self.view().collectionViewTours {
-            beginScrollIndex = Int(scrollView.contentOffset.x / scrollView.frame.width)
+            if isEndDeselerating{
+                self.beginScrollIndex = Int((scrollView.contentOffset.x / scrollView.frame.width).rounded())
+                isEndDeselerating = false
+            }
         }
     }
-            
+    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if scrollView == self.view().collectionViewTours {
-            let page = Int(scrollView.contentOffset.x / scrollView.frame.width)
+            self.currentPage = Int((scrollView.contentOffset.x / scrollView.frame.width).rounded())
             let calendar = Calendar.current
-            
-            if page > self.beginScrollIndex{
-                if let modifiedDate = calendar.date(byAdding: .day, value: 1, to: self.view().selectedDate){
+            if currentPage != self.beginScrollIndex{
+                if let modifiedDate = calendar.date(byAdding: .day, value: currentPage - self.beginScrollIndex, to: self.view().selectedDate){
                     
-                    self.view().calendar.selectDates([modifiedDate])
-                    self.view().calendar.scrollToDate(modifiedDate, animateScroll: true)
-                }
-            }else if page < self.beginScrollIndex{
-                if let modifiedDate = calendar.date(byAdding: .day, value: -1, to: self.view().selectedDate){
-                                        
-                    self.view().calendar.selectDates([modifiedDate])
-                    self.view().calendar.scrollToDate(modifiedDate, animateScroll: true)
                     self.view().selectedDate = modifiedDate
+                    self.view().calendar.selectDates([modifiedDate])
+                    self.view().calendar.scrollToDate(modifiedDate, animateScroll: true)
                 }
             }
             
+            isEndDeselerating = true
         }
     }
     

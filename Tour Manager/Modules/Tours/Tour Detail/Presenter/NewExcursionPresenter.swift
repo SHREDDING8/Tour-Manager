@@ -15,6 +15,7 @@ protocol NewExcursionViewProtocol:AnyObject, BaseViewControllerProtocol{
     func updatedSuccessful()
     
     func refreshSuccess()
+    func endRefreshing()
         
     func validationError(title:String, msg:String)
     
@@ -26,6 +27,7 @@ protocol NewExcursionPresenterProtocol:AnyObject{
     init(view:NewExcursionViewProtocol, tour:ExcrusionModel?, date:Date?)
     
     var tour:ExcrusionModel! { get set }
+    var oldTour:ExcrusionModel! { get }
     
     func isAccessLevel(key:AccessLevelKeys) -> Bool
     
@@ -70,6 +72,8 @@ class NewExcursionPresenter:NewExcursionPresenterProtocol{
         }else{
             self.tour = ExcrusionModel(guides: [])
             self.tour?.dateAndTime = date ?? Date.now
+            
+            oldTour = self.tour
         }
         
     }
@@ -220,6 +224,7 @@ class NewExcursionPresenter:NewExcursionPresenterProtocol{
                 }
             }
             DispatchQueue.main.async {
+                self.view?.endRefreshing()
                 self.view?.stopUpdating()
             }
             
@@ -367,8 +372,12 @@ class NewExcursionPresenter:NewExcursionPresenterProtocol{
                     let imageData = try await usersNetworkSevise.downloadProfilePhoto(pictureId: id)
                     res.append((id,imageData))
                     
-                }catch{
-                    
+                }catch let error{
+                    if let err = error as? NetworkServiceHelper.NetworkError{
+                        if err == .noConnection{
+                            return
+                        }
+                    }
                 }
             }
             

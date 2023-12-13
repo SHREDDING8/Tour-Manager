@@ -171,8 +171,11 @@ class TourDetailForGuideViewController: BaseViewController {
 }
 
 extension TourDetailForGuideViewController: OneGuideExcursionViewProtocol{
-    func refreshSuccess() {
+    func endRefreshing() {
         self.view().scrollView.refreshControl?.endRefreshing()
+    }
+    
+    func refreshSuccess() {
         self.fillFields()
     }
     

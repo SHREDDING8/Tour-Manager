@@ -187,9 +187,12 @@ extension AddGuideViewController:UITableViewDelegate,UITableViewDataSource{
 }
 
 extension AddGuideViewController:AddGuideViewProtocol{
+    func endRefreshing() {
+        self.tableView.refreshControl?.endRefreshing()
+    }
+    
     func updateUsersList() {
         tableView.reloadSections([0,1], with: .automatic)
-        self.tableView.refreshControl?.endRefreshing()
     }
     
     func updateAllGuidesList(){

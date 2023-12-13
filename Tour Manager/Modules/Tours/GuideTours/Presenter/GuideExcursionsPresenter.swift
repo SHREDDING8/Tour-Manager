@@ -10,6 +10,7 @@ import RealmSwift
 
 protocol ExcursionsGuideCalendarViewProtocol:AnyObject, BaseViewControllerProtocol{
     func updateTours(date:Date)
+    func endRefreshing(date:Date)
     func updateEvents(startDate:Date, endDate:Date)
 }
 
@@ -19,6 +20,7 @@ protocol ExcursionsGuideCalendarPresenterProtocol:AnyObject{
     var tours:[String:[ExcrusionModel]] { get set }
     
     func loadTours(date:Date)
+    func loadToursFromServer(date:Date)
     
     func getExcursionsListByRangeFromServer(startDate:Date, endDate:Date)
     func getEvent(tourDate:Date) -> EventRealmModelForGuide?
@@ -105,7 +107,7 @@ class ExcursionsGuideCalendarPresenter:ExcursionsGuideCalendarPresenterProtocol{
         }
     }
     
-    private func loadToursFromServer(date:Date){
+    public func loadToursFromServer(date:Date){
         view?.setUpdating()
         Task{
             do{
@@ -165,6 +167,7 @@ class ExcursionsGuideCalendarPresenter:ExcursionsGuideCalendarPresenterProtocol{
             }
             
             DispatchQueue.main.async {
+                self.view?.endRefreshing(date: date)
                 self.view?.stopUpdating()
             }
         }

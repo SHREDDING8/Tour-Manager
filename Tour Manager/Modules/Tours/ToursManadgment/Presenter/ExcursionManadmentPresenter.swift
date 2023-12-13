@@ -11,6 +11,7 @@ import RealmSwift
 
 protocol ExcursionManadmentViewProtocol:AnyObject, BaseViewControllerProtocol{
     func updateTours(date:Date)
+    func endRefreshing(date:Date)
     func updateEvents(startDate:Date, endDate:Date)
     func tourDeleted()
 }
@@ -26,6 +27,7 @@ protocol ExcursionManadmentPresenterProtocol:AnyObject{
     func getExcursionsListByRangeFromServer(startDate:Date, endDate:Date)
     
     func loadTours(date:Date)
+    func loadToursFromServer(date:Date)
     func deleteTour(date:Date, excursionId:String)
 }
 
@@ -113,7 +115,7 @@ class ExcursionManadmentPresenter:ExcursionManadmentPresenterProtocol{
         }
     }
     
-    private func loadToursFromServer(date:Date){
+    public func loadToursFromServer(date:Date){
         view?.setUpdating()
         Task{
             do{
@@ -172,6 +174,7 @@ class ExcursionManadmentPresenter:ExcursionManadmentPresenterProtocol{
             }
             
             DispatchQueue.main.async {
+                self.view?.endRefreshing(date: date)
                 self.view?.stopUpdating()
             }
             

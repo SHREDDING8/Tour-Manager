@@ -349,6 +349,10 @@ extension ExcursionForGuideTableViewController:UICollectionViewDelegate,UICollec
 }
 
 extension ExcursionForGuideTableViewController:OneGuideExcursionViewProtocol{
+    func endRefreshing() {
+        
+    }
+    
     func setUpdating() {
         
     }

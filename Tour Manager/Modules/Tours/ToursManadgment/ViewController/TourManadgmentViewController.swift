@@ -58,6 +58,10 @@ extension TourManadgmentViewController:ToursBaseViewControllerDataSource{
         presenter.loadTours(date: inDate)
     }
     
+    func updateTours(inDate: Date){
+        presenter.loadToursFromServer(date: inDate)
+    }
+    
 }
 
 extension TourManadgmentViewController:ToursBaseViewControllerDelegate{
@@ -178,6 +182,10 @@ extension TourManadgmentViewController:ToursBaseViewControllerDelegate{
 }
 
 extension TourManadgmentViewController:ExcursionManadmentViewProtocol{
+    func endRefreshing(date: Date) {
+        self.endRefreshing(inDate: date)
+    }
+    
     func tourDeleted() {
         AlertKitAPI.present(
             title: "Экскурсия удалена",

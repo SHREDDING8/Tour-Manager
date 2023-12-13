@@ -38,12 +38,12 @@ class TourDetailViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController()?.interactivePopGestureRecognizer?.delegate = self
+                
         
         fillFields()
         
         if presenter.isAccessLevel(key: .canWriteTourList){
-//            self.navigationController?.interactivePopGestureRecognizer?.delegate = self
-            
             self.navigationItem.rightBarButtonItem =  UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonClick))
         }
     }
@@ -183,6 +183,10 @@ class TourDetailViewController: BaseViewController {
     
 }
 extension TourDetailViewController:NewExcursionViewProtocol{
+    func endRefreshing() {
+        self.view().scrollView.refreshControl?.endRefreshing()
+    }
+    
     func deleteSuccessful() {
         AlertKitAPI.present(
             title: "Экскурсия удалена",
@@ -217,7 +221,6 @@ extension TourDetailViewController:NewExcursionViewProtocol{
     }
     
     func refreshSuccess() {
-        self.view().scrollView.refreshControl?.endRefreshing()
         self.fillFields()
     }
     
@@ -317,4 +320,54 @@ extension TourDetailViewController:UITextFieldDelegate{
             
         }
     }
+}
+
+extension TourDetailViewController{
+    
+    fileprivate func warningAlertDuringExit(){
+        
+        let alert = UIAlertController(title: "Возможно у вас есть несохраненные данные", message: "Вы уверены что хотите выйти?", preferredStyle: .alert)
+        let exit = UIAlertAction(title: "Выйти", style: .destructive) { _ in
+            self.navigationController()?.popViewController(animated: true)
+        }
+        
+        let cancel = UIAlertAction(title: "Отменить", style: .cancel)
+        
+        alert.addAction(exit)
+        alert.addAction(cancel)
+        
+        self.present(alert, animated: true)
+        
+    }
+    
+    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        
+        if self.navigationController()?.visibleViewController == self{
+            if !self.presenter.isEqualTours(){
+                warningAlertDuringExit()
+                return false
+            }
+            
+        }
+        
+        return true
+    }
+    
+    override func popView() {
+        if self.navigationController?.visibleViewController == self{
+            print(self.presenter.tour)
+            print()
+            print(self.presenter.oldTour)
+            print(self.presenter.isEqualTours())
+            
+            if !self.presenter.isEqualTours(){
+                warningAlertDuringExit()
+                return
+            }
+            
+        }
+        
+        self.navigationController()?.popViewController(animated: true)
+    }
+    
 }

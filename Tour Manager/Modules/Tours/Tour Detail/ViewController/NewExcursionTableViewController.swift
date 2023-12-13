@@ -425,6 +425,10 @@ extension NewExcursionTableViewController:UIGestureRecognizerDelegate{
 }
 
 extension NewExcursionTableViewController:NewExcursionViewProtocol{
+    func endRefreshing() {
+        
+    }
+    
     func deleteSuccessful() {
         
     }

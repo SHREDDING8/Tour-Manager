@@ -11,6 +11,8 @@ import UIKit
 protocol AddGuideViewProtocol:AnyObject, BaseViewControllerProtocol{
     func updateUsersList()
     func updateAllGuidesList()
+    
+    func endRefreshing()
 }
 
 protocol AddGuidePresenterProtocol:AnyObject{
@@ -238,6 +240,11 @@ class AddGuidePresenter:AddGuidePresenterProtocol{
                 }
             }
             
+            DispatchQueue.main.async {
+                self.view?.endRefreshing()
+                self.view?.stopUpdating()
+            }
+            
             for imageId in usersImages{
                 do{
                     let imageData = try await self.usersNetworkService.downloadProfilePhoto(pictureId: imageId)
@@ -259,9 +266,6 @@ class AddGuidePresenter:AddGuidePresenterProtocol{
                 }
             }
             
-            DispatchQueue.main.async {
-                self.view?.stopUpdating()
-            }
         }
     }
     

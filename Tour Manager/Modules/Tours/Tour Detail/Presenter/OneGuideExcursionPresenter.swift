@@ -13,6 +13,7 @@ protocol OneGuideExcursionViewProtocol:AnyObject, BaseViewControllerProtocol{
     func updateGuideStatus(guideStatus: Status)
     func fillGuides()
     func refreshSuccess()
+    func endRefreshing()
 }
 
 protocol OneGuideExcursionPresenterProtocol:AnyObject{
@@ -142,6 +143,7 @@ class OneGuideExcursionPresenter:OneGuideExcursionPresenterProtocol{
                 }
             }
             DispatchQueue.main.async {
+                self.view?.endRefreshing()
                 self.view?.stopUpdating()
             }
             
@@ -231,6 +233,7 @@ class OneGuideExcursionPresenter:OneGuideExcursionPresenterProtocol{
     private func downloadPhotos(ids:[String]){
         Task{
             var res:[(String, Data)] = []
+            
             for id in ids {
                 do{
                     let imageData = try await usersNetworkSevise.downloadProfilePhoto(pictureId: id)
@@ -239,6 +242,9 @@ class OneGuideExcursionPresenter:OneGuideExcursionPresenterProtocol{
                 }catch let error{
                     if let err = error as? NetworkServiceHelper.NetworkError{
                         self.view?.showError(error: err)
+                        if err == .noConnection{
+                            return
+                        }
                     }
                     
                 }

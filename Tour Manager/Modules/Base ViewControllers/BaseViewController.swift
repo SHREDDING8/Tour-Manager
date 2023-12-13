@@ -141,6 +141,7 @@ class BaseViewController: UIViewController {
         super.viewWillAppear(animated)
         self.listenConnection()
         self.addKeyboardObservers()
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -188,12 +189,11 @@ class BaseViewController: UIViewController {
         self.navigationItem.leftBarButtonItem?.customView?.addGestureRecognizer(tapGesture)
         
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         
     }
     
     
-    @objc private func popView(){
+    @objc internal dynamic func popView(){
         self.navigationController()?.popViewController(animated: true)
     }
     

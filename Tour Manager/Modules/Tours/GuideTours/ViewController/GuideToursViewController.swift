@@ -31,6 +31,10 @@ extension GuideToursViewController:ToursBaseViewControllerDataSource{
         presenter.loadTours(date: inDate)
     }
     
+    func updateTours(inDate: Date){
+        presenter.loadToursFromServer(date: inDate)
+    }
+    
     func loadEventsForDates(startDate: Date, endDate: Date) {
         self.presenter.getExcursionsListByRangeFromServer(startDate: startDate, endDate: endDate)
     }
@@ -125,6 +129,11 @@ extension GuideToursViewController:ToursBaseViewControllerDelegate{
 }
 
 extension GuideToursViewController:ExcursionsGuideCalendarViewProtocol{
+    
+    func endRefreshing(date: Date) {
+        self.endRefreshing(inDate: date)
+    }
+    
     func updateTours(date: Date) {
         self.reloadTours(inDate: date)
     }

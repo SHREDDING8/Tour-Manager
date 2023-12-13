@@ -90,18 +90,32 @@ struct ExcrusionModel:Equatable{
     var guides:[Guide]
     
     static func == (lhs: ExcrusionModel, rhs: ExcrusionModel) -> Bool {
+        
+        let isEqualGuides:Bool = {
+            if lhs.guides.count != rhs.guides.count{
+                return false
+            }
+            
+            for index in 0..<lhs.guides.count{
+                if lhs.guides[index] != rhs.guides[index]{
+                    return false
+                }
+            }
+            return true
+        }()
+        
         return lhs.tourTitle == rhs.tourTitle &&
         lhs.route == rhs.route &&
         lhs.notes == rhs.notes &&
         lhs.guideCanSeeNotes == rhs.guideCanSeeNotes &&
-        lhs.dateAndTime == rhs.dateAndTime ||
-        lhs.numberOfPeople == rhs.numberOfPeople ||
+        lhs.dateAndTime == rhs.dateAndTime &&
+        lhs.numberOfPeople == rhs.numberOfPeople &&
         lhs.customerCompanyName == rhs.customerCompanyName &&
         lhs.customerGuideName == rhs.customerGuideName &&
         lhs.companyGuidePhone == rhs.companyGuidePhone &&
         lhs.paymentMethod == rhs.paymentMethod &&
         lhs.paymentAmount == rhs.paymentAmount &&
         lhs.isPaid == rhs.isPaid &&
-        lhs.guides == rhs.guides
+        isEqualGuides
     }
 }

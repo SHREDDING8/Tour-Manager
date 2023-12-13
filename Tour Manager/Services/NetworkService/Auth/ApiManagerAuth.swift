@@ -138,7 +138,7 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
             
             AF.request(url,method: .post, headers: headers.getHeaders()).response{
                 response in
-                print("refresh_token \(try? JSONSerialization.jsonObject(with: response.data!))")
+                
                 switch response.result {
                 case .success(let success):
                     
