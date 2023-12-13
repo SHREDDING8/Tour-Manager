@@ -196,6 +196,10 @@ class AddGuidePresenter:AddGuidePresenterProtocol{
             do {
                 let jsonUsers = try await self.employeeNetworkService.getCompanyUsers()
                 
+                DispatchQueue.main.sync{
+                    usersRealmService.deleteUsers()
+                }
+                
                 for jsonUser in jsonUsers {
                     let realmUser = UserRealm(
                         localId: jsonUser.uid,

@@ -454,21 +454,12 @@ class OneEmployeView: UIView {
             return
         }
         
-        if isOwner{
+        if self.employeeIsOwner{
             for subView in userAccessLevelStack.arrangedSubviews{
                 (subView as! AccessLevelElement).switchControll.isEnabled = false
             }
             
             self.isGuide.switchControll.isEnabled = true
-            
-            return
-        }
-                
-        
-        if self.employeeIsOwner{
-            for subView in userAccessLevelStack.arrangedSubviews{
-                (subView as! AccessLevelElement).switchControll.isEnabled = false
-            }
             
             return
         }

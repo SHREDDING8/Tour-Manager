@@ -29,6 +29,8 @@ protocol UsersRealmServiceProtocol{
     
     func getUserInfo(localId:String) -> UserRealm?
     func getAllUsers() -> Results<UserRealm>
+    func deleteUsers()
+    
     func getUserAccessLevel(localId:String, _ key:AccessLevelKeys) -> Bool
     func updateUserAccessLevel(localId:String, accessLevels: UserAccessLevelRealm)
     func updateField(localId:String, updateField: UserDataFields, value:String)
@@ -72,6 +74,14 @@ class UsersRealmService:UsersRealmServiceProtocol{
     
     func getAllUsers() -> Results<UserRealm>{
         realm.objects(UserRealm.self)
+    }
+    
+    func deleteUsers(){
+        let users = realm.objects(UserRealm.self)
+        try! realm.write({
+            realm.delete(users)
+        })
+        
     }
     
     func getUserAccessLevel(localId:String, _ key:AccessLevelKeys) -> Bool{
