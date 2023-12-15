@@ -13,11 +13,6 @@ class AddingNewComponentViewController: BaseViewController {
     var presenter:AddingNewComponentPresenterProtocol!
     
     var doAfterClose: ((String)->Void)?
-    
-    // MARK: - My variables
-        
-    let alerts = Alert()
-        
         
     // MARK: - Objects
     

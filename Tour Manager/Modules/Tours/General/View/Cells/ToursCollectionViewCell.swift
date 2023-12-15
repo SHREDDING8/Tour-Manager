@@ -17,7 +17,6 @@ class ToursCollectionViewCell: UICollectionViewCell {
         label.text = "Экскурсии отсутствуют"
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 20, weight: .semibold)
-        label.textColor = UIColor(resource: .black40)
         
         return label
     }()

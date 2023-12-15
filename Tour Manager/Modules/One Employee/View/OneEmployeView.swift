@@ -110,7 +110,6 @@ class OneEmployeView: UIView {
     
     lazy var userInfoLabel:UILabel = {
         let label = UILabel()
-        label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         
         label.text = "Личные данные"
@@ -181,7 +180,6 @@ class OneEmployeView: UIView {
     
     lazy var userAcessLevelLabel:UILabel = {
         let label = UILabel()
-        label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         
         label.text = "Права доступа"

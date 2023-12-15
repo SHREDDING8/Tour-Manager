@@ -17,8 +17,8 @@ class TourTableViewCell: UITableViewCell {
         
         view.layer.shadowOffset = CGSize(width: 1, height: 1)
         view.layer.shadowRadius = 3
-        view.layer.shadowOpacity = 0.2
-        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.1
+        view.layer.shadowColor = UIColor.label.cgColor
         
         view.layer.cornerRadius = 10
         
@@ -172,6 +172,13 @@ class TourTableViewCell: UITableViewCell {
                 
         UIView.animate(withDuration: 0.3) {
             self.mainView.transform = CGAffineTransform(scaleX: scale.0, y: scale.1)
+        }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        
+        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+            mainView.layer.shadowColor = UIColor.label.cgColor
         }
     }
 }

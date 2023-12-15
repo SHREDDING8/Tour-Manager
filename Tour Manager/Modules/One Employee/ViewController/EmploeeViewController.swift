@@ -11,9 +11,7 @@ import AlertKit
 final class EmploeeViewController: BaseViewController {
     
     var presenter:EmployeePresenter!
-    
-    let alerts = Alert()
-            
+                
     let generalLogic = GeneralLogic()
     
     private func view() -> OneEmployeView {

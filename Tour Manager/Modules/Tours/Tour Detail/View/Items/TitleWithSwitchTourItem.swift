@@ -21,6 +21,7 @@ class TitleWithSwitchTourItem: UIView {
     lazy var switchControll:UISwitch = {
         let view = UISwitch()
         view.isOn = false
+        view.onTintColor = UIColor(resource: .blueText)
         return view
     }()
     

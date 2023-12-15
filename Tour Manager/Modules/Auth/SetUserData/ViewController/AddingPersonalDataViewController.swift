@@ -13,32 +13,6 @@ class AddingPersonalDataViewController: BaseViewController {
     
     var presenter: AddingPersonalDataPresenterProtocol!
     
-    
-    // MARK: - Me variables
-    
-    let validationStrings = StringValidation()
-    let alerts = Alert()
-    
-    let controllers = Controllers()
-    
-    var loadUIView:LoadView!
-    
-    var datePicker:DatepickerFromBottom!
-    
-    
-    var caledarHeightConstaint:NSLayoutConstraint!
-    var tableViewPosition:CGPoint!
-    
-    var dateLabel:UILabel!
-    
-    var nameCompanyLocalIdString = ""
-    var firstNameString = ""
-    var secondNameString = ""
-    var phoneString = ""
-    
-    
-    var typeOfRegister:TypeOfRegister = .company
-    
     // MARK: - Life Cycle
     private func view() -> SetInfoView{
         return view as! SetInfoView
@@ -85,28 +59,7 @@ class AddingPersonalDataViewController: BaseViewController {
     
     @objc func buttonTapped(){
         presenter.buttonTapped()
-    }
-    
-    
-    // MARK: - SetPersonalData in to Server
-    
-    @IBAction func setPersonalDataTapped(_ sender: Any) {
-                
-        if validationStrings.validateIsEmptyString([self.nameCompanyLocalIdString,self.firstNameString,self.secondNameString,self.phoneString]){
-            let error = alerts.errorAlert(errorTypeFront: .textFieldIsEmpty)
-            self.present(error, animated: true)
-            self.loadUIView.removeLoadUIView()
-            return
-        }
-        
-        if !validationStrings.validatePhone(value: self.phoneString){
-            let error = alerts.errorAlert(errorTypeFront: .phone)
-            self.present(error, animated: true)
-            self.loadUIView.removeLoadUIView()
-            return
-        }
-    }
-    
+    }    
 }
 
 

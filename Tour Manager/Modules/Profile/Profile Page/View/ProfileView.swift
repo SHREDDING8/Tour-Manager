@@ -129,7 +129,6 @@ class ProfileView: UIView {
     
     lazy var userInfoLabel:UILabel = {
         let label = UILabel()
-        label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         
         label.text = "Личные данные"
@@ -233,7 +232,6 @@ class ProfileView: UIView {
     }()
     lazy var companyInfoLabel:UILabel = {
         let label = UILabel()
-        label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         
         label.text = "Компания"

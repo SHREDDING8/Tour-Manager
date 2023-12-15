@@ -18,13 +18,12 @@ class CalendarCell:JTACDayCell{
         static let unselectedBackgound = UIColor(resource: .background)
         static let selectedBackgound = UIColor(resource: .blueText)
         
-        static let unselectedSubtitle = UIColor.black
+        static let unselectedSubtitle = UIColor.label
     }
     
     private lazy var dayNumber:UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17, weight: .semibold)
-        label.textColor = .black
         label.text = "1"
         return label
     }()
@@ -33,8 +32,8 @@ class CalendarCell:JTACDayCell{
         view.layer.cornerRadius = 6
         view.backgroundColor = CellColor.unselectedBackgound
         
-        view.layer.shadowColor = UIColor(resource: .black40).cgColor
-        view.layer.shadowOpacity = 0.3
+        view.layer.shadowColor = UIColor.label.cgColor
+        view.layer.shadowOpacity = 0.1
         view.layer.shadowOffset = CGSize(width: 1, height: 1)
         view.layer.shadowRadius = 3
         return view
@@ -182,9 +181,16 @@ class CalendarCell:JTACDayCell{
     public func deselect(animated:Bool){
         UIView.animate(withDuration: animated == true ? 0.3 : 0) {
             self.mainView.backgroundColor = CellColor.unselectedBackgound
-            self.dayNumber.textColor = .black
+            self.dayNumber.textColor = CellColor.unselectedSubtitle
             self.dayNameLabel.textColor = CellColor.unselectedSubtitle
         }
     }
     
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        
+        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+            mainView.layer.shadowColor = UIColor.label.cgColor
+        }
+    }
 }
