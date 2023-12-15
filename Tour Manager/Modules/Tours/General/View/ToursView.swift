@@ -34,7 +34,7 @@ class ToursView: UIView {
     var startDate:Date = Date.now
     var endDate:Date = Date.now
     
-    public var didSelectDate:((IndexPath)->Void)?
+    public var didSelectDate:((IndexPath, Date)->Void)?
 
     lazy var selectedDayStackView:UIStackView = {
         let stackView = UIStackView()
@@ -195,7 +195,7 @@ extension ToursView:JTACMonthViewDelegate{
     }
     
     func calendar(_ calendar: JTACMonthView, didSelectDate date: Date, cell: JTACDayCell?, cellState: CellState, indexPath: IndexPath) {
-        didSelectDate?(indexPath)
+        didSelectDate?(indexPath, date)
         
         if let cell = cell as? CalendarCell{
             cell.select(animated: true)

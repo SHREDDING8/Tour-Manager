@@ -93,7 +93,7 @@ extension EmploeeTableViewController:EmployeesListViewProtocol{
     }
     
     func updateUsersList() {
-        self.tableView.reloadData()
+        self.tableView.reloadSections([0], with: .automatic)
        
     }
     

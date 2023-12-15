@@ -62,8 +62,9 @@ class ToursBaseViewController: BaseViewController {
         }
         
         
-        view().didSelectDate = { indexPath in
+        view().didSelectDate = { indexPath, date in
             self.view().collectionViewTours.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+            self.dataSource.loadTours(inDate: date)
             self.isEndDeselerating = true
         }
         
@@ -80,7 +81,7 @@ class ToursBaseViewController: BaseViewController {
     public func reloadTours(inDate:Date){
         if let indexPath = self.view().datesIndexPath[inDate], let cell = self.view().collectionViewTours.cellForItem(at: indexPath) as? ToursCollectionViewCell{
             cell.tableView.refreshControl?.endRefreshing()
-            cell.tableView.reloadData()
+            cell.tableView.reloadSections([0], with: .automatic)
         }
     }
     
@@ -142,7 +143,7 @@ extension ToursBaseViewController:UICollectionViewDataSource{
         }))
         
         dataSource.loadTours(inDate: cell.date)
-        cell.tableView.reloadData()
+        cell.tableView.reloadSections([0], with: .automatic)
                 
         return cell
     }
