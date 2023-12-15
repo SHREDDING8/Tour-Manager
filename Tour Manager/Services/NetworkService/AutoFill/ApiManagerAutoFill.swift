@@ -46,21 +46,6 @@ public enum customErrorAutofill{
 class ApiManagerAutoFill{
     
     let generalData = NetworkServiceHelper()
-    private let domain:String
-    private let prefix:String
-    
-    private let routeGetAutofill:String
-    private let routeAddAutofill:String
-    private let routeDeleteAutofill:String
-    
-    init() {
-        self.domain = generalData.domain
-        self.prefix =  domain + "autofill/"
-        
-        self.routeGetAutofill = prefix + "get_autofill"
-        self.routeAddAutofill = prefix + "add_autofill"
-        self.routeDeleteAutofill = prefix + "delete_autofill"
-    }
     
     
     public func getAutofill(token:String, companyId:String, autoFillKey:AutofillKeys, completion: @escaping (Bool,[String]?,customErrorAutofill?)->Void ){

@@ -26,6 +26,8 @@ class VerifyEmailViewController: BaseViewController {
         self.titleString = "Подтверждение email"
         self.setBackButton()
         
+        addTargets()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,7 +45,7 @@ class VerifyEmailViewController: BaseViewController {
     }
     
     @objc func confirmedTapped(){
-        
+        self.presenter.confirmTapped()
     }
     
     fileprivate func setTimerSetEmailAgain(){
@@ -60,94 +62,16 @@ class VerifyEmailViewController: BaseViewController {
         }
     }
     
-    @IBAction func verifiedButtonTap(_ sender: Any) {
-        self.logIn()
-    }
-    
-    @IBAction func resendEmail(_ sender: Any) {
-        
-//        self.presenter?.sendVerifyEmail(email: self.email, password: self.password, completion: { isSent, error in
-//            self.loadUIView.removeLoadUIView()
-//            if error == .unknowmError{
-//                self.alerts.errorAlert(self, errorTypeApi: .unknown)
-//            }
-//            
-//            else{
-//                self.setTimerSetEmailAgain()
-//                let alert = self.alerts.infoAlert(title: "Email Отправлен", meesage: "Проверьте почту и подтвердите аккаунт")
-//                self.present(alert, animated: true)
-//            }
-//           
-//        })
-    }
-    
-    fileprivate func logIn(){
-        
-//        self.presenter?.logIn(email: self.email, password: password, completion: { isLogIn, error in
-//            if error == .emailIsNotVerifyed{
-//                
-//            } else if error == .invalidEmailOrPassword{
-//                
-//                self.alerts.errorAlert(self, errorTypeApi: .unknown)
-//                
-//            } else if error == .unknowmError{
-//                
-//                self.alerts.errorAlert(self, errorTypeApi: .unknown)
-//                
-//            }else if error == .notConnected{
-//                self.controllers.goToLoginPage(view: self.view, direction: .fade)
-//                return
-//            }
-//            
-//            if !isLogIn{
-//                self.loadUIView.removeLoadUIView()
-//                return
-//            }
-//            
-////            self.presenter?.getUserInfoFromApi(completion: { isInfo, error in
-////                
-////                if error == .dataNotFound{
-////                    self.goToAddingPersonalData()
-////                    self.loadUIView.removeLoadUIView()
-////                    return
-////                }
-////                
-////                if let err = error{
-////                    self.alerts.errorAlert(self, errorUserDataApi: err) {
-////                        self.loadUIView.removeLoadUIView()
-////                        self.goToLogInPage()
-////                    }
-////                }
-////                
-////                if isInfo{
-////                    self.loadUIView.removeLoadUIView()
-////                    self.goToMainTabBar()
-////                }
-////            })
-//            
-//        })
-    }
-    
-    
     // MARK: - Navigation
-    
-    fileprivate func goToAddingPersonalData(){
-//        let destination = self.controllers.getControllerAuth(.choiceOfTypeAccountViewController) as! ChoiceOfTypeAccountViewController
-        
-//        self.navigationController?.pushViewController(destination, animated: true)
-        var navigationArray = navigationController?.viewControllers ?? []
-        navigationArray.remove(at: (navigationArray.count) - 2)
-        self.navigationController?.viewControllers = navigationArray
-    }
-    
-    fileprivate func goToMainTabBar(){
-        MainAssembly.goToMainTabBar(view: self.view)
-    }
 }
 
 extension VerifyEmailViewController:VerifyEmailViewProtocol{
     func emailVerifyed() {
-        
+        let vc = AuthAssembly.createTypeOfAccountViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+        var navigationArray = navigationController?.viewControllers ?? []
+        navigationArray.remove(at: (navigationArray.count) - 2)
+        self.navigationController?.viewControllers = navigationArray
     }
     
     func goToMain() {

@@ -20,7 +20,7 @@ public enum UserDataFields:String{
 
 protocol ApiManagerUserDataProtocol{
     func getUserInfo() async throws -> ResponseGetUserInfoJsonStruct
-//    func getUserInfoByTarget() async throws -> 
+    func setUserInfo(info:SetUserInfoSend) async throws
     
     // photo
     func downloadProfilePhoto(pictureId:String) async throws -> Data
@@ -38,22 +38,6 @@ protocol ApiManagerUserDataProtocol{
 public class ApiManagerUserData: ApiManagerUserDataProtocol{
     let generalData = NetworkServiceHelper()
     let keychainService = KeychainService()
-    private let domain:String
-    private let prefix:String
-    
-    private let routeGetUserInfo:String
-    private let routeSetUserInfo:String
-    
-    //    private let routeUpdateEmail = prefix + "/update_user_email"
-    
-    init(){
-        self.domain = generalData.domain
-        self.prefix = domain + "users/"
-        
-        self.routeGetUserInfo = prefix + "get_user_info"
-        self.routeSetUserInfo = prefix + "update_user_info"
-        
-    }
     
     func getUserInfo() async throws -> ResponseGetUserInfoJsonStruct{
         let refresh = try await ApiManagerAuth.refreshToken()
@@ -108,7 +92,48 @@ public class ApiManagerUserData: ApiManagerUserDataProtocol{
         return result
     }
     
-    // MARK: - getUserInfo
+    func setUserInfo(info:SetUserInfoSend) async throws{
+        let refresh = try await ApiManagerAuth.refreshToken()
+        
+        if !refresh{
+            throw NetworkServiceHelper.NetworkError.unknown
+        }
+        
+        let url = URL(string: NetworkServiceHelper.Users.updateUserInfo)
+        let headers = NetworkServiceHelper.Headers()
+        headers.addAccessTokenHeader()
+        
+        let _:Bool =  try await withCheckedThrowingContinuation { continuation in
+            
+            AF.request(url!, method: .put, parameters: info, encoder: .json,headers: headers.getHeaders()).response { response in
+                
+                switch response.result {
+                case .success(let success):
+                    
+                    switch response.response?.statusCode{
+                    case 500:
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.internalServerError)
+                    case 200:
+                        continuation.resume(returning: true)
+                        
+                    default:
+                        continuation.resume(throwing: NetworkServiceHelper.parseError(data: success))
+                        
+                    }
+                    
+                case .failure(let failure):
+                    if failure.isSessionTaskError, let urlError = failure.underlyingError as? URLError, urlError.code == .notConnectedToInternet {
+                        // no connection
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.noConnection)
+                    } else {
+                        // Другие типы ошибок
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                    }
+                }
+            }
+        }
+        
+    }
     
     // MARK: - updateUserInfo
     public func updateUserInfo(updateField: UserDataFields, value:String) async throws -> Bool{

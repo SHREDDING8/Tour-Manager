@@ -231,7 +231,7 @@ extension Login2ViewController:LoginViewProtocol {
     }
     
     func goToAddingPersonalData(){
-        let destination = self.controllers.getControllerAuth(.choiceOfTypeAccountViewController) as! ChoiceOfTypeAccountViewController
+        let destination = self.controllers.getControllerAuth(.choiceOfTypeAccountViewController) as! TypeAccountViewController
         
         self.navigationController?.pushViewController(destination, animated: true)
     }

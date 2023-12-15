@@ -169,10 +169,15 @@ class LoginPresenter:LoginPresenterProtocol{
                         DispatchQueue.main.async {
                             self.view?.emailIsNotVerifyed()
                         }
-                    }else{
+                    }else if err == .userDataNotFound{
+                        DispatchQueue.main.async {
+                            self.view?.goToAddingPersonalData()
+                        }
+                        
+                    }
+                    else{
                         self.view?.showError(error: err)
                     }
-//                    else if err == TODO проверка то что не сущетсвует данных
                 }
             }
             
@@ -180,11 +185,6 @@ class LoginPresenter:LoginPresenterProtocol{
                 self.view?.stopLoadingView()
                 self.view?.stopLoading()
             }
-//                
-//            } 
-//            catch customErrorUserData.dataNotFound{
-//                view?.goToAddingPersonalData()
-//            }
             
         }
     }
@@ -232,8 +232,9 @@ class LoginPresenter:LoginPresenterProtocol{
         Task{
             do {
                 if try await authNetworkService.signUp(email: model.email, password:model.secondPassword){
-                    self.login()
-                    
+                    DispatchQueue.main.async {
+                        self.login()
+                    }
                 }
                 
             }catch let error{

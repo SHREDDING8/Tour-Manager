@@ -87,8 +87,10 @@ class VerifyEmailPresenter:VerifyEmailPresenterProtocol{
                 
             } catch let error{
                 if let err = error as? NetworkServiceHelper.NetworkError{
-                    if err == .userDoesNotExist{ // else if err == TODO проверка то что не сущетсвует данных
-                        self.view?.emailVerifyed()
+                    if err == .userDataNotFound{
+                        DispatchQueue.main.async {
+                            self.view?.emailVerifyed()
+                        }
                         
                     }else{
                         self.view?.showError(error: err)

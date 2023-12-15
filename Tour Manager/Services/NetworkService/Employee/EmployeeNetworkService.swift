@@ -18,6 +18,8 @@ protocol EmployeeNetworkServiceProtocol{
     func getCompanyGuides() async throws -> [GetCompanyUsersElement]
     
     func getEmployeeInfoById(employeeId:String) async throws -> GetCompanyUsersElement
+    
+    func addEmployeeToCompany(companyId:String) async throws
 }
 
 class EmployeeNetworkService:EmployeeNetworkServiceProtocol{
@@ -277,6 +279,55 @@ class EmployeeNetworkService:EmployeeNetworkServiceProtocol{
         }
         
         return result
+    }
+    
+    func addEmployeeToCompany(companyId:String) async throws{
+        let refreshToken = try await ApiManagerAuth.refreshToken()
+        if !refreshToken{
+            throw NetworkServiceHelper.NetworkError.unknown
+        }
+        
+        let url = URL( string: NetworkServiceHelper.Employee.registerToCompany(companyId: companyId))!
+        
+        let headers = NetworkServiceHelper.Headers()
+        headers.addAccessTokenHeader()
+        
+        let _:Bool = try await withCheckedThrowingContinuation { continuation in
+            AF.request(url, method: .post, headers: headers.getHeaders()).response { response in
+                
+                switch response.result {
+                case .success(let success):
+                    
+                    switch response.response?.statusCode{
+                    case 500:
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.internalServerError)
+                    case 200:
+                        if let decoded = try? JSONDecoder().decode(RegisterToCompanyResponse.self, from: success ?? Data()){
+                            self.keychainService.setCompanyLocalId(companyLocalId: companyId)
+                            self.keychainService.setCompanyName(companyName: decoded.companyName)
+                            continuation.resume(returning: true)
+                        }else{
+                            continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                        }
+                        
+                        
+                    default:
+                        continuation.resume(throwing: NetworkServiceHelper.parseError(data: success))
+                        
+                    }
+                    
+                case .failure(let failure):
+                    if failure.isSessionTaskError, let urlError = failure.underlyingError as? URLError, urlError.code == .notConnectedToInternet {
+                        // no connection
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.noConnection)
+                    } else {
+                        // Другие типы ошибок
+                        continuation.resume(throwing: NetworkServiceHelper.NetworkError.unknown)
+                    }
+                }
+                
+            }
+        }
     }
     
 }

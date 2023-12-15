@@ -32,27 +32,6 @@ class ApiManagerExcursions: ApiManagerExcursionsProtocol{
     
     let keychainService:KeychainServiceProtocol = KeychainService()
     
-    private let domain:String
-    private let prefix:String
-    
-    private let routeGetExcursions:String
-    
-    private let routeGetExcursionsForGuides:String
-    
-    private let routeSetGuideTourStatus:String
-    
-    init(){
-        self.domain = generalData.domain
-        self.prefix = domain + "tours/"
-        
-        self.routeGetExcursions = prefix + "get_tour_list"
-        
-        self.routeGetExcursionsForGuides = prefix + "get_guide_tour_list"
-                
-        self.routeSetGuideTourStatus = prefix + "set_guide_tour_status"
-    }
-    
-    // MARK: - GetExcursions
     
     func addNewTour(tour:ExcrusionModel) async throws -> Bool{
         let refresh = try await ApiManagerAuth.refreshToken()

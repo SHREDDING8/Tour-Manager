@@ -10,10 +10,6 @@ import Alamofire
 
 
 class NetworkServiceHelper{
-    // http://188.225.77.189:8080/
-    
-    // https://server.shredding-quiner.ru/
-    public let domain = "https://server.shredding-quiner.ru/"
     
     private static let newDomain = "https://24tour-manager.ru/api/"
     //    private static let newDomain = "http://193.164.150.181:32799/"
@@ -68,6 +64,8 @@ class NetworkServiceHelper{
         
         // Employee
         case companyisPrivate = "Company is private"
+        
+        case userDataNotFound = "User data not found"
         
         // Tours
         
@@ -171,6 +169,8 @@ class NetworkServiceHelper{
                 ("Неизвестная ошибка", nil)
             case .noConnection:
                 ("Отсутствует интернет соединение", nil)
+            case .userDataNotFound:
+                ("Данные пользователя не найдены", nil)
             }
         }
     }
@@ -342,25 +342,5 @@ class NetworkServiceHelper{
         public func addRefreshToken(){
             headers[Keys.refreshToken] = keyChainService.getRefreshToken() ?? ""
         }
-    }
-    
-    
-    public func checServerkConnection(completion: @escaping (Bool)->Void){
-        
-        let urlString = domain + "get_status_server"
-        
-        let url = URL(string: urlString)!
-        
-        AF.request(url, method: .get){$0.timeoutInterval = 10}.validate().response{
-            response in
-            switch response.result {
-            case .success(_):
-                completion(true)
-            case .failure(_):
-                completion(false)
-            }
-        }
-        
-    }
-    
+    }    
 }

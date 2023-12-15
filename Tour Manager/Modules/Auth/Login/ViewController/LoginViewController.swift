@@ -194,7 +194,8 @@ extension LoginViewController: LoginViewProtocol{
     }
     
     func goToAddingPersonalData() {
-        
+        let vc = AuthAssembly.createTypeOfAccountViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     

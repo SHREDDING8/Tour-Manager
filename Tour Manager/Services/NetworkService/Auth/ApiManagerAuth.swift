@@ -36,41 +36,6 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
     
     let keychainService = KeychainService()
     
-    private let domain:String
-    private let prefix:String
-    
-    private let routeLogIn:String
-    private let routeLogOut:String
-    private let routeSignIn:String
-    
-    private let routeIsEmailBusy:String
-   
-    private let routeResetPassword:String
-    private let routeSendVerifyEmail:String
-    private let routeUpdatePassword:String
-    
-    private let routeGetLoggedDevices:String
-    private let routeLogoutAllDevices:String
-    
-    init(){
-        self.domain = generalData.domain
-        self.prefix = domain + "auth/"
-        
-        self.routeLogIn = prefix + "login"
-        self.routeLogOut = prefix + "logout"
-        self.routeSignIn = prefix + "signup"
-        
-        self.routeIsEmailBusy = prefix + "check_user_email"
-       
-        self.routeResetPassword = prefix + "reset_password"
-        self.routeSendVerifyEmail = prefix + "send_verify_email"
-        self.routeUpdatePassword = prefix + "update_user_password"
-        
-        self.routeGetLoggedDevices = prefix + "get_logged_in_devices"
-        self.routeLogoutAllDevices = prefix + "logout_all_devices"
-    }
-    
-    
     // MARK: - logIn
     func logIn(email:String,password:String,deviceToken:String) async throws -> ResponseLogInJsonStruct{
         
@@ -266,7 +231,7 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
             "password": password
         ]
         
-        let url = URL(string: routeSignIn)
+        let url = URL(string: NetworkServiceHelper.Auth.signUp)
         
         let result:Bool = try await withCheckedThrowingContinuation { continuation in
             
@@ -306,11 +271,11 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
     // MARK: - Reset Password
     func resetPassword(email:String) async throws -> Bool{
         let jsonData = sendResetPassword(email: email)
-        let url = URL(string: routeResetPassword)
+        let url = URL(string: NetworkServiceHelper.Auth.resetPassword(email: email))!
         
         let result:Bool = try await withCheckedThrowingContinuation { continuation in
             
-            AF.request(url!, method: .post, parameters:  jsonData,encoder: .json).response { response in
+            AF.request(url, method: .post).response { response in
                 
                 switch response.result {
                 case .success(let success):
