@@ -12,10 +12,6 @@ class LaunchScreenViewController: UIViewController {
     // MARK: - UserDefaults
     // MARK: - My varibles
     
-    let controllers = Controllers()
-    let alerts = Alert()
-    
-    
     let keychain = KeychainService()
     let apiUserData = ApiManagerUserData()
     

@@ -53,6 +53,7 @@ class ToursView: UIView {
     
     lazy var calendar:JTACMonthView = {
         let calendar = JTACMonthView()
+        calendar.backgroundColor = .clear
         calendar.calendarDataSource = self
         calendar.calendarDelegate = self
         

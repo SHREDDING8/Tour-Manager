@@ -11,8 +11,6 @@ import AlertKit
 class mainTabBarViewController: UITabBarController {
     
     var presenter: MainTabBarPresenterProtocol?
-    
-    let controllers = Controllers()
         
     let activityIndicator:UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()

@@ -13,6 +13,7 @@ class EmploeeTableViewController: BaseViewController{
     
     lazy var tableView:UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.backgroundColor = .clear
         
         tableView.register(OneEmployeeTableViewCell.self, forCellReuseIdentifier: "employee")
         

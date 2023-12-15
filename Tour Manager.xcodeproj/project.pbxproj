@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EE0528CA2A30DA3C006C8C98 /* NewExcursionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0528C92A30DA3C006C8C98 /* NewExcursionTableViewController.swift */; };
 		EE0649372B160AB0007EF0A1 /* ToursBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0649362B160AB0007EF0A1 /* ToursBaseViewController.swift */; };
 		EE0649392B160D65007EF0A1 /* ToursCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0649382B160D65007EF0A1 /* ToursCollectionViewCell.swift */; };
 		EE14D3742B12541000A188F8 /* AccessLevelElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE14D3732B12541000A188F8 /* AccessLevelElement.swift */; };
@@ -23,9 +22,7 @@
 		EE18F4642A3E4EAD0047E068 /* SendAutofill.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE18F4632A3E4EAD0047E068 /* SendAutofill.swift */; };
 		EE18F4662A3E4FB00047E068 /* ResponseAutoFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE18F4652A3E4FB00047E068 /* ResponseAutoFill.swift */; };
 		EE18F4682A3E503F0047E068 /* ApiManagerAutoFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE18F4672A3E503F0047E068 /* ApiManagerAutoFill.swift */; };
-		EE1A678F2A40F50F007A1A84 /* ExcursionForGuideTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1A678E2A40F50F007A1A84 /* ExcursionForGuideTableViewController.swift */; };
 		EE1D14122A577A1500A125F2 /* TourTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1D14102A577A1500A125F2 /* TourTableViewCell.swift */; };
-		EE2377362A0816D900CB9D70 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2377352A0816D900CB9D70 /* Alerts.swift */; };
 		EE261BCD2B1E28550010DD9B /* FullCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE261BCC2B1E28550010DD9B /* FullCalendarView.swift */; };
 		EE261BCF2B1E286E0010DD9B /* FullCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE261BCE2B1E286E0010DD9B /* FullCalendarViewController.swift */; };
 		EE261BD12B1E50320010DD9B /* FullCalendarMonthHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE261BD02B1E50320010DD9B /* FullCalendarMonthHeader.swift */; };
@@ -52,7 +49,6 @@
 		EE4DA1562AF4390900F3D2E9 /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4DA1552AF4390900F3D2E9 /* UserDefaultsService.swift */; };
 		EE52E16F29E5C1C8000C0E5B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE52E16E29E5C1C8000C0E5B /* AppDelegate.swift */; };
 		EE52E17129E5C1C8000C0E5B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE52E17029E5C1C8000C0E5B /* SceneDelegate.swift */; };
-		EE52E17629E5C1C8000C0E5B /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE52E17429E5C1C8000C0E5B /* Auth.storyboard */; };
 		EE52E17829E5C1CB000C0E5B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE52E17729E5C1CB000C0E5B /* Assets.xcassets */; };
 		EE52E17B29E5C1CB000C0E5B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE52E17929E5C1CB000C0E5B /* LaunchScreen.storyboard */; };
 		EE5EEC2E2A06D0660025336E /* AddingPersonalDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5EEC2D2A06D0660025336E /* AddingPersonalDataViewController.swift */; };
@@ -91,7 +87,6 @@
 		EE926DB22AFE7EEA005F2851 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE926DB12AFE7EEA005F2851 /* ProfileViewController.swift */; };
 		EE9788692A28D4FA0086C034 /* EmploeeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9788682A28D4FA0086C034 /* EmploeeTableViewController.swift */; };
 		EE97886B2A28EA710086C034 /* EmploeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE97886A2A28EA710086C034 /* EmploeeViewController.swift */; };
-		EEA07CB12A4DD7FC00F14778 /* Login2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA07CB02A4DD7FB00F14778 /* Login2ViewController.swift */; };
 		EEA4C08029FDDC650083154E /* ApiManagerAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA4C07F29FDDC650083154E /* ApiManagerAuth.swift */; };
 		EEB73F9C2A364B82004D7A25 /* ApiManagerExcursions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB73F9B2A364B82004D7A25 /* ApiManagerExcursions.swift */; };
 		EEB73F9F2A364B9B004D7A25 /* SendExcursions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB73F9E2A364B9B004D7A25 /* SendExcursions.swift */; };
@@ -163,13 +158,9 @@
 		EEDF108F2B222E4900509A63 /* ProfilePhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDF108E2B222E4900509A63 /* ProfilePhotoCollectionViewCell.swift */; };
 		EEF0BE8C2AD72C91002CEE4D /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF0BE8B2AD72C91002CEE4D /* LoginModel.swift */; };
 		EEF0BE8F2AD7350D002CEE4D /* AlertKit in Frameworks */ = {isa = PBXBuildFile; productRef = EEF0BE8E2AD7350D002CEE4D /* AlertKit */; };
-		EEF18C8E2A4209F800A91D2F /* LoadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF18C8D2A4209F800A91D2F /* LoadView.swift */; };
-		EEF18C932A4235A500A91D2F /* DatepickerFromBottom.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF18C922A4235A500A91D2F /* DatepickerFromBottom.swift */; };
-		EEF18C952A4258EE00A91D2F /* FS calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF18C942A4258EE00A91D2F /* FS calendar.swift */; };
 		EEF27A402A044E7D006E5E53 /* Pods_Tour_Manager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEF27A3F2A044E7D006E5E53 /* Pods_Tour_Manager.framework */; };
 		EEF27A482A05551E006E5E53 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A472A05551E006E5E53 /* Font.swift */; };
 		EEF27A512A059BE4006E5E53 /* TextFieldValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A502A059BE4006E5E53 /* TextFieldValidation.swift */; };
-		EEF27A542A05AA44006E5E53 /* Controllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A532A05AA44006E5E53 /* Controllers.swift */; };
 		EEF27A592A05C7BC006E5E53 /* VerifyEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A582A05C7BC006E5E53 /* VerifyEmailViewController.swift */; };
 		EEF2F63B2ADCBE010070D083 /* ExcursionRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF2F63A2ADCBE010070D083 /* ExcursionRealmModel.swift */; };
 		EEF2F63F2ADD5B630070D083 /* ExcursionsRealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF2F63E2ADD5B630070D083 /* ExcursionsRealmService.swift */; };
@@ -183,7 +174,6 @@
 		1DFBF18B6D24A5A5FC68BDFE /* Pods_Tour_Manager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tour_Manager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C239F2D7A9DD96051CDD690 /* Pods-Tour Manager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tour Manager.release.xcconfig"; path = "Target Support Files/Pods-Tour Manager/Pods-Tour Manager.release.xcconfig"; sourceTree = "<group>"; };
 		68E77E428BEC283B907E8208 /* Pods-Tour Manager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tour Manager.debug.xcconfig"; path = "Target Support Files/Pods-Tour Manager/Pods-Tour Manager.debug.xcconfig"; sourceTree = "<group>"; };
-		EE0528C92A30DA3C006C8C98 /* NewExcursionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewExcursionTableViewController.swift; sourceTree = "<group>"; };
 		EE0649362B160AB0007EF0A1 /* ToursBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToursBaseViewController.swift; sourceTree = "<group>"; };
 		EE0649382B160D65007EF0A1 /* ToursCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToursCollectionViewCell.swift; sourceTree = "<group>"; };
 		EE14D3732B12541000A188F8 /* AccessLevelElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessLevelElement.swift; sourceTree = "<group>"; };
@@ -199,11 +189,8 @@
 		EE18F4632A3E4EAD0047E068 /* SendAutofill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendAutofill.swift; sourceTree = "<group>"; };
 		EE18F4652A3E4FB00047E068 /* ResponseAutoFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseAutoFill.swift; sourceTree = "<group>"; };
 		EE18F4672A3E503F0047E068 /* ApiManagerAutoFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManagerAutoFill.swift; sourceTree = "<group>"; };
-		EE1A678E2A40F50F007A1A84 /* ExcursionForGuideTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcursionForGuideTableViewController.swift; sourceTree = "<group>"; };
 		EE1D14102A577A1500A125F2 /* TourTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourTableViewCell.swift; sourceTree = "<group>"; };
-		EE2377352A0816D900CB9D70 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		EE261BCA2B1E254E0010DD9B /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		EE261BCB2B1E254E0010DD9B /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Auth.strings; sourceTree = "<group>"; };
 		EE261BCC2B1E28550010DD9B /* FullCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullCalendarView.swift; sourceTree = "<group>"; };
 		EE261BCE2B1E286E0010DD9B /* FullCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullCalendarViewController.swift; sourceTree = "<group>"; };
 		EE261BD02B1E50320010DD9B /* FullCalendarMonthHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullCalendarMonthHeader.swift; sourceTree = "<group>"; };
@@ -231,7 +218,6 @@
 		EE52E16B29E5C1C8000C0E5B /* Tour Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tour Manager.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE52E16E29E5C1C8000C0E5B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE52E17029E5C1C8000C0E5B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		EE52E17529E5C1C8000C0E5B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Auth.storyboard; sourceTree = "<group>"; };
 		EE52E17729E5C1CB000C0E5B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EE52E17A29E5C1CB000C0E5B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EE52E17C29E5C1CB000C0E5B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -270,7 +256,6 @@
 		EE926DB12AFE7EEA005F2851 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		EE9788682A28D4FA0086C034 /* EmploeeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmploeeTableViewController.swift; sourceTree = "<group>"; };
 		EE97886A2A28EA710086C034 /* EmploeeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmploeeViewController.swift; sourceTree = "<group>"; };
-		EEA07CB02A4DD7FB00F14778 /* Login2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login2ViewController.swift; sourceTree = "<group>"; };
 		EEA4C07F29FDDC650083154E /* ApiManagerAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManagerAuth.swift; sourceTree = "<group>"; };
 		EEB73F9B2A364B82004D7A25 /* ApiManagerExcursions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManagerExcursions.swift; sourceTree = "<group>"; };
 		EEB73F9E2A364B9B004D7A25 /* SendExcursions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendExcursions.swift; sourceTree = "<group>"; };
@@ -312,13 +297,9 @@
 		EEDF108A2B21DC9000509A63 /* ImagesRealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesRealmService.swift; sourceTree = "<group>"; };
 		EEDF108E2B222E4900509A63 /* ProfilePhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		EEF0BE8B2AD72C91002CEE4D /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
-		EEF18C8D2A4209F800A91D2F /* LoadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadView.swift; sourceTree = "<group>"; };
-		EEF18C922A4235A500A91D2F /* DatepickerFromBottom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatepickerFromBottom.swift; sourceTree = "<group>"; };
-		EEF18C942A4258EE00A91D2F /* FS calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FS calendar.swift"; sourceTree = "<group>"; };
 		EEF27A3F2A044E7D006E5E53 /* Pods_Tour_Manager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Tour_Manager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEF27A472A05551E006E5E53 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		EEF27A502A059BE4006E5E53 /* TextFieldValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldValidation.swift; sourceTree = "<group>"; };
-		EEF27A532A05AA44006E5E53 /* Controllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controllers.swift; sourceTree = "<group>"; };
 		EEF27A582A05C7BC006E5E53 /* VerifyEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyEmailViewController.swift; sourceTree = "<group>"; };
 		EEF2F63A2ADCBE010070D083 /* ExcursionRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcursionRealmModel.swift; sourceTree = "<group>"; };
 		EEF2F63E2ADD5B630070D083 /* ExcursionsRealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExcursionsRealmService.swift; sourceTree = "<group>"; };
@@ -437,17 +418,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		EE1805EA2AD5A5990083952D /* Custom Views */ = {
-			isa = PBXGroup;
-			children = (
-				EE2377342A0816C400CB9D70 /* alerts */,
-				EEF18C8D2A4209F800A91D2F /* LoadView.swift */,
-				EEF18C922A4235A500A91D2F /* DatepickerFromBottom.swift */,
-				EEF18C942A4258EE00A91D2F /* FS calendar.swift */,
-			);
-			path = "Custom Views";
-			sourceTree = "<group>";
-		};
 		EE1805EB2AD5A5DC0083952D /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -490,14 +460,6 @@
 				EE18F4652A3E4FB00047E068 /* ResponseAutoFill.swift */,
 			);
 			path = "Json Structs";
-			sourceTree = "<group>";
-		};
-		EE2377342A0816C400CB9D70 /* alerts */ = {
-			isa = PBXGroup;
-			children = (
-				EE2377352A0816D900CB9D70 /* Alerts.swift */,
-			);
-			path = alerts;
 			sourceTree = "<group>";
 		};
 		EE261BD22B1F24200010DD9B /* Presenter */ = {
@@ -566,7 +528,6 @@
 			isa = PBXGroup;
 			children = (
 				EEDB60222B262DCA00495263 /* SubViewControllers */,
-				EE0528C92A30DA3C006C8C98 /* NewExcursionTableViewController.swift */,
 				EE8701382B24FB0A003139E5 /* TourDetailViewController.swift */,
 				EEDB60242B262DF800495263 /* TourDetailForGuideViewController.swift */,
 			);
@@ -763,9 +724,7 @@
 			isa = PBXGroup;
 			children = (
 				EEF7763C2AD80D0D00532440 /* Modules Assembly */,
-				EE5F91DE2A21528D00B39BB1 /* Controllers */,
 				EE1805ED2AD5A6CC0083952D /* Extensions */,
-				EE1805EA2AD5A5990083952D /* Custom Views */,
 				EED6450D2A98CC7500F2ADC9 /* Modules */,
 				EED6450C2A98CC6A00F2ADC9 /* Services */,
 				EED6450B2A98CBD400F2ADC9 /* App */,
@@ -774,14 +733,6 @@
 				EEDB60682B267ED400495263 /* GoogleService-Info.plist */,
 			);
 			path = "Tour Manager";
-			sourceTree = "<group>";
-		};
-		EE5F91DE2A21528D00B39BB1 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				EEF27A532A05AA44006E5E53 /* Controllers.swift */,
-			);
-			path = Controllers;
 			sourceTree = "<group>";
 		};
 		EE5F91DF2A21529C00B39BB1 /* Validation */ = {
@@ -886,22 +837,6 @@
 				EE6FCB402B096C6E00A49604 /* ExtendedSettingsViewController.swift */,
 			);
 			path = ViewController;
-			sourceTree = "<group>";
-		};
-		EE783F4A2AD56C5800DA820F /* Guide Excursions */ = {
-			isa = PBXGroup;
-			children = (
-				EE783F4C2AD56C6D00DA820F /* View */,
-			);
-			path = "Guide Excursions";
-			sourceTree = "<group>";
-		};
-		EE783F4C2AD56C6D00DA820F /* View */ = {
-			isa = PBXGroup;
-			children = (
-				EE1A678E2A40F50F007A1A84 /* ExcursionForGuideTableViewController.swift */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		EE8474052A4D99180082DE7E /* Library */ = {
@@ -1083,7 +1018,6 @@
 			children = (
 				EEDB602C2B2671E000495263 /* Base ViewControllers */,
 				EE14D3752B140FC300A188F8 /* Tours */,
-				EE783F4A2AD56C5800DA820F /* Guide Excursions */,
 				EED6452A2A990D9A00F2ADC9 /* MainTabBar */,
 				EEF776412ADAA3A500532440 /* One Employee */,
 				EED645162A98CE1000F2ADC9 /* Profile */,
@@ -1100,7 +1034,6 @@
 				EED2E2532B2B54CB00590371 /* VerifyEmail */,
 				EED2E24A2B2A2E6C00590371 /* Login */,
 				EED6450F2A98CCB700F2ADC9 /* Model */,
-				EED645102A98CCBF00F2ADC9 /* View */,
 				EED645242A98DA9500F2ADC9 /* AuthAssembly.swift */,
 			);
 			path = Auth;
@@ -1112,15 +1045,6 @@
 				EEF0BE8B2AD72C91002CEE4D /* LoginModel.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		EED645102A98CCBF00F2ADC9 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				EEA07CB02A4DD7FB00F14778 /* Login2ViewController.swift */,
-				EE52E17429E5C1C8000C0E5B /* Auth.storyboard */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		EED645122A98CD4300F2ADC9 /* LaunchScreen */ = {
@@ -1479,7 +1403,6 @@
 				EE8474082A4D99620082DE7E /* sub.caf in Resources */,
 				EEB764A32A387B2200579E6B /* NewComponentTableViewCell.xib in Resources */,
 				EE52E17829E5C1CB000C0E5B /* Assets.xcassets in Resources */,
-				EE52E17629E5C1C8000C0E5B /* Auth.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1553,7 +1476,6 @@
 				EE1770F32A23EE5A00B18055 /* LaunchScreenViewController.swift in Sources */,
 				EE14D3802B14B75000A188F8 /* CalendarCell.swift in Sources */,
 				EE5F91BE2A1E9FC400B39BB1 /* NetworkServiceHelper.swift in Sources */,
-				EE1A678F2A40F50F007A1A84 /* ExcursionForGuideTableViewController.swift in Sources */,
 				EED2E2482B28E9AC00590371 /* UIRESPONDER.swift in Sources */,
 				EEDA5E9D2A37BFA9002CC5C8 /* UiTextView.swift in Sources */,
 				EE5F91C92A1FFBB500B39BB1 /* ConvertDate.swift in Sources */,
@@ -1578,12 +1500,10 @@
 				EEF27A482A05551E006E5E53 /* Font.swift in Sources */,
 				EE4506C92B010BF400603E57 /* ProfileAssembly.swift in Sources */,
 				EE8701372B24EE2F003139E5 /* TitleWithSwitchTourItem.swift in Sources */,
-				EEF18C952A4258EE00A91D2F /* FS calendar.swift in Sources */,
 				EED2E24D2B2A2E9F00590371 /* LoginView.swift in Sources */,
 				EEDF10862B21D0E100509A63 /* ImageRealmModel.swift in Sources */,
 				EE926DB22AFE7EEA005F2851 /* ProfileViewController.swift in Sources */,
 				EE6756082AC0721800E253DA /* EmployeesListPresenter.swift in Sources */,
-				EEA07CB12A4DD7FC00F14778 /* Login2ViewController.swift in Sources */,
 				EE5F91B62A1E839E00B39BB1 /* UiWindow.swift in Sources */,
 				EED645362A99526B00F2ADC9 /* UsersRealmModel.swift in Sources */,
 				EE261BD42B1F24320010DD9B /* FullCalendarPresenter.swift in Sources */,
@@ -1618,7 +1538,6 @@
 				EED645272A98F32700F2ADC9 /* VerifyEmailPresenter.swift in Sources */,
 				EE926DB02AFE7ED3005F2851 /* ProfileView.swift in Sources */,
 				EEF2F63F2ADD5B630070D083 /* ExcursionsRealmService.swift in Sources */,
-				EEF18C932A4235A500A91D2F /* DatepickerFromBottom.swift in Sources */,
 				EEDB60252B262DF800495263 /* TourDetailForGuideViewController.swift in Sources */,
 				EE9788692A28D4FA0086C034 /* EmploeeTableViewController.swift in Sources */,
 				EEC9BA182A2670A100BC026A /* Bool.swift in Sources */,
@@ -1640,8 +1559,6 @@
 				EED6452E2A994F1500F2ADC9 /* ProfilePagePresenter.swift in Sources */,
 				EEDB602E2B26721C00495263 /* BaseNavigationViewController.swift in Sources */,
 				EE0649372B160AB0007EF0A1 /* ToursBaseViewController.swift in Sources */,
-				EE0528CA2A30DA3C006C8C98 /* NewExcursionTableViewController.swift in Sources */,
-				EEF27A542A05AA44006E5E53 /* Controllers.swift in Sources */,
 				EE330A7C2AE44C4A00109E4E /* AutofillRealmModel.swift in Sources */,
 				EE18F4642A3E4EAD0047E068 /* SendAutofill.swift in Sources */,
 				EE18F4682A3E503F0047E068 /* ApiManagerAutoFill.swift in Sources */,
@@ -1650,13 +1567,11 @@
 				EE1D14122A577A1500A125F2 /* TourTableViewCell.swift in Sources */,
 				EEDB60212B25D40C00495263 /* GuideTourItem.swift in Sources */,
 				EE330A802AE5738C00109E4E /* Results Extension.swift in Sources */,
-				EE2377362A0816D900CB9D70 /* Alerts.swift in Sources */,
 				EE0649392B160D65007EF0A1 /* ToursCollectionViewCell.swift in Sources */,
 				EEF7763E2AD80D2B00532440 /* EmployeeAseembly.swift in Sources */,
 				EE261BCD2B1E28550010DD9B /* FullCalendarView.swift in Sources */,
 				EE783F512AD594B000DA820F /* OneGuideExcursionPresenter.swift in Sources */,
 				EE5F91BC2A1E9F7000B39BB1 /* ApiManagerUserData.swift in Sources */,
-				EEF18C8E2A4209F800A91D2F /* LoadView.swift in Sources */,
 				EE330A822AE590F400109E4E /* AddGuideViewController.swift in Sources */,
 				EE5F91CD2A2007E400B39BB1 /* sendUserDataStructs.swift in Sources */,
 				EE261BCF2B1E286E0010DD9B /* FullCalendarViewController.swift in Sources */,
@@ -1667,15 +1582,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		EE52E17429E5C1C8000C0E5B /* Auth.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				EE52E17529E5C1C8000C0E5B /* Base */,
-				EE261BCB2B1E254E0010DD9B /* ru */,
-			);
-			name = Auth.storyboard;
-			sourceTree = "<group>";
-		};
 		EE52E17929E5C1CB000C0E5B /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1839,7 +1745,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1878,7 +1784,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

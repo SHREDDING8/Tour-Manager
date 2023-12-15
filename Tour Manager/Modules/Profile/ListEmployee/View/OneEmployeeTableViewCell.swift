@@ -53,6 +53,7 @@ class OneEmployeeTableViewCell: UITableViewCell {
     }
     
     func commonInit(){
+        self.backgroundColor = .clear
         self.accessoryType = .disclosureIndicator
         self.contentView.addSubview(image)
         self.contentView.addSubview(name)
