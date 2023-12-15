@@ -32,6 +32,6 @@ class LaunchScreenViewController: UIViewController {
         let refreshToken = self.keychain.getRefreshToken()
         let companyId = self.keychain.getCompanyLocalId()
         
-        (token != nil && refreshToken != nil && companyId != nil) ? self.controllers.goToMainTabBar(view: self.view, direction: .fade) : self.controllers.goToLoginPage(view: self.view, direction: .fade)
+        (token != nil && refreshToken != nil && companyId != nil) ? MainAssembly.goToMainTabBar(view: self.view) : MainAssembly.goToLoginPage(view: self.view)
     }
 }

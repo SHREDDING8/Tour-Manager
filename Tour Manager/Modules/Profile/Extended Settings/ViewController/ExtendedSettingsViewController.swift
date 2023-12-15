@@ -141,8 +141,7 @@ final class ExtendedSettingsViewController: BaseViewController {
 
 extension ExtendedSettingsViewController:ExtendedSettingsViewProtocol{
     func deleteSuccess() {
-        let controllers = Controllers()
-        controllers.goToLoginPage(view: self.view, direction: .fade)
+        MainAssembly.goToLoginPage(view: self.view)
     }
     
     func logoutAllSuccessful() {

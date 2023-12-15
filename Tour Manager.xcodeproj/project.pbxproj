@@ -89,7 +89,7 @@
 		EE926DB22AFE7EEA005F2851 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE926DB12AFE7EEA005F2851 /* ProfileViewController.swift */; };
 		EE9788692A28D4FA0086C034 /* EmploeeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9788682A28D4FA0086C034 /* EmploeeTableViewController.swift */; };
 		EE97886B2A28EA710086C034 /* EmploeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE97886A2A28EA710086C034 /* EmploeeViewController.swift */; };
-		EEA07CB12A4DD7FC00F14778 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA07CB02A4DD7FB00F14778 /* LoginViewController.swift */; };
+		EEA07CB12A4DD7FC00F14778 /* Login2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA07CB02A4DD7FB00F14778 /* Login2ViewController.swift */; };
 		EEA4C08029FDDC650083154E /* ApiManagerAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA4C07F29FDDC650083154E /* ApiManagerAuth.swift */; };
 		EEB73F9C2A364B82004D7A25 /* ApiManagerExcursions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB73F9B2A364B82004D7A25 /* ApiManagerExcursions.swift */; };
 		EEB73F9F2A364B9B004D7A25 /* SendExcursions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB73F9E2A364B9B004D7A25 /* SendExcursions.swift */; };
@@ -99,6 +99,10 @@
 		EEC9BA182A2670A100BC026A /* Bool.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC9BA172A2670A100BC026A /* Bool.swift */; };
 		EED09DA52AE2DA99000CDA7F /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED09DA42AE2DA99000CDA7F /* NotesViewController.swift */; };
 		EED2E2482B28E9AC00590371 /* UIRESPONDER.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED2E2472B28E9AC00590371 /* UIRESPONDER.swift */; };
+		EED2E24D2B2A2E9F00590371 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED2E24C2B2A2E9F00590371 /* LoginView.swift */; };
+		EED2E2502B2A47D800590371 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED2E24F2B2A47D800590371 /* LoginViewController.swift */; };
+		EED2E2522B2B404600590371 /* MainAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED2E2512B2B404600590371 /* MainAssembly.swift */; };
+		EED2E2562B2B551C00590371 /* VerifyEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED2E2552B2B551C00590371 /* VerifyEmailView.swift */; };
 		EED4DA7E2ADDA12A00C76FE3 /* EventRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED4DA7D2ADDA12A00C76FE3 /* EventRealmModel.swift */; };
 		EED645212A98D33500F2ADC9 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED645202A98D33500F2ADC9 /* KeychainService.swift */; };
 		EED645232A98DA7C00F2ADC9 /* LoginViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED645222A98DA7C00F2ADC9 /* LoginViewPresenter.swift */; };
@@ -260,7 +264,7 @@
 		EE926DB12AFE7EEA005F2851 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		EE9788682A28D4FA0086C034 /* EmploeeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmploeeTableViewController.swift; sourceTree = "<group>"; };
 		EE97886A2A28EA710086C034 /* EmploeeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmploeeViewController.swift; sourceTree = "<group>"; };
-		EEA07CB02A4DD7FB00F14778 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		EEA07CB02A4DD7FB00F14778 /* Login2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login2ViewController.swift; sourceTree = "<group>"; };
 		EEA4C07F29FDDC650083154E /* ApiManagerAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManagerAuth.swift; sourceTree = "<group>"; };
 		EEB73F9B2A364B82004D7A25 /* ApiManagerExcursions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManagerExcursions.swift; sourceTree = "<group>"; };
 		EEB73F9E2A364B9B004D7A25 /* SendExcursions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendExcursions.swift; sourceTree = "<group>"; };
@@ -270,6 +274,10 @@
 		EEC9BA172A2670A100BC026A /* Bool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bool.swift; sourceTree = "<group>"; };
 		EED09DA42AE2DA99000CDA7F /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
 		EED2E2472B28E9AC00590371 /* UIRESPONDER.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIRESPONDER.swift; sourceTree = "<group>"; };
+		EED2E24C2B2A2E9F00590371 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		EED2E24F2B2A47D800590371 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		EED2E2512B2B404600590371 /* MainAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAssembly.swift; sourceTree = "<group>"; };
+		EED2E2552B2B551C00590371 /* VerifyEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyEmailView.swift; sourceTree = "<group>"; };
 		EED4DA7D2ADDA12A00C76FE3 /* EventRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRealmModel.swift; sourceTree = "<group>"; };
 		EED645202A98D33500F2ADC9 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		EED645222A98DA7C00F2ADC9 /* LoginViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewPresenter.swift; sourceTree = "<group>"; };
@@ -926,6 +934,74 @@
 			path = JsonStructs;
 			sourceTree = "<group>";
 		};
+		EED2E24A2B2A2E6C00590371 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				EED2E2592B2B89AF00590371 /* Presenter */,
+				EED2E24E2B2A46FE00590371 /* ViewController */,
+				EED2E24B2B2A2E7D00590371 /* View */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		EED2E24B2B2A2E7D00590371 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EED2E24C2B2A2E9F00590371 /* LoginView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EED2E24E2B2A46FE00590371 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				EED2E24F2B2A47D800590371 /* LoginViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		EED2E2532B2B54CB00590371 /* VerifyEmail */ = {
+			isa = PBXGroup;
+			children = (
+				EED2E2582B2B899C00590371 /* Presenter */,
+				EED2E2572B2B67D600590371 /* ViewController */,
+				EED2E2542B2B54D600590371 /* View */,
+			);
+			path = VerifyEmail;
+			sourceTree = "<group>";
+		};
+		EED2E2542B2B54D600590371 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EED2E2552B2B551C00590371 /* VerifyEmailView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EED2E2572B2B67D600590371 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				EEF27A582A05C7BC006E5E53 /* VerifyEmailViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		EED2E2582B2B899C00590371 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				EED645262A98F32700F2ADC9 /* VerifyEmailPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		EED2E2592B2B89AF00590371 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				EED645222A98DA7C00F2ADC9 /* LoginViewPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
 		EED6450B2A98CBD400F2ADC9 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -966,6 +1042,8 @@
 		EED6450E2A98CC9D00F2ADC9 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				EED2E2532B2B54CB00590371 /* VerifyEmail */,
+				EED2E24A2B2A2E6C00590371 /* Login */,
 				EED6450F2A98CCB700F2ADC9 /* Model */,
 				EED645102A98CCBF00F2ADC9 /* View */,
 				EED645112A98CCC200F2ADC9 /* Presenter */,
@@ -985,10 +1063,9 @@
 		EED645102A98CCBF00F2ADC9 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				EEF27A582A05C7BC006E5E53 /* VerifyEmailViewController.swift */,
 				EE5EEC2D2A06D0660025336E /* AddingPersonalDataViewController.swift */,
 				EE5EEC302A06EDC20025336E /* ChoiceOfTypeAccountViewController.swift */,
-				EEA07CB02A4DD7FB00F14778 /* LoginViewController.swift */,
+				EEA07CB02A4DD7FB00F14778 /* Login2ViewController.swift */,
 				EE52E17429E5C1C8000C0E5B /* Auth.storyboard */,
 			);
 			path = View;
@@ -997,8 +1074,6 @@
 		EED645112A98CCC200F2ADC9 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				EED645222A98DA7C00F2ADC9 /* LoginViewPresenter.swift */,
-				EED645262A98F32700F2ADC9 /* VerifyEmailPresenter.swift */,
 				EED645282A98F65B00F2ADC9 /* AddingPersonalDataPresenter.swift */,
 			);
 			path = Presenter;
@@ -1236,6 +1311,7 @@
 			isa = PBXGroup;
 			children = (
 				EEF7763D2AD80D2B00532440 /* EmployeeAseembly.swift */,
+				EED2E2512B2B404600590371 /* MainAssembly.swift */,
 			);
 			path = "Modules Assembly";
 			sourceTree = "<group>";
@@ -1412,8 +1488,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EED2E2562B2B551C00590371 /* VerifyEmailView.swift in Sources */,
 				EE5F91C02A1EA3C900B39BB1 /* ResponseUserDataStructs.swift in Sources */,
 				EE330A7E2AE44F4B00109E4E /* AutoFillRealmService.swift in Sources */,
+				EED2E2522B2B404600590371 /* MainAssembly.swift in Sources */,
 				EE783F452AD4835C00DA820F /* TourManadmentAssembly.swift in Sources */,
 				EEDB602B2B265A6700495263 /* ChangePasswordView.swift in Sources */,
 				EE5F91CF2A200C7700B39BB1 /* sendAuthStructs.swift in Sources */,
@@ -1454,10 +1532,11 @@
 				EE4506C92B010BF400603E57 /* ProfileAssembly.swift in Sources */,
 				EE8701372B24EE2F003139E5 /* TitleWithSwitchTourItem.swift in Sources */,
 				EEF18C952A4258EE00A91D2F /* FS calendar.swift in Sources */,
+				EED2E24D2B2A2E9F00590371 /* LoginView.swift in Sources */,
 				EEDF10862B21D0E100509A63 /* ImageRealmModel.swift in Sources */,
 				EE926DB22AFE7EEA005F2851 /* ProfileViewController.swift in Sources */,
 				EE6756082AC0721800E253DA /* EmployeesListPresenter.swift in Sources */,
-				EEA07CB12A4DD7FC00F14778 /* LoginViewController.swift in Sources */,
+				EEA07CB12A4DD7FC00F14778 /* Login2ViewController.swift in Sources */,
 				EE5F91B62A1E839E00B39BB1 /* UiWindow.swift in Sources */,
 				EED645362A99526B00F2ADC9 /* UsersRealmModel.swift in Sources */,
 				EE261BD42B1F24320010DD9B /* FullCalendarPresenter.swift in Sources */,
@@ -1495,6 +1574,7 @@
 				EEDB60252B262DF800495263 /* TourDetailForGuideViewController.swift in Sources */,
 				EE9788692A28D4FA0086C034 /* EmploeeTableViewController.swift in Sources */,
 				EEC9BA182A2670A100BC026A /* Bool.swift in Sources */,
+				EED2E2502B2A47D800590371 /* LoginViewController.swift in Sources */,
 				EE38C6762B0B907100DAEC4F /* DevicesRealmService.swift in Sources */,
 				EE5F91C62A1FD16200B39BB1 /* responseStructs.swift in Sources */,
 				EEB73FA12A364BA9004D7A25 /* ResponseExcursions.swift in Sources */,

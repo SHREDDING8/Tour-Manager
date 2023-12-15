@@ -345,7 +345,7 @@ extension ProfileViewController:ProfileViewProtocol{
             style: .iOS17AppleMusic,
             haptic: .success
         )
-        AuthAssembly.goToLogin(view: self.view())
+        MainAssembly.goToLoginPage(view: self.view)
     }
     
     func updateCompanyInfoError() {

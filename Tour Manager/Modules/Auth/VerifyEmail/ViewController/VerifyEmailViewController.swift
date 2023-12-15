@@ -6,41 +6,25 @@
 //
 
 import UIKit
+import AlertKit
 
-class VerifyEmailViewController: UIViewController {
+class VerifyEmailViewController: BaseViewController {
+    var presenter:VerifyEmailPresenterProtocol!
     
-    
-    // MARK: - my Variables
-    let alerts = Alert()
-    let controllers = Controllers()
-    let font = Font()
-    
-    var loadUIView:LoadView!
-    
-    var presenter:VerifyEmailPresenterProtocol?
-    
-    
-    var password = ""
-    var email = ""
-    
-    // MARK: - Outlets
-    
-    @IBOutlet weak var iconImage: UIImageView!
-    
-    @IBOutlet weak var emailSentToEmailLabel: UILabel!
-    
-    @IBOutlet weak var sendEmailAgainButton: UIButton!
+    private func view() -> VerifyEmailView{
+        return view as! VerifyEmailView
+    }
     
     override func loadView() {
         super.loadView()
-        self.presenter = VerifyEmailPresenter(view: self)
+        self.view = VerifyEmailView()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureView()
-        
-        self.loadUIView = LoadView(viewController: self)
+        self.view().email.text = presenter.loginData.email
+        self.titleString = "Подтверждение email"
+        self.setBackButton()
         
     }
     
@@ -49,46 +33,38 @@ class VerifyEmailViewController: UIViewController {
         setTimerSetEmailAgain()
     }
     
-    // MARK: - ConfigurationView
+    private func addTargets(){
+        self.view().sendAgain.addTarget(self, action: #selector(resendTapped), for: .touchUpInside)
+        self.view().confirmed.addTarget(self, action: #selector(confirmedTapped), for: .touchUpInside)
+    }
     
-    fileprivate func configureView(){
-        self.emailSentToEmailLabel.text = "Сообщение отправлено на \(self.email)"
-        
-        self.setTitleResend(value: "Повторно отправить подтверждение через 60")
-        self.sendEmailAgainButton.titleLabel?.textAlignment = .center
+    @objc func resendTapped(){
+        self.presenter.sendVerifyEmail()
+    }
+    
+    @objc func confirmedTapped(){
         
     }
     
-    
     fileprivate func setTimerSetEmailAgain(){
         var time = 60
-        self.sendEmailAgainButton.isUserInteractionEnabled = false
-        self.sendEmailAgainButton.layer.opacity = 0.5
+        self.view().sendAgain.isEnabled = false
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
-            self.setTitleResend(value: "Повторно отправить подтверждение через \(time)")
+            self.view().sendAgain.setTitle(title: "Отправить повторно через \(time)", size: 12, style: .regular)
             time -= 1
             if time == 0{
-                self.setTitleResend(value: "Повторно отправить подтверждение")
-                self.sendEmailAgainButton.layer.opacity = 1
-                self.sendEmailAgainButton.isUserInteractionEnabled = true
+                self.view().sendAgain.setTitle(title: "Отправить повторно", size: 12, style: .regular)
+                self.view().sendAgain.isEnabled = true
                 timer.invalidate()
             }
         }
     }
     
-    fileprivate func setTitleResend(value:String){
-        self.sendEmailAgainButton.setTitle(title: value, size: 16, style: .semiBold)
-    }
-
-
-    
     @IBAction func verifiedButtonTap(_ sender: Any) {
-        self.loadUIView.setLoadUIView()
         self.logIn()
     }
     
     @IBAction func resendEmail(_ sender: Any) {
-        self.loadUIView.setLoadUIView()
         
 //        self.presenter?.sendVerifyEmail(email: self.email, password: self.password, completion: { isSent, error in
 //            self.loadUIView.removeLoadUIView()
@@ -156,35 +132,37 @@ class VerifyEmailViewController: UIViewController {
     // MARK: - Navigation
     
     fileprivate func goToAddingPersonalData(){
-        let destination = self.controllers.getControllerAuth(.choiceOfTypeAccountViewController) as! ChoiceOfTypeAccountViewController
+//        let destination = self.controllers.getControllerAuth(.choiceOfTypeAccountViewController) as! ChoiceOfTypeAccountViewController
         
-        self.navigationController?.pushViewController(destination, animated: true)
+//        self.navigationController?.pushViewController(destination, animated: true)
         var navigationArray = navigationController?.viewControllers ?? []
         navigationArray.remove(at: (navigationArray.count) - 2)
         self.navigationController?.viewControllers = navigationArray
     }
     
     fileprivate func goToMainTabBar(){
-        let c = Controllers()
-        c.goToMainTabBar(view: self.view, direction: .fade)        
+        MainAssembly.goToMainTabBar(view: self.view)
     }
-    fileprivate func goToLogInPage(){
-        let mainLogIn = self.controllers.getControllerAuth(.mainAuthController)
-        
-
-        let window = self.view.window
-        let options = UIWindow.TransitionOptions()
-        
-        options.direction = .toBottom
-        options.duration = 0.3
-        options.style = .easeIn
-        
-        window?.set(rootViewController: mainLogIn,options: options)
-        
-    }
-    
 }
 
 extension VerifyEmailViewController:VerifyEmailViewProtocol{
+    func emailVerifyed() {
+        
+    }
+    
+    func goToMain() {
+        MainAssembly.goToMainTabBar(view: self.view)
+    }
+    
+    func emailSended() {
+        AlertKitAPI.present(
+            title: "Письмо отправлено",
+            icon: .done,
+            style: .iOS17AppleMusic,
+            haptic: .success
+        )
+        
+        self.setTimerSetEmailAgain()
+    }
     
 }

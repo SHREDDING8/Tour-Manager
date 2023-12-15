@@ -68,8 +68,7 @@ extension mainTabBarViewController:MainTabBarViewProtocol{
                     preferredStyle: .alert
                 )
                 let logOut = UIAlertAction(title: "Выйти", style: .destructive) { _ in
-                    let controller = Controllers()
-                    controller.goToLoginPage(view: self.view, direction: .fade)
+                    MainAssembly.goToLoginPage(view: self.view)
                 }
                 
                 alert.addAction(logOut)

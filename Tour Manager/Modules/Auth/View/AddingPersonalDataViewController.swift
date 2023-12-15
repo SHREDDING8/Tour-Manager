@@ -230,17 +230,7 @@ class AddingPersonalDataViewController: UIViewController {
     // MARK: - Navigation
         
     @objc fileprivate func goToLogInPage(){
-        let mainLogIn = self.controllers.getControllerAuth(.mainAuthController)
-        
-
-        let window = self.view.window
-        let options = UIWindow.TransitionOptions()
-        
-        options.direction = .toBottom
-        options.duration = 0.3
-        options.style = .easeIn
-        
-        window?.set(rootViewController: mainLogIn,options: options)
+        MainAssembly.goToLoginPage(view: self.view)
         
     }
 

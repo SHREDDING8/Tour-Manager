@@ -11,8 +11,6 @@ import UIKit
 
 enum PossibleControllersAuth:String{
     
-    case mainAuthController = "authNavigationController"
-    
     case verifycontroller = "verifyEmailController"
     case addingPersonalInformation = "AddingPersonalDataViewController"
     case choiceOfTypeAccountViewController = "ChoiceOfTypeAccountViewController"
@@ -33,50 +31,6 @@ class Controllers{
     // MARK: - Get Controllers
     public func getControllerAuth(_ controller:PossibleControllersAuth) -> UIViewController{
         return storyboardAuth.instantiateViewController(withIdentifier: controller.rawValue)
-    }
-    
-    public func getLaunchScreen()->UIViewController{
-        return UIStoryboard(name: "Launch", bundle: nil).instantiateViewController(withIdentifier: "LaunchScreenViewController")
-        
-    }
-    
-    public func goToLoginPage(view:UIView, direction: UIWindow.TransitionOptions.Direction){
-        let mainLogIn = self.getControllerAuth(.mainAuthController)
-        
-        let window = view.window
-        let options = UIWindow.TransitionOptions()
-        
-        options.direction = direction
-        options.duration = 0.5
-        options.style = .easeOut
-        
-        window?.set(rootViewController: mainLogIn, options: options)
-    }
-    
-    public func goToMainTabBar(view:UIView, direction: UIWindow.TransitionOptions.Direction){
-        let mainTabBar = mainTabBarViewController()
-        
-        let window = view.window
-        let options = UIWindow.TransitionOptions()
-        
-        options.direction = direction
-        options.duration = 0.5
-        options.style = .easeOut
-        
-        window?.set(rootViewController: mainTabBar, options: options)
-    }
-    
-    public func goToLauchScreen(view:UIView, direction: UIWindow.TransitionOptions.Direction){
-        let launchScreen = self.getLaunchScreen()
-        
-        let window = view.window
-        let options = UIWindow.TransitionOptions()
-        
-        options.direction = direction
-        options.duration = 0.5
-        options.style = .easeOut
-        
-        window?.set(rootViewController: launchScreen, options: options)
     }
     
 }

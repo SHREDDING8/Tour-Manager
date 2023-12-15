@@ -10,6 +10,7 @@ import SnapKit
 import AlertKit
 
 import Network
+import os
 
 protocol BaseViewControllerProtocol{
     func setUpdating()
@@ -215,7 +216,8 @@ extension BaseViewController{
         monitor?.pathUpdateHandler = { path in
             if path.status == .satisfied {
                 DispatchQueue.main.sync {
-                    print("connect")
+                    os_log(.debug, log: .default, "connect")
+                    
                     BaseViewController.isNoConnectionAlertShowed = false
                     self.titleViewLabel.text = self.titleString
                     self.activity.stopAnimating()
@@ -224,7 +226,8 @@ extension BaseViewController{
                 
             } else {
                 DispatchQueue.main.sync {
-                    print("disconnect")
+                    os_log(.error, log: .default, "disconnect")
+                    
                     self.titleViewLabel.text = "Соединение"
                     self.activity.startAnimating()
                     self.titleState = .noConnection
@@ -330,8 +333,7 @@ extension BaseViewController:BaseViewControllerProtocol{
                     preferredStyle: .alert
                 )
                 let logOut = UIAlertAction(title: "Выйти", style: .destructive) { _ in
-                    let controller = Controllers()
-                    controller.goToLoginPage(view: self.view, direction: .fade)
+                    MainAssembly.goToLoginPage(view: self.view)
                 }
                 
                 alert.addAction(logOut)

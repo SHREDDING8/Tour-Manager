@@ -8,7 +8,7 @@
 import UIKit
 import AlertKit
 
-class LoginViewController: UIViewController {
+class Login2ViewController: UIViewController {
     
     var presenter:LoginPresenterProtocol?
     // MARK: -
@@ -35,46 +35,16 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var signInLogInButton: UIButton!
     
-    override func loadView() {
-        super.loadView()
-        let presenter = LoginPresenter(view: self)
-        self.presenter = presenter
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-                
-        self.loadUIView = LoadView(viewController: self)
-        self.secondPasswordStack.layer.opacity = 0
-        
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
-        configureLogInButton()
-        
-        addKeyboardObservers()
         
         self.presenter?.removeAllData()
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        stackViewPoint = stackView.frame.origin.y
-
-        self.view.bringSubviewToFront(self.logInButton)
         
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
-    
-    fileprivate func configureLogInButton(){
-        self.logInButton.setTitle(title: "Войти", size: 20, style: .bold)
-    }
-    
     // MARK: - Buttons Tapped
     
     @IBAction func logIn(_ sender: Any) {
@@ -84,7 +54,7 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func logInSignInTapped(_ sender: Any) {
-        presenter?.changeSignInLoginTapped()
+//        presenter?.changeSignInLoginTapped()
     }
     
     // MARK: - Reset Password Tapped
@@ -115,44 +85,9 @@ class LoginViewController: UIViewController {
         self.present(resetPasswordAlert, animated: true)
         
     }
-    
-    // MARK: - keyboard
-    
-    fileprivate func addKeyboardObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    @objc fileprivate func keyboardWillShow(notification: NSNotification){
-
-        if let _ = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue{
-            if Int(stackView.frame.origin.y) != Int(self.iconImageView.frame.origin.y - 10){
-                
-                stackView.transform = CGAffineTransform(translationX: 0, y: -abs(self.iconImageView.frame.origin.y - 10 - stackView.frame.origin.y))
-                
-                UIView.animate(withDuration: 0.3) {
-                    self.iconImageView.layer.opacity = 0
-                }
-            }
-            
-        }
-        
-    }
-    
-    @objc func keyboardWillHide(notification: NSNotification) {
-        
-        stackView.transform = CGAffineTransform(translationX: 0, y: 0)
-        
-        UIView.animate(withDuration: 0.3) {
-            self.iconImageView.layer.opacity = 1
-        }
-        
-    }
-    
 }
 
-extension LoginViewController:UITextFieldDelegate{
+extension Login2ViewController:UITextFieldDelegate{
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == self.secondPasswordTextField{
@@ -178,7 +113,55 @@ extension LoginViewController:UITextFieldDelegate{
     }
 }
 
-extension LoginViewController:LoginViewProtocol {
+extension Login2ViewController:LoginViewProtocol {
+    func goToVerifyVC(loginData: loginData) {
+        
+    }
+    
+    func emailIsNotVerifyed() {
+        
+    }
+    
+    func modeChanged(newMode: LoginPresenter.PageModes) {
+        
+    }
+    
+    func setUpdating() {
+        
+    }
+    
+    func stopUpdating() {
+        
+    }
+    
+    func setLoading() {
+        
+    }
+    
+    func stopLoading() {
+        
+    }
+    
+    func setSaving() {
+        
+    }
+    
+    func stopSaving() {
+        
+    }
+    
+    func showLoadingView() {
+        
+    }
+    
+    func stopLoadingView() {
+        
+    }
+    
+    func showError(error: NetworkServiceHelper.NetworkError) {
+        
+    }
+    
     
     func setLoginView(){
         self.signInLogInButton.setTitle(title: "Регистрация" , size: 16, style: .semiBold)
@@ -242,10 +225,7 @@ extension LoginViewController:LoginViewProtocol {
     func goToVerifyVC(email:String, password:String){
         
         let destination = self.controllers.getControllerAuth(.verifycontroller) as! VerifyEmailViewController
-        
-        destination.email = email
-        destination.password = password
-        
+                
         self.navigationController?.pushViewController(destination, animated: true)
         
     }
@@ -257,7 +237,7 @@ extension LoginViewController:LoginViewProtocol {
     }
     
     func goToMain(){
-        self.controllers.goToMainTabBar(view: self.view, direction: .fade)
+        MainAssembly.goToMainTabBar(view: self.view)
     }
     
     func verifySendError(){

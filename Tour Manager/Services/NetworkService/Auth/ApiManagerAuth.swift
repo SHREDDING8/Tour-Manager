@@ -9,6 +9,8 @@ import Foundation
 import Alamofire
 import DeviceKit
 
+import os
+
 protocol ApiManagerAuthProtocol{
     func logIn(email:String,password:String, deviceToken:String) async throws -> ResponseLogInJsonStruct
     
@@ -77,12 +79,13 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
             password: password,
             apnsToken: ApnsToken(
                 vendorID: UIDevice.current.identifierForVendor?.uuidString ?? "",
-                deviceToken: deviceToken,
+                deviceToken: keychainService.getDeviceToken() ?? "",
                 deviceName: Device.current.safeDescription
             )
         )
         
-        let url = URL(string: "https://24tour-manager.ru/api/auth/login")!
+        
+        let url = URL(string: NetworkServiceHelper.Auth.login)!
         
         let result:ResponseLogInJsonStruct = try await withCheckedThrowingContinuation { continuation in
             AF.request(url,method: .post, parameters: jsonData,encoder: .json).response { response in
@@ -398,32 +401,7 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
         return result
     }
     
-//    public func updatePassword(email:String,oldPassword:String, newPassword:String, completion:  @escaping (Bool,customErrorAuth?)->Void ){
-//        
-//        
-//        
-//        let jsonData = sendUpdatePassword(email: email, old_password: oldPassword, new_password: newPassword)
-//        
-//        let url = URL(string: routeUpdatePassword)
-//        
-//        AF.request(url!, method: .post, parameters:  jsonData,encoder: .json).response { response in
-//            
-//            switch response.result {
-//            case .success(_):
-//                if response.response?.statusCode == 400{
-//                    let error = self.checkError(data: response.data!)
-//                    completion(false, error)
-//                } else if response.response?.statusCode == 200{
-//                    completion(true,nil)
-//                } else {
-//                    completion(false,.unknowmError)
-//                }
-//            case .failure(_):
-//                completion(false,.notConnected)
-//            }
-//        }
-//    }
-            
+    
     // MARK: - sendVerifyEmail
     func sendVerifyEmail(email:String, password:String) async throws -> Bool{
         
@@ -432,7 +410,7 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
             "password": password
         ]
         
-        let url = URL(string: routeSendVerifyEmail)
+        let url = URL(string: NetworkServiceHelper.Auth.sendVerifyEmail)
         
         let result:Bool = try await withCheckedThrowingContinuation { continuation in
             

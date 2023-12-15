@@ -31,7 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         if let windowScene = (scene as? UIWindowScene){
             let window = UIWindow(windowScene: windowScene)
-            let launch = self.controllers.getLaunchScreen()
+            let launch = MainAssembly.createLaunchScreen()
             window.rootViewController = launch
             self.window = window
             window.makeKeyAndVisible()

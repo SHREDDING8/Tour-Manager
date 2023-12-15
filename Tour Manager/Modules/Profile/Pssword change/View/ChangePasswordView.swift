@@ -90,11 +90,13 @@ class ChangePasswordView: UIView {
         
         self.addSubview(logo)
         self.addSubview(passwordsStack)
-        self.addSubview(changeButtonPassword)
         
         self.passwordsStack.addArrangedSubview(oldPassword)
         self.passwordsStack.addArrangedSubview(newPassword)
         self.passwordsStack.addArrangedSubview(confirmPassword)
+        
+        self.addSubview(changeButtonPassword)
+        
         
     }
     
