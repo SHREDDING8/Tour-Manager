@@ -405,7 +405,6 @@
 				79FC6D7C93FFA952AE6515F7 /* Pods-Tour Manager.debug.xcconfig */,
 				4A0C9D533458D50CC095BF91 /* Pods-Tour Manager.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -1461,12 +1460,12 @@
 			);
 			mainGroup = EE52E16229E5C1C8000C0E5B;
 			packageReferences = (
-				EED6452F2A9951D200F2ADC9 /* XCRemoteSwiftPackageReference "realm-swift.git" */,
+				EED6452F2A9951D200F2ADC9 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				EEF0BE8D2AD7350D002CEE4D /* XCRemoteSwiftPackageReference "AlertKit" */,
 				EE6FCB382B0634BE00A49604 /* XCRemoteSwiftPackageReference "DeviceKit" */,
 				EE14D3792B14ADC300A188F8 /* XCRemoteSwiftPackageReference "JTAppleCalendar" */,
 				EE648DD12B2D862600AE7E28 /* XCRemoteSwiftPackageReference "keychain-swift" */,
-				EE3D5A622B2DFB11006CDC90 /* XCRemoteSwiftPackageReference "Alamofire.git" */,
+				EE3D5A622B2DFB11006CDC90 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = EE52E16C29E5C1C8000C0E5B /* Products */;
 			projectDirPath = "";
@@ -1862,7 +1861,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "Shredding.Tour-Manager";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1902,7 +1901,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.9;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "Shredding.Tour-Manager";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -2024,7 +2023,7 @@
 				minimumVersion = 8.0.5;
 			};
 		};
-		EE3D5A622B2DFB11006CDC90 /* XCRemoteSwiftPackageReference "Alamofire.git" */ = {
+		EE3D5A622B2DFB11006CDC90 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
@@ -2048,7 +2047,7 @@
 				minimumVersion = 5.1.0;
 			};
 		};
-		EED6452F2A9951D200F2ADC9 /* XCRemoteSwiftPackageReference "realm-swift.git" */ = {
+		EED6452F2A9951D200F2ADC9 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
 			requirement = {
@@ -2074,17 +2073,17 @@
 		};
 		EE3D5A632B2DFB11006CDC90 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = EE3D5A622B2DFB11006CDC90 /* XCRemoteSwiftPackageReference "Alamofire.git" */;
+			package = EE3D5A622B2DFB11006CDC90 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
 		EE648DBA2B2D6E0400AE7E28 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = EED6452F2A9951D200F2ADC9 /* XCRemoteSwiftPackageReference "realm-swift.git" */;
+			package = EED6452F2A9951D200F2ADC9 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = Realm;
 		};
 		EE648DBC2B2D6E0400AE7E28 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = EED6452F2A9951D200F2ADC9 /* XCRemoteSwiftPackageReference "realm-swift.git" */;
+			package = EED6452F2A9951D200F2ADC9 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
 		};
 		EE648DD22B2D862600AE7E28 /* KeychainSwift */ = {
@@ -2104,12 +2103,12 @@
 		};
 		EED645302A9951D200F2ADC9 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = EED6452F2A9951D200F2ADC9 /* XCRemoteSwiftPackageReference "realm-swift.git" */;
+			package = EED6452F2A9951D200F2ADC9 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = Realm;
 		};
 		EED645322A9951D200F2ADC9 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = EED6452F2A9951D200F2ADC9 /* XCRemoteSwiftPackageReference "realm-swift.git" */;
+			package = EED6452F2A9951D200F2ADC9 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
 		};
 		EEF0BE8E2AD7350D002CEE4D /* AlertKit */ = {
