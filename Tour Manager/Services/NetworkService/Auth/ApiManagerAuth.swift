@@ -10,6 +10,7 @@ import Alamofire
 import DeviceKit
 
 import os
+import UIKit
 
 protocol ApiManagerAuthProtocol{
     func logIn(email:String,password:String, deviceToken:String) async throws -> ResponseLogInJsonStruct
