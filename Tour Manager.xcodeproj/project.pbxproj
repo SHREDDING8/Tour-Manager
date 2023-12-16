@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1725EC553A8429018D906A17 /* Pods_Tour_Manager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81956F6FA06807CC8F59A491 /* Pods_Tour_Manager.framework */; };
 		EE0649372B160AB0007EF0A1 /* ToursBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0649362B160AB0007EF0A1 /* ToursBaseViewController.swift */; };
 		EE0649392B160D65007EF0A1 /* ToursCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0649382B160D65007EF0A1 /* ToursCollectionViewCell.swift */; };
 		EE14D3742B12541000A188F8 /* AccessLevelElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE14D3732B12541000A188F8 /* AccessLevelElement.swift */; };
@@ -40,6 +41,7 @@
 		EE38C6742B0B8FC600DAEC4F /* DeviceRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE38C6732B0B8FC600DAEC4F /* DeviceRealmModel.swift */; };
 		EE38C6762B0B907100DAEC4F /* DevicesRealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE38C6752B0B907100DAEC4F /* DevicesRealmService.swift */; };
 		EE38C67B2B0BAEFE00DAEC4F /* OneEmployeeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE38C67A2B0BAEFE00DAEC4F /* OneEmployeeTableViewCell.swift */; };
+		EE3D5A642B2DFB11006CDC90 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = EE3D5A632B2DFB11006CDC90 /* Alamofire */; };
 		EE3DD2A62B2C9D3C00CE4052 /* setInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3DD2A52B2C9D3C00CE4052 /* setInfoModel.swift */; };
 		EE3DD2A82B2CB24700CE4052 /* EmployeeJsonStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3DD2A72B2CB24700CE4052 /* EmployeeJsonStructs.swift */; };
 		EE4506C72AFFBDD800603E57 /* ProfileViewElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4506C62AFFBDD800603E57 /* ProfileViewElement.swift */; };
@@ -155,7 +157,6 @@
 		EEDF108F2B222E4900509A63 /* ProfilePhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDF108E2B222E4900509A63 /* ProfilePhotoCollectionViewCell.swift */; };
 		EEF0BE8C2AD72C91002CEE4D /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF0BE8B2AD72C91002CEE4D /* LoginModel.swift */; };
 		EEF0BE8F2AD7350D002CEE4D /* AlertKit in Frameworks */ = {isa = PBXBuildFile; productRef = EEF0BE8E2AD7350D002CEE4D /* AlertKit */; };
-		EEF27A402A044E7D006E5E53 /* Pods_Tour_Manager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEF27A3F2A044E7D006E5E53 /* Pods_Tour_Manager.framework */; };
 		EEF27A482A05551E006E5E53 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A472A05551E006E5E53 /* Font.swift */; };
 		EEF27A512A059BE4006E5E53 /* TextFieldValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A502A059BE4006E5E53 /* TextFieldValidation.swift */; };
 		EEF27A592A05C7BC006E5E53 /* VerifyEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF27A582A05C7BC006E5E53 /* VerifyEmailViewController.swift */; };
@@ -178,6 +179,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		EE3D5A692B2DFC99006CDC90 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EE648DA12B2D62D900AE7E28 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -192,9 +203,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1DFBF18B6D24A5A5FC68BDFE /* Pods_Tour_Manager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tour_Manager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4C239F2D7A9DD96051CDD690 /* Pods-Tour Manager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tour Manager.release.xcconfig"; path = "Target Support Files/Pods-Tour Manager/Pods-Tour Manager.release.xcconfig"; sourceTree = "<group>"; };
-		68E77E428BEC283B907E8208 /* Pods-Tour Manager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tour Manager.debug.xcconfig"; path = "Target Support Files/Pods-Tour Manager/Pods-Tour Manager.debug.xcconfig"; sourceTree = "<group>"; };
+		4A0C9D533458D50CC095BF91 /* Pods-Tour Manager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tour Manager.release.xcconfig"; path = "Target Support Files/Pods-Tour Manager/Pods-Tour Manager.release.xcconfig"; sourceTree = "<group>"; };
+		79FC6D7C93FFA952AE6515F7 /* Pods-Tour Manager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tour Manager.debug.xcconfig"; path = "Target Support Files/Pods-Tour Manager/Pods-Tour Manager.debug.xcconfig"; sourceTree = "<group>"; };
+		81956F6FA06807CC8F59A491 /* Pods_Tour_Manager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tour_Manager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE0649362B160AB0007EF0A1 /* ToursBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToursBaseViewController.swift; sourceTree = "<group>"; };
 		EE0649382B160D65007EF0A1 /* ToursCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToursCollectionViewCell.swift; sourceTree = "<group>"; };
 		EE14D3732B12541000A188F8 /* AccessLevelElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessLevelElement.swift; sourceTree = "<group>"; };
@@ -271,7 +282,6 @@
 		EE648DB72B2D6BC100AE7E28 /* FetchingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchingData.swift; sourceTree = "<group>"; };
 		EE648DBF2B2D748C00AE7E28 /* GuideWidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GuideWidgetsExtension.entitlements; sourceTree = "<group>"; };
 		EE648DC52B2D83B700AE7E28 /* KeychainSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = KeychainSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EE648DC92B2D849400AE7E28 /* Pods_Tour_Manager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Tour_Manager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE648DCD2B2D854200AE7E28 /* KeychainSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = KeychainSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE6756052AC03E0A00E253DA /* GeneralRealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralRealmService.swift; sourceTree = "<group>"; };
 		EE6756072AC0721800E253DA /* EmployeesListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesListPresenter.swift; sourceTree = "<group>"; };
@@ -335,7 +345,6 @@
 		EEDF108A2B21DC9000509A63 /* ImagesRealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesRealmService.swift; sourceTree = "<group>"; };
 		EEDF108E2B222E4900509A63 /* ProfilePhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		EEF0BE8B2AD72C91002CEE4D /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
-		EEF27A3F2A044E7D006E5E53 /* Pods_Tour_Manager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Tour_Manager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEF27A472A05551E006E5E53 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		EEF27A502A059BE4006E5E53 /* TextFieldValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldValidation.swift; sourceTree = "<group>"; };
 		EEF27A582A05C7BC006E5E53 /* VerifyEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyEmailViewController.swift; sourceTree = "<group>"; };
@@ -352,13 +361,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE3D5A642B2DFB11006CDC90 /* Alamofire in Frameworks */,
 				EEF0BE8F2AD7350D002CEE4D /* AlertKit in Frameworks */,
 				EE648DD32B2D862600AE7E28 /* KeychainSwift in Frameworks */,
 				EE14D37B2B14ADC300A188F8 /* JTAppleCalendar in Frameworks */,
 				EE6FCB3A2B0634BE00A49604 /* DeviceKit in Frameworks */,
 				EED645332A9951D200F2ADC9 /* RealmSwift in Frameworks */,
 				EED645312A9951D200F2ADC9 /* Realm in Frameworks */,
-				EEF27A402A044E7D006E5E53 /* Pods_Tour_Manager.framework in Frameworks */,
+				1725EC553A8429018D906A17 /* Pods_Tour_Manager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,22 +391,21 @@
 			isa = PBXGroup;
 			children = (
 				EE648DCD2B2D854200AE7E28 /* KeychainSwift.framework */,
-				EE648DC92B2D849400AE7E28 /* Pods_Tour_Manager.framework */,
 				EE648DC52B2D83B700AE7E28 /* KeychainSwift.framework */,
-				EEF27A3F2A044E7D006E5E53 /* Pods_Tour_Manager.framework */,
-				1DFBF18B6D24A5A5FC68BDFE /* Pods_Tour_Manager.framework */,
 				EE648D8E2B2D62D600AE7E28 /* WidgetKit.framework */,
 				EE648D902B2D62D700AE7E28 /* SwiftUI.framework */,
+				81956F6FA06807CC8F59A491 /* Pods_Tour_Manager.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		846A1A146534BC9D8C58AE15 /* Pods */ = {
+		2064877C276733F6377EEB57 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				68E77E428BEC283B907E8208 /* Pods-Tour Manager.debug.xcconfig */,
-				4C239F2D7A9DD96051CDD690 /* Pods-Tour Manager.release.xcconfig */,
+				79FC6D7C93FFA952AE6515F7 /* Pods-Tour Manager.debug.xcconfig */,
+				4A0C9D533458D50CC095BF91 /* Pods-Tour Manager.release.xcconfig */,
 			);
+			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -738,8 +747,8 @@
 				EE52E16D29E5C1C8000C0E5B /* Tour Manager */,
 				EE648D922B2D62D700AE7E28 /* GuideWidgets */,
 				EE52E16C29E5C1C8000C0E5B /* Products */,
-				846A1A146534BC9D8C58AE15 /* Pods */,
 				09BFC6392DE8B7F18DA1BC04 /* Frameworks */,
+				2064877C276733F6377EEB57 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1374,12 +1383,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EE52E17F29E5C1CB000C0E5B /* Build configuration list for PBXNativeTarget "Tour Manager" */;
 			buildPhases = (
-				79280DCE7A2DF98CE113BAA0 /* [CP] Check Pods Manifest.lock */,
+				CBE89C7240CF385472B42CE2 /* [CP] Check Pods Manifest.lock */,
 				EE52E16729E5C1C8000C0E5B /* Sources */,
 				EE52E16829E5C1C8000C0E5B /* Frameworks */,
 				EE52E16929E5C1C8000C0E5B /* Resources */,
-				E013215BF8D4058A5659F0E1 /* [CP] Embed Pods Frameworks */,
 				EE648DA12B2D62D900AE7E28 /* Embed Foundation Extensions */,
+				EE3D5A692B2DFC99006CDC90 /* Embed Frameworks */,
+				BFF655A65133BA2D39EA7216 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1394,6 +1404,7 @@
 				EE6FCB392B0634BE00A49604 /* DeviceKit */,
 				EE14D37A2B14ADC300A188F8 /* JTAppleCalendar */,
 				EE648DD22B2D862600AE7E28 /* KeychainSwift */,
+				EE3D5A632B2DFB11006CDC90 /* Alamofire */,
 			);
 			productName = "Tour Manager";
 			productReference = EE52E16B29E5C1C8000C0E5B /* Tour Manager.app */;
@@ -1450,11 +1461,12 @@
 			);
 			mainGroup = EE52E16229E5C1C8000C0E5B;
 			packageReferences = (
-				EED6452F2A9951D200F2ADC9 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				EED6452F2A9951D200F2ADC9 /* XCRemoteSwiftPackageReference "realm-swift.git" */,
 				EEF0BE8D2AD7350D002CEE4D /* XCRemoteSwiftPackageReference "AlertKit" */,
 				EE6FCB382B0634BE00A49604 /* XCRemoteSwiftPackageReference "DeviceKit" */,
 				EE14D3792B14ADC300A188F8 /* XCRemoteSwiftPackageReference "JTAppleCalendar" */,
 				EE648DD12B2D862600AE7E28 /* XCRemoteSwiftPackageReference "keychain-swift" */,
+				EE3D5A622B2DFB11006CDC90 /* XCRemoteSwiftPackageReference "Alamofire.git" */,
 			);
 			productRefGroup = EE52E16C29E5C1C8000C0E5B /* Products */;
 			projectDirPath = "";
@@ -1492,7 +1504,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		79280DCE7A2DF98CE113BAA0 /* [CP] Check Pods Manifest.lock */ = {
+		BFF655A65133BA2D39EA7216 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Tour Manager/Pods-Tour Manager-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Tour Manager/Pods-Tour Manager-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Tour Manager/Pods-Tour Manager-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CBE89C7240CF385472B42CE2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1512,23 +1541,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E013215BF8D4058A5659F0E1 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Tour Manager/Pods-Tour Manager-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Tour Manager/Pods-Tour Manager-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Tour Manager/Pods-Tour Manager-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1826,7 +1838,7 @@
 		};
 		EE52E18029E5C1CB000C0E5B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 68E77E428BEC283B907E8208 /* Pods-Tour Manager.debug.xcconfig */;
+			baseConfigurationReference = 79FC6D7C93FFA952AE6515F7 /* Pods-Tour Manager.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1866,7 +1878,7 @@
 		};
 		EE52E18129E5C1CB000C0E5B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4C239F2D7A9DD96051CDD690 /* Pods-Tour Manager.release.xcconfig */;
+			baseConfigurationReference = 4A0C9D533458D50CC095BF91 /* Pods-Tour Manager.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -2012,6 +2024,14 @@
 				minimumVersion = 8.0.5;
 			};
 		};
+		EE3D5A622B2DFB11006CDC90 /* XCRemoteSwiftPackageReference "Alamofire.git" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.8.1;
+			};
+		};
 		EE648DD12B2D862600AE7E28 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/evgenyneu/keychain-swift";
@@ -2028,7 +2048,7 @@
 				minimumVersion = 5.1.0;
 			};
 		};
-		EED6452F2A9951D200F2ADC9 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+		EED6452F2A9951D200F2ADC9 /* XCRemoteSwiftPackageReference "realm-swift.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
 			requirement = {
@@ -2052,14 +2072,19 @@
 			package = EE14D3792B14ADC300A188F8 /* XCRemoteSwiftPackageReference "JTAppleCalendar" */;
 			productName = JTAppleCalendar;
 		};
+		EE3D5A632B2DFB11006CDC90 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EE3D5A622B2DFB11006CDC90 /* XCRemoteSwiftPackageReference "Alamofire.git" */;
+			productName = Alamofire;
+		};
 		EE648DBA2B2D6E0400AE7E28 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = EED6452F2A9951D200F2ADC9 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			package = EED6452F2A9951D200F2ADC9 /* XCRemoteSwiftPackageReference "realm-swift.git" */;
 			productName = Realm;
 		};
 		EE648DBC2B2D6E0400AE7E28 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = EED6452F2A9951D200F2ADC9 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			package = EED6452F2A9951D200F2ADC9 /* XCRemoteSwiftPackageReference "realm-swift.git" */;
 			productName = RealmSwift;
 		};
 		EE648DD22B2D862600AE7E28 /* KeychainSwift */ = {
@@ -2079,12 +2104,12 @@
 		};
 		EED645302A9951D200F2ADC9 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = EED6452F2A9951D200F2ADC9 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			package = EED6452F2A9951D200F2ADC9 /* XCRemoteSwiftPackageReference "realm-swift.git" */;
 			productName = Realm;
 		};
 		EED645322A9951D200F2ADC9 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = EED6452F2A9951D200F2ADC9 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			package = EED6452F2A9951D200F2ADC9 /* XCRemoteSwiftPackageReference "realm-swift.git" */;
 			productName = RealmSwift;
 		};
 		EEF0BE8E2AD7350D002CEE4D /* AlertKit */ = {

@@ -7,8 +7,6 @@ target 'Tour Manager' do
 
   # Pods for Tour Manager
 
-	pod 'Alamofire'
-
  	pod 'SnapKit', '~> 5.6.0'
 
 end
