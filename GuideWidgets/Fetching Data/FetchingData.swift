@@ -19,7 +19,7 @@ class FetchingData{
     
     private let keychainService:KeychainSwift = {
         let keychain = KeychainSwift()
-        keychain.accessGroup = "keychain.group.Shredding.Tour-Manager"
+        keychain.accessGroup = "4FV5WJHF4V.keychain.group.Shredding.Tour-Manager"
         return keychain
     }()
         

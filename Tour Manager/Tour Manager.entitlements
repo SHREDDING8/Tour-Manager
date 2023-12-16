@@ -19,7 +19,7 @@
 	<true/>
 	<key>keychain-access-groups</key>
 	<array>
-		<string>keychain.group.Shredding.Tour-Manager</string>
+		<string>$(AppIdentifierPrefix)keychain.group.Shredding.Tour-Manager</string>
 	</array>
 </dict>
 </plist>
