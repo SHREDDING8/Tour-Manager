@@ -60,13 +60,13 @@ struct Provider: AppIntentTimelineProvider {
                 let entry:SimpleEntry = {
                     do {
                         return SimpleEntry(
-                            date: Date(),
+                            date: entryDate,
                             configuration: ConfigurationAppIntent(),
                             tourDetails: try fetchingData.fetchData(conf:configuration, date: entryDate)
                         )
                     }catch{
                         return SimpleEntry(
-                            date: Date(),
+                            date: entryDate,
                             configuration: ConfigurationAppIntent(),
                             tourDetails: [],
                             erorAdmin: true

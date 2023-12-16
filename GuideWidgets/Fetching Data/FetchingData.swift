@@ -36,7 +36,8 @@ class FetchingData{
             let tours = self.realm.object(ofType: DatesExcursion.self, forPrimaryKey: date.birthdayToString())
             
             for tour in tours?.getTours() ?? []{
-                if tour.dateAndTime >= date{
+
+                if let result = compareTimes(time1: tour.dateAndTime.timeToString(), time2: date.timeToString()), result == .orderedDescending{
                     var guides = ""
                     if tour.guides.count > 0{
                         for guideIndex in 0..<tour.guides.count - 1{
@@ -66,7 +67,7 @@ class FetchingData{
             let tours = self.realm.object(ofType: DatesExcursionForGuide.self, forPrimaryKey: date.birthdayToString())
             
             for tour in tours?.getTours() ?? []{
-                if tour.dateAndTime >= date{
+                if let result = compareTimes(time1: tour.dateAndTime.timeToString(), time2: date.timeToString()), result == .orderedDescending{
                     var guides = ""
                     if tour.guides.count > 0{
                         for guideIndex in 0..<tour.guides.count - 1{
@@ -123,6 +124,18 @@ class FetchingData{
             ),
             
         ]
+    }
+    
+    private func compareTimes(time1: String, time2: String) -> ComparisonResult? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+
+        if let date1 = dateFormatter.date(from: time1), let date2 = dateFormatter.date(from: time2) {
+            return date1.compare(date2)
+        } else {
+            // Обработка ошибок, если строки не удалось преобразовать в объекты Date
+            return nil
+        }
     }
     
 }

@@ -68,7 +68,6 @@
 		EE648D8F2B2D62D700AE7E28 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE648D8E2B2D62D600AE7E28 /* WidgetKit.framework */; };
 		EE648D912B2D62D700AE7E28 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE648D902B2D62D700AE7E28 /* SwiftUI.framework */; };
 		EE648D942B2D62D700AE7E28 /* GuideWidgetsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE648D932B2D62D700AE7E28 /* GuideWidgetsBundle.swift */; };
-		EE648D962B2D62D700AE7E28 /* GuideWidgetsLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE648D952B2D62D700AE7E28 /* GuideWidgetsLiveActivity.swift */; };
 		EE648D982B2D62D700AE7E28 /* GuideWidgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE648D972B2D62D700AE7E28 /* GuideWidgets.swift */; };
 		EE648D9C2B2D62D900AE7E28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE648D9B2B2D62D900AE7E28 /* Assets.xcassets */; };
 		EE648DA02B2D62D900AE7E28 /* GuideWidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = EE648D8D2B2D62D600AE7E28 /* GuideWidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -288,7 +287,6 @@
 		EE648D8E2B2D62D600AE7E28 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		EE648D902B2D62D700AE7E28 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		EE648D932B2D62D700AE7E28 /* GuideWidgetsBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideWidgetsBundle.swift; sourceTree = "<group>"; };
-		EE648D952B2D62D700AE7E28 /* GuideWidgetsLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideWidgetsLiveActivity.swift; sourceTree = "<group>"; };
 		EE648D972B2D62D700AE7E28 /* GuideWidgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideWidgets.swift; sourceTree = "<group>"; };
 		EE648D9B2B2D62D900AE7E28 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EE648D9D2B2D62D900AE7E28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -907,7 +905,6 @@
 				EE648DAE2B2D64FA00AE7E28 /* WidgetModel */,
 				EE648DA72B2D646500AE7E28 /* Widget Views */,
 				EE648D932B2D62D700AE7E28 /* GuideWidgetsBundle.swift */,
-				EE648D952B2D62D700AE7E28 /* GuideWidgetsLiveActivity.swift */,
 				EE648D972B2D62D700AE7E28 /* GuideWidgets.swift */,
 				EE648DB32B2D66E700AE7E28 /* AppIntent.swift */,
 				EE648D9B2B2D62D900AE7E28 /* Assets.xcassets */,
@@ -1766,7 +1763,6 @@
 				EE648DB22B2D653700AE7E28 /* WidgetTourDetail.swift in Sources */,
 				EE648DDA2B2D941200AE7E28 /* ExcursionsRealmService.swift in Sources */,
 				EE648DC42B2D838D00AE7E28 /* UsersRealmModel.swift in Sources */,
-				EE648D962B2D62D700AE7E28 /* GuideWidgetsLiveActivity.swift in Sources */,
 				EE648DBE2B2D6EA600AE7E28 /* EventRealmModelForGuide.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

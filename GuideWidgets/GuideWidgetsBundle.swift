@@ -12,6 +12,5 @@ import SwiftUI
 struct GuideWidgetsBundle: WidgetBundle {
     var body: some Widget {
         GuideWidgets()
-        GuideWidgetsLiveActivity()
     }
 }
