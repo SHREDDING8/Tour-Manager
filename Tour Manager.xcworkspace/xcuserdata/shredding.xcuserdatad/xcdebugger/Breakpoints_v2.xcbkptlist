@@ -3206,5 +3206,84 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "262DFBEB-1883-46FC-915A-FBC20EB3C29F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Services/NetworkService/Auth/ApiManagerAuth.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "logIn(email:password:deviceToken:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "61278549-3ED2-4D18-A9A6-369D78CEE800"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tour Manager/Services/NetworkService/Tours/ApiManagerExcursions.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "359"
+            endingLineNumber = "359"
+            landmarkName = "getTourDates(startDate:endDate:guideOnly:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "61278549-3ED2-4D18-A9A6-369D78CEE800 - 137924a3f8a74109"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tour_Manager.ApiManagerExcursions.getTourDates(startDate: Swift.String, endDate: Swift.String, guideOnly: Swift.Bool) async throws -&gt; Swift.Array&lt;Tour_Manager.ResponseGetExcursionsListByRange&gt;"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Services/NetworkService/Tours/ApiManagerExcursions.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "359"
+                  endingLineNumber = "359"
+                  offsetFromSymbolStart = "380">
+               </Location>
+               <Location
+                  uuid = "61278549-3ED2-4D18-A9A6-369D78CEE800 - ac7620ac6a8b6ba3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) await resume partial function for Tour_Manager.ApiManagerExcursions.getTourDates(startDate: Swift.String, endDate: Swift.String, guideOnly: Swift.Bool) async throws -&gt; Swift.Array&lt;Tour_Manager.ResponseGetExcursionsListByRange&gt;"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Services/NetworkService/Tours/ApiManagerExcursions.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "359"
+                  endingLineNumber = "359"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  uuid = "61278549-3ED2-4D18-A9A6-369D78CEE800 - 21cf5af46d5ff1a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) suspend resume partial function for Tour_Manager.ApiManagerExcursions.getTourDates(startDate: Swift.String, endDate: Swift.String, guideOnly: Swift.Bool) async throws -&gt; Swift.Array&lt;Tour_Manager.ResponseGetExcursionsListByRange&gt;"
+                  moduleName = "Tour Manager"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shredding/ALL%20MY/Programming/Swift/Tour%20Manager/Tour%20Manager/Services/NetworkService/Tours/ApiManagerExcursions.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "359"
+                  endingLineNumber = "359"
+                  offsetFromSymbolStart = "132">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

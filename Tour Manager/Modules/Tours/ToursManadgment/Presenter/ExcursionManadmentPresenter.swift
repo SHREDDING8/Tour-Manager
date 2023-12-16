@@ -216,6 +216,11 @@ class ExcursionManadmentPresenter:ExcursionManadmentPresenterProtocol{
         Task{
             do{
                 let results = try await toursNetworkService.getTourDates(startDate: startDate.birthdayToString(), endDate: endDate.birthdayToString(),guideOnly: false)
+               
+                DispatchQueue.main.async {
+                    self.toursRealmService.deleteEventsByRange(startDate: startDate, endDate: endDate)
+                }
+                
                 var eventsRealm:[EventRealmModel] = []
                 for result in results{
                     let eventRealm = EventRealmModel(

@@ -53,6 +53,10 @@ class FullCalendarPresenter:FullCalendarPresenterProtocol{
                 let results = try await toursNetworkService.getTourDates(startDate: startDate.birthdayToString(), endDate: endDate.birthdayToString(), guideOnly: isGuide)
                 
                 if !isGuide{
+                    DispatchQueue.main.async {
+                        self.toursRealmService.deleteEventsByRange(startDate: startDate, endDate: endDate)
+                    }
+                    
                     var eventsRealm:[EventRealmModel] = []
                     for result in results{
                         let eventRealm = EventRealmModel(
@@ -72,6 +76,10 @@ class FullCalendarPresenter:FullCalendarPresenterProtocol{
                         
                     }
                 }else{
+                    DispatchQueue.main.async {
+                        self.toursGuideRealmService.deleteEventsByRange(startDate: startDate, endDate: endDate)
+                    }
+                    
                     var eventsRealm:[EventRealmModelForGuide] = []
                     for result in results{
                         let eventRealm = EventRealmModelForGuide(

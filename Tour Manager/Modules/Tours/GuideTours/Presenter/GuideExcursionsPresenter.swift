@@ -179,6 +179,11 @@ class ExcursionsGuideCalendarPresenter:ExcursionsGuideCalendarPresenterProtocol{
             do{
                 let results = try await toursNetworkService.getTourDates(startDate: startDate.birthdayToString(), endDate: endDate.birthdayToString(), guideOnly: true)
                 
+                
+                DispatchQueue.main.async {
+                    self.toursRealmService.deleteEventsByRange(startDate: startDate, endDate: endDate)
+                }
+                
                 var eventsRealm:[EventRealmModelForGuide] = []
                 for result in results{
                     let eventRealm = EventRealmModelForGuide(

@@ -17,6 +17,7 @@ protocol ExcursionsRealmServiceForGuideProtocol{
     
     func getEventForGuide(tourDate:String) -> EventRealmModelForGuide?
     func addEventsForGuide(events:[EventRealmModelForGuide])
+    func deleteEventsByRange(startDate:Date, endDate:Date)
 }
 
 class ExcursionsRealmServiceForGuide:ExcursionsRealmServiceForGuideProtocol{
@@ -51,6 +52,30 @@ class ExcursionsRealmServiceForGuide:ExcursionsRealmServiceForGuideProtocol{
         try! realm.write({
             for event in events{
                 realm.add(event, update: .modified)
+            }
+        })
+    }
+    
+    func deleteEventsByRange(startDate:Date, endDate:Date){
+        
+        let keys:[String] = {
+            var res:[String] = []
+            var date = startDate
+            res.append(date.birthdayToString())
+            
+            while date.birthdayToString() != endDate.birthdayToString(){
+                date =  Calendar.current.date(byAdding: .day, value: 1, to: date)!
+                res.append(date.birthdayToString())
+            }
+            
+            return res
+        }()
+        
+        try! realm.write({
+            for key in keys{
+                if let object = realm.object(ofType: EventRealmModelForGuide.self, forPrimaryKey: key){
+                    realm.delete(object)
+                }
             }
         })
     }
