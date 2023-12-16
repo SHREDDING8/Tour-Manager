@@ -7,6 +7,7 @@
 
 import Foundation
 import RealmSwift
+import WidgetKit
 
 protocol ExcursionsRealmServiceForGuideProtocol{
 
@@ -28,6 +29,7 @@ class ExcursionsRealmServiceForGuide:ExcursionsRealmServiceForGuideProtocol{
     func setToursForGuide(dateExcursions:DatesExcursionForGuide){
         try! realm.write {
             realm.add(dateExcursions, update: .modified)
+            WidgetCenter.shared.reloadAllTimelines()
         }
     }
     
@@ -35,6 +37,7 @@ class ExcursionsRealmServiceForGuide:ExcursionsRealmServiceForGuideProtocol{
         if let tour = realm.object(ofType: ExcursionRealmModelForGuide.self, forPrimaryKey: tourId){
             try! realm.write({
                 realm.add(tour, update: .modified)
+                WidgetCenter.shared.reloadAllTimelines()
             })
         }
     }

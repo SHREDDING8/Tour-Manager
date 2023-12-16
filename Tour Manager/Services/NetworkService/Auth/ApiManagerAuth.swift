@@ -54,7 +54,6 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
         
         let result:ResponseLogInJsonStruct = try await withCheckedThrowingContinuation { continuation in
             AF.request(url,method: .post, parameters: jsonData,encoder: .json).response { response in
-                
                 switch response.result {
                 case .success(let success):
                     
@@ -270,7 +269,6 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
         
     // MARK: - Reset Password
     func resetPassword(email:String) async throws -> Bool{
-        let jsonData = sendResetPassword(email: email)
         let url = URL(string: NetworkServiceHelper.Auth.resetPassword(email: email))!
         
         let result:Bool = try await withCheckedThrowingContinuation { continuation in
@@ -448,7 +446,6 @@ public class ApiManagerAuth: ApiManagerAuthProtocol{
         let result:ResponseGetAllDevices = try await withCheckedThrowingContinuation { continuation in
             
             AF.request(url, method: .get, headers: headers.getHeaders()).response { response in
-                print("before ", response.response?.statusCode)
                 switch response.result {
                 case .success(let success):
                     

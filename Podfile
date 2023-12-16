@@ -9,10 +9,6 @@ target 'Tour Manager' do
 
 	pod 'Alamofire'
 
-	pod 'FSCalendar'
-
-	pod 'KeychainSwift', '~> 20.0'
-
  	pod 'SnapKit', '~> 5.6.0'
 
 end

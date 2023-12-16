@@ -65,6 +65,31 @@
 		EE5F91CF2A200C7700B39BB1 /* sendAuthStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5F91CE2A200C7700B39BB1 /* sendAuthStructs.swift */; };
 		EE5F91D12A200D2D00B39BB1 /* ResponseAuthStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5F91D02A200D2D00B39BB1 /* ResponseAuthStructs.swift */; };
 		EE5F91D72A20A1E700B39BB1 /* mainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5F91D62A20A1E700B39BB1 /* mainTabBarViewController.swift */; };
+		EE648D8F2B2D62D700AE7E28 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE648D8E2B2D62D600AE7E28 /* WidgetKit.framework */; };
+		EE648D912B2D62D700AE7E28 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE648D902B2D62D700AE7E28 /* SwiftUI.framework */; };
+		EE648D942B2D62D700AE7E28 /* GuideWidgetsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE648D932B2D62D700AE7E28 /* GuideWidgetsBundle.swift */; };
+		EE648D962B2D62D700AE7E28 /* GuideWidgetsLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE648D952B2D62D700AE7E28 /* GuideWidgetsLiveActivity.swift */; };
+		EE648D982B2D62D700AE7E28 /* GuideWidgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE648D972B2D62D700AE7E28 /* GuideWidgets.swift */; };
+		EE648D9C2B2D62D900AE7E28 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE648D9B2B2D62D900AE7E28 /* Assets.xcassets */; };
+		EE648DA02B2D62D900AE7E28 /* GuideWidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = EE648D8D2B2D62D600AE7E28 /* GuideWidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		EE648DA62B2D646000AE7E28 /* MediumWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE648DA52B2D646000AE7E28 /* MediumWidget.swift */; };
+		EE648DA92B2D648800AE7E28 /* LargeWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE648DA82B2D648800AE7E28 /* LargeWidget.swift */; };
+		EE648DAC2B2D64A700AE7E28 /* SmallWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE648DAB2B2D64A700AE7E28 /* SmallWidget.swift */; };
+		EE648DAD2B2D64C200AE7E28 /* ConvertDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5F91C82A1FFBB500B39BB1 /* ConvertDate.swift */; };
+		EE648DB22B2D653700AE7E28 /* WidgetTourDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE648DB12B2D653700AE7E28 /* WidgetTourDetail.swift */; };
+		EE648DB42B2D66E700AE7E28 /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE648DB32B2D66E700AE7E28 /* AppIntent.swift */; };
+		EE648DB82B2D6BC100AE7E28 /* FetchingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE648DB72B2D6BC100AE7E28 /* FetchingData.swift */; };
+		EE648DB92B2D6C1B00AE7E28 /* GuideToursRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED8F6902AF070CA003D118A /* GuideToursRealmModel.swift */; };
+		EE648DBB2B2D6E0400AE7E28 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = EE648DBA2B2D6E0400AE7E28 /* Realm */; };
+		EE648DBD2B2D6E0400AE7E28 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EE648DBC2B2D6E0400AE7E28 /* RealmSwift */; };
+		EE648DBE2B2D6EA600AE7E28 /* EventRealmModelForGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED8F6922AF071F6003D118A /* EventRealmModelForGuide.swift */; };
+		EE648DC12B2D7AFD00AE7E28 /* ExcursionRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF2F63A2ADCBE010070D083 /* ExcursionRealmModel.swift */; };
+		EE648DC32B2D836400AE7E28 /* EventRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED4DA7D2ADDA12A00C76FE3 /* EventRealmModel.swift */; };
+		EE648DC42B2D838D00AE7E28 /* UsersRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED645352A99526B00F2ADC9 /* UsersRealmModel.swift */; };
+		EE648DD32B2D862600AE7E28 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EE648DD22B2D862600AE7E28 /* KeychainSwift */; };
+		EE648DD52B2D864700AE7E28 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EE648DD42B2D864700AE7E28 /* KeychainSwift */; };
+		EE648DDA2B2D941200AE7E28 /* ExcursionsRealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF2F63E2ADD5B630070D083 /* ExcursionsRealmService.swift */; };
+		EE648DDB2B2D943300AE7E28 /* ExcursionsRealmServiceForGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = EED8F6942AF08528003D118A /* ExcursionsRealmServiceForGuide.swift */; };
 		EE6756062AC03E0A00E253DA /* GeneralRealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6756052AC03E0A00E253DA /* GeneralRealmService.swift */; };
 		EE6756082AC0721800E253DA /* EmployeesListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6756072AC0721800E253DA /* EmployeesListPresenter.swift */; };
 		EE67560A2AC076FF00E253DA /* EmployeePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6756092AC076FF00E253DA /* EmployeePresenter.swift */; };
@@ -170,6 +195,30 @@
 		EEF776432ADAA3B600532440 /* OneEmployeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF776422ADAA3B600532440 /* OneEmployeView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		EE648D9E2B2D62D900AE7E28 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EE52E16329E5C1C8000C0E5B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EE648D8C2B2D62D600AE7E28;
+			remoteInfo = GuideWidgetsExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		EE648DA12B2D62D900AE7E28 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				EE648DA02B2D62D900AE7E28 /* GuideWidgetsExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		1DFBF18B6D24A5A5FC68BDFE /* Pods_Tour_Manager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tour_Manager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C239F2D7A9DD96051CDD690 /* Pods-Tour Manager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tour Manager.release.xcconfig"; path = "Target Support Files/Pods-Tour Manager/Pods-Tour Manager.release.xcconfig"; sourceTree = "<group>"; };
@@ -235,6 +284,24 @@
 		EE5F91CE2A200C7700B39BB1 /* sendAuthStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sendAuthStructs.swift; sourceTree = "<group>"; };
 		EE5F91D02A200D2D00B39BB1 /* ResponseAuthStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseAuthStructs.swift; sourceTree = "<group>"; };
 		EE5F91D62A20A1E700B39BB1 /* mainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainTabBarViewController.swift; sourceTree = "<group>"; };
+		EE648D8D2B2D62D600AE7E28 /* GuideWidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GuideWidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE648D8E2B2D62D600AE7E28 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		EE648D902B2D62D700AE7E28 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		EE648D932B2D62D700AE7E28 /* GuideWidgetsBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideWidgetsBundle.swift; sourceTree = "<group>"; };
+		EE648D952B2D62D700AE7E28 /* GuideWidgetsLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideWidgetsLiveActivity.swift; sourceTree = "<group>"; };
+		EE648D972B2D62D700AE7E28 /* GuideWidgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideWidgets.swift; sourceTree = "<group>"; };
+		EE648D9B2B2D62D900AE7E28 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EE648D9D2B2D62D900AE7E28 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EE648DA52B2D646000AE7E28 /* MediumWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumWidget.swift; sourceTree = "<group>"; };
+		EE648DA82B2D648800AE7E28 /* LargeWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeWidget.swift; sourceTree = "<group>"; };
+		EE648DAB2B2D64A700AE7E28 /* SmallWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallWidget.swift; sourceTree = "<group>"; };
+		EE648DB12B2D653700AE7E28 /* WidgetTourDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTourDetail.swift; sourceTree = "<group>"; };
+		EE648DB32B2D66E700AE7E28 /* AppIntent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
+		EE648DB72B2D6BC100AE7E28 /* FetchingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchingData.swift; sourceTree = "<group>"; };
+		EE648DBF2B2D748C00AE7E28 /* GuideWidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GuideWidgetsExtension.entitlements; sourceTree = "<group>"; };
+		EE648DC52B2D83B700AE7E28 /* KeychainSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = KeychainSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE648DC92B2D849400AE7E28 /* Pods_Tour_Manager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Tour_Manager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE648DCD2B2D854200AE7E28 /* KeychainSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = KeychainSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE6756052AC03E0A00E253DA /* GeneralRealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralRealmService.swift; sourceTree = "<group>"; };
 		EE6756072AC0721800E253DA /* EmployeesListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesListPresenter.swift; sourceTree = "<group>"; };
 		EE6756092AC076FF00E253DA /* EmployeePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeePresenter.swift; sourceTree = "<group>"; };
@@ -318,6 +385,7 @@
 				EEDB60392B267C8500495263 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				EEDB60332B267C8500495263 /* FirebaseAnalytics in Frameworks */,
 				EEF0BE8F2AD7350D002CEE4D /* AlertKit in Frameworks */,
+				EE648DD32B2D862600AE7E28 /* KeychainSwift in Frameworks */,
 				EEDB605F2B267C8500495263 /* FirebasePerformance in Frameworks */,
 				EEDB60652B267C8500495263 /* FirebaseStorage in Frameworks */,
 				EEDB604B2B267C8500495263 /* FirebaseFirestore in Frameworks */,
@@ -350,14 +418,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EE648D8A2B2D62D600AE7E28 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE648DBD2B2D6E0400AE7E28 /* RealmSwift in Frameworks */,
+				EE648DBB2B2D6E0400AE7E28 /* Realm in Frameworks */,
+				EE648DD52B2D864700AE7E28 /* KeychainSwift in Frameworks */,
+				EE648D912B2D62D700AE7E28 /* SwiftUI.framework in Frameworks */,
+				EE648D8F2B2D62D700AE7E28 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		09BFC6392DE8B7F18DA1BC04 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EE648DCD2B2D854200AE7E28 /* KeychainSwift.framework */,
+				EE648DC92B2D849400AE7E28 /* Pods_Tour_Manager.framework */,
+				EE648DC52B2D83B700AE7E28 /* KeychainSwift.framework */,
 				EEF27A3F2A044E7D006E5E53 /* Pods_Tour_Manager.framework */,
 				1DFBF18B6D24A5A5FC68BDFE /* Pods_Tour_Manager.framework */,
+				EE648D8E2B2D62D600AE7E28 /* WidgetKit.framework */,
+				EE648D902B2D62D700AE7E28 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -704,8 +789,10 @@
 		EE52E16229E5C1C8000C0E5B = {
 			isa = PBXGroup;
 			children = (
+				EE648DBF2B2D748C00AE7E28 /* GuideWidgetsExtension.entitlements */,
 				EE8474052A4D99180082DE7E /* Library */,
 				EE52E16D29E5C1C8000C0E5B /* Tour Manager */,
+				EE648D922B2D62D700AE7E28 /* GuideWidgets */,
 				EE52E16C29E5C1C8000C0E5B /* Products */,
 				846A1A146534BC9D8C58AE15 /* Pods */,
 				09BFC6392DE8B7F18DA1BC04 /* Frameworks */,
@@ -716,6 +803,7 @@
 			isa = PBXGroup;
 			children = (
 				EE52E16B29E5C1C8000C0E5B /* Tour Manager.app */,
+				EE648D8D2B2D62D600AE7E28 /* GuideWidgetsExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -750,8 +838,8 @@
 				EE3328E12B1919BA002FAC8F /* Employee */,
 				EE18F4612A3E4E850047E068 /* AutoFill */,
 				EEB73F9A2A364B59004D7A25 /* Tours */,
-				EE5F91E32A2152FF00B39BB1 /* Auth */,
 				EE5F91E22A2152FA00B39BB1 /* UserData */,
+				EE5F91E32A2152FF00B39BB1 /* Auth */,
 				EE5F91E12A2152F400B39BB1 /* Company */,
 				EE5F91BD2A1E9FC400B39BB1 /* NetworkServiceHelper.swift */,
 			);
@@ -810,6 +898,48 @@
 				EE5F91CA2A2003A200B39BB1 /* sendStructs.swift */,
 			);
 			path = "Json Structs";
+			sourceTree = "<group>";
+		};
+		EE648D922B2D62D700AE7E28 /* GuideWidgets */ = {
+			isa = PBXGroup;
+			children = (
+				EE648DB62B2D6BA800AE7E28 /* Fetching Data */,
+				EE648DAE2B2D64FA00AE7E28 /* WidgetModel */,
+				EE648DA72B2D646500AE7E28 /* Widget Views */,
+				EE648D932B2D62D700AE7E28 /* GuideWidgetsBundle.swift */,
+				EE648D952B2D62D700AE7E28 /* GuideWidgetsLiveActivity.swift */,
+				EE648D972B2D62D700AE7E28 /* GuideWidgets.swift */,
+				EE648DB32B2D66E700AE7E28 /* AppIntent.swift */,
+				EE648D9B2B2D62D900AE7E28 /* Assets.xcassets */,
+				EE648D9D2B2D62D900AE7E28 /* Info.plist */,
+			);
+			path = GuideWidgets;
+			sourceTree = "<group>";
+		};
+		EE648DA72B2D646500AE7E28 /* Widget Views */ = {
+			isa = PBXGroup;
+			children = (
+				EE648DA52B2D646000AE7E28 /* MediumWidget.swift */,
+				EE648DA82B2D648800AE7E28 /* LargeWidget.swift */,
+				EE648DAB2B2D64A700AE7E28 /* SmallWidget.swift */,
+			);
+			path = "Widget Views";
+			sourceTree = "<group>";
+		};
+		EE648DAE2B2D64FA00AE7E28 /* WidgetModel */ = {
+			isa = PBXGroup;
+			children = (
+				EE648DB12B2D653700AE7E28 /* WidgetTourDetail.swift */,
+			);
+			path = WidgetModel;
+			sourceTree = "<group>";
+		};
+		EE648DB62B2D6BA800AE7E28 /* Fetching Data */ = {
+			isa = PBXGroup;
+			children = (
+				EE648DB72B2D6BC100AE7E28 /* FetchingData.swift */,
+			);
+			path = "Fetching Data";
 			sourceTree = "<group>";
 		};
 		EE6FCB3B2B08EAC100A49604 /* Extended Settings */ = {
@@ -1306,10 +1436,12 @@
 				EE52E16829E5C1C8000C0E5B /* Frameworks */,
 				EE52E16929E5C1C8000C0E5B /* Resources */,
 				E013215BF8D4058A5659F0E1 /* [CP] Embed Pods Frameworks */,
+				EE648DA12B2D62D900AE7E28 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				EE648D9F2B2D62D900AE7E28 /* PBXTargetDependency */,
 			);
 			name = "Tour Manager";
 			packageProductDependencies = (
@@ -1345,10 +1477,33 @@
 				EEDB60622B267C8500495263 /* FirebaseRemoteConfigSwift */,
 				EEDB60642B267C8500495263 /* FirebaseStorage */,
 				EEDB60662B267C8500495263 /* FirebaseStorageCombine-Community */,
+				EE648DD22B2D862600AE7E28 /* KeychainSwift */,
 			);
 			productName = "Tour Manager";
 			productReference = EE52E16B29E5C1C8000C0E5B /* Tour Manager.app */;
 			productType = "com.apple.product-type.application";
+		};
+		EE648D8C2B2D62D600AE7E28 /* GuideWidgetsExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE648DA42B2D62D900AE7E28 /* Build configuration list for PBXNativeTarget "GuideWidgetsExtension" */;
+			buildPhases = (
+				EE648D892B2D62D600AE7E28 /* Sources */,
+				EE648D8A2B2D62D600AE7E28 /* Frameworks */,
+				EE648D8B2B2D62D600AE7E28 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GuideWidgetsExtension;
+			packageProductDependencies = (
+				EE648DBA2B2D6E0400AE7E28 /* Realm */,
+				EE648DBC2B2D6E0400AE7E28 /* RealmSwift */,
+				EE648DD42B2D864700AE7E28 /* KeychainSwift */,
+			);
+			productName = GuideWidgetsExtension;
+			productReference = EE648D8D2B2D62D600AE7E28 /* GuideWidgetsExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -1357,11 +1512,14 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1420;
+				LastSwiftUpdateCheck = 1510;
 				LastUpgradeCheck = 1420;
 				TargetAttributes = {
 					EE52E16A29E5C1C8000C0E5B = {
 						CreatedOnToolsVersion = 14.2;
+					};
+					EE648D8C2B2D62D600AE7E28 = {
+						CreatedOnToolsVersion = 15.1;
 					};
 				};
 			};
@@ -1381,12 +1539,14 @@
 				EE6FCB382B0634BE00A49604 /* XCRemoteSwiftPackageReference "DeviceKit" */,
 				EE14D3792B14ADC300A188F8 /* XCRemoteSwiftPackageReference "JTAppleCalendar" */,
 				EEDB60312B267C8500495263 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				EE648DD12B2D862600AE7E28 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 			);
 			productRefGroup = EE52E16C29E5C1C8000C0E5B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				EE52E16A29E5C1C8000C0E5B /* Tour Manager */,
+				EE648D8C2B2D62D600AE7E28 /* GuideWidgetsExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -1403,6 +1563,14 @@
 				EE8474082A4D99620082DE7E /* sub.caf in Resources */,
 				EEB764A32A387B2200579E6B /* NewComponentTableViewCell.xib in Resources */,
 				EE52E17829E5C1CB000C0E5B /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE648D8B2B2D62D600AE7E28 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE648D9C2B2D62D900AE7E28 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1579,7 +1747,39 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EE648D892B2D62D600AE7E28 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE648D942B2D62D700AE7E28 /* GuideWidgetsBundle.swift in Sources */,
+				EE648DA92B2D648800AE7E28 /* LargeWidget.swift in Sources */,
+				EE648DC32B2D836400AE7E28 /* EventRealmModel.swift in Sources */,
+				EE648DB42B2D66E700AE7E28 /* AppIntent.swift in Sources */,
+				EE648DDB2B2D943300AE7E28 /* ExcursionsRealmServiceForGuide.swift in Sources */,
+				EE648DA62B2D646000AE7E28 /* MediumWidget.swift in Sources */,
+				EE648DAD2B2D64C200AE7E28 /* ConvertDate.swift in Sources */,
+				EE648DB92B2D6C1B00AE7E28 /* GuideToursRealmModel.swift in Sources */,
+				EE648DB82B2D6BC100AE7E28 /* FetchingData.swift in Sources */,
+				EE648DAC2B2D64A700AE7E28 /* SmallWidget.swift in Sources */,
+				EE648D982B2D62D700AE7E28 /* GuideWidgets.swift in Sources */,
+				EE648DC12B2D7AFD00AE7E28 /* ExcursionRealmModel.swift in Sources */,
+				EE648DB22B2D653700AE7E28 /* WidgetTourDetail.swift in Sources */,
+				EE648DDA2B2D941200AE7E28 /* ExcursionsRealmService.swift in Sources */,
+				EE648DC42B2D838D00AE7E28 /* UsersRealmModel.swift in Sources */,
+				EE648D962B2D62D700AE7E28 /* GuideWidgetsLiveActivity.swift in Sources */,
+				EE648DBE2B2D6EA600AE7E28 /* EventRealmModelForGuide.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EE648D9F2B2D62D900AE7E28 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EE648D8C2B2D62D600AE7E28 /* GuideWidgetsExtension */;
+			targetProxy = EE648D9E2B2D62D900AE7E28 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		EE52E17929E5C1CB000C0E5B /* LaunchScreen.storyboard */ = {
@@ -1714,6 +1914,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 68E77E428BEC283B907E8208 /* Pods-Tour Manager.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Tour Manager/Tour Manager.entitlements";
@@ -1753,6 +1954,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4C239F2D7A9DD96051CDD690 /* Pods-Tour Manager.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Tour Manager/Tour Manager.entitlements";
@@ -1788,6 +1990,73 @@
 			};
 			name = Release;
 		};
+		EE648DA22B2D62D900AE7E28 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = GuideWidgetsExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4FV5WJHF4V;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GuideWidgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = GuideWidgets;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Shredding.Tour-Manager.GuideWidgets";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EE648DA32B2D62D900AE7E28 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = GuideWidgetsExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4FV5WJHF4V;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GuideWidgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = GuideWidgets;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Shredding.Tour-Manager.GuideWidgets";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1809,6 +2078,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		EE648DA42B2D62D900AE7E28 /* Build configuration list for PBXNativeTarget "GuideWidgetsExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE648DA22B2D62D900AE7E28 /* Debug */,
+				EE648DA32B2D62D900AE7E28 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -1818,6 +2096,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 8.0.5;
+			};
+		};
+		EE648DD12B2D862600AE7E28 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/evgenyneu/keychain-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 20.0.0;
 			};
 		};
 		EE6FCB382B0634BE00A49604 /* XCRemoteSwiftPackageReference "DeviceKit" */ = {
@@ -1859,6 +2145,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EE14D3792B14ADC300A188F8 /* XCRemoteSwiftPackageReference "JTAppleCalendar" */;
 			productName = JTAppleCalendar;
+		};
+		EE648DBA2B2D6E0400AE7E28 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EED6452F2A9951D200F2ADC9 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		EE648DBC2B2D6E0400AE7E28 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EED6452F2A9951D200F2ADC9 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+		EE648DD22B2D862600AE7E28 /* KeychainSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EE648DD12B2D862600AE7E28 /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			productName = KeychainSwift;
+		};
+		EE648DD42B2D864700AE7E28 /* KeychainSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EE648DD12B2D862600AE7E28 /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			productName = KeychainSwift;
 		};
 		EE6FCB392B0634BE00A49604 /* DeviceKit */ = {
 			isa = XCSwiftPackageProductDependency;

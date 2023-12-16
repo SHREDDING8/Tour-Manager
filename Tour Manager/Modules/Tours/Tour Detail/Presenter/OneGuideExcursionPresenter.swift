@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import RealmSwift
+import WidgetKit
 
 protocol OneGuideExcursionViewProtocol:AnyObject, BaseViewControllerProtocol{
     func updateGuideStatus(guideStatus: Status)
