@@ -355,13 +355,9 @@ extension TourDetailViewController{
     
     override func popView() {
         if self.navigationController?.visibleViewController == self{
-            print(self.presenter.tour)
-            print()
-            print(self.presenter.oldTour)
-            print(self.presenter.isEqualTours())
             
             if !self.presenter.isEqualTours(){
-                warningAlertDuringExit()
+                self.warningAlertDuringExit()
                 return
             }
             
