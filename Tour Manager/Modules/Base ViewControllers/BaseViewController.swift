@@ -162,7 +162,7 @@ class BaseViewController: UIViewController {
         if let activeTextField = UIResponder.currentFirstResponder as? UITextField, let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue{
             // Теперь у вас есть ссылка на активное поле ввода
             let textFieldFrame = activeTextField.convert(activeTextField.bounds, to: self.view)
-            print(textFieldFrame.maxY, keyboardSize.origin.y)
+            
             if textFieldFrame.maxY + 50 > keyboardSize.origin.y{
                 keyboardIsShowed = true
                 self.navigationController?.navigationBar.layer.opacity = 0

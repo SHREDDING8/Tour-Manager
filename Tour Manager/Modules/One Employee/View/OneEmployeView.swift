@@ -485,11 +485,7 @@ class OneEmployeView: UIView {
 }
 
 extension OneEmployeView: UIScrollViewDelegate{
-    
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        print("scrollViewWillBeginDragging")
-    }
-    
+        
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let currentContentOffsetY = scrollView.contentOffset.y
         let scrollDiff = currentContentOffsetY - self.previousContentOffsetY
