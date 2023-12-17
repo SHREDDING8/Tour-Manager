@@ -9,7 +9,7 @@ import UIKit
 import EventKit
 import AlertKit
 
-class TourDetailForGuideViewController: BaseViewController {
+final class TourDetailForGuideViewController: BaseViewController {
 
     private func view() -> TourDetailView{
         return view as! TourDetailView

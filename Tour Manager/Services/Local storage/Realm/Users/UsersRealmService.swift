@@ -42,7 +42,7 @@ protocol UsersRealmServiceProtocol{
     func deleteImage(userId:String, pictureId:String)
 }
 
-class UsersRealmService:UsersRealmServiceProtocol{
+final class UsersRealmService:UsersRealmServiceProtocol{
     
     let realm = try! Realm()
         

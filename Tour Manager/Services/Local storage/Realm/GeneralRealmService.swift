@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class GeneralRealmService{
+final class GeneralRealmService{
     let realm = try! Realm()
     
     func deleteAll(){

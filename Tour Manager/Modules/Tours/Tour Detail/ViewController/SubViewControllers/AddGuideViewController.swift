@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class AddGuideViewController: BaseViewController {
+final class AddGuideViewController: BaseViewController {
     
     var presenter:AddGuidePresenterProtocol!
     var doAfterClose:(([ExcrusionModel.Guide])->Void)?

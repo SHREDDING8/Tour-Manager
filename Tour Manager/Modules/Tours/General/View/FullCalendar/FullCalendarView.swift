@@ -15,7 +15,7 @@ protocol FullCalendarViewDelegate{
     func didSelectDate(date:Date)
 }
 
-class FullCalendarView: UIView {
+final class FullCalendarView: UIView {
     var viewDelegate:FullCalendarViewDelegate!
     var selectedDate:Date = Date.now
             

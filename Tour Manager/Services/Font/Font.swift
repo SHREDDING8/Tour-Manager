@@ -19,7 +19,7 @@ public enum fontStyle:String{
     case semiBold = "Semibold"
 }
 
-class Font{
+final class Font{
     static public func getFont(name: fontNames, style:fontStyle, size:CGFloat) -> UIFont{
         if style == .regular{
             return UIFont(name: "\(name.rawValue)", size: size)!

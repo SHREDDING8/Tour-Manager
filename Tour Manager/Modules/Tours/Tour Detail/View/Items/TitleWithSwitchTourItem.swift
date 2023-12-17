@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class TitleWithSwitchTourItem: UIView {
+final class TitleWithSwitchTourItem: UIView {
     lazy var title:UILabel = {
         let label = UILabel()
 

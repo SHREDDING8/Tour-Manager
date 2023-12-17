@@ -22,7 +22,7 @@ protocol EmployeeNetworkServiceProtocol{
     func addEmployeeToCompany(companyId:String) async throws
 }
 
-class EmployeeNetworkService:EmployeeNetworkServiceProtocol{
+final class EmployeeNetworkService:EmployeeNetworkServiceProtocol{
     
     let keychainService:KeychainServiceProtocol = KeychainService()
     

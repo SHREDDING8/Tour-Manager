@@ -14,7 +14,7 @@ protocol ToursViewDelegate{
     func loadEvents(startDate:Date, endDate:Date)
 }
 
-class ToursView: UIView {
+final class ToursView: UIView {
     
     var viewDelegate:ToursViewDelegate!
     

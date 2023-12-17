@@ -36,7 +36,7 @@ protocol KeychainServiceProtocol{
     
 }
 
-class KeychainService:KeychainServiceProtocol{
+final class KeychainService:KeychainServiceProtocol{
 
     let keychain = KeychainSwift()
     

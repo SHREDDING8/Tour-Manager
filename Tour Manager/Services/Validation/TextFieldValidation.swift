@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class TextFieldValidation{
+final class TextFieldValidation{
     
     public func validateEmailTextField(_ emailTextField:UITextField) -> Bool{
         if !emailTextField.hasText{

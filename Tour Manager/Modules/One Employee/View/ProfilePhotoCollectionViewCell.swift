@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ProfilePhotoCollectionViewCell: UICollectionViewCell {
+final class ProfilePhotoCollectionViewCell: UICollectionViewCell {
     public lazy var profileImage:UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill

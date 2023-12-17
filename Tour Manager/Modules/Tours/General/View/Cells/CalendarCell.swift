@@ -11,7 +11,7 @@ import JTAppleCalendar
 import UIKit
 import SnapKit
 
-class CalendarCell:JTACDayCell{
+final class CalendarCell:JTACDayCell{
     public var date:Date!
     
     enum CellColor{

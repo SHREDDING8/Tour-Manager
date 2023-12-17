@@ -21,7 +21,7 @@ protocol VerifyEmailPresenterProtocol:AnyObject{
     func sendVerifyEmail()
     func confirmTapped()
 }
-class VerifyEmailPresenter:VerifyEmailPresenterProtocol{
+final class VerifyEmailPresenter:VerifyEmailPresenterProtocol{
     weak var view:VerifyEmailViewProtocol?
     
     var loginData:loginData

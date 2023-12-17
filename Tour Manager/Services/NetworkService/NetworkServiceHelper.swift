@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 
-class NetworkServiceHelper{
+final class NetworkServiceHelper{
     
     private static let newDomain = "https://24tour-manager.ru/api/"
     //    private static let newDomain = "http://193.164.150.181:32799/"
@@ -190,7 +190,7 @@ class NetworkServiceHelper{
     
     // MARK: - URLS Base
     
-    public class Auth{
+    public final class Auth{
         private static let authUrlBase = newDomain + "auth"
         
         public static let signUp = authUrlBase + "/signup"
@@ -213,7 +213,7 @@ class NetworkServiceHelper{
         
     }
     
-    public class Companies{
+    public final class Companies{
         fileprivate static let companiesUrlBase = newDomain + "companies"
         
         public static func addCompany(companyName:String) -> String{
@@ -230,7 +230,7 @@ class NetworkServiceHelper{
         
     }
     
-    public class Tours{
+    public final class Tours{
         private static func toursBaseUrl(companyId:String) -> String{
             return "\(Companies.companiesUrlBase)/\(companyId)/tours"
         }
@@ -271,7 +271,7 @@ class NetworkServiceHelper{
         }
     }
     
-    public class Employee{
+    public final class Employee{
         private static func employeeBaseUrl(companyId:String) -> String{
             return "\(Companies.companiesUrlBase)/\(companyId)/employee"
         }
@@ -301,7 +301,7 @@ class NetworkServiceHelper{
         }
     }
     
-    public class Users{
+    public final class Users{
         private static var usersBaseUrl = newDomain + "users"
         
         public static var getUserInfo = usersBaseUrl + "/";
@@ -322,7 +322,7 @@ class NetworkServiceHelper{
         
     }
     
-    public class Headers{
+    public final class Headers{
         private var headers:[String:String] = [:]
         let keyChainService:KeychainServiceProtocol = KeychainService()
         

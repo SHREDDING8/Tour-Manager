@@ -8,7 +8,7 @@
 import UIKit
 import AlertKit
 
-class LoginViewController: BaseViewController {
+final class LoginViewController: BaseViewController {
     
     var presenter:LoginPresenterProtocol!
     

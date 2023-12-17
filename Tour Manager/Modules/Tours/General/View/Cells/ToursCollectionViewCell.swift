@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ToursCollectionViewCell: UICollectionViewCell {
+final class ToursCollectionViewCell: UICollectionViewCell {
     
     var date:Date = Date.now
     

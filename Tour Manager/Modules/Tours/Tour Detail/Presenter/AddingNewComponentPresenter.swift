@@ -42,7 +42,7 @@ protocol AddingNewComponentPresenterProtocol:AnyObject{
     func willDissapear()
 }
 
-class AddingNewComponentPresenter:AddingNewComponentPresenterProtocol{
+final class AddingNewComponentPresenter:AddingNewComponentPresenterProtocol{
     
     weak var view:AddingNewComponentViewProtocol?
     

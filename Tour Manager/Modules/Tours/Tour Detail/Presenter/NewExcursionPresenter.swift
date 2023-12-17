@@ -46,7 +46,7 @@ protocol NewExcursionPresenterProtocol:AnyObject{
         
 }
 
-class NewExcursionPresenter:NewExcursionPresenterProtocol{
+final class NewExcursionPresenter:NewExcursionPresenterProtocol{
     weak var view:NewExcursionViewProtocol?
     
     let validation = StringValidation()

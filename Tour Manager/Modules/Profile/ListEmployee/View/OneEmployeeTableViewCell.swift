@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class OneEmployeeTableViewCell: UITableViewCell {
+final class OneEmployeeTableViewCell: UITableViewCell {
     
     lazy var image:UIImageView = {
         let view = UIImageView()

@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class EventRealmModel:Object{
+final class EventRealmModel:Object{
     @Persisted(primaryKey: true) var tourDate: String
     
     @Persisted var accept: Bool

@@ -22,7 +22,7 @@ protocol ExcursionsRealmServiceProtocol{
     
 }
 
-class ExcursionsRealmService:ExcursionsRealmServiceProtocol{
+final class ExcursionsRealmService:ExcursionsRealmServiceProtocol{
     private var realm: Realm {
             let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.Shredding.Tour-Manager")
             let realmURL = container?.appendingPathComponent("default.realm")

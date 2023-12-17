@@ -8,7 +8,7 @@
 import UIKit
 import AlertKit
 
-class VerifyEmailViewController: BaseViewController {
+final class VerifyEmailViewController: BaseViewController {
     var presenter:VerifyEmailPresenterProtocol!
     
     private func view() -> VerifyEmailView{

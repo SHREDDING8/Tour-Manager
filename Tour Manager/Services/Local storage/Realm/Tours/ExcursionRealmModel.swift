@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 
-class DatesExcursion:Object{
+final class DatesExcursion:Object{
     @Persisted(primaryKey: true) var dateString:String
     @Persisted var tours:List<ExcursionRealmModel>
     
@@ -70,7 +70,7 @@ class ExcursionRealmModel:Object{
     }
 }
 
-class OneGuideRealmModel:Object{
+final class OneGuideRealmModel:Object{
     
     enum GuideStatus:String, PersistableEnum{
         case waiting = "waiting"

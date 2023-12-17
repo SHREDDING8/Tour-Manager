@@ -9,7 +9,7 @@ import UIKit
 import AlertKit
 
 
-class AddingPersonalDataViewController: BaseViewController {
+final class AddingPersonalDataViewController: BaseViewController {
     
     var presenter: AddingPersonalDataPresenterProtocol!
     

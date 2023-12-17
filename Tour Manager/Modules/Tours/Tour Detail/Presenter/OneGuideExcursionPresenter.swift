@@ -31,7 +31,7 @@ protocol OneGuideExcursionPresenterProtocol:AnyObject{
     
 }
 
-class OneGuideExcursionPresenter:OneGuideExcursionPresenterProtocol{
+final class OneGuideExcursionPresenter:OneGuideExcursionPresenterProtocol{
     weak var view:OneGuideExcursionViewProtocol?
     
     var tour:ExcrusionModel!

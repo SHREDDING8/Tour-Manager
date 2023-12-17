@@ -30,7 +30,7 @@ protocol EmployeePresenterProtocol:AnyObject{
     
 }
 
-class EmployeePresenter:EmployeePresenterProtocol{
+final class EmployeePresenter:EmployeePresenterProtocol{
     weak var view:EmployeeViewProtocol?
     
     var user:UsersModel

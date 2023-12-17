@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class SetInfoView: UIView {
+final class SetInfoView: UIView {
     
     lazy var scrollView:UIScrollView = {
         let scroll = UIScrollView()

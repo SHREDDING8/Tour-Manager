@@ -31,7 +31,7 @@ protocol ApiManagerAuthProtocol{
 }
 
 
-public class ApiManagerAuth: ApiManagerAuthProtocol{
+public final class ApiManagerAuth: ApiManagerAuthProtocol{
     
     let generalData = NetworkServiceHelper()
     

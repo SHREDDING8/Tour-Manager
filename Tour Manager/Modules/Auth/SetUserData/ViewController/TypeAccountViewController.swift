@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TypeAccountViewController: BaseViewController {
+final class TypeAccountViewController: BaseViewController {
     
     // MARK: - my Variables
     

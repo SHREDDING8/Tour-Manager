@@ -13,7 +13,7 @@ import SnapKit
     func guideTapped(guideId:String)
 }
 
-class TourDetailView: UIView {
+final class TourDetailView: UIView {
     
     var delegate:TourDetailViewDelegate!
     

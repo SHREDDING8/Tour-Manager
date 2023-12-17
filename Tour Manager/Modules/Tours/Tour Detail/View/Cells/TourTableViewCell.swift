@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class TourTableViewCell: UITableViewCell {
+final class TourTableViewCell: UITableViewCell {
     lazy var mainView:UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(resource: .background)

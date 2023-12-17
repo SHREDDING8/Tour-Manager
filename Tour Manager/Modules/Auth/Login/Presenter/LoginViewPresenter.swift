@@ -48,7 +48,7 @@ protocol LoginPresenterProtocol:AnyObject{
     func sendVerifyEmail()
 }
 
-class LoginPresenter:LoginPresenterProtocol{
+final class LoginPresenter:LoginPresenterProtocol{
     
     enum PageModes{
         case login

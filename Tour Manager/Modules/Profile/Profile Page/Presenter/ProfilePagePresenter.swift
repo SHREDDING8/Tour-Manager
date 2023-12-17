@@ -57,7 +57,7 @@ protocol ProfilePagePresenterProtocol:AnyObject{
     func logOut()
     
 }
-class ProfilePagePresenter:ProfilePagePresenterProtocol{
+final class ProfilePagePresenter:ProfilePagePresenterProtocol{
     weak var view:ProfileViewProtocol?
     
     let keychain:KeychainServiceProtocol = KeychainService()

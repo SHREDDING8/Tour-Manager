@@ -8,7 +8,7 @@
 import UIKit
 
 
-class AddingNewComponentViewController: BaseViewController {
+final class AddingNewComponentViewController: BaseViewController {
     
     var presenter:AddingNewComponentPresenterProtocol!
     

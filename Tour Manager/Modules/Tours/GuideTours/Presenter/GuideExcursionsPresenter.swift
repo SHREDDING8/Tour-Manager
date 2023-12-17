@@ -27,7 +27,7 @@ protocol ExcursionsGuideCalendarPresenterProtocol:AnyObject{
     
     }
 
-class ExcursionsGuideCalendarPresenter:ExcursionsGuideCalendarPresenterProtocol{
+final class ExcursionsGuideCalendarPresenter:ExcursionsGuideCalendarPresenterProtocol{
     weak var view:ExcursionsGuideCalendarViewProtocol?
         
     var tours:[String:[ExcrusionModel]] = [:]

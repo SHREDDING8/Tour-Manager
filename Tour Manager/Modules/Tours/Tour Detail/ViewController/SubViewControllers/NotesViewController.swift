@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class NotesViewController: BaseViewController {
+final class NotesViewController: BaseViewController {
     
     var isGuide:Bool = false
     

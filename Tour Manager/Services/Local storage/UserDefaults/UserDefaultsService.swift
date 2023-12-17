@@ -11,7 +11,7 @@ protocol UserDefaultsServiceProtocol{
     func isFirstLaunch()->Bool
 }
 
-class UserDefaultsService:UserDefaultsServiceProtocol{
+final class UserDefaultsService:UserDefaultsServiceProtocol{
     enum Keys{
         static let isFirstLaunch = "isFirstLaunch"
     }

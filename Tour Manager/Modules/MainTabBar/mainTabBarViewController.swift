@@ -8,7 +8,7 @@
 import UIKit
 import AlertKit
 
-class mainTabBarViewController: UITabBarController {
+final class mainTabBarViewController: UITabBarController {
     
     var presenter: MainTabBarPresenterProtocol?
         

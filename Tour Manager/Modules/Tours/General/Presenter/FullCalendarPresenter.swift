@@ -22,7 +22,7 @@ protocol FullCalendarPresenterProtocol:AnyObject{
 }
 
 
-class FullCalendarPresenter:FullCalendarPresenterProtocol{
+final class FullCalendarPresenter:FullCalendarPresenterProtocol{
 
     weak var view:FullCalendarViewProtocol?
     var isGuide:Bool = false

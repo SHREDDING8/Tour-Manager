@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import AlertKit
 
-class TitleWithTextFieldTourItem: UIView {
+final class TitleWithTextFieldTourItem: UIView {
     
     lazy var title:UILabel = {
         let label = UILabel()

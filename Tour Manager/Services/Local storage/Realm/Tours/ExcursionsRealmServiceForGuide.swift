@@ -20,7 +20,7 @@ protocol ExcursionsRealmServiceForGuideProtocol{
     func deleteEventsByRange(startDate:Date, endDate:Date)
 }
 
-class ExcursionsRealmServiceForGuide:ExcursionsRealmServiceForGuideProtocol{
+final class ExcursionsRealmServiceForGuide:ExcursionsRealmServiceForGuideProtocol{
     let realm = try! Realm()
 
     func getToursForGuide(dateString:String) -> DatesExcursionForGuide?{

@@ -24,7 +24,7 @@ protocol EmployeesListPresenterProtocol:AnyObject{
     
 }
 
-class EmployeesListPresenter:EmployeesListPresenterProtocol{
+final class EmployeesListPresenter:EmployeesListPresenterProtocol{
     weak var view:EmployeesListViewProtocol?
     
     var users:[UsersModel] = []

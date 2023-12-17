@@ -14,7 +14,7 @@ protocol ImagesRealmServiceProtocol{
     func deleteImage(by id:String)
 }
 
-class ImagesRealmService:ImagesRealmServiceProtocol{
+final class ImagesRealmService:ImagesRealmServiceProtocol{
     let realm = try! Realm()
     
     func setNewImage(id:String, _ imageData:Data){

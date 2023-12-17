@@ -30,7 +30,7 @@ protocol ExtendedSettingsPresenterProtocol:AnyObject{
     func loadLoggedDevices()
     func getLoggedDevicesFromServer()
 }
-class ExtendedSettingsPresenter:ExtendedSettingsPresenterProtocol{
+final class ExtendedSettingsPresenter:ExtendedSettingsPresenterProtocol{
     weak var view:ExtendedSettingsViewProtocol?
     
     let keychainService:KeychainServiceProtocol = KeychainService()

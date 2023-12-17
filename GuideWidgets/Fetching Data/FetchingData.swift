@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 import KeychainSwift
 
-class FetchingData{
+final class FetchingData{
     private var realm: Realm {
             let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.Shredding.Tour-Manager")
             let realmURL = container?.appendingPathComponent("default.realm")

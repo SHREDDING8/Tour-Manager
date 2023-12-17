@@ -26,7 +26,7 @@ protocol ApiManagerExcursionsProtocol{
     func getTourDates(startDate:String, endDate:String, guideOnly:Bool) async throws -> ExcursionsListByRange
 }
 
-class ApiManagerExcursions: ApiManagerExcursionsProtocol{
+final class ApiManagerExcursions: ApiManagerExcursionsProtocol{
     
     let generalData = NetworkServiceHelper()
     

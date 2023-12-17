@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import DeviceKit
 
-class ExtendedSettingsView: UIView {
+final class ExtendedSettingsView: UIView {
     
     lazy var scrollView:UIScrollView = {
         let view = UIScrollView()

@@ -36,7 +36,7 @@ protocol ApiManagerUserDataProtocol{
     
 }
 
-public class ApiManagerUserData: ApiManagerUserDataProtocol{
+public final class ApiManagerUserData: ApiManagerUserDataProtocol{
     let generalData = NetworkServiceHelper()
     let keychainService = KeychainService()
     

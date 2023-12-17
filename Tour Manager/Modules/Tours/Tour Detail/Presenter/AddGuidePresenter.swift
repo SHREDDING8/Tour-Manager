@@ -35,7 +35,7 @@ protocol AddGuidePresenterProtocol:AnyObject{
     func textFieldChanged(text: String)
 }
 
-class AddGuidePresenter:AddGuidePresenterProtocol{
+final class AddGuidePresenter:AddGuidePresenterProtocol{
     weak var view:AddGuideViewProtocol?
     
     var selectedGuides:[ExcrusionModel.Guide] = []

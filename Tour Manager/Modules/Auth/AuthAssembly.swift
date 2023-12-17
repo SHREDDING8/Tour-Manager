@@ -14,7 +14,7 @@ protocol AuthAssemblyProtocol{
     static func createSetInfoViewController(type: AddingPersonalDataPresenter.TypeOfAccount) -> UIViewController
 }
 
-class AuthAssembly:AuthAssemblyProtocol{
+final class AuthAssembly:AuthAssemblyProtocol{
     static func createVerifyEmailViewController(loginModel:loginData) -> UIViewController{
         let view = VerifyEmailViewController()
         let presenter = VerifyEmailPresenter(view: view, loginData: loginModel)

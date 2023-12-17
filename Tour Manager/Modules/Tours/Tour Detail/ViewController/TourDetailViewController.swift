@@ -8,7 +8,7 @@
 import UIKit
 import AlertKit
 
-class TourDetailViewController: BaseViewController {
+final class TourDetailViewController: BaseViewController {
     
     var presenter:NewExcursionPresenterProtocol!
 

@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 
-class UserRealm: Object {
+final class UserRealm: Object {
     @Persisted(primaryKey: true) var localId:String
     @Persisted var firstName:String
     @Persisted var secondName:String
@@ -55,7 +55,7 @@ class UserRealm: Object {
         }
 }
 
-class UserAccessLevelRealm: EmbeddedObject{
+final class UserAccessLevelRealm: EmbeddedObject{
     @Persisted var readCompanyEmployee:Bool
     @Persisted var readLocalIdCompany:Bool
     @Persisted var readGeneralCompanyInformation:Bool

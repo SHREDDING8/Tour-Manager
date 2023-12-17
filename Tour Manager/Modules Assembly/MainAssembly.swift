@@ -15,7 +15,7 @@ protocol MainAssemblyProtocol{
     static func goToMainTabBar(view:UIView)
 }
 
-class MainAssembly:MainAssemblyProtocol{
+final class MainAssembly:MainAssemblyProtocol{
     private static func createLoginViewController() -> UIViewController {
         let mainLogIn = LoginViewController()
         let presenter = LoginPresenter(view: mainLogIn)

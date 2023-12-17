@@ -18,7 +18,7 @@ protocol ApiManagerCompanyProtocol{
     
 }
 
-public class ApiManagerCompany:ApiManagerCompanyProtocol{
+public final class ApiManagerCompany:ApiManagerCompanyProtocol{
     
     private let generalData = NetworkServiceHelper()
     private let keychainService:KeychainServiceProtocol = KeychainService()

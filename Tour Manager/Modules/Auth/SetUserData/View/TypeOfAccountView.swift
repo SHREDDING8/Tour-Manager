@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class TypeOfAccountView: UIView {
+final class TypeOfAccountView: UIView {
     
     lazy var logo:UIImageView = {
         let view = UIImageView(image: UIImage(resource: .iconImg))

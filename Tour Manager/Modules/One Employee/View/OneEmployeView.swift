@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import SnapKit
 
-class OneEmployeView: UIView {
+final class OneEmployeView: UIView {
     var firstLoad = true
     var employeeIsOwner = false
         

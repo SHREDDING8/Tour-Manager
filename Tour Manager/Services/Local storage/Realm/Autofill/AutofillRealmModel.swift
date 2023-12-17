@@ -15,7 +15,7 @@ enum AutofillType:String, PersistableEnum{
     case excursionPaymentMethod
 }
 
-class AutofillRealmModel:Object{
+final class AutofillRealmModel:Object{
     @Persisted(primaryKey: true) var id:String
     @Persisted var type:AutofillType
     @Persisted var value:String

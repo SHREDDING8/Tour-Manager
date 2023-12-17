@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class GuideTourItem: UIView {
+final class GuideTourItem: UIView {
     
     var guideId:String = ""
     

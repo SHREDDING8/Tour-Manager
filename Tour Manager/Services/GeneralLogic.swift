@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class GeneralLogic{
+final class GeneralLogic{
     
     public func callNumber(phoneNumber:String) {
 

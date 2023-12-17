@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NewComponentTableViewCell: UITableViewCell {
+final class NewComponentTableViewCell: UITableViewCell {
 
     @IBOutlet weak var componentText: UILabel!
     

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FullCalendarViewController: BaseViewController {
+final class FullCalendarViewController: BaseViewController {
     
     var presenter:FullCalendarPresenterProtocol!
     

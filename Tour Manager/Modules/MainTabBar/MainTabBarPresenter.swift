@@ -23,7 +23,7 @@ protocol MainTabBarPresenterProtocol:AnyObject{
     
     
 }
-class MainTabBarPresenter:MainTabBarPresenterProtocol{
+final class MainTabBarPresenter:MainTabBarPresenterProtocol{
     weak var view:MainTabBarViewProtocol?
     
     let keychain = KeychainService()

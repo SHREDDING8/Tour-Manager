@@ -22,7 +22,7 @@ protocol ChangePasswordPresenterProtocol:AnyObject{
     
 }
 
-class ChangePasswordPresenter:ChangePasswordPresenterProtocol{
+final class ChangePasswordPresenter:ChangePasswordPresenterProtocol{
     weak var view:ChangePasswordViewProtocol?
     
     let validation = StringValidation()

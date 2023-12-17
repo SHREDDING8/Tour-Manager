@@ -9,7 +9,7 @@ import UIKit
 import AlertKit
 import SnapKit
 
-class EmploeeTableViewController: BaseViewController{
+final class EmploeeTableViewController: BaseViewController{
     
     lazy var tableView:UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)

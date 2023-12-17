@@ -9,7 +9,7 @@ import UIKit
 import JTAppleCalendar
 import SnapKit
 
-class FullCalendarMonthHeader: JTACMonthReusableView {
+final class FullCalendarMonthHeader: JTACMonthReusableView {
     lazy var title:UILabel = {
         let label = UILabel()
         label.text = "test"

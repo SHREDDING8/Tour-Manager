@@ -8,7 +8,7 @@
 import UIKit
 import AlertKit
 
-class ChangePasswordViewController: BaseViewController{
+final class ChangePasswordViewController: BaseViewController{
     
     
     // MARK: - My variables

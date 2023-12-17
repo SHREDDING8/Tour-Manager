@@ -14,7 +14,7 @@ protocol AutoFillRealmServiceProtocol{
     func saveValue(type:AutofillType, value:String)
 }
 
-class AutoFillRealmService:AutoFillRealmServiceProtocol{
+final class AutoFillRealmService:AutoFillRealmServiceProtocol{
     
     let realm = try! Realm()
     

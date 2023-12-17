@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ProfileViewElement: UIView {
+final class ProfileViewElement: UIView {
     
     lazy var elementLabel:UILabel = {
         let label = UILabel()

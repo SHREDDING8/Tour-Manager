@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ChangePasswordView: UIView {
+final class ChangePasswordView: UIView {
     
     private lazy var logo:UIImageView = {
         let view = UIImageView()

@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class AccessLevelElement: UIView {
+final class AccessLevelElement: UIView {
     
     lazy var title:UILabel = {
         let label = UILabel()

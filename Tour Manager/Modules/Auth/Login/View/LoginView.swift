@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class LoginView: UIView {
+final class LoginView: UIView {
     
     lazy var greeting:UILabel = {
         let label = UILabel()

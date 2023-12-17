@@ -31,7 +31,7 @@ protocol ExcursionManadmentPresenterProtocol:AnyObject{
     func deleteTour(date:Date, excursionId:String)
 }
 
-class ExcursionManadmentPresenter:ExcursionManadmentPresenterProtocol{
+final class ExcursionManadmentPresenter:ExcursionManadmentPresenterProtocol{
     weak var view:ExcursionManadmentViewProtocol?
         
     var tours:[String:[ExcrusionModel]] = [:]

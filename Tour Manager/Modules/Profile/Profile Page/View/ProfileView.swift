@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ProfileView: UIView {
+final class ProfileView: UIView {
     
     var firstLoad = true
     

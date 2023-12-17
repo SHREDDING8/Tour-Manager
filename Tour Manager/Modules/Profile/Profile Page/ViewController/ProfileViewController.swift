@@ -8,7 +8,7 @@
 import UIKit
 import AlertKit
 
-class ProfileViewController: BaseViewController{
+final class ProfileViewController: BaseViewController{
     
     var presenter:ProfilePagePresenterProtocol!
     

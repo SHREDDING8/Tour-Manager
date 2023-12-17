@@ -20,7 +20,7 @@ protocol AddingPersonalDataPresenterProtocol:AnyObject{
     
     func buttonTapped()
 }
-class AddingPersonalDataPresenter:AddingPersonalDataPresenterProtocol{
+final class AddingPersonalDataPresenter:AddingPersonalDataPresenterProtocol{
     weak var view:AddingPersonalDataViewProtocol?
     
     enum TypeOfAccount{

@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class ImageRealmModel:Object{
+final class ImageRealmModel:Object{
     @Persisted(primaryKey: true) var id:String
     @Persisted var imageData:Data
     

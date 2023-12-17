@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LaunchScreenViewController: UIViewController {
+final class LaunchScreenViewController: UIViewController {
     
     // MARK: - UserDefaults
     // MARK: - My varibles
