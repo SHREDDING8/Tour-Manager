@@ -238,6 +238,14 @@ extension TourDetailForGuideViewController: OneGuideExcursionViewProtocol{
     
     func fillGuides(){
         
+        for guide in presenter.tour.guides{
+            
+            if guide.id == keychain.getLocalId(){
+                self.navigationItem.rightBarButtonItems?[0].tintColor = guide.status.getColor()
+                break
+            }
+        }
+        
         self.view().fillGuides(guides: self.presenter.getGuides())
     }
     
