@@ -1,14 +1,23 @@
 # Tour-Manager
 
-## Icon!
+## Приложение для менеджмента экскурсий
+
+<a href="https://apps.apple.com/ru/app/tour-manager/id6448138451">Appstore</a>
+
+## Screenshots
 <div style="display:flex;">
-  <img src="https://user-images.githubusercontent.com/88378430/233510058-c16c403f-7b80-4b5c-a09d-755d62e34c5b.jpg" width="200">
-  <img src="https://user-images.githubusercontent.com/88378430/233510155-c6d6ac38-2311-4b25-9fe7-990998985c26.png" width="200">
+  <img src="https://github.com/SHREDDING8/Tour-Manager/assets/88378430/72e45bef-695e-40bb-8a39-c80ee671818a" width="200">
+  <img src="https://github.com/SHREDDING8/Tour-Manager/assets/88378430/d76c4d35-e642-4ac9-8396-d4ab7d96aa2d" width="200">
+  <img src="https://github.com/SHREDDING8/Tour-Manager/assets/88378430/2ae7d268-c0e4-496f-8323-a80003bcc86f" width="200">
 </div>
 
-## Auth pages
 <div style="display:flex;">
-  <img src="https://user-images.githubusercontent.com/88378430/233509646-3458bcd3-f359-4066-8d3b-fb4203e9c45a.png" width="200">
-  <img src="https://user-images.githubusercontent.com/88378430/233509656-f42a2779-a563-4b1d-9e5b-b665ce1d073a.png" width="200">
-  <img src="https://user-images.githubusercontent.com/88378430/233509667-576c0225-df16-41d7-80c2-9bbcc30a033f.png" width="200">
+  <img src="https://github.com/SHREDDING8/Tour-Manager/assets/88378430/ec91d02a-9625-420d-ae6e-e0a0b9e75728" width="200">
+  <img src="https://github.com/SHREDDING8/Tour-Manager/assets/88378430/742ea938-af55-4f01-be26-d2ab1ad74fb8" width="200">
+  <img src="https://github.com/SHREDDING8/Tour-Manager/assets/88378430/e10d2995-2090-4dff-99ab-0edb8566e2d9" width="200">
+</div>
+
+<div style="display:flex;">
+  <img src="https://github.com/SHREDDING8/Tour-Manager/assets/88378430/204a93c4-0ca3-48b2-bc2d-39269a9a28e6" width="200">
+  <img src="https://github.com/SHREDDING8/Tour-Manager/assets/88378430/d348db02-5135-44e8-9aa3-118e50a73565" width="200">
 </div>
