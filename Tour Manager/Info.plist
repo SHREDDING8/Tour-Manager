@@ -9,6 +9,10 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>Разрешите приложению добавлять напоминания в календарь</string>
+	<key>NSCalendarsWriteOnlyAccessUsageDescription</key>
+	<string>Разрешите приложению добавлять напоминания в календарь</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -26,12 +30,6 @@
 			</array>
 		</dict>
 	</dict>
-	<key>NSCalendarsWriteOnlyAccessUsageDescription</key>
-	<string>Разрешите приложению добавлять напоминания в календарь</string>
-	<key>NSCalendarsFullAccessUsageDescription</key>
-	<string>Разрешите приложению добавлять напоминания в календарь</string>
-	<key>NSCalendarsUsageDescription</key>
-	<string>Разрешите приложению добавлять напоминания в календарь</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>

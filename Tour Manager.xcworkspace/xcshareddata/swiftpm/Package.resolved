@@ -1,0 +1,68 @@
+{
+  "pins" : [
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire.git",
+      "state" : {
+        "revision" : "3dc6a42c7727c49bf26508e29b0a0b35f9c7e1ad",
+        "version" : "5.8.1"
+      }
+    },
+    {
+      "identity" : "alertkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sparrowcode/AlertKit",
+      "state" : {
+        "revision" : "1da133b6f630f4e11d141ce5c05d09b68200278e",
+        "version" : "5.0.1"
+      }
+    },
+    {
+      "identity" : "devicekit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/devicekit/DeviceKit",
+      "state" : {
+        "revision" : "66837ecf1516e41fd4251bbb684dc4b1997f08ab",
+        "version" : "5.1.0"
+      }
+    },
+    {
+      "identity" : "jtapplecalendar",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/patchthecode/JTAppleCalendar",
+      "state" : {
+        "revision" : "718f0ab68ba0fcd2bc134f6e9d30edc1b9b038e1",
+        "version" : "8.0.5"
+      }
+    },
+    {
+      "identity" : "keychain-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/evgenyneu/keychain-swift",
+      "state" : {
+        "revision" : "d108a1fa6189e661f91560548ef48651ed8d93b9",
+        "version" : "20.0.0"
+      }
+    },
+    {
+      "identity" : "realm-core",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/realm/realm-core.git",
+      "state" : {
+        "revision" : "c04f5e401a1ec682e6b08b1ee157e19a0f834a5f",
+        "version" : "13.17.1"
+      }
+    },
+    {
+      "identity" : "realm-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/realm/realm-swift.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "752f8ae418f97c7e90c2c83ebeeb534c0357df4d"
+      }
+    }
+  ],
+  "version" : 2
+}

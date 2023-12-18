@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '17.0'
+platform :ios, '15.0'
 
 target 'Tour Manager' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -7,8 +7,6 @@ target 'Tour Manager' do
 
   # Pods for Tour Manager
 
-	pod 'Alamofire'
-
-	pod 'FSCalendar'
+ 	pod 'SnapKit', '~> 5.6.0'
 
 end

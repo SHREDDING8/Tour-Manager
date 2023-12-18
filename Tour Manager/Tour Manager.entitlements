@@ -6,16 +6,20 @@
 	<string>development</string>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>webcredentials:server.shredding-quiner.ru</string>
-		<string>webcredentials:shredding-quiner.ru</string>
+		<string>webcredentials:https://24tour-manager.ru</string>
+		<string>webcredentials:https://24tour-manager.ru/api</string>
 	</array>
 	<key>com.apple.security.app-sandbox</key>
 	<true/>
+	<key>com.apple.security.application-groups</key>
+	<array>
+		<string>group.Shredding.Tour-Manager</string>
+	</array>
 	<key>com.apple.security.network.client</key>
 	<true/>
 	<key>keychain-access-groups</key>
 	<array>
-		<string>$(AppIdentifierPrefix)Shredding.Tour-Manager</string>
+		<string>$(AppIdentifierPrefix)keychain.group.Shredding.Tour-Manager</string>
 	</array>
 </dict>
 </plist>
