@@ -60,7 +60,7 @@ final class KeychainService:KeychainServiceProtocol{
     
     init(){
         dateFormatter.dateFormat = dateFormat
-        keychain.accessGroup = "4FV5WJHF4V.keychain.group.Shredding.Tour-Manager"
+        keychain.accessGroup = ProcessInfo.processInfo.environment["KEYCHAIN_GROUP"]!
     }
     
     // MARK: - Tokens

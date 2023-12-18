@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // File url of existing realm config
         let defaultRealm = Realm.Configuration.defaultConfiguration.fileURL!
         // Container for newly created App Group Identifier
-        let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.Shredding.Tour-Manager")
+        let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: ProcessInfo.processInfo.environment["REALM_GROUP"]!)
         // Shared path of realm config
         let realmURL = container?.appendingPathComponent("default.realm")
         // Config init

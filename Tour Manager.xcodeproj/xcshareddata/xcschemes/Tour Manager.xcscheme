@@ -50,6 +50,23 @@
             ReferencedContainer = "container:Tour Manager.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "API_URL"
+            value = "https://24tour-manager.ru/api/"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "KEYCHAIN_GROUP"
+            value = "4FV5WJHF4V.keychain.group.Shredding.Tour-Manager"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "REALM_GROUP"
+            value = "group.Shredding.Tour-Manager"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"

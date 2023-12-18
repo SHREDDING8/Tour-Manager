@@ -11,7 +11,7 @@ import KeychainSwift
 
 final class FetchingData{
     private var realm: Realm {
-            let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.Shredding.Tour-Manager")
+        let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: ProcessInfo.processInfo.environment["REALM_GROUP"]!)
             let realmURL = container?.appendingPathComponent("default.realm")
             let config = Realm.Configuration(fileURL: realmURL, schemaVersion: 1)
             return try! Realm(configuration: config)
@@ -19,7 +19,7 @@ final class FetchingData{
     
     private let keychainService:KeychainSwift = {
         let keychain = KeychainSwift()
-        keychain.accessGroup = "4FV5WJHF4V.keychain.group.Shredding.Tour-Manager"
+        keychain.accessGroup = ProcessInfo.processInfo.environment["KEYCHAIN_GROUP"]!
         return keychain
     }()
         

@@ -11,7 +11,7 @@ import Alamofire
 
 final class NetworkServiceHelper{
     
-    private static let newDomain = "https://24tour-manager.ru/api/"
+    private static let newDomain = ProcessInfo.processInfo.environment["API_URL"]!
     //    private static let newDomain = "http://193.164.150.181:32799/"
     
     
