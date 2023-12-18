@@ -81,6 +81,10 @@ final class TourDetailViewController: BaseViewController {
         self.view().isPayed.switchControll.addTarget(self, action: #selector(isPaidChanged), for: .valueChanged)
         self.view().deleteTour.addTarget(self, action: #selector(deleteTapped), for: .touchUpInside)
         
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(dateTapped))
+        self.view().dateAndTime.isUserInteractionEnabled = true
+        self.view().dateAndTime.addGestureRecognizer(gesture)
+        
         if !presenter.tour.tourId.isEmpty{
             let refresh = UIRefreshControl(frame: .zero, primaryAction: UIAction(handler: { _ in
                 self.presenter.loadTourFromServer()
@@ -88,6 +92,22 @@ final class TourDetailViewController: BaseViewController {
             
             self.view().scrollView.refreshControl = refresh
         }
+    }
+    
+    @objc func dateTapped(){
+        let vc = TourManadmentAssembly.createTourDetailDatePicker(date: self.presenter.tour.dateAndTime) { date in
+            self.presenter.tour.dateAndTime = date
+            self.view().dateAndTime.textField.text = self.formatDateToString(date)
+        }
+        self.present(vc, animated: true)
+    }
+    private func formatDateToString(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "d MMMM в HH:mm"
+        dateFormatter.locale = Locale(identifier: "ru_RU") // Установка русской локали для названия месяцев и дней недели
+
+        let formattedDate = dateFormatter.string(from: date)
+        return formattedDate
     }
     
     @objc func routeTapped(){

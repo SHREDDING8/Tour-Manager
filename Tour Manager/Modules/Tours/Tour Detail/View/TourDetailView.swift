@@ -77,17 +77,18 @@ final class TourDetailView: UIView {
         view.textField.placeholder = self.formatDateToString(Date.now)
         
         view.nextPageImage.isHidden = true
+        view.textField.isUserInteractionEnabled = false
         
-        let datePicker = UIDatePicker(frame: .zero)
-        datePicker.preferredDatePickerStyle = .wheels
-        datePicker.datePickerMode = .dateAndTime
-        view.textField.inputView = datePicker
-        view.textField.addDoneCancelToolbar()
-        
-        datePicker.addAction(UIAction(handler: { _ in
-            self.delegate.didSelectDate?(date: datePicker.date)
-            view.textField.text = self.formatDateToString(datePicker.date)
-        }), for: .valueChanged)
+//        let datePicker = UIDatePicker(frame: .zero)
+//        datePicker.preferredDatePickerStyle = .inline
+//        datePicker.datePickerMode = .dateAndTime
+//        view.textField.inputView = datePicker
+//        view.textField.addDoneCancelToolbar()
+//        
+//        datePicker.addAction(UIAction(handler: { _ in
+//            self.delegate.didSelectDate?(date: datePicker.date)
+//            view.textField.text = self.formatDateToString(datePicker.date)
+//        }), for: .valueChanged)
         
         return view
     }()

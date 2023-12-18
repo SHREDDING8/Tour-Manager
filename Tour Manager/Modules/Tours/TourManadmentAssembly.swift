@@ -10,6 +10,7 @@ import UIKit
 
 protocol TourManadmentAssemblyProtocol{
     static func createNewTourController(isUpdate:Bool,dateTime:Date?, model:ExcrusionModel?) -> UIViewController
+    static func createTourDetailDatePicker(date:Date, doAfterChange:((Date)->Void)?) -> UIViewController
     
     static func createAutoFillComponentsController(type:AutofillType, baseValue:String?) -> UIViewController
     
@@ -18,6 +19,7 @@ protocol TourManadmentAssemblyProtocol{
     static func createTourForGuideViewController(tour: ExcrusionModel)->UIViewController
     
     static func createToursManadgmentViewController() -> UIViewController
+    
     static func createGuidesToursViewController() -> UIViewController
     
     static func createFullCalendarViewController(isGuide:Bool) -> UIViewController
@@ -31,6 +33,21 @@ final class TourManadmentAssembly:TourManadmentAssemblyProtocol{
         
         let presenter = NewExcursionPresenter(view: vc, tour: model, date: dateTime)
         vc.presenter = presenter
+        
+        return vc
+    }
+    
+    static func createTourDetailDatePicker(date:Date, doAfterChange:((Date)->Void)?) -> UIViewController{
+        let vc = TourDetailDatePickerViewController()
+        vc.datePicker.date = date
+        vc.doAfterChange = doAfterChange
+        
+        if let sheetController = vc.sheetPresentationController{
+            sheetController.detents = [.large(),.medium()]
+            sheetController.prefersGrabberVisible = true
+            sheetController.preferredCornerRadius = 20
+            sheetController.prefersScrollingExpandsWhenScrolledToEdge = false
+        }
         
         return vc
     }

@@ -36,6 +36,8 @@
 		EE330A842AE5D2F100109E4E /* AddGuidePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE330A832AE5D2F100109E4E /* AddGuidePresenter.swift */; };
 		EE3328E42B1919E7002FAC8F /* EmployeeNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3328E32B1919E7002FAC8F /* EmployeeNetworkService.swift */; };
 		EE3328E72B1A75B9002FAC8F /* TourManadgmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3328E62B1A75B9002FAC8F /* TourManadgmentViewController.swift */; };
+		EE35C6902B306A3B009E6A7F /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE35C68F2B306A3B009E6A7F /* View.xib */; };
+		EE35C6922B306B7A009E6A7F /* TourDetailDatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE35C6912B306B7A009E6A7F /* TourDetailDatePickerViewController.swift */; };
 		EE38C65F2B0A4B9D00DAEC4F /* DevicesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE38C65E2B0A4B9D00DAEC4F /* DevicesModel.swift */; };
 		EE38C6622B0A59FF00DAEC4F /* ExtendedSettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE38C6612B0A59FF00DAEC4F /* ExtendedSettingsPresenter.swift */; };
 		EE38C6742B0B8FC600DAEC4F /* DeviceRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE38C6732B0B8FC600DAEC4F /* DeviceRealmModel.swift */; };
@@ -235,6 +237,8 @@
 		EE330A832AE5D2F100109E4E /* AddGuidePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGuidePresenter.swift; sourceTree = "<group>"; };
 		EE3328E32B1919E7002FAC8F /* EmployeeNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeNetworkService.swift; sourceTree = "<group>"; };
 		EE3328E62B1A75B9002FAC8F /* TourManadgmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourManadgmentViewController.swift; sourceTree = "<group>"; };
+		EE35C68F2B306A3B009E6A7F /* View.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
+		EE35C6912B306B7A009E6A7F /* TourDetailDatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourDetailDatePickerViewController.swift; sourceTree = "<group>"; };
 		EE38C65E2B0A4B9D00DAEC4F /* DevicesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesModel.swift; sourceTree = "<group>"; };
 		EE38C6612B0A59FF00DAEC4F /* ExtendedSettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedSettingsPresenter.swift; sourceTree = "<group>"; };
 		EE38C6732B0B8FC600DAEC4F /* DeviceRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceRealmModel.swift; sourceTree = "<group>"; };
@@ -567,6 +571,7 @@
 				EEDB60222B262DCA00495263 /* SubViewControllers */,
 				EE8701382B24FB0A003139E5 /* TourDetailViewController.swift */,
 				EEDB60242B262DF800495263 /* TourDetailForGuideViewController.swift */,
+				EE35C6912B306B7A009E6A7F /* TourDetailDatePickerViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1078,6 +1083,7 @@
 				EE52E16E29E5C1C8000C0E5B /* AppDelegate.swift */,
 				EE52E17029E5C1C8000C0E5B /* SceneDelegate.swift */,
 				EE52E17729E5C1CB000C0E5B /* Assets.xcassets */,
+				EE35C68F2B306A3B009E6A7F /* View.xib */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -1486,6 +1492,7 @@
 				EEDB60692B267ED400495263 /* GoogleService-Info.plist in Resources */,
 				EE4619132A6C229C00EBE695 /* Notification.wav in Resources */,
 				EE1770F62A23F00300B18055 /* Launch.storyboard in Resources */,
+				EE35C6902B306A3B009E6A7F /* View.xib in Resources */,
 				EE8474082A4D99620082DE7E /* sub.caf in Resources */,
 				EEB764A32A387B2200579E6B /* NewComponentTableViewCell.xib in Resources */,
 				EE52E17829E5C1CB000C0E5B /* Assets.xcassets in Resources */,
@@ -1606,6 +1613,7 @@
 				EE8701302B24E2DC003139E5 /* TourDetailView.swift in Sources */,
 				EED645382A99568800F2ADC9 /* UsersRealmService.swift in Sources */,
 				EE4506C72AFFBDD800603E57 /* ProfileViewElement.swift in Sources */,
+				EE35C6922B306B7A009E6A7F /* TourDetailDatePickerViewController.swift in Sources */,
 				EE38C6622B0A59FF00DAEC4F /* ExtendedSettingsPresenter.swift in Sources */,
 				EE6FCB412B096C6F00A49604 /* ExtendedSettingsViewController.swift in Sources */,
 				EEB73F9F2A364B9B004D7A25 /* SendExcursions.swift in Sources */,
